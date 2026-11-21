@@ -451,11 +451,23 @@ Não há perguntas pendentes nesta fase.
 | 1504 | Em qual entrega entra a cascata? | No PR 1, num commit próprio, antes de abrir o PR |
 | 1505 | Quantos slots tem a Engineering Desk Base? | 12 em cada inventário, a entrada e a saída, 3 a mais, para trabalhar melhor com a cascata. Os outros tiers continuam com 18, 27 e 36. O config passa a aceitar de 1 a 36 slots, sem a regra das linhas de 9, porque a tela da mesa tem 6 colunas. Muda a 1434 no Base |
 | 1506 | O que acontece ao escolher uma receita no catálogo? | A receita fica marcada com o pedido em zero, e nada é fabricado. O player pede a quantidade no + antes de a mesa começar, para evitar craft acidental e desperdício de material. Muda o pedido de um da 1442 e da 1444 |
+| 1507 | Os sons `done` e `startup` da Engineering Desk ainda não estavam tratados. Como seguir? | O agente trata os dois `.wav` do desenvolvedor com o mesmo padrão do `crafting` (mono, 48 kHz, oggenc q6), dentro das durações de `sons.md`, e segue com o PR 2: animações, luz e sons |
+| 1508 | Como o cliente da Engineering Desk sabe o estado e o progresso? | Por um estado de bloco `status`, nas duas metades, com `idle`, `crafting` e `paused`, como o `status` do Induction Dock. Ele dá a luz 7 enquanto cria e chega ao cliente sem pacote próprio. O progresso vai à update tag só quando o status muda, e o cliente o avança sozinho pelos ticks por craft do tier. Um save sem a propriedade fica em `idle` |
+| 1509 | Como fica o holograma do item da receita? | O próprio item da receita, desenhado no bone `hologram`, tingido de azul, girando devagar e ficando mais opaco e maior com o progresso. Na pausa, ele para e pisca devagar na cor de pausa, e no fim brilha cheio. Usa só o renderizador de item do jogo. Detalha a 1465 e a 1470 |
+| 1510 | Como a tela do laptop muda de cor por estado? | A tela vira um bone próprio, `laptop_screen`, com uma camada que brilha no escuro (glowmask do GeckoLib), tingida por estado no renderer: azul com pulso enquanto cria, âmbar na pausa e apagada parada. Detalha a 1454 |
+| 1511 | Como disparar as animações e fazer as faíscas? | O servidor dispara a ligação, as gavetas e o pronto pelo `triggerAnim` do GeckoLib, que sincroniza com o cliente. As gavetas têm um intervalo mínimo, para a automação não as deixar piscando. A tampa do laptop segue um contador de quem está com a tela aberta, como a tampa do baú. As faíscas são partículas `electric_spark` do jogo, na garra |
+| 1512 | Quando fica aberta a tampa do laptop da Engineering Desk? | Quando alguém está com a tela aberta ou quando há um pedido ativo, criando ou em pausa. Ela fecha só com a mesa parada e sem ninguém na tela. A ligação abre a tampa, mostra o logo e a fecha, se a mesa estiver parada. Muda a 1465 |
+| 1513 | A Engineering Desk emite luz na pausa? | Não. A meia luz da pausa é só visual, na luminária, e o bloco emite luz 7 só enquanto cria. Detalha a 1457 e a 1470 |
+| 1514 | Qual metade da Engineering Desk emite a luz? | Só a metade onde fica a luminária, de onde a luz vem (pergunta 1469) |
+| 1515 | O conceito do PR 2 da Engineering Desk está autorizado? | Sim: o estado de bloco, a update tag com a receita e o progresso, as regras no domínio, a tela com brilho, o holograma, as animações em dois controladores, o contador da tela, as gavetas, as faíscas, os três sons e os GameTests, como nas respostas 1507 a 1514 |
+| 1516 | A estrutura de pacotes do `AGENTS.md` lista as classes do PR 2 da Engineering Desk? | Sim: `DeskLook`, `DeskLid` e `DrawerPace` em `domain/desk`; `DeskLookProperty`, `DeskShow`, `DeskClientView`, `DeskClientTicks` e `DeskAnimations` em `block`; e `DeskGlow`, `DeskHologram`, `TintedBuffers`, `DeskLoopSound` e `DeskSoundLoops` em `client`, para a estrutura não ficar desatualizada |
+| 1517 | O teste manual do PR 2 da Engineering Desk está aprovado? | Sim: a ligação, a tampa, a tela, a luminária, a luz, o holograma, as gavetas, o pronto com as faíscas e os três sons funcionam como no conceito, e o PR 2 segue para os commits |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 18:34 | Registra a resposta 1507. |
 | Zennd | 2026-11-21 14:00 | Registra as respostas 1500 a 1506. |
 | Zennd | 2026-11-21 15:00 | Registra as respostas 1492 a 1499. |
 | Zennd | 2026-11-21 14:10 | Registra as respostas 1487 a 1491. |

@@ -49,12 +49,12 @@ public final class EngineeringDeskGameTests {
   private static final long ENERGY = 50_000;
   private static final long COST_OF_TWO = 5_000;
   private static final BlockPos FLOOR = new BlockPos(START_X, FLOOR_Y, MIDDLE_Z);
-  private static final BlockPos DESK = FLOOR.above();
+  static final BlockPos DESK = FLOOR.above();
   private static final String TOOLBOX_PATH = "toolbox";
   private static final String ROBOT_PATH = "general_robot";
   private static final ResourceLocation ROBOT =
       ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, ROBOT_PATH);
-  private static final ResourceLocation TOOLBOX =
+  static final ResourceLocation TOOLBOX =
       ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, TOOLBOX_PATH);
   private static final String NO_RIGHT_HALF = "The right half is missing";
   private static final String WRONG_OUTPUT = "Wrong items in the output";
@@ -71,7 +71,7 @@ public final class EngineeringDeskGameTests {
 
   private EngineeringDeskGameTests() {}
 
-  private static EngineeringDeskBlockEntity place(GameTestHelper helper, long energy) {
+  static EngineeringDeskBlockEntity place(GameTestHelper helper, long energy) {
     Player owner = helper.makeMockPlayer(GameType.SURVIVAL);
     ItemStack item = new ItemStack(CubitItems.ENGINEERING_DESK.get());
     item.set(CubitDataComponents.DESK_ENERGY.get(), energy);
@@ -79,13 +79,13 @@ public final class EngineeringDeskGameTests {
     return helper.getBlockEntity(DESK);
   }
 
-  private static void fillToolbox(EngineeringDeskBlockEntity desk, int times) {
+  static void fillToolbox(EngineeringDeskBlockEntity desk, int times) {
     desk.input().setItem(0, new ItemStack(Items.IRON_INGOT, IRON_FOR_ONE * times));
     desk.input().setItem(1, new ItemStack(Items.REDSTONE, times));
     desk.input().setItem(2, new ItemStack(Items.OBSIDIAN, times));
   }
 
-  private static BlockPos rightHalf(GameTestHelper helper) {
+  static BlockPos rightHalf(GameTestHelper helper) {
     Direction right = EngineeringDeskBlock.towardRight(helper.getBlockState(DESK));
     return DESK.relative(right);
   }

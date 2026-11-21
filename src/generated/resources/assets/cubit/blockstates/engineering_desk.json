@@ -1,99 +1,291 @@
 {
   "variants": {
-    "facing=east,part=left,tier=advanced": {
+    "facing=east,part=left,status=crafting,tier=advanced": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=east,part=left,tier=base": {
+    "facing=east,part=left,status=crafting,tier=base": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=east,part=left,tier=elite": {
+    "facing=east,part=left,status=crafting,tier=elite": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=east,part=left,tier=ultimate": {
+    "facing=east,part=left,status=crafting,tier=ultimate": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=east,part=right,tier=advanced": {
+    "facing=east,part=left,status=idle,tier=advanced": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=east,part=right,tier=base": {
+    "facing=east,part=left,status=idle,tier=base": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=east,part=right,tier=elite": {
+    "facing=east,part=left,status=idle,tier=elite": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=east,part=right,tier=ultimate": {
+    "facing=east,part=left,status=idle,tier=ultimate": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=north,part=left,tier=advanced": {
+    "facing=east,part=left,status=paused,tier=advanced": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=north,part=left,tier=base": {
+    "facing=east,part=left,status=paused,tier=base": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=north,part=left,tier=elite": {
+    "facing=east,part=left,status=paused,tier=elite": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=north,part=left,tier=ultimate": {
+    "facing=east,part=left,status=paused,tier=ultimate": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=north,part=right,tier=advanced": {
+    "facing=east,part=right,status=crafting,tier=advanced": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=north,part=right,tier=base": {
+    "facing=east,part=right,status=crafting,tier=base": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=north,part=right,tier=elite": {
+    "facing=east,part=right,status=crafting,tier=elite": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=north,part=right,tier=ultimate": {
+    "facing=east,part=right,status=crafting,tier=ultimate": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=south,part=left,tier=advanced": {
+    "facing=east,part=right,status=idle,tier=advanced": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=south,part=left,tier=base": {
+    "facing=east,part=right,status=idle,tier=base": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=south,part=left,tier=elite": {
+    "facing=east,part=right,status=idle,tier=elite": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=south,part=left,tier=ultimate": {
+    "facing=east,part=right,status=idle,tier=ultimate": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=south,part=right,tier=advanced": {
+    "facing=east,part=right,status=paused,tier=advanced": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=south,part=right,tier=base": {
+    "facing=east,part=right,status=paused,tier=base": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=south,part=right,tier=elite": {
+    "facing=east,part=right,status=paused,tier=elite": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=south,part=right,tier=ultimate": {
+    "facing=east,part=right,status=paused,tier=ultimate": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=west,part=left,tier=advanced": {
+    "facing=north,part=left,status=crafting,tier=advanced": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=west,part=left,tier=base": {
+    "facing=north,part=left,status=crafting,tier=base": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=west,part=left,tier=elite": {
+    "facing=north,part=left,status=crafting,tier=elite": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=west,part=left,tier=ultimate": {
+    "facing=north,part=left,status=crafting,tier=ultimate": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=west,part=right,tier=advanced": {
+    "facing=north,part=left,status=idle,tier=advanced": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=west,part=right,tier=base": {
+    "facing=north,part=left,status=idle,tier=base": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=west,part=right,tier=elite": {
+    "facing=north,part=left,status=idle,tier=elite": {
       "model": "cubit:block/engineering_desk"
     },
-    "facing=west,part=right,tier=ultimate": {
+    "facing=north,part=left,status=idle,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=left,status=paused,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=left,status=paused,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=left,status=paused,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=left,status=paused,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=right,status=crafting,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=right,status=crafting,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=right,status=crafting,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=right,status=crafting,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=right,status=idle,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=right,status=idle,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=right,status=idle,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=right,status=idle,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=right,status=paused,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=right,status=paused,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=right,status=paused,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=north,part=right,status=paused,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=left,status=crafting,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=left,status=crafting,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=left,status=crafting,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=left,status=crafting,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=left,status=idle,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=left,status=idle,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=left,status=idle,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=left,status=idle,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=left,status=paused,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=left,status=paused,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=left,status=paused,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=left,status=paused,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=right,status=crafting,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=right,status=crafting,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=right,status=crafting,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=right,status=crafting,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=right,status=idle,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=right,status=idle,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=right,status=idle,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=right,status=idle,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=right,status=paused,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=right,status=paused,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=right,status=paused,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=south,part=right,status=paused,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=left,status=crafting,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=left,status=crafting,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=left,status=crafting,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=left,status=crafting,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=left,status=idle,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=left,status=idle,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=left,status=idle,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=left,status=idle,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=left,status=paused,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=left,status=paused,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=left,status=paused,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=left,status=paused,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=right,status=crafting,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=right,status=crafting,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=right,status=crafting,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=right,status=crafting,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=right,status=idle,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=right,status=idle,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=right,status=idle,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=right,status=idle,tier=ultimate": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=right,status=paused,tier=advanced": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=right,status=paused,tier=base": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=right,status=paused,tier=elite": {
+      "model": "cubit:block/engineering_desk"
+    },
+    "facing=west,part=right,status=paused,tier=ultimate": {
       "model": "cubit:block/engineering_desk"
     }
   }

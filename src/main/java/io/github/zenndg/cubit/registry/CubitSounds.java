@@ -23,7 +23,11 @@ public final class CubitSounds {
   public static final String PLACED_NAME = "placed";
   public static final String SHOCK_ATTACK_NAME = "shock_attack";
   public static final String AGGRESSIVE_MODE_NAME = "aggressive_mode";
+  public static final String DESK_CRAFTING_NAME = "crafting";
+  public static final String DESK_DONE_NAME = "done";
+  public static final String DESK_STARTUP_NAME = "startup";
   private static final String GENERAL_ROBOT_PREFIX = "general_robot.";
+  private static final String DESK_PREFIX = "engineering_desk.";
   private static final DeferredRegister<SoundEvent> SOUNDS =
       DeferredRegister.create(Registries.SOUND_EVENT, CubitMod.MOD_ID);
 
@@ -38,6 +42,12 @@ public final class CubitSounds {
   public static final Supplier<SoundEvent> PLACED = generalRobot(PLACED_NAME);
   public static final Supplier<SoundEvent> SHOCK_ATTACK = generalRobot(SHOCK_ATTACK_NAME);
   public static final Supplier<SoundEvent> AGGRESSIVE_MODE = generalRobot(AGGRESSIVE_MODE_NAME);
+
+  /** The sounds of the Engineering Desk, which a pack can swap (answers 1450 to 1452). */
+  public static final Supplier<SoundEvent> DESK_CRAFTING = desk(DESK_CRAFTING_NAME);
+
+  public static final Supplier<SoundEvent> DESK_DONE = desk(DESK_DONE_NAME);
+  public static final Supplier<SoundEvent> DESK_STARTUP = desk(DESK_STARTUP_NAME);
 
   private CubitSounds() {}
 
@@ -61,7 +71,14 @@ public final class CubitSounds {
   }
 
   private static Supplier<SoundEvent> generalRobot(String name) {
-    String path = GENERAL_ROBOT_PREFIX + name;
+    return sound(GENERAL_ROBOT_PREFIX + name);
+  }
+
+  private static Supplier<SoundEvent> desk(String name) {
+    return sound(DESK_PREFIX + name);
+  }
+
+  private static Supplier<SoundEvent> sound(String path) {
     return SOUNDS.register(
         path,
         () ->

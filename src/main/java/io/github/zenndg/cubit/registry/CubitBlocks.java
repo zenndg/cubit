@@ -45,6 +45,7 @@ public final class CubitBlocks {
         .mapColor(MapColor.METAL)
         .strength(DOCK_HARDNESS, DOCK_EXPLOSION_RESISTANCE)
         .sound(SoundType.METAL)
+        .lightLevel(EngineeringDeskBlock::lightOf)
         .noOcclusion();
   }
 

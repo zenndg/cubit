@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.block;
 
 import com.mojang.logging.LogUtils;
 import io.github.zenndg.cubit.CubitMod;
+import io.github.zenndg.cubit.domain.desk.DeskLook;
 import io.github.zenndg.cubit.domain.desk.DeskOrder;
 import io.github.zenndg.cubit.domain.desk.DeskProgress;
 import io.github.zenndg.cubit.domain.desk.DeskSpec;
@@ -52,7 +53,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   private static final String INPUT_KEY = "Input";
   private static final String OUTPUT_KEY = "Output";
   private static final String ORDER_KEY = "Order";
-  private static final String PROGRESS_KEY = "Progress";
+  static final String PROGRESS_KEY = "Progress";
   private static final String GONE_RECIPE = "The desk at {} had the recipe {}, which is gone.";
   private static final int ENERGY_SLOT = 0;
 
@@ -62,6 +63,8 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   private final SimpleContainer energySlot = container(1);
   private final DeskEnergyStorage energyStorage = new DeskEnergyStorage(this);
   private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
+  private final DeskShow show = new DeskShow();
+  private final DeskClientView clientView = new DeskClientView();
 
   private UUID owner;
   private DeskStock stock = DeskStock.of(spec().capacity(), Energy.ZERO);
@@ -89,8 +92,10 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
       Level level, BlockPos pos, BlockState state, EngineeringDeskBlockEntity desk) {
     desk.inputLeft = CubitMod.CONFIG.engineeringDesk().inputPerTick();
     desk.useEnergySlot();
+    desk.show.beforeWork(desk, level.getGameTime());
     desk.status = DeskWork.tick(desk, level, EngineeringDeskBlock.hasSignal(level, pos, state));
     desk.showWork(level, pos, state);
+    desk.show.afterWork(desk, level, pos, state, DeskLook.of(desk.status));
   }
 
   private void showWork(Level level, BlockPos pos, BlockState state) {
@@ -161,6 +166,24 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     return status;
   }
 
+  /** What the desk shows, from the block state, the same on the server and on the clients. */
+  public DeskLook look() {
+    return getBlockState().getValue(EngineeringDeskBlock.LOOK).look();
+  }
+
+  public DeskClientView clientView() {
+    return clientView;
+  }
+
+  public DeskShow show() {
+    return show;
+  }
+
+  /** The item the hologram shows. Special recipes, as the repair, have none (answer 1509). */
+  public ItemStack shownResult() {
+    return level == null ? ItemStack.EMPTY : DeskRecipes.result(level, recipe);
+  }
+
   public int progressPercent() {
     return progress.percent(spec().craftTicks());
   }
@@ -199,6 +222,9 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     order = order.crafted();
     progress = DeskProgress.NONE;
     setChanged();
+    if (level != null) {
+      show.crafted(this, level, worldPosition, getBlockState());
+    }
   }
 
   /**
@@ -209,6 +235,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     recipe = chosen;
     order = DeskOrder.NONE;
     progress = DeskProgress.NONE;
+    show.tellClients();
     setChanged();
   }
 
@@ -221,12 +248,14 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     if (!order.isActive()) {
       progress = DeskProgress.NONE;
     }
+    show.tellClients();
     setChanged();
   }
 
   public void cancelOrder() {
     order = DeskOrder.NONE;
     progress = DeskProgress.NONE;
+    show.tellClients();
     setChanged();
   }
 
@@ -234,6 +263,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     tier.set(next);
     stock = stock.withCapacity(spec().capacity());
     order = order.limitedTo(spec().maxOrder());
+    show.tellClients();
     setChanged();
     if (level != null) {
       EngineeringDeskBlock.showTier(level, worldPosition, getBlockState(), next);
@@ -296,6 +326,9 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     DeskSaves.loadItems(tag, SLOT_KEY, energySlot, registries);
     useOrder(DeskSaves.loadOrder(tag, ORDER_KEY, worldPosition));
     progress = new DeskProgress(Math.max(0, tag.getInt(PROGRESS_KEY)));
+    if (level != null && level.isClientSide()) {
+      clientView.receive(tag, level.getGameTime());
+    }
   }
 
   private Optional<SavedDeskOrder> savedOrder() {
@@ -328,7 +361,11 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     savedOrder().ifPresent(saved -> components.set(CubitDataComponents.DESK_ORDER.get(), saved));
   }
 
-  /** Only the owner and the tier travel to the client: the owner decides who breaks the block. */
+  /**
+   * The owner decides who breaks the block, and the order, the progress and the people at the
+   * screen give the hologram and the lid (answer 1508). The items and the energy stay on the
+   * server.
+   */
   @Override
   public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
     CompoundTag tag = new CompoundTag();
@@ -336,6 +373,9 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
       tag.putUUID(OWNER_KEY, owner);
     }
     tier.save(tag);
+    DeskSaves.saveOrder(tag, ORDER_KEY, savedOrder());
+    tag.putInt(PROGRESS_KEY, progress.ticks());
+    show.write(tag);
     return tag;
   }
 
@@ -346,7 +386,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
 
   @Override
   public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-    // The animations come with the second part of the desk (answer 1494).
+    DeskAnimations.register(controllers, this);
   }
 
   @Override

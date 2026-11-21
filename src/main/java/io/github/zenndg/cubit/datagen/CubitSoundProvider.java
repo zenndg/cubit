@@ -11,8 +11,11 @@ import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 
 /** Volume and range stay in this file's output, where a resource pack can change them. */
 final class CubitSoundProvider extends SoundDefinitionsProvider {
-  private static final String FOLDER = "general_robot/";
-  private static final String SUBTITLE_PREFIX = "subtitles.cubit.general_robot.";
+  private static final String ROBOT = "general_robot";
+  private static final String DESK = "engineering_desk";
+  private static final String SUBTITLE_PREFIX = "subtitles.cubit.";
+  private static final char FOLDER_END = '/';
+  private static final char KEY_END = '.';
   private static final int RANGE_BLOCKS = 16;
 
   CubitSoundProvider(PackOutput output, ExistingFileHelper existingFiles) {
@@ -20,7 +23,11 @@ final class CubitSoundProvider extends SoundDefinitionsProvider {
   }
 
   static String subtitleKey(String name) {
-    return SUBTITLE_PREFIX + name;
+    return SUBTITLE_PREFIX + ROBOT + KEY_END + name;
+  }
+
+  static String deskSubtitleKey(String name) {
+    return SUBTITLE_PREFIX + DESK + KEY_END + name;
   }
 
   @Override
@@ -36,14 +43,23 @@ final class CubitSoundProvider extends SoundDefinitionsProvider {
     addSound(CubitSounds.PLACED, CubitSounds.PLACED_NAME);
     addSound(CubitSounds.SHOCK_ATTACK, CubitSounds.SHOCK_ATTACK_NAME);
     addSound(CubitSounds.AGGRESSIVE_MODE, CubitSounds.AGGRESSIVE_MODE_NAME);
+    addDeskSound(CubitSounds.DESK_CRAFTING, CubitSounds.DESK_CRAFTING_NAME);
+    addDeskSound(CubitSounds.DESK_DONE, CubitSounds.DESK_DONE_NAME);
+    addDeskSound(CubitSounds.DESK_STARTUP, CubitSounds.DESK_STARTUP_NAME);
   }
 
   private void addSound(Supplier<SoundEvent> event, String name) {
-    ResourceLocation file = ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, FOLDER + name);
-    add(
-        event,
-        definition()
-            .subtitle(subtitleKey(name))
-            .with(sound(file).attenuationDistance(RANGE_BLOCKS)));
+    add(event, ROBOT, name, subtitleKey(name));
+  }
+
+  /** In their own folder, for a pack to swap them (answer 1451). */
+  private void addDeskSound(Supplier<SoundEvent> event, String name) {
+    add(event, DESK, name, deskSubtitleKey(name));
+  }
+
+  private void add(Supplier<SoundEvent> event, String folder, String name, String subtitle) {
+    ResourceLocation file =
+        ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, folder + FOLDER_END + name);
+    add(event, definition().subtitle(subtitle).with(sound(file).attenuationDistance(RANGE_BLOCKS)));
   }
 }

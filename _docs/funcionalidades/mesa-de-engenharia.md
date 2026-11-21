@@ -117,12 +117,16 @@ As imagens são a referência, com seis ajustes aplicados no modelo, na textura 
 
 - **A mesa:** uma mesa de projetista com um laptop em cima, miniaturas do Cubit e das peças sobre um forro azul com linhas quadriculadas, um gaveteiro de cada lado, um braço mecânico articulado e uma luminária de LED num suporte articulado (perguntas 1455 e 1465).
 - **Ligação:** ao ser colocada, toda vez, o laptop abre, a tela liga com o logo do Cubit e toca o bipe de ligação, e depois a mesa fica no estado parado (pergunta 1466).
-- **Laptop:** a tampa abre quando o player abre a tela e fecha quando ele sai. A tela fica acesa, com um leve pulso, enquanto cria, apagada parada e com outra cor na pausa (perguntas 1454 e 1465).
+- **Laptop:** a tampa fica aberta quando alguém está com a tela aberta ou há um pedido ativo, criando ou em pausa, e fecha com a mesa parada e sem ninguém na tela (pergunta 1512). A tela fica acesa, com um leve pulso, enquanto cria, apagada parada e com outra cor na pausa (perguntas 1454 e 1465).
 - **Gavetas:** abrem um instante quando um item entra pela esquerda ou sai pela direita, pelo player ou por automação.
 - **Criando:** a luminária se move e acende em branco frio, o braço trabalha sobre o forro, e o laptop projeta o holograma azul do item da receita, que se completa com o progresso (pergunta 1465).
-- **Luz:** a luminária emite luz de nível 7 enquanto a mesa cria, e nenhuma parada. O laptop brilha só na textura (perguntas 1457 e 1469).
+- **Luz:** a metade da luminária emite luz de nível 7 enquanto a mesa cria, e nenhuma parada ou em pausa. O laptop brilha só na textura (perguntas 1457, 1469, 1513 e 1514).
 - **Pausa:** o braço volta ao repouso, a luminária fica em meia luz, e o holograma para no progresso atual, piscando devagar na cor de pausa (pergunta 1470).
 - **Pronto:** o holograma se completa e brilha, o braço solta faíscas, toca o som de pronto, e a gaveta da direita abre e fecha. No fim do pedido, a luminária apaga, e o braço volta ao repouso (pergunta 1471).
+- **No cliente:** o estado de bloco `status`, com `idle`, `crafting` e `paused`, guia a luz, o som de criando e as animações. O progresso vai à update tag quando o status muda, e o cliente o avança sozinho (pergunta 1508).
+- **Holograma:** o próprio item da receita, tingido de azul, girando devagar e ficando mais opaco e maior com o progresso (pergunta 1509).
+- **Tela do laptop:** um bone próprio, `laptop_screen`, que brilha no escuro e muda de cor no renderer: azul com pulso enquanto cria, âmbar na pausa e apagada parada (pergunta 1510).
+- **Gatilhos:** o servidor dispara a ligação, as gavetas, com um intervalo mínimo, e o pronto. A tampa segue quem está com a tela aberta, como a do baú, e as faíscas são partículas `electric_spark` do jogo (pergunta 1511).
 
 ## Sons
 
@@ -162,6 +166,7 @@ Um plugin opcional do JEI, isolado em `compat/jei`, como o do Jade, que mostra a
 | Onde | Nome | Conteúdo |
 |---|---|---|
 | Bloco e item | `cubit:engineering_desk` | A mesa, com as duas metades |
+| Estado de bloco | `part`, `tier` e `status` | A metade, o tier da faixa e o que a mesa faz: `idle`, `crafting` ou `paused` (pergunta 1508) |
 | Tipo de receita | `cubit:engineering` | Com forma ou sem forma, como as do jogo, com o desenho espelhado valendo (pergunta 1459) |
 | Receitas | Os IDs de hoje, como `cubit:general_robot` | Mantêm o ID e passam ao tipo da mesa. Os tipos especiais, como `cubit:power_bank_upgrade`, `cubit:solar_dock_assembly`, `cubit:robot_recharge` e `cubit:robot_repair`, mantêm o nome e rodam só na mesa (pergunta 1438) |
 | Config, por tier, em `[general_robot.{tier}]` | `engineering_desk_energy_capacity`, `engineering_desk_craft_ticks`, `engineering_desk_storage_slots` e `engineering_desk_max_order` | A bateria, o tempo por craft, os slots de cada inventário e o maior pedido (pergunta 1475) |
@@ -184,6 +189,7 @@ Uma issue mãe e quatro PRs, em ordem, cada um testável no jogo (pergunta 1478)
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 18:46 | Detalha o estado no cliente, o holograma, a tela do laptop e os gatilhos (perguntas 1508 a 1514). |
 | Zennd | 2026-11-21 14:20 | Começa o pedido em zero (pergunta 1506). |
 | Zennd | 2026-11-21 14:00 | Adiciona a cascata (perguntas 1500 a 1503). |
 | Zennd | 2026-11-21 13:50 | Ordena o catálogo pela liberação (pergunta 1499). |

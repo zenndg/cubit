@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.block;
 
 import com.mojang.serialization.MapCodec;
+import io.github.zenndg.cubit.domain.desk.DeskLook;
 import io.github.zenndg.cubit.domain.dock.DockRemoval;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.ModuleItem;
@@ -11,6 +12,7 @@ import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -51,10 +53,20 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public final class EngineeringDeskBlock extends BaseEntityBlock {
   private static final String PART_NAME = "part";
   private static final String TIER_NAME = "tier";
+  private static final String LOOK_NAME = "status";
   public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
   public static final EnumProperty<DeskPart> PART = EnumProperty.create(PART_NAME, DeskPart.class);
   public static final EnumProperty<DockTierProperty> TIER =
       EnumProperty.create(TIER_NAME, DockTierProperty.class);
+
+  /** What the desk shows, read by the client for the light, the sound and the animations. */
+  public static final EnumProperty<DeskLookProperty> LOOK =
+      EnumProperty.create(LOOK_NAME, DeskLookProperty.class);
+
+  /** The lamp lights the room while the desk crafts (answers 1457 and 1469). */
+  private static final int CRAFTING_LIGHT = 7;
+
+  private static final int NO_LIGHT = 0;
 
   private static final MapCodec<EngineeringDeskBlock> CODEC =
       simpleCodec(EngineeringDeskBlock::new);
@@ -71,7 +83,8 @@ public final class EngineeringDeskBlock extends BaseEntityBlock {
             .any()
             .setValue(FACING, Direction.NORTH)
             .setValue(PART, DeskPart.LEFT)
-            .setValue(TIER, DockTierProperty.BASE));
+            .setValue(TIER, DockTierProperty.BASE)
+            .setValue(LOOK, DeskLookProperty.IDLE));
   }
 
   @Override
@@ -81,7 +94,17 @@ public final class EngineeringDeskBlock extends BaseEntityBlock {
 
   @Override
   protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-    builder.add(FACING, PART, TIER);
+    builder.add(FACING, PART, TIER, LOOK);
+  }
+
+  /**
+   * Only the half with the lamp lights the room, and only while crafting: the lamp stands on the
+   * left half, and the half light of a pause is only seen (answers 1513 and 1514).
+   */
+  public static int lightOf(BlockState state) {
+    return state.getValue(PART) == DeskPart.LEFT && state.getValue(LOOK).look().lightsRoom()
+        ? CRAFTING_LIGHT
+        : NO_LIGHT;
   }
 
   /** Seen from the front, the right half sits to the right of the left one. */
@@ -130,12 +153,13 @@ public final class EngineeringDeskBlock extends BaseEntityBlock {
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
       Level level, BlockState state, BlockEntityType<T> type) {
-    return level.isClientSide() || state.getValue(PART) != DeskPart.LEFT
-        ? null
-        : createTickerHelper(
-            type,
-            CubitBlockEntities.ENGINEERING_DESK.get(),
-            EngineeringDeskBlockEntity::serverTick);
+    if (state.getValue(PART) != DeskPart.LEFT) {
+      return null;
+    }
+    return createTickerHelper(
+        type,
+        CubitBlockEntities.ENGINEERING_DESK.get(),
+        level.isClientSide() ? DeskClientTicks::tick : EngineeringDeskBlockEntity::serverTick);
   }
 
   /** Without room for both halves, nothing is placed, and the item stays in the hand. */
@@ -163,6 +187,9 @@ public final class EngineeringDeskBlock extends BaseEntityBlock {
         && level.getBlockEntity(pos) instanceof EngineeringDeskBlockEntity desk) {
       desk.setOwner(player);
       DeskFirstNotice.show(player);
+    }
+    if (level.getBlockEntity(pos) instanceof EngineeringDeskBlockEntity desk) {
+      desk.show().startUp();
     }
   }
 
@@ -234,12 +261,24 @@ public final class EngineeringDeskBlock extends BaseEntityBlock {
 
   /** Both halves show the tier, which picks the band and the body (answer 1439). */
   static void showTier(Level level, BlockPos left, BlockState state, RobotTier tier) {
-    DockTierProperty property = DockTierProperty.of(tier);
+    showOnBoth(level, left, state, TIER, DockTierProperty.of(tier), UPDATE_ALL);
+  }
+
+  /**
+   * Both halves show what the desk does, so the lamp half lights the room. Only the clients need to
+   * know: the comparator reads the order, not this state (answer 1508).
+   */
+  static void showLook(Level level, BlockPos left, BlockState state, DeskLook look) {
+    showOnBoth(level, left, state, LOOK, DeskLookProperty.of(look), UPDATE_CLIENTS);
+  }
+
+  private static <T extends Enum<T> & StringRepresentable> void showOnBoth(
+      Level level, BlockPos left, BlockState state, EnumProperty<T> property, T value, int flags) {
     for (BlockPos pos : new BlockPos[] {left, otherHalf(left, state)}) {
       BlockState current = level.getBlockState(pos);
       if (current.getBlock() instanceof EngineeringDeskBlock
-          && current.getValue(TIER) != property) {
-        level.setBlock(pos, current.setValue(TIER, property), UPDATE_ALL);
+          && current.getValue(property) != value) {
+        level.setBlock(pos, current.setValue(property, value), flags);
       }
     }
   }

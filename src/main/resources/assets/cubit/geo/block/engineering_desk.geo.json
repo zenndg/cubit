@@ -971,6 +971,41 @@
           ]
         },
         {
+          "name": "laptop_screen",
+          "parent": "laptop_lid",
+          "pivot": [
+            -1,
+            14.5,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -4.5,
+                15,
+                -0.02
+              ],
+              "size": [
+                7,
+                5,
+                0
+              ],
+              "uv": {
+                "north": {
+                  "uv": [
+                    0,
+                    64
+                  ],
+                  "uv_size": [
+                    7,
+                    5
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
           "name": "lamp",
           "parent": "root",
           "pivot": [
