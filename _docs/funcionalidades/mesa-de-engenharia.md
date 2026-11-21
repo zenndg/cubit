@@ -154,6 +154,9 @@ O gráfico do progresso do craft, o item que será entregue, quanto falta do ped
 
 Um plugin opcional do JEI, isolado em `compat/jei`, como o do Jade, que mostra as receitas da mesa. O mod abre sem o JEI (perguntas 1461 e 1486 e regra 24). A versão é a do Iron Meridian, `19.64.0.455`. Muda a 1284: o JEI deixa de ser só do cliente de teste, e o mod passa a ter o plugin.
 
+- **Receitas:** todas as da mesa, inclusive as quatro especiais e as ainda bloqueadas, numa categoria própria, com a mesa como catalisador (perguntas 1531 e 1532).
+- **Botão +:** com a tela da mesa aberta, escolhe a receita no catálogo, com o pedido em zero. O servidor confere como num clique no catálogo, e a bloqueada é recusada (pergunta 1533).
+
 ## Segurança e defesa
 
 - **Autoridade do servidor:** a receita, a quantidade e o cancelamento são pedidos do cliente, conferidos no servidor, com a distância até a mesa (regras 19 e 20).
@@ -190,6 +193,7 @@ Uma issue mãe e quatro PRs, em ordem, cada um testável no jogo (pergunta 1478)
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 20:18 | Detalha o plugin do JEI (perguntas 1531 a 1533). |
 | Zennd | 2026-11-21 20:02 | Registra o campo `desk_category` e a busca do catálogo (perguntas 1521 a 1525). |
 | Zennd | 2026-11-21 18:46 | Detalha o estado no cliente, o holograma, a tela do laptop e os gatilhos (perguntas 1508 a 1514). |
 | Zennd | 2026-11-21 14:20 | Começa o pedido em zero (pergunta 1506). |
