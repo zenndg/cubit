@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.phys.AABB;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
+import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
 /** Draws the whole desk from its left half, turned by its facing, with the band of its tier. */
 public final class DeskRenderer extends GeoBlockRenderer<EngineeringDeskBlockEntity> {
@@ -21,6 +22,8 @@ public final class DeskRenderer extends GeoBlockRenderer<EngineeringDeskBlockEnt
             return desk.shownTier();
           }
         });
+    addRenderLayer(new AutoGlowingGeoLayer<>(this));
+    addRenderLayer(new DeskHologram(this));
   }
 
   /** The desk is two blocks wide, with the lamp and the arm above it. */
@@ -53,6 +56,14 @@ public final class DeskRenderer extends GeoBlockRenderer<EngineeringDeskBlockEnt
         partialTick,
         packedLight,
         packedOverlay,
-        DeskBand.colour(bone, desk.shownTier(), colour));
+        DeskGlow.colour(
+            bone,
+            desk.look(),
+            ticks(desk, partialTick),
+            DeskBand.colour(bone, desk.shownTier(), colour)));
+  }
+
+  private static float ticks(EngineeringDeskBlockEntity desk, float partialTick) {
+    return desk.getLevel() == null ? partialTick : desk.getLevel().getGameTime() + partialTick;
   }
 }

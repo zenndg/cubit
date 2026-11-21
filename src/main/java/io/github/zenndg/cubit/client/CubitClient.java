@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.client;
 
 import io.github.zenndg.cubit.CubitMod;
+import io.github.zenndg.cubit.block.DeskClientTicks;
 import io.github.zenndg.cubit.config.CubitConfig;
 import io.github.zenndg.cubit.item.RobotItem;
 import io.github.zenndg.cubit.item.TierLook;
@@ -48,6 +49,7 @@ public final class CubitClient {
     CubitNetwork.setOrganizerMarksDisplay(TabletChestMarks::showMarks);
     CubitNetwork.setDoorMarksDisplay(TabletDoorMarks::show);
     CubitNetwork.setDeathLogDisplay(TabletDeathLog::show);
+    DeskClientTicks.set(DeskSoundLoops::tick);
     event.enqueueWork(() ->
         ItemProperties.register(
             CubitItems.GENERAL_ROBOT.get(),

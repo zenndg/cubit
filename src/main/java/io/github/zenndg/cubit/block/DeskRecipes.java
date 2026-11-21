@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Optional;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.Level;
 
 /**
  * The recipes of the Engineering Desk. A recipe is unlocked as in the recipe book of the game
@@ -26,6 +28,16 @@ public final class DeskRecipes {
    * Every recipe of the desk, in the order they unlock, the same on the server and the client, so
    * the catalog and the chosen recipe always match (answer 1499).
    */
+  /** What a recipe gives, or nothing for one that is gone or has no fixed result. */
+  public static ItemStack result(Level level, ResourceLocation id) {
+    if (id == null) {
+      return ItemStack.EMPTY;
+    }
+    return find(level.getRecipeManager(), id)
+        .map(found -> found.value().getResultItem(level.registryAccess()))
+        .orElse(ItemStack.EMPTY);
+  }
+
   public static List<RecipeHolder<CraftingRecipe>> all(RecipeManager recipes) {
     return recipes.getAllRecipesFor(CubitRecipes.ENGINEERING_TYPE.get()).stream()
         .sorted(

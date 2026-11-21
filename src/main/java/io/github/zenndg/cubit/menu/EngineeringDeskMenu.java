@@ -84,6 +84,7 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
       int containerId, Inventory playerInventory, EngineeringDeskBlockEntity desk) {
     DeskScreenValues values = new DeskScreenValues(desk);
     values.refresh();
+    desk.show().viewerJoined();
     return new EngineeringDeskMenu(
         containerId,
         playerInventory,
@@ -150,6 +151,15 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
   @Override
   public boolean stillValid(Player player) {
     return stillValid.test(player);
+  }
+
+  /** Only the menu of the server has the desk, so only the server counts who left. */
+  @Override
+  public void removed(Player player) {
+    super.removed(player);
+    if (desk != null) {
+      desk.show().viewerLeft();
+    }
   }
 
   /** The tab the client shows. Only the slots of that tab can be clicked. */
