@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.config.CubitConfig;
+import io.github.zenndg.cubit.domain.desk.DeskCategory;
 import io.github.zenndg.cubit.domain.energy.Battery;
 import io.github.zenndg.cubit.domain.energy.WakeRecharge;
 import io.github.zenndg.cubit.domain.robot.RobotState;
@@ -33,7 +34,7 @@ import net.minecraft.world.level.Level;
  * #51). The robot gets only what is missing to wake, the bank loses exactly that and stays in the
  * grid, and the Damaged Cubit never matches, because it is another item.
  */
-public final class RobotRechargeRecipe extends CustomRecipe {
+public final class RobotRechargeRecipe extends CustomRecipe implements DeskCategorized {
   private static final String ROBOT_FIELD = "robot";
   private static final String POWER_BANK_FIELD = "power_bank";
   private static final String RESULT_FIELD = "result";
@@ -50,7 +51,8 @@ public final class RobotRechargeRecipe extends CustomRecipe {
                   BuiltInRegistries.ITEM
                       .byNameCodec()
                       .fieldOf(RESULT_FIELD)
-                      .forGetter(recipe -> recipe.result))
+                      .forGetter(recipe -> recipe.result),
+                  DeskCategoryCodecs.MAP_CODEC.forGetter(RobotRechargeRecipe::deskCategory))
               .apply(instance, RobotRechargeRecipe::new));
 
   public static final StreamCodec<RegistryFriendlyByteBuf, RobotRechargeRecipe> STREAM_CODEC =
@@ -61,17 +63,36 @@ public final class RobotRechargeRecipe extends CustomRecipe {
           recipe -> recipe.powerBank,
           ByteBufCodecs.registry(Registries.ITEM),
           recipe -> recipe.result,
+          DeskCategoryCodecs.STREAM_CODEC,
+          RobotRechargeRecipe::deskCategory,
           RobotRechargeRecipe::new);
 
   private final Ingredient robot;
   private final Ingredient powerBank;
   private final Item result;
+  private final DeskCategory category;
 
   public RobotRechargeRecipe(Ingredient robot, Ingredient powerBank, Item result) {
+    this(robot, powerBank, result, DeskCategory.DEFAULT);
+  }
+
+  public RobotRechargeRecipe(
+      Ingredient robot, Ingredient powerBank, Item result, DeskCategory category) {
     super(CraftingBookCategory.MISC);
     this.robot = robot;
     this.powerBank = powerBank;
     this.result = result;
+    this.category = category;
+  }
+
+  @Override
+  public DeskCategory deskCategory() {
+    return category;
+  }
+
+  @Override
+  public RobotRechargeRecipe withDeskCategory(DeskCategory next) {
+    return new RobotRechargeRecipe(robot, powerBank, result, next);
   }
 
   @Override

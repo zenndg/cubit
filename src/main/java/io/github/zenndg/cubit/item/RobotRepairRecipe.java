@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.item;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.github.zenndg.cubit.domain.desk.DeskCategory;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.robot.RobotState;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
@@ -30,7 +31,7 @@ import net.minecraft.world.level.Level;
  * Repairs a damaged robot, in any position of the grid. It is a recipe type of its own because in
  * 1.21.1 a shapeless recipe always gives a fixed result, without the data of the ingredients.
  */
-public final class RobotRepairRecipe extends CustomRecipe {
+public final class RobotRepairRecipe extends CustomRecipe implements DeskCategorized {
   private static final String DAMAGED_ROBOT_FIELD = "damaged_robot";
   private static final String TOOLBOX_FIELD = "toolbox";
   private static final String RESULT_FIELD = "result";
@@ -50,7 +51,8 @@ public final class RobotRepairRecipe extends CustomRecipe {
                   BuiltInRegistries.ITEM
                       .byNameCodec()
                       .fieldOf(RESULT_FIELD)
-                      .forGetter(recipe -> recipe.result))
+                      .forGetter(recipe -> recipe.result),
+                  DeskCategoryCodecs.MAP_CODEC.forGetter(RobotRepairRecipe::deskCategory))
               .apply(instance, RobotRepairRecipe::new));
 
   public static final StreamCodec<RegistryFriendlyByteBuf, RobotRepairRecipe> STREAM_CODEC =
@@ -61,17 +63,36 @@ public final class RobotRepairRecipe extends CustomRecipe {
           recipe -> recipe.toolbox,
           ByteBufCodecs.registry(Registries.ITEM),
           recipe -> recipe.result,
+          DeskCategoryCodecs.STREAM_CODEC,
+          RobotRepairRecipe::deskCategory,
           RobotRepairRecipe::new);
 
   private final Ingredient damagedRobot;
   private final Ingredient toolbox;
   private final Item result;
+  private final DeskCategory category;
 
   public RobotRepairRecipe(Ingredient damagedRobot, Ingredient toolbox, Item result) {
+    this(damagedRobot, toolbox, result, DeskCategory.DEFAULT);
+  }
+
+  public RobotRepairRecipe(
+      Ingredient damagedRobot, Ingredient toolbox, Item result, DeskCategory category) {
     super(CraftingBookCategory.MISC);
     this.damagedRobot = damagedRobot;
     this.toolbox = toolbox;
     this.result = result;
+    this.category = category;
+  }
+
+  @Override
+  public DeskCategory deskCategory() {
+    return category;
+  }
+
+  @Override
+  public RobotRepairRecipe withDeskCategory(DeskCategory next) {
+    return new RobotRepairRecipe(damagedRobot, toolbox, result, next);
   }
 
   @Override

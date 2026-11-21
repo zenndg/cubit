@@ -1,6 +1,7 @@
 {
   "type": "cubit:engineering",
   "category": "misc",
+  "desk_category": "modules",
   "key": {
     "C": {
       "item": "cubit:elite_module"

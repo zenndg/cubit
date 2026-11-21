@@ -1,6 +1,7 @@
 {
   "type": "cubit:engineering",
   "category": "misc",
+  "desk_category": "energy",
   "key": {
     "A": {
       "item": "minecraft:gold_ingot"

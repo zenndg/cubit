@@ -1,6 +1,7 @@
 {
   "type": "cubit:engineering",
   "category": "misc",
+  "desk_category": "energy",
   "ingredients": [
     {
       "item": "minecraft:glass_bottle"

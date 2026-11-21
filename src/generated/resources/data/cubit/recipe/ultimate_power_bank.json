@@ -1,6 +1,7 @@
 {
   "type": "cubit:power_bank_upgrade",
   "category": "misc",
+  "desk_category": "energy",
   "key": {
     "C": {
       "item": "cubit:elite_power_bank"

@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.item;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.github.zenndg.cubit.domain.desk.DeskCategory;
 import io.github.zenndg.cubit.registry.CubitRecipes;
 import java.util.Optional;
 import net.minecraft.core.HolderLookup;
@@ -25,7 +26,7 @@ import net.minecraft.world.level.Level;
  * The Dock Solar Panel and an Induction Dock, in any position of the grid, make the Solar Dock,
  * which keeps the tier, the energy and the storage of the dock (answers 1384 and 1386).
  */
-public final class SolarDockRecipe extends CustomRecipe {
+public final class SolarDockRecipe extends CustomRecipe implements DeskCategorized {
   private static final String PANEL_FIELD = "panel";
   private static final String DOCK_FIELD = "dock";
   private static final String RESULT_FIELD = "result";
@@ -41,7 +42,8 @@ public final class SolarDockRecipe extends CustomRecipe {
                   BuiltInRegistries.ITEM
                       .byNameCodec()
                       .fieldOf(RESULT_FIELD)
-                      .forGetter(recipe -> recipe.result))
+                      .forGetter(recipe -> recipe.result),
+                  DeskCategoryCodecs.MAP_CODEC.forGetter(SolarDockRecipe::deskCategory))
               .apply(instance, SolarDockRecipe::new));
 
   public static final StreamCodec<RegistryFriendlyByteBuf, SolarDockRecipe> STREAM_CODEC =
@@ -52,17 +54,35 @@ public final class SolarDockRecipe extends CustomRecipe {
           recipe -> recipe.dock,
           ByteBufCodecs.registry(Registries.ITEM),
           recipe -> recipe.result,
+          DeskCategoryCodecs.STREAM_CODEC,
+          SolarDockRecipe::deskCategory,
           SolarDockRecipe::new);
 
   private final Ingredient panel;
   private final Ingredient dock;
   private final Item result;
+  private final DeskCategory category;
 
   public SolarDockRecipe(Ingredient panel, Ingredient dock, Item result) {
+    this(panel, dock, result, DeskCategory.DEFAULT);
+  }
+
+  public SolarDockRecipe(Ingredient panel, Ingredient dock, Item result, DeskCategory category) {
     super(CraftingBookCategory.MISC);
     this.panel = panel;
     this.dock = dock;
     this.result = result;
+    this.category = category;
+  }
+
+  @Override
+  public DeskCategory deskCategory() {
+    return category;
+  }
+
+  @Override
+  public SolarDockRecipe withDeskCategory(DeskCategory next) {
+    return new SolarDockRecipe(panel, dock, result, next);
   }
 
   @Override

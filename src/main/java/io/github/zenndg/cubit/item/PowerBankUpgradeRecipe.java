@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.item;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.github.zenndg.cubit.domain.desk.DeskCategory;
 import io.github.zenndg.cubit.domain.energy.Battery;
 import io.github.zenndg.cubit.domain.energy.PowerBankUpgrade;
 import io.github.zenndg.cubit.registry.CubitRecipes;
@@ -23,7 +24,7 @@ import net.minecraft.world.level.Level;
  * A shaped recipe that takes the Power Bank of the grid to the next tier with its charge (answer
  * 902). A charge that does not fit the new bank refuses the recipe, so no FE is lost (answer 907).
  */
-public final class PowerBankUpgradeRecipe extends ShapedRecipe {
+public final class PowerBankUpgradeRecipe extends ShapedRecipe implements DeskCategorized {
   private static final String GROUP_FIELD = "group";
   private static final String CATEGORY_FIELD = "category";
   private static final String RESULT_FIELD = "result";
@@ -41,7 +42,8 @@ public final class PowerBankUpgradeRecipe extends ShapedRecipe {
                       .orElse(CraftingBookCategory.MISC)
                       .forGetter(ShapedRecipe::category),
                   ShapedRecipePattern.MAP_CODEC.forGetter(recipe -> recipe.shape),
-                  ItemStack.STRICT_CODEC.fieldOf(RESULT_FIELD).forGetter(recipe -> recipe.output))
+                  ItemStack.STRICT_CODEC.fieldOf(RESULT_FIELD).forGetter(recipe -> recipe.output),
+                  DeskCategoryCodecs.MAP_CODEC.forGetter(PowerBankUpgradeRecipe::deskCategory))
               .apply(instance, PowerBankUpgradeRecipe::new));
 
   public static final StreamCodec<RegistryFriendlyByteBuf, PowerBankUpgradeRecipe> STREAM_CODEC =
@@ -49,12 +51,28 @@ public final class PowerBankUpgradeRecipe extends ShapedRecipe {
 
   private final ShapedRecipePattern shape;
   private final ItemStack output;
+  private final DeskCategory deskCategory;
 
   public PowerBankUpgradeRecipe(
-      String group, CraftingBookCategory category, ShapedRecipePattern shape, ItemStack output) {
+      String group,
+      CraftingBookCategory category,
+      ShapedRecipePattern shape,
+      ItemStack output,
+      DeskCategory deskCategory) {
     super(group, category, shape, output);
     this.shape = shape;
     this.output = output;
+    this.deskCategory = deskCategory;
+  }
+
+  @Override
+  public DeskCategory deskCategory() {
+    return deskCategory;
+  }
+
+  @Override
+  public PowerBankUpgradeRecipe withDeskCategory(DeskCategory next) {
+    return new PowerBankUpgradeRecipe(getGroup(), category(), shape, output, next);
   }
 
   @Override
@@ -91,6 +109,7 @@ public final class PowerBankUpgradeRecipe extends ShapedRecipe {
     buffer.writeEnum(recipe.category());
     ShapedRecipePattern.STREAM_CODEC.encode(buffer, recipe.shape);
     ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
+    DeskCategoryCodecs.STREAM_CODEC.encode(buffer, recipe.deskCategory);
   }
 
   private static PowerBankUpgradeRecipe read(RegistryFriendlyByteBuf buffer) {
@@ -98,7 +117,8 @@ public final class PowerBankUpgradeRecipe extends ShapedRecipe {
         buffer.readUtf(),
         buffer.readEnum(CraftingBookCategory.class),
         ShapedRecipePattern.STREAM_CODEC.decode(buffer),
-        ItemStack.STREAM_CODEC.decode(buffer));
+        ItemStack.STREAM_CODEC.decode(buffer),
+        DeskCategoryCodecs.STREAM_CODEC.decode(buffer));
   }
 
   /** Runs only in the Engineering Desk, never in the crafting table (answer 1459). */

@@ -1,6 +1,7 @@
 {
   "type": "cubit:engineering",
   "category": "misc",
+  "desk_category": "robot",
   "key": {
     "I": {
       "item": "minecraft:iron_ingot"
