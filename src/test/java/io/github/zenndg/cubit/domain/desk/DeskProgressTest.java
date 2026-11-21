@@ -12,6 +12,7 @@ class DeskProgressTest {
   private static final int SHORTER = 30;
   private static final int HALF = 50;
   private static final int PERCENT = 100;
+  private static final float HALF_SHARE = 0.5f;
 
   private static DeskProgress after(int ticks) {
     DeskProgress progress = DeskProgress.NONE;
@@ -40,6 +41,23 @@ class DeskProgressTest {
   void showsTheShareDone() {
     assertEquals(HALF, after(HALF).percent(CRAFT_TICKS));
     assertEquals(PERCENT, after(CRAFT_TICKS + 1).percent(CRAFT_TICKS));
+  }
+
+  @Test
+  void theShareGoesFromZeroToOne() {
+    assertEquals(0f, DeskProgress.NONE.fraction(CRAFT_TICKS));
+    assertEquals(HALF_SHARE, after(HALF).fraction(CRAFT_TICKS));
+    assertEquals(1f, after(CRAFT_TICKS + 1).fraction(CRAFT_TICKS));
+  }
+
+  @Test
+  void theClientMovesTheProgressOnByItself() {
+    assertEquals(after(HALF + SHORTER), after(HALF).plus(SHORTER));
+  }
+
+  @Test
+  void movingOnByNothingKeepsTheProgress() {
+    assertEquals(after(HALF), after(HALF).plus(-1));
   }
 
   @Test

@@ -24,6 +24,19 @@ public record DeskProgress(int ticks) {
     return ticks >= craftTicks;
   }
 
+  /**
+   * The client moves the progress on by itself between two updates from the server. Ticks that went
+   * back, from a clock that changed, move nothing.
+   */
+  public DeskProgress plus(int elapsed) {
+    return new DeskProgress(ticks + Math.max(0, elapsed));
+  }
+
+  /** The share done, from zero to one, for the hologram. */
+  public float fraction(int craftTicks) {
+    return Math.min(1f, (float) ticks / craftTicks);
+  }
+
   public int percent(int craftTicks) {
     return Math.min(PERCENT, ticks * PERCENT / craftTicks);
   }

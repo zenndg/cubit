@@ -181,6 +181,9 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `DeskCheck` | O que a mesa encontrou no tick: pedido, sinal de redstone, materiais, receita aceita, energia e espaço na saída |
 | `DeskStatus` | O que a mesa está fazendo: parada, criando ou pausada, com o motivo |
 | `DeskStock` | A energia guardada na mesa, recebida pela entrada e paga por craft |
+| `DeskLook` | O que a mesa mostra aos clientes: parada, criando ou em pausa, com a luz só criando |
+| `DeskLid` | Se a tampa do laptop fica aberta: com alguém na tela ou com um pedido ativo |
+| `DrawerPace` | Quando uma gaveta da mesa pode abrir de novo, a partir da hora do jogo |
 
 ## Regras e porquês
 
@@ -198,6 +201,8 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 - **Volta com o dono:** um robô longe, ou em outra dimensão, ficaria para trás ao descarregar o chunk. Perto, ele anda como sempre, e a caminho do Dock continua indo, porque o dono o chamou (pergunta 567).
 - **Só o que é novo avisa:** o mesmo mob ou bloco não avisa de novo enquanto continuar no raio, porque o intervalo mínimo sozinho repetiria o mesmo minério a cada varredura. O que sai do raio é esquecido (pergunta 561).
 - **Perigo primeiro nas cores:** o vermelho de um mob vence o azul de um minério, como o alerta vence a surpresa. O sinal não depende da expressão, para um dano não apagar o vermelho com o mob ainda no raio (perguntas 638 e 639).
+- **A mesa mostra menos do que sabe:** os motivos da pausa ficam no servidor, e o cliente só precisa saber se a mesa está parada, criando ou esperando, o que cabe num estado de bloco e dá a luz sem pacote próprio (perguntas 1508 e 1513).
+- **Gaveta com intervalo:** a automação move itens a cada tick, e sem o intervalo a gaveta piscaria. Um relógio que voltou, por um comando de tempo, não trava a gaveta (pergunta 1511).
 - **Esfera, não cubo:** o canto de um cubo fica a cerca de 1,7 vez o raio, então só conta o que está a até o raio em linha reta. Os dois scanners usam a mesma regra (perguntas 604 e 606).
 - **Varredura por número:** a área numera os blocos, então uma varredura em fatias só guarda um número entre os ticks, sem alocar nada (regra 21).
 - **Bloco pela subtag:** um bloco está em `c:ores` e nas subtags, e só elas dizem o que ele é. `c:ores` só vale para quem não tem subtag, então um filtro nele não pega todo minério (perguntas 546 e 566).
