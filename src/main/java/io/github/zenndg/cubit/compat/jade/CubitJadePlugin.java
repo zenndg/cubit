@@ -1,5 +1,7 @@
 package io.github.zenndg.cubit.compat.jade;
 
+import io.github.zenndg.cubit.block.EngineeringDeskBlock;
+import io.github.zenndg.cubit.block.EngineeringDeskBlockEntity;
 import io.github.zenndg.cubit.block.InductionDockBlock;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
 import io.github.zenndg.cubit.entity.RobotEntity;
@@ -20,11 +22,14 @@ public final class CubitJadePlugin implements IWailaPlugin {
     registration.registerEntityDataProvider(RobotJadeProvider.INSTANCE, RobotEntity.class);
     registration.registerBlockDataProvider(
         DockJadeProvider.INSTANCE, InductionDockBlockEntity.class);
+    registration.registerBlockDataProvider(
+        DeskJadeProvider.INSTANCE, EngineeringDeskBlockEntity.class);
   }
 
   @Override
   public void registerClient(IWailaClientRegistration registration) {
     registration.registerEntityComponent(RobotJadeProvider.INSTANCE, RobotEntity.class);
     registration.registerBlockComponent(DockJadeProvider.INSTANCE, InductionDockBlock.class);
+    registration.registerBlockComponent(DeskJadeProvider.INSTANCE, EngineeringDeskBlock.class);
   }
 }

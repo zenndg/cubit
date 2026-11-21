@@ -9,14 +9,16 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.players.GameProfileCache;
 import org.slf4j.Logger;
 
-/** The name of the owner of a dock: online, or from the cache of profiles of the server. */
-final class DockOwnerName {
+/**
+ * The name of the owner of a dock or a desk: online, or from the cache of profiles of the server.
+ */
+public final class OwnerName {
   private static final Logger LOGGER = LogUtils.getLogger();
-  private static final String UNKNOWN_OWNER_MESSAGE = "The dock owner at {} has no known name.";
+  private static final String UNKNOWN_OWNER_MESSAGE = "The owner at {} has no known name.";
 
-  private DockOwnerName() {}
+  private OwnerName() {}
 
-  static Optional<String> of(MinecraftServer server, UUID owner, BlockPos pos) {
+  public static Optional<String> of(MinecraftServer server, UUID owner, BlockPos pos) {
     Optional<String> name =
         Optional.ofNullable(server.getPlayerList().getPlayer(owner))
             .map(player -> player.getGameProfile().getName())

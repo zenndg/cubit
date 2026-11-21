@@ -2,7 +2,6 @@ package io.github.zenndg.cubit.client;
 
 import io.github.zenndg.cubit.block.DeskGrid;
 import io.github.zenndg.cubit.domain.energy.EnergyFormat;
-import io.github.zenndg.cubit.item.TierLook;
 import io.github.zenndg.cubit.menu.DeskControl;
 import io.github.zenndg.cubit.menu.DeskScreenKeys;
 import io.github.zenndg.cubit.menu.EngineeringDeskMenu;
@@ -10,27 +9,28 @@ import io.github.zenndg.cubit.menu.ScreenKeys;
 import io.github.zenndg.cubit.registry.CubitItems;
 import java.util.List;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.lwjgl.glfw.GLFW;
 
 /**
- * The screen of the Engineering Desk, with the Project and Storage tabs (answers 1473 and 1493). It
- * only shows and asks: the server decides (rule 19). The blueprint look comes later (1493).
+ * The screen of the Engineering Desk, a designer's board with the Project and Storage tabs (answers
+ * 1467, 1473 and 1524). It only shows and asks: the server decides (rule 19).
  */
-final class EngineeringDeskScreen
-    extends net.minecraft.client.gui.screens.inventory.AbstractContainerScreen<
-        EngineeringDeskMenu> {
-  private static final int HEIGHT = 230;
+final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDeskMenu> {
+  private static final int HEIGHT = 258;
   private static final int MARGIN = 8;
-  private static final int TITLE_Y = 6;
   private static final int LABEL_Y = 20;
   private static final int PROJECT_Y = 9;
   private static final int STORAGE_Y = 37;
   private static final int[] TAB_TOPS = {PROJECT_Y, STORAGE_Y};
   private static final int ITEM_SHIFT = -2;
+  private static final int GRID_FRAME = 3;
   private static final int ARROW_X = 156;
   private static final int ARROW_Y = 50;
   private static final int ARROW_WIDTH = 22;
@@ -38,55 +38,86 @@ final class EngineeringDeskScreen
   private static final int RESULT_X = 184;
   private static final int RESULT_Y = 44;
   private static final int ORDER_Y = 92;
+  private static final int CANCEL_Y = 108;
   private static final int BUTTON_HEIGHT = 12;
   private static final int SMALL_BUTTON = 14;
   private static final int MINUS_X = 96;
   private static final int PLUS_X = 136;
-  private static final int CANCEL_X = 154;
-  private static final int CANCEL_WIDTH = 48;
+  private static final int CANCEL_X = 96;
+  private static final int CANCEL_WIDTH = 54;
   private static final int ORDER_TEXT_X = 123;
-  private static final int ENERGY_LABEL_Y = 110;
-  private static final int BAR_Y = 121;
+  private static final int ENERGY_LABEL_Y = 128;
+  private static final int BAR_Y = 139;
   private static final int BAR_WIDTH = 204;
-  private static final int BAR_HEIGHT = 6;
-  private static final int INVENTORY_LABEL_Y = 135;
+  private static final int BAR_HEIGHT = 8;
+  private static final int INVENTORY_LABEL_Y = 164;
+  private static final int SEARCH_HEIGHT = 12;
+  private static final int SEARCH_INSET = 2;
+  private static final int SEARCH_MAX = 32;
   private static final int PERCENT = 100;
-  private static final int ENERGY_GAP = 4;
   private static final String MINUS_LABEL = "-";
   private static final String PLUS_LABEL = "+";
 
   private final DeskCatalog catalog = new DeskCatalog();
   private final DeskGridView grid = new DeskGridView();
   private boolean storageOpen;
-  private FlatButton minus;
-  private FlatButton plus;
-  private FlatButton cancel;
+  private EditBox search;
+  private BlueprintButton minus;
+  private BlueprintButton plus;
+  private BlueprintButton cancel;
 
   EngineeringDeskScreen(EngineeringDeskMenu menu, Inventory playerInventory, Component title) {
     super(menu, playerInventory, title);
     imageWidth = EngineeringDeskMenu.WIDTH;
     imageHeight = HEIGHT;
-    inventoryLabelX = EngineeringDeskMenu.SLOT_SIZE * 2 + MARGIN + MARGIN;
+    inventoryLabelX = MARGIN;
     inventoryLabelY = INVENTORY_LABEL_Y;
   }
 
   @Override
   protected void init() {
     super.init();
-    minus = button(MINUS_X, SMALL_BUTTON, Component.literal(MINUS_LABEL), () -> order(false));
-    plus = button(PLUS_X, SMALL_BUTTON, Component.literal(PLUS_LABEL), () -> order(true));
+    minus =
+        button(MINUS_X, ORDER_Y, SMALL_BUTTON, Component.literal(MINUS_LABEL), () -> order(false));
+    plus = button(PLUS_X, ORDER_Y, SMALL_BUTTON, Component.literal(PLUS_LABEL), () -> order(true));
     cancel =
-        button(
-            CANCEL_X,
-            CANCEL_WIDTH,
-            Component.translatable(DeskScreenKeys.CANCEL),
-            () -> send(DeskControl.CANCEL));
+        addRenderableWidget(
+            new BlueprintButton(
+                leftPos + CANCEL_X,
+                topPos + CANCEL_Y,
+                CANCEL_WIDTH,
+                BUTTON_HEIGHT,
+                Component.translatable(DeskScreenKeys.CANCEL),
+                BlueprintPainter.CANCEL,
+                () -> send(DeskControl.CANCEL)));
+    search = searchBox();
+    catalog.showCategoryOf(menu.recipeIndex());
     showTab();
   }
 
-  private FlatButton button(int x, int width, Component label, Runnable action) {
+  private BlueprintButton button(int x, int y, int width, Component label, Runnable action) {
     return addRenderableWidget(
-        new FlatButton(leftPos + x, topPos + ORDER_Y, width, BUTTON_HEIGHT, label, action));
+        new BlueprintButton(
+            leftPos + x, topPos + y, width, BUTTON_HEIGHT, label, BlueprintPainter.CELL, action));
+  }
+
+  /** The search box: the hint shows while it is empty, and each letter filters the catalog. */
+  private EditBox searchBox() {
+    EditBox box =
+        new EditBox(
+            font,
+            leftPos + DeskCatalog.X + SEARCH_INSET,
+            topPos + DeskCatalog.SEARCH_Y + SEARCH_INSET,
+            DeskCatalog.WIDTH - SEARCH_INSET * 2,
+            SEARCH_HEIGHT - SEARCH_INSET,
+            Component.translatable(DeskScreenKeys.CATALOG));
+    box.setBordered(false);
+    box.setMaxLength(SEARCH_MAX);
+    box.setTextColor(BlueprintPainter.TEXT);
+    box.setHint(
+        Component.translatable(DeskScreenKeys.SEARCH).withColor(BlueprintPainter.TEXT_SOFT));
+    box.setResponder(catalog::search);
+    return addRenderableWidget(box);
   }
 
   private void order(boolean up) {
@@ -106,6 +137,10 @@ final class EngineeringDeskScreen
     minus.visible = !storageOpen;
     plus.visible = !storageOpen;
     cancel.visible = !storageOpen;
+    search.visible = !storageOpen;
+    if (storageOpen) {
+      search.setFocused(false);
+    }
   }
 
   @Override
@@ -116,6 +151,7 @@ final class EngineeringDeskScreen
       catalog
           .at(mouseX, mouseY, leftPos, topPos)
           .ifPresent(index -> catalog.tooltip(graphics, font, index, mouseX, mouseY));
+      catalog.categoryTooltip(graphics, font, leftPos, topPos, mouseX, mouseY);
     }
   }
 
@@ -124,12 +160,13 @@ final class EngineeringDeskScreen
     int tabsLeft = leftPos + imageWidth - ScreenTabStrip.INSET;
     int openTop = storageOpen ? STORAGE_Y : PROJECT_Y;
     ScreenTabStrip.renderBehind(graphics, tabsLeft, topPos, TAB_TOPS, openTop);
-    ScreenPainter.window(graphics, leftPos, topPos, imageWidth, imageHeight);
+    BlueprintPainter.sheet(graphics, leftPos, topPos, imageWidth, imageHeight);
     ScreenTabStrip.renderOpen(graphics, tabsLeft, topPos, openTop);
     renderTabIcons(graphics, tabsLeft);
     DeskScreenFrames.player(graphics, leftPos, topPos);
     if (storageOpen) {
       DeskScreenFrames.storage(graphics, leftPos, topPos, menu.slots());
+      DeskScreenFrames.storageArrow(graphics, leftPos, topPos);
     } else {
       renderProject(graphics);
     }
@@ -143,24 +180,48 @@ final class EngineeringDeskScreen
   }
 
   private void renderProject(GuiGraphics graphics) {
+    renderSearchFrame(graphics);
     catalog.render(graphics, leftPos, topPos, menu.recipeIndex());
+    renderGrid(graphics);
+    renderEnergy(graphics);
+  }
+
+  private void renderSearchFrame(GuiGraphics graphics) {
+    int x = leftPos + DeskCatalog.X;
+    int y = topPos + DeskCatalog.SEARCH_Y;
+    graphics.fill(x, y, x + DeskCatalog.WIDTH, y + SEARCH_HEIGHT, BlueprintPainter.CELL);
+    graphics.renderOutline(x, y, DeskCatalog.WIDTH, SEARCH_HEIGHT, BlueprintPainter.LINE_SOFT);
+  }
+
+  /** The grid of marks in a dashed frame, the arrow of the progress and the item it makes. */
+  private void renderGrid(GuiGraphics graphics) {
+    int gridSide = DeskGrid.SIDE * ScreenPainter.SLOT_SIZE + GRID_FRAME * 2;
+    BlueprintPainter.dashed(
+        graphics,
+        leftPos + DeskGridView.X - GRID_FRAME,
+        topPos + DeskGridView.Y - GRID_FRAME,
+        gridSide,
+        gridSide);
     long tick = minecraft.player == null ? 0 : minecraft.player.tickCount;
     grid.render(graphics, leftPos, topPos, chosenMarks(), menu.marks(), tick);
-    ScreenPainter.bar(
+    BlueprintPainter.bar(
         graphics,
         new ScreenPainter.Box(leftPos + ARROW_X, topPos + ARROW_Y, ARROW_WIDTH, ARROW_HEIGHT),
         menu.progressPercent(),
         PERCENT,
-        ScreenPainter.STATUS_BLUE);
-    ScreenPainter.slot(graphics, leftPos + RESULT_X, topPos + RESULT_Y);
+        BlueprintPainter.CRAFTING);
+    BlueprintPainter.slot(graphics, leftPos + RESULT_X, topPos + RESULT_Y);
     graphics.renderFakeItem(chosenResult(), leftPos + RESULT_X + 1, topPos + RESULT_Y + 1);
-    ScreenPainter.bar(
+  }
+
+  private void renderEnergy(GuiGraphics graphics) {
+    BlueprintPainter.bar(
         graphics,
         new ScreenPainter.Box(leftPos + MARGIN, topPos + BAR_Y, BAR_WIDTH, BAR_HEIGHT),
         menu.stock().amount(),
         Math.max(1, menu.capacity().amount()),
-        ScreenPainter.ORANGE);
-    ScreenPainter.slot(
+        BlueprintPainter.ENERGY);
+    BlueprintPainter.slot(
         graphics,
         leftPos + EngineeringDeskMenu.ENERGY_SLOT_X - 1,
         topPos + EngineeringDeskMenu.ENERGY_SLOT_Y - 1);
@@ -182,14 +243,9 @@ final class EngineeringDeskScreen
 
   @Override
   protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-    Component title =
-        Component.translatable(DeskScreenKeys.TITLE_TIER, this.title, TierLook.name(menu.tier()));
-    graphics.drawString(font, title, MARGIN, TITLE_Y, ScreenPainter.TEXT, false);
-    Component status = Component.translatable(DeskScreenKeys.status(menu.status()));
-    int statusX = imageWidth - MARGIN - font.width(status);
-    graphics.drawString(font, status, statusX, TITLE_Y, ScreenPainter.STATUS_BLUE, false);
+    DeskScreenHeader.render(graphics, font, title, menu.tier(), menu.status(), imageWidth);
     graphics.drawString(
-        font, playerInventoryTitle, inventoryLabelX, inventoryLabelY, ScreenPainter.TEXT, false);
+        font, playerInventoryTitle, inventoryLabelX, inventoryLabelY, BlueprintPainter.TEXT, false);
     if (storageOpen) {
       DeskScreenFrames.storageLabels(graphics, font, LABEL_Y);
     } else {
@@ -198,19 +254,27 @@ final class EngineeringDeskScreen
   }
 
   private void renderProjectLabels(GuiGraphics graphics) {
-    Component catalogTitle = Component.translatable(DeskScreenKeys.CATALOG);
-    graphics.drawString(font, catalogTitle, MARGIN, LABEL_Y, ScreenPainter.TEXT, false);
     Component order = Component.translatable(DeskScreenKeys.ORDER, menu.done(), menu.total());
-    graphics.drawCenteredString(font, order, ORDER_TEXT_X, ORDER_Y + 2, ScreenPainter.WHITE);
+    graphics.drawCenteredString(font, order, ORDER_TEXT_X, ORDER_Y + 2, BlueprintPainter.TEXT);
     Component label = Component.translatable(DeskScreenKeys.STORED_ENERGY);
-    graphics.drawString(font, label, MARGIN, ENERGY_LABEL_Y, ScreenPainter.TEXT, false);
+    graphics.drawString(font, label, MARGIN, ENERGY_LABEL_Y, BlueprintPainter.TEXT, false);
     Component amount =
         Component.translatable(
             ScreenKeys.ENERGY_AMOUNT,
             EnergyFormat.compact(menu.stock()),
             EnergyFormat.compact(menu.capacity()));
-    int amountX = MARGIN + font.width(label) + ENERGY_GAP;
-    graphics.drawString(font, amount, amountX, ENERGY_LABEL_Y, ScreenPainter.DETAIL, false);
+    int amountX = MARGIN + BAR_WIDTH - font.width(amount);
+    graphics.drawString(font, amount, amountX, ENERGY_LABEL_Y, BlueprintPainter.TEXT_SOFT, false);
+  }
+
+  /** While the search box has the focus, the keys write in it, and only Esc closes the screen. */
+  @Override
+  public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    if (search.isFocused() && keyCode != GLFW.GLFW_KEY_ESCAPE) {
+      search.keyPressed(keyCode, scanCode, modifiers);
+      return true;
+    }
+    return super.keyPressed(keyCode, scanCode, modifiers);
   }
 
   @Override
@@ -230,6 +294,9 @@ final class EngineeringDeskScreen
   }
 
   private boolean clickedProject(double mouseX, double mouseY) {
+    if (catalog.clickCategory(mouseX, mouseY, leftPos, topPos)) {
+      return true;
+    }
     var recipe = catalog.at(mouseX, mouseY, leftPos, topPos);
     if (recipe.isPresent()) {
       if (DeskCatalog.unlocked(catalog.recipes().get(recipe.get()))) {
@@ -248,7 +315,7 @@ final class EngineeringDeskScreen
 
   @Override
   public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-    if (!storageOpen && catalog.at(mouseX, mouseY, leftPos, topPos).isPresent()) {
+    if (!storageOpen && catalog.isOver(mouseX, mouseY, leftPos, topPos)) {
       catalog.scroll(scrollY);
       return true;
     }

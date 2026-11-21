@@ -2,7 +2,12 @@ package io.github.zenndg.cubit.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.zenndg.cubit.block.DeskRecipes;
+import io.github.zenndg.cubit.domain.desk.CatalogSearch;
+import io.github.zenndg.cubit.domain.desk.DeskCategory;
+import io.github.zenndg.cubit.item.DeskCategoryCodecs;
 import io.github.zenndg.cubit.menu.DeskScreenKeys;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.ChatFormatting;
@@ -15,21 +20,32 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 /**
- * The catalog of the desk: every recipe of the mod, the locked ones dimmed and without their
- * materials, so the player sees all the mod has and what is already open (answer 1441).
+ * The catalog of the desk: every recipe of the mod, one category at a time, or every category that
+ * matches a search, with the locked ones dimmed and last, without their materials (answers 1441,
+ * 1474, 1523 and 1524). A click sends the place of the recipe in the whole catalog.
  */
 final class DeskCatalog {
   static final int X = 8;
-  static final int Y = 30;
+  static final int ICONS_Y = 22;
+  static final int SEARCH_Y = 36;
+  static final int Y = 50;
   static final int COLUMNS = 4;
   static final int ROWS = 4;
+  static final int WIDTH = COLUMNS * ScreenPainter.SLOT_SIZE;
   private static final int CELL = ScreenPainter.SLOT_SIZE;
   private static final int ICON_INSET = 1;
-  private static final int LOCKED_VEIL = 0x708B8B8B;
+  private static final int LOCKED_VEIL = 0x701D3C8F;
   private static final float LOCKED_SHADE = 0.3f;
   private static final int ICON_SIZE = 16;
-  private static final int CHOSEN = 0xFF2A8FB0;
+  private static final int CHOSEN = 0xFF4FC3F7;
+  private static final int BAR_GAP = 1;
+  private static final int BAR_WIDTH = 3;
+  private static final int LOCK_SIZE = 5;
+  private static final int LOCK_BODY = 3;
 
+  private final DeskCategoryBar categories = new DeskCategoryBar(X, ICONS_Y);
+  private DeskCategory chosenCategory = DeskCategory.ROBOT;
+  private CatalogSearch search = CatalogSearch.of(null);
   private int firstRow;
 
   List<RecipeHolder<CraftingRecipe>> recipes() {
@@ -51,37 +67,98 @@ final class DeskCatalog {
         : recipe.value().getResultItem(minecraft.level.registryAccess());
   }
 
-  void render(GuiGraphics graphics, int left, int top, int chosen) {
+  /**
+   * The places in the whole catalog that show now: by category, the open ones first and the locked
+   * ones last, each part in the order of release (answer 1499).
+   */
+  List<Integer> view() {
     List<RecipeHolder<CraftingRecipe>> all = recipes();
-    for (int cell = 0; cell < COLUMNS * ROWS; cell++) {
-      int index = firstRow * COLUMNS + cell;
-      int x = left + X + (cell % COLUMNS) * CELL;
-      int y = top + Y + (cell / COLUMNS) * CELL;
-      ScreenPainter.slot(graphics, x, y);
-      if (index >= all.size()) {
-        continue;
+    List<Integer> shown = new ArrayList<>();
+    for (int index = 0; index < all.size(); index++) {
+      RecipeHolder<CraftingRecipe> recipe = all.get(index);
+      String name = resultOf(recipe).getHoverName().getString();
+      if (search.shows(DeskCategoryCodecs.of(recipe.value()), name, chosenCategory)) {
+        shown.add(index);
       }
-      if (index == chosen) {
-        graphics.renderOutline(x, y, CELL, CELL, CHOSEN);
-      }
-      if (unlocked(all.get(index))) {
-        graphics.renderItem(resultOf(all.get(index)), x + ICON_INSET, y + ICON_INSET);
-      } else {
-        renderLocked(graphics, resultOf(all.get(index)), x + ICON_INSET, y + ICON_INSET);
-      }
+    }
+    shown.sort(
+        Comparator.comparingInt(
+                (Integer index) -> DeskCategoryCodecs.of(all.get(index).value()).ordinal())
+            .thenComparing(index -> !unlocked(all.get(index))));
+    return shown;
+  }
+
+  void search(String typed) {
+    search = CatalogSearch.of(typed);
+    firstRow = 0;
+  }
+
+  /** Opens on the category of the chosen recipe, so the player sees what the desk makes. */
+  void showCategoryOf(int chosen) {
+    List<RecipeHolder<CraftingRecipe>> all = recipes();
+    if (chosen >= 0 && chosen < all.size()) {
+      chosenCategory = DeskCategoryCodecs.of(all.get(chosen).value());
     }
   }
 
+  void render(GuiGraphics graphics, int left, int top, int chosen) {
+    categories.render(graphics, left, top, chosenCategory, !search.isEmpty());
+    List<RecipeHolder<CraftingRecipe>> all = recipes();
+    List<Integer> shown = view();
+    for (int cell = 0; cell < COLUMNS * ROWS; cell++) {
+      int place = firstRow * COLUMNS + cell;
+      int x = left + X + (cell % COLUMNS) * CELL;
+      int y = top + Y + (cell / COLUMNS) * CELL;
+      BlueprintPainter.slot(graphics, x, y);
+      if (place >= shown.size()) {
+        continue;
+      }
+      int index = shown.get(place);
+      if (index == chosen) {
+        graphics.renderOutline(x, y, CELL, CELL, CHOSEN);
+      }
+      ItemStack item = resultOf(all.get(index));
+      if (unlocked(all.get(index))) {
+        graphics.renderFakeItem(item, x + ICON_INSET, y + ICON_INSET);
+      } else {
+        renderLocked(graphics, item, x + ICON_INSET, y + ICON_INSET);
+      }
+    }
+    renderScrollBar(graphics, left, top, shown.size());
+  }
+
   /**
-   * A locked recipe shows its item dark and grey, as switched off, and the unlocked ones show it as
-   * it is (answer 1441).
+   * A locked recipe shows its item dark, as switched off, with a small padlock (answers 1441 and
+   * 1524).
    */
   private static void renderLocked(GuiGraphics graphics, ItemStack item, int x, int y) {
     RenderSystem.setShaderColor(LOCKED_SHADE, LOCKED_SHADE, LOCKED_SHADE, 1f);
-    graphics.renderItem(item, x, y);
+    graphics.renderFakeItem(item, x, y);
     graphics.flush();
     RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
     graphics.fill(x, y, x + ICON_SIZE, y + ICON_SIZE, LOCKED_VEIL);
+    int lockX = x + ICON_SIZE - LOCK_SIZE;
+    int lockY = y + ICON_SIZE - LOCK_SIZE;
+    graphics.renderOutline(
+        lockX + 1, lockY, LOCK_BODY, LOCK_SIZE - LOCK_BODY + 1, BlueprintPainter.LINE);
+    graphics.fill(
+        lockX,
+        lockY + LOCK_SIZE - LOCK_BODY,
+        lockX + LOCK_SIZE,
+        lockY + LOCK_SIZE,
+        BlueprintPainter.LINE);
+  }
+
+  private void renderScrollBar(GuiGraphics graphics, int left, int top, int shown) {
+    int rows = Math.max(1, (shown + COLUMNS - 1) / COLUMNS);
+    int x = left + X + WIDTH + BAR_GAP;
+    int y = top + Y;
+    int height = ROWS * CELL;
+    graphics.fill(x, y, x + BAR_WIDTH, y + height, BlueprintPainter.CELL);
+    int thumb = Math.max(BAR_WIDTH, height * Math.min(ROWS, rows) / rows);
+    int last = Math.max(1, rows - ROWS);
+    int thumbY = rows <= ROWS ? y : y + (height - thumb) * firstRow / last;
+    graphics.fill(x, thumbY, x + BAR_WIDTH, thumbY + thumb, BlueprintPainter.LINE_SOFT);
   }
 
   /** The recipe under the mouse, as its place in the whole catalog. */
@@ -91,12 +168,30 @@ final class DeskCatalog {
     if (column < 0 || column >= COLUMNS || row < 0 || row >= ROWS) {
       return Optional.empty();
     }
-    int index = (firstRow + row) * COLUMNS + column;
-    return index < recipes().size() ? Optional.of(index) : Optional.empty();
+    int place = (firstRow + row) * COLUMNS + column;
+    List<Integer> shown = view();
+    return place < shown.size() ? Optional.of(shown.get(place)) : Optional.empty();
+  }
+
+  /** A click on an icon shows its category. True when the click was on the row of icons. */
+  boolean clickCategory(double mouseX, double mouseY, int left, int top) {
+    Optional<DeskCategory> category = categories.at(mouseX, mouseY, left, top);
+    category.ifPresent(found -> {
+      chosenCategory = found;
+      firstRow = 0;
+    });
+    return category.isPresent();
+  }
+
+  boolean isOver(double mouseX, double mouseY, int left, int top) {
+    return mouseX >= left + X
+        && mouseX < left + X + WIDTH + BAR_GAP + BAR_WIDTH
+        && mouseY >= top + Y
+        && mouseY < top + Y + ROWS * CELL;
   }
 
   void scroll(double delta) {
-    int rows = (recipes().size() + COLUMNS - 1) / COLUMNS;
+    int rows = (view().size() + COLUMNS - 1) / COLUMNS;
     int last = Math.max(0, rows - ROWS);
     firstRow = Math.max(0, Math.min(last, firstRow - (int) Math.signum(delta)));
   }
@@ -114,5 +209,12 @@ final class DeskCatalog {
         List.of(name, Component.translatable(DeskScreenKeys.LOCKED).withStyle(ChatFormatting.RED)),
         mouseX,
         mouseY);
+  }
+
+  /** The tooltip of the icon of a category, when the mouse is over one. */
+  void categoryTooltip(GuiGraphics graphics, Font font, int left, int top, int mouseX, int mouseY) {
+    categories
+        .at(mouseX, mouseY, left, top)
+        .ifPresent(category -> DeskCategoryBar.tooltip(graphics, font, category, mouseX, mouseY));
   }
 }
