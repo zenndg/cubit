@@ -473,11 +473,21 @@ Não há perguntas pendentes nesta fase.
 | 1526 | A estrutura de pacotes do `AGENTS.md` lista as classes do PR 3 da Engineering Desk? | Sim: `DeskCategory` e `CatalogSearch` em `domain/desk`; `DeskCategorized` e `DeskCategoryCodecs` em `item`; `OwnerName` em `block`, no lugar de `DockOwnerName`; `BlueprintPainter`, `BlueprintButton`, `DeskCategoryBar` e `DeskScreenHeader` em `client`; `DeskCategoryData` em `datagen`; e `DeskJadeProvider` e `JadeTierLine` em `compat/jade` |
 | 1527 | O que fazer com as chaves de tradução da mesa que o código nunca usou (`project`, `storage`, `no_recipe` e `cost`)? | Removê-las neste PR. A mesa ainda não foi publicada, então nenhum contrato muda |
 | 1528 | O teste manual do PR 3 da Engineering Desk está aprovado? | Sim: as categorias, a busca, as bloqueadas com o cadeado, a rolagem, a tela de prancheta nas duas abas e o Jade funcionam como no conceito, e o PR 3 segue para os commits |
+| 1529 | Depois do merge do #234, o roteiro continua o mesmo? | Sim: segue o PR 4 da Engineering Desk, com o plugin opcional do JEI, e depois a revisão dos trabalhos por tier, a revisão das receitas dos cards e o Patrulheiro Galático (pergunta 1424) |
+| 1530 | Há algo a acrescentar ao PR 4 da Engineering Desk, com o plugin opcional do JEI? | Não: o escopo é o descrito, numa branch `feature/231-engineering-desk-jei`, com `Closes #231`, e segue para a rodada de decisões |
+| 1531 | Como o JEI mostra as quatro receitas especiais da Engineering Desk? | Todas aparecem na mesma categoria da mesa. O conserto, a recarga do Cubit e o Dock Solar expõem os dois ingredientes e o resultado e aparecem como receitas sem forma, e o upgrade da Power Bank aparece com a grade. Nenhuma receita da mesa fica de fora do JEI |
+| 1532 | As receitas da mesa ainda bloqueadas aparecem no JEI? | Sim, todas, como o JEI faz com as do jogo e de outros mods. O desbloqueio continua valendo na mesa, que não deixa escolher a bloqueada (pergunta 1441) |
+| 1533 | O JEI ganha o botão +, que escolhe a receita na Engineering Desk? | Sim: com a tela da mesa aberta, o + escolhe a receita no catálogo pelo mesmo pedido de hoje, que o servidor confere, com o pedido em zero (pergunta 1506). A bloqueada continua recusada, e o botão mostra o motivo. Detalha a 1461 |
+| 1534 | O conceito do PR 4 da Engineering Desk está autorizado? | Sim: a compilação contra o arquivo do JEI do Modrinth, o plugin isolado em `compat/jei`, a categoria com a mesa como catalisador, as quatro especiais, o botão +, os testes e os documentos, com `Closes #231` |
+| 1535 | Como resolver o ArchUnit, que proíbe classes de cliente fora de `client/`, se o plugin do JEI precisa delas? | Com uma exceção para `compat/jei`, que pode usar as classes de cliente do jogo, porque o JEI só carrega o plugin no cliente e a interface de categoria dele recebe `GuiGraphics`. O plugin continua proibido de usar o `client/` do mod, e uma regra nova garante que só `compat/jei` importa o JEI, como no Jade. O plugin fica onde a 1461 decidiu |
+| 1536 | O `AGENTS.md` passa a tratar o JEI como dependência opcional? | Sim: uma linha do JEI na stack, a regra 24 com o mod abrindo sem Jade e sem JEI, a regra 49 com o JEI entre as exceções opcionais e a linha `compat/jei/` na estrutura de pacotes |
+| 1537 | O teste manual do PR 4 da Engineering Desk está aprovado? | Sim: a categoria da mesa no JEI, a mesa como catalisador, as quatro especiais e o botão + funcionam como no conceito. O PR 4 segue para os commits, o push e o PR, e, depois do merge, as branches são apagadas |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 20:15 | Registra as respostas 1529 a 1537. |
 | Zennd | 2026-11-21 19:43 | Registra as respostas 1518 a 1528. |
 | Zennd | 2026-11-21 18:34 | Registra a resposta 1507. |
 | Zennd | 2026-11-21 14:00 | Registra as respostas 1500 a 1506. |

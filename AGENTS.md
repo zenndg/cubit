@@ -46,6 +46,7 @@ Mod de Minecraft que adiciona um robô companheiro fofo, movido a bateria, de te
 | GeckoLib | 4.9.3 (versão do pack) |
 | LambDynamicLights | 4.8.11+1.21.1 (versão do pack, obrigatória, no cliente) |
 | Jade | 15.10.6+neoforge (versão do pack, opcional) |
+| JEI | 19.64.0.455 (versão do pack, opcional) |
 
 Versões conferidas em 2026-11-04. Confira de novo no `mods/` do Iron Meridian antes de fixar ou atualizar uma dependência. O Gradle não está instalado na máquina: use o wrapper. O JDK 21 é baixado pelo próprio projeto.
 
@@ -99,7 +100,7 @@ O significado de cada pilar, os checklists e a matriz de decisão estão em [`_d
 21. **Orçamento de tick:** nada pesado a cada tick. Varreduras rodam em intervalos e sem alocação desnecessária.
 22. **Chunks:** nunca carregue um chunk à força nem leia um bloco sem confirmar que ele está carregado. A exceção é o Servidor e as antenas da Fase 5, por ação do player, com limites no config.
 23. **Separação do cliente:** código comum nunca referencia classes de `client/`.
-24. **Dependências:** GeckoLib e LambDynamicLights são obrigatórias, e o mod precisa abrir sem Jade, que fica isolado. Dependência só de cliente não pode impedir um servidor dedicado de abrir.
+24. **Dependências:** GeckoLib e LambDynamicLights são obrigatórias, e o mod precisa abrir sem Jade e sem JEI, que ficam isolados. Dependência só de cliente não pode impedir um servidor dedicado de abrir.
 
 ### Forma do código
 
@@ -153,7 +154,7 @@ O Cubit é o único robô do mod. O que muda entre um Cubit e outro é o tier e 
 
 ### Independência
 
-49. **Independência:** o mod prioriza funcionar numa instância de Minecraft só com ele e suas dependências. Nenhum recurso pode exigir outro mod ou modpack, e todo cenário é pensado primeiro assim. As exceções são GeckoLib e LambDynamicLights, obrigatórias, e Jade, opcional.
+49. **Independência:** o mod prioriza funcionar numa instância de Minecraft só com ele e suas dependências. Nenhum recurso pode exigir outro mod ou modpack, e todo cenário é pensado primeiro assim. As exceções são GeckoLib e LambDynamicLights, obrigatórias, e Jade e JEI, opcionais.
 
 ### Início de feature
 
@@ -235,6 +236,7 @@ io.github.zenndg.cubit
 ├── menu/                   // RobotMenu, InductionDockMenu; DefenseControl e DefenseOpening: a aba Defense; PickupControl e PickupMenuPart: a aba Behavior; TorchControl: os números das tochas; RobotMenuReading, RobotMenuContents e RobotMenuSource: as peças do menu do Cubit; TabletRobotMenu e TabletOpening: a tela do Cubit no Tablet; DockGoalControl: o `Ir para o Dock`; FollowControl: o `Follow`; UnloadControl: o `Descarregar`; DeathKeys e DeathPointControl: os textos e o tier do local de morte; WorkControl e WorkKeys: a aba Trabalho e o Retomar; SpeedControl e SpeedButtons: a velocidade e os botões − e +; OrganizerControl, OrganizerMenuPart, OrganizerScreenValues e SupplyRow: a linha Mode e a aba Supply; EngineeringDeskMenu, DeskControl, DeskScreenValues e DeskScreenKeys: a tela da mesa, os botões, os números e os textos
 ├── network/                // pacotes próprios: NoticePayload, OreMarksPayload, MobMarksPayload e CubitNetwork; RobotListPayload, ChooseRobotPayload e ChosenRobotPayload: a lista e a escolha do Tablet; RenameRobotPayload, RobotListRequestPayload, SwitchTabletAppPayload e TabletRequests: o que o Tablet pede ao servidor; AreaMarkPayload: a caixa do app Área; UnloadChestsPayload: as setas dos baús; DeathLogPayload, DeathGuidePayload e DeleteDeathPayload: a aba Mortes; OrganizerMarksPayload: as setas das marcas do app Marcar
 ├── compat/jade/            // plugin do Jade, opcional: só este pacote importa o Jade; DeskJadeProvider: a Engineering Desk no Jade; JadeTierLine: o tier na cor dele
+├── compat/jei/             // plugin do JEI, opcional: só este pacote importa o JEI e, como o JEI só o carrega no cliente, pode usar as classes de cliente do jogo, nunca as de `client/` (resposta 1535); CubitJeiPlugin, DeskRecipeCategory, JeiDeskRecipes e DeskTransferHandler: as receitas da Engineering Desk e o botão +
 ├── player/                 // attachment com o UUID do robô que segue, robôs mortos com o dono offline, /cubit reset e o que o dono faz: renascer, conquistar, caçar e minerar redstone; TabletSelection, TabletEvents, RobotSnapshot, RobotSnapshots e ChosenRobotLink: a seleção do Tablet, a foto do Cubit descarregado e o Cubit escolhido; TabletUse, TabletTargetApp, TabletDockApp e TabletAreaApp: o clique de cada app; TabletAreaView: o que a caixa do app Área mostra; TabletUnloadApp e TabletChestView: o app Descarga e as setas dos baús e das marcas; TabletMarkApp: o app Marcar; OwnerDeaths, SavedDeathLog e TabletDeaths: o histórico de mortes, o save dele e os botões da aba Mortes
 ├── client/                 // renderer, modelo GeckoLib, telas, com as abas Inventory, Settings, Defense e Behavior; TabletSelectionScreen e TabletArrow: a seleção e a seta do Tablet; TabletRobotScreen, TabletRobotHeader, TabletResourcesPanel, TabletRenameDialog, TabletOfflineScreen e TabletHeaderButtons: a tela do Cubit no Tablet; TabletScroll: a troca de app com Shift e a roda; TabletAreaMarks e TabletAreaRenderer: a caixa do app Área; TabletAppStrip: a faixa com a cor do app no ícone; TabletChestMarks: as setas sobre os baús marcados; TabletDeathLog e TabletDeathsPanel: a aba Mortes; RobotWorkPanel: a aba Trabalho, na tela do Cubit e no Tablet; RobotJobGearLayer, RobotToolLayer e RobotJobIconLayer: o chapéu e a mochila de cada trabalho, a vara ou a enxada e o ícone na tela; SpeedRow: a linha da velocidade, na aba Settings e na aba Recursos do Tablet; OrganizerModeRow e SupplyPanel: a linha Mode e a aba Supply do Organizador; EngineeringDeskScreen, DeskCatalog, DeskGridView e DeskScreenFrames: a tela da mesa; DeskRenderer, DeskItemRenderer, DeskItemExtensions, DeskGeoModel e DeskBand: o modelo GeckoLib da mesa, no mundo e no item, com a faixa do tier; DeskGlow: as cores da tela do laptop e da luminária; DeskHologram e TintedBuffers: o holograma do item da receita; DeskLoopSound e DeskSoundLoops: o loop do som de criando; BlueprintPainter, BlueprintButton, DeskCategoryBar e DeskScreenHeader: a tela de prancheta da mesa, os ícones das categorias e o cabeçalho
 └── datagen/                // receitas, loot, traduções; CubitItemTagsProvider: a tag dos cards; EngineeringRecipeOutput e DeskRecipeData: as receitas no tipo da mesa e a receita dela; DeskTexts e PortugueseDeskTexts: os textos da mesa; DeskCategoryData: a categoria de cada receita da mesa

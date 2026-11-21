@@ -85,7 +85,8 @@ O que entra em cada fase está no [`ROADMAP.md`](ROADMAP.md).
 - Minecraft 1.21.1, NeoForge 21.1.x e Java 21
 - [GeckoLib](https://modrinth.com/mod/geckolib) para o modelo e as animações
 - [LambDynamicLights](https://modrinth.com/mod/lambdynamiclights) como dependência obrigatória, para a luz dinâmica, a partir da lanterna, na Fase 3
-- [Jade](https://modrinth.com/mod/jade) como dependência opcional, para os tooltips do Cubit e do Induction Dock
+- [Jade](https://modrinth.com/mod/jade) como dependência opcional, para os tooltips do Cubit, do Induction Dock e da Engineering Desk
+- [JEI](https://modrinth.com/mod/jei) como dependência opcional, para mostrar as receitas da Engineering Desk
 - Forge Energy (FE), pelas capabilities do NeoForge
 
 ## Documentação

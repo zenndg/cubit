@@ -48,5 +48,13 @@ Cubit is a cute battery-powered robot companion that follows you, carries your i
     ordering="NONE"
     side="BOTH"
 
+# Optional, as Jade: the plugin shows the recipes of the desk, and only a version too old is refused.
+[[dependencies.${mod_id}]]
+    modId="jei"
+    type="optional"
+    versionRange="[${jei_min_version},)"
+    ordering="NONE"
+    side="BOTH"
+
 [modproperties."${mod_id}"."yumi:entrypoints"]
     "lambdynlights:initializer"="io.github.zenndg.cubit.client.CubitDynamicLights"
