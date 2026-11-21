@@ -23,6 +23,8 @@ class DomainBoundaryTest {
   private static final String GETTER = "get[A-Z].*";
   private static final String JADE_PLUGIN = "..cubit.compat.jade..";
   private static final String JADE = "snownee.jade..";
+  private static final String JEI_PLUGIN = "..cubit.compat.jei..";
+  private static final String JEI = "mezz.jei..";
 
   /** AGENTS.md, rule 12: this keeps out the game and also the other packages of the mod. */
   @ArchTest
@@ -42,10 +44,23 @@ class DomainBoundaryTest {
   static final ArchRule commonCodeDoesNotUseTheClient =
       noClasses()
           .that()
-          .resideOutsideOfPackage(MOD_CLIENT)
+          .resideOutsideOfPackages(MOD_CLIENT, JEI_PLUGIN)
           .should()
           .dependOnClassesThat()
           .resideInAnyPackage(MOD_CLIENT, GAME_CLIENT);
+
+  /**
+   * Answer 1535: JEI only loads its plugin on the client, and its own interfaces take classes of
+   * the client of the game. The plugin still never uses the client package of the mod.
+   */
+  @ArchTest
+  static final ArchRule theJeiPluginDoesNotUseTheClientOfTheMod =
+      noClasses()
+          .that()
+          .resideInAPackage(JEI_PLUGIN)
+          .should()
+          .dependOnClassesThat()
+          .resideInAPackage(MOD_CLIENT);
 
   /** AGENTS.md, rule 42: the dock knows the robot by its interface, never by a concrete class. */
   @ArchTest
@@ -69,6 +84,18 @@ class DomainBoundaryTest {
           .should()
           .dependOnClassesThat()
           .resideInAPackage(JADE);
+
+  /**
+   * AGENTS.md, rule 24, and answer 1461: only the plugin imports JEI, which JEI finds by itself.
+   */
+  @ArchTest
+  static final ArchRule onlyThePluginUsesJei =
+      noClasses()
+          .that()
+          .resideOutsideOfPackage(JEI_PLUGIN)
+          .should()
+          .dependOnClassesThat()
+          .resideInAPackage(JEI);
 
   /** AGENTS.md, rule 14: {@code capacity()}, not {@code getCapacity()}. */
   @ArchTest
