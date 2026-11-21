@@ -6,12 +6,16 @@ import io.github.zenndg.cubit.domain.desk.DeskStatus;
 import io.github.zenndg.cubit.item.EngineeringDeskItem;
 import io.github.zenndg.cubit.menu.DeskScreenKeys;
 import io.github.zenndg.cubit.registry.CubitBlocks;
+import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
 /** The Engineering Desk, in English, the base language (answers 1424 to 1494). */
 final class DeskTexts {
   private static final String NAME = "Engineering Desk";
+  private static final String CRAFTING_SUBTITLE = "Engineering Desk hums";
+  private static final String DONE_SUBTITLE = "Engineering Desk finishes an item";
+  private static final String STARTUP_SUBTITLE = "Engineering Desk starts up";
   private static final String UPGRADED = "Engineering Desk upgraded to %s!";
   private static final String NEEDS_TIER = "The Engineering Desk needs to be %s first";
   private static final String ALREADY_TIER = "The Engineering Desk is already %s";
@@ -53,6 +57,10 @@ final class DeskTexts {
 
   static void addTo(BiConsumer<String, String> add) {
     add.accept(CubitBlocks.ENGINEERING_DESK.get().getDescriptionId(), NAME);
+    add.accept(
+        CubitSoundProvider.deskSubtitleKey(CubitSounds.DESK_CRAFTING_NAME), CRAFTING_SUBTITLE);
+    add.accept(CubitSoundProvider.deskSubtitleKey(CubitSounds.DESK_DONE_NAME), DONE_SUBTITLE);
+    add.accept(CubitSoundProvider.deskSubtitleKey(CubitSounds.DESK_STARTUP_NAME), STARTUP_SUBTITLE);
     add.accept(DeskUpgrade.UPGRADED_KEY, UPGRADED);
     add.accept(DeskUpgrade.NEEDS_TIER_KEY, NEEDS_TIER);
     add.accept(DeskUpgrade.ALREADY_TIER_KEY, ALREADY_TIER);

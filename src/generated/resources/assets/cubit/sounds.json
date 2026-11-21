@@ -1,4 +1,22 @@
 {
+  "engineering_desk.crafting": {
+    "sounds": [
+      "cubit:engineering_desk/crafting"
+    ],
+    "subtitle": "subtitles.cubit.engineering_desk.crafting"
+  },
+  "engineering_desk.done": {
+    "sounds": [
+      "cubit:engineering_desk/done"
+    ],
+    "subtitle": "subtitles.cubit.engineering_desk.done"
+  },
+  "engineering_desk.startup": {
+    "sounds": [
+      "cubit:engineering_desk/startup"
+    ],
+    "subtitle": "subtitles.cubit.engineering_desk.startup"
+  },
   "general_robot.aggressive_mode": {
     "sounds": [
       "cubit:general_robot/aggressive_mode"
