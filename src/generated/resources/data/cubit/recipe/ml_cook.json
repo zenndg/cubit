@@ -1,6 +1,7 @@
 {
   "type": "cubit:engineering",
   "category": "misc",
+  "desk_category": "cards",
   "key": {
     "C": {
       "item": "minecraft:comparator"

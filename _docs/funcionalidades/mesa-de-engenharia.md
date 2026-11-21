@@ -54,7 +54,7 @@ A redstone que entra pelos lados ou por trás vai para o inventário de entrada,
 ## Receita e pedido
 
 - **Grade de 9 slots:** mostra marcações dos itens, não itens reais. O player escolhe a receita no catálogo, e a grade se preenche, ou marca à mão, arrastando um item para a grade, e a mesa reconhece a receita (pergunta 1426).
-- **Catálogo:** mostra todas as receitas do mod, na ordem em que são liberadas (pergunta 1499), em categorias com ícones (Cubit e peças, Energia, Dock, Modules, Cards e Ferramentas) e com um campo de busca pelo nome (pergunta 1474).
+- **Catálogo:** mostra todas as receitas do mod, na ordem em que são liberadas (pergunta 1499), em categorias com ícones (Cubit e peças, Energia, Dock, Modules, Cards e Ferramentas) e com um campo de busca pelo nome (pergunta 1474). Um ícone escolhido mostra só a categoria dele, e a busca procura em todas, pelo nome que o player vê, sem diferença de maiúsculas e acentos (pergunta 1523).
 - **Bloqueadas:** aparecem com o item escurecido e acinzentado, com o nome e `Locked`, sem os materiais, e não podem ser escolhidas nem marcadas à mão. Desbloqueiam na ordem de [`itens.md`](../itens.md#progressão-das-receitas), com o Cubit e as peças desde o início (perguntas 1441 e 1495 a 1498). Assim o player vê tudo o que o mod tem e o que já abriu.
 - **Um pedido por vez:** uma receita e uma quantidade. Para fabricar outra coisa, o player troca a receita (pergunta 1442).
 - **Começa em zero:** escolher a receita só a marca, com o pedido em zero. A mesa só fabrica depois que o player pede a quantidade no +, para nada ser feito por acidente nem gastar material (pergunta 1506).
@@ -168,6 +168,7 @@ Um plugin opcional do JEI, isolado em `compat/jei`, como o do Jade, que mostra a
 | Bloco e item | `cubit:engineering_desk` | A mesa, com as duas metades |
 | Estado de bloco | `part`, `tier` e `status` | A metade, o tier da faixa e o que a mesa faz: `idle`, `crafting` ou `paused` (pergunta 1508) |
 | Tipo de receita | `cubit:engineering` | Com forma ou sem forma, como as do jogo, com o desenho espelhado valendo (pergunta 1459) |
+| Campo das receitas | `desk_category` | A categoria no catálogo, com `robot`, `energy`, `dock`, `modules`, `cards` ou `tools`, no tipo da mesa e nos quatro especiais. Sem o campo, ou com um valor desconhecido, a receita vai para Ferramentas, com uma linha no log (perguntas 1521 e 1522) |
 | Receitas | Os IDs de hoje, como `cubit:general_robot` | Mantêm o ID e passam ao tipo da mesa. Os tipos especiais, como `cubit:power_bank_upgrade`, `cubit:solar_dock_assembly`, `cubit:robot_recharge` e `cubit:robot_repair`, mantêm o nome e rodam só na mesa (pergunta 1438) |
 | Config, por tier, em `[general_robot.{tier}]` | `engineering_desk_energy_capacity`, `engineering_desk_craft_ticks`, `engineering_desk_storage_slots` e `engineering_desk_max_order` | A bateria, o tempo por craft, os slots de cada inventário e o maior pedido (pergunta 1475) |
 | Config, em `general` | `engineering_desk_craft_energy` e `engineering_desk_input_per_tick` | O custo por craft, com 2.500 FE, e a entrada de energia, com 5.000 FE/t |
@@ -189,6 +190,7 @@ Uma issue mãe e quatro PRs, em ordem, cada um testável no jogo (pergunta 1478)
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 20:02 | Registra o campo `desk_category` e a busca do catálogo (perguntas 1521 a 1525). |
 | Zennd | 2026-11-21 18:46 | Detalha o estado no cliente, o holograma, a tela do laptop e os gatilhos (perguntas 1508 a 1514). |
 | Zennd | 2026-11-21 14:20 | Começa o pedido em zero (pergunta 1506). |
 | Zennd | 2026-11-21 14:00 | Adiciona a cascata (perguntas 1500 a 1503). |

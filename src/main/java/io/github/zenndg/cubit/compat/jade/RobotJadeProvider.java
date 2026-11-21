@@ -7,7 +7,6 @@ import io.github.zenndg.cubit.entity.RobotEntity;
 import io.github.zenndg.cubit.entity.RobotReadout;
 import java.util.Arrays;
 import java.util.Optional;
-import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -43,7 +42,8 @@ enum RobotJadeProvider implements IEntityComponentProvider, IServerDataProvider<
   @Override
   public void appendTooltip(ITooltip tooltip, EntityAccessor accessor, IPluginConfig config) {
     CompoundTag data = accessor.getServerData();
-    enumOf(RobotTier.class, data.getString(TIER)).ifPresent(tier -> tooltip.add(tierLine(tier)));
+    enumOf(RobotTier.class, data.getString(TIER))
+        .ifPresent(tier -> tooltip.add(JadeTierLine.of(tier)));
     if (data.contains(CHARGE) && data.contains(CAPACITY)) {
       tooltip.add(
           JadeEnergyText.battery(
@@ -56,19 +56,6 @@ enum RobotJadeProvider implements IEntityComponentProvider, IServerDataProvider<
   @Override
   public ResourceLocation getUid() {
     return JadeKeys.ROBOT_UID;
-  }
-
-  /** In the color of the collar of each tier. */
-  private static Component tierLine(RobotTier tier) {
-    ChatFormatting color =
-        switch (tier) {
-          case BASE -> ChatFormatting.GRAY;
-          case ADVANCED -> ChatFormatting.BLUE;
-          case ELITE -> ChatFormatting.LIGHT_PURPLE;
-          case ULTIMATE -> ChatFormatting.GOLD;
-        };
-    Component name = Component.translatable(JadeKeys.tierName(tier)).withStyle(color);
-    return Component.translatable(JadeKeys.TIER, name);
   }
 
   private static <E extends Enum<E>> Optional<E> enumOf(Class<E> type, String name) {

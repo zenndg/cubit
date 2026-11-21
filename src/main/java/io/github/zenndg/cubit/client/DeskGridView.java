@@ -30,7 +30,7 @@ final class DeskGridView {
     for (int cell = 0; cell < DeskGrid.CELLS; cell++) {
       int x = left + X + (cell % DeskGrid.SIDE) * CELL;
       int y = top + Y + (cell / DeskGrid.SIDE) * CELL;
-      ScreenPainter.slot(graphics, x, y);
+      BlueprintPainter.slot(graphics, x, y);
       ItemStack mark = recipe.isEmpty() ? hand.get(cell) : shown(recipe.get(cell), tick);
       if (!mark.isEmpty()) {
         graphics.renderFakeItem(mark, x + ICON_INSET, y + ICON_INSET);

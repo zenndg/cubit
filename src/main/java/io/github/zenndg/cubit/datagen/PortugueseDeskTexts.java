@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.datagen;
 
 import io.github.zenndg.cubit.block.DeskFirstNotice;
 import io.github.zenndg.cubit.block.DeskUpgrade;
+import io.github.zenndg.cubit.domain.desk.DeskCategory;
 import io.github.zenndg.cubit.domain.desk.DeskStatus;
 import io.github.zenndg.cubit.item.EngineeringDeskItem;
 import io.github.zenndg.cubit.menu.DeskScreenKeys;
@@ -24,9 +25,6 @@ final class PortugueseDeskTexts {
   private static final String TOOLTIP_ENERGY = "Energia: %s FE";
   private static final String TOOLTIP_ORDER = "Pedido: %s / %s";
   private static final String TOOLTIP_ITEMS = "Guarda %s itens";
-  private static final String TITLE_TIER = "%s · %s";
-  private static final String PROJECT = "Projeto";
-  private static final String STORAGE = "Estoque";
   private static final String INPUT = "Entrada";
   private static final String OUTPUT = "Saída";
   private static final String STORED_ENERGY = "Energia armazenada";
@@ -34,8 +32,10 @@ final class PortugueseDeskTexts {
   private static final String CANCEL = "Cancelar";
   private static final String LOCKED = "Bloqueada";
   private static final String CATALOG = "Catálogo";
-  private static final String NO_RECIPE = "Escolha uma receita";
-  private static final String COST = "%s FE por item";
+  private static final String SEARCH = "Buscar...";
+  private static final String STORAGE_ARROW = "Mesa";
+  private static final String STORAGE_FEEDS = "A entrada abastece a criação sozinha.";
+  private static final String STORAGE_FINISHED = "As peças prontas vão para a saída.";
   private static final String STATUS_IDLE = "Parada";
   private static final String STATUS_CRAFTING = "Criando";
   private static final String STATUS_REDSTONE = "Sinal de redstone";
@@ -43,6 +43,22 @@ final class PortugueseDeskTexts {
   private static final String STATUS_REFUSED = "Receita recusada";
   private static final String STATUS_NO_ENERGY = "Sem energia";
   private static final String STATUS_OUTPUT_FULL = "Saída cheia";
+  private static final String ROBOT_CATEGORY = "Cubit e peças";
+  private static final String ENERGY_CATEGORY = "Energia";
+  private static final String DOCK_CATEGORY = "Dock";
+  private static final String MODULES_CATEGORY = "Modules";
+  private static final String CARDS_CATEGORY = "Cards";
+  private static final String TOOLS_CATEGORY = "Ferramentas";
+
+  private static final Map<DeskCategory, String> CATEGORIES =
+      Map.of(
+          DeskCategory.ROBOT, ROBOT_CATEGORY,
+          DeskCategory.ENERGY, ENERGY_CATEGORY,
+          DeskCategory.DOCK, DOCK_CATEGORY,
+          DeskCategory.MODULES, MODULES_CATEGORY,
+          DeskCategory.CARDS, CARDS_CATEGORY,
+          DeskCategory.TOOLS, TOOLS_CATEGORY);
+
   private static final Map<DeskStatus, String> STATUS =
       Map.of(
           DeskStatus.IDLE, STATUS_IDLE,
@@ -69,9 +85,11 @@ final class PortugueseDeskTexts {
     add.accept(EngineeringDeskItem.ENERGY_KEY, TOOLTIP_ENERGY);
     add.accept(EngineeringDeskItem.ORDER_KEY, TOOLTIP_ORDER);
     add.accept(EngineeringDeskItem.ITEMS_KEY, TOOLTIP_ITEMS);
-    add.accept(DeskScreenKeys.TITLE_TIER, TITLE_TIER);
-    add.accept(DeskScreenKeys.PROJECT_TAB, PROJECT);
-    add.accept(DeskScreenKeys.STORAGE_TAB, STORAGE);
+    addScreen(add);
+  }
+
+  /** The screen of the desk, with the categories of the catalog (answer 1474). */
+  private static void addScreen(BiConsumer<String, String> add) {
     add.accept(DeskScreenKeys.INPUT, INPUT);
     add.accept(DeskScreenKeys.OUTPUT, OUTPUT);
     add.accept(DeskScreenKeys.STORED_ENERGY, STORED_ENERGY);
@@ -79,8 +97,11 @@ final class PortugueseDeskTexts {
     add.accept(DeskScreenKeys.CANCEL, CANCEL);
     add.accept(DeskScreenKeys.LOCKED, LOCKED);
     add.accept(DeskScreenKeys.CATALOG, CATALOG);
-    add.accept(DeskScreenKeys.NO_RECIPE, NO_RECIPE);
-    add.accept(DeskScreenKeys.COST, COST);
+    add.accept(DeskScreenKeys.SEARCH, SEARCH);
+    add.accept(DeskScreenKeys.STORAGE_ARROW, STORAGE_ARROW);
+    add.accept(DeskScreenKeys.STORAGE_FEEDS, STORAGE_FEEDS);
+    add.accept(DeskScreenKeys.STORAGE_FINISHED, STORAGE_FINISHED);
+    CATEGORIES.forEach((category, text) -> add.accept(DeskScreenKeys.category(category), text));
     STATUS.forEach((status, text) -> add.accept(DeskScreenKeys.status(status), text));
   }
 }

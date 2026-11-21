@@ -184,6 +184,8 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `DeskLook` | O que a mesa mostra aos clientes: parada, criando ou em pausa, com a luz só criando |
 | `DeskLid` | Se a tampa do laptop fica aberta: com alguém na tela ou com um pedido ativo |
 | `DrawerPace` | Quando uma gaveta da mesa pode abrir de novo, a partir da hora do jogo |
+| `DeskCategory` | As categorias do catálogo da mesa, na ordem dos ícones, com Ferramentas como padrão |
+| `CatalogSearch` | A busca do catálogo: o nome que o player vê, sem maiúsculas e acentos, em todas as categorias |
 
 ## Regras e porquês
 
@@ -203,6 +205,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 - **Perigo primeiro nas cores:** o vermelho de um mob vence o azul de um minério, como o alerta vence a surpresa. O sinal não depende da expressão, para um dano não apagar o vermelho com o mob ainda no raio (perguntas 638 e 639).
 - **A mesa mostra menos do que sabe:** os motivos da pausa ficam no servidor, e o cliente só precisa saber se a mesa está parada, criando ou esperando, o que cabe num estado de bloco e dá a luz sem pacote próprio (perguntas 1508 e 1513).
 - **Gaveta com intervalo:** a automação move itens a cada tick, e sem o intervalo a gaveta piscaria. Um relógio que voltou, por um comando de tempo, não trava a gaveta (pergunta 1511).
+- **Categoria padrão:** uma receita sem categoria, ou com uma desconhecida, vai para Ferramentas, e nunca some do catálogo por um erro de digitação num pack (perguntas 1521 e 1522).
 - **Esfera, não cubo:** o canto de um cubo fica a cerca de 1,7 vez o raio, então só conta o que está a até o raio em linha reta. Os dois scanners usam a mesma regra (perguntas 604 e 606).
 - **Varredura por número:** a área numera os blocos, então uma varredura em fatias só guarda um número entre os ticks, sem alocar nada (regra 21).
 - **Bloco pela subtag:** um bloco está em `c:ores` e nas subtags, e só elas dizem o que ele é. `c:ores` só vale para quem não tem subtag, então um filtro nele não pega todo minério (perguntas 546 e 566).

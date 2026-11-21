@@ -209,7 +209,7 @@ public final class InductionDockBlockEntity extends BlockEntity {
     if (owner == null || level == null || level.getServer() == null) {
       return Optional.empty();
     }
-    return DockOwnerName.of(level.getServer(), owner, worldPosition);
+    return OwnerName.of(level.getServer(), owner, worldPosition);
   }
 
   /** The click on the dock and the button on its screen call the same way. */

@@ -31,12 +31,12 @@ import net.minecraft.world.item.ItemStack;
 public final class EngineeringDeskMenu extends AbstractContainerMenu {
   public static final int WIDTH = 256;
   public static final int ENERGY_SLOT_X = 224;
-  public static final int ENERGY_SLOT_Y = 104;
+  public static final int ENERGY_SLOT_Y = 130;
   public static final int STORAGE_Y = 30;
   public static final int INPUT_X = 8;
   public static final int OUTPUT_X = 140;
   public static final int STORAGE_COLUMNS = 6;
-  public static final int PLAYER_INVENTORY_Y = 146;
+  public static final int PLAYER_INVENTORY_Y = 176;
   public static final int SLOT_SIZE = 18;
   private static final int PLAYER_X = 48;
   private static final int HOTBAR_GAP = 58;

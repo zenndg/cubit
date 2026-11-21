@@ -1,0 +1,87 @@
+package io.github.zenndg.cubit.client;
+
+import net.minecraft.client.gui.GuiGraphics;
+
+/**
+ * The look of a designer's board for the screen of the Engineering Desk: a blue sheet with a light
+ * grid, frames and slots in the white lines of a technical drawing (answers 1467 and 1524).
+ */
+final class BlueprintPainter {
+  static final int SHEET = 0xFF1D3C8F;
+  static final int LINE = 0xFFDCE6FF;
+  static final int LINE_SOFT = 0x80DCE6FF;
+  static final int CELL = 0xFF16306F;
+  static final int TEXT = 0xFFFFFFFF;
+  static final int TEXT_SOFT = 0xFFB8C8F0;
+  static final int CRAFTING = 0xFF4FC3F7;
+  static final int PAUSED = 0xFFFFB300;
+  static final int IDLE = 0xFF9AA7C7;
+  static final int ENERGY = 0xFFF2A14A;
+  static final int CANCEL = 0xFF8B2635;
+  private static final int MINOR_LINE = 0xFF24469C;
+  private static final int MAJOR_LINE = 0xFF2C52AA;
+  private static final int MINOR_STEP = 8;
+  private static final int MAJOR_STEP = 32;
+  private static final int DASH = 2;
+  private static final int SLOT_SIZE = ScreenPainter.SLOT_SIZE;
+
+  private BlueprintPainter() {}
+
+  /** The sheet with its grid and a white border. */
+  static void sheet(GuiGraphics graphics, int x, int y, int width, int height) {
+    graphics.fill(x, y, x + width, y + height, SHEET);
+    for (int column = MINOR_STEP; column < width; column += MINOR_STEP) {
+      int colour = column % MAJOR_STEP == 0 ? MAJOR_LINE : MINOR_LINE;
+      graphics.fill(x + column, y + 1, x + column + 1, y + height - 1, colour);
+    }
+    for (int row = MINOR_STEP; row < height; row += MINOR_STEP) {
+      int colour = row % MAJOR_STEP == 0 ? MAJOR_LINE : MINOR_LINE;
+      graphics.fill(x + 1, y + row, x + width - 1, y + row + 1, colour);
+    }
+    graphics.renderOutline(x, y, width, height, LINE);
+  }
+
+  static void slot(GuiGraphics graphics, int x, int y) {
+    graphics.fill(x, y, x + SLOT_SIZE, y + SLOT_SIZE, CELL);
+    graphics.renderOutline(x, y, SLOT_SIZE, SLOT_SIZE, LINE_SOFT);
+  }
+
+  /** A panel with a dashed white frame, as a part drawn on the board. */
+  static void dashed(GuiGraphics graphics, int x, int y, int width, int height) {
+    for (int step = 0; step < width; step += DASH * 2) {
+      int end = Math.min(x + width, x + step + DASH);
+      graphics.fill(x + step, y, end, y + 1, LINE_SOFT);
+      graphics.fill(x + step, y + height - 1, end, y + height, LINE_SOFT);
+    }
+    for (int step = 0; step < height; step += DASH * 2) {
+      int end = Math.min(y + height, y + step + DASH);
+      graphics.fill(x, y + step, x + 1, end, LINE_SOFT);
+      graphics.fill(x + width - 1, y + step, x + width, end, LINE_SOFT);
+    }
+  }
+
+  static void line(GuiGraphics graphics, int x, int y, int width) {
+    graphics.fill(x, y, x + width, y + 1, LINE_SOFT);
+  }
+
+  /** A bar with a white frame, at least one pixel while anything is left. */
+  static void bar(GuiGraphics graphics, ScreenPainter.Box box, long value, long max, int colour) {
+    graphics.fill(box.x(), box.y(), box.right(), box.bottom(), CELL);
+    graphics.renderOutline(box.x(), box.y(), box.width(), box.height(), LINE);
+    int inner = box.width() - 2;
+    int filled =
+        max <= 0 || value <= 0 ? 0 : (int) Math.min(inner, (value * inner + max - 1) / max);
+    graphics.fill(box.x() + 1, box.y() + 1, box.x() + 1 + filled, box.bottom() - 1, colour);
+  }
+
+  /** A dashed arrow to the right, as the one between the input and the output. */
+  static void arrow(GuiGraphics graphics, int x, int y, int width) {
+    for (int step = 0; step < width - DASH; step += DASH * 2) {
+      graphics.fill(x + step, y, x + step + DASH, y + 1, LINE_SOFT);
+    }
+    int tip = x + width;
+    for (int side = 0; side <= DASH; side++) {
+      graphics.fill(tip - side - 1, y - side, tip - side, y + side + 1, LINE_SOFT);
+    }
+  }
+}

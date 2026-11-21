@@ -1,6 +1,7 @@
 {
   "type": "cubit:engineering",
   "category": "misc",
+  "desk_category": "energy",
   "key": {
     "C": {
       "item": "cubit:advanced_power_cell"

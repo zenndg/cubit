@@ -1,6 +1,7 @@
 {
   "type": "cubit:engineering",
   "category": "equipment",
+  "desk_category": "tools",
   "key": {
     "I": {
       "item": "minecraft:iron_ingot"

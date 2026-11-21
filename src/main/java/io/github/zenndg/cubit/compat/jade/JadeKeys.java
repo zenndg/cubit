@@ -14,12 +14,16 @@ public final class JadeKeys {
   public static final String TIER = "jade.cubit.tier";
   public static final String BATTERY = "jade.cubit.battery";
   public static final String DOCK_ENERGY = "jade.cubit.dock_energy";
+  public static final String OWNER = "jade.cubit.owner";
+  public static final String DESK_ORDER = "jade.cubit.desk_order";
+  public static final String DESK_PAUSED = "jade.cubit.desk_paused";
   private static final String TIER_NAME = "jade.cubit.tier.%s";
   private static final String STATE = "jade.cubit.state.%s";
   private static final String DOCK_STATUS = "jade.cubit.dock_status.%s";
   private static final String CONFIG = "config.jade.plugin_%s.%s";
   private static final String ROBOT_PATH = "robot";
   private static final String DOCK_PATH = "induction_dock";
+  private static final String DESK_PATH = "engineering_desk";
   private static final String OUT_OF_BATTERY = "out_of_battery";
   private static final String SWITCHED_OFF = "switched_off";
 
@@ -27,6 +31,8 @@ public final class JadeKeys {
       ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, ROBOT_PATH);
   public static final ResourceLocation DOCK_UID =
       ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, DOCK_PATH);
+  public static final ResourceLocation DESK_UID =
+      ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, DESK_PATH);
 
   private JadeKeys() {}
 

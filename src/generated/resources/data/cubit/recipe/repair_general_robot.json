@@ -3,6 +3,7 @@
   "damaged_robot": {
     "item": "cubit:damaged_general_robot"
   },
+  "desk_category": "robot",
   "result": "cubit:general_robot",
   "toolbox": {
     "item": "cubit:toolbox"

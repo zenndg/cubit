@@ -1,5 +1,6 @@
 {
   "type": "cubit:robot_recharge",
+  "desk_category": "energy",
   "power_bank": [
     {
       "item": "cubit:base_power_bank"

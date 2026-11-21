@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.datagen;
 
 import io.github.zenndg.cubit.block.DeskFirstNotice;
 import io.github.zenndg.cubit.block.DeskUpgrade;
+import io.github.zenndg.cubit.domain.desk.DeskCategory;
 import io.github.zenndg.cubit.domain.desk.DeskStatus;
 import io.github.zenndg.cubit.item.EngineeringDeskItem;
 import io.github.zenndg.cubit.menu.DeskScreenKeys;
@@ -24,9 +25,6 @@ final class DeskTexts {
   private static final String TOOLTIP_ENERGY = "Energy: %s FE";
   private static final String TOOLTIP_ORDER = "Order: %s / %s";
   private static final String TOOLTIP_ITEMS = "Keeps %s items";
-  private static final String TITLE_TIER = "%s · %s";
-  private static final String PROJECT = "Project";
-  private static final String STORAGE = "Storage";
   private static final String INPUT = "Input";
   private static final String OUTPUT = "Output";
   private static final String STORED_ENERGY = "Stored energy";
@@ -34,8 +32,10 @@ final class DeskTexts {
   private static final String CANCEL = "Cancel";
   private static final String LOCKED = "Locked";
   private static final String CATALOG = "Catalog";
-  private static final String NO_RECIPE = "Pick a recipe";
-  private static final String COST = "%s FE per item";
+  private static final String SEARCH = "Search...";
+  private static final String STORAGE_ARROW = "Desk";
+  private static final String STORAGE_FEEDS = "Input feeds the crafting automatically.";
+  private static final String STORAGE_FINISHED = "Finished parts go to Output.";
   private static final String STATUS_IDLE = "Idle";
   private static final String STATUS_CRAFTING = "Crafting";
   private static final String STATUS_REDSTONE = "Redstone signal";
@@ -43,6 +43,22 @@ final class DeskTexts {
   private static final String STATUS_REFUSED = "Recipe refused";
   private static final String STATUS_NO_ENERGY = "No energy";
   private static final String STATUS_OUTPUT_FULL = "Output full";
+  private static final String ROBOT_CATEGORY = "Cubit and parts";
+  private static final String ENERGY_CATEGORY = "Energy";
+  private static final String DOCK_CATEGORY = "Dock";
+  private static final String MODULES_CATEGORY = "Modules";
+  private static final String CARDS_CATEGORY = "Cards";
+  private static final String TOOLS_CATEGORY = "Tools";
+
+  private static final Map<DeskCategory, String> CATEGORIES =
+      Map.of(
+          DeskCategory.ROBOT, ROBOT_CATEGORY,
+          DeskCategory.ENERGY, ENERGY_CATEGORY,
+          DeskCategory.DOCK, DOCK_CATEGORY,
+          DeskCategory.MODULES, MODULES_CATEGORY,
+          DeskCategory.CARDS, CARDS_CATEGORY,
+          DeskCategory.TOOLS, TOOLS_CATEGORY);
+
   private static final Map<DeskStatus, String> STATUS =
       Map.of(
           DeskStatus.IDLE, STATUS_IDLE,
@@ -72,10 +88,8 @@ final class DeskTexts {
     addScreen(add);
   }
 
+  /** The screen of the desk, with the categories of the catalog (answer 1474). */
   private static void addScreen(BiConsumer<String, String> add) {
-    add.accept(DeskScreenKeys.TITLE_TIER, TITLE_TIER);
-    add.accept(DeskScreenKeys.PROJECT_TAB, PROJECT);
-    add.accept(DeskScreenKeys.STORAGE_TAB, STORAGE);
     add.accept(DeskScreenKeys.INPUT, INPUT);
     add.accept(DeskScreenKeys.OUTPUT, OUTPUT);
     add.accept(DeskScreenKeys.STORED_ENERGY, STORED_ENERGY);
@@ -83,8 +97,11 @@ final class DeskTexts {
     add.accept(DeskScreenKeys.CANCEL, CANCEL);
     add.accept(DeskScreenKeys.LOCKED, LOCKED);
     add.accept(DeskScreenKeys.CATALOG, CATALOG);
-    add.accept(DeskScreenKeys.NO_RECIPE, NO_RECIPE);
-    add.accept(DeskScreenKeys.COST, COST);
+    add.accept(DeskScreenKeys.SEARCH, SEARCH);
+    add.accept(DeskScreenKeys.STORAGE_ARROW, STORAGE_ARROW);
+    add.accept(DeskScreenKeys.STORAGE_FEEDS, STORAGE_FEEDS);
+    add.accept(DeskScreenKeys.STORAGE_FINISHED, STORAGE_FINISHED);
+    CATEGORIES.forEach((category, text) -> add.accept(DeskScreenKeys.category(category), text));
     STATUS.forEach((status, text) -> add.accept(DeskScreenKeys.status(status), text));
   }
 }
