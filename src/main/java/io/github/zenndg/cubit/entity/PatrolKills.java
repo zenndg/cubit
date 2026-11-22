@@ -72,15 +72,18 @@ public final class PatrolKills {
 
   /**
    * Far from its owner, the Patroller takes the experience of its kill as energy, the points that
-   * fit in its battery, and the rest falls for the owner as usual (answers 1728 to 1730).
+   * fit in its battery, and the rest falls for the owner as usual (answers 1728 to 1730). The game
+   * stores the last damage only after it drops the experience, so the kill is known by the last one
+   * that hurt the mob, stored before the death. An armed Patroller never uses the shock, so a hurt
+   * from it is always one of its weapons (answer 1759).
    */
   @SubscribeEvent
   public static void onExperience(LivingExperienceDropEvent event) {
-    DamageSource source = event.getEntity().getLastDamageSource();
-    if (source == null) {
-      return;
+    if (event.getEntity().getLastHurtByMob() instanceof RobotEntity robot
+        && !robot.level().isClientSide()
+        && robot.workArea().work().patrolCombat().armed()) {
+      absorb(robot, event);
     }
-    killer(source).ifPresent(robot -> absorb(robot, event));
   }
 
   private static void absorb(RobotEntity robot, LivingExperienceDropEvent event) {
