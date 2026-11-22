@@ -40,6 +40,12 @@ class WorkAreaTest {
   private static final double EAST_GAP = 4;
   private static final double CORNER_GAP = Math.sqrt(32);
   private static final double PRECISION = 1e-9;
+  private static final double BY_THE_WEST = 10.5;
+  private static final double BY_THE_EAST = 25.5;
+  private static final double BY_THE_SOUTH = 10.5;
+  private static final double MID_X = 18;
+  private static final int OUT = 1;
+  private static final int IN = -1;
 
   @Test
   void theCornersGoInAnyOrderAndMakeAVolume() {
@@ -121,5 +127,16 @@ class WorkAreaTest {
   void theNearestCornerOfTheBase() {
     assertEquals(0, AREA.nearestCorner(LOW.x(), LOW.z()));
     assertEquals(LAST_CORNER - 1, AREA.nearestCorner(EAST_X, SOUTH_Z));
+  }
+
+  @Test
+  void onAnEdgeTheOutsideIsAcrossIt() {
+    assertEquals(new WorkArea.Outward(IN, 0), AREA.outwardFrom(BY_THE_WEST, INSIDE_Z));
+    assertEquals(new WorkArea.Outward(0, OUT), AREA.outwardFrom(MID_X, BY_THE_SOUTH));
+  }
+
+  @Test
+  void atACornerTheOutsideIsTheDiagonal() {
+    assertEquals(new WorkArea.Outward(OUT, OUT), AREA.outwardFrom(BY_THE_EAST, BY_THE_SOUTH));
   }
 }

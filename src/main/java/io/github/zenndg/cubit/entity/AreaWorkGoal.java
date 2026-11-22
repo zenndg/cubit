@@ -4,6 +4,7 @@ import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.robot.AreaCorner;
 import io.github.zenndg.cubit.domain.robot.WorkArea;
 import java.util.EnumSet;
+import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
@@ -12,8 +13,8 @@ import net.minecraft.world.phys.Vec3;
  * The Cubit in its area, a volume between two corners: it walks there, or appears inside when
  * stuck, and then goes round the edges, from corner to corner, at the height it walks (answers 342,
  * 1058, 1059 and 1062). The Galactic Patroller walks them at the pace of a lookout, stopping at
- * each corner and every so many blocks to look around (answers 1614 and 1616). Fetching an item
- * comes first, by its priority.
+ * each corner and every so many blocks to look around, out of the area (answers 1614, 1616 and
+ * 1626). Fetching an item comes first, by its priority.
  */
 final class AreaWorkGoal extends Goal {
   /** The robot speed is already in its movement attribute, so the route does not change it. */
@@ -22,6 +23,7 @@ final class AreaWorkGoal extends Goal {
   private static final double ARRIVED_BLOCKS = 1.5;
   private static final double PROGRESS_BLOCKS = 0.5;
   private static final double HALF = 0.5;
+  private static final float QUARTER_TURN = 90f;
   private static final int TELEPORT_ATTEMPTS = 16;
 
   private final RobotEntity robot;
@@ -33,7 +35,7 @@ final class AreaWorkGoal extends Goal {
 
   AreaWorkGoal(RobotEntity robot) {
     this.robot = robot;
-    this.pause = new PatrolPause(robot);
+    this.pause = new PatrolPause(robot, this::outside);
     setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
   }
 
@@ -121,6 +123,15 @@ final class AreaWorkGoal extends Goal {
     if (patroller()) {
       corner = robot.workArea().work().patrol().spreadCorner(corner);
     }
+  }
+
+  /** On its edges, the Patroller looks out of the area, where a threat comes from (1626). */
+  private Optional<Float> outside() {
+    return robot
+        .workArea()
+        .here()
+        .map(area -> area.outwardFrom(robot.getX(), robot.getZ()))
+        .map(out -> (float) Math.toDegrees(Math.atan2(out.z(), out.x())) - QUARTER_TURN);
   }
 
   private boolean patroller() {

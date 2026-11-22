@@ -668,11 +668,13 @@ Não há perguntas pendentes nesta fase.
 | 1721 | Quanto tempo sem ver o alvo conta como "sumiu de vista" para a investigação (1624)? | 2 s: sem linha de visão por 2 s seguidos, ou fora do limite de perseguição, o alvo some, e ele investiga o último lugar em que o viu. A chave nova é `patroller_lost_sight_ticks`, com 40, de 0 a 1200, e um alvo atrás de um bloco por um instante não interrompe o combate. Detalha a 1624 |
 | 1722 | Durante a investigação, como ele reage a um hostil que aparece? | O mesmo hostil retoma o combate na hora, sem um novo alerta, como no teleporte (1694). Um hostil diferente traz o alerta de 0,5 s, como na ronda. Detalha a 1623 e a 1624 |
 | 1723 | Um alvo novo da própria procura só é escolhido se estiver à vista, para o alvo que some não ser escolhido de novo enquanto continua escondido? | Sim: só escolhe o que vê, como em "ao ver um hostil" (1623). O alvo atual continua valendo por até 2 s sem visão (1721), e os alvos do chamado da equipe e do socorro valem sem a própria vista, porque um colega os vê. Um hostil atrás de uma parede só vira alvo quando aparece. Detalha a 1623 e a 1633 |
+| 1724 | Como fica o olhar para fora nas paradas das bordas (4c, 1626)? | O `WorkArea` calcula o lado de fora a partir de onde o Cubit está: a 2 blocos ou menos de dois lados, a diagonal; fora disso, a borda mais perto. O `PatrolPause` recebe de quem o usa a direção inicial da varredura, e a rota e a investigação seguem com a direção do corpo. Nada a acrescentar (1631). Detalha a 1626 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 18:20 | Registra a resposta 1724. |
 | Zennd | 2026-11-22 18:00 | Registra as respostas 1721 a 1723. |
 | Zennd | 2026-11-22 17:40 | Registra a resposta 1720. |
 | Zennd | 2026-11-22 17:20 | Registra a resposta 1719. |

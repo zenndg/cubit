@@ -1,6 +1,8 @@
 package io.github.zenndg.cubit.entity;
 
 import io.github.zenndg.cubit.domain.behavior.PatrolStops;
+import java.util.Optional;
+import java.util.function.Supplier;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -13,12 +15,22 @@ final class PatrolPause {
   private static final float LOOK_SPEED = 4f;
 
   private final RobotEntity robot;
+  private final Supplier<Optional<Float>> start;
   private float facing;
   private boolean stopped;
   private Vec3 last;
 
   PatrolPause(RobotEntity robot) {
+    this(robot, Optional::empty);
+  }
+
+  /**
+   * A stop that starts its look from a given way, as the outside of the area on its edges, or else
+   * from the way it faced (answer 1626).
+   */
+  PatrolPause(RobotEntity robot, Supplier<Optional<Float>> start) {
     this.robot = robot;
+    this.start = start;
   }
 
   /** True while it stands for a stop, so the goal does nothing else in the tick. */
@@ -30,7 +42,7 @@ final class PatrolPause {
     }
     if (!stopped) {
       stopped = true;
-      facing = robot.getYRot();
+      facing = start.get().orElse(robot.getYRot());
       robot.getNavigation().stop();
     }
     look(patrol.gaze());

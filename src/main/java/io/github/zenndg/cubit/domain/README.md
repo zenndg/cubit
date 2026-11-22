@@ -74,7 +74,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `RobotListing` | Um Cubit como a tela de seleção do Tablet o ordena: se segue o player, se está na mesma dimensão, se está carregado e a distância |
 | `RobotListings` | A ordem e a busca da tela de seleção do Tablet |
 | `TabletApps` | Os apps do Tablet que fazem sentido para o Cubit escolhido, a troca com Shift e a roda e a volta ao Open de um app que deixou de valer (perguntas 1006 e 1044) |
-| `WorkArea` | A área de um Cubit: um volume de blocos entre dois cantos, numa dimensão. Cabe no tier pela base e pela altura, conta o bloco acima do topo, onde os itens ficam, dá os cantos da base para a ronda, sabe se toca outra área, a distância de um ponto até a base e o canto mais perto (perguntas 342, 1051, 1062, 1625, 1636 e 1707) |
+| `WorkArea` | A área de um Cubit: um volume de blocos entre dois cantos, numa dimensão. Cabe no tier pela base e pela altura, conta o bloco acima do topo, onde os itens ficam, dá os cantos da base para a ronda, sabe se toca outra área, a distância de um ponto até a base, o canto mais perto e o lado de fora, para onde o Patrulheiro olha nas paradas das bordas (perguntas 342, 1051, 1062, 1625, 1626, 1636 e 1707) |
 | `AreaCorner` | Um bloco marcado como canto pelo app Área |
 | `AreaCheck` | Se a área pode ser do Cubit, ou por quê não: sem modo área no tier, grande demais, em outra dimensão ou longe demais (perguntas 1050, 1054 e 1058) |
 | `AreaMarking` | A marcação pela metade do app Área: o Cubit e, depois, o primeiro canto, só na memória do servidor (perguntas 1054 e 1060) |
