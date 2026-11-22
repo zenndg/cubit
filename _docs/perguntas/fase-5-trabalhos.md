@@ -711,11 +711,13 @@ Não há perguntas pendentes nesta fase.
 | 1764 | O app Escort deixa marcar um player ou mob de outra dimensão, e essa escolta nunca termina. Como corrigir? | O app recusa o escoltado de outra dimensão, com o aviso novo `%s only escorts in its own dimension` ("%s só escolta na própria dimensão"), e uma escolta cujo escoltado esteja em outra dimensão termina. Com uma GameTest. A recomendação foi aceita. Detalha a 1742 |
 | 1765 | A auditoria do PR 3 achou cerca de 23 pontos de documento desatualizado (os Contratos sem `cubit:escort_marks`, os nomes da apresentação fora do `falas.md` e do `itens.md`, as respostas 1724, 1725 e 1759 fora do `patrulheiro.md`, o Defensor no `trabalhos.md`, os campos novos fora do README do domínio e o papel do `PatrolKills` na estrutura de pacotes). Eles são corrigidos agora? | Todos agora, no PR 3, conferidos um a um, em commits por documento, com o plano antes. A estrutura de pacotes do `AGENTS.md` entra com autorização, junto com o Estado atual. A recomendação foi aceita |
 | 1766 | O `RobotEscort.onLeave` percorre os robôs do nível a cada mob que sai dele. O que fazer? | Anotar em `_docs/backlog.md`, para medir com muitos mobs e Cubits e decidir numa issue própria, sem mudar o código agora (pilar Simplicidade). A recomendação foi aceita |
+| 1767 | A issue #198 do Patrulheiro Galático fecha com o PR 3, o comportamento, ou com o PR 4, o visual e os sons? | Com o PR 4: o PR 3 leva `Parte de #198`, e a issue só fecha quando o visual e os sons entrarem. A recomendação foi aceita. Detalha a 1749 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 17:23 | Registra a resposta 1767. |
 | Zennd | 2026-11-22 16:53 | Registra as respostas 1763 a 1766. |
 | Zennd | 2026-11-22 16:34 | Registra a resposta 1762. |
 | Zennd | 2026-11-22 16:32 | Registra as respostas 1759 a 1761. |
