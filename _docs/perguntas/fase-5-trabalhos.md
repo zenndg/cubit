@@ -730,11 +730,13 @@ Não há perguntas pendentes nesta fase.
 | 1783 | Há algo a acrescentar à entrega 3 do PR 4 do Patrulheiro, os efeitos: o globo desenhado, o estouro, os propulsores e a camada emissiva? | Nada a acrescentar (1771) |
 | 1784 | Há algo a acrescentar à entrega 4 do PR 4 do Patrulheiro, os sons? E ela segue agora ou depois da entrega 5, a textura do card? | Nada a acrescentar, e a entrega 5 vem antes da 4, que espera os `.wav` do desenvolvedor. Muda a ordem da 1771 |
 | 1785 | A textura do card do Patrulheiro, `tmp/arte/patrulheiro/ml_patroller.png`, com o mesmo formato dos outros cards e a faixa do alto no mesmo azul da do Pescador, está aceita assim, ou a faixa muda de cor? | O desenvolvedor disse "sim continue": o card entra como está, com a faixa azul, no lugar da textura provisória |
+| 1786 | A arte da textura do modelo do Patrulheiro, `tmp/arte/patrulheiro/general_robot_patroller.png`, com a textura de brilho nas cores dela e as luzes da aleta em azul aceso, está aceita? | O desenvolvedor disse "arte aceita": a arte entra no lugar da textura provisória, e o brilho usa as cores dela. Detalha a 1770 e a 1772 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 18:26 | Registra a resposta 1786. |
 | Zennd | 2026-11-22 18:21 | Registra a resposta 1785. |
 | Zennd | 2026-11-22 18:18 | Registra a resposta 1784. |
 | Zennd | 2026-11-22 18:13 | Registra a resposta 1783. |
