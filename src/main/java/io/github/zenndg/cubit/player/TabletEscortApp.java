@@ -39,6 +39,7 @@ final class TabletEscortApp {
       player.displayClientMessage(
           Component.translatable(TabletKeys.ESCORTING, chosen.getName(), one.getName()), true);
     }
+    TabletChestView.send(player);
   }
 
   private static void stop(ServerPlayer player, RobotEntity chosen) {

@@ -41,7 +41,7 @@ public final class RobotEscort {
   }
 
   /** The escorted one, only while loaded in the level of the Patroller. */
-  Optional<LivingEntity> escortedHere() {
+  public Optional<LivingEntity> escortedHere() {
     if (escorted == null || !(robot.level() instanceof ServerLevel level)) {
       return Optional.empty();
     }

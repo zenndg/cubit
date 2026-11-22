@@ -8,6 +8,7 @@ import io.github.zenndg.cubit.entity.RobotEntity;
 import io.github.zenndg.cubit.entity.RobotUnload;
 import io.github.zenndg.cubit.network.CubitNetwork;
 import io.github.zenndg.cubit.network.DoorMarksPayload;
+import io.github.zenndg.cubit.network.EscortMarksPayload;
 import io.github.zenndg.cubit.network.OrganizerMarksPayload;
 import io.github.zenndg.cubit.network.PatrolRoutePayload;
 import io.github.zenndg.cubit.network.UnloadChestsPayload;
@@ -53,6 +54,7 @@ public final class TabletChestView {
       CubitNetwork.sendOrganizerMarks(player, OrganizerMarksPayload.NONE);
       CubitNetwork.sendDoorMarks(player, DoorMarksPayload.NONE);
       CubitNetwork.sendPatrolRoute(player, PatrolRoutePayload.NONE);
+      CubitNetwork.sendEscortMarks(player, EscortMarksPayload.NONE);
     }
   }
 
@@ -80,6 +82,7 @@ public final class TabletChestView {
     CubitNetwork.sendOrganizerMarks(player, new OrganizerMarksPayload(marks(robots, dimension)));
     sendDoors(player, dimension);
     CubitNetwork.sendPatrolRoute(player, TabletRouteView.of(player));
+    CubitNetwork.sendEscortMarks(player, TabletEscortView.of(player));
   }
 
   /** The doors the player marked, in its dimension, for the arrows of the Doors app. */
