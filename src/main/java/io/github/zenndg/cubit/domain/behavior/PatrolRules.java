@@ -15,6 +15,11 @@ public final class PatrolRules {
     return patroller ? DefenseMode.AGGRESSIVE : chosen;
   }
 
+  /** The modes the card takes away, which the defense tab shows locked (answer 1610). */
+  public static boolean lockedByCard(DefenseMode mode, boolean patroller) {
+    return patroller && mode != DefenseMode.AGGRESSIVE;
+  }
+
   public static boolean mayChase(double distanceFromRoute, int chaseDistance) {
     return distanceFromRoute <= chaseDistance;
   }

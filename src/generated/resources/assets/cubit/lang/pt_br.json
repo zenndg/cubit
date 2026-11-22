@@ -127,6 +127,7 @@
   "gui.cubit.robot.defense.focus.detail": "Dá choque só no último mob que você feriu",
   "gui.cubit.robot.defense.interval": "Intervalo",
   "gui.cubit.robot.defense.interval_value": "A cada %s s",
+  "gui.cubit.robot.defense.locked_by_card": "Travado pelo card do Patrulheiro Galático",
   "gui.cubit.robot.defense.modes": "Modos",
   "gui.cubit.robot.defense.nearest": "O mais próximo",
   "gui.cubit.robot.defense.no_shock": "Nenhum tier tem choque",

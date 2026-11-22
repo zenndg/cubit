@@ -127,6 +127,7 @@
   "gui.cubit.robot.defense.focus.detail": "Shocks only the last mob you hit",
   "gui.cubit.robot.defense.interval": "Interval",
   "gui.cubit.robot.defense.interval_value": "Every %s s",
+  "gui.cubit.robot.defense.locked_by_card": "Locked by the Galactic Patroller card",
   "gui.cubit.robot.defense.modes": "Modes",
   "gui.cubit.robot.defense.nearest": "The nearest",
   "gui.cubit.robot.defense.no_shock": "No shock in any tier",

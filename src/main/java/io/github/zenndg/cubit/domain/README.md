@@ -195,7 +195,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `PatrolProgress` | Onde o Cubit está na ronda: o ponto para onde vai e a pausa que ainda espera nele |
 | `WeaponChoice` | A arma que o Patrulheiro usa no alvo: a pistola de longe e no ar, a lâmina de perto e nenhuma no creeper que ele não pode alvejar |
 | `PatrolTargets` | O hostil que um Patrulheiro ataca: primeiro o que fere alguém, depois o mais perto de um protegido, sem repetir o alvo de outro Patrulheiro, salvo um hostil sozinho |
-| `PatrolRules` | O modo sempre Agressivo, o limite da perseguição, quando ele salta e quando recua do creeper |
+| `PatrolRules` | O modo sempre Agressivo, os modos que o card trava na aba Defense, o limite da perseguição, quando ele salta e quando recua do creeper |
 
 ## Regras e porquês
 
