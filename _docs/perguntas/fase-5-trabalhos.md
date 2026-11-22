@@ -724,11 +724,17 @@ Não há perguntas pendentes nesta fase.
 | 1777 | Pedido do desenvolvedor: depois do Patrulheiro, entra no roadmap o item "Servidor e Antenas, energia sem fio e carregamento de chunk". Ele junta os dois itens de hoje, "Antena e carregamento de chunks" (#205) e "Robot Server, log e viagem até o Dock" (#206)? | Um item só, logo depois do Patrulheiro, com as duas issues, #205 e #206, e a energia sem fio. Os dois itens do fim da Fase 5 saem de lá. A recomendação foi aceita |
 | 1778 | O que é a energia sem fio, que ainda não existe em nenhum documento? | Só anotar, sem decidir: entra no roadmap pelo nome e fica para o refinamento do item. A recomendação foi aceita |
 | 1779 | Onde o item entra em relação à issue do teleporte longo (1746), que estava logo depois do Patrulheiro? | O desenvolvedor disse "nao vamos refinar agora": o item entra logo depois do Patrulheiro, e a ordem em relação ao teleporte longo fica para depois |
+| 1780 | Há algo a acrescentar à entrega 2 do PR 4 do Patrulheiro, as animações do visor, da tela, da guarda, da lâmina e das asas, com a lâmina acesa e as asas em uso sincronizadas com o cliente? | Nada a acrescentar (1771) |
+| 1781 | Como é feita a textura da tela do Patrulheiro com o visor baixado, com os olhos decididos ciano e as marcas de mira nos cantos? | Por prompt, com arte do desenvolvedor: o agente escreve o prompt em `tmp/arte/patrulheiro/prompt.md`, com a `normal.png` e a `alert.png` como gabarito, e até a arte chegar a tela usa a `alert.png` como provisória. A recomendação foi aceita |
+| 1782 | A arte da tela do Patrulheiro com o visor baixado, `tmp/arte/patrulheiro/tela_visor_baixado.png`, com o brilho derivado por script, está aceita? | O desenvolvedor disse "arte aceita": entra em `general_robot_screen/patroller.png` e `general_robot_screen_glow/patroller.png`. Detalha a 1781 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 18:12 | Registra a resposta 1782. |
+| Zennd | 2026-11-22 18:01 | Registra a resposta 1781. |
+| Zennd | 2026-11-22 18:00 | Registra a resposta 1780. |
 | Zennd | 2026-11-22 17:59 | Registra as respostas 1777 a 1779. |
 | Zennd | 2026-11-22 17:53 | Registra a resposta 1776. |
 | Zennd | 2026-11-22 17:35 | Registra a resposta 1775. |
