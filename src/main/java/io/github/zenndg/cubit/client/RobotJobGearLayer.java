@@ -27,7 +27,8 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
  * because a flat item of the game looked wrong there (answers 1312 and 1324). They stay hidden in
  * the body and in the other layers, and only this layer shows them, with a picture of each job that
  * is transparent everywhere but on them. The hat covers the solar panel, which still charges
- * (answer 1201).
+ * (answer 1201). The Galactic Patroller has its own pieces instead: the helmet with the visor, the
+ * backpack with the wings, the pistol, the emitter of the blade and the badge (answer 1770).
  */
 final class RobotJobGearLayer extends GeoRenderLayer<RobotEntity> {
   private static final String TEXTURE_PATH = "textures/entity/%s_%s.png";
@@ -41,6 +42,18 @@ final class RobotJobGearLayer extends GeoRenderLayer<RobotEntity> {
   private static final String COOK_HAT = "cook_hat";
   private static final String COOK_LADLE = "cook_ladle";
 
+  /** The pieces of the Galactic Patroller, from the accepted concept image (answers 1592, 1770). */
+  private static final List<String> PATROLLER_GEAR =
+      List.of(
+          PatrollerGear.HELMET,
+          PatrollerGear.VISOR,
+          PatrollerGear.BACKPACK,
+          PatrollerGear.RIGHT_WING,
+          PatrollerGear.LEFT_WING,
+          PatrollerGear.PISTOL,
+          PatrollerGear.EMITTER,
+          PatrollerGear.BADGE);
+
   /** The tools that are part of the model in the backpack, which leave when the claw takes one. */
   private static final Map<RobotJob, List<String>> MODELED_TOOLS =
       Map.of(
@@ -52,7 +65,8 @@ final class RobotJobGearLayer extends GeoRenderLayer<RobotEntity> {
           RobotJob.FISHER, List.of(FISHER_HAT, BACKPACK),
           RobotJob.FARMER, List.of(FARMER_HAT, BACKPACK),
           RobotJob.ORGANIZER, List.of(ORGANIZER_CAP, BACKPACK, ORGANIZER_BOOK, ORGANIZER_QUILL),
-          RobotJob.COOK, List.of(COOK_HAT, BACKPACK, COOK_LADLE));
+          RobotJob.COOK, List.of(COOK_HAT, BACKPACK, COOK_LADLE),
+          RobotJob.PATROLLER, PATROLLER_GEAR);
   private static final int NO_TINT = -1;
 
   private final Map<RobotJob, ResourceLocation> textures = new EnumMap<>(RobotJob.class);
@@ -92,7 +106,7 @@ final class RobotJobGearLayer extends GeoRenderLayer<RobotEntity> {
     if (RobotJobLook.toolInClaw(robot)) {
       setHidden(bones, MODELED_TOOLS.getOrDefault(job, List.of()), true);
     }
-    RenderType type = RenderType.entityCutoutNoCull(textures.get(job));
+    RenderType type = renderType(job);
     getRenderer()
         .reRender(
             model,
@@ -108,6 +122,13 @@ final class RobotJobGearLayer extends GeoRenderLayer<RobotEntity> {
     setHidden(bones, BONES.get(job), true);
   }
 
+  /** The visor of the Patroller is a translucent lens, so its picture is drawn blended. */
+  private RenderType renderType(RobotJob job) {
+    return job == RobotJob.PATROLLER
+        ? RenderType.entityTranslucent(textures.get(job))
+        : RenderType.entityCutoutNoCull(textures.get(job));
+  }
+
   private static void setHidden(
       Function<String, GeoBone> bones, List<String> names, boolean hidden) {
     for (String name : names) {
@@ -116,5 +137,17 @@ final class RobotJobGearLayer extends GeoRenderLayer<RobotEntity> {
         bone.setHidden(hidden);
       }
     }
+  }
+
+  /** The bones of the pieces of the Galactic Patroller in the model. */
+  private static final class PatrollerGear {
+    private static final String HELMET = "patroller_helmet";
+    private static final String VISOR = "patroller_visor";
+    private static final String BACKPACK = "patroller_backpack";
+    private static final String RIGHT_WING = "patroller_right_wing";
+    private static final String LEFT_WING = "patroller_left_wing";
+    private static final String PISTOL = "patroller_pistol";
+    private static final String EMITTER = "patroller_emitter";
+    private static final String BADGE = "patroller_badge";
   }
 }
