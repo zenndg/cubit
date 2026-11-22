@@ -42,6 +42,29 @@ public final class PatrolRules {
         && check.heightAbove() <= check.jumpHeight();
   }
 
+  /** How wide the cone of a shot heading for someone is, in degrees (answer 1735). */
+  private static final double HEADING_CONE = 20;
+
+  /**
+   * A shot heading for someone: its motion within the cone of the way to them (answer 1735). A shot
+   * that does not move heads for no one.
+   */
+  public static boolean headsFor(
+      double motionX,
+      double motionY,
+      double motionZ,
+      double towardX,
+      double towardY,
+      double towardZ) {
+    double motion = Math.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
+    double toward = Math.sqrt(towardX * towardX + towardY * towardY + towardZ * towardZ);
+    if (motion == 0 || toward == 0) {
+      return false;
+    }
+    double cosine = (motionX * towardX + motionY * towardY + motionZ * towardZ) / (motion * toward);
+    return cosine >= Math.cos(Math.toRadians(HEADING_CONE));
+  }
+
   /** How hard the blade pushes: a base, and a step for each level of the tier (answer 1642). */
   public record Knockback(double base, double step) {
     private static final String INVALID_PUSH = "Invalid knockback of the blade: ";

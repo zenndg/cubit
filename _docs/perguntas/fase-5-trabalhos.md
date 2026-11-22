@@ -678,12 +678,15 @@ Não há perguntas pendentes nesta fase.
 | 1731 | Creeper (1641): com carga, se o creeper acende perto de um protegido, mas o Patrulheiro já está fora do raio de 4 blocos, o que ele faz? | Segue atirando: o recuo é dele mesmo, só quando está dentro do raio, e ele continua atirando para derrubar o creeper antes da explosão. Sem carga, fica a 6 blocos do creeper, no caminho até o protegido mais próximo, como um escudo. Detalha a 1641 |
 | 1732 | Há algo a acrescentar à entrega 5 do PR 3, as correções (1635 a 1642)? | Nada a acrescentar (1631) |
 | 1733 | Com o dono offline, o jogo não derruba XP do mob, porque nenhum player o feriu. O que o Patrulheiro faz? | Nada, como no jogo: sem XP, não há energia. A absorção vale com o dono online e a mais de 24 blocos, ou em outra dimensão. Corrige a 1728, que citava o dono offline |
+| 1734 | Para onde vai a bola de fogo do ghast rebatida pelo globo (1687)? | De volta ao ghast que a lançou, como quando um player acerta no tempo certo. Sem o ghast à vista, ela segue para onde o Patrulheiro olha, como no jogo. Detalha a 1687 |
+| 1735 | Como ele sabe que a bola de fogo vai para um protegido? | Uma bola de fogo no alcance da pistola, com o movimento a até 20° da direção de um protegido a até 32 blocos, inclusive ele mesmo, vira o alvo na hora, antes de qualquer hostil. O ângulo é uma regra do domínio, sem chave no config. Detalha a 1687 |
 | 1736 | Há algo a acrescentar à entrega 6 do PR 3, as armas (1687, 1695 e 1696)? | Nada a acrescentar (1631) |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 20:45 | Registra as respostas 1734 e 1735. |
 | Zennd | 2026-11-22 20:30 | Registra a resposta 1736. |
 | Zennd | 2026-11-22 20:10 | Registra as respostas 1728 a 1730 e 1733. |
 | Zennd | 2026-11-22 19:45 | Registra as respostas 1731 e 1732. |

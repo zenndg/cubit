@@ -203,7 +203,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `WeaponChoice` | A arma que o Patrulheiro usa no alvo: a pistola de longe e no ar, a lâmina de perto e nenhuma no creeper que ele não pode alvejar. Ferido, com cautela, ele usa a pistola mesmo de perto, e a lâmina só sem poder atirar (pergunta 1686). Contra um alvo que o globo não fere, como o enderman, que desvia, e o breeze, que o rebate, só a lâmina (perguntas 1695 e 1696) |
 | `PatrolTargets` | O hostil que a equipe de Patrulheiros ataca, todos juntos: primeiro o mais perto de um Patrulheiro ferido, depois o que fere alguém, depois o mais perto de um protegido. A equipe mantém o alvo até ele cair ou sair do alcance, salvo se surgir um de tipo mais urgente |
 | `PatrolTeam` | A equipe dos Patrulheiros de um dono: quem luta junto (mesma dimensão, com áreas que se tocam ou dentro do chamado), o alcance do chamado, o raio do socorro e a vida abaixo da qual um Patrulheiro está ferido |
-| `PatrolRules` | O modo sempre Agressivo, os modos que o card trava na aba Defense, o limite da perseguição, quando ele salta e quando recua do creeper |
+| `PatrolRules` | O modo sempre Agressivo, os modos que o card trava na aba Defense, o limite da perseguição, quando ele salta e quando recua do creeper. Também guarda o escudo contra o creeper, o empurrão da lâmina e o cone de 20° de um tiro que vai para alguém (perguntas 1642, 1731 e 1735) |
 
 ## Regras e porquês
 

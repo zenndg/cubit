@@ -19,11 +19,14 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -68,6 +71,10 @@ public final class PatrollerGameTests {
   private static final float ONE_SHOT = 1f;
   private static final float WOUNDED = 20f;
   private static final float ALWAYS_DROPS = 2f;
+  private static final int GHAST_X = 19;
+  private static final int FIREBALL_X = 12;
+  private static final int FIREBALL_POWER = 1;
+  private static final String NOT_RETURNED = "The orb should have sent the fireball back";
   private static final String NOT_STORED = "The drops of a kill should go into the inventory";
   private static final String NO_CARE = "A wounded Patroller should shoot even a near hostile";
   private static final String NO_INVESTIGATION = "The Patroller should look where the hostile was";
@@ -276,5 +283,22 @@ public final class PatrollerGameTests {
     husk.setHealth(ONE_SHOT);
     helper.succeedWhen(
         () -> helper.assertTrue(robot.inventory().countItem(Items.IRON_SWORD) == 1, NOT_STORED));
+  }
+
+  /** A fireball of a ghast heading for it is shot back (answers 1687, 1734 and 1735). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void aFireballHeadingForItIsShotBack(GameTestHelper helper) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    patroller(helper, owner);
+    Ghast ghast =
+        helper.spawnWithNoFreeWill(EntityType.GHAST, new BlockPos(GHAST_X, STAND_Y, MIDDLE_Z));
+    BlockPos from = helper.absolutePos(new BlockPos(FIREBALL_X, STAND_Y, MIDDLE_Z));
+    BlockPos to = helper.absolutePos(ROBOT_FLOOR.above());
+    Vec3 toward = Vec3.atCenterOf(to).subtract(Vec3.atCenterOf(from));
+    LargeFireball fireball = new LargeFireball(helper.getLevel(), ghast, toward, FIREBALL_POWER);
+    fireball.setPos(Vec3.atCenterOf(from));
+    helper.getLevel().addFreshEntity(fireball);
+    helper.succeedWhen(
+        () -> helper.assertTrue(fireball.getOwner() instanceof RobotEntity, NOT_RETURNED));
   }
 }

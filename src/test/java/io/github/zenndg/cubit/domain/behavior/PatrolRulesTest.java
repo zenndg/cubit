@@ -15,6 +15,9 @@ class PatrolRulesTest {
   private static final int SHIELD_KEEP_BLOCKS = 6;
   private static final double SHIELD_PRECISION = 1e-9;
   private static final double PUSH_BASE = 0.4;
+  private static final double STRAIGHT = 10;
+  private static final double SLIGHTLY = 3;
+  private static final double WIDE = 6;
   private static final double PUSH_STEP = 0.5;
   private static final int PUSH_LEVEL = 2;
   private static final double PUSH_AT_LEVEL = 1.4;
@@ -96,5 +99,18 @@ class PatrolRulesTest {
     assertEquals(PUSH_AT_LEVEL, push.strength(PUSH_LEVEL), SHIELD_PRECISION);
     assertThrows(
         IllegalArgumentException.class, () -> new PatrolRules.Knockback(NEGATIVE_PUSH, PUSH_STEP));
+  }
+
+  @Test
+  void aShotHeadsForSomeoneWithinTheCone() {
+    assertTrue(PatrolRules.headsFor(1, 0, 0, STRAIGHT, 0, 0));
+    assertTrue(PatrolRules.headsFor(1, 0, 0, STRAIGHT, 0, SLIGHTLY));
+    assertFalse(PatrolRules.headsFor(1, 0, 0, STRAIGHT, 0, WIDE));
+    assertFalse(PatrolRules.headsFor(-1, 0, 0, STRAIGHT, 0, 0));
+  }
+
+  @Test
+  void aStillShotHeadsForNoOne() {
+    assertFalse(PatrolRules.headsFor(0, 0, 0, STRAIGHT, 0, 0));
   }
 }

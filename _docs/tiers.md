@@ -106,6 +106,8 @@ Valem para todos os tiers e ficam no config. Os marcados como planejados entram 
 | Patrulheiro: tempo sem ver o alvo até ele sumir de vista, `patroller_lost_sight_ticks` (pergunta 1721) | 2 s (40 ticks) |
 | Patrulheiro: energia de cada ponto de XP do abate, longe do dono, `patroller_xp_energy` (pergunta 1729) | 50 FE |
 | Patrulheiro: distância do dono até a qual o XP cai para ele, `patroller_xp_owner_distance` (pergunta 1728) | 24 blocos |
+| Patrulheiro: intervalo da procura de uma bola de fogo, `patroller_intercept_interval_ticks` (pergunta 1735) | 2 ticks |
+| Patrulheiro: distância até o protegido a quem a bola de fogo se dirige, `patroller_intercept_guard_distance` (pergunta 1735) | 32 blocos |
 | Patrulheiro: raio da explosão do creeper, de onde ele recua, `patroller_creeper_blast` (perguntas 1567 e 1642) | 4 blocos |
 | Patrulheiro: distância que mantém do creeper sem carga, `patroller_keep_away` (perguntas 1595 e 1642) | 6 blocos |
 | Patrulheiro: intervalo da procura de alvos, `patroller_search_interval_ticks` (pergunta 1642 e regra 21) | 0,5 s (10 ticks) |
@@ -309,6 +311,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 20:45 | Acrescenta a interceptação da bola de fogo (pergunta 1735). |
 | Zennd | 2026-11-22 20:10 | Acrescenta o XP como energia do Patrulheiro (perguntas 1728 e 1729). |
 | Zennd | 2026-11-22 18:10 | Acrescenta o tempo até o alvo sumir de vista (pergunta 1721). |
 | Zennd | 2026-11-22 14:50 | Acrescenta a cautela, o socorro e o retorno do Patrulheiro (perguntas 1686, 1689 e 1691). |

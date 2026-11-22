@@ -23,6 +23,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -45,6 +46,8 @@ public final class RobotPatrolCombat {
   private PatrolWatch watch = PatrolWatch.START;
   private final PatrolTrail trail = new PatrolTrail();
   private boolean threatNear;
+  private LargeFireball incoming;
+  private long nextIntercept;
   private long nextSearch;
 
   RobotPatrolCombat(RobotEntity robot) {
@@ -125,6 +128,9 @@ public final class RobotPatrolCombat {
       trail.tick(robot, target, weapon() == WeaponChoice.PISTOL);
     }
     long now = robot.level().getGameTime();
+    if (intercept(now)) {
+      return;
+    }
     if (now >= nextSearch) {
       nextSearch = now + CubitMod.CONFIG.patrol().searchIntervalTicks();
       search();
@@ -306,6 +312,28 @@ public final class RobotPatrolCombat {
   /** Under the low health it fights with care, by the pistol, from a distance (answer 1686). */
   boolean cautious() {
     return team().wounded(robot.getHealth(), robot.getMaxHealth());
+  }
+
+  /**
+   * A fireball heading for someone it protects comes before any hostile: it turns to it and shoots
+   * it back, with a check more often than the search, as a fireball is fast (answer 1735).
+   */
+  private boolean intercept(long now) {
+    if (now >= nextIntercept) {
+      nextIntercept = now + CubitMod.CONFIG.patrol().interceptIntervalTicks();
+      int range = spec().weapons().pistolRange();
+      incoming =
+          spec().canShoot(robot.battery())
+              ? PatrolIntercept.incoming(robot, range).orElse(null)
+              : null;
+    }
+    if (incoming == null || !incoming.isAlive() || incoming.getOwner() instanceof RobotEntity) {
+      incoming = null;
+      return false;
+    }
+    robot.getLookControl().setLookAt(incoming);
+    weapons.shoot(incoming, spec(), now);
+    return true;
   }
 
   /** What the movement goal reads to approach, stop or keep away. */

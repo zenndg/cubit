@@ -42,6 +42,12 @@ public final class PatrolSection {
   private static final String KNOCKBACK_BASE = "patroller_blade_knockback_base";
   private static final String KNOCKBACK_STEP = "patroller_blade_knockback_step";
   private static final String XP_ENERGY = "patroller_xp_energy";
+  private static final String INTERCEPT_INTERVAL = "patroller_intercept_interval_ticks";
+  private static final String INTERCEPT_GUARD = "patroller_intercept_guard_distance";
+  private static final int INTERCEPT_INTERVAL_DEFAULT = 2;
+  private static final int INTERCEPT_INTERVAL_MAX = 20;
+  private static final int INTERCEPT_GUARD_DEFAULT = 32;
+  private static final int INTERCEPT_GUARD_MAX = 64;
   private static final String XP_OWNER = "patroller_xp_owner_distance";
   private static final int XP_ENERGY_DEFAULT = 50;
   private static final int XP_ENERGY_MAX = 1000;
@@ -176,6 +182,16 @@ public final class PatrolSection {
     return new PatrolXp(fightKeys.xpEnergy.get(), fightKeys.xpOwner.get());
   }
 
+  /** How often it looks for a fireball heading for someone it protects (answer 1735). */
+  public int interceptIntervalTicks() {
+    return fightKeys.interceptInterval.get();
+  }
+
+  /** How far from a fireball the one it heads for may be (answer 1735). */
+  public int interceptGuardDistance() {
+    return fightKeys.interceptGuard.get();
+  }
+
   private PatrolSettings.Round round() {
     int minTicks = stopMinTicks.get();
     int maxTicks = stopMaxTicks.get();
@@ -208,6 +224,8 @@ public final class PatrolSection {
     final ModConfigSpec.DoubleValue knockbackStep;
     final ModConfigSpec.IntValue xpEnergy;
     final ModConfigSpec.IntValue xpOwner;
+    final ModConfigSpec.IntValue interceptInterval;
+    final ModConfigSpec.IntValue interceptGuard;
 
     FightKeys(ModConfigSpec.Builder builder) {
       alert = builder.defineInRange(ALERT, ALERT_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
@@ -229,6 +247,12 @@ public final class PatrolSection {
           builder.defineInRange(KNOCKBACK_STEP, KNOCKBACK_STEP_DEFAULT, MIN_ZERO, KNOCKBACK_MAX);
       xpEnergy = builder.defineInRange(XP_ENERGY, XP_ENERGY_DEFAULT, MIN_ZERO, XP_ENERGY_MAX);
       xpOwner = builder.defineInRange(XP_OWNER, XP_OWNER_DEFAULT, MIN_ONE, XP_OWNER_MAX);
+      interceptInterval =
+          builder.defineInRange(
+              INTERCEPT_INTERVAL, INTERCEPT_INTERVAL_DEFAULT, MIN_ONE, INTERCEPT_INTERVAL_MAX);
+      interceptGuard =
+          builder.defineInRange(
+              INTERCEPT_GUARD, INTERCEPT_GUARD_DEFAULT, MIN_ONE, INTERCEPT_GUARD_MAX);
     }
   }
 }

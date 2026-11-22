@@ -15,6 +15,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
@@ -52,11 +53,7 @@ public final class LaserOrb extends Projectile {
 
   /** Fired by the robot from its eyes to the center of the target. */
   static void shoot(
-      RobotEntity robot,
-      LivingEntity target,
-      float damage,
-      int slownessLevel,
-      PatrolSettings settings) {
+      RobotEntity robot, Entity target, float damage, int slownessLevel, PatrolSettings settings) {
     LaserOrb orb = new LaserOrb(CubitEntities.LASER_ORB.get(), robot.level());
     orb.setOwner(robot);
     orb.damage = damage;
@@ -80,6 +77,13 @@ public final class LaserOrb extends Projectile {
       return;
     }
     HitResult hit = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
+    if (hit instanceof EntityHitResult found
+        && found.getEntity() instanceof LargeFireball shot
+        && getOwner() instanceof RobotEntity robot) {
+      PatrolIntercept.returnToSender(shot, robot);
+      discard();
+      return;
+    }
     if (hit.getType() != HitResult.Type.MISS) {
       // As in the game: a mob that sends projectiles back, as the breeze, turns the orb (1696).
       hitTargetOrDeflectSelf(hit);
@@ -97,10 +101,13 @@ public final class LaserOrb extends Projectile {
    */
   @Override
   protected boolean canHitEntity(Entity entity) {
-    return super.canHitEntity(entity)
-        && entity instanceof LivingEntity living
-        && getOwner() instanceof RobotEntity robot
-        && PatrolProtection.isTarget(robot, living);
+    if (!super.canHitEntity(entity) || !(getOwner() instanceof RobotEntity robot)) {
+      return false;
+    }
+    if (entity instanceof LargeFireball shot) {
+      return !(shot.getOwner() instanceof RobotEntity);
+    }
+    return entity instanceof LivingEntity living && PatrolProtection.isTarget(robot, living);
   }
 
   @Override

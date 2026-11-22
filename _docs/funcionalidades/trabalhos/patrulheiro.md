@@ -80,7 +80,7 @@ Com a vida abaixo de 25%, ele luta com cautela: deixa o corpo a corpo, usa só a
 
 ### Bola de fogo
 
-Uma bola de fogo de ghast indo para um protegido vira alvo da pistola, e o globo a rebate, como o soco do player no jogo. Ele não desvia nem intercepta flechas: o atirador que mira num protegido já é o primeiro alvo (pergunta 1687).
+Uma bola de fogo de ghast indo para um protegido vira alvo da pistola, e o globo a rebate, como o soco do player no jogo. Ela conta como indo para um protegido quando o movimento fica a até 20° da direção dele, a até 32 blocos, e vem antes de qualquer hostil, conferida a cada 2 ticks, porque é rápida. Rebatida, volta ao ghast que a lançou ou, sem ele à vista, segue para onde o Patrulheiro olha. O golpe de 1.000 do jogo só vale quando quem rebate é um player, então o ghast leva o dano normal da explosão. Ele não desvia nem intercepta flechas: o atirador que mira num protegido já é o primeiro alvo (perguntas 1687, 1734 e 1735).
 
 ### Perseguição
 
@@ -252,7 +252,7 @@ Sons próprios em `.ogg`, descritos em [`sons.md`](../../conceito/sons.md#patrul
 | Receita | `cubit:ml_patroller` | Card Casing, Circuit Board e estrela de fogo de artifício, liberada pelo Elite Module (pergunta 1576) |
 | Config, `allowed_jobs` | `patroller` | No lugar de `defender`, no Elite e no Ultimate (pergunta 1569) |
 | Config, por tier | `patroller_pistol_damage`, `patroller_pistol_range`, `patroller_pistol_interval_ticks`, `patroller_pistol_cost`, `patroller_slowness_level`, `patroller_blade_damage`, `patroller_blade_interval_ticks`, `patroller_blade_knockback`, `patroller_armor`, `patroller_search_radius`, `patroller_jump_height`, `patroller_jump_cost`, `patroller_route_points`, `patroller_area_size`, `patroller_blade_reach`, `patroller_gap_distance` e `patroller_return_charge_percent` | Os números por tier da tabela acima (perguntas 1642, 1648 e 1689) |
-| Config, geral | `patroller_slowness_chance`, `patroller_slowness_ticks`, `patroller_head_chance`, `patroller_chase_distance`, `patroller_weapon_switch_distance`, `patroller_patrol_speed`, `patroller_stop_min_ticks`, `patroller_stop_max_ticks`, `patroller_stop_min_distance`, `patroller_stop_max_distance`, `patroller_alert_ticks`, `patroller_owner_check_ticks`, `patroller_owner_check_distance`, `patroller_visor_calm_ticks`, `patroller_creeper_blast`, `patroller_keep_away`, `patroller_search_interval_ticks`, `patroller_blade_knockback_base`, `patroller_blade_knockback_step`, `patroller_call_range`, `patroller_wing_detour_factor`, `patroller_low_health_percent`, `patroller_rescue_radius`, `patroller_lost_sight_ticks`, `patroller_xp_energy` e `patroller_xp_owner_distance` | 20%, 3 s, 50%, 16 blocos, 4 blocos, 0,6, 3 s, 5 s, 12 blocos, 20 blocos, 0,5 s, 1 s, 16 blocos, 3 s, 4 blocos, 6 blocos, 0,5 s, 0,4, 0,5, 32 blocos, 2, 25%, 8 blocos, 2 s, 50 FE e 24 blocos (perguntas 1614 a 1618, 1632, 1642, 1644, 1651, 1686, 1691, 1721, 1728 e 1729) |
+| Config, geral | `patroller_slowness_chance`, `patroller_slowness_ticks`, `patroller_head_chance`, `patroller_chase_distance`, `patroller_weapon_switch_distance`, `patroller_patrol_speed`, `patroller_stop_min_ticks`, `patroller_stop_max_ticks`, `patroller_stop_min_distance`, `patroller_stop_max_distance`, `patroller_alert_ticks`, `patroller_owner_check_ticks`, `patroller_owner_check_distance`, `patroller_visor_calm_ticks`, `patroller_creeper_blast`, `patroller_keep_away`, `patroller_search_interval_ticks`, `patroller_blade_knockback_base`, `patroller_blade_knockback_step`, `patroller_call_range`, `patroller_wing_detour_factor`, `patroller_low_health_percent`, `patroller_rescue_radius`, `patroller_lost_sight_ticks`, `patroller_xp_energy`, `patroller_xp_owner_distance`, `patroller_intercept_interval_ticks` e `patroller_intercept_guard_distance` | 20%, 3 s, 50%, 16 blocos, 4 blocos, 0,6, 3 s, 5 s, 12 blocos, 20 blocos, 0,5 s, 1 s, 16 blocos, 3 s, 4 blocos, 6 blocos, 0,5 s, 0,4, 0,5, 32 blocos, 2, 25%, 8 blocos, 2 s, 50 FE, 24 blocos, 2 ticks e 32 blocos (perguntas 1614 a 1618, 1632, 1642, 1644, 1651, 1686, 1691, 1721, 1728, 1729 e 1735) |
 | NBT da entidade | `PatrolRoute` | Os pontos da rota, em ordem. Sem a chave no save, a rota é vazia. Não vai para o item (perguntas 1582 e 1602) |
 | Entidade | `cubit:laser_orb` | O globo de laser da pistola |
 | Tags de entidade | `cubit:patroller_targets` e `cubit:patroller_ignores` | Os mobs que ele sempre ataca e os que nunca ataca, vazias no mod (pergunta 1634) |
@@ -278,6 +278,7 @@ Uma issue, a #198 renomeada, e três PRs testados no jogo (perguntas 1578, 1605 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 20:45 | Detalha a bola de fogo rebatida (perguntas 1734 e 1735). |
 | Zennd | 2026-11-22 20:10 | Acrescenta o XP como energia longe do dono (perguntas 1728 a 1730 e 1733). |
 | Zennd | 2026-11-22 19:50 | Detalha o creeper perto de um protegido (pergunta 1731). |
 | Zennd | 2026-11-22 18:10 | Detalha quando o alvo some de vista e o hostil que aparece na investigação (perguntas 1721 a 1723). |
