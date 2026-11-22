@@ -663,11 +663,13 @@ Não há perguntas pendentes nesta fase.
 | 1716 | A regra "Antes do PR" entra como 46, se isso renumera as regras 46 a 55, citadas 59 vezes em 21 arquivos, 41 delas nas respostas? | Sim, como 46: as regras 46 a 55 viram 47 a 56, e as 59 citações são atualizadas, inclusive as das respostas, cada uma com uma nota da renumeração. A recomendação, 56 no fim, foi recusada. Confirma a 1715 |
 | 1717 | Há algo a acrescentar à tarefa dos gates, do script do Mac e do documento do que vem antes do PR, antes da issue e da branch (regra 51, antes 50)? | Nada a acrescentar: pode seguir |
 | 1718 | Como fica o cerco (1645), com vários Patrulheiros no mesmo alvo? | A ordem é fixa, pelo UUID: o primeiro mantém o lado de onde veio, e os outros se espalham em ângulos iguais em volta do alvo. Na lâmina, cada um vai ao seu ponto a 1,8 bloco do alvo; na pistola, mantém a própria distância, entre a troca de arma e o alcance, e se move só pela volta do círculo. Sozinho, luta como hoje, e o recuo do creeper vem antes do cerco. Nada a acrescentar (1631). Detalha a 1645 |
+| 1719 | Há algo a acrescentar à ronda espaçada (3c), em que a mesma rota são os mesmos pontos na mesma ordem, as mesmas bordas são a mesma área e o ponto mais longe é o mais distante, no laço, do ponto mais perto de cada colega? | Nada a acrescentar (1631). Detalha a 1708 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 17:20 | Registra a resposta 1719. |
 | Zennd | 2026-11-22 17:10 | Registra a resposta 1718. |
 | Zennd | 2026-11-22 17:00 | Atualiza a numeração das regras do `AGENTS.md` nas respostas 1622 a 1709 (pergunta 1716). |
 | Zennd | 2026-11-22 16:35 | Registra as respostas 1710 a 1717, dos gates, do script do macOS e do que vem antes do PR, e atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). As respostas 1622 a 1709 estão na branch do Patrulheiro (#198). |

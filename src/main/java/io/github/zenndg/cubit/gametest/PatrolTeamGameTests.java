@@ -9,6 +9,7 @@ import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.entity.RobotEntity;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
 import io.github.zenndg.cubit.registry.CubitItems;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -23,8 +24,8 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 /**
  * The team of Galactic Patrollers in the world: all on one target, the call that brings a mate from
- * beyond its search, the rescue of a wounded one and the siege from every side (answers 1643, 1644,
- * 1645 and 1691).
+ * beyond its search, the rescue of a wounded one, the siege from every side and the round from
+ * different points (answers 1643 to 1646, 1691 and 1708).
  */
 @GameTestHolder(CubitMod.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -61,6 +62,9 @@ public final class PatrolTeamGameTests {
   private static final double SPREAD_DEGREES = 120;
   private static final double HALF_TURN = 180;
   private static final double FULL_TURN = 360;
+  private static final int[] ROUTE_X = {2, 8, 14, 20};
+  private static final double SPREAD_BLOCKS = 6;
+  private static final String TOGETHER = "The team should walk the round from apart points";
 
   private PatrolTeamGameTests() {}
 
@@ -185,5 +189,22 @@ public final class PatrolTeamGameTests {
     double second = Math.atan2(other.getZ() - target.getZ(), other.getX() - target.getX());
     double degrees = Math.toDegrees(Math.abs(first - second));
     return degrees > HALF_TURN ? FULL_TURN - degrees : degrees;
+  }
+
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void theTeamWalksTheRoundFromDifferentPoints(GameTestHelper helper) {
+    ServerPlayer owner = owner(helper);
+    RobotEntity one = patroller(helper, owner, NEAR_X, FIRST_Z, HEALTH);
+    RobotEntity other = patroller(helper, owner, NEAR_X, LAST_Z, HEALTH);
+    for (RobotEntity robot : List.of(one, other)) {
+      for (int x : ROUTE_X) {
+        robot
+            .workArea()
+            .work()
+            .patrol()
+            .click(owner, helper.absolutePos(new BlockPos(x, FLOOR_Y, MIDDLE_Z)));
+      }
+    }
+    helper.succeedWhen(() -> helper.assertTrue(one.distanceTo(other) > SPREAD_BLOCKS, TOGETHER));
   }
 }

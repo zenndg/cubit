@@ -10,8 +10,9 @@ import net.minecraft.world.phys.Vec3;
 /**
  * The round of the Galactic Patroller: from point to point of its route, in a loop, at the pace of
  * a lookout, stopping at each point and every so many blocks on the way to look around (answers
- * 1561, 1614, 1615 and 1617). A point it cannot reach is skipped. Without points the area goal
- * walks the edges instead, and a fight comes first.
+ * 1561, 1614, 1615 and 1617), each one of the team from a different point (answers 1646 and 1708).
+ * A point it cannot reach is skipped. Without points the area goal walks the edges instead, and a
+ * fight comes first.
  */
 final class PatrolGoal extends Goal {
   private static final double ARRIVED_BLOCKS = 1.5;
@@ -51,6 +52,7 @@ final class PatrolGoal extends Goal {
     repathCountdown = 0;
     pause.reset();
     resetProgress();
+    robot.workArea().work().patrol().spread();
   }
 
   @Override

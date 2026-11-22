@@ -64,6 +64,7 @@ final class AreaWorkGoal extends Goal {
     repathCountdown = 0;
     pause.reset();
     resetProgress();
+    spreadCorner();
   }
 
   @Override
@@ -109,6 +110,13 @@ final class AreaWorkGoal extends Goal {
     }
   }
 
+  /** The Patrollers on the same edges each walk to a different corner (answers 1646 and 1708). */
+  private void spreadCorner() {
+    if (patroller()) {
+      corner = robot.workArea().work().patrol().spreadCorner(corner);
+    }
+  }
+
   private boolean patroller() {
     return robot.workArea().work().patrol().hasCard();
   }
@@ -131,6 +139,7 @@ final class AreaWorkGoal extends Goal {
 
   private void nextCorner() {
     corner++;
+    spreadCorner();
     repathCountdown = 0;
     resetProgress();
   }

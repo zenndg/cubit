@@ -7,7 +7,9 @@ import io.github.zenndg.cubit.domain.tier.AreaSpec;
  * 1051). The base is the side the limits of the tier count, and the height comes from the corners.
  */
 public record WorkArea(AreaCorner min, AreaCorner max, String dimension) {
-  private static final int CORNERS = 4;
+  /** The corners of the base, which the round walks in a loop. */
+  public static final int CORNERS = 4;
+
   private static final double HALF = 0.5;
   private static final String INVERTED_MESSAGE = "The corners of an area are inverted";
   private static final String NO_DIMENSION_MESSAGE = "An area needs a dimension";
