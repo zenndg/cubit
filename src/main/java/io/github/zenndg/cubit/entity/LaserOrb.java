@@ -81,7 +81,8 @@ public final class LaserOrb extends Projectile {
     }
     HitResult hit = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
     if (hit.getType() != HitResult.Type.MISS) {
-      onHit(hit);
+      // As in the game: a mob that sends projectiles back, as the breeze, turns the orb (1696).
+      hitTargetOrDeflectSelf(hit);
     }
     setPos(position().add(getDeltaMovement()));
     if (level().isClientSide()) {

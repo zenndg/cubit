@@ -163,6 +163,12 @@ public final class PatrollerGameTests {
     attacks(helper, EntityType.ENDERMAN, true);
   }
 
+  /** The breeze sends the orb back, so only the blade hurts it (answer 1696). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void aBreezeIsFoughtWithTheBlade(GameTestHelper helper) {
+    attacks(helper, EntityType.BREEZE, true);
+  }
+
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
   public static void aHoglinIsAttacked(GameTestHelper helper) {
     attacks(helper, EntityType.HOGLIN, true);

@@ -18,8 +18,10 @@ import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.stream.Stream;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
@@ -293,6 +295,14 @@ public final class RobotPatrolCombat {
     robot.setYBodyRot(yaw);
   }
 
+  /**
+   * A target the orb cannot hurt: the enderman, which dodges it as it dodges arrows, and the mobs
+   * of the game that send projectiles back, as the breeze (answers 1695 and 1696).
+   */
+  private static boolean shotUseless(LivingEntity mob) {
+    return mob instanceof EnderMan || mob.getType().is(EntityTypeTags.DEFLECTS_PROJECTILES);
+  }
+
   /** Under the low health it fights with care, by the pistol, from a distance (answer 1686). */
   boolean cautious() {
     return team().wounded(robot.getHealth(), robot.getMaxHealth());
@@ -311,12 +321,14 @@ public final class RobotPatrolCombat {
             spec().canShoot(robot.battery()) && robot.hasLineOfSight(target),
             robot.distanceTo(target) <= spec().weapons().pistolRange(),
             settings().weaponSwitchDistance(),
-            cautious()));
+            cautious(),
+            shotUseless(target)));
   }
 
   private void jumpIfNeeded() {
     double height = target.getY() - robot.getY();
-    boolean shot = spec().canShoot(robot.battery()) && robot.hasLineOfSight(target);
+    boolean shot =
+        spec().canShoot(robot.battery()) && robot.hasLineOfSight(target) && !shotUseless(target);
     PatrolRules.JumpCheck check =
         new PatrolRules.JumpCheck(
             inAir(target),
