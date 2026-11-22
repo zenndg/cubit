@@ -38,16 +38,17 @@ Os arquivos ficam em `src/main/resources/assets/cubit/sounds/general_robot/patro
 | `blade_swing.ogg` | Cada golpe da lâmina | Menos de 0,5 s. Um sopro elétrico rápido, que passa da esquerda para a direita. Variações de tom no `sounds.json` |
 | `blade_hit.ogg` | A lâmina acertando um mob, com o empurrão | Menos de 0,5 s. Um estalo de energia curto e encorpado, com um leve crepitar |
 | `blade_off.ogg` | A lâmina apagando, ao sair do combate | Menos de 0,7 s. O "fuuum" ao contrário, descendo, e um clique do emissor |
-| `wings_open.ogg` | As asas abrindo, no salto ou na queda | Menos de 1 s. Um clique mecânico duplo das dobradiças, seguido do sopro dos propulsores acendendo |
+| `wings_open.ogg` | As asas abrindo, no salto, no pulo de asa, no vão, na descida e na queda (perguntas 1647 a 1649) | Menos de 1 s. Um clique mecânico duplo das dobradiças, seguido do sopro dos propulsores acendendo |
 | `wings_close.ogg` | As asas fechando ao tocar o chão | Menos de 0,5 s. O clique das dobradiças e o sopro apagando |
-| `jump.ogg` | O salto com as asas | Menos de 0,7 s. Um impulso de propulsor curto e grave, como um jato pequeno |
-| `visor_down.ogg` | O visor baixando, ao entrar em combate | Menos de 0,5 s. Um deslize de servo e um bipe de mira travada |
-| `visor_up.ogg` | O visor subindo, ao voltar à patrulha | Menos de 0,5 s. O deslize de servo ao contrário e um bipe calmo |
+| `jump.ogg` | O impulso das asas, no salto do combate, no pulo de asa e no início de um vão. A descida e a queda não têm impulso | Menos de 0,7 s. Um impulso de propulsor curto e grave, como um jato pequeno |
+| `visor_down.ogg` | O visor baixando, no alerta ao avistar um hostil, antes do primeiro ataque (pergunta 1623) | Menos de 0,5 s. Um deslize de servo e um bipe de mira travada |
+| `visor_up.ogg` | O visor subindo, depois da investigação ou de 3 s sem ameaça (pergunta 1629) | Menos de 0,5 s. O deslize de servo ao contrário e um bipe calmo |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 13:00 | Liga os sons das asas e do visor ao pulo de asa, ao alerta e ao visor com calma (perguntas 1623, 1629 e 1647 a 1649). |
 | Zennd | 2026-11-21 23:02 | Descreve os sons do Patrulheiro Galático (pergunta 1575). |
 | Zennd | 2026-11-21 12:30 | Descreve os sons da Engineering Desk (perguntas 1451, 1452 e 1477). |
 | Marcelo Fabiano | 2026-11-07 16:27 | Registra o volume maior dos alertas. |

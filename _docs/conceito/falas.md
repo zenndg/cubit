@@ -194,6 +194,8 @@ Uma das três frases é sorteada toda vez que o card é colocado e a tela é fec
 
 Num evento do trabalho, com 20% de chance e pelo menos 2 min entre duas falas do mesmo Cubit, para o dono a até 32 blocos dele, na mesma dimensão (perguntas 1585 e 1586). Os números ficam em [`tiers.md`](../tiers.md#valores-gerais).
 
+Numa equipe de Patrulheiros no mesmo combate, só um deles fala a frase de entrar em combate e a de abate, para não virar um coro (pergunta 1646).
+
 | Profissão | Evento | Inglês, no jogo | Português |
 |---|---|---|---|
 | Patrulheiro | Entra em combate | `Stay calm. Stay focused.` | Calma. Foco. |
@@ -256,6 +258,7 @@ Num evento do trabalho, com 20% de chance e pelo menos 2 min entre duas falas do
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 13:00 | Acrescenta a fala única da equipe de Patrulheiros (pergunta 1646). |
 | Zennd | 2026-11-21 23:14 | Acrescenta as falas das profissões (perguntas 1583 a 1590). |
 | Marcelo Fabiano | 2026-11-08 00:11 | Leva o português das falas para o jogo. |
 | Marcelo Fabiano | 2026-11-07 23:42 | Cita a redstone na introdução. |

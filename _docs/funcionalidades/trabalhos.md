@@ -16,7 +16,7 @@ O mod funciona numa instância só com ele e suas dependências. Tudo aceita red
 - **Quantidade:** um por Cubit, e o tier melhora o que o card faz.
 - **Tier:** o Base não aceita cards, e cada card tem o seu tier mínimo, na tabela abaixo (pergunta 1145). Cada tier mantém os trabalhos do anterior e ganha novos.
 - **Estado:** morrer e recolher preservam o card.
-- **Seguindo:** age como generalista. O card só age em área marcada.
+- **Seguindo:** age como generalista. O card só age em área marcada. A exceção é o Patrulheiro, que escolta o dono e quem o dono marcar com as armas (perguntas 1565 e 1655).
 - **Item:** um por trabalho, com receita própria em JSON e materiais do jogo puro. Os cards empilham.
 - **Receita:** como um pendrive, todo card junta a Card Casing, a Circuit Board e o item que simboliza o trabalho, numa cascata na Engineering Desk. As receitas estão em [`itens.md`](../itens.md#cards-de-trabalho) (perguntas 1540 a 1545). A receita de cada card libera com o Module do tier mínimo do trabalho, e a carcaça e a placa, com o Advanced Module (pergunta 1546).
 - **Falas:** cada profissão fala uma de três frases ao receber o card e frases próprias durante o trabalho, para o dono por perto. As frases estão em [`falas.md`](../conceito/falas.md#profissões) (perguntas 1583 a 1590).
@@ -84,7 +84,7 @@ Entra com o card #193, a base do trabalho, sem trabalho próprio: o Pescador vem
 
 ### Cubit com card
 
-- **Seguindo o player:** age como generalista. O card só age em área marcada (pergunta 193).
+- **Seguindo o player:** age como generalista. O card só age em área marcada (pergunta 193). A exceção é o Patrulheiro, que faz a escolta com as armas (perguntas 1565 e 1655).
 - **Na área:** o Cubit com card está trabalhando. Até o trabalho do card existir, ele faz o mesmo que sem card: coleta, faz a ronda e descarrega (perguntas 340 e 1166). Cada card troca esse comportamento pelo do trabalho.
 - **Estado:** `Working · Fisher` / `Trabalhando · Pescador`, no lugar de `In area`, no topo da tela e na lista do Tablet (pergunta 1168).
 
@@ -99,7 +99,7 @@ Com o card do Organizador, a linha da chave do trabalho dá lugar à linha `Mode
 Estado semelhante ao desligado, mas com o inventário e as configurações acessíveis. O Cubit fica imóvel e sem tarefas, como dormindo (perguntas 198 e 1164).
 
 - **Estado:** `HIBERNATING_AWAY`, no NBT `PowerState`, com o motivo no NBT `HibernationReason`. A hibernação no Dock continua como está e sai sozinha (perguntas 55 e 1164).
-- **Motivo, na base:** só o inventário cheio, e o Pescador acrescenta o `Sem água na área` (pergunta 1188): o Cubit com card, na área, cheio e sem baú marcado com espaço. Sem card, ele segue como nas perguntas 1052 e 1088. Cada trabalho acrescenta os seus motivos (perguntas 196 e 1165).
+- **Motivo, na base:** só o inventário cheio, e o Pescador acrescenta o `Sem água na área` (pergunta 1188): o Cubit com card, na área, cheio e sem baú marcado com espaço. Sem card, ele segue como nas perguntas 1052 e 1088. Cada trabalho acrescenta os seus motivos (perguntas 196 e 1165). O Patrulheiro nunca hiberna por inventário cheio, para não deixar a área sem defesa (pergunta 1639).
 - **Parado:** sem choque, coleta, ímã, tochas, falas e scanners, com a lanterna apagada e sem consumo. O painel solar continua carregando (pergunta 1170).
 - **Na tela:** `Hibernating · Inventory full` / `Hibernando · Inventário cheio`, em azul, com a expressão de sono (perguntas 1168 e 1173).
 - **Texto curto:** `I'm full and have nowhere to unload` / `Estou cheio e não tenho onde descarregar`, uma vez ao hibernar, e de novo se o `Retomar` não resolver (pergunta 1174).
@@ -185,6 +185,7 @@ A ordem segue a pergunta 251, com o Mecânico e o Alquimista no fim dos trabalho
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 13:00 | Registra as exceções do Patrulheiro na escolta e na hibernação (perguntas 1565, 1639 e 1655). |
 | Zennd | 2026-11-22 08:03 | Leva o Construtor, o Mecânico e o Alquimista para o Elite (pergunta 1598). |
 | Zennd | 2026-11-21 23:14 | Acrescenta as falas das profissões (perguntas 1583 a 1590). |
 | Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |

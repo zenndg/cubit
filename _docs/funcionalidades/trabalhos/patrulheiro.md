@@ -2,13 +2,13 @@
 
 Conceito do trabalho de Patrulheiro Galático, que substitui o Defensor (#198). O documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui, com as exceções escritas abaixo.
 
-**Situação:** autorizado (perguntas 1591 e 1613). O conceito vem do desenvolvedor (perguntas 1550 a 1552) e foi refinado nas perguntas 1553 a 1612. O PR 1, com o comportamento, entrou no #238, e o PR 2 traz a rota. A prioridade é a mais alta, como a da Engineering Desk: cada detalhe do conceito e da aparência é decidido antes do código (pergunta 1560). Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
+**Situação:** autorizado (perguntas 1591, 1613 e 1632). O conceito vem do desenvolvedor (perguntas 1550 a 1552) e foi refinado nas perguntas 1553 a 1642. O PR 1, com o comportamento, entrou no #238, o PR 2, com a rota e a ronda lenta, no #239, e o PR 3 traz o realismo e o visual. A prioridade é a mais alta, como a da Engineering Desk: cada detalhe do conceito e da aparência é decidido antes do código (pergunta 1560). Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
 
 ## A ideia
 
 O Patrulheiro Galático é o Cubit nerd, fã de ficção científica, que leva a sério a missão de proteger o player e a base. Ele faz a ronda, procura hostis e ataca primeiro, de pistola laser numa garra e lâmina de plasma na outra.
 
-Onde o Defensor só protegia uma área, o Patrulheiro também vai atrás: percorre uma rota, persegue o hostil até um limite e volta ao ponto onde parou. Com o card, o Cubit bate mais forte e aguenta mais que um Cubit sem ele (pergunta 1552).
+Onde o Defensor só protegia uma área, o Patrulheiro também vai atrás: percorre uma rota, persegue o hostil até um limite, investiga onde ele sumiu e volta ao ponto mais próximo da ronda. Com o card, o Cubit bate mais forte e aguenta mais que um Cubit sem ele (pergunta 1552).
 
 O visual é uma homenagem ao clima de aventura espacial, com design todo próprio: nenhuma peça copia personagem, arma ou marca de filme (regra 9). As asas abrem para trás, como uma asa-delta, e a lâmina sai direto da garra, sem cabo (perguntas 1553 e 1554).
 
@@ -40,7 +40,7 @@ Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e uma
 1. Põe o card no slot de um Cubit Elite ou Ultimate.
 2. Com o app Área do Tablet, marca a área que ele guarda, que pode ter o dobro do lado da área dos outros cards: até 64×64 no Elite e 128×128 no Ultimate, com a altura do tier, de 24 e 32 blocos (perguntas 1600 e 1601). Sem área, ele segue o dono e faz a escolta (perguntas 1565 e 1599).
 3. Com o app Marcar, marca os pontos da rota dentro da área, na ordem em que quer que ele passe (perguntas 1579 e 1599).
-4. Sem pontos marcados, ele patrulha a área pelas bordas, no mesmo passo lento, parando em cada canto e a cada 16 blocos andados (perguntas 1561 e 1616).
+4. Sem pontos marcados, ele patrulha a área pelas bordas, no mesmo passo lento, parando em cada canto e a cada trecho de 12 a 20 blocos andados (perguntas 1561, 1616 e 1628).
 5. Para guardar os drops, marca um baú com o app Descarga, como nos outros cards (pergunta 1570).
 
 ### A rota
@@ -49,7 +49,7 @@ Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e uma
 - **Avisos:** na barra de ação, sem área, `Mark the area first with the Area app`; fora da área, `Only inside the area of %s`; num bloco que não é sólido, `Mark the top of a solid block`; e ao marcar, `Point %s of %s marked for %s`, com o número do ponto, o limite e o nome do Cubit. Desmarcar, rota cheia e nenhum ponto usam os avisos de hoje do app Marcar (pergunta 1611).
 - **Ver:** com o Tablet na mão e o app Marcar aberto, cada ponto da rota do Cubit escolhido mostra uma seta com o número da ordem, e uma linha ciano tracejada liga os pontos em laço. Só a rota do Cubit escolhido aparece, para os números de rotas diferentes não se misturarem (perguntas 1580 e 1612).
 - **Ritmo:** ele percorre os pontos em laço, num passo de vigia, a 60% da velocidade normal. A perseguição e a volta à rota seguem na velocidade normal (pergunta 1614).
-- **Paradas:** ele para em cada ponto e a cada 16 blocos andados no caminho, e o contador zera a cada parada. Em cada parada, fica 4 s, vira a cabeça devagar para a esquerda e para a direita duas vezes, volta ao centro e retoma a caminhada. Um combate interrompe a parada (perguntas 1615, 1617 e 1618).
+- **Paradas:** ele para em cada ponto e a cada trecho de 12 a 20 blocos andados no caminho, sorteado, e o contador zera a cada parada. Em cada parada, fica de 3 a 5 s, sorteados, vira a cabeça devagar para a esquerda e para a direita duas vezes, volta ao centro e retoma a caminhada. Um combate interrompe a parada (perguntas 1615, 1617, 1618 e 1628).
 - **Guardar:** os pontos ficam salvos no NBT do Cubit, mesmo sem o card, e voltam a valer quando o card volta. Ao recolher o Cubit, eles se perdem, como a área e as marcas do Organizador (perguntas 1582 e 1602).
 - **Chunks:** ele nunca entra em chunk descarregado. Um ponto num chunk descarregado é pulado até carregar de novo (regra 22).
 
@@ -58,18 +58,50 @@ Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e uma
 ### Quem ele ataca
 
 - **Modo:** só o Agressivo, enquanto tiver o card, porque atacar primeiro é a essência dele. A aba Defense mostra o modo travado como um modo bloqueado pelo tier: o Agressivo marcado, e o Pacífico e o Contra-atacar escurecidos, com `Locked by the Galactic Patroller card` no lugar do detalhe. Ao tirar o card, volta o modo que estava antes (perguntas 1566 e 1610).
-- **Procura:** ataca qualquer mob hostil no raio de procura, em volta de onde está, e todo mob, hostil ou neutro, que ferir o próprio Cubit ou um protegido.
+- **Procura:** ataca, no raio de procura em volta de onde está, todo mob que pode ser hostil, mesmo calmo: todo `Enemy`, todo mob da categoria `MONSTER` de qualquer mod e todo `NeutralMob`, como o enderman e o piglin zumbificado (pergunta 1633).
+- **Nunca ataca:** os protegidos, os golems de ferro e de neve, os mobs domesticados de alguém e os da água pacíficos, como o golfinho. Um piglin zumbificado atacado irrita o grupo contra o Cubit, como no jogo (pergunta 1633).
+- **Tags:** `cubit:patroller_targets` acrescenta mobs que ele sempre ataca, e `cubit:patroller_ignores`, mobs que ele nunca ataca. A de ignorar vence, e os protegidos nunca entram (pergunta 1634).
 - **Protegidos:** o dono, os outros players, os robôs, os animais e os aldeões. Ele nunca os fere, e o globo e a lâmina passam por eles (perguntas 1558 e 1570).
 - **Prioridade:** primeiro o mob que está ferindo alguém, depois o mais próximo de um protegido (pergunta 1568).
-- **Vários Patrulheiros:** cada um reserva um hostil, e os outros escolhem outro. Com um só hostil, todos atacam o mesmo (pergunta 1568).
+- **Vários Patrulheiros:** os do mesmo dono lutam juntos, como uma equipe (perguntas 1643 a 1646):
+  1. **Mesmo alvo:** todos atacam o hostil de maior prioridade, um de cada vez, e só passam ao próximo quando ele cai ou sai do limite. Um hostil que passa a ferir alguém vira o alvo da equipe.
+  2. **Chamado:** ao entrar em combate, um Patrulheiro avisa os outros do mesmo dono na mesma área ou a até 32 blocos. Quem não está lutando vem ajudar, mesmo com o hostil fora do próprio raio de procura, respeitando o próprio limite de perseguição. Na escolta, ele não deixa o dono para atender.
+  3. **Cerco:** cada um se aproxima por um lado do hostil, espalhados em volta dele, e na pistola cada um mira de uma posição diferente. O globo atravessa os robôs, sem fogo amigo.
+  4. **Ronda espaçada:** na mesma rota ou nas mesmas bordas, eles se espalham pelo laço, cada um partindo de um ponto diferente.
+  5. **Uma fala por equipe:** no mesmo combate, só um deles fala ao entrar em combate e ao abater.
 
 ### Perseguição
 
-Ele sai da rota para ir atrás de um hostil, até 16 blocos dela, e volta ao ponto onde parou quando o alvo morre ou foge do limite. Nunca entra em chunk descarregado (perguntas 1562 e regra 22).
+Ele sai da rota para ir atrás de um hostil até 16 blocos, medidos do ponto da rota mais perto do hostil ou, na ronda pelas bordas, da borda da área. Na escolta, mede do dono. Quando o alvo morre ou foge do limite, investiga e volta ao ponto mais próximo da ronda (seção [Realismo](#realismo)). Nunca entra em chunk descarregado (perguntas 1562, 1625, 1636 e regra 22).
+
+### Realismo
+
+O comportamento de um vigia de verdade, decidido no início do PR 3 (perguntas 1619 e 1623 a 1629):
+
+1. **Alerta ao avistar:** ao ver um hostil, ele para por 0,5 s, vira o corpo e a cabeça para ele, baixa o visor com o bipe de mira travada e só então ataca. Se o hostil já estiver ferindo alguém, pula o alerta (pergunta 1623).
+2. **Investigar:** quando o hostil some de vista ou foge do limite, ele anda até onde o viu por último, se estiver dentro do limite de perseguição, para olhando em volta, como numa parada da ronda, e só então volta. Se o hostil reaparecer, retoma o combate (pergunta 1624).
+3. **Conferir o dono:** ao abater o último hostil por perto, com o dono a até 16 blocos, ele vira a cabeça para o dono por 1 s, antes de investigar ou voltar (pergunta 1629).
+4. **Visor com calma:** depois do combate, o visor só sobe depois da investigação ou de 3 s sem ameaça (pergunta 1629).
+5. **Volta à ronda:** volta ao ponto da rota mais perto de onde está e segue a ordem a partir dele. Na ronda pelas bordas, volta ao canto mais perto (pergunta 1625).
+6. **Olhar para fora:** nas paradas das bordas, a varredura é feita de frente para fora da área e, nos cantos, de frente para a diagonal de fora. Nos pontos da rota, segue a direção em que andava (pergunta 1626).
+7. **Guarda:** na parada, ele ergue um pouco o braço da pistola, apontada para onde olha, e o abaixa ao retomar a caminhada (pergunta 1627).
+8. **Ritmo variado:** cada parada sorteia entre 3 e 5 s, e cada trecho, entre 12 e 20 blocos (pergunta 1628).
 
 ### Escolta
 
 Seguindo o player, ele não patrulha, mas usa a pistola e a lâmina no lugar do choque para proteger o player, no modo Agressivo. A rota volta quando ele deixa de seguir. É a exceção à regra de que todo card age como generalista ao seguir (pergunta 1565).
+
+### Escolta marcada
+
+Além do dono, ele escolta quem o dono marcar no Tablet (perguntas 1655 a 1661):
+
+1. **Marcar:** com o Patrulheiro escolhido, o app novo `Escort` do Tablet, "Escolta" em português, em dourado (pergunta 1662), que só aparece quando o Cubit escolhido tem o card do Patrulheiro (pergunta 1664), marca o escoltado com um clique num player ou num mob. Um clique nele de novo, ou Shift + clique, desmarca.
+2. **Quem:** qualquer player, os protegidos (aldeões, animais e robôs) e os outros mobs que ele nunca ataca, como um golem ou um mob domesticado. Um mob que ele ataca não pode ser escoltado, e o Tablet avisa.
+3. **Como:** segue o escoltado com as regras do seguir, com a distância, o teleporte quando fica longe e as asas, e o protege como protege o dono, com a perseguição medida dele. Andando, vira a cabeça para os lados de tempos em tempos. Quando o escoltado para, ele para e faz a varredura da parada.
+4. **Prioridade:** a escolta marcada vence a ronda e o seguir o dono. Cada Patrulheiro escolta um por vez, e vários podem escoltar o mesmo, como equipe.
+5. **Fim:** termina quando o dono desmarca, aperta o `Follow` do Tablet, ou quando o escoltado morre, muda de dimensão ou sai do mundo. Depois, ele volta à ronda da área ou ao dono.
+6. **Save:** o escoltado fica no NBT do Cubit, em `EscortTarget`, e a escolta volta quando os dois estiverem carregados. Não vai para o item e se perde ao recolher o Cubit.
+7. **Avisos:** com o app `Escort` aberto, uma seta na cor do app marca o escoltado de cada Patrulheiro do dono. Um player escoltado recebe na barra de ação `%s is escorting you` ao começar e `%s stopped escorting you` ao terminar.
 
 ### Choque
 
@@ -81,7 +113,7 @@ Enquanto o card está no slot, o Cubit ganha armadura extra, pelo atributo do jo
 
 ### Creeper
 
-Contra o creeper, usa sempre a pistola, nunca a lâmina. Se o creeper começar a acender perto dele ou de um protegido, ele recua até sair do raio da explosão e volta a atirar (pergunta 1567). Sem carga para atirar, ele não ataca o creeper: fica fora do raio, entre o creeper e os protegidos, e volta a atirar quando tiver carga (pergunta 1595).
+Contra o creeper, usa sempre a pistola, nunca a lâmina. Se o creeper começar a acender perto dele ou de qualquer protegido, ele recua até sair do raio da explosão, de 4 blocos, e volta a atirar (perguntas 1567 e 1641). Sem carga para atirar, ele não ataca o creeper: fica fora do raio, a 6 blocos, no caminho entre o creeper e o protegido mais próximo, como um escudo, e volta a atirar quando tiver carga (perguntas 1595 e 1641). Os dois números ficam no config (pergunta 1642).
 
 ## Armas
 
@@ -109,10 +141,19 @@ As duas armas são partes do modelo do Cubit com o card, sem item para o player 
 - **Planar:** na queda, ele plana, sem dano de queda e sem gastar bateria (perguntas 1564 e 1571).
 - **Salto:** só no combate, para um alvo no ar ao alcance da altura do salto, quando a pistola não pode atirar, sem carga ou fora do alcance. Ele golpeia com a lâmina no ar. Com carga, atira de baixo e não salta. O Ultimate salta mais alto, e cada salto gasta bateria (perguntas 1564 e 1596).
 - **Mobs voadores:** a pistola alcança a maior parte, e o salto aproxima o Cubit de um Phantom ou de um Blaze para a lâmina quando a pistola não pode atirar (pergunta 1596).
+- **Pulo de asa:** quando o caminho a pé não existe ou tem mais que o dobro da distância em linha reta (pergunta 1651), ele abre as asas e pula por cima de cercas, muros e blocos até a altura do salto do tier, de 3 e 5 blocos, com a energia do salto. Precisa de espaço livre acima e de chão seguro do outro lado. Sem carga, contorna (pergunta 1647).
+- **Vãos:** atravessa vãos de até 4 blocos no Elite e 6 no Ultimate, saltando e planando até o outro lado, no mesmo nível ou abaixo, com a energia do salto. Um vão maior, ele contorna (pergunta 1648).
+- **Descida:** quando o destino está abaixo de uma beirada, salta e desce planando, sem gastar energia (pergunta 1649).
+- **Pouso seguro:** nunca pula nem plana para lava, fogo, água funda ou bloco que fere (perguntas 1647 a 1649).
+- **Quando:** na ronda, na perseguição, na investigação, na volta à ronda e na escolta, para acompanhar quem ele segue, com o teleporte do seguir quando fica longe. Nunca usa as asas para sair da área fora de uma perseguição (perguntas 1650 e 1654).
+- **Luzes:** com as asas em uso, o LED da borda da frente e as três luzes da aleta acendem em azul, da cor dos olhos do Cubit, junto com os propulsores. Recolhidas, ficam apagadas (pergunta 1653).
 
 ## Drops e descarga
 
-Guarda os drops no inventário enquanto couberem, e o resto cai no chão. Não hiberna por inventário cheio e só para sem bateria. Com baú marcado no app Descarga, descarrega quando não há ameaça (pergunta 1570).
+- **Drops:** os drops de um mob que ele abate vão direto para o inventário dele, como a cabeça, enquanto couberem, sem depender do ímã nem do filtro de coleta. O resto cai no chão (perguntas 1570 e 1635).
+- **Abate do dono:** o abate conta como do dono, que ganha o XP e os drops que só caem quando um player mata, como se tivesse lutado (pergunta 1637).
+- **Sem hibernar:** nunca hiberna por inventário cheio. Com o inventário cheio, segue protegendo, e os drops caem no chão. Só para sem bateria (perguntas 1570 e 1639).
+- **Descarga:** com baú marcado no app Descarga, descarrega quando não há ameaça. Um combate interrompe a ida ao baú e a busca de um item no chão, que voltam depois, e ele não começa uma descarga com um hostil no raio de procura (perguntas 1570 e 1640).
 
 ## Evolução por tier
 
@@ -128,6 +169,7 @@ Os números ficam em [`tiers.md`](../../tiers.md#trabalhos), todos no config (pe
 | Lâmina: dano | 7 | 10 |
 | Lâmina: intervalo | 0,6 s | 0,5 s |
 | Lâmina: empurrão | Médio | Forte |
+| Lâmina: alcance do golpe | 2,5 blocos | 2,5 blocos |
 | Cabeça, ao matar com a lâmina | 50% | 50% |
 | Armadura extra | +6 | +10 |
 | Raio de procura | 16 blocos | 24 blocos |
@@ -135,11 +177,14 @@ Os números ficam em [`tiers.md`](../../tiers.md#trabalhos), todos no config (pe
 | Troca de arma | 4 blocos | 4 blocos |
 | Salto: altura | 3 blocos | 5 blocos |
 | Salto: custo | 500 FE | 400 FE |
+| Vão que atravessa planando | 4 blocos | 6 blocos |
 | Pontos da rota | 16 | 32 |
 | Lado da área | 64 blocos | 128 blocos |
 | Velocidade da ronda | 60% | 60% |
-| Parada | 4 s | 4 s |
-| Blocos até a próxima parada | 16 | 16 |
+| Parada | 3 a 5 s | 3 a 5 s |
+| Blocos até a próxima parada | 12 a 20 | 12 a 20 |
+| Alerta ao avistar | 0,5 s | 0,5 s |
+| Investigação | 3 a 5 s | 3 a 5 s |
 
 ## Visual
 
@@ -149,7 +194,7 @@ Os números ficam em [`tiers.md`](../../tiers.md#trabalhos), todos no config (pe
 | Visor | Lente ciano translúcida, presa às dobradiças, que se curva pela frente e pela lateral. Baixado, cobre o alto da tela e mostra uma mira. Erguido, fica recolhido no topo do capacete |
 | Tela | Com o visor erguido, os olhos normais do Cubit. Com o visor baixado, olhos decididos e marcas de mira nos cantos |
 | Mochila | Branca, com um filete ciano no topo, um painel escuro com barras de carga atrás e três propulsores embaixo |
-| Asas | Saem da mochila por uma dobradiça mecânica escura com centro laranja. Cada asa tem a lâmina principal varrida para trás, com a borda da frente curva, a de trás reta e uma espessura escura embaixo; um LED ciano na borda da frente; painéis divididos por linhas finas; uma aleta cinza embaixo, com três luzes ciano; e uma cápsula branca com janela ciano na ponta. Recolhidas, ficam deitadas sobre a mochila. Abertas, vão para trás e para baixo, como uma asa-delta (pergunta 1553) |
+| Asas | Saem da mochila por uma dobradiça mecânica escura com centro laranja. Cada asa tem a lâmina principal varrida para trás, com a borda da frente curva, a de trás reta e uma espessura escura embaixo; um LED na borda da frente; painéis divididos por linhas finas; uma aleta cinza embaixo, com três luzes; as luzes ficam apagadas com as asas recolhidas e acendem em azul, da cor dos olhos, com as asas em uso (pergunta 1653); e uma cápsula branca com janela ciano na ponta. Recolhidas, ficam deitadas sobre a mochila. Abertas, vão para trás e para baixo, como uma asa-delta (pergunta 1553) |
 | Pistola | Na garra esquerda, branca, com cano ciano, faixas de energia acesas e um botão laranja |
 | Plasma Blade | No pulso direito, o emissor hexagonal com anel laranja. A lâmina verde, larga e com ponta em cunha, sai direto da garra (pergunta 1554) |
 | Distintivo | Escudo escuro com a estrela dourada, na lateral do corpo |
@@ -157,8 +202,11 @@ Os números ficam em [`tiers.md`](../../tiers.md#trabalhos), todos no config (pe
 
 ### Combate e patrulha
 
-- **Combate:** o visor desce, os olhos ficam decididos, e a lâmina acende quando o alvo chega perto. O player vê o modo de combate só de olhar para ele.
-- **Patrulha:** o visor sobe, e ele percorre a rota olhando em volta.
+- **Alerta:** ao avistar um hostil, ele vira para ele, e o visor desce com o bipe de mira travada (pergunta 1623).
+- **Combate:** com o visor baixado, os olhos ficam decididos, e a lâmina acende quando o alvo chega perto. O player vê o modo de combate só de olhar para ele.
+- **Depois do combate:** confere o dono com a cabeça, investiga o último local, e o visor só sobe depois da investigação ou de 3 s sem ameaça (perguntas 1624 e 1629).
+- **Patrulha:** com o visor erguido, ele percorre a rota no passo de vigia, e nas paradas ergue a pistola em prontidão, apontada para onde olha (perguntas 1614 e 1627).
+- **Asas em uso:** abertas, com os propulsores e as luzes azuis acesos (pergunta 1653).
 
 ## Falas
 
@@ -172,7 +220,6 @@ Sons próprios em `.ogg`, descritos em [`sons.md`](../../conceito/sons.md#patrul
 
 - **DDoS e Firewall:** o conceito original cita o "time do mal", que aparece à noite, e o Firewall. Eles não estão no roadmap, e o Patrulheiro não depende deles. Um bônus à noite e a combinação com o Firewall ficam para quando esses cards forem planejados (pergunta 1572 e regra 43).
 - **Armas para o player:** a pistola e a lâmina não viram itens (pergunta 1573).
-- **Atravessar buracos:** o salto não atravessa buracos na ronda, e o caminho contorna os buracos, como hoje. Fica para um card futuro (pergunta 1597).
 
 ## Contrato
 
@@ -181,11 +228,14 @@ Sons próprios em `.ogg`, descritos em [`sons.md`](../../conceito/sons.md#patrul
 | Item | `cubit:ml_patroller` | O card, na tag `cubit:ml_cards`. Substitui `cubit:ml_defender`, que não foi publicado (pergunta 1569) |
 | Receita | `cubit:ml_patroller` | Card Casing, Circuit Board e estrela de fogo de artifício, liberada pelo Elite Module (pergunta 1576) |
 | Config, `allowed_jobs` | `patroller` | No lugar de `defender`, no Elite e no Ultimate (pergunta 1569) |
-| Config, por tier | `patroller_pistol_damage`, `patroller_pistol_range`, `patroller_pistol_interval_ticks`, `patroller_pistol_cost`, `patroller_slowness_level`, `patroller_blade_damage`, `patroller_blade_interval_ticks`, `patroller_blade_knockback`, `patroller_armor`, `patroller_search_radius`, `patroller_jump_height`, `patroller_jump_cost`, `patroller_route_points` e `patroller_area_size` | Os números por tier da tabela acima |
-| Config, geral | `patroller_slowness_chance`, `patroller_slowness_ticks`, `patroller_head_chance`, `patroller_chase_distance`, `patroller_weapon_switch_distance`, `patroller_stop_ticks`, `patroller_stop_distance` e `patroller_patrol_speed` | 20%, 3 s, 50%, 16 blocos, 4 blocos, 4 s, 16 blocos e 0,6 (perguntas 1614 a 1618) |
+| Config, por tier | `patroller_pistol_damage`, `patroller_pistol_range`, `patroller_pistol_interval_ticks`, `patroller_pistol_cost`, `patroller_slowness_level`, `patroller_blade_damage`, `patroller_blade_interval_ticks`, `patroller_blade_knockback`, `patroller_armor`, `patroller_search_radius`, `patroller_jump_height`, `patroller_jump_cost`, `patroller_route_points`, `patroller_area_size`, `patroller_blade_reach` e `patroller_gap_distance` | Os números por tier da tabela acima (perguntas 1642 e 1648) |
+| Config, geral | `patroller_slowness_chance`, `patroller_slowness_ticks`, `patroller_head_chance`, `patroller_chase_distance`, `patroller_weapon_switch_distance`, `patroller_patrol_speed`, `patroller_stop_min_ticks`, `patroller_stop_max_ticks`, `patroller_stop_min_distance`, `patroller_stop_max_distance`, `patroller_alert_ticks`, `patroller_owner_check_ticks`, `patroller_owner_check_distance`, `patroller_visor_calm_ticks`, `patroller_creeper_blast`, `patroller_keep_away`, `patroller_search_interval_ticks`, `patroller_blade_knockback_base`, `patroller_blade_knockback_step`, `patroller_call_range` e `patroller_wing_detour_factor` | 20%, 3 s, 50%, 16 blocos, 4 blocos, 0,6, 3 s, 5 s, 12 blocos, 20 blocos, 0,5 s, 1 s, 16 blocos, 3 s, 4 blocos, 6 blocos, 0,5 s, 0,4, 0,5, 32 blocos e 2 (perguntas 1614 a 1618, 1632, 1642, 1644 e 1651) |
 | NBT da entidade | `PatrolRoute` | Os pontos da rota, em ordem. Sem a chave no save, a rota é vazia. Não vai para o item (perguntas 1582 e 1602) |
 | Entidade | `cubit:laser_orb` | O globo de laser da pistola |
+| Tags de entidade | `cubit:patroller_targets` e `cubit:patroller_ignores` | Os mobs que ele sempre ataca e os que nunca ataca, vazias no mod (pergunta 1634) |
 | Tipos de dano | `cubit:laser_orb` e `cubit:plasma_blade` | O dano das duas armas, com as mensagens de morte em inglês e em português |
+| App do Tablet | `escort` | O app Escort, só com o Patrulheiro escolhido (pergunta 1655) |
+| NBT da entidade | `EscortTarget` | O UUID do escoltado. Sem a chave, não há escolta. Não vai para o item (pergunta 1659) |
 | Pacote do servidor | `cubit:patrol_route` | Os pontos da rota do Cubit escolhido no Tablet, para as setas e a linha do app Marcar (pergunta 1612) |
 | Sons | Os eventos de `sons.md` | Disparo, estouro, lâmina, golpe, asas e visor |
 | Config, geral | `job_chatter_chance`, `job_chatter_interval_ticks` e `job_chatter_range` | As falas de todas as profissões: 20%, 2 min e 32 blocos (perguntas 1585 e 1586) |
@@ -193,16 +243,25 @@ Sons próprios em `.ogg`, descritos em [`sons.md`](../../conceito/sons.md#patrul
 
 ## Entrega
 
-Uma issue, a #198 renomeada, e três PRs testados no jogo (perguntas 1578 e 1605):
+Uma issue, a #198 renomeada, e três PRs testados no jogo (perguntas 1578, 1605 e 1630):
 
 1. **Comportamento:** as falas das cinco profissões, o card, a troca do Defensor, os tiers dos trabalhos, a ronda pelas bordas da área, a perseguição, os alvos, a escolta, o modo Agressivo no servidor, as armas com o dano, a lentidão, o empurrão e a cabeça, a armadura, o gasto, o planar, o salto, a receita e os GameTests, com um visual provisório.
 2. **Rota:** o modo travado na aba Defense, com o motivo, a rota no app Marcar, com as setas numeradas, a linha tracejada e o pacote `cubit:patrol_route`, e os GameTests da rota.
-3. **Visual:** o modelo, as texturas, as animações, os efeitos e os sons, a partir das imagens e dos `.wav` aprovados.
+3. **Visual e realismo:** o realismo da seção [Realismo](#realismo), os alvos novos, a equipe de Patrulheiros, as asas para se mover, a escolta marcada, as correções das perguntas 1635 a 1642, o modelo, as texturas, as animações, os efeitos e os sons, a partir das imagens e dos `.wav` aprovados.
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 13:00 | Confere o documento com as respostas 1550 a 1665, com o app Escort só com o card e o visual do alerta, da guarda e das asas (perguntas 1664 e 1665). |
+| Zennd | 2026-11-22 12:35 | Acrescenta a escolta marcada pelo app Escort (perguntas 1655 a 1661). |
+| Zennd | 2026-11-22 12:25 | Acrescenta as luzes azuis das asas e as asas na escolta (perguntas 1653 e 1654). |
+| Zennd | 2026-11-22 12:15 | Acrescenta o pulo de asa, os vãos e a descida planando (perguntas 1647 a 1650). |
+| Zennd | 2026-11-22 12:05 | Troca a reserva de alvos pela equipe de Patrulheiros (perguntas 1643 a 1646). |
+| Zennd | 2026-11-22 11:55 | Confere o conceito com o código e registra os drops, a perseguição, o abate, a hibernação, a descarga, o creeper e os números no config (perguntas 1635 a 1642). |
+| Zennd | 2026-11-22 11:40 | Amplia os alvos a todo mob que pode ser hostil, com as tags (perguntas 1633 e 1634). |
+| Zennd | 2026-11-22 11:30 | Troca as chaves da ronda pelas do ritmo variado e acrescenta as do realismo (pergunta 1632). |
+| Zennd | 2026-11-22 11:20 | Acrescenta o realismo do PR 3 e o ritmo variado da ronda (perguntas 1623 a 1630). |
 | Zennd | 2026-11-22 11:00 | Troca a pausa nos pontos pela ronda lenta, com paradas nos pontos, nos cantos e a cada 16 blocos (perguntas 1614 a 1618). |
 | Zennd | 2026-11-22 10:40 | Atualiza a situação do conceito (pergunta 1613). |
 | Zennd | 2026-11-22 09:50 | Detalha a aba Defense travada, os cliques e os avisos do app Marcar e a rota só do Cubit escolhido (perguntas 1610 a 1612). |

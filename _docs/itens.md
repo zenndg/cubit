@@ -5,7 +5,7 @@
 | Cubit | Robô companheiro, colocado no mundo como item |
 | Damaged Cubit | O que cai quando o Cubit morre. Guarda o estado dele e não pode ser colocado no mundo |
 | Toolbox | Conserta o Damaged Cubit e é consumida a cada conserto |
-| Cubit Tablet | Abre a tela de gerenciamento dos Cubits do player, de qualquer distância, com apps que marcam o alvo do Focus e o Dock preferido, e na Fase 4.2 a área e os baús ([`tablet.md`](funcionalidades/tablet.md)) |
+| Cubit Tablet | Abre a tela de gerenciamento dos Cubits do player, de qualquer distância, com apps que marcam o alvo do Focus, o Dock preferido, a área, os baús, as portas, as marcas dos trabalhos, a rota e o escoltado do Patrulheiro ([`tablet.md`](funcionalidades/tablet.md)) |
 | Advanced Module | Leva o Cubit do tier Base para o Advanced |
 | Elite Module | Leva o Cubit do tier Advanced para o Elite |
 | Ultimate Module | Leva o Cubit do tier Elite para o Ultimate |
@@ -346,6 +346,7 @@ O estado salvo é validado ao entrar no jogo, sem derrubá-lo (regra 17 do `AGEN
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 13:00 | Atualiza o que os apps do Tablet marcam, com a rota e a escolta do Patrulheiro (perguntas 1579 e 1655). |
 | Zennd | 2026-11-22 09:45 | Tira os cards do Ultimate da liberação das receitas (pergunta 1608). |
 | Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |
 | Zennd | 2026-11-21 21:39 | Troca a receita da Circuit Board (pergunta 1547). |

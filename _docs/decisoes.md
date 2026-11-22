@@ -100,6 +100,12 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 - **Entrega do Patrulheiro em três PRs (pergunta 1605):** o comportamento, sem a rota marcada; a rota no app Marcar com o modo travado na aba Defense; e o visual.
 - **Rota do Patrulheiro no Tablet (perguntas 1610 a 1612):** a aba Defense mostra o Pacífico e o Contra-atacar escurecidos, travados pelo card. O app Marcar marca e desmarca os pontos como hoje, com avisos para sem área, fora da área e bloco não sólido. As setas e a linha mostram só a rota do Cubit escolhido.
 - **Ronda lenta do Patrulheiro (perguntas 1614 a 1618):** na ronda, ele anda a 60% da velocidade e para em cada ponto, em cada canto da área e a cada 16 blocos andados, por 4 s, olhando duas vezes para cada lado. A perseguição segue na velocidade normal, e `patroller_point_pause_ticks` vira `patroller_stop_ticks`.
+- **Realismo do Patrulheiro (perguntas 1619 e 1623 a 1632):** ele para e baixa o visor ao avistar um hostil, investiga o último local de um hostil que some, confere o dono depois do combate, só ergue o visor com calma, volta ao ponto mais próximo da ronda, olha para fora nas bordas, fica de guarda nas paradas e varia o ritmo, com paradas de 3 a 5 s e trechos de 12 a 20 blocos. O PR 3 junta o realismo e o visual.
+- **Alvos do Patrulheiro (perguntas 1633 e 1634):** ele ataca todo mob que pode ser hostil, mesmo calmo, do jogo ou de mods (`Enemy`, categoria `MONSTER` e `NeutralMob`), menos os protegidos, os golems, os domesticados e os da água pacíficos, com as tags `cubit:patroller_targets` e `cubit:patroller_ignores` para o pack.
+- **Conferência do Patrulheiro com o código (perguntas 1635 a 1642):** os drops do abate vão direto para o inventário, o abate conta como do dono, ele nunca hiberna por inventário cheio, o combate interrompe a descarga e a busca de itens, a perseguição se mede do ponto mais perto da rota, o creeper considera os protegidos, e os raios, o alcance, a procura e o empurrão vão para o config.
+- **Equipe de Patrulheiros (perguntas 1643 a 1646):** os Patrulheiros do mesmo dono atacam juntos o mesmo alvo, se chamam a até 32 blocos, cercam o hostil por lados diferentes, se espalham pela ronda e falam um por equipe. Troca a reserva de um alvo por Patrulheiro da 1568.
+- **Asas do Patrulheiro para se mover (perguntas 1647 a 1650):** pula obstáculos até a altura do salto quando não há caminho a pé, atravessa vãos de até 4 e 6 blocos planando, desce planando de beiradas e nunca pousa em perigo, na ronda, no combate e na volta, nunca na escolta. Muda a 1597.
+- **Escolta marcada do Patrulheiro (perguntas 1653 a 1661):** as luzes das asas acendem em azul quando em uso, e ele usa as asas também seguindo o dono. Com o app novo Escort do Tablet, o dono marca um player ou um mob que ele não ataca, e o Patrulheiro o escolta como escolta o dono, olhando em volta, até o dono desmarcar, apertar o Follow ou o escoltado sumir. O escoltado fica no NBT, e um player escoltado recebe um aviso.
 - **Receita do Induction Dock:** em forma de L, com diamante, baú, ferro e redstone, conforme [`itens.md`](itens.md#induction-dock) (pergunta 1332).
 - **Receitas novas (perguntas 1330 a 1335, issue #219):** o Cubit, o Dock, o Tablet, os Modules e as Power Banks ganham as grades de [`itens.md`](itens.md#ids-e-receitas), com os mesmos IDs, tipos de receita e desbloqueios no livro. As do Cubit e das Power Banks mudam de novo com as peças de montagem (perguntas 1338 a 1351). A Ultimate Power Bank e o Ultimate Module ganham a carcaça escura de netherite, com os detalhes dourados mantidos.
 - **Conserto:** usa a `Toolbox` (`cubit:toolbox`), na grade do inventário ou na mesa de craft, num tipo de receita do mod, `cubit:robot_repair`, com os itens no JSON. Ela é consumida a cada conserto e empilha até 16. O robô sai com parte da vida, conforme [`tiers.md`](tiers.md#valores-gerais), e a bateria zerada.
@@ -191,6 +197,12 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 12:35 | Resume a escolta marcada do Patrulheiro (perguntas 1653 a 1661). |
+| Zennd | 2026-11-22 12:15 | Resume as asas do Patrulheiro para se mover (perguntas 1647 a 1650). |
+| Zennd | 2026-11-22 12:05 | Resume a equipe de Patrulheiros (perguntas 1643 a 1646). |
+| Zennd | 2026-11-22 11:55 | Resume a conferência do Patrulheiro com o código (perguntas 1635 a 1642). |
+| Zennd | 2026-11-22 11:40 | Resume os alvos do Patrulheiro (perguntas 1633 e 1634). |
+| Zennd | 2026-11-22 11:30 | Resume o realismo do Patrulheiro (perguntas 1619 e 1623 a 1632). |
 | Zennd | 2026-11-22 11:00 | Resume a ronda lenta do Patrulheiro (perguntas 1614 a 1618). |
 | Zennd | 2026-11-22 09:50 | Resume a rota do Patrulheiro no Tablet (perguntas 1610 a 1612). |
 | Zennd | 2026-11-22 09:45 | Aponta a consolidação da Fase 5 para o Elite do Construtor, do Mecânico e do Alquimista (pergunta 1608). |
