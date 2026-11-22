@@ -685,11 +685,13 @@ Não há perguntas pendentes nesta fase.
 | 1738 | Como o Patrulheiro faz o pulo de asa e atravessa os vãos (1647 e 1648)? | Com um voo curto conduzido: quando o caminho do jogo não chega ou passa do dobro da linha reta, ele procura um pouso na direção do destino, a até 4 blocos no Elite e 6 no Ultimate (`patroller_gap_distance`), sobre um obstáculo de até 3 ou 5 de altura, com o trajeto livre e o chão seguro, e sobe, avança e plana até lá, guiado a cada tick, pagando o custo do salto. Sem pouso válido ou sem carga, segue a pé. O pathfinder do jogo não muda |
 | 1739 | Até quantos blocos de queda o Patrulheiro planeja descer de uma beirada (1649)? | Até 16 blocos, no config, em `patroller_glide_drop_blocks`, de 5 a 64: com o card, a queda máxima do caminho passa de 5 para 16, o próprio jogo planeja a descida, e ele plana sem dano e sem energia |
 | 1740 | Há algo a acrescentar à entrega 8 do PR 3, as asas? | Nada a acrescentar (1631) |
+| 1741 | Ideia do desenvolvedor: o scanner de minérios, que hoje todo Cubit tem em todos os tiers, muda de lugar? | Quando o Minerador começar no roadmap, o scanner de minérios sai de todo Cubit e passa a ser só do Minerador, melhorado. Até lá, fica só no planejamento, sem mudança no código. O que acontece com a chave, o filtro e os saves do scanner de hoje é decidido no refinamento do Minerador (regra 18) |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 21:50 | Registra a resposta 1741. |
 | Zennd | 2026-11-22 21:20 | Registra as respostas 1738 a 1740. |
 | Zennd | 2026-11-22 21:00 | Registra a resposta 1737. |
 | Zennd | 2026-11-22 20:45 | Registra as respostas 1734 e 1735. |
