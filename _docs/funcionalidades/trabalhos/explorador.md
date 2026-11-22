@@ -18,7 +18,7 @@ Anotação da ideia de uma profissão nova, o Explorador (perguntas 1668 a 1671)
 
 1. **Card:** o nome no jogo e o ID, como `Machine Learning: Explorer` e `cubit:ml_explorer`, o tier mínimo, a receita e o item do trabalho na receita.
 2. **Nome do app:** o nome, a cor e a regra de quando aparece, só com o card no Cubit escolhido, como o app Escort (pergunta 1664).
-3. **Biomas da lista:** todos os biomas que a dimensão pode gerar, inclusive os de outros mods, sem lista fixa (regra 49), e como mostrar um bioma que não existe perto.
+3. **Biomas da lista:** todos os biomas que a dimensão pode gerar, inclusive os de outros mods, sem lista fixa (regra 50), e como mostrar um bioma que não existe perto.
 4. **Busca:** o raio da busca por tier, o custo em FE e o tempo da busca, sem travar o servidor (regra 21) nem carregar chunks à força (regra 22).
 5. **Portal do End:** como localizar a fortaleza, que é uma estrutura e não um bioma, e se outras estruturas entram, como a fortaleza do Nether.
 6. **Guia:** se o Cubit anda à frente do player, se mostra uma seta ou uma linha, a distância que mantém, e o que acontece com obstáculos, água, Nether e mobs no caminho.
@@ -39,5 +39,6 @@ Anotação da ideia de uma profissão nova, o Explorador (perguntas 1668 a 1671)
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 17:00 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-22 13:40 | Acrescenta os mapas complementares à ideia (pergunta 1671). |
 | Zennd | 2026-11-22 13:30 | Anota a ideia do Explorador, sem nada decidido (perguntas 1668 a 1670). |

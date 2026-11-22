@@ -1,6 +1,6 @@
 # Minerador
 
-Conceito do trabalho de Minerador, da Fase 5.2. Nada aqui está implementado, e o documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área valem aqui.
+Conceito do trabalho de Minerador, da Fase 5.2. Nada aqui está implementado, e o documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área valem aqui.
 
 **Situação:** o comportamento está decidido nas [perguntas 197 a 203, 210, 234 e 344](../../perguntas/fase-5-trabalhos.md) e na 1149, que sobe o card para o Elite, tira Inquebrável e Remendo e define a fornalha elétrica. Os detalhes em aberto são respondidos no refinamento do card (pergunta 1153).
 
@@ -60,6 +60,7 @@ Cada item traz a recomendação atual, ainda sem resposta.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Marcelo Fabiano | 2026-11-14 20:25 | Leva o conceito de `tmp/fase5` para `_docs`, com as decisões da consolidação (perguntas 1145 a 1156). |
 | Marcelo Fabiano | 2026-11-13 12:14 | Põe a chave da fornalha na seção Functions da tela do Cubit. |
 | Marcelo Fabiano | 2026-11-13 12:13 | Define a fornalha como elétrica, com gasto de FE só ativa, todo minério passando por ela e o resultado indo ao inventário. |

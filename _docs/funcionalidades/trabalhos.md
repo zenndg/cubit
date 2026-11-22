@@ -1,6 +1,6 @@
 # Trabalhos
 
-Conceito da Fase 5, planejada para depois da Fase 4. Nada aqui está implementado, e o documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). As decisões ficam em [`fase-5-trabalhos.md`](../perguntas/fase-5-trabalhos.md), nas perguntas 190 a 256 e 1136 a 1237. O conceito de cada trabalho fica na pasta [`trabalhos/`](trabalhos/) (pergunta 1148).
+Conceito da Fase 5, planejada para depois da Fase 4. Nada aqui está implementado, e o documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). As decisões ficam em [`fase-5-trabalhos.md`](../perguntas/fase-5-trabalhos.md), nas perguntas 190 a 256 e 1136 a 1237. O conceito de cada trabalho fica na pasta [`trabalhos/`](trabalhos/) (pergunta 1148).
 
 Números: [`tiers.md`](../tiers.md#trabalhos). Nomes e IDs previstos: [`itens.md`](../itens.md#previstos-na-fase-5).
 
@@ -187,6 +187,7 @@ A ordem segue a pergunta 251, mudada na 1666: depois do Patrulheiro, o Lenhador,
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-22 13:30 | Acrescenta o Explorador à ordem de entrega (perguntas 1668 a 1670). |
 | Zennd | 2026-11-22 13:10 | Troca a ordem de entrega dos trabalhos, com o Lenhador (perguntas 1666 e 1667). |
 | Zennd | 2026-11-22 13:00 | Registra as exceções do Patrulheiro na escolta e na hibernação (perguntas 1565, 1639 e 1655). |

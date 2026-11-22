@@ -1,6 +1,6 @@
 # Organizador
 
-Conceito do trabalho de Organizador, da Fase 5.2, entregue no card #196. O documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui.
+Conceito do trabalho de Organizador, da Fase 5.2, entregue no card #196. O documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui.
 
 **Situação:** decidido. O comportamento base vem das [perguntas 208, 212, 215, 249 e 250](../../perguntas/fase-5-trabalhos.md), o tier mínimo, o Elite, da pergunta 1145, e o refinamento do card, das perguntas 1285 a 1300. Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
 
@@ -107,6 +107,7 @@ As marcas não vão para o item: recolher o Cubit as apaga, como a área e os ba
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-21 21:21 | Troca a receita do card pela receita comum dos cards (perguntas 1540 a 1545). |
 | Marcelo Fabiano | 2026-11-19 23:06 | Troca a chave das marcas para `MarkedBlocks` (pergunta 1327). |
 | Marcelo Fabiano | 2026-11-19 22:47 | Recria o livro e pena da mochila como parte do modelo (pergunta 1312). |

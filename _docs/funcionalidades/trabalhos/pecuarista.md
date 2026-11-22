@@ -1,6 +1,6 @@
 # Pecuarista
 
-Conceito do trabalho de Pecuarista, da Fase 5.2. Nada aqui está implementado, e o documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área valem aqui.
+Conceito do trabalho de Pecuarista, da Fase 5.2. Nada aqui está implementado, e o documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área valem aqui.
 
 **Situação:** o comportamento base está decidido na [pergunta 205](../../perguntas/fase-5-trabalhos.md). O tier mínimo, o Avançado, está decidido na pergunta 1145. A evolução por tier é proposta, e os detalhes em aberto são respondidos no refinamento do card (perguntas 1153 e 1154).
 
@@ -54,5 +54,6 @@ Cada item traz a recomendação atual, ainda sem resposta.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Marcelo Fabiano | 2026-11-14 20:25 | Leva o conceito de `tmp/fase5` para `_docs`, com as decisões da consolidação (perguntas 1145 a 1156). |
 | Marcelo Fabiano | 2026-11-13 11:43 | Cria o conceito do Pecuarista, com o comportamento da pergunta 205 e a proposta de evolução por tier. |

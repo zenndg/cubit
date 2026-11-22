@@ -1,6 +1,6 @@
 # Mecânico
 
-Conceito do trabalho de Mecânico, da Fase 5.2. Nada aqui está implementado, e o documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área valem aqui.
+Conceito do trabalho de Mecânico, da Fase 5.2. Nada aqui está implementado, e o documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área valem aqui.
 
 **Situação:** o Mecânico entra como trabalho do Elite (perguntas 1146, 1147, 1152 e 1598), com o nome do card Machine Learning: Mechanic. O conceito abaixo ainda é uma proposta, e os detalhes em aberto são respondidos no refinamento do card (pergunta 1153).
 
@@ -119,6 +119,7 @@ Cada item traz a recomendação atual, ainda sem resposta.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-22 08:03 | Leva o Construtor, o Mecânico e o Alquimista para o Elite (pergunta 1598). |
 | Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |
 | Marcelo Fabiano | 2026-11-14 20:25 | Leva o conceito de `tmp/fase5` para `_docs`, com as decisões da consolidação (perguntas 1145 a 1156). |

@@ -1,6 +1,6 @@
 # Patrulheiro Galático
 
-Conceito do trabalho de Patrulheiro Galático, que substitui o Defensor (#198). O documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui, com as exceções escritas abaixo.
+Conceito do trabalho de Patrulheiro Galático, que substitui o Defensor (#198). O documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui, com as exceções escritas abaixo.
 
 **Situação:** autorizado (perguntas 1591, 1613, 1632 e 1698). O conceito vem do desenvolvedor (perguntas 1550 a 1552) e foi refinado nas perguntas 1553 a 1697. O PR 1, com o comportamento, entrou no #238, o PR 2, com a rota e a ronda lenta, no #239, e o PR 3 traz o realismo e o visual. A prioridade é a mais alta, como a da Engineering Desk: cada detalhe do conceito e da aparência é decidido antes do código (pergunta 1560). Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
 
@@ -276,6 +276,7 @@ Uma issue, a #198 renomeada, e três PRs testados no jogo (perguntas 1578, 1605 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-22 15:30 | Detalha a mesma área do chamado e a ronda espaçada (perguntas 1707 e 1708). |
 | Zennd | 2026-11-22 15:10 | Acrescenta os casos de fronteira dos alvos (perguntas 1701 a 1703 e 1705). |
 | Zennd | 2026-11-22 14:50 | Acrescenta a vida baixa, o socorro, a bola de fogo, a bateria, a água, a noite, o teleporte, o enderman e o breeze (perguntas 1685 a 1699). |

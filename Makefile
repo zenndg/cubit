@@ -7,8 +7,8 @@ GRADLE := ./gradlew
 help: ## Show the available commands
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F ':.*## ' '{printf "  %-18s %s\n", $$1, $$2}'
 
-setup: ## Install the development tools and enable the git hooks
-	scripts/development/setup-dev.sh
+setup: ## Install the development tools and enable the git hooks (Linux x86_64 or macOS)
+	scripts/development/setup-dev$(if $(filter Darwin,$(shell uname -s)),-macos,).sh
 
 check: ## Run every gate: build, tests, architecture, coverage, formatting and static analysis
 	$(GRADLE) check
