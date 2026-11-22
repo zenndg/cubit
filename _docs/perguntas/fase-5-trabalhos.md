@@ -719,11 +719,15 @@ Não há perguntas pendentes nesta fase.
 | 1772 | O visor ciano, a lâmina verde, as luzes azuis das asas e os propulsores brilham no escuro? | Sim, com uma camada emissiva, como o brilho das antenas, acesa só com a parte em uso: o visor baixado, a lâmina acesa e as asas abertas. A recomendação foi aceita. Detalha a 1653 |
 | 1773 | Como seguem os sons do PR 4 até os `.wav` do desenvolvedor chegarem (1575)? | Os sons são a entrega 4: até lá continuam os sons provisórios do jogo puro, e o desenvolvedor entrega os 11 `.wav` em `tmp/wav/patrulheiro/` quando ela chegar, com as descrições de `sons.md`. A recomendação foi aceita |
 | 1774 | O conceito do PR 4 do Patrulheiro (o modelo e a textura pelo padrão dos trabalhos, as cinco entregas, a camada emissiva, os sons por último, a branch `feature/198-patroller-visuals` e o `Closes #198`) pode ir ao código? | O desenvolvedor disse "est autorizado" (regra 54) |
+| 1775 | Há algo a acrescentar à entrega 1 do PR 4 do Patrulheiro, o modelo e a textura parados? | Nada a acrescentar (1771) |
+| 1776 | A 1574 diz "pistola na garra esquerda e emissor no pulso direito", mas a imagem conceito aceita (1592) mostra, de frente, a pistola à esquerda de quem olha, que é a garra direita do próprio Cubit. Qual lado vale no modelo? | Como na imagem: a pistola na garra direita do próprio Cubit, a mesma da vara do Pescador, que aparece à esquerda de quem olha de frente, e o emissor da lâmina e o distintivo do lado esquerdo do Cubit. A recomendação foi aceita. Muda a 1574 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 17:53 | Registra a resposta 1776. |
+| Zennd | 2026-11-22 17:35 | Registra a resposta 1775. |
 | Zennd | 2026-11-22 17:33 | Registra a resposta 1774. |
 | Zennd | 2026-11-22 17:32 | Registra as respostas 1770 a 1773. |
 | Zennd | 2026-11-22 17:30 | Registra a resposta 1769. |
