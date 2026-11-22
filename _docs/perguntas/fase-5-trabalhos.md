@@ -672,11 +672,14 @@ Não há perguntas pendentes nesta fase.
 | 1725 | Como fica a cautela com a vida baixa (4d, 1686)? | O `WeaponChoice` recebe a cautela: abaixo de 25% da vida, com carga e o alvo no alcance, ele usa sempre a pistola, mesmo de perto, e sem poder atirar usa a lâmina (1571). Com o alvo a menos de 4 blocos, recua na direção do protegido mais perto, ou se afasta do alvo sem protegido por perto. O recuo do creeper vem antes, e o cerco depois. Nada a acrescentar (1631). Detalha a 1686 |
 | 1726 | A GameTest `thePistolShootsAFarHostile` prova o disparo pela energia gasta, mas andar também gasta energia. Ela é corrigida pela Regra do Escoteiro? | Sim, num commit próprio: ela passa a esperar o globo de laser no mundo |
 | 1727 | A GameTest `theBladeHitsANearHostile` usa um zumbi, que pega fogo com o sol. Ela é trocada pelo husk (Regra do Escoteiro)? | Sim, num commit próprio |
+| 1731 | Creeper (1641): com carga, se o creeper acende perto de um protegido, mas o Patrulheiro já está fora do raio de 4 blocos, o que ele faz? | Segue atirando: o recuo é dele mesmo, só quando está dentro do raio, e ele continua atirando para derrubar o creeper antes da explosão. Sem carga, fica a 6 blocos do creeper, no caminho até o protegido mais próximo, como um escudo. Detalha a 1641 |
+| 1732 | Há algo a acrescentar à entrega 5 do PR 3, as correções (1635 a 1642)? | Nada a acrescentar (1631) |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 19:45 | Registra as respostas 1731 e 1732. |
 | Zennd | 2026-11-22 19:30 | Registra a resposta 1727. |
 | Zennd | 2026-11-22 18:20 | Registra as respostas 1724 a 1726. |
 | Zennd | 2026-11-22 18:00 | Registra as respostas 1721 a 1723. |

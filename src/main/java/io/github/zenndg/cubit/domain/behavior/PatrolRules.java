@@ -42,7 +42,32 @@ public final class PatrolRules {
         && check.heightAbove() <= check.jumpHeight();
   }
 
-  /** A swelling creeper near it or near a protected one sends it out of the blast. */
+  /** How far the blast of a creeper reaches and how far it keeps without a shot (1642). */
+  public record CreeperDistances(int blast, int keepAway) {
+    private static final String INVALID = "Invalid distances of the creeper: ";
+    private static final String SEPARATOR = ", ";
+
+    public CreeperDistances {
+      if (blast < 1 || keepAway < 1) {
+        throw new IllegalArgumentException(INVALID + blast + SEPARATOR + keepAway);
+      }
+    }
+  }
+
+  /**
+   * Where it stands as a shield without a shot: out of the blast, on the way from the creeper to
+   * the one it protects (answers 1595, 1641 and 1731).
+   */
+  public static PatrolSiege.Spot shield(
+      double creeperX, double creeperZ, double guardedX, double guardedZ, double keepAway) {
+    double angle = Math.atan2(guardedZ - creeperZ, guardedX - creeperX);
+    return PatrolSiege.spot(creeperX, creeperZ, angle, keepAway);
+  }
+
+  /**
+   * A swelling creeper near it sends it out of the blast. Near a protected one, with it already out
+   * of the blast, it keeps shooting to bring the creeper down first (answer 1731).
+   */
   public static boolean backsAway(boolean swelling, double distance, double blastRadius) {
     return swelling && distance < blastRadius;
   }

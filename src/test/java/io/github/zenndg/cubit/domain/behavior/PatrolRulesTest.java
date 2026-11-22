@@ -2,12 +2,18 @@ package io.github.zenndg.cubit.domain.behavior;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.github.zenndg.cubit.domain.robot.DefenseMode;
 import org.junit.jupiter.api.Test;
 
 class PatrolRulesTest {
+  private static final double SHIELD_CREEPER = 10;
+  private static final double SHIELD_GUARDED = 30;
+  private static final double SHIELD_KEEP = 6;
+  private static final int SHIELD_KEEP_BLOCKS = 6;
+  private static final double SHIELD_PRECISION = 1e-9;
   private static final int CHASE = 16;
   private static final int JUMP = 3;
   private static final double BLAST = 4;
@@ -60,5 +66,21 @@ class PatrolRulesTest {
     assertTrue(PatrolRules.backsAway(true, LOW, BLAST));
     assertFalse(PatrolRules.backsAway(false, LOW, BLAST));
     assertFalse(PatrolRules.backsAway(true, OUT_OF_BLAST, BLAST));
+  }
+
+  @Test
+  void theShieldStandsOutOfTheBlastOnTheWayToTheProtectedOne() {
+    PatrolSiege.Spot spot =
+        PatrolRules.shield(
+            SHIELD_CREEPER, SHIELD_CREEPER, SHIELD_GUARDED, SHIELD_CREEPER, SHIELD_KEEP);
+    assertEquals(SHIELD_CREEPER + SHIELD_KEEP, spot.x(), SHIELD_PRECISION);
+    assertEquals(SHIELD_CREEPER, spot.z(), SHIELD_PRECISION);
+  }
+
+  @Test
+  void theDistancesOfTheCreeperAreAtLeastOneBlock() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new PatrolRules.CreeperDistances(0, SHIELD_KEEP_BLOCKS));
   }
 }

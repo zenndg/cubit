@@ -26,8 +26,6 @@ import net.minecraft.world.phys.Vec3;
 final class PatrolFightGoal extends Goal {
   private static final double SPEED_MODIFIER = 1;
   private static final double BLADE_STOP = 1.8;
-  private static final double CREEPER_BLAST = 4;
-  private static final double KEEP_AWAY = 6;
   private static final int REPATH_TICKS = 5;
   private static final double ON_SPOT = 1;
   private static final double ARRIVED_BLOCKS = 1.5;
@@ -124,9 +122,13 @@ final class PatrolFightGoal extends Goal {
   private boolean backedOff(WeaponChoice weapon, LivingEntity target) {
     boolean swelling = target instanceof Creeper creeper && creeper.getSwellDir() > 0;
     double distance = robot.distanceTo(target);
-    if (PatrolRules.backsAway(swelling, distance, CREEPER_BLAST)
-        || weapon == WeaponChoice.NONE && distance < KEEP_AWAY) {
-      keepAway(target);
+    PatrolRules.CreeperDistances creeper = CubitMod.CONFIG.patrol().creeper();
+    if (PatrolRules.backsAway(swelling, distance, creeper.blast())) {
+      keepAway(target, creeper.keepAway());
+      return true;
+    }
+    if (weapon == WeaponChoice.NONE) {
+      shield(target, creeper.keepAway());
       return true;
     }
     if (robot.workArea().work().patrolCombat().cautious() && distance < switchDistance()) {
@@ -134,6 +136,37 @@ final class PatrolFightGoal extends Goal {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Without a shot at a creeper it stands as a shield, out of the blast, on the way to the one it
+   * protects nearest to the creeper, or else just away from it (answers 1595, 1641 and 1731).
+   */
+  private void shield(LivingEntity creeper, int keepAway) {
+    Optional<LivingEntity> guarded = nearestProtected(creeper);
+    if (guarded.isEmpty()) {
+      if (robot.distanceTo(creeper) < keepAway) {
+        keepAway(creeper, keepAway);
+      }
+      return;
+    }
+    LivingEntity one = guarded.get();
+    PatrolSiege.Spot spot =
+        PatrolRules.shield(creeper.getX(), creeper.getZ(), one.getX(), one.getZ(), keepAway);
+    robot.getNavigation().moveTo(spot.x(), creeper.getY(), spot.z(), SPEED_MODIFIER);
+  }
+
+  /** The one it protects nearest to a place, within its search, never itself. */
+  private Optional<LivingEntity> nearestProtected(LivingEntity around) {
+    int radius = robot.workArea().work().patrolCombat().spec().searchRadius();
+    return robot
+        .level()
+        .getEntitiesOfClass(
+            LivingEntity.class,
+            around.getBoundingBox().inflate(radius),
+            one -> one != robot && one.isAlive() && PatrolProtection.isProtected(robot, one))
+        .stream()
+        .min(Comparator.comparingDouble(around::distanceTo));
   }
 
   /**
@@ -236,18 +269,9 @@ final class PatrolFightGoal extends Goal {
    * target (answer 1686).
    */
   private void retreat(LivingEntity target) {
-    int radius = robot.workArea().work().patrolCombat().spec().searchRadius();
-    Optional<LivingEntity> shelter =
-        robot
-            .level()
-            .getEntitiesOfClass(
-                LivingEntity.class,
-                robot.getBoundingBox().inflate(radius),
-                one -> one != robot && one.isAlive() && PatrolProtection.isProtected(robot, one))
-            .stream()
-            .min(Comparator.comparingDouble(robot::distanceTo));
+    Optional<LivingEntity> shelter = nearestProtected(robot);
     if (shelter.isEmpty()) {
-      keepAway(target);
+      keepAway(target, CubitMod.CONFIG.patrol().creeper().keepAway());
       return;
     }
     robot.getNavigation().moveTo(shelter.get(), SPEED_MODIFIER);
@@ -258,9 +282,9 @@ final class PatrolFightGoal extends Goal {
   }
 
   /** Away from the target, on the other side from it. */
-  private void keepAway(LivingEntity target) {
+  private void keepAway(LivingEntity target, int distance) {
     Vec3 away = robot.position().subtract(target.position()).multiply(1, 0, 1).normalize();
-    Vec3 spot = robot.position().add(away.scale(KEEP_AWAY));
+    Vec3 spot = robot.position().add(away.scale(distance));
     robot.getNavigation().moveTo(spot.x, spot.y, spot.z, SPEED_MODIFIER);
   }
 }

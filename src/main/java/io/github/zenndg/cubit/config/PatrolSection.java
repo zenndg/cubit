@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.config;
 
 import com.mojang.logging.LogUtils;
+import io.github.zenndg.cubit.domain.behavior.PatrolRules;
 import io.github.zenndg.cubit.domain.behavior.PatrolSettings;
 import io.github.zenndg.cubit.domain.behavior.PatrolTeam;
 import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
@@ -34,6 +35,12 @@ public final class PatrolSection {
   private static final String OWNER_DISTANCE = "patroller_owner_check_distance";
   private static final String VISOR_CALM = "patroller_visor_calm_ticks";
   private static final String LOST_SIGHT = "patroller_lost_sight_ticks";
+  private static final String CREEPER_BLAST = "patroller_creeper_blast";
+  private static final String KEEP_AWAY = "patroller_keep_away";
+  private static final int CREEPER_BLAST_DEFAULT = 4;
+  private static final int CREEPER_BLAST_MAX = 16;
+  private static final int KEEP_AWAY_DEFAULT = 6;
+  private static final int KEEP_AWAY_MAX = 32;
   private static final int LOST_SIGHT_DEFAULT = 40;
   private static final int ALERT_DEFAULT = 10;
   private static final int OWNER_CHECK_DEFAULT = 20;
@@ -77,11 +84,7 @@ public final class PatrolSection {
   private final ModConfigSpec.IntValue callRange;
   private final ModConfigSpec.IntValue rescueRadius;
   private final ModConfigSpec.IntValue lowHealth;
-  private final ModConfigSpec.IntValue alert;
-  private final ModConfigSpec.IntValue ownerCheck;
-  private final ModConfigSpec.IntValue ownerDistance;
-  private final ModConfigSpec.IntValue visorCalm;
-  private final ModConfigSpec.IntValue lostSight;
+  private final WatchKeys watchKeys;
   private final AtomicBoolean warned = new AtomicBoolean();
 
   PatrolSection(ModConfigSpec.Builder builder) {
@@ -107,12 +110,7 @@ public final class PatrolSection {
     rescueRadius =
         builder.defineInRange(RESCUE_RADIUS, RESCUE_RADIUS_DEFAULT, MIN_ONE, RESCUE_RADIUS_MAX);
     lowHealth = builder.defineInRange(LOW_HEALTH, LOW_HEALTH_DEFAULT, MIN_ZERO, PERCENT_MAX);
-    alert = builder.defineInRange(ALERT, ALERT_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
-    ownerCheck = builder.defineInRange(OWNER_CHECK, OWNER_CHECK_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
-    ownerDistance =
-        builder.defineInRange(OWNER_DISTANCE, OWNER_DISTANCE_DEFAULT, MIN_ONE, BLOCKS_MAX);
-    visorCalm = builder.defineInRange(VISOR_CALM, VISOR_CALM_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
-    lostSight = builder.defineInRange(LOST_SIGHT, LOST_SIGHT_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
+    watchKeys = new WatchKeys(builder);
   }
 
   public PatrolSettings settings() {
@@ -136,7 +134,16 @@ public final class PatrolSection {
    */
   public PatrolWatch.Timings watch() {
     return new PatrolWatch.Timings(
-        alert.get(), ownerCheck.get(), ownerDistance.get(), visorCalm.get(), lostSight.get());
+        watchKeys.alert.get(),
+        watchKeys.ownerCheck.get(),
+        watchKeys.ownerDistance.get(),
+        watchKeys.visorCalm.get(),
+        watchKeys.lostSight.get());
+  }
+
+  /** The blast of a creeper and how far it keeps without a shot (answer 1642). */
+  public PatrolRules.CreeperDistances creeper() {
+    return new PatrolRules.CreeperDistances(watchKeys.creeperBlast.get(), watchKeys.keepAway.get());
   }
 
   private PatrolSettings.Round round() {
@@ -153,5 +160,29 @@ public final class PatrolSection {
         Math.max(minTicks, maxTicks),
         minDistance,
         Math.max(minDistance, maxDistance));
+  }
+
+  /** The keys of the watch and of the creeper, kept apart so each part stays short. */
+  private static final class WatchKeys {
+    final ModConfigSpec.IntValue alert;
+    final ModConfigSpec.IntValue ownerCheck;
+    final ModConfigSpec.IntValue ownerDistance;
+    final ModConfigSpec.IntValue visorCalm;
+    final ModConfigSpec.IntValue lostSight;
+    final ModConfigSpec.IntValue creeperBlast;
+    final ModConfigSpec.IntValue keepAway;
+
+    WatchKeys(ModConfigSpec.Builder builder) {
+      alert = builder.defineInRange(ALERT, ALERT_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
+      ownerCheck =
+          builder.defineInRange(OWNER_CHECK, OWNER_CHECK_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
+      ownerDistance =
+          builder.defineInRange(OWNER_DISTANCE, OWNER_DISTANCE_DEFAULT, MIN_ONE, BLOCKS_MAX);
+      visorCalm = builder.defineInRange(VISOR_CALM, VISOR_CALM_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
+      lostSight = builder.defineInRange(LOST_SIGHT, LOST_SIGHT_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
+      creeperBlast =
+          builder.defineInRange(CREEPER_BLAST, CREEPER_BLAST_DEFAULT, MIN_ONE, CREEPER_BLAST_MAX);
+      keepAway = builder.defineInRange(KEEP_AWAY, KEEP_AWAY_DEFAULT, MIN_ONE, KEEP_AWAY_MAX);
+    }
   }
 }

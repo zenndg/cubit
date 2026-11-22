@@ -127,7 +127,7 @@ Enquanto o card está no slot, o Cubit ganha armadura extra, pelo atributo do jo
 
 ### Creeper
 
-Contra o creeper, usa sempre a pistola, nunca a lâmina. Se o creeper começar a acender perto dele ou de qualquer protegido, ele recua até sair do raio da explosão, de 4 blocos, e volta a atirar (perguntas 1567 e 1641). Sem carga para atirar, ele não ataca o creeper: fica fora do raio, a 6 blocos, no caminho entre o creeper e o protegido mais próximo, como um escudo, e volta a atirar quando tiver carga (perguntas 1595 e 1641). Os dois números ficam no config (pergunta 1642).
+Contra o creeper, usa sempre a pistola, nunca a lâmina. Se o creeper começar a acender perto dele ou de qualquer protegido, ele recua até sair do raio da explosão, de 4 blocos, e volta a atirar (perguntas 1567 e 1641). Sem carga para atirar, ele não ataca o creeper: fica fora do raio, a 6 blocos, no caminho entre o creeper e o protegido mais próximo, como um escudo, e volta a atirar quando tiver carga (perguntas 1595 e 1641). Os dois números ficam no config (pergunta 1642). O recuo é só dele: com o creeper aceso perto de um protegido e ele já fora do raio, segue atirando para derrubar o creeper antes da explosão (pergunta 1731).
 
 ## Armas
 
@@ -277,6 +277,7 @@ Uma issue, a #198 renomeada, e três PRs testados no jogo (perguntas 1578, 1605 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 19:50 | Detalha o creeper perto de um protegido (pergunta 1731). |
 | Zennd | 2026-11-22 18:10 | Detalha quando o alvo some de vista e o hostil que aparece na investigação (perguntas 1721 a 1723). |
 | Zennd | 2026-11-22 17:10 | Detalha o cerco da equipe (pergunta 1718). |
 | Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
