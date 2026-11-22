@@ -728,11 +728,15 @@ Não há perguntas pendentes nesta fase.
 | 1781 | Como é feita a textura da tela do Patrulheiro com o visor baixado, com os olhos decididos ciano e as marcas de mira nos cantos? | Por prompt, com arte do desenvolvedor: o agente escreve o prompt em `tmp/arte/patrulheiro/prompt.md`, com a `normal.png` e a `alert.png` como gabarito, e até a arte chegar a tela usa a `alert.png` como provisória. A recomendação foi aceita |
 | 1782 | A arte da tela do Patrulheiro com o visor baixado, `tmp/arte/patrulheiro/tela_visor_baixado.png`, com o brilho derivado por script, está aceita? | O desenvolvedor disse "arte aceita": entra em `general_robot_screen/patroller.png` e `general_robot_screen_glow/patroller.png`. Detalha a 1781 |
 | 1783 | Há algo a acrescentar à entrega 3 do PR 4 do Patrulheiro, os efeitos: o globo desenhado, o estouro, os propulsores e a camada emissiva? | Nada a acrescentar (1771) |
+| 1784 | Há algo a acrescentar à entrega 4 do PR 4 do Patrulheiro, os sons? E ela segue agora ou depois da entrega 5, a textura do card? | Nada a acrescentar, e a entrega 5 vem antes da 4, que espera os `.wav` do desenvolvedor. Muda a ordem da 1771 |
+| 1785 | A textura do card do Patrulheiro, `tmp/arte/patrulheiro/ml_patroller.png`, com o mesmo formato dos outros cards e a faixa do alto no mesmo azul da do Pescador, está aceita assim, ou a faixa muda de cor? | O desenvolvedor disse "sim continue": o card entra como está, com a faixa azul, no lugar da textura provisória |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 18:21 | Registra a resposta 1785. |
+| Zennd | 2026-11-22 18:18 | Registra a resposta 1784. |
 | Zennd | 2026-11-22 18:13 | Registra a resposta 1783. |
 | Zennd | 2026-11-22 18:12 | Registra a resposta 1782. |
 | Zennd | 2026-11-22 18:01 | Registra a resposta 1781. |
