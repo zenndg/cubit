@@ -1,9 +1,13 @@
 package io.github.zenndg.cubit.entity;
 
 import io.github.zenndg.cubit.domain.behavior.PatrolRules;
+import io.github.zenndg.cubit.domain.behavior.PatrolSiege;
 import io.github.zenndg.cubit.domain.behavior.WeaponChoice;
+import java.util.Comparator;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Creeper;
@@ -11,9 +15,9 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * How the Galactic Patroller moves in a fight: close in for the blade, stand and aim for the
- * pistol, and keep out of the blast of a creeper. It chases only so far from what it guards, the
- * route, the area or the one it escorts, and then lets go (answers 1562, 1565, 1567, 1595 and
- * 1636).
+ * pistol, keep out of the blast of a creeper and, with the team, besiege the target from every
+ * side. It chases only so far from what it guards, the route, the area or the one it escorts, and
+ * then lets go (answers 1562, 1565, 1567, 1595, 1636 and 1645).
  */
 final class PatrolFightGoal extends Goal {
   private static final double SPEED_MODIFIER = 1;
@@ -21,6 +25,7 @@ final class PatrolFightGoal extends Goal {
   private static final double CREEPER_BLAST = 4;
   private static final double KEEP_AWAY = 6;
   private static final int REPATH_TICKS = 5;
+  private static final double ON_SPOT = 1;
 
   private final RobotEntity robot;
   private int repathCountdown;
@@ -81,6 +86,9 @@ final class PatrolFightGoal extends Goal {
       keepAway(target);
       return;
     }
+    if (weapon != WeaponChoice.NONE && besiege(weapon, target)) {
+      return;
+    }
     if (weapon == WeaponChoice.PISTOL) {
       robot.getNavigation().stop();
       return;
@@ -88,6 +96,47 @@ final class PatrolFightGoal extends Goal {
     if (weapon == WeaponChoice.BLADE && robot.distanceTo(target) > BLADE_STOP) {
       robot.getNavigation().moveTo(target, SPEED_MODIFIER);
     }
+  }
+
+  /**
+   * With others of the team on the same target, each goes to its side: the first keeps the one it
+   * came from and the others spread evenly around (answers 1645 and 1718).
+   */
+  private boolean besiege(WeaponChoice weapon, LivingEntity target) {
+    List<RobotEntity> siege = besiegers(target);
+    if (siege.size() < 2) {
+      return false;
+    }
+    RobotEntity first = siege.getFirst();
+    double firstAngle = Math.atan2(first.getZ() - target.getZ(), first.getX() - target.getX());
+    double angle = PatrolSiege.angle(siege.indexOf(robot), siege.size(), firstAngle);
+    double distance = robot.position().subtract(target.position()).horizontalDistance();
+    double radius = reach().radius(weapon == WeaponChoice.BLADE, distance);
+    PatrolSiege.Spot spot = PatrolSiege.spot(target.getX(), target.getZ(), angle, radius);
+    if (Math.hypot(robot.getX() - spot.x(), robot.getZ() - spot.z()) < ON_SPOT) {
+      robot.getNavigation().stop();
+    } else {
+      robot.getNavigation().moveTo(spot.x(), target.getY(), spot.z(), SPEED_MODIFIER);
+    }
+    return true;
+  }
+
+  /** Itself and the mates on the same target, always in the same order. */
+  private List<RobotEntity> besiegers(LivingEntity target) {
+    Stream<RobotEntity> mates =
+        PatrolTeams.mates(robot).stream()
+            .filter(mate -> mate.workArea().work().patrolCombat().target().orElse(null) == target);
+    return Stream.concat(Stream.of(robot), mates)
+        .sorted(Comparator.comparing(RobotEntity::getUUID))
+        .toList();
+  }
+
+  private PatrolSiege.Reach reach() {
+    RobotPatrolCombat combat = robot.workArea().work().patrolCombat();
+    return new PatrolSiege.Reach(
+        BLADE_STOP,
+        RobotPatrolCombat.settings().weaponSwitchDistance(),
+        combat.spec().weapons().pistolRange());
   }
 
   /** Away from the target, on the other side from it. */

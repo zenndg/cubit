@@ -15,6 +15,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.gametest.GameTestHolder;
@@ -22,7 +23,8 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 /**
  * The team of Galactic Patrollers in the world: all on one target, the call that brings a mate from
- * beyond its search and the rescue of a wounded one (answers 1643, 1644 and 1691).
+ * beyond its search, the rescue of a wounded one and the siege from every side (answers 1643, 1644,
+ * 1645 and 1691).
  */
 @GameTestHolder(CubitMod.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -53,6 +55,12 @@ public final class PatrolTeamGameTests {
   private static final String NOT_HIT = "The team should have hit this hostile";
   private static final String HIT = "The team should have left this hostile for later";
   private static final String NOT_CALLED = "The mate should have come to the call";
+  private static final String CROWDED = "The team should have taken different sides";
+  private static final int SIEGED_X = 12;
+  private static final double TOUGH = 1000;
+  private static final double SPREAD_DEGREES = 120;
+  private static final double HALF_TURN = 180;
+  private static final double FULL_TURN = 360;
 
   private PatrolTeamGameTests() {}
 
@@ -153,5 +161,29 @@ public final class PatrolTeamGameTests {
     helper.assertTrue(hurt(first), NOT_HIT);
     helper.assertFalse(hurt(later), HIT);
     helper.succeed();
+  }
+
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void theTeamBesiegesTheTargetFromEverySide(GameTestHelper helper) {
+    ServerPlayer owner = owner(helper);
+    RobotEntity one = patroller(helper, owner, NEAR_X, FIRST_Z, HEALTH);
+    RobotEntity other = patroller(helper, owner, NEAR_X, LAST_Z, HEALTH);
+    onceTheTeamIsUp(
+        helper,
+        () -> {
+          Husk target = hostile(helper, SIEGED_X);
+          target.getAttribute(Attributes.MAX_HEALTH).setBaseValue(TOUGH);
+          target.setHealth((float) TOUGH);
+          helper.succeedWhen(
+              () -> helper.assertTrue(apart(target, one, other) > SPREAD_DEGREES, CROWDED));
+        });
+  }
+
+  /** The angle between the two, seen from the target, in degrees. */
+  private static double apart(LivingEntity target, RobotEntity one, RobotEntity other) {
+    double first = Math.atan2(one.getZ() - target.getZ(), one.getX() - target.getX());
+    double second = Math.atan2(other.getZ() - target.getZ(), other.getX() - target.getX());
+    double degrees = Math.toDegrees(Math.abs(first - second));
+    return degrees > HALF_TURN ? FULL_TURN - degrees : degrees;
   }
 }
