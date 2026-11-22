@@ -23,7 +23,7 @@ O inglês é o idioma base do mod, e o jogo também tem a tradução para o port
 | Trabalho | Job |
 | Aba Trabalho | Job tab |
 | Card de Aprendizado de Máquina | Machine Learning card |
-| Aprendizado de Máquina: Minerador, Fazendeiro, Pescador, Pecuarista, Defensor, Organizador, Cozinheiro e Construtor | Machine Learning: Miner, Farmer, Fisher, Rancher, Defender, Organizer, Cook e Builder |
+| Aprendizado de Máquina: Minerador, Fazendeiro, Pescador, Pecuarista, Patrulheiro Galático, Organizador, Cozinheiro e Construtor | Machine Learning: Miner, Farmer, Fisher, Rancher, Galactic Patroller, Organizer, Cook e Builder |
 | Generalista | Generalist |
 | Lanterna | Lamp |
 | Scanners | Scanners |
@@ -72,6 +72,7 @@ Os IDs estão em [`itens.md`](itens.md).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |
 | Zennd | 2026-11-21 12:45 | Adiciona a Mesa de Engenharia, o pedido e a marcação (perguntas 1424 a 1484). |
 | Marcelo Fabiano | 2026-11-21 11:30 | Adiciona a Recharge Splash. |
 | Marcelo Fabiano | 2026-11-13 16:40 | Troca o controle remoto pelo Tablet. |

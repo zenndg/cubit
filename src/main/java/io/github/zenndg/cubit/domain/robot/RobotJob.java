@@ -13,7 +13,7 @@ public enum RobotJob {
   RANCHER,
   ORGANIZER,
   COOK,
-  DEFENDER,
+  PATROLLER,
   MINER,
   BUILDER,
   MECHANIC,

@@ -38,6 +38,7 @@ public final class ChatterSection {
   private final ModConfigSpec.IntValue leftBehindBlocks;
   private final ModConfigSpec.IntValue leftBehindRepeatTicks;
   private final ModConfigSpec.IntValue checkTicks;
+  private final JobChatterSection jobs;
 
   ChatterSection(ModConfigSpec.Builder builder) {
     repeatTicks =
@@ -66,6 +67,12 @@ public final class ChatterSection {
             LEFT_BEHIND_REPEAT, LEFT_BEHIND_REPEAT_DEFAULT, REPEAT_TICKS_MIN, REPEAT_TICKS_MAX);
     checkTicks =
         builder.defineInRange(CHECK_TICKS, CHECK_TICKS_DEFAULT, CHECK_TICKS_MIN, CHECK_TICKS_MAX);
+    jobs = new JobChatterSection(builder);
+  }
+
+  /** The phrases of the jobs, beside the chatter (answers 1585 and 1586). */
+  public JobChatterSection jobs() {
+    return jobs;
   }
 
   public int repeatTicks() {

@@ -1108,6 +1108,31 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 25 | Peça 2 Cubits, com as peças de só um na saída | Ela faz um Cubit, puxa as peças e pausa em `Missing materials` até as peças do segundo chegarem |
 | 26 | Com o jogo em português | `Mesa de Engenharia`, `Projeto`, `Estoque` e os estados em português |
 
+## Patrulheiro Galático
+
+As regras estão em [`patrulheiro.md`](../funcionalidades/trabalhos/patrulheiro.md). Esta seção cobre o PR 1: o comportamento, sem a rota marcada no app Marcar, com o visual provisório. O globo de laser só aparece pelo rastro azul, e os sons são do jogo puro. Use um mundo plano no criativo, com `/difficulty normal`, um Cubit Elite com carga, o card, o Tablet, um Ultimate Module e um segundo Cubit Elite com o card.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Faça o card na Engineering Desk: Card Casing, Circuit Board e estrela de fogo de artifício, com o Elite Module já usado | Sai o `Machine Learning: Galactic Patroller` |
+| 2 | Ponha o card no slot e feche a tela | Ele fala uma das três frases de entrada, com `Cubit (Galactic Patroller): ` no prefixo. A armadura sobe 6, e a vida fica em 100 |
+| 3 | Na aba Defense, tente trocar para Pacífico ou Contra-atacar | O modo continua Agressivo |
+| 4 | Sem área, com ele seguindo você, chame um zumbi a 5 blocos | Ele escolta você: atira de 4 blocos ou mais e usa a lâmina de perto, com faíscas e empurrão, no lugar do choque |
+| 5 | Mate zumbis e esqueletos com a lâmina várias vezes | Cerca de metade das mortes derruba a cabeça, que vai para o inventário dele com os outros drops. Às vezes ele fala ao entrar em combate e ao abater |
+| 6 | Repare nos acertos do globo | Estouro em partículas azuis, sem quebrar blocos, e às vezes Lentidão I no alvo |
+| 7 | Deixe uma vaca, um aldeão e você na linha de tiro | Nenhum deles é ferido |
+| 8 | Marque uma área de até 64×64 com o app Área e desligue o `Follow` | Ele percorre as bordas da área |
+| 9 | Chame um hostil a 10 blocos fora da área | Ele persegue até 16 blocos e volta à ronda quando o alvo morre ou passa do limite |
+| 10 | Chame um creeper a 8 blocos | Ele só atira nele e, se o creeper acender perto, recua para fora da explosão e volta a atirar |
+| 11 | Esvazie a bateria até não ter carga para um disparo e repita os passos 4 e 10 | No zumbi, só a lâmina. No creeper, fica afastado, entre ele e você, sem atacar |
+| 12 | Empurre-o de 10 blocos de altura | Ele plana, sem dano de queda e sem gastar bateria |
+| 13 | Sem carga para atirar, chame um Phantom ou um Blaze a até 3 blocos de altura | Ele salta, gasta 500 FE e golpeia no ar com a lâmina |
+| 14 | Com os dois Patrulheiros, chame dois hostis e depois só um | Cada um ataca um hostil, e com um só os dois atacam o mesmo |
+| 15 | Tire o card | A armadura extra sai, o choque volta, e a aba Defense mostra o modo de antes |
+| 16 | Aplique o Ultimate Module e ponha o card de novo | A armadura extra é de 10, o tiro alcança mais e é mais rápido, e a área vai até 128×128 |
+| 17 | Com o Pescador, o Fazendeiro, o Organizador e o Cozinheiro, ponha cada card e trabalhe perto dele | Cada um fala uma frase de entrada e, às vezes, uma frase do trabalho, com a profissão no prefixo |
+| 18 | Com o jogo em português | `Aprendizado de Máquina: Patrulheiro Galático` e `Cubit (Patrulheiro Galático): ` no prefixo |
+
 ## Tradução
 
 | # | Passo | Resultado esperado |
@@ -1167,6 +1192,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 09:30 | Adiciona o Patrulheiro Galático, PR 1, e as falas das profissões. |
 | Zennd | 2026-11-21 14:20 | Começa o pedido em zero (pergunta 1506). |
 | Zennd | 2026-11-21 14:00 | Adiciona a cascata ao roteiro da Engineering Desk (perguntas 1500 a 1503). |
 | Zennd | 2026-11-21 13:30 | Adiciona o roteiro da Engineering Desk, PR 1 (perguntas 1424 a 1494). |

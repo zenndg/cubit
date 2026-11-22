@@ -2,7 +2,7 @@
 
 Conceito do trabalho de Construtor, da Fase 5.2. Nada aqui está implementado, e o documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área valem aqui.
 
-**Situação:** o comportamento base está decidido nas [perguntas 213 e 217](../../perguntas/fase-5-trabalhos.md). O tier mínimo, o Ultimate, está decidido na pergunta 1145. Os novos modos abaixo são proposta, e os detalhes em aberto são respondidos no refinamento do card (perguntas 1153 e 1154).
+**Situação:** o comportamento base está decidido nas [perguntas 213 e 217](../../perguntas/fase-5-trabalhos.md). O tier mínimo, o Elite, está decidido na pergunta 1598, que muda a 1145. Os novos modos abaixo são proposta, e os detalhes em aberto são respondidos no refinamento do card (perguntas 1153 e 1154).
 
 ## A ideia
 
@@ -14,7 +14,7 @@ Um Cubit que prepara terreno: aplaina uma área tirando os blocos ou preenche os
 |---|---|---|
 | Machine Learning: Builder | `cubit:ml_builder` | Card de Aprendizado de Máquina do trabalho de Construtor |
 
-Segue as regras dos outros cards: slot exclusivo, um por Cubit, sai sem perda e só age em área marcada. Disponível só no Ultimate.
+Segue as regras dos outros cards: slot exclusivo, um por Cubit, sai sem perda e só age em área marcada. Disponível a partir do Elite (pergunta 1598).
 
 ## Como ele trabalha
 
@@ -27,7 +27,7 @@ Definido nas perguntas 213 e 217, dentro da área 3D:
 
 ## Novos modos (proposta)
 
-No Ultimate, o Construtor é o trabalho mais simples do tier. Para ficar à altura dos outros, a proposta são dois modos novos, ainda simples e dentro da área:
+No Elite, o Construtor é um dos trabalhos mais simples do tier. Para ficar à altura dos outros, a proposta são dois modos novos, ainda simples e dentro da área:
 
 | Modo | O que faz |
 |---|---|
@@ -41,7 +41,7 @@ No Ultimate, o Construtor é o trabalho mais simples do tier. Para ficar à altu
 Cada item traz a recomendação atual, ainda sem resposta.
 
 1. **Novos modos.** Recomendação: Piso e Paredes, como na tabela acima, e nada mais complexo até decidir o Arquiteto.
-2. **Ficar no Ultimate.** Recomendação: fica, com os novos modos. Sem eles, vale reavaliar se ele desce para o Elite.
+2. **Tier.** Decidido: fica no Elite, como todos os trabalhos que esperavam o Ultimate (pergunta 1598).
 3. **O que aplainar retira.** Recomendação: tudo o que não for protegido, inclusive plantas e neve. Os itens vão para o inventário e para o baú marcado.
 4. **Blocos do inventário ou do baú.** Recomendação: tira os blocos de um baú marcado quando acabam os do inventário, antes de hibernar.
 5. **Líquidos no aplainar.** Recomendação: tampa a fonte com o bloco do filtro, se tiver, antes de seguir, para a água ou a lava não se espalhar.
@@ -53,5 +53,6 @@ Cada item traz a recomendação atual, ainda sem resposta.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 08:03 | Leva o Construtor, o Mecânico e o Alquimista para o Elite (pergunta 1598). |
 | Marcelo Fabiano | 2026-11-14 20:25 | Leva o conceito de `tmp/fase5` para `_docs`, com as decisões da consolidação (perguntas 1145 a 1156). |
 | Marcelo Fabiano | 2026-11-13 11:43 | Cria o conceito do Construtor, com os modos das perguntas 213 e 217 e a proposta de Piso e Paredes no Ultimate. |

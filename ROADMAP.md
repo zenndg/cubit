@@ -63,9 +63,9 @@ Entregue como um kanban, no GitHub Project "Cubit · Fase 5", um card por vez, e
 
 1. Consolidar o conceito da Fase 5.
 2. Base do trabalho: slot do card, tier mínimo, estado de trabalho, aba Trabalho e hibernação fora do Dock.
-3. Os trabalhos, um card cada: Pescador, Fazendeiro, Organizador, Cozinheiro, Defensor, Minerador, Construtor e Pecuarista. Antes do Defensor entram as receitas novas, as peças de montagem, as portas, os tiers do Dock, o Dock Solar e a Recharge Splash (perguntas 1338, 1359, 1383 e 1393) e, com prioridade sobre o resto do roadmap, a Engineering Desk, a mesa de criação própria do mod, de onde passam a sair todos os itens dele, a revisão dos trabalhos por tier e a revisão das receitas dos cards. O Defensor passa a se chamar Patrulheiro Galático (perguntas 1390 e 1424). Entre o Fazendeiro e o Organizador entra o controle de velocidade do Cubit, com − e +, que vale para todo Cubit (perguntas 1261 e 1263).
+3. Os trabalhos, um card cada: Pescador, Fazendeiro, Organizador, Cozinheiro, Patrulheiro Galático, Minerador, Construtor e Pecuarista. Antes do Patrulheiro Galático entram as receitas novas, as peças de montagem, as portas, os tiers do Dock, o Dock Solar e a Recharge Splash (perguntas 1338, 1359, 1383 e 1393) e, com prioridade sobre o resto do roadmap, a Engineering Desk, a mesa de criação própria do mod, de onde passam a sair todos os itens dele, a revisão dos trabalhos por tier e a revisão das receitas dos cards. O Patrulheiro Galático substitui o Defensor (perguntas 1390, 1424 e 1550). Entre o Fazendeiro e o Organizador entra o controle de velocidade do Cubit, com − e +, que vale para todo Cubit (perguntas 1261 e 1263).
 4. Personalização visual do Cubit de acordo com o card.
-5. Trabalhos novos do Ultimate: Mecânico e Alquimista.
+5. Trabalhos novos do Elite: Mecânico e Alquimista (pergunta 1598).
 6. Antena e carregamento de chunks.
 7. Robot Server, log e viagem até o Dock.
 8. Storage wireless.

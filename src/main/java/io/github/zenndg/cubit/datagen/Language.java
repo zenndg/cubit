@@ -31,6 +31,8 @@ enum Language {
           SpeedTexts::addTo,
           OrganizerTexts::addTo,
           CookTexts::addTo,
+          PatrollerTexts::addTo,
+          JobTalkPhrases::addTo,
           WorkTexts::addTo,
           DeskTexts::addTo),
       ChatPhrases::of),
@@ -54,6 +56,8 @@ enum Language {
           PortugueseSpeedTexts::addTo,
           PortugueseOrganizerTexts::addTo,
           PortugueseCookTexts::addTo,
+          PortuguesePatrollerTexts::addTo,
+          PortugueseJobTalkPhrases::addTo,
           PortugueseWorkTexts::addTo,
           PortugueseDeskTexts::addTo),
       PortugueseChatPhrases::of);

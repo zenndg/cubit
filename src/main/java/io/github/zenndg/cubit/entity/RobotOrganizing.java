@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit.entity;
 
+import io.github.zenndg.cubit.domain.behavior.JobTalkTopic;
 import io.github.zenndg.cubit.domain.behavior.SpotReservations;
 import io.github.zenndg.cubit.domain.energy.PowerState;
 import io.github.zenndg.cubit.domain.ownership.Ownership;
@@ -137,6 +138,9 @@ public final class RobotOrganizing implements OrganizerControl, JobErrands {
     drop();
     if (perform(done) > 0) {
       robot.setBattery(spec().payForAction(robot.battery()));
+      if (done.kind() == OrganizerTask.Kind.STORE) {
+        robot.workArea().work().talk().onWork(JobTalkTopic.ORGANIZER_STORE);
+      }
     }
     pause = spec().actionPauseTicks();
     planner.lookNow();

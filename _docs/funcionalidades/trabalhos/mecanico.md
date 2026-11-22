@@ -2,11 +2,11 @@
 
 Conceito do trabalho de Mecânico, da Fase 5.2. Nada aqui está implementado, e o documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área valem aqui.
 
-**Situação:** o Mecânico entra como trabalho do Ultimate (perguntas 1146, 1147 e 1152), com o nome do card Machine Learning: Mechanic. O conceito abaixo ainda é uma proposta, e os detalhes em aberto são respondidos no refinamento do card (pergunta 1153).
+**Situação:** o Mecânico entra como trabalho do Elite (perguntas 1146, 1147, 1152 e 1598), com o nome do card Machine Learning: Mechanic. O conceito abaixo ainda é uma proposta, e os detalhes em aberto são respondidos no refinamento do card (pergunta 1153).
 
 ## A ideia
 
-Um Cubit que cuida dos outros Cubits da área. Ele não produz nada: recarrega, conserta, repara a vida e destrava os robôs da frota, para eles não precisarem sair do trabalho. Só faz sentido com muitos Cubits trabalhando, por isso é exclusivo do Ultimate.
+Um Cubit que cuida dos outros Cubits da área. Ele não produz nada: recarrega, conserta, repara a vida e destrava os robôs da frota, para eles não precisarem sair do trabalho. Só faz sentido com muitos Cubits trabalhando, e entra no Elite, como os outros trabalhos complexos (pergunta 1598).
 
 ## Card
 
@@ -26,7 +26,7 @@ O Mecânico usa o inventário do Dock da Fase 4.1 como ele é: a aba Storage, co
 
 ### Fileira de suprimentos do Mecânico
 
-- **Tamanho:** uma fileira extra de 9 slots, além do inventário normal do Ultimate.
+- **Tamanho:** uma fileira extra de 9 slots, além do inventário normal do tier.
 - **O que aceita:** só Power Banks de qualquer tier e Toolboxes.
 
 ## O que ele faz
@@ -79,7 +79,7 @@ Cada item traz a recomendação atual, ainda sem resposta.
 4. **Bateria própria na recarga dos outros.** Recomendação: sem Power Bank com carga, usa a própria bateria, só acima da reserva.
 5. **Recarregar a si mesmo pelas Power Banks.** Recomendação: sim, para evitar viagens ao Dock.
 6. **Power Banks no reparo de vida.** Recomendação: o reparo usa só a bateria própria, e as Power Banks ficam para a recarga.
-7. **Reparo em combate.** Recomendação: só repara quem não recebeu dano nos últimos segundos, para o Defensor não ficar curado no meio da luta.
+7. **Reparo em combate.** Recomendação: só repara quem não recebeu dano nos últimos segundos, para o Patrulheiro Galático não ficar curado no meio da luta.
 8. **Reparar a si mesmo.** Recomendação: não. O Mecânico usa o Dock, ou outro Mecânico o repara.
 
 ### Conserto
@@ -119,5 +119,7 @@ Cada item traz a recomendação atual, ainda sem resposta.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 08:03 | Leva o Construtor, o Mecânico e o Alquimista para o Elite (pergunta 1598). |
+| Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |
 | Marcelo Fabiano | 2026-11-14 20:25 | Leva o conceito de `tmp/fase5` para `_docs`, com as decisões da consolidação (perguntas 1145 a 1156). |
 | Marcelo Fabiano | 2026-11-13 11:13 | Cria o conceito do Suporte, com o estoque do Dock, a fileira de suprimentos, a recarga, o conserto, o reparo de vida e o destravar. |

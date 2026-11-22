@@ -41,6 +41,7 @@ final class DeskCatalogOrder {
           CubitItems.FARMER_CARD,
           CubitItems.ORGANIZER_CARD,
           CubitItems.COOK_CARD,
+          CubitItems.PATROLLER_CARD,
           CubitItems.RECHARGE_SPLASH,
           CubitItems.ELITE_MODULE,
           CubitItems.ULTIMATE_MODULE,

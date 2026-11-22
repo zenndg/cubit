@@ -6,6 +6,7 @@ import io.github.zenndg.cubit.domain.behavior.FishingTimes;
 import io.github.zenndg.cubit.domain.behavior.FollowDecision;
 import io.github.zenndg.cubit.domain.behavior.LampPolicy;
 import io.github.zenndg.cubit.domain.behavior.LightLevel;
+import io.github.zenndg.cubit.domain.behavior.PatrolSettings;
 import io.github.zenndg.cubit.domain.desk.DeskCatalog;
 import io.github.zenndg.cubit.domain.dock.DockCatalog;
 import io.github.zenndg.cubit.domain.energy.Percentage;
@@ -215,6 +216,11 @@ public final class CubitConfig {
   }
 
   /** The keys of the chatter. */
+  /** The numbers of the Galactic Patroller for every tier (answer 1577). */
+  public PatrolSettings patrolSettings() {
+    return defense.patrol().settings();
+  }
+
   public ChatterSection chatter() {
     return chatter;
   }

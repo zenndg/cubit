@@ -164,6 +164,75 @@ As frases e as regras estão nas perguntas 572 a 587 e 618 a 621.
 | Redstone | `Redstone! My favorite snack!` | Redstone! Meu lanche favorito! | O dono minera um minério de redstone, inclusive de outro mod |
 | Redstone | `Redstone runs in my circuits!` | A redstone corre nos meus circuitos! | O dono minera um minério de redstone, inclusive de outro mod |
 
+## Profissões
+
+Cada profissão tem frases próprias, todas originais, sem citar filmes nem personagens (perguntas 1583, 1584, 1587 e 1590). Elas aparecem com o nome do Cubit, ou "Cubit" sem nome, e a profissão no idioma do player, como `Cubit (Patrulheiro): ` (pergunta 1588).
+
+### Ao colocar o card
+
+Uma das três frases é sorteada toda vez que o card é colocado e a tela é fechada, na tela do Cubit ou do Tablet, para quem fechou a tela (perguntas 1585 e 1589).
+
+| Profissão | Inglês, no jogo | Português |
+|---|---|---|
+| Patrulheiro | `Galactic Patroller, reporting for duty!` | Patrulheiro Galático, apresentando-se para o serviço! |
+| Patrulheiro | `Patrol online. Stars aligned!` | Patrulha online. Estrelas alinhadas! |
+| Patrulheiro | `Helmet on, visor ready!` | Capacete posto, visor pronto! |
+| Pescador | `Gone fishing!` | Fui pescar! |
+| Pescador | `Hook, line and Cubit!` | Anzol, linha e Cubit! |
+| Pescador | `The water is calling.` | A água está chamando. |
+| Fazendeiro | `Seeds ready, hoe ready!` | Sementes prontas, enxada pronta! |
+| Fazendeiro | `Time to get my tracks dirty!` | Hora de sujar as esteiras! |
+| Fazendeiro | `Let's grow something great.` | Vamos plantar algo incrível. |
+| Organizador | `A place for everything!` | Cada coisa no seu lugar! |
+| Organizador | `Chaos? Not on my watch.` | Bagunça? Não no meu turno. |
+| Organizador | `Labels ready, chests ready!` | Etiquetas prontas, baús prontos! |
+| Cozinheiro | `Chef Cubit, at your service!` | Chef Cubit, a seu dispor! |
+| Cozinheiro | `The kitchen is open!` | A cozinha está aberta! |
+| Cozinheiro | `Ovens on, apron on!` | Fornos ligados, avental posto! |
+
+### Durante o trabalho
+
+Num evento do trabalho, com 20% de chance e pelo menos 2 min entre duas falas do mesmo Cubit, para o dono a até 32 blocos dele, na mesma dimensão (perguntas 1585 e 1586). Os números ficam em [`tiers.md`](../tiers.md#valores-gerais).
+
+| Profissão | Evento | Inglês, no jogo | Português |
+|---|---|---|---|
+| Patrulheiro | Entra em combate | `Stay calm. Stay focused.` | Calma. Foco. |
+| Patrulheiro | Entra em combate | `Patience is my sharpest blade.` | A paciência é a minha lâmina mais afiada. |
+| Patrulheiro | Entra em combate | `I sense trouble nearby.` | Sinto encrenca por perto. |
+| Patrulheiro | Entra em combate | `Visor down. Here we go!` | Visor baixado. Lá vamos nós! |
+| Patrulheiro | Entra em combate | `Hostile detected. Engaging!` | Hostil detectado. Atacando! |
+| Patrulheiro | Entra em combate | `Not on my patrol!` | Não na minha patrulha! |
+| Patrulheiro | Abate um hostil | `Sector secure.` | Setor seguro. |
+| Patrulheiro | Abate um hostil | `Calm returns to the base.` | A calma volta à base. |
+| Patrulheiro | Abate um hostil | `Another one for the logbook.` | Mais um para o diário de bordo. |
+| Patrulheiro | Abate um hostil | `The patrol continues.` | A patrulha continua. |
+| Pescador | Pesca algo | `Got one!` | Peguei um! |
+| Pescador | Pesca algo | `This one's a keeper!` | Esse fica! |
+| Pescador | Pesca algo | `The fish are biting today.` | Os peixes estão mordendo hoje. |
+| Pescador | Pesca algo | `Patience pays off.` | A paciência compensa. |
+| Pescador | Pesca algo | `Another one for the chest!` | Mais um para o baú! |
+| Fazendeiro | Colhe uma planta | `Fresh from the field!` | Fresquinho da roça! |
+| Fazendeiro | Colhe uma planta | `Look at this harvest!` | Olha essa colheita! |
+| Fazendeiro | Colhe uma planta | `Grow, little plants, grow!` | Cresçam, plantinhas, cresçam! |
+| Fazendeiro | Colhe uma planta | `Farming is my therapy.` | Plantar é a minha terapia. |
+| Fazendeiro | Colhe uma planta | `Another row done.` | Mais uma fileira pronta. |
+| Organizador | Guarda uma pilha | `Sorted!` | Organizado! |
+| Organizador | Guarda uma pilha | `Chests don't organize themselves.` | Baús não se organizam sozinhos. |
+| Organizador | Guarda uma pilha | `Same items, same chest.` | Itens iguais, baú igual. |
+| Organizador | Guarda uma pilha | `Ahh, so satisfying.` | Ahh, que satisfação. |
+| Organizador | Guarda uma pilha | `Inventory: under control.` | Inventário: sob controle. |
+| Cozinheiro | Tira comida pronta do forno | `Order up!` | Saindo um prato! |
+| Cozinheiro | Tira comida pronta do forno | `Smells delicious!` | Que cheiro bom! |
+| Cozinheiro | Tira comida pronta do forno | `Hot and ready!` | Quentinho e pronto! |
+| Cozinheiro | Tira comida pronta do forno | `Careful, it's hot!` | Cuidado, está quente! |
+| Cozinheiro | Tira comida pronta do forno | `Seasoned with redstone. Just kidding!` | Temperado com redstone. Brincadeira! |
+
+### Regras das profissões
+
+- **Quem ouve:** a frase de entrada vai para quem fechou a tela, e as do trabalho, para o dono por perto, mesmo que o Cubit não o siga. É a exceção à regra de que só fala quem segue o dono (pergunta 1585).
+- **Chave e expressão:** as duas respeitam a chave `Chatter` e só saem com a expressão calma, como as outras falas.
+- **Som:** tocam o bipe padrão, como as outras falas.
+
 ## Regras
 
 - **Quem fala:** só o Cubit ativo que segue, na mesma dimensão do dono, e só para ele.
@@ -187,6 +256,7 @@ As frases e as regras estão nas perguntas 572 a 587 e 618 a 621.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 23:14 | Acrescenta as falas das profissões (perguntas 1583 a 1590). |
 | Marcelo Fabiano | 2026-11-08 00:11 | Leva o português das falas para o jogo. |
 | Marcelo Fabiano | 2026-11-07 23:42 | Cita a redstone na introdução. |
 | Marcelo Fabiano | 2026-11-07 23:12 | Aponta a chave para a aba Settings. |

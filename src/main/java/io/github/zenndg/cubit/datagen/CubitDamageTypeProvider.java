@@ -20,10 +20,17 @@ final class CubitDamageTypeProvider extends DatapackBuiltinEntriesProvider {
       new RegistrySetBuilder()
           .add(
               Registries.DAMAGE_TYPE,
-              context ->
-                  context.register(
-                      CubitDamageTypes.SHOCK,
-                      new DamageType(CubitDamageTypes.SHOCK_MESSAGE_ID, EXHAUSTION)));
+              context -> {
+                context.register(
+                    CubitDamageTypes.SHOCK,
+                    new DamageType(CubitDamageTypes.SHOCK_MESSAGE_ID, EXHAUSTION));
+                context.register(
+                    CubitDamageTypes.LASER_ORB,
+                    new DamageType(CubitDamageTypes.LASER_ORB_MESSAGE_ID, EXHAUSTION));
+                context.register(
+                    CubitDamageTypes.PLASMA_BLADE,
+                    new DamageType(CubitDamageTypes.PLASMA_BLADE_MESSAGE_ID, EXHAUSTION));
+              });
 
   CubitDamageTypeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
     super(output, registries, ENTRIES, Set.of(CubitMod.MOD_ID));

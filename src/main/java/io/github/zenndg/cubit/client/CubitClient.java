@@ -12,6 +12,7 @@ import io.github.zenndg.cubit.registry.CubitItems;
 import io.github.zenndg.cubit.registry.CubitMenus;
 import io.github.zenndg.cubit.registry.CubitRecipes;
 import net.minecraft.client.RecipeBookCategories;
+import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -90,6 +91,8 @@ public final class CubitClient {
         CubitEntities.GENERAL_ROBOT.get(),
         context -> new RobotRenderer(context, CubitConfig.GENERAL_ROBOT));
     event.registerEntityRenderer(CubitEntities.RECHARGE_SPLASH.get(), ThrownItemRenderer::new);
+    // The orb shows only its trail of particles until its look comes (answer 1578).
+    event.registerEntityRenderer(CubitEntities.LASER_ORB.get(), NoopRenderer::new);
     event.registerBlockEntityRenderer(
         CubitBlockEntities.INDUCTION_DOCK.get(), SolarDockRenderer::new);
     event.registerBlockEntityRenderer(CubitBlockEntities.ENGINEERING_DESK.get(), DeskRenderer::new);

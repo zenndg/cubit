@@ -3,6 +3,7 @@
     "cubit:ml_fisher",
     "cubit:ml_farmer",
     "cubit:ml_organizer",
-    "cubit:ml_cook"
+    "cubit:ml_cook",
+    "cubit:ml_patroller"
   ]
 }

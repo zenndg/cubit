@@ -16,6 +16,9 @@ final class RobotGoals {
   /** In place of following, after the dock trip, which wins and cancels it (answer 1121). */
   private static final int DEATH_GUIDE_PRIORITY = 3;
 
+  /** A fight of the Galactic Patroller wins over its round and over following (answer 1565). */
+  private static final int PATROL_FIGHT_PRIORITY = 3;
+
   private static final int FOLLOW_PRIORITY = 4;
 
   /** Never with following, since a Cubit in an area gives up the place (answer 1051). */
@@ -35,6 +38,7 @@ final class RobotGoals {
     goals.addGoal(UNLOAD_PRIORITY, new UnloadGoal(robot));
     goals.addGoal(FETCH_PRIORITY, new FetchItemGoal(robot));
     goals.addGoal(DEATH_GUIDE_PRIORITY, new DeathGuideGoal(robot));
+    goals.addGoal(PATROL_FIGHT_PRIORITY, new PatrolFightGoal(robot));
     goals.addGoal(
         FOLLOW_PRIORITY,
         new FollowOwnerGoal(
@@ -43,6 +47,7 @@ final class RobotGoals {
     goals.addGoal(AREA_PRIORITY, new FarmingGoal(robot));
     goals.addGoal(AREA_PRIORITY, new ErrandGoal(robot, () -> robot.workArea().work().organizing()));
     goals.addGoal(AREA_PRIORITY, new ErrandGoal(robot, () -> robot.workArea().work().cooking()));
+    goals.addGoal(AREA_PRIORITY, new PatrolGoal(robot));
     goals.addGoal(AREA_PRIORITY, new AreaWorkGoal(robot));
     goals.addGoal(LOOK_AT_OWNER_PRIORITY, new LookAtOwnerGoal(robot));
     goals.addGoal(DOOR_PRIORITY, new DoorGoal(robot));

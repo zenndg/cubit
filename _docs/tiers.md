@@ -93,6 +93,15 @@ Valem para todos os tiers e ficam no config. Os marcados como planejados entram 
 | Consumo parado | 0 FE/t |
 | Carga do Cubit ao sair do craft | 25% |
 | Carga da Power Bank ao sair do craft | 0% |
+| Patrulheiro: chance de lentidão no acerto da pistola, `patroller_slowness_chance` (perguntas 1551 e 1577) | 20% |
+| Patrulheiro: duração da lentidão, `patroller_slowness_ticks` | 3 s (60 ticks) |
+| Patrulheiro: chance de cabeça ao matar com a lâmina, `patroller_head_chance` (pergunta 1559) | 50% |
+| Patrulheiro: perseguição máxima, a partir da rota, `patroller_chase_distance` (pergunta 1562) | 16 blocos |
+| Patrulheiro: distância da troca de arma, `patroller_weapon_switch_distance` (pergunta 1557) | 4 blocos |
+| Patrulheiro: pausa em cada ponto da rota, `patroller_point_pause_ticks` (pergunta 1581) | 2 s (40 ticks) |
+| Falas das profissões: chance num evento do trabalho, `job_chatter_chance` (pergunta 1586) | 20% |
+| Falas das profissões: intervalo mínimo entre duas falas do mesmo Cubit, `job_chatter_interval_ticks` | 2 min (2.400 ticks) |
+| Falas das profissões: distância máxima até o dono, `job_chatter_range` (pergunta 1585) | 32 blocos |
 | Recarga da Power Bank no inventário do Dock | A do tier do Dock, uma por vez, sem Cubit na base ou com o Cubit da base de bateria cheia (perguntas 952 e 1376) |
 | Descarga da Power Bank no slot de entrada do Dock | O limite de entrada do Dock, junto dos cabos (pergunta 920) |
 | Velocidade 1,0× (atributo de movimento) | 0,33 |
@@ -196,7 +205,7 @@ O raio dos dois scanners é o de uma esfera em volta do Cubit: só conta o que e
 |---|---|---|---|---|
 | Seguir o player | ✔ | ✔ | ✔ | ✔ |
 | Modo área (app Área do Tablet), na base | Bloqueado | Até 16×16 | Até 32×32 | Até 64×64 |
-| Altura máxima da área (pergunta 1050) | — | 8 blocos | 16 blocos | 32 blocos |
+| Altura máxima da área (perguntas 1050 e 1601) | — | 8 blocos | 24 blocos | 32 blocos |
 | Local de morte, `death_point`, com `locked`, `mark` ou `guide` (perguntas 1117, 1118 e 1129), com o histórico em todos os tiers | Bloqueado | Marca a coordenada, com o texto ao renascer | Marca e guia até lá, no Overworld | Marca e guia até lá, no Overworld |
 
 ## Slots exclusivos
@@ -214,13 +223,26 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Recurso | Base | Avançado | Elite | Ultimate |
 |---|---|---|---|---|
-| Cards de Aprendizado de Máquina, `allowed_jobs` no config (perguntas 1145 e 1163) | Bloqueado | Pescador, Fazendeiro e Pecuarista | + Organizador, Cozinheiro, Defensor e Minerador | + Construtor, Mecânico e Alquimista |
+| Cards de Aprendizado de Máquina, `allowed_jobs` no config (perguntas 1145, 1163 e 1598) | Bloqueado | Pescador, Fazendeiro e Pecuarista | + Organizador, Cozinheiro, Patrulheiro Galático, Minerador, Construtor, Mecânico e Alquimista | Os mesmos do Elite |
 | Minerador equivale a picareta de (pergunta 1149) | — | — | Diamante | Diamante |
 | Minerador: Eficiência | — | — | III | V |
 | Minerador: Fortuna | — | — | II | III |
 | Minerador: Toque Suave | — | — | — | ✔ |
 | Minerador: fornalha de minérios elétrica, em ~20 FE/t enquanto funde (perguntas 930 e 1149) | — | — | 1× | 2× |
-| Defensor: modos, pela reação escolhida (pergunta 1150) | — | — | Contra-atacar e Agressivo | Contra-atacar e Agressivo. O Focus fica para o card do Defensor |
+| Patrulheiro: pistola, dano, `patroller_pistol_damage` (pergunta 1577) | — | — | 5 | 7 |
+| Patrulheiro: pistola, alcance, `patroller_pistol_range` | — | — | 16 blocos | 24 blocos |
+| Patrulheiro: pistola, intervalo, `patroller_pistol_interval_ticks` | — | — | 1 s (20 ticks) | 0,6 s (12 ticks) |
+| Patrulheiro: pistola, custo por disparo, `patroller_pistol_cost` | — | — | 1.000 FE | 800 FE |
+| Patrulheiro: lentidão, com 20% de chance por 3 s, `patroller_slowness_level` | — | — | I | II |
+| Patrulheiro: lâmina, dano, `patroller_blade_damage` | — | — | 7 | 10 |
+| Patrulheiro: lâmina, intervalo, `patroller_blade_interval_ticks` | — | — | 0,6 s (12 ticks) | 0,5 s (10 ticks) |
+| Patrulheiro: lâmina, empurrão, `patroller_blade_knockback` | — | — | Médio | Forte |
+| Patrulheiro: armadura extra, `patroller_armor` (perguntas 1552 e 1555) | — | — | +6 | +10 |
+| Patrulheiro: raio de procura, `patroller_search_radius` | — | — | 16 blocos | 24 blocos |
+| Patrulheiro: salto, altura, `patroller_jump_height` (pergunta 1564) | — | — | 3 blocos | 5 blocos |
+| Patrulheiro: salto, custo, `patroller_jump_cost` | — | — | 500 FE | 400 FE |
+| Patrulheiro: pontos da rota, `patroller_route_points` (pergunta 1579) | — | — | 16 | 32 |
+| Patrulheiro: lado da área, com a altura do tier, `patroller_area_size` (pergunta 1600) | — | — | 64 blocos | 128 blocos |
 | Pescador: Isca, `fisher_lure_level` (pergunta 1185) | — | — | II | III |
 | Pescador: Sorte do Mar, `fisher_luck_level` (pergunta 1185) | — | — | II | III |
 | Pescador: custo por peixe pescado, `fisher_catch_cost` (pergunta 1190) | — | 300 FE | 300 FE | 300 FE |
@@ -257,7 +279,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 - antenas e chunks por tier do Servidor, área e consumo por tier da antena e teto de chunks no mundo;
 - consumo do Servidor e da antena com o carregamento desligado;
-- custo por ação dos outros cards e dano do Defensor;
+- custo por ação dos outros cards;
 - limites por tick e distância do Dock ao Servidor ou à antena;
 - limite de animais do Pecuarista e custo do storage e tamanho dos canais;
 - alcance e viabilidade do feixe da lanterna de cabeça do Minerador.
@@ -266,6 +288,11 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 08:12 | Sobe a altura da área do Elite para 24 blocos (pergunta 1601). |
+| Zennd | 2026-11-22 08:10 | Acrescenta o lado da área do Patrulheiro (pergunta 1600). |
+| Zennd | 2026-11-22 08:03 | Leva o Construtor, o Mecânico e o Alquimista para o Elite (pergunta 1598). |
+| Zennd | 2026-11-21 23:14 | Acrescenta os números do Patrulheiro Galático e das falas das profissões (perguntas 1577 a 1590). |
+| Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |
 | Zennd | 2026-11-21 14:10 | Passa a mesa Base a 12 slots (pergunta 1505). |
 | Zennd | 2026-11-21 12:30 | Adiciona os números da Engineering Desk (perguntas 1433 a 1435). |
 | Marcelo Fabiano | 2026-11-21 11:30 | Adiciona os números da Recharge Splash (perguntas 1405, 1412 e 1414). |
