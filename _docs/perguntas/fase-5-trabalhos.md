@@ -565,11 +565,13 @@ Não há perguntas pendentes nesta fase.
 | 1618 | O conceito da ronda lenta está autorizado, e a chave `patroller_point_pause_ticks` pode virar `patroller_stop_ticks`? | Sim: 60% da velocidade na ronda (`patroller_patrol_speed`), paradas nos pontos, nos cantos e a cada 16 blocos andados (`patroller_stop_distance`), cada uma com 4 s olhando duas vezes para cada lado (`patroller_stop_ticks`, 80 ticks), com o passo e as paradas no domínio. A chave é renomeada sem migração, porque nunca foi publicada (regra 18) |
 | 1619 | Quando entram as ideias de realismo do relatório do Patrulheiro (alerta ao avistar, investigar o último local, voltar ao ponto mais próximo, olhar para fora nas bordas, postura de guarda e ritmo variado)? | No início do PR 3, numa rodada de refinamento o mais completa possível. O PR 2 termina antes, com o que já foi decidido |
 | 1620 | O teste manual do PR 2 do Patrulheiro (a aba Defense travada, a rota no app Marcar e a ronda lenta com paradas) está aprovado? | Sim: "testes ok". O desenvolvedor autoriza os commits, o push e o PR e, depois do merge, apagar as branches |
+| 1621 | O `AGENTS.md` pode citar as classes novas do PR 2 do Patrulheiro e o PR 2 no estado atual? | Sim, num commit próprio no PR 2 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 10:45 | Registra a resposta 1621. |
 | Zennd | 2026-11-22 09:30 | Registra as respostas 1609 a 1620. |
 | Zennd | 2026-11-22 08:40 | Registra as respostas 1602 a 1608. |
 | Zennd | 2026-11-21 22:13 | Registra as respostas 1550 a 1601. |
