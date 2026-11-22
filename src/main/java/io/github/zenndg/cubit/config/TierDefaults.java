@@ -6,14 +6,9 @@ import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.Percentage;
 import io.github.zenndg.cubit.domain.energy.SolarOutput;
 import io.github.zenndg.cubit.domain.robot.DefenseMode;
-import io.github.zenndg.cubit.domain.robot.RobotJob;
 import io.github.zenndg.cubit.domain.tier.AreaSpec;
-import io.github.zenndg.cubit.domain.tier.CookSpec;
 import io.github.zenndg.cubit.domain.tier.DeathPointLevel;
-import io.github.zenndg.cubit.domain.tier.FarmerSpec;
-import io.github.zenndg.cubit.domain.tier.FisherSpec;
 import io.github.zenndg.cubit.domain.tier.JobSpec;
-import io.github.zenndg.cubit.domain.tier.OrganizerSpec;
 import io.github.zenndg.cubit.domain.tier.PickupSpec;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.domain.tier.ScannerSpec;
@@ -21,7 +16,6 @@ import io.github.zenndg.cubit.domain.tier.ShockSpec;
 import io.github.zenndg.cubit.domain.tier.TierSpec;
 import io.github.zenndg.cubit.domain.tier.TorchSpec;
 import io.github.zenndg.cubit.domain.tier.UnloadSpec;
-import java.util.EnumSet;
 import java.util.Set;
 
 /**
@@ -173,61 +167,12 @@ final class TierDefaults {
   private static final Percentage RETURN_CHARGE = new Percentage(10);
   private static final AreaSpec BASE_AREA = AreaSpec.NONE;
 
-  /** The jobs of each tier, each one adding to the one below (answer 1145). */
-  private static final Set<RobotJob> ADVANCED_JOB_SET =
-      EnumSet.of(RobotJob.FISHER, RobotJob.FARMER, RobotJob.RANCHER);
-
-  private static final Set<RobotJob> ELITE_JOB_SET =
-      union(
-          ADVANCED_JOB_SET,
-          EnumSet.of(RobotJob.ORGANIZER, RobotJob.COOK, RobotJob.PATROLLER, RobotJob.MINER));
-
-  /** Lure and Luck of the Sea from the Elite, and 300 FE a fish on every tier (1185, 1190). */
-  private static final Energy FISHER_CATCH_COST = new Energy(300);
-
-  private static final FisherSpec ADVANCED_FISHER = new FisherSpec(0, 0, FISHER_CATCH_COST);
-  private static final FisherSpec ELITE_FISHER = new FisherSpec(2, 2, FISHER_CATCH_COST);
-  private static final FisherSpec ULTIMATE_FISHER = new FisherSpec(3, 3, FISHER_CATCH_COST);
-
-  /** 50, 75 and 100 FE an action, faster on each tier; fertilizer on all (1226, 1248). */
-  private static final FarmerSpec ADVANCED_FARMER =
-      new FarmerSpec(new Energy(50), 20, false, true, 0);
-
-  private static final FarmerSpec ELITE_FARMER = new FarmerSpec(new Energy(75), 12, true, true, 0);
-  private static final FarmerSpec ULTIMATE_FARMER =
-      new FarmerSpec(new Energy(100), 6, true, true, 2);
-
-  /** 9 and 18 chests, 8 and 16 marks, 50 FE a stack, faster on the Ultimate (answer 1300). */
-  private static final Energy ORGANIZER_ACTION_COST = new Energy(50);
-
-  private static final OrganizerSpec ELITE_ORGANIZER =
-      new OrganizerSpec(9, 8, ORGANIZER_ACTION_COST, 12, 100);
-  private static final OrganizerSpec ULTIMATE_ORGANIZER =
-      new OrganizerSpec(18, 16, ORGANIZER_ACTION_COST, 6, 40);
-
-  /** 4 and 8 ovens, 50 FE a stack, faster on the Ultimate (answer 1326). */
-  private static final Energy COOK_ACTION_COST = new Energy(50);
-
-  private static final CookSpec ELITE_COOK = new CookSpec(4, COOK_ACTION_COST, 12, 100);
-  private static final CookSpec ULTIMATE_COOK = new CookSpec(8, COOK_ACTION_COST, 6, 40);
-  private static final JobSpec ADVANCED_JOBS =
-      new JobSpec(
-          ADVANCED_JOB_SET, ADVANCED_FISHER, ADVANCED_FARMER, OrganizerSpec.NONE, CookSpec.NONE);
-  private static final JobSpec ELITE_JOBS =
-      new JobSpec(ELITE_JOB_SET, ELITE_FISHER, ELITE_FARMER, ELITE_ORGANIZER, ELITE_COOK);
-  private static final JobSpec ULTIMATE_JOBS =
-      new JobSpec(
-          union(ELITE_JOB_SET, EnumSet.of(RobotJob.BUILDER, RobotJob.MECHANIC, RobotJob.ALCHEMIST)),
-          ULTIMATE_FISHER,
-          ULTIMATE_FARMER,
-          ULTIMATE_ORGANIZER,
-          ULTIMATE_COOK);
   private static final UnloadSpec BASE_UNLOAD = new UnloadSpec(1, 16);
   private static final UnloadSpec ADVANCED_UNLOAD = new UnloadSpec(1, 32);
   private static final UnloadSpec ELITE_UNLOAD = new UnloadSpec(2, 48);
   private static final UnloadSpec ULTIMATE_UNLOAD = new UnloadSpec(3, 64);
   private static final AreaSpec ADVANCED_AREA = new AreaSpec(16, 8);
-  private static final AreaSpec ELITE_AREA = new AreaSpec(32, 16);
+  private static final AreaSpec ELITE_AREA = new AreaSpec(32, 24);
   private static final AreaSpec ULTIMATE_AREA = new AreaSpec(64, 32);
   private static final TorchSpec BASE_TORCHES = new TorchSpec(TORCH_COST, new LightLevel(0));
   private static final TorchSpec ADVANCED_TORCHES = new TorchSpec(TORCH_COST, new LightLevel(1));
@@ -304,7 +249,7 @@ final class TierDefaults {
           ADVANCED_AREA,
           ADVANCED_UNLOAD,
           DeathPointLevel.MARK,
-          ADVANCED_JOBS);
+          JobDefaults.ADVANCED);
   private static final TierSpec ELITE_SPEC =
       new TierSpec(
           new Energy(ELITE_BATTERY),
@@ -338,7 +283,7 @@ final class TierDefaults {
           ELITE_AREA,
           ELITE_UNLOAD,
           DeathPointLevel.GUIDE,
-          ELITE_JOBS);
+          JobDefaults.ELITE);
   private static final TierSpec ULTIMATE_SPEC =
       new TierSpec(
           new Energy(ULTIMATE_BATTERY),
@@ -372,7 +317,7 @@ final class TierDefaults {
           ULTIMATE_AREA,
           ULTIMATE_UNLOAD,
           DeathPointLevel.GUIDE,
-          ULTIMATE_JOBS);
+          JobDefaults.ULTIMATE);
 
   private TierDefaults() {}
 
@@ -383,11 +328,5 @@ final class TierDefaults {
       case ELITE -> ELITE_SPEC;
       case ULTIMATE -> ULTIMATE_SPEC;
     };
-  }
-
-  private static Set<RobotJob> union(Set<RobotJob> lower, Set<RobotJob> added) {
-    Set<RobotJob> all = EnumSet.copyOf(lower);
-    all.addAll(added);
-    return all;
   }
 }
