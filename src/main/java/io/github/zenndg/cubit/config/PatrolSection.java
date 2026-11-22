@@ -45,6 +45,9 @@ public final class PatrolSection {
   private static final String INTERCEPT_INTERVAL = "patroller_intercept_interval_ticks";
   private static final String GLIDE_DROP = "patroller_glide_drop_blocks";
   private static final String DETOUR = "patroller_wing_detour_factor";
+  private static final String ESCORT_STILL = "patroller_escort_still_ticks";
+  private static final int ESCORT_STILL_DEFAULT = 20;
+  private static final int ESCORT_STILL_MAX = 200;
   private static final double DETOUR_DEFAULT = 2;
   private static final double DETOUR_MIN = 1;
   private static final double DETOUR_MAX = 10;
@@ -113,6 +116,7 @@ public final class PatrolSection {
   private final ModConfigSpec.IntValue rescueRadius;
   private final ModConfigSpec.IntValue lowHealth;
   private final FightKeys fightKeys;
+  private final MoveKeys moveKeys;
   private final AtomicBoolean warned = new AtomicBoolean();
 
   PatrolSection(ModConfigSpec.Builder builder) {
@@ -139,6 +143,7 @@ public final class PatrolSection {
         builder.defineInRange(RESCUE_RADIUS, RESCUE_RADIUS_DEFAULT, MIN_ONE, RESCUE_RADIUS_MAX);
     lowHealth = builder.defineInRange(LOW_HEALTH, LOW_HEALTH_DEFAULT, MIN_ZERO, PERCENT_MAX);
     fightKeys = new FightKeys(builder);
+    moveKeys = new MoveKeys(builder);
   }
 
   public PatrolSettings settings() {
@@ -191,22 +196,27 @@ public final class PatrolSection {
 
   /** How often it looks for a fireball heading for someone it protects (answer 1735). */
   public int interceptIntervalTicks() {
-    return fightKeys.interceptInterval.get();
+    return moveKeys.interceptInterval.get();
   }
 
   /** How far from a fireball the one it heads for may be (answer 1735). */
   public int interceptGuardDistance() {
-    return fightKeys.interceptGuard.get();
+    return moveKeys.interceptGuard.get();
   }
 
   /** How far down its path may drop, as it glides with the card (answer 1739). */
   public int glideDropBlocks() {
-    return fightKeys.glideDrop.get();
+    return moveKeys.glideDrop.get();
   }
 
   /** How many times the straight line a path may walk before the wings hop (answer 1651). */
   public double wingDetourFactor() {
-    return fightKeys.detour.get();
+    return moveKeys.detour.get();
+  }
+
+  /** How long the escorted one stands still before the escort stops to look (answer 1744). */
+  public int escortStillTicks() {
+    return moveKeys.escortStill.get();
   }
 
   private PatrolSettings.Round round() {
@@ -241,10 +251,6 @@ public final class PatrolSection {
     final ModConfigSpec.DoubleValue knockbackStep;
     final ModConfigSpec.IntValue xpEnergy;
     final ModConfigSpec.IntValue xpOwner;
-    final ModConfigSpec.IntValue interceptInterval;
-    final ModConfigSpec.IntValue interceptGuard;
-    final ModConfigSpec.IntValue glideDrop;
-    final ModConfigSpec.DoubleValue detour;
 
     FightKeys(ModConfigSpec.Builder builder) {
       alert = builder.defineInRange(ALERT, ALERT_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
@@ -266,6 +272,18 @@ public final class PatrolSection {
           builder.defineInRange(KNOCKBACK_STEP, KNOCKBACK_STEP_DEFAULT, MIN_ZERO, KNOCKBACK_MAX);
       xpEnergy = builder.defineInRange(XP_ENERGY, XP_ENERGY_DEFAULT, MIN_ZERO, XP_ENERGY_MAX);
       xpOwner = builder.defineInRange(XP_OWNER, XP_OWNER_DEFAULT, MIN_ONE, XP_OWNER_MAX);
+    }
+  }
+
+  /** The keys of the moves: the wings, the glide, the fireball to intercept and the escort. */
+  private static final class MoveKeys {
+    final ModConfigSpec.IntValue interceptInterval;
+    final ModConfigSpec.IntValue interceptGuard;
+    final ModConfigSpec.IntValue glideDrop;
+    final ModConfigSpec.DoubleValue detour;
+    final ModConfigSpec.IntValue escortStill;
+
+    MoveKeys(ModConfigSpec.Builder builder) {
       interceptInterval =
           builder.defineInRange(
               INTERCEPT_INTERVAL, INTERCEPT_INTERVAL_DEFAULT, MIN_ONE, INTERCEPT_INTERVAL_MAX);
@@ -274,6 +292,8 @@ public final class PatrolSection {
               INTERCEPT_GUARD, INTERCEPT_GUARD_DEFAULT, MIN_ONE, INTERCEPT_GUARD_MAX);
       glideDrop = builder.defineInRange(GLIDE_DROP, GLIDE_DROP_DEFAULT, GLIDE_DROP_MIN, BLOCKS_MAX);
       detour = builder.defineInRange(DETOUR, DETOUR_DEFAULT, DETOUR_MIN, DETOUR_MAX);
+      escortStill =
+          builder.defineInRange(ESCORT_STILL, ESCORT_STILL_DEFAULT, MIN_ONE, ESCORT_STILL_MAX);
     }
   }
 }

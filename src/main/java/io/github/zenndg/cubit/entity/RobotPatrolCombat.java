@@ -9,15 +9,12 @@ import io.github.zenndg.cubit.domain.behavior.PatrolTeam;
 import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
 import io.github.zenndg.cubit.domain.behavior.WeaponChoice;
 import io.github.zenndg.cubit.domain.energy.PowerState;
-import io.github.zenndg.cubit.domain.robot.RoutePoint;
 import io.github.zenndg.cubit.domain.tier.PatrollerSpec;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.stream.Stream;
-import net.minecraft.core.BlockPos;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Creeper;
@@ -240,7 +237,8 @@ public final class RobotPatrolCombat {
 
   /** On escort it never leaves the one it follows for a call (answers 1644 and 1691). */
   private boolean escorting() {
-    return RobotInteractions.followedPlayer(robot) != null;
+    return RobotInteractions.followedPlayer(robot) != null
+        || robot.workArea().work().escort().active();
   }
 
   /** Within the chase, measured from what it guards (answers 1562, 1565 and 1636). */
@@ -249,34 +247,7 @@ public final class RobotPatrolCombat {
   }
 
   private boolean inReachAt(Vec3 at) {
-    return PatrolRules.mayChase(guardDistance(at), settings().chaseDistance());
-  }
-
-  /**
-   * How far a place is from what it guards: the one it escorts, else the nearest point of its
-   * route, else the base of its area, else itself (answers 1565 and 1636).
-   */
-  private double guardDistance(Vec3 at) {
-    Player escorted = RobotInteractions.followedPlayer(robot);
-    if (escorted != null) {
-      return escorted.position().distanceTo(at);
-    }
-    OptionalDouble toRoute =
-        robot.workArea().work().patrol().walkable().points().stream()
-            .mapToDouble(point -> topOf(point).distanceTo(at))
-            .min();
-    if (toRoute.isPresent()) {
-      return toRoute.getAsDouble();
-    }
-    return robot
-        .workArea()
-        .here()
-        .map(area -> area.distanceToBase(at.x, at.z))
-        .orElse(robot.position().distanceTo(at));
-  }
-
-  private static Vec3 topOf(RoutePoint point) {
-    return Vec3.atBottomCenterOf(new BlockPos(point.x(), point.y(), point.z()).above());
+    return PatrolReach.mayChase(robot, at);
   }
 
   private static PatrolTeam team() {

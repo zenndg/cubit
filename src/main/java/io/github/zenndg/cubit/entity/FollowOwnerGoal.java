@@ -5,6 +5,7 @@ import io.github.zenndg.cubit.domain.behavior.FollowAction;
 import io.github.zenndg.cubit.domain.behavior.FollowDecision;
 import java.util.EnumSet;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -33,7 +34,9 @@ final class FollowOwnerGoal extends Goal {
 
   @Override
   public boolean canUse() {
-    return nextAction(RobotInteractions.followedPlayer(robot)) != FollowAction.STOP;
+    // A marked escort comes before following the owner (answer 1658).
+    return !robot.workArea().work().escort().active()
+        && nextAction(RobotInteractions.followedPlayer(robot)) != FollowAction.STOP;
   }
 
   @Override
@@ -89,12 +92,20 @@ final class FollowOwnerGoal extends Goal {
 
   /** Without a safe spot, the robot stays and tries again on the next route update. */
   private void teleportNear(Player owner) {
-    BlockPos center = owner.blockPosition();
-    int radius = decision.stopDistanceBlocks();
+    teleportNear(robot, owner, decision.stopDistanceBlocks());
+  }
+
+  /**
+   * Near one it follows, owner or escorted, on a safe spot, or it tries again on the next route.
+   */
+  static void teleportNear(RobotEntity robot, Entity around, int radius) {
+    BlockPos center = around.blockPosition();
     for (int attempt = 0; attempt < TELEPORT_ATTEMPTS; attempt++) {
       BlockPos target =
           center.offset(
-              randomOffset(radius), randomOffset(TELEPORT_HEIGHT_RANGE), randomOffset(radius));
+              randomOffset(robot, radius),
+              randomOffset(robot, TELEPORT_HEIGHT_RANGE),
+              randomOffset(robot, radius));
       if (canStandAt(robot, target)) {
         robot.moveTo(
             target.getBottomCenter().x,
@@ -108,7 +119,7 @@ final class FollowOwnerGoal extends Goal {
     }
   }
 
-  private int randomOffset(int range) {
+  private static int randomOffset(RobotEntity robot, int range) {
     return robot.getRandom().nextIntBetweenInclusive(-range, range);
   }
 

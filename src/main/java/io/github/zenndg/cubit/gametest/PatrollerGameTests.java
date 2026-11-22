@@ -80,6 +80,9 @@ public final class PatrollerGameTests {
   private static final String ESCORTED_A_TARGET = "The Patroller should refuse to escort a hostile";
   private static final String ESCORT_NOT_KEPT = "The save should keep the escort";
   private static final String ESCORT_IN_ITEM = "The item should not keep the escort";
+  private static final String NOT_ESCORTING = "The Patroller should walk to the one it escorts";
+  private static final int ESCORTED_X = 20;
+  private static final double ESCORT_NEAR = 4;
   private static final String NOT_STORED = "The drops of a kill should go into the inventory";
   private static final String NO_CARE = "A wounded Patroller should shoot even a near hostile";
   private static final String NO_INVESTIGATION = "The Patroller should look where the hostile was";
@@ -335,5 +338,18 @@ public final class PatrollerGameTests {
     RobotEntity placed = GameTestRobots.placeRobot(helper, owner, item, ROBOT_FLOOR);
     helper.assertFalse(placed.workArea().work().escort().active(), ESCORT_IN_ITEM);
     helper.succeed();
+  }
+
+  /** It follows the one it escorts, in place of its owner (answers 1657 and 1658). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void itWalksToTheOneItEscorts(GameTestHelper helper) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    RobotEntity robot = patroller(helper, owner);
+    Mob villager =
+        helper.spawnWithNoFreeWill(
+            EntityType.VILLAGER, new BlockPos(ESCORTED_X, STAND_Y, MIDDLE_Z));
+    robot.workArea().work().escort().mark(villager);
+    helper.succeedWhen(
+        () -> helper.assertTrue(robot.distanceTo(villager) < ESCORT_NEAR, NOT_ESCORTING));
   }
 }

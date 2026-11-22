@@ -39,6 +39,7 @@ final class RobotGoals {
     goals.addGoal(FETCH_PRIORITY, new FetchItemGoal(robot));
     goals.addGoal(DEATH_GUIDE_PRIORITY, new DeathGuideGoal(robot));
     goals.addGoal(PATROL_FIGHT_PRIORITY, new PatrolFightGoal(robot));
+    goals.addGoal(FOLLOW_PRIORITY, new EscortGoal(robot, CubitMod.CONFIG.followDecision()));
     goals.addGoal(
         FOLLOW_PRIORITY,
         new FollowOwnerGoal(
