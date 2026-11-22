@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.entity;
 
 import io.github.zenndg.cubit.domain.behavior.GazeDirection;
+import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
 import io.github.zenndg.cubit.domain.behavior.RobotExpression;
 import io.github.zenndg.cubit.domain.behavior.ScanSignal;
 import io.github.zenndg.cubit.domain.energy.BatteryIndicator;
@@ -58,6 +59,14 @@ final class RobotSyncedData {
   static final EntityDataAccessor<Boolean> TOOL_IN_CLAW =
       SynchedEntityData.defineId(RobotEntity.class, EntityDataSerializers.BOOLEAN);
 
+  /** What the Galactic Patroller is doing, as the order of the phase, only for the looks (1756). */
+  static final EntityDataAccessor<Byte> PATROL_PHASE =
+      SynchedEntityData.defineId(RobotEntity.class, EntityDataSerializers.BYTE);
+
+  /** Whether the visor of the Galactic Patroller is down, only for the looks (1629 and 1756). */
+  static final EntityDataAccessor<Boolean> VISOR_DOWN =
+      SynchedEntityData.defineId(RobotEntity.class, EntityDataSerializers.BOOLEAN);
+
   private RobotSyncedData() {}
 
   /** Called while the class loads, only to make sure it runs before any robot exists. */
@@ -78,5 +87,7 @@ final class RobotSyncedData {
     builder.define(SCAN_SIGNAL, (byte) ScanSignal.NONE.ordinal());
     builder.define(JOB, NO_JOB);
     builder.define(TOOL_IN_CLAW, false);
+    builder.define(PATROL_PHASE, (byte) PatrolWatch.Phase.ROUND.ordinal());
+    builder.define(VISOR_DOWN, false);
   }
 }

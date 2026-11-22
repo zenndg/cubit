@@ -8,6 +8,7 @@ import io.github.zenndg.cubit.domain.robot.RobotState;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.entity.PatrolKills;
 import io.github.zenndg.cubit.entity.RobotEntity;
+import io.github.zenndg.cubit.entity.RobotJobLook;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
 import io.github.zenndg.cubit.registry.CubitEntities;
 import io.github.zenndg.cubit.registry.CubitItems;
@@ -69,6 +70,8 @@ public final class PatrollerGameTests {
   private static final String ATTACKED = "The Patroller should have left the mob alone";
   private static final String NO_ALERT = "The Patroller should hold the alert before it shoots";
   private static final String NO_CHECK = "The Patroller should look at its owner after the kill";
+  private static final String NOT_SHOWN = "The client should see the round with the visor up";
+  private static final String ALERT_NOT_SHOWN = "The client should see the alert, visor down";
   private static final float ONE_SHOT = 1f;
   private static final float WOUNDED = 20f;
   private static final float ALWAYS_DROPS = 2f;
@@ -248,6 +251,31 @@ public final class PatrollerGameTests {
     husk.setHealth(ONE_SHOT);
     helper.succeedWhen(
         () -> helper.assertTrue(phase(robot) == PatrolWatch.Phase.OWNER_CHECK, NO_CHECK));
+  }
+
+  /**
+   * The client reads the phase and the visor, for the looks of the PR 4 (answers 1749 and 1756).
+   */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void theClientSeesTheWatchAndTheVisor(GameTestHelper helper) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    RobotEntity robot = patroller(helper, owner);
+    helper
+        .startSequence()
+        .thenExecuteAfter(
+            1,
+            () ->
+                helper.assertTrue(
+                    RobotJobLook.patrolPhase(robot) == PatrolWatch.Phase.ROUND
+                        && !RobotJobLook.visorDown(robot),
+                    NOT_SHOWN))
+        .thenExecute(() -> helper.spawnWithNoFreeWill(EntityType.HUSK, FAR))
+        .thenWaitUntil(() ->
+            helper.assertTrue(
+                RobotJobLook.patrolPhase(robot) == PatrolWatch.Phase.ALERT
+                    && RobotJobLook.visorDown(robot),
+                ALERT_NOT_SHOWN))
+        .thenSucceed();
   }
 
   private static PatrolWatch.Phase phase(RobotEntity robot) {

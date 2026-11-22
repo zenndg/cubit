@@ -115,8 +115,16 @@ public final class RobotPatrolCombat {
     return CubitMod.CONFIG.patrol().settings();
   }
 
-  /** Called by the defense on every tick, in place of the shock, while it has the card. */
+  /**
+   * Called by the defense on every tick, in place of the shock, while it has the card. The client
+   * sees the watch after the tick, also the round of a Cubit that lost the card.
+   */
   void tick() {
+    step();
+    RobotJobLook.showWatch(robot, watch);
+  }
+
+  private void step() {
     PatrolArmor.apply(robot, armed() ? spec().armor() : 0);
     PatrolTeams.update(robot, armed());
     wings.tick();
