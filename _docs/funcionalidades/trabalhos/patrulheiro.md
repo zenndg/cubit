@@ -131,7 +131,7 @@ Contra o creeper, usa sempre a pistola, nunca a lâmina. Se o creeper começar a
 
 ## Armas
 
-As duas armas são partes do modelo do Cubit com o card, sem item para o player (pergunta 1573). A pistola fica na garra esquerda e o emissor da lâmina no pulso direito, o tempo todo (pergunta 1574). Ele escolhe a arma sozinho, pela distância: a pistola a partir de 4 blocos e contra alvos no ar, e a lâmina mais perto (pergunta 1557). Como no jogo, o globo conta como projétil: o enderman desvia dele teleportando, e os mobs da tag `minecraft:deflects_projectiles`, como o breeze, o rebatem, sem nunca ferir um protegido. Contra eles, ele usa só a lâmina, mesmo a mais de 4 blocos, com o salto quando o alvo está no ar (perguntas 1695 e 1696).
+As duas armas são partes do modelo do Cubit com o card, sem item para o player (pergunta 1573). A pistola fica na garra direita do próprio Cubit, que aparece à esquerda de quem olha de frente, como na imagem conceito, e o emissor da lâmina, no pulso esquerdo, o tempo todo (perguntas 1574 e 1776). Ele escolhe a arma sozinho, pela distância: a pistola a partir de 4 blocos e contra alvos no ar, e a lâmina mais perto (pergunta 1557). Como no jogo, o globo conta como projétil: o enderman desvia dele teleportando, e os mobs da tag `minecraft:deflects_projectiles`, como o breeze, o rebatem, sem nunca ferir um protegido. Contra eles, ele usa só a lâmina, mesmo a mais de 4 blocos, com o salto quando o alvo está no ar (perguntas 1695 e 1696).
 
 ### Pistola laser
 
@@ -218,9 +218,9 @@ Os números ficam em [`tiers.md`](../../tiers.md#trabalhos), todos no config (pe
 | Tela | Com o visor erguido, os olhos normais do Cubit. Com o visor baixado, olhos decididos e marcas de mira nos cantos |
 | Mochila | Branca, com um filete ciano no topo, um painel escuro com barras de carga atrás e três propulsores embaixo |
 | Asas | Saem da mochila por uma dobradiça mecânica escura com centro laranja. Cada asa tem a lâmina principal varrida para trás, com a borda da frente curva, a de trás reta e uma espessura escura embaixo; um LED na borda da frente; painéis divididos por linhas finas; uma aleta cinza embaixo, com três luzes; as luzes ficam apagadas com as asas recolhidas e acendem em azul, da cor dos olhos, com as asas em uso (pergunta 1653); e uma cápsula branca com janela ciano na ponta. Recolhidas, ficam deitadas sobre a mochila. Abertas, vão para trás e para baixo, como uma asa-delta (pergunta 1553) |
-| Pistola | Na garra esquerda, branca, com cano ciano, faixas de energia acesas e um botão laranja |
-| Plasma Blade | No pulso direito, o emissor hexagonal com anel laranja. A lâmina verde, larga e com ponta em cunha, sai direto da garra (pergunta 1554) |
-| Distintivo | Escudo escuro com a estrela dourada, na lateral do corpo |
+| Pistola | Na garra direita do próprio Cubit (pergunta 1776), branca, com cano ciano, faixas de energia acesas e um botão laranja |
+| Plasma Blade | No pulso esquerdo do próprio Cubit (pergunta 1776), o emissor hexagonal com anel laranja. A lâmina verde, larga e com ponta em cunha, sai direto da garra (pergunta 1554) |
+| Distintivo | Escudo escuro com a estrela dourada, na lateral esquerda do corpo do próprio Cubit, do lado da lâmina (pergunta 1776) |
 | Coleira | A cor do tier, como nas outras profissões |
 
 ### Combate e patrulha
@@ -280,6 +280,7 @@ Uma issue, a #198 renomeada, e quatro PRs testados no jogo (perguntas 1578, 1605
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 17:53 | Põe a pistola na garra direita e a lâmina e o distintivo no lado esquerdo do próprio Cubit, como na imagem (pergunta 1776). |
 | Zennd | 2026-11-22 16:58 | Completa a prioridade, a cautela, o olhar para fora, o XP, o retorno, a escolta de outra dimensão e o pacote da escolta (perguntas 1724, 1725, 1759, 1763, 1764 e 1765) |
 | Zennd | 2026-11-22 16:07 | Acrescenta ao Contrato as chaves da descida planando e da escolta parada (perguntas 1739, 1744 e 1757). |
 | Zennd | 2026-11-22 23:20 | Leva o visual e os sons a um PR 4 (pergunta 1749). |
