@@ -196,6 +196,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `PatrolProgress` | Para qual ponto da rota o Cubit vai, em laço |
 | `PatrolSiege` | O cerco da equipe num alvo: o lado de cada Patrulheiro, em ângulos iguais a partir do primeiro, que mantém o seu, e a distância de cada arma, a da lâmina perto e a da pistola entre a troca de arma e o alcance |
 | `PatrolSpread` | A ronda de vários Patrulheiros na mesma rota ou nas mesmas bordas: quando dois vão ao mesmo ponto, o que chegou depois segue para o ponto do laço mais longe dos colegas, e o empate se decide pelo id |
+| `PatrolWatch` | O que o Patrulheiro faz como vigia: a ronda, o alerta ao avistar um hostil, pulado quando ele já fere alguém, o combate e a conferida no dono depois do último abate, com o visor, que baixa no alerta e só sobe depois da calma (`Timings`: os tempos e a distância do dono) |
 | `PatrolStops` | As paradas da ronda: os blocos andados desde a última, o trecho sorteado até a próxima, a parada em curso e para onde a cabeça olha, duas vezes para cada lado e depois à frente |
 | `PatrolTraits` | O que o Patrulheiro sabe de um mob, lido dos sinais do jogo, sem lista fixa: se o ataca (todo `Enemy`, `MONSTER` e `NeutralMob`, e quem fere um protegido) e se o protege (players, robôs, aldeões e animais calmos). A tag de ignorar vence, e os protegidos nunca entram na de atacar |
 | `WeaponChoice` | A arma que o Patrulheiro usa no alvo: a pistola de longe e no ar, a lâmina de perto e nenhuma no creeper que ele não pode alvejar |

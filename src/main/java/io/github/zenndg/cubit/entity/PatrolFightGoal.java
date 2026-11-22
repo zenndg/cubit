@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.entity;
 
 import io.github.zenndg.cubit.domain.behavior.PatrolRules;
 import io.github.zenndg.cubit.domain.behavior.PatrolSiege;
+import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
 import io.github.zenndg.cubit.domain.behavior.WeaponChoice;
 import java.util.Comparator;
 import java.util.EnumSet;
@@ -11,6 +12,7 @@ import java.util.stream.Stream;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -37,7 +39,7 @@ final class PatrolFightGoal extends Goal {
 
   @Override
   public boolean canUse() {
-    return robot.workArea().work().patrolCombat().fighting();
+    return robot.workArea().work().patrolCombat().busy();
   }
 
   @Override
@@ -63,6 +65,10 @@ final class PatrolFightGoal extends Goal {
   @Override
   public void tick() {
     RobotPatrolCombat combat = robot.workArea().work().patrolCombat();
+    if (combat.watch().holdsStill()) {
+      holdStill(combat);
+      return;
+    }
     Optional<LivingEntity> found = combat.target();
     if (found.isEmpty()) {
       return;
@@ -137,6 +143,19 @@ final class PatrolFightGoal extends Goal {
         BLADE_STOP,
         RobotPatrolCombat.settings().weaponSwitchDistance(),
         combat.spec().weapons().pistolRange());
+  }
+
+  /**
+   * On the alert it stands while it turns, and after the last kill it looks at its owner (1629).
+   */
+  private void holdStill(RobotPatrolCombat combat) {
+    robot.getNavigation().stop();
+    if (combat.watch().phase() == PatrolWatch.Phase.OWNER_CHECK) {
+      Player owner = RobotInteractions.onlineOwner(robot);
+      if (owner != null) {
+        robot.getLookControl().setLookAt(owner);
+      }
+    }
   }
 
   /** Away from the target, on the other side from it. */

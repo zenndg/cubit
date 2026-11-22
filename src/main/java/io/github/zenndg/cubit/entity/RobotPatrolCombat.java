@@ -6,6 +6,7 @@ import io.github.zenndg.cubit.domain.behavior.PatrolRules;
 import io.github.zenndg.cubit.domain.behavior.PatrolSettings;
 import io.github.zenndg.cubit.domain.behavior.PatrolTargets;
 import io.github.zenndg.cubit.domain.behavior.PatrolTeam;
+import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
 import io.github.zenndg.cubit.domain.behavior.WeaponChoice;
 import io.github.zenndg.cubit.domain.energy.PowerState;
 import io.github.zenndg.cubit.domain.robot.RoutePoint;
@@ -36,10 +37,12 @@ public final class RobotPatrolCombat {
   private static final double GLIDE_FALL_SPEED = -0.12;
   private static final double JUMP_GRAVITY = 0.08;
   private static final double FALLING = -0.08;
+  private static final float QUARTER_TURN = 90f;
 
   private final RobotEntity robot;
   private final RobotPatrolWeapons weapons;
   private LivingEntity target;
+  private PatrolWatch watch = PatrolWatch.START;
   private long nextSearch;
 
   RobotPatrolCombat(RobotEntity robot) {
@@ -54,6 +57,16 @@ public final class RobotPatrolCombat {
 
   public boolean fighting() {
     return armed() && target != null && target.isAlive();
+  }
+
+  /** In a fight, or checking on its owner after it, so the round waits (answer 1629). */
+  boolean busy() {
+    return fighting() || armed() && watch.phase() == PatrolWatch.Phase.OWNER_CHECK;
+  }
+
+  /** What it is doing as a lookout, which the look of the visor follows. */
+  public PatrolWatch watch() {
+    return watch;
   }
 
   Optional<LivingEntity> target() {
@@ -75,8 +88,10 @@ public final class RobotPatrolCombat {
     glide();
     if (!armed()) {
       drop();
+      watch = PatrolWatch.START;
       return;
     }
+    watch = watch.tick(timings());
     long now = robot.level().getGameTime();
     if (now >= nextSearch) {
       nextSearch = now + SEARCH_TICKS;
@@ -112,7 +127,31 @@ public final class RobotPatrolCombat {
     if (next != null && target == null && !targetOfAny(mates, next)) {
       robot.workArea().work().talk().onWork(JobTalkTopic.PATROLLER_COMBAT);
     }
+    follow(next);
+  }
+
+  /**
+   * The watch follows the target: a new one brings the alert, the last one killed brings the look
+   * at the owner, and one gone without a kill ends the fight (answers 1623 and 1629).
+   */
+  private void follow(LivingEntity next) {
+    if (next != null) {
+      watch = watch.sighted(PatrolProtection.hurtingSomeone(robot, next), timings());
+    } else if (target != null) {
+      watch = target.isDeadOrDying() ? watch.killedTheLast(ownerNear(), timings()) : watch.lost();
+    }
     target = next;
+  }
+
+  private boolean ownerNear() {
+    Player owner = RobotInteractions.onlineOwner(robot);
+    return owner != null
+        && owner.level() == robot.level()
+        && timings().ownerNear(owner.distanceTo(robot));
+  }
+
+  private static PatrolWatch.Timings timings() {
+    return CubitMod.CONFIG.patrol().watch();
   }
 
   /**
@@ -187,6 +226,10 @@ public final class RobotPatrolCombat {
 
   private void act(long now) {
     robot.getLookControl().setLookAt(target);
+    if (!watch.attacks()) {
+      face(target);
+      return;
+    }
     WeaponChoice choice = weapon();
     if (choice == WeaponChoice.PISTOL) {
       weapons.shoot(target, spec(), now);
@@ -196,6 +239,14 @@ public final class RobotPatrolCombat {
     if (choice != WeaponChoice.PISTOL) {
       jumpIfNeeded();
     }
+  }
+
+  /** On the alert, the body turns to the hostile with the head (answer 1623). */
+  private void face(LivingEntity mob) {
+    Vec3 toward = mob.position().subtract(robot.position());
+    float yaw = (float) (Math.toDegrees(Math.atan2(toward.z, toward.x)) - QUARTER_TURN);
+    robot.setYRot(yaw);
+    robot.setYBodyRot(yaw);
   }
 
   /** What the movement goal reads to approach, stop or keep away. */

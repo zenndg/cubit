@@ -32,7 +32,10 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 public final class PatrolTeamGameTests {
   private static final String ARENA = "arena";
   private static final int TIMEOUT = 200;
-  private static final int FIRST_SHOTS = 15;
+
+  /** The search, the alert of half a second and the first shot of each one (answer 1623). */
+  private static final int FIRST_SHOTS = 30;
+
   private static final int TEAM_UP_TICKS = 2;
   private static final int FLOOR_Y = 1;
   private static final int STAND_Y = 2;

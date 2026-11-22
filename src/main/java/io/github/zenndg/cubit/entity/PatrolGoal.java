@@ -34,7 +34,7 @@ final class PatrolGoal extends Goal {
   @Override
   public boolean canUse() {
     return robot.workArea().work().patrol().active()
-        && !robot.workArea().work().patrolCombat().fighting();
+        && !robot.workArea().work().patrolCombat().busy();
   }
 
   @Override

@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.config;
 import com.mojang.logging.LogUtils;
 import io.github.zenndg.cubit.domain.behavior.PatrolSettings;
 import io.github.zenndg.cubit.domain.behavior.PatrolTeam;
+import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.slf4j.Logger;
@@ -28,6 +29,15 @@ public final class PatrolSection {
   private static final String CALL_RANGE = "patroller_call_range";
   private static final String RESCUE_RADIUS = "patroller_rescue_radius";
   private static final String LOW_HEALTH = "patroller_low_health_percent";
+  private static final String ALERT = "patroller_alert_ticks";
+  private static final String OWNER_CHECK = "patroller_owner_check_ticks";
+  private static final String OWNER_DISTANCE = "patroller_owner_check_distance";
+  private static final String VISOR_CALM = "patroller_visor_calm_ticks";
+  private static final int ALERT_DEFAULT = 10;
+  private static final int OWNER_CHECK_DEFAULT = 20;
+  private static final int OWNER_DISTANCE_DEFAULT = 16;
+  private static final int VISOR_CALM_DEFAULT = 60;
+  private static final int SHORT_TICKS_MAX = 1200;
   private static final int CALL_RANGE_DEFAULT = 32;
   private static final int CALL_RANGE_MAX = 128;
   private static final int RESCUE_RADIUS_DEFAULT = 8;
@@ -65,6 +75,10 @@ public final class PatrolSection {
   private final ModConfigSpec.IntValue callRange;
   private final ModConfigSpec.IntValue rescueRadius;
   private final ModConfigSpec.IntValue lowHealth;
+  private final ModConfigSpec.IntValue alert;
+  private final ModConfigSpec.IntValue ownerCheck;
+  private final ModConfigSpec.IntValue ownerDistance;
+  private final ModConfigSpec.IntValue visorCalm;
   private final AtomicBoolean warned = new AtomicBoolean();
 
   PatrolSection(ModConfigSpec.Builder builder) {
@@ -90,6 +104,11 @@ public final class PatrolSection {
     rescueRadius =
         builder.defineInRange(RESCUE_RADIUS, RESCUE_RADIUS_DEFAULT, MIN_ONE, RESCUE_RADIUS_MAX);
     lowHealth = builder.defineInRange(LOW_HEALTH, LOW_HEALTH_DEFAULT, MIN_ZERO, PERCENT_MAX);
+    alert = builder.defineInRange(ALERT, ALERT_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
+    ownerCheck = builder.defineInRange(OWNER_CHECK, OWNER_CHECK_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
+    ownerDistance =
+        builder.defineInRange(OWNER_DISTANCE, OWNER_DISTANCE_DEFAULT, MIN_ONE, BLOCKS_MAX);
+    visorCalm = builder.defineInRange(VISOR_CALM, VISOR_CALM_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
   }
 
   public PatrolSettings settings() {
@@ -105,6 +124,12 @@ public final class PatrolSection {
   /** The team of the Patrollers of one owner (answers 1644, 1686 and 1691). */
   public PatrolTeam team() {
     return new PatrolTeam(callRange.get(), rescueRadius.get(), lowHealth.get());
+  }
+
+  /** The alert, the check on the owner and the calm of the visor (answers 1623, 1629 and 1632). */
+  public PatrolWatch.Timings watch() {
+    return new PatrolWatch.Timings(
+        alert.get(), ownerCheck.get(), ownerDistance.get(), visorCalm.get());
   }
 
   private PatrolSettings.Round round() {

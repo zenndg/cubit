@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.gametest;
 
 import io.github.zenndg.cubit.CubitMod;
+import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.robot.DefenseMode;
 import io.github.zenndg.cubit.domain.robot.RobotState;
@@ -16,6 +17,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.ItemStack;
@@ -25,8 +27,9 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 /**
  * The Galactic Patroller in the world: the locked mode, the armor of the card, the pistol from a
- * distance, the blade near, the head of a kill and who it attacks, by the signs of the game
- * (answers 1552, 1557, 1559, 1566, 1633 and 1701 to 1705).
+ * distance, the blade near, the head of a kill, who it attacks by the signs of the game, the alert
+ * before the first shot and the look at the owner after the last kill (answers 1552, 1557, 1559,
+ * 1566, 1623, 1629, 1633 and 1701 to 1705).
  */
 @GameTestHolder(CubitMod.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -57,6 +60,9 @@ public final class PatrollerGameTests {
   private static final String WRONG_HEAD = "Wrong head after the kill";
   private static final String SPARED = "The Patroller should have attacked the mob";
   private static final String ATTACKED = "The Patroller should have left the mob alone";
+  private static final String NO_ALERT = "The Patroller should hold the alert before it shoots";
+  private static final String NO_CHECK = "The Patroller should look at its owner after the kill";
+  private static final float ONE_SHOT = 1f;
 
   private PatrollerGameTests() {}
 
@@ -190,5 +196,32 @@ public final class PatrollerGameTests {
     boolean hurt = mob.getHealth() < mob.getMaxHealth();
     helper.assertTrue(hurt == expected, expected ? SPARED : ATTACKED);
     helper.succeed();
+  }
+
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void theAlertComesBeforeTheFirstShot(GameTestHelper helper) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    RobotEntity robot = patroller(helper, owner);
+    Husk husk = helper.spawnWithNoFreeWill(EntityType.HUSK, FAR);
+    helper
+        .startSequence()
+        .thenWaitUntil(() -> helper.assertTrue(phase(robot) == PatrolWatch.Phase.ALERT, NO_ALERT))
+        .thenExecute(() -> helper.assertFalse(husk.getHealth() < husk.getMaxHealth(), NO_ALERT))
+        .thenWaitUntil(() -> helper.assertTrue(husk.getHealth() < husk.getMaxHealth(), NOT_HIT))
+        .thenSucceed();
+  }
+
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void theLastKillBringsALookAtTheOwner(GameTestHelper helper) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    RobotEntity robot = patroller(helper, owner);
+    Husk husk = helper.spawnWithNoFreeWill(EntityType.HUSK, FAR);
+    husk.setHealth(ONE_SHOT);
+    helper.succeedWhen(
+        () -> helper.assertTrue(phase(robot) == PatrolWatch.Phase.OWNER_CHECK, NO_CHECK));
+  }
+
+  private static PatrolWatch.Phase phase(RobotEntity robot) {
+    return robot.workArea().work().patrolCombat().watch().phase();
   }
 }
