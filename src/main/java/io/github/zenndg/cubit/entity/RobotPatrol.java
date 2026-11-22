@@ -182,6 +182,12 @@ public final class RobotPatrol {
     return new PatrolSpread.Walker(progress.index(), progressSince, robot.getId());
   }
 
+  /** After a fight, it goes on from the point nearest to where it is (answer 1625). */
+  void backToNearest() {
+    PatrolRoute route = walkable();
+    walkTo(new PatrolProgress(route.nearestTo(robot.getX(), robot.getY() - 1, robot.getZ())));
+  }
+
   /** Walking the edges of its area, without points of a route (answer 1616). */
   boolean onEdges() {
     return hasCard() && robot.workArea().working() && walkable().isEmpty();

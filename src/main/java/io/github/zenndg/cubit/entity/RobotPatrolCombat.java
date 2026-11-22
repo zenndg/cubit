@@ -43,6 +43,7 @@ public final class RobotPatrolCombat {
   private final RobotPatrolWeapons weapons;
   private LivingEntity target;
   private PatrolWatch watch = PatrolWatch.START;
+  private final PatrolTrail trail = new PatrolTrail();
   private long nextSearch;
 
   RobotPatrolCombat(RobotEntity robot) {
@@ -59,9 +60,26 @@ public final class RobotPatrolCombat {
     return armed() && target != null && target.isAlive();
   }
 
-  /** In a fight, or checking on its owner after it, so the round waits (answer 1629). */
+  /**
+   * In a fight, checking on its owner after it or investigating, so the round waits (answers 1624
+   * and 1629).
+   */
   boolean busy() {
-    return fighting() || armed() && watch.phase() == PatrolWatch.Phase.OWNER_CHECK;
+    PatrolWatch.Phase phase = watch.phase();
+    return fighting()
+        || armed()
+            && (phase == PatrolWatch.Phase.OWNER_CHECK || phase == PatrolWatch.Phase.INVESTIGATION);
+  }
+
+  /** Where it walks to investigate: the last place it saw the hostile (answer 1624). */
+  Optional<Vec3> investigationSpot() {
+    return trail.lastSeen();
+  }
+
+  /** It looked around the last place: back to the round, with the visor up (answer 1629). */
+  void searched() {
+    watch = watch.searched();
+    trail.clear();
   }
 
   /** What it is doing as a lookout, which the look of the visor follows. */
@@ -89,9 +107,13 @@ public final class RobotPatrolCombat {
     if (!armed()) {
       drop();
       watch = PatrolWatch.START;
+      trail.clear();
       return;
     }
     watch = watch.tick(timings());
+    if (fighting()) {
+      trail.tick(robot, target, weapon() == WeaponChoice.PISTOL);
+    }
     long now = robot.level().getGameTime();
     if (now >= nextSearch) {
       nextSearch = now + SEARCH_TICKS;
@@ -136,9 +158,15 @@ public final class RobotPatrolCombat {
    */
   private void follow(LivingEntity next) {
     if (next != null) {
-      watch = watch.sighted(PatrolProtection.hurtingSomeone(robot, next), timings());
+      boolean hurting = PatrolProtection.hurtingSomeone(robot, next);
+      watch = watch.sighted(hurting, trail.lookedFor(next), timings());
+      trail.follow(next);
+    } else if (target != null && target.isDeadOrDying()) {
+      watch = watch.killedTheLast(ownerNear(), timings());
+      trail.clear();
     } else if (target != null) {
-      watch = target.isDeadOrDying() ? watch.killedTheLast(ownerNear(), timings()) : watch.lost();
+      trail.lost(target);
+      watch = watch.lost(trail.lastSeen().filter(this::inReachAt).isPresent());
     }
     target = next;
   }
@@ -159,13 +187,16 @@ public final class RobotPatrolCombat {
    * and the hostiles near a wounded one, all within its own chase (answers 1643, 1644 and 1691).
    */
   private List<LivingEntity> pool(List<RobotEntity> mates, List<RobotEntity> wounded) {
-    Set<LivingEntity> pool =
-        new LinkedHashSet<>(PatrolSight.hostiles(robot, spec().searchRadius()));
+    Set<LivingEntity> pool = new LinkedHashSet<>();
+    PatrolSight.hostiles(robot, spec().searchRadius()).stream()
+        .filter(mob -> trail.mayChoose(robot, mob, timings()))
+        .forEach(pool::add);
     mates.forEach(mate -> mate.workArea().work().patrolCombat().target().ifPresent(pool::add));
     int rescue = team().rescueRadius();
     wounded.forEach(one -> pool.addAll(PatrolSight.hostiles(one, rescue)));
     return pool.stream()
         .filter(mob -> mob.isAlive() && PatrolProtection.isTarget(robot, mob) && inReach(mob))
+        .filter(mob -> !trail.gone(mob, timings()))
         .toList();
   }
 
@@ -190,7 +221,11 @@ public final class RobotPatrolCombat {
 
   /** Within the chase, measured from what it guards (answers 1562, 1565 and 1636). */
   boolean inReach(LivingEntity mob) {
-    return PatrolRules.mayChase(guardDistance(mob.position()), settings().chaseDistance());
+    return inReachAt(mob.position());
+  }
+
+  private boolean inReachAt(Vec3 at) {
+    return PatrolRules.mayChase(guardDistance(at), settings().chaseDistance());
   }
 
   /**

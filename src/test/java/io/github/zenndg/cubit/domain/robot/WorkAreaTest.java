@@ -116,4 +116,10 @@ class WorkAreaTest {
     assertEquals(EAST_GAP, AREA.distanceToBase(EAST_X, INSIDE_Z), PRECISION);
     assertEquals(CORNER_GAP, AREA.distanceToBase(EAST_X, SOUTH_Z), PRECISION);
   }
+
+  @Test
+  void theNearestCornerOfTheBase() {
+    assertEquals(0, AREA.nearestCorner(LOW.x(), LOW.z()));
+    assertEquals(LAST_CORNER - 1, AREA.nearestCorner(EAST_X, SOUTH_Z));
+  }
 }

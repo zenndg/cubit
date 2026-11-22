@@ -28,8 +28,8 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 /**
  * The Galactic Patroller in the world: the locked mode, the armor of the card, the pistol from a
  * distance, the blade near, the head of a kill, who it attacks by the signs of the game, the alert
- * before the first shot and the look at the owner after the last kill (answers 1552, 1557, 1559,
- * 1566, 1623, 1629, 1633 and 1701 to 1705).
+ * before the first shot, the look at the owner after the last kill and the search for a hostile
+ * that got away (answers 1552, 1557, 1559, 1566, 1623, 1624, 1629, 1633 and 1701 to 1705).
  */
 @GameTestHolder(CubitMod.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -63,6 +63,8 @@ public final class PatrollerGameTests {
   private static final String NO_ALERT = "The Patroller should hold the alert before it shoots";
   private static final String NO_CHECK = "The Patroller should look at its owner after the kill";
   private static final float ONE_SHOT = 1f;
+  private static final String NO_INVESTIGATION = "The Patroller should look where the hostile was";
+  private static final String NOT_BACK = "The Patroller should go back to its round after looking";
 
   private PatrollerGameTests() {}
 
@@ -223,5 +225,20 @@ public final class PatrollerGameTests {
 
   private static PatrolWatch.Phase phase(RobotEntity robot) {
     return robot.workArea().work().patrolCombat().watch().phase();
+  }
+
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void aHostileThatGetsAwayIsLookedFor(GameTestHelper helper) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    RobotEntity robot = patroller(helper, owner);
+    Husk husk = helper.spawnWithNoFreeWill(EntityType.HUSK, FAR);
+    helper
+        .startSequence()
+        .thenWaitUntil(() -> helper.assertTrue(phase(robot) == PatrolWatch.Phase.FIGHT, NOT_HIT))
+        .thenExecute(husk::discard)
+        .thenWaitUntil(() ->
+            helper.assertTrue(phase(robot) == PatrolWatch.Phase.INVESTIGATION, NO_INVESTIGATION))
+        .thenWaitUntil(() -> helper.assertTrue(phase(robot) == PatrolWatch.Phase.ROUND, NOT_BACK))
+        .thenSucceed();
   }
 }

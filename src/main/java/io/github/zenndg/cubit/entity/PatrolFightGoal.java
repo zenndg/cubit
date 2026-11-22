@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit.entity;
 
+import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.PatrolRules;
 import io.github.zenndg.cubit.domain.behavior.PatrolSiege;
 import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
@@ -19,7 +20,8 @@ import net.minecraft.world.phys.Vec3;
  * How the Galactic Patroller moves in a fight: close in for the blade, stand and aim for the
  * pistol, keep out of the blast of a creeper and, with the team, besiege the target from every
  * side. It chases only so far from what it guards, the route, the area or the one it escorts, and
- * then lets go (answers 1562, 1565, 1567, 1595, 1636 and 1645).
+ * then lets go, to investigate where it last saw the hostile (answers 1562, 1565, 1567, 1595, 1624,
+ * 1636 and 1645).
  */
 final class PatrolFightGoal extends Goal {
   private static final double SPEED_MODIFIER = 1;
@@ -28,12 +30,20 @@ final class PatrolFightGoal extends Goal {
   private static final double KEEP_AWAY = 6;
   private static final int REPATH_TICKS = 5;
   private static final double ON_SPOT = 1;
+  private static final double ARRIVED_BLOCKS = 1.5;
+  private static final double PROGRESS_BLOCKS = 0.5;
 
   private final RobotEntity robot;
+  private final PatrolPause pause;
+  private boolean investigating;
+  private boolean lookingAround;
+  private double nearest;
+  private int stuckTicks;
   private int repathCountdown;
 
   PatrolFightGoal(RobotEntity robot) {
     this.robot = robot;
+    this.pause = new PatrolPause(robot);
     setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
   }
 
@@ -55,6 +65,7 @@ final class PatrolFightGoal extends Goal {
   @Override
   public void start() {
     repathCountdown = 0;
+    investigating = false;
   }
 
   @Override
@@ -69,6 +80,11 @@ final class PatrolFightGoal extends Goal {
       holdStill(combat);
       return;
     }
+    if (combat.watch().phase() == PatrolWatch.Phase.INVESTIGATION) {
+      investigate(combat);
+      return;
+    }
+    investigating = false;
     Optional<LivingEntity> found = combat.target();
     if (found.isEmpty()) {
       return;
@@ -143,6 +159,47 @@ final class PatrolFightGoal extends Goal {
         BLADE_STOP,
         RobotPatrolCombat.settings().weaponSwitchDistance(),
         combat.spec().weapons().pistolRange());
+  }
+
+  /**
+   * It walks to where it last saw the hostile, at the normal speed, and there stops and looks
+   * around, as at a stop of the round, before it goes back (answer 1624).
+   */
+  private void investigate(RobotPatrolCombat combat) {
+    if (!investigating) {
+      investigating = true;
+      lookingAround = false;
+      nearest = Double.MAX_VALUE;
+      stuckTicks = 0;
+    }
+    if (lookingAround) {
+      if (!pause.hold()) {
+        combat.searched();
+      }
+      return;
+    }
+    Vec3 spot = combat.investigationSpot().orElse(robot.position());
+    double distance = robot.position().subtract(spot).horizontalDistance();
+    if (distance < ARRIVED_BLOCKS || stuck(distance)) {
+      robot.workArea().work().patrol().stopHere();
+      pause.reset();
+      lookingAround = true;
+      return;
+    }
+    if (--repathCountdown <= 0) {
+      repathCountdown = REPATH_TICKS;
+      robot.getNavigation().moveTo(spot.x, spot.y, spot.z, SPEED_MODIFIER);
+    }
+  }
+
+  /** A spot it cannot reach, as in the water, is looked at from as near as it got (answer 1693). */
+  private boolean stuck(double distance) {
+    if (distance < nearest - PROGRESS_BLOCKS) {
+      nearest = distance;
+      stuckTicks = 0;
+      return false;
+    }
+    return ++stuckTicks >= CubitMod.CONFIG.dock().stuckTicks();
   }
 
   /**

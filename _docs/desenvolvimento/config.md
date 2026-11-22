@@ -186,6 +186,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general` | `patroller_owner_check_ticks` | Patrulheiro: olhar para o dono depois do combate | 0 a 1200 |
 | `general` | `patroller_owner_check_distance` | Patrulheiro: distância do dono para olhar para ele | 1 a 64 |
 | `general` | `patroller_visor_calm_ticks` | Patrulheiro: tempo sem ameaça até o visor subir | 0 a 1200 |
+| `general` | `patroller_lost_sight_ticks` | Patrulheiro: tempo sem ver o alvo até ele sumir de vista, com 0 para na hora | 0 a 1200 |
 | `general` | `patroller_creeper_blast` | Patrulheiro: raio da explosão do creeper | 1 a 16 |
 | `general` | `patroller_keep_away` | Patrulheiro: distância que mantém do creeper sem carga | 1 a 32 |
 | `general` | `patroller_search_interval_ticks` | Patrulheiro: intervalo da procura de alvos | 1 a 200 |
@@ -234,6 +235,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 18:10 | Acrescenta a chave do tempo até o alvo sumir de vista (pergunta 1721). |
 | Zennd | 2026-11-22 14:50 | Acrescenta as chaves da cautela, do socorro e do retorno do Patrulheiro (perguntas 1686, 1689 e 1691). |
 | Zennd | 2026-11-22 14:30 | Acrescenta as chaves que faltavam: o local de morte, a Engineering Desk, o Organizador, o Cozinheiro, a velocidade e as portas (pergunta 1684). |
 | Zennd | 2026-11-22 14:05 | Acrescenta as chaves da apresentação do Cubit (perguntas 1674 e 1677). |

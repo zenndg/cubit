@@ -64,6 +64,7 @@ Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e uma
 - **Mobs de outros mods:** ele os reconhece pelos sinais do jogo, sem lista fixa: a interface `Enemy`, a categoria `MONSTER` e a interface `NeutralMob`. Um mob que não tem nenhum deles vira alvo quando mira num protegido, e as tags corrigem o resto (perguntas 1633, 1634 e 1705).
 - **Tags:** `cubit:patroller_targets` acrescenta mobs que ele sempre ataca, e `cubit:patroller_ignores`, mobs que ele nunca ataca. A de ignorar vence, e os protegidos nunca entram (pergunta 1634).
 - **Protegidos:** o dono, os outros players, os robôs, os animais e os aldeões. Ele nunca os fere, e o globo e a lâmina passam por eles (perguntas 1558 e 1570).
+- **À vista:** um alvo novo da própria procura só é escolhido se estiver à vista, e um hostil atrás de uma parede só vira alvo quando aparece. Os alvos do chamado da equipe e do socorro valem sem a própria vista, porque um colega os vê (pergunta 1723).
 - **Prioridade:** primeiro o mob que está ferindo alguém, depois o mais próximo de um protegido (pergunta 1568).
 - **Vários Patrulheiros:** os do mesmo dono lutam juntos, como uma equipe (perguntas 1643 a 1646):
   1. **Mesmo alvo:** todos atacam o hostil de maior prioridade, um de cada vez, e só passam ao próximo quando ele cai ou sai do limite. Um hostil que passa a ferir alguém vira o alvo da equipe.
@@ -90,7 +91,7 @@ Ele sai da rota para ir atrás de um hostil até 16 blocos, medidos do ponto da 
 O comportamento de um vigia de verdade, decidido no início do PR 3 (perguntas 1619 e 1623 a 1629):
 
 1. **Alerta ao avistar:** ao ver um hostil, ele para por 0,5 s, vira o corpo e a cabeça para ele, baixa o visor com o bipe de mira travada e só então ataca. Se o hostil já estiver ferindo alguém, pula o alerta (pergunta 1623).
-2. **Investigar:** quando o hostil some de vista ou foge do limite, ele anda até onde o viu por último, se estiver dentro do limite de perseguição, para olhando em volta, como numa parada da ronda, e só então volta. Se o hostil reaparecer, retoma o combate. O teleporte, como o do enderman e o do shulker, conta como sumir de vista: se o alvo reaparece no raio de procura, à vista e dentro do limite de perseguição, ele o retoma na hora, sem novo alerta (perguntas 1624 e 1694).
+2. **Investigar:** quando o hostil some de vista ou foge do limite, ele anda até onde o viu por último, se estiver dentro do limite de perseguição, para olhando em volta, como numa parada da ronda, e só então volta. Se o hostil reaparecer, retoma o combate. O alvo some de vista sem linha de visão por 2 s seguidos, e um alvo atrás de um bloco por um instante não interrompe o combate. Durante a investigação, o mesmo hostil retoma o combate na hora, sem novo alerta, e um hostil diferente traz o alerta. O teleporte, como o do enderman e o do shulker, conta como sumir de vista: se o alvo reaparece no raio de procura, à vista e dentro do limite de perseguição, ele o retoma na hora, sem novo alerta (perguntas 1624, 1694, 1721 e 1722).
 3. **Conferir o dono:** ao abater o último hostil por perto, com o dono a até 16 blocos, ele vira a cabeça para o dono por 1 s, antes de investigar ou voltar (pergunta 1629).
 4. **Visor com calma:** depois do combate, o visor só sobe depois da investigação ou de 3 s sem ameaça (pergunta 1629).
 5. **Volta à ronda:** volta ao ponto da rota mais perto de onde está e segue a ordem a partir dele. Na ronda pelas bordas, volta ao canto mais perto (pergunta 1625).
@@ -276,6 +277,7 @@ Uma issue, a #198 renomeada, e três PRs testados no jogo (perguntas 1578, 1605 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 18:10 | Detalha quando o alvo some de vista e o hostil que aparece na investigação (perguntas 1721 a 1723). |
 | Zennd | 2026-11-22 17:10 | Detalha o cerco da equipe (pergunta 1718). |
 | Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-22 15:30 | Detalha a mesma área do chamado e a ronda espaçada (perguntas 1707 e 1708). |

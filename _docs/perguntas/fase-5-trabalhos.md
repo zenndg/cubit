@@ -665,11 +665,15 @@ Não há perguntas pendentes nesta fase.
 | 1718 | Como fica o cerco (1645), com vários Patrulheiros no mesmo alvo? | A ordem é fixa, pelo UUID: o primeiro mantém o lado de onde veio, e os outros se espalham em ângulos iguais em volta do alvo. Na lâmina, cada um vai ao seu ponto a 1,8 bloco do alvo; na pistola, mantém a própria distância, entre a troca de arma e o alcance, e se move só pela volta do círculo. Sozinho, luta como hoje, e o recuo do creeper vem antes do cerco. Nada a acrescentar (1631). Detalha a 1645 |
 | 1719 | Há algo a acrescentar à ronda espaçada (3c), em que a mesma rota são os mesmos pontos na mesma ordem, as mesmas bordas são a mesma área e o ponto mais longe é o mais distante, no laço, do ponto mais perto de cada colega? | Nada a acrescentar (1631). Detalha a 1708 |
 | 1720 | A entrega 4 do PR 3, o realismo, segue dividida em 4a (o estado, o alerta, a conferida no dono e o visor), 4b (a investigação, o teleporte, a água e a volta ao ponto mais perto), 4c (o olhar para fora nas bordas) e 4d (a cautela com a vida baixa)? | Sim, nada a acrescentar (1631) |
+| 1721 | Quanto tempo sem ver o alvo conta como "sumiu de vista" para a investigação (1624)? | 2 s: sem linha de visão por 2 s seguidos, ou fora do limite de perseguição, o alvo some, e ele investiga o último lugar em que o viu. A chave nova é `patroller_lost_sight_ticks`, com 40, de 0 a 1200, e um alvo atrás de um bloco por um instante não interrompe o combate. Detalha a 1624 |
+| 1722 | Durante a investigação, como ele reage a um hostil que aparece? | O mesmo hostil retoma o combate na hora, sem um novo alerta, como no teleporte (1694). Um hostil diferente traz o alerta de 0,5 s, como na ronda. Detalha a 1623 e a 1624 |
+| 1723 | Um alvo novo da própria procura só é escolhido se estiver à vista, para o alvo que some não ser escolhido de novo enquanto continua escondido? | Sim: só escolhe o que vê, como em "ao ver um hostil" (1623). O alvo atual continua valendo por até 2 s sem visão (1721), e os alvos do chamado da equipe e do socorro valem sem a própria vista, porque um colega os vê. Um hostil atrás de uma parede só vira alvo quando aparece. Detalha a 1623 e a 1633 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 18:00 | Registra as respostas 1721 a 1723. |
 | Zennd | 2026-11-22 17:40 | Registra a resposta 1720. |
 | Zennd | 2026-11-22 17:20 | Registra a resposta 1719. |
 | Zennd | 2026-11-22 17:10 | Registra a resposta 1718. |

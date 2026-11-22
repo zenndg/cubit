@@ -33,6 +33,8 @@ public final class PatrolSection {
   private static final String OWNER_CHECK = "patroller_owner_check_ticks";
   private static final String OWNER_DISTANCE = "patroller_owner_check_distance";
   private static final String VISOR_CALM = "patroller_visor_calm_ticks";
+  private static final String LOST_SIGHT = "patroller_lost_sight_ticks";
+  private static final int LOST_SIGHT_DEFAULT = 40;
   private static final int ALERT_DEFAULT = 10;
   private static final int OWNER_CHECK_DEFAULT = 20;
   private static final int OWNER_DISTANCE_DEFAULT = 16;
@@ -79,6 +81,7 @@ public final class PatrolSection {
   private final ModConfigSpec.IntValue ownerCheck;
   private final ModConfigSpec.IntValue ownerDistance;
   private final ModConfigSpec.IntValue visorCalm;
+  private final ModConfigSpec.IntValue lostSight;
   private final AtomicBoolean warned = new AtomicBoolean();
 
   PatrolSection(ModConfigSpec.Builder builder) {
@@ -109,6 +112,7 @@ public final class PatrolSection {
     ownerDistance =
         builder.defineInRange(OWNER_DISTANCE, OWNER_DISTANCE_DEFAULT, MIN_ONE, BLOCKS_MAX);
     visorCalm = builder.defineInRange(VISOR_CALM, VISOR_CALM_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
+    lostSight = builder.defineInRange(LOST_SIGHT, LOST_SIGHT_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
   }
 
   public PatrolSettings settings() {
@@ -126,10 +130,13 @@ public final class PatrolSection {
     return new PatrolTeam(callRange.get(), rescueRadius.get(), lowHealth.get());
   }
 
-  /** The alert, the check on the owner and the calm of the visor (answers 1623, 1629 and 1632). */
+  /**
+   * The alert, the check on the owner, the calm of the visor and the lost sight (1623 to 1632,
+   * 1721).
+   */
   public PatrolWatch.Timings watch() {
     return new PatrolWatch.Timings(
-        alert.get(), ownerCheck.get(), ownerDistance.get(), visorCalm.get());
+        alert.get(), ownerCheck.get(), ownerDistance.get(), visorCalm.get(), lostSight.get());
   }
 
   private PatrolSettings.Round round() {

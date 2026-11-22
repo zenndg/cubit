@@ -64,6 +64,12 @@ final class AreaWorkGoal extends Goal {
     repathCountdown = 0;
     pause.reset();
     resetProgress();
+    if (patroller()) {
+      robot
+          .workArea()
+          .here()
+          .ifPresent(area -> corner = area.nearestCorner(robot.getX(), robot.getZ()));
+    }
     spreadCorner();
   }
 

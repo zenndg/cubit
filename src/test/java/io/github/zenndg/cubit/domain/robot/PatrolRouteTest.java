@@ -68,4 +68,16 @@ class PatrolRouteTest {
     assertTrue(route.at(1).isEmpty());
     assertTrue(route.at(-1).isEmpty());
   }
+
+  @Test
+  void theNearestPointIsTheOneClosestToWhereItStands() {
+    PatrolRoute route = PatrolRoute.EMPTY.add(A, ROOM).add(B, ROOM);
+    assertEquals(1, route.nearestTo(NINE, SURFACE, ONE));
+    assertEquals(0, route.nearestTo(0, SURFACE, ONE));
+  }
+
+  @Test
+  void anEmptyRouteHasTheFirstAsTheNearest() {
+    assertEquals(0, PatrolRoute.EMPTY.nearestTo(NINE, SURFACE, ONE));
+  }
 }

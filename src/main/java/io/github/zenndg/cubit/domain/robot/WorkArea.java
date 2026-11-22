@@ -75,6 +75,21 @@ public record WorkArea(AreaCorner min, AreaCorner max, String dimension) {
         && other.min.z() <= max.z() + 1;
   }
 
+  /** The corner of the base nearest to a place on the ground (answer 1625). */
+  public int nearestCorner(double x, double z) {
+    int nearest = 0;
+    double best = Double.MAX_VALUE;
+    for (int index = 0; index < CORNERS; index++) {
+      AreaCorner corner = corner(index);
+      double distance = Math.hypot(corner.x() - x, corner.z() - z);
+      if (distance < best) {
+        best = distance;
+        nearest = index;
+      }
+    }
+    return nearest;
+  }
+
   /** How far a point is from the base of the area, on the ground, with 0 inside (answer 1636). */
   public double distanceToBase(double x, double z) {
     double dx = Math.max(0, Math.max(min.x() - x, x - (max.x() + 1)));

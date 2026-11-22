@@ -52,7 +52,9 @@ final class PatrolGoal extends Goal {
     repathCountdown = 0;
     pause.reset();
     resetProgress();
-    robot.workArea().work().patrol().spread();
+    RobotPatrol patrol = robot.workArea().work().patrol();
+    patrol.backToNearest();
+    patrol.spread();
   }
 
   @Override

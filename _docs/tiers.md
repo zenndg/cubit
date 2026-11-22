@@ -103,6 +103,7 @@ Valem para todos os tiers e ficam no config. Os marcados como planejados entram 
 | Patrulheiro: alerta ao avistar um hostil, antes do primeiro ataque, `patroller_alert_ticks` (pergunta 1623) | 0,5 s (10 ticks) |
 | Patrulheiro: olhar para o dono depois do combate, `patroller_owner_check_ticks`, com o dono a até `patroller_owner_check_distance` (pergunta 1629) | 1 s (20 ticks), até 16 blocos |
 | Patrulheiro: tempo sem ameaça até o visor subir, `patroller_visor_calm_ticks` (pergunta 1629) | 3 s (60 ticks) |
+| Patrulheiro: tempo sem ver o alvo até ele sumir de vista, `patroller_lost_sight_ticks` (pergunta 1721) | 2 s (40 ticks) |
 | Patrulheiro: raio da explosão do creeper, de onde ele recua, `patroller_creeper_blast` (perguntas 1567 e 1642) | 4 blocos |
 | Patrulheiro: distância que mantém do creeper sem carga, `patroller_keep_away` (perguntas 1595 e 1642) | 6 blocos |
 | Patrulheiro: intervalo da procura de alvos, `patroller_search_interval_ticks` (pergunta 1642 e regra 21) | 0,5 s (10 ticks) |
@@ -306,6 +307,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 18:10 | Acrescenta o tempo até o alvo sumir de vista (pergunta 1721). |
 | Zennd | 2026-11-22 14:50 | Acrescenta a cautela, o socorro e o retorno do Patrulheiro (perguntas 1686, 1689 e 1691). |
 | Zennd | 2026-11-22 14:05 | Acrescenta os números da apresentação do Cubit (perguntas 1674 e 1677). |
 | Zennd | 2026-11-22 12:15 | Acrescenta o vão que o Patrulheiro atravessa planando (pergunta 1648). |

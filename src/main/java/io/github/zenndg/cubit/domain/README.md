@@ -74,7 +74,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `RobotListing` | Um Cubit como a tela de seleção do Tablet o ordena: se segue o player, se está na mesma dimensão, se está carregado e a distância |
 | `RobotListings` | A ordem e a busca da tela de seleção do Tablet |
 | `TabletApps` | Os apps do Tablet que fazem sentido para o Cubit escolhido, a troca com Shift e a roda e a volta ao Open de um app que deixou de valer (perguntas 1006 e 1044) |
-| `WorkArea` | A área de um Cubit: um volume de blocos entre dois cantos, numa dimensão. Cabe no tier pela base e pela altura, conta o bloco acima do topo, onde os itens ficam, dá os cantos da base para a ronda, sabe se toca outra área e a distância de um ponto até a base (perguntas 342, 1051, 1062, 1636 e 1707) |
+| `WorkArea` | A área de um Cubit: um volume de blocos entre dois cantos, numa dimensão. Cabe no tier pela base e pela altura, conta o bloco acima do topo, onde os itens ficam, dá os cantos da base para a ronda, sabe se toca outra área, a distância de um ponto até a base e o canto mais perto (perguntas 342, 1051, 1062, 1625, 1636 e 1707) |
 | `AreaCorner` | Um bloco marcado como canto pelo app Área |
 | `AreaCheck` | Se a área pode ser do Cubit, ou por quê não: sem modo área no tier, grande demais, em outra dimensão ou longe demais (perguntas 1050, 1054 e 1058) |
 | `AreaMarking` | A marcação pela metade do app Área: o Cubit e, depois, o primeiro canto, só na memória do servidor (perguntas 1054 e 1060) |
@@ -191,12 +191,12 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `PatrollerSpec` | O que um tier faz com o card do Patrulheiro Galático: a pistola, a lentidão, a lâmina, a armadura extra, o raio de procura, o salto, os pontos da rota e o lado da área, o dobro do dos outros cards |
 | `PatrolSettings` | Os números do Patrulheiro que valem em todo tier: a chance e o tempo da lentidão, a chance da cabeça, a perseguição, a distância da troca de arma e o passo da ronda (`Round`: a velocidade e os limites de cada parada e dos blocos entre duas paradas, com o sorteio feito por quem chama e mantido nos limites) |
 | `RoutePoint` | Um ponto da rota: o topo de um bloco sólido e a dimensão dele |
-| `PatrolRoute` | Os pontos da rota, na ordem em que foram marcados, percorridos em laço, sem ponto repetido e até o limite do tier |
+| `PatrolRoute` | Os pontos da rota, na ordem em que foram marcados, percorridos em laço, sem ponto repetido e até o limite do tier, e o ponto mais perto de um lugar, de onde a ronda volta depois de um combate (pergunta 1625) |
 | `RouteMarking` | O que um clique do app Marcar faz na rota: desmarca um ponto marcado, ou marca o topo de um bloco sólido dentro da área, com o motivo da recusa; e o Shift, que tira o ponto clicado ou o último |
 | `PatrolProgress` | Para qual ponto da rota o Cubit vai, em laço |
 | `PatrolSiege` | O cerco da equipe num alvo: o lado de cada Patrulheiro, em ângulos iguais a partir do primeiro, que mantém o seu, e a distância de cada arma, a da lâmina perto e a da pistola entre a troca de arma e o alcance |
 | `PatrolSpread` | A ronda de vários Patrulheiros na mesma rota ou nas mesmas bordas: quando dois vão ao mesmo ponto, o que chegou depois segue para o ponto do laço mais longe dos colegas, e o empate se decide pelo id |
-| `PatrolWatch` | O que o Patrulheiro faz como vigia: a ronda, o alerta ao avistar um hostil, pulado quando ele já fere alguém, o combate e a conferida no dono depois do último abate, com o visor, que baixa no alerta e só sobe depois da calma (`Timings`: os tempos e a distância do dono) |
+| `PatrolWatch` | O que o Patrulheiro faz como vigia: a ronda, o alerta ao avistar um hostil, pulado quando ele já fere alguém, o combate, a conferida no dono depois do último abate e a investigação do último lugar onde viu um hostil que sumiu, com o visor, que baixa no alerta e só sobe depois da calma ou da investigação (`Timings`: os tempos, a distância do dono e o tempo até o alvo sumir de vista) |
 | `PatrolStops` | As paradas da ronda: os blocos andados desde a última, o trecho sorteado até a próxima, a parada em curso e para onde a cabeça olha, duas vezes para cada lado e depois à frente |
 | `PatrolTraits` | O que o Patrulheiro sabe de um mob, lido dos sinais do jogo, sem lista fixa: se o ataca (todo `Enemy`, `MONSTER` e `NeutralMob`, e quem fere um protegido) e se o protege (players, robôs, aldeões e animais calmos). A tag de ignorar vence, e os protegidos nunca entram na de atacar |
 | `WeaponChoice` | A arma que o Patrulheiro usa no alvo: a pistola de longe e no ar, a lâmina de perto e nenhuma no creeper que ele não pode alvejar |
