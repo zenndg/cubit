@@ -1197,6 +1197,22 @@ Esta parte cobre o PR 3: o realismo, os alvos novos, a equipe, as asas, a escolt
 | 31 | Com o segundo player no Nether e o Patrulheiro no Overworld, clique nele com o app `Escort` | `Cubit only escorts in its own dimension`, e nada é marcado |
 | 32 | Com o jogo em português | `Cubit está com pouca energia, indo ao Dock`, `Cubit está escoltando você` e `Escolta` no app |
 
+### Visual do Patrulheiro
+
+Esta parte cobre o PR 4: o visual e os sons, em cinco entregas (pergunta 1771). Use um mundo plano no criativo, um Cubit Elite com o card do Patrulheiro e um Cubit Elite sem card, lado a lado, e a imagem conceito `_docs/imagens/conceito/trabalhos/patrulheiro.png` aberta para comparar.
+
+**Entrega 1, o modelo e a textura parados.** Até a arte chegar, a textura é provisória, de cores lisas.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Ponha o card no Cubit e olhe de frente | Aparecem o capacete branco, com o filete ciano, a base escura da estrela no alto e as dobradiças laranja dos lados, e o visor ciano translúcido deitado no topo. As antenas saem por cima do capacete |
+| 2 | Olhe a garra direita do próprio Cubit, à esquerda de quem olha de frente | A pistola branca, com o cano ciano para a frente, o cabo escuro e o botão laranja |
+| 3 | Olhe o pulso esquerdo do próprio Cubit e a lateral esquerda do corpo | O emissor escuro com o anel laranja no pulso, sem lâmina, e o distintivo escuro na lateral |
+| 4 | Olhe por trás | A mochila branca com a tampa, os três propulsores escuros embaixo e as duas asas recolhidas sobre ela, com as pontas passando das bordas |
+| 5 | Ande com ele e deixe-o seguir você | As peças acompanham o corpo e os braços, sem se soltar nem atravessar o corpo de um jeito estranho |
+| 6 | Tire o card | Todas as peças somem, e ele volta ao Cubit sem trabalho. O painel solar reaparece |
+| 7 | Compare com o Cubit sem card e com o Pescador | Nenhuma peça do Patrulheiro aparece neles, e o chapéu e a mochila do Pescador continuam iguais |
+
 ## Apresentação
 
 As regras estão em [`falas.md`](../conceito/falas.md#apresentação). Use um mundo novo no criativo, três Cubits novos da Engineering Desk ou do inventário criativo, um Induction Dock e um Cubit de um mundo da versão `0.1.1`, se houver.
@@ -1271,6 +1287,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 17:55 | Adiciona o visual do Patrulheiro, entrega 1 do PR 4 (perguntas 1770, 1771 e 1776). |
 | Zennd | 2026-11-22 17:00 | Acrescenta a escolta recusada em outra dimensão (pergunta 1764). |
 | Zennd | 2026-11-22 16:09 | Adiciona o realismo do Patrulheiro, PR 3 (perguntas 1623 a 1756). |
 | Zennd | 2026-11-22 15:50 | Adiciona a apresentação do Cubit (perguntas 1672 a 1682 e 1750 a 1753). |
