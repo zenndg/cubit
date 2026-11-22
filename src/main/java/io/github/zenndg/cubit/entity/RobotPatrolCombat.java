@@ -137,7 +137,7 @@ public final class RobotPatrolCombat {
    */
   void tick() {
     step();
-    RobotJobLook.showWatch(robot, watch);
+    RobotJobLook.showPatrol(robot, this);
   }
 
   private void step() {
