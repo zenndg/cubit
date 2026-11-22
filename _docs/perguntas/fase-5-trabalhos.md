@@ -712,11 +712,22 @@ Não há perguntas pendentes nesta fase.
 | 1765 | A auditoria do PR 3 achou cerca de 23 pontos de documento desatualizado (os Contratos sem `cubit:escort_marks`, os nomes da apresentação fora do `falas.md` e do `itens.md`, as respostas 1724, 1725 e 1759 fora do `patrulheiro.md`, o Defensor no `trabalhos.md`, os campos novos fora do README do domínio e o papel do `PatrolKills` na estrutura de pacotes). Eles são corrigidos agora? | Todos agora, no PR 3, conferidos um a um, em commits por documento, com o plano antes. A estrutura de pacotes do `AGENTS.md` entra com autorização, junto com o Estado atual. A recomendação foi aceita |
 | 1766 | O `RobotEscort.onLeave` percorre os robôs do nível a cada mob que sai dele. O que fazer? | Anotar em `_docs/backlog.md`, para medir com muitos mobs e Cubits e decidir numa issue própria, sem mudar o código agora (pilar Simplicidade). A recomendação foi aceita |
 | 1767 | A issue #198 do Patrulheiro Galático fecha com o PR 3, o comportamento, ou com o PR 4, o visual e os sons? | Com o PR 4: o PR 3 leva `Parte de #198`, e a issue só fecha quando o visual e os sons entrarem. A recomendação foi aceita. Detalha a 1749 |
+| 1768 | Depois do merge do PR 3 do Patrulheiro (#242), há algum ajuste no roteiro das próximas tarefas: o PR 4, a issue do teleporte longo e o Lenhador? | Nenhum ajuste: segue o PR 4, com o visual e os sons (regra 53) |
+| 1769 | Há algo a acrescentar ao alinhamento do PR 4 do Patrulheiro (o modelo, as texturas, as animações, os efeitos, os sons e a textura do card)? | Nada a acrescentar: segue a rodada de decisões (regra 51) |
+| 1770 | Como entram o modelo e a textura do Patrulheiro no PR 4 (capacete, visor, mochila, asas, pistola, emissor da Plasma Blade e distintivo)? | Como nos outros trabalhos: o agente modela os ossos no `general_robot.geo.json`, escondidos por padrão, a partir da imagem conceito aceita (1592), e a camada de trabalho os desenha com a textura `general_robot_patroller.png`. O agente escreve o prompt da textura com o gabarito do mapa UV em `tmp/arte/patrulheiro/prompt.md` (regra 56), e o desenvolvedor devolve a arte. A recomendação foi aceita. Detalha a 1749 |
+| 1771 | Como se divide a entrega do PR 4 do Patrulheiro? | Em cinco entregas, num PR só, com um aviso e um teste manual por entrega: 1) o modelo e a textura parados; 2) as animações do visor, da guarda, da lâmina e das asas; 3) os efeitos, com o globo desenhado, o estouro, os propulsores e o brilho; 4) os sons; 5) a textura do card. A recomendação foi aceita |
+| 1772 | O visor ciano, a lâmina verde, as luzes azuis das asas e os propulsores brilham no escuro? | Sim, com uma camada emissiva, como o brilho das antenas, acesa só com a parte em uso: o visor baixado, a lâmina acesa e as asas abertas. A recomendação foi aceita. Detalha a 1653 |
+| 1773 | Como seguem os sons do PR 4 até os `.wav` do desenvolvedor chegarem (1575)? | Os sons são a entrega 4: até lá continuam os sons provisórios do jogo puro, e o desenvolvedor entrega os 11 `.wav` em `tmp/wav/patrulheiro/` quando ela chegar, com as descrições de `sons.md`. A recomendação foi aceita |
+| 1774 | O conceito do PR 4 do Patrulheiro (o modelo e a textura pelo padrão dos trabalhos, as cinco entregas, a camada emissiva, os sons por último, a branch `feature/198-patroller-visuals` e o `Closes #198`) pode ir ao código? | O desenvolvedor disse "est autorizado" (regra 54) |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 17:33 | Registra a resposta 1774. |
+| Zennd | 2026-11-22 17:32 | Registra as respostas 1770 a 1773. |
+| Zennd | 2026-11-22 17:30 | Registra a resposta 1769. |
+| Zennd | 2026-11-22 17:29 | Registra a resposta 1768. |
 | Zennd | 2026-11-22 17:23 | Registra a resposta 1767. |
 | Zennd | 2026-11-22 16:53 | Registra as respostas 1763 a 1766. |
 | Zennd | 2026-11-22 16:34 | Registra a resposta 1762. |
