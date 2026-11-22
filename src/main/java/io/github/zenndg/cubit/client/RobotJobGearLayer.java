@@ -60,6 +60,8 @@ final class RobotJobGearLayer extends GeoRenderLayer<RobotEntity> {
           RobotJob.ORGANIZER, List.of(ORGANIZER_BOOK, ORGANIZER_QUILL),
           RobotJob.COOK, List.of(COOK_LADLE));
 
+  private static final List<String> BLADE = List.of(PatrollerGear.BLADE);
+
   private static final Map<RobotJob, List<String>> BONES =
       Map.of(
           RobotJob.FISHER, List.of(FISHER_HAT, BACKPACK),
@@ -84,6 +86,7 @@ final class RobotJobGearLayer extends GeoRenderLayer<RobotEntity> {
   /** Called with each frame of the model, before the body and every layer draw it. */
   static void hideIn(Function<String, GeoBone> bones) {
     BONES.values().forEach(names -> setHidden(bones, names, true));
+    setHidden(bones, BLADE, true);
   }
 
   @Override
@@ -103,6 +106,8 @@ final class RobotJobGearLayer extends GeoRenderLayer<RobotEntity> {
     }
     Function<String, GeoBone> bones = name -> model.getBone(name).orElse(null);
     setHidden(bones, BONES.get(job), false);
+    // The blade shows only lit, in a fight up close (answer 1574).
+    setHidden(bones, BLADE, job != RobotJob.PATROLLER || !RobotJobLook.bladeLit(robot));
     if (RobotJobLook.toolInClaw(robot)) {
       setHidden(bones, MODELED_TOOLS.getOrDefault(job, List.of()), true);
     }
@@ -120,6 +125,7 @@ final class RobotJobGearLayer extends GeoRenderLayer<RobotEntity> {
             packedOverlay,
             NO_TINT);
     setHidden(bones, BONES.get(job), true);
+    setHidden(bones, BLADE, true);
   }
 
   /** The visor of the Patroller is a translucent lens, so its picture is drawn blended. */
@@ -149,5 +155,6 @@ final class RobotJobGearLayer extends GeoRenderLayer<RobotEntity> {
     private static final String PISTOL = "patroller_pistol";
     private static final String EMITTER = "patroller_emitter";
     private static final String BADGE = "patroller_badge";
+    private static final String BLADE = "patroller_blade";
   }
 }
