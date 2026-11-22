@@ -22,6 +22,7 @@ public final class DefenseKeys {
   public static final String NEAREST = PREFIX + "nearest";
   public static final String ALL_IN_RANGE = PREFIX + "all_in_range";
   public static final String NO_SHOCK = PREFIX + "no_shock";
+  public static final String LOCKED_BY_CARD = PREFIX + "locked_by_card";
 
   private DefenseKeys() {}
 

@@ -48,6 +48,7 @@ public final class CubitClient {
     CubitNetwork.setAreaDisplay(TabletAreaMarks::show);
     CubitNetwork.setUnloadChestsDisplay(TabletChestMarks::show);
     CubitNetwork.setOrganizerMarksDisplay(TabletChestMarks::showMarks);
+    CubitNetwork.setPatrolRouteDisplay(TabletRouteMarks::show);
     CubitNetwork.setDoorMarksDisplay(TabletDoorMarks::show);
     CubitNetwork.setDeathLogDisplay(TabletDeathLog::show);
     DeskClientTicks.set(DeskSoundLoops::tick);

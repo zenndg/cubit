@@ -2,7 +2,9 @@ package io.github.zenndg.cubit.client;
 
 import io.github.zenndg.cubit.client.ScreenPainter.Box;
 import io.github.zenndg.cubit.client.ScreenPainter.Colors;
+import io.github.zenndg.cubit.domain.behavior.PatrolRules;
 import io.github.zenndg.cubit.domain.robot.DefenseMode;
+import io.github.zenndg.cubit.domain.robot.RobotJob;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.TierLook;
 import io.github.zenndg.cubit.menu.DefenseKeys;
@@ -17,7 +19,8 @@ import net.minecraft.network.chat.Component;
 
 /**
  * The defense tab of the robot screen: the three modes, with the current one marked and the locked
- * ones dimmed, and the numbers of the shock of the tier (answers 829 and 833).
+ * ones dimmed, by the tier or by the card of the Galactic Patroller, and the numbers of the shock
+ * of the tier (answers 829, 833 and 1610).
  */
 final class RobotDefensePanel {
   private static final int LEFT = 7;
@@ -89,7 +92,7 @@ final class RobotDefensePanel {
     for (DefenseMode mode : DefenseMode.values()) {
       int top = FIRST_MODE + mode.ordinal() * MODE_HEIGHT;
       boolean inside = x >= LEFT && x < right && y >= top && y < top + MODE_HEIGHT;
-      if (inside && defense().allows(mode) && mode != menu.defenseMode()) {
+      if (inside && open(mode) && mode != menu.defenseMode()) {
         return OptionalInt.of(RobotMenu.FIRST_DEFENSE_BUTTON + mode.ordinal());
       }
     }
@@ -126,7 +129,7 @@ final class RobotDefensePanel {
         new Box(NAME_X, top + DETAIL_TOP, right - NAME_X - NAME_INSET, DETAIL_LINE),
         ScreenPainter.DETAIL,
         ScreenPainter.DETAIL_SCALE);
-    if (!defense().allows(mode)) {
+    if (!open(mode)) {
       graphics.fill(LEFT, top, right, top + MODE_HEIGHT, DISABLED);
     }
   }
@@ -145,8 +148,21 @@ final class RobotDefensePanel {
     }
   }
 
-  /** A locked mode says which tier unlocks it, instead of what it does. */
+  /** A mode the tier allows and the card of the Patroller does not take away. */
+  private boolean open(DefenseMode mode) {
+    return defense().allows(mode) && !lockedByCard(mode);
+  }
+
+  private boolean lockedByCard(DefenseMode mode) {
+    return PatrolRules.lockedByCard(
+        mode, menu.job().filter(RobotJob.PATROLLER::equals).isPresent());
+  }
+
+  /** A locked mode says what locks it, the card or the tier, instead of what it does. */
   private Component detailOf(DefenseMode mode) {
+    if (lockedByCard(mode)) {
+      return Component.translatable(DefenseKeys.LOCKED_BY_CARD);
+    }
     if (defense().allows(mode)) {
       return Component.translatable(DefenseKeys.detail(mode));
     }

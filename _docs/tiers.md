@@ -98,7 +98,9 @@ Valem para todos os tiers e ficam no config. Os marcados como planejados entram 
 | Patrulheiro: chance de cabeça ao matar com a lâmina, `patroller_head_chance` (pergunta 1559) | 50% |
 | Patrulheiro: perseguição máxima, a partir da rota, `patroller_chase_distance` (pergunta 1562) | 16 blocos |
 | Patrulheiro: distância da troca de arma, `patroller_weapon_switch_distance` (pergunta 1557) | 4 blocos |
-| Patrulheiro: pausa em cada ponto da rota, `patroller_point_pause_ticks` (pergunta 1581) | 2 s (40 ticks) |
+| Patrulheiro: parada na ronda, num ponto, num canto ou no caminho, `patroller_stop_ticks` (perguntas 1581, 1615 e 1618) | 4 s (80 ticks) |
+| Patrulheiro: blocos andados na ronda até a próxima parada, `patroller_stop_distance` (perguntas 1616 e 1617) | 16 blocos |
+| Patrulheiro: velocidade da ronda, sobre a velocidade normal, `patroller_patrol_speed` (pergunta 1614) | 60% (0,6) |
 | Falas das profissões: chance num evento do trabalho, `job_chatter_chance` (pergunta 1586) | 20% |
 | Falas das profissões: intervalo mínimo entre duas falas do mesmo Cubit, `job_chatter_interval_ticks` | 2 min (2.400 ticks) |
 | Falas das profissões: distância máxima até o dono, `job_chatter_range` (pergunta 1585) | 32 blocos |
@@ -288,6 +290,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 11:00 | Troca a pausa nos pontos pelas paradas da ronda lenta (perguntas 1614 a 1618). |
 | Zennd | 2026-11-22 08:12 | Sobe a altura da área do Elite para 24 blocos (pergunta 1601). |
 | Zennd | 2026-11-22 08:10 | Acrescenta o lado da área do Patrulheiro (pergunta 1600). |
 | Zennd | 2026-11-22 08:03 | Leva o Construtor, o Mecânico e o Alquimista para o Elite (pergunta 1598). |

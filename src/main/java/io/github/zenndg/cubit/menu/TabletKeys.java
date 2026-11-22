@@ -73,6 +73,10 @@ public final class TabletKeys {
   public static final String MARK_FULL = PREFIX + "mark_full";
   public static final String MARK_NUMBER = PREFIX + "mark_number";
   public static final String MARK_ONLY_OVEN = PREFIX + "mark_only_oven";
+  public static final String ROUTE_POINT = PREFIX + "route_point";
+  public static final String ROUTE_NO_AREA = PREFIX + "route_no_area";
+  public static final String ROUTE_OUTSIDE_AREA = PREFIX + "route_outside_area";
+  public static final String ROUTE_NOT_SOLID = PREFIX + "route_not_solid";
   public static final String FOLLOW = PREFIX + "follow";
   public static final String FOLLOW_DETAIL = PREFIX + "follow_detail";
   public static final String FOLLOW_ALREADY = PREFIX + "follow_already";

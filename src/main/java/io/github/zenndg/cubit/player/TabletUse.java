@@ -96,6 +96,7 @@ public final class TabletUse {
         TabletItem.setApp(held, next);
         player.displayClientMessage(TabletAppLook.label(next), true);
         TabletAreaApp.forget(player);
+        TabletChestView.send(player);
         return;
       }
     }
@@ -106,7 +107,8 @@ public final class TabletUse {
         chosen.filter(robot -> robot.defense().mode() == DefenseMode.FOCUS).isPresent(),
         chosen
             .flatMap(robot -> robot.workArea().work().job())
-            .filter(job -> job == RobotJob.ORGANIZER || job == RobotJob.COOK)
+            .filter(job ->
+                job == RobotJob.ORGANIZER || job == RobotJob.COOK || job == RobotJob.PATROLLER)
             .isPresent());
   }
 

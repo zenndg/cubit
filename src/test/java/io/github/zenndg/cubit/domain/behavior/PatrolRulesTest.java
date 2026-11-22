@@ -23,6 +23,14 @@ class PatrolRulesTest {
   }
 
   @Test
+  void theCardLocksEveryModeButTheAggressive() {
+    assertTrue(PatrolRules.lockedByCard(DefenseMode.PEACEFUL, true));
+    assertTrue(PatrolRules.lockedByCard(DefenseMode.RETALIATE, true));
+    assertFalse(PatrolRules.lockedByCard(DefenseMode.AGGRESSIVE, true));
+    assertFalse(PatrolRules.lockedByCard(DefenseMode.PEACEFUL, false));
+  }
+
+  @Test
   void chasesOnlySoFarFromTheRoute() {
     assertTrue(PatrolRules.mayChase(CHASE, CHASE));
     assertFalse(PatrolRules.mayChase(CHASE + HALF_BLOCK, CHASE));
