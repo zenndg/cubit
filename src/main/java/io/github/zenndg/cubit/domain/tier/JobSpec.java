@@ -6,15 +6,16 @@ import java.util.Set;
 
 /**
  * The jobs a tier accepts, read from allowed_jobs in the config, and what the tier does with each
- * card, as the Fisher, the Farmer, the Organizer and the Cook (answers 1145, 1163, 1185, 1226, 1300
- * and 1326).
+ * card, as the Fisher, the Farmer, the Organizer, the Cook and the Galactic Patroller (answers
+ * 1145, 1163, 1185, 1226, 1300, 1326 and 1577).
  */
 public record JobSpec(
     Set<RobotJob> allowed,
     FisherSpec fisher,
     FarmerSpec farmer,
     OrganizerSpec organizer,
-    CookSpec cook) {
+    CookSpec cook,
+    PatrollerSpec patroller) {
   /** No jobs, as the Base and a tier built without job numbers, which only tests need. */
   public static final JobSpec NONE = new JobSpec(Set.of());
 
@@ -24,7 +25,13 @@ public record JobSpec(
 
   /** The jobs alone, with no numbers for the cards, which only tests and the Base need. */
   public JobSpec(Set<RobotJob> allowed) {
-    this(allowed, FisherSpec.NONE, FarmerSpec.NONE, OrganizerSpec.NONE, CookSpec.NONE);
+    this(
+        allowed,
+        FisherSpec.NONE,
+        FarmerSpec.NONE,
+        OrganizerSpec.NONE,
+        CookSpec.NONE,
+        PatrollerSpec.NONE);
   }
 
   public boolean accepts(RobotJob job) {

@@ -188,6 +188,14 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `CatalogSearch` | A busca do catálogo: o nome que o player vê, sem maiúsculas e acentos, em todas as categorias |
 | `JobTalkTopic` | O que um Cubit com card fala: uma das três frases ao receber o card e as frases de cada momento do trabalho |
 | `JobTalkRules` | Quando ele fala: a chance, quem ouve, a chave das falas e a expressão calma, e se o card é novo |
+| `PatrollerSpec` | O que um tier faz com o card do Patrulheiro Galático: a pistola, a lentidão, a lâmina, a armadura extra, o raio de procura, o salto, os pontos da rota e o lado da área, o dobro do dos outros cards |
+| `PatrolSettings` | Os números do Patrulheiro que valem em todo tier: a chance e o tempo da lentidão, a chance da cabeça, a perseguição, a distância da troca de arma e a pausa em cada ponto |
+| `RoutePoint` | Um ponto da rota: o topo de um bloco sólido e a dimensão dele |
+| `PatrolRoute` | Os pontos da rota, na ordem em que foram marcados, percorridos em laço, sem ponto repetido e até o limite do tier |
+| `PatrolProgress` | Onde o Cubit está na ronda: o ponto para onde vai e a pausa que ainda espera nele |
+| `WeaponChoice` | A arma que o Patrulheiro usa no alvo: a pistola de longe e no ar, a lâmina de perto e nenhuma no creeper que ele não pode alvejar |
+| `PatrolTargets` | O hostil que um Patrulheiro ataca: primeiro o que fere alguém, depois o mais perto de um protegido, sem repetir o alvo de outro Patrulheiro, salvo um hostil sozinho |
+| `PatrolRules` | O modo sempre Agressivo, o limite da perseguição, quando ele salta e quando recua do creeper |
 
 ## Regras e porquês
 
@@ -209,6 +217,9 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 - **Gaveta com intervalo:** a automação move itens a cada tick, e sem o intervalo a gaveta piscaria. Um relógio que voltou, por um comando de tempo, não trava a gaveta (pergunta 1511).
 - **Categoria padrão:** uma receita sem categoria, ou com uma desconhecida, vai para Ferramentas, e nunca some do catálogo por um erro de digitação num pack (perguntas 1521 e 1522).
 - **Falas das profissões por perto:** um Cubit trabalhando fica longe do dono, então as falas do trabalho vão para o dono a até uma distância, mesmo sem segui-lo, com chance e intervalo, para uma fazenda grande não virar spam. O sorteio fica com quem chama (perguntas 1585 e 1586).
+- **Patrulheiro sempre Agressivo:** atacar primeiro é a essência do card, então o modo escolhido fica guardado e volta quando o card sai (pergunta 1566).
+- **Lâmina sem bateria:** só a pistola e o salto gastam energia, para ele nunca ficar sem defesa. Sem carga, ele não chega perto do creeper e fica entre ele e os protegidos (perguntas 1571 e 1595).
+- **Rota só na área:** os pontos fora da área ou de outra dimensão não valem, mas ficam guardados no NBT, e voltam a valer quando a área os inclui de novo (perguntas 1599 e 1602).
 - **Esfera, não cubo:** o canto de um cubo fica a cerca de 1,7 vez o raio, então só conta o que está a até o raio em linha reta. Os dois scanners usam a mesma regra (perguntas 604 e 606).
 - **Varredura por número:** a área numera os blocos, então uma varredura em fatias só guarda um número entre os ticks, sem alocar nada (regra 21).
 - **Bloco pela subtag:** um bloco está em `c:ores` e nas subtags, e só elas dizem o que ele é. `c:ores` só vale para quem não tem subtag, então um filtro nele não pega todo minério (perguntas 546 e 566).

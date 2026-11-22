@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.entity;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.DefenseRules;
 import io.github.zenndg.cubit.domain.behavior.FocusTarget;
+import io.github.zenndg.cubit.domain.behavior.PatrolRules;
 import io.github.zenndg.cubit.domain.behavior.RetaliationMemory;
 import io.github.zenndg.cubit.domain.behavior.ShockRules;
 import io.github.zenndg.cubit.domain.behavior.ShockSignals;
@@ -41,9 +42,14 @@ public final class RobotDefense implements DefenseControl {
     return focus.target();
   }
 
+  /** With the card of the Galactic Patroller, always Aggressive (answer 1566). */
   @Override
   public DefenseMode mode() {
-    return mode;
+    return PatrolRules.mode(mode, patroller());
+  }
+
+  private boolean patroller() {
+    return robot.workArea().work().patrol().hasCard();
   }
 
   /** A mode the tier does not allow is ignored. Changing the mode forgets the attacker. */
@@ -59,6 +65,7 @@ public final class RobotDefense implements DefenseControl {
   @Override
   public boolean choose(Player player, DefenseMode next) {
     if (!Ownership.owns(robot.ownerId(), player.getUUID())
+        || patroller()
         || !robot.spec().shock().allows(next)
         || next == mode) {
       return false;
@@ -97,6 +104,11 @@ public final class RobotDefense implements DefenseControl {
   void tick() {
     focus.tick();
     gaze.tick();
+    RobotPatrolCombat patrol = robot.workArea().work().patrolCombat();
+    patrol.tick();
+    if (patrol.armed()) {
+      return;
+    }
     long now = robot.level().getGameTime();
     ShockSpec spec = robot.spec().shock();
     if (!ShockRules.ready(robot.powerState(), mode, spec, robot.battery(), lastAttemptTick, now)) {
@@ -118,7 +130,8 @@ public final class RobotDefense implements DefenseControl {
 
   /** Between two strikes, the robot stays to defend instead of fetching (answer 939). */
   boolean engaged() {
-    return ShockRules.engaged(engagedUntilTick, robot.level().getGameTime());
+    return ShockRules.engaged(engagedUntilTick, robot.level().getGameTime())
+        || robot.workArea().work().patrolCombat().fighting();
   }
 
   /** Nearest first, in range, in sight, and only who the mode shocks. */

@@ -7,6 +7,7 @@ import io.github.zenndg.cubit.domain.tier.FarmerSpec;
 import io.github.zenndg.cubit.domain.tier.FisherSpec;
 import io.github.zenndg.cubit.domain.tier.JobSpec;
 import io.github.zenndg.cubit.domain.tier.OrganizerSpec;
+import io.github.zenndg.cubit.domain.tier.PatrollerSpec;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -61,12 +62,28 @@ final class JobDefaults {
   private static final CookSpec ULTIMATE_COOK = new CookSpec(8, COOK_ACTION_COST, 6, 40);
   static final JobSpec ADVANCED =
       new JobSpec(
-          ADVANCED_JOB_SET, ADVANCED_FISHER, ADVANCED_FARMER, OrganizerSpec.NONE, CookSpec.NONE);
+          ADVANCED_JOB_SET,
+          ADVANCED_FISHER,
+          ADVANCED_FARMER,
+          OrganizerSpec.NONE,
+          CookSpec.NONE,
+          PatrollerSpec.NONE);
   static final JobSpec ELITE =
-      new JobSpec(ELITE_JOB_SET, ELITE_FISHER, ELITE_FARMER, ELITE_ORGANIZER, ELITE_COOK);
+      new JobSpec(
+          ELITE_JOB_SET,
+          ELITE_FISHER,
+          ELITE_FARMER,
+          ELITE_ORGANIZER,
+          ELITE_COOK,
+          PatrollerDefaults.ELITE);
   static final JobSpec ULTIMATE =
       new JobSpec(
-          ELITE_JOB_SET, ULTIMATE_FISHER, ULTIMATE_FARMER, ULTIMATE_ORGANIZER, ULTIMATE_COOK);
+          ELITE_JOB_SET,
+          ULTIMATE_FISHER,
+          ULTIMATE_FARMER,
+          ULTIMATE_ORGANIZER,
+          ULTIMATE_COOK,
+          PatrollerDefaults.ULTIMATE);
 
   private JobDefaults() {}
 

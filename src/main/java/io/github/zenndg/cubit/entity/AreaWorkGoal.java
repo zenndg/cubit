@@ -40,7 +40,8 @@ final class AreaWorkGoal extends Goal {
         && !work.fishing().active()
         && !work.farming().active()
         && !work.organizing().active()
-        && !work.cooking().active();
+        && !work.cooking().active()
+        && !work.patrol().active();
   }
 
   @Override

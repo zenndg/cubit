@@ -7,6 +7,8 @@
   "config.jade.plugin_cubit.engineering_desk": "Mesa de Engenharia",
   "config.jade.plugin_cubit.induction_dock": "Base de Indução",
   "config.jade.plugin_cubit.robot": "Cubit",
+  "death.attack.cubit.laser_orb": "%1$s foi atingido pelo globo de laser de %2$s",
+  "death.attack.cubit.plasma_blade": "%1$s foi golpeado pela Plasma Blade de %2$s",
   "death.attack.cubit.shock": "%1$s levou um choque de %2$s",
   "dimension.cubit.minecraft.overworld": "Superfície",
   "dimension.cubit.minecraft.the_end": "O End",

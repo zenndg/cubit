@@ -31,6 +31,8 @@ final class DefenseSection {
   final ModConfigSpec.IntValue shockLook;
   final ModConfigSpec.IntValue focusForget;
 
+  private final PatrolSection patrol;
+
   DefenseSection(ModConfigSpec.Builder builder) {
     retaliateMemory =
         builder.defineInRange(
@@ -46,5 +48,11 @@ final class DefenseSection {
             TABLET_TARGET_REACH_DEFAULT,
             TABLET_TARGET_REACH_MIN,
             TABLET_TARGET_REACH_MAX);
+    patrol = new PatrolSection(builder);
+  }
+
+  /** The numbers of the Galactic Patroller for every tier (answer 1577). */
+  public PatrolSection patrol() {
+    return patrol;
   }
 }

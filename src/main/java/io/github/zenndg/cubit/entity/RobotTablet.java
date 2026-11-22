@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.entity;
 
 import io.github.zenndg.cubit.domain.ownership.Ownership;
 import io.github.zenndg.cubit.domain.robot.AreaCheck;
+import io.github.zenndg.cubit.domain.robot.RobotJob;
 import io.github.zenndg.cubit.domain.robot.RobotName;
 import io.github.zenndg.cubit.domain.robot.WorkArea;
 import io.github.zenndg.cubit.domain.tier.AreaSpec;
@@ -64,9 +65,15 @@ public final class RobotTablet {
     return new TabletOpening(robot.getUUID(), robot.level().dimension().location().toString());
   }
 
-  /** The largest area of the tier of the Cubit, from the config (answer 1050). */
+  /**
+   * The largest area of the tier of the Cubit, from the config, with twice the side for the card of
+   * the Galactic Patroller (answers 1050 and 1600).
+   */
   public static AreaSpec areaOf(RobotEntity robot) {
-    return robot.spec().area();
+    AreaSpec tier = robot.spec().area();
+    boolean patroller =
+        robot.workArea().work().job().filter(RobotJob.PATROLLER::equals).isPresent();
+    return patroller ? robot.spec().jobs().patroller().area(tier) : tier;
   }
 
   /** Whether the Cubit can take the area: its tier, its dimension and its reach (answer 1058). */

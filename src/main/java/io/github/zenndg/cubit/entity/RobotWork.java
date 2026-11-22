@@ -38,6 +38,8 @@ public final class RobotWork implements WorkControl {
   private final RobotOrganizing organizing;
   private final RobotCooking cooking;
   private final RobotJobTalk talk;
+  private final RobotPatrol patrol;
+  private final RobotPatrolCombat patrolCombat;
   private HibernationReason reason = HibernationReason.INVENTORY_FULL;
   private long nextCheck = Long.MIN_VALUE;
 
@@ -49,6 +51,18 @@ public final class RobotWork implements WorkControl {
     this.organizing = new RobotOrganizing(robot, marks);
     this.cooking = new RobotCooking(robot);
     this.talk = new RobotJobTalk(robot);
+    this.patrol = new RobotPatrol(robot);
+    this.patrolCombat = new RobotPatrolCombat(robot);
+  }
+
+  /** The route of the Galactic Patroller (answers 1561 and 1579). */
+  public RobotPatrol patrol() {
+    return patrol;
+  }
+
+  /** The fight of the Galactic Patroller, in place of the shock (answer 1556). */
+  public RobotPatrolCombat patrolCombat() {
+    return patrolCombat;
   }
 
   /** What the Cubit says about its job (answers 1583 to 1590). */
@@ -232,6 +246,7 @@ public final class RobotWork implements WorkControl {
 
   void save(CompoundTag tag) {
     marks.save(tag);
+    patrol.save(tag);
     if (asleep()) {
       tag.putString(REASON_KEY, reason.key());
     }
@@ -240,6 +255,7 @@ public final class RobotWork implements WorkControl {
   /** An unknown reason is the one of the base, and the log says so (answer 1175). */
   void load(CompoundTag tag) {
     marks.load(tag);
+    patrol.load(tag);
     if (!asleep()) {
       return;
     }

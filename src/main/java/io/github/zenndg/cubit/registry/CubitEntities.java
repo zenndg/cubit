@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.registry;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.DockCapabilities;
 import io.github.zenndg.cubit.config.CubitConfig;
+import io.github.zenndg.cubit.entity.LaserOrb;
 import io.github.zenndg.cubit.entity.RechargeSplashProjectile;
 import io.github.zenndg.cubit.entity.RobotDockedView;
 import io.github.zenndg.cubit.entity.RobotEntity;
@@ -57,6 +58,22 @@ public final class CubitEntities {
                   .clientTrackingRange(FLASK_TRACKING_RANGE)
                   .updateInterval(FLASK_UPDATE_INTERVAL)
                   .build(CubitItems.RECHARGE_SPLASH_ID));
+
+  private static final String LASER_ORB_ID = "laser_orb";
+  private static final float ORB_SIZE = 0.3f;
+  private static final int ORB_TRACKING_RANGE = 8;
+  private static final int ORB_UPDATE_INTERVAL = 1;
+
+  /** The orb of the pistol of the Galactic Patroller (answer 1558). */
+  public static final Supplier<EntityType<LaserOrb>> LASER_ORB =
+      ENTITIES.register(
+          LASER_ORB_ID,
+          () ->
+              EntityType.Builder.<LaserOrb>of(LaserOrb::new, MobCategory.MISC)
+                  .sized(ORB_SIZE, ORB_SIZE)
+                  .clientTrackingRange(ORB_TRACKING_RANGE)
+                  .updateInterval(ORB_UPDATE_INTERVAL)
+                  .build(LASER_ORB_ID));
 
   private CubitEntities() {}
 

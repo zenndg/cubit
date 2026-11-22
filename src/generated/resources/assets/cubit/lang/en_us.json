@@ -7,6 +7,8 @@
   "config.jade.plugin_cubit.engineering_desk": "Engineering Desk",
   "config.jade.plugin_cubit.induction_dock": "Induction Dock",
   "config.jade.plugin_cubit.robot": "Cubit",
+  "death.attack.cubit.laser_orb": "%1$s was hit by the laser orb of %2$s",
+  "death.attack.cubit.plasma_blade": "%1$s was struck by the Plasma Blade of %2$s",
   "death.attack.cubit.shock": "%1$s was zapped by %2$s",
   "dimension.cubit.minecraft.overworld": "Overworld",
   "dimension.cubit.minecraft.the_end": "The End",
