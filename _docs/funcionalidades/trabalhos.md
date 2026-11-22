@@ -18,6 +18,7 @@ O mod funciona numa instância só com ele e suas dependências. Tudo aceita red
 - **Estado:** morrer e recolher preservam o card.
 - **Seguindo:** age como generalista. O card só age em área marcada.
 - **Item:** um por trabalho, com receita própria em JSON e materiais do jogo puro. Os cards empilham.
+- **Receita:** como um pendrive, todo card junta a Card Casing, a Circuit Board e o item que simboliza o trabalho, numa cascata na Engineering Desk. As receitas estão em [`itens.md`](../itens.md#cards-de-trabalho) (perguntas 1540 a 1545). A receita de cada card libera com o Module do tier mínimo do trabalho, e a carcaça e a placa, com o Advanced Module (pergunta 1546).
 - **Custo:** gasta o consumo ao andar e mais um valor por ação, por card, sem gastar se não houver ação.
 
 ### Trabalhos por tier
@@ -183,6 +184,8 @@ A ordem segue a pergunta 251, com o Mecânico e o Alquimista no fim dos trabalho
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 21:28 | Libera as receitas dos cards pelo Module do tier (pergunta 1546). |
+| Zennd | 2026-11-21 21:21 | Registra a receita comum dos cards (perguntas 1540 a 1545). |
 | Marcelo Fabiano | 2026-11-19 23:04 | Abre a exceção do Cozinheiro na proteção (pergunta 1316). |
 | Marcelo Fabiano | 2026-11-19 22:13 | Acrescenta a linha `Mode` e a aba `Supply` do Organizador (perguntas 1290 e 1303). |
 | Marcelo Fabiano | 2026-11-19 21:34 | Leva a marcação dos blocos ao app Marcar e abre a exceção do Organizador na proteção (perguntas 1288, 1289 e 1297). |

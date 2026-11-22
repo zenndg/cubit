@@ -482,11 +482,24 @@ Não há perguntas pendentes nesta fase.
 | 1535 | Como resolver o ArchUnit, que proíbe classes de cliente fora de `client/`, se o plugin do JEI precisa delas? | Com uma exceção para `compat/jei`, que pode usar as classes de cliente do jogo, porque o JEI só carrega o plugin no cliente e a interface de categoria dele recebe `GuiGraphics`. O plugin continua proibido de usar o `client/` do mod, e uma regra nova garante que só `compat/jei` importa o JEI, como no Jade. O plugin fica onde a 1461 decidiu |
 | 1536 | O `AGENTS.md` passa a tratar o JEI como dependência opcional? | Sim: uma linha do JEI na stack, a regra 24 com o mod abrindo sem Jade e sem JEI, a regra 49 com o JEI entre as exceções opcionais e a linha `compat/jei/` na estrutura de pacotes |
 | 1537 | O teste manual do PR 4 da Engineering Desk está aprovado? | Sim: a categoria da mesa no JEI, a mesa como catalisador, as quatro especiais e o botão + funcionam como no conceito. O PR 4 segue para os commits, o push e o PR, e, depois do merge, as branches são apagadas |
+| 1538 | Depois do merge do #235, que encerra a Engineering Desk, o roteiro continua o mesmo? | Sim: segue a revisão dos trabalhos por tier, e depois a revisão das receitas dos cards e o Patrulheiro Galático (pergunta 1424) |
+| 1539 | O que muda na revisão dos trabalhos por tier? | Nada: a distribuição atual fica como está, com o Base sem trabalho, Pescador, Fazendeiro e Pecuarista no Avançado, Organizador, Cozinheiro, Defensor e Minerador no Elite, e Construtor, Mecânico e Alquimista no Ultimate. O item 17 do `checklist.md` fica encerrado sem mudança, e o próximo é a revisão das receitas dos cards de trabalho. Confirma a 1145 e a 1163 |
+| 1540 | Como reformular as receitas dos cards de trabalho? | O card é inspirado num pendrive: uma estrutura de plástico com uma placa e um chip dentro. Todos os cards passam a usar dois itens base, a carcaça plástica e a placa de circuito verde, e a receita de cada card junta os dois com o item que simboliza o trabalho, numa cascata de crafting na Engineering Desk |
+| 1541 | Como se chamam os dois itens base dos cards? | Card Casing, `cubit:ml_card_casing`, e Circuit Board, `cubit:ml_circuit_board`, com o prefixo `ml_` dos cards. Em português, Carcaça do Card e Placa de Circuito |
+| 1542 | Qual é a receita da Card Casing? | Com forma, rendendo 1: quartzo, lápis-lazúli e quartzo na primeira linha; quartzo, vazio e quartzo na segunda; e vazio, lápis-lazúli e vazio na terceira. São 4 quartzos do Nether e 2 lápis-lazúli |
+| 1543 | Qual é a receita da Circuit Board? | Com forma, rendendo 1: esmeralda, comparador e esmeralda na primeira linha; esmeralda, lingote de ouro e esmeralda na segunda; e três lingotes de cobre na terceira. A esmeralda dá o verde da placa, o ouro é o chip e o cobre faz as trilhas |
+| 1544 | Como fica a receita de cada card de trabalho? | Sem forma, rendendo 1: a Card Casing, a Circuit Board e o item que simboliza o trabalho, em qualquer posição da grade |
+| 1545 | O conceito da revisão das receitas dos cards está autorizado? | Sim: a Card Casing e a Circuit Board na categoria Cards, antes do primeiro card; as receitas em cascata na Engineering Desk; os itens de cada trabalho de hoje (vara de pescar, enxada de ferro, funil e defumador); o desbloqueio com um Cubit; as texturas por prompt de imagem, entregue antes do código; os GameTests; a issue nova; e a atualização do `AGENTS.md` |
+| 1546 | Quando as receitas dos cards e das peças deles são liberadas? | Pelo Module de upgrade: o Advanced Module libera a Card Casing, a Circuit Board e os cards dos trabalhos do Avançado; o Elite Module libera os do Elite; e o Ultimate Module, os do Ultimate. Cada card segue o tier mínimo padrão do seu trabalho (pergunta 1145), e a receita libera quando o player tem o Module no inventário, como as outras receitas do mod. Muda a 1545, em que tudo liberava com um Cubit |
+| 1547 | A receita da Circuit Board muda? | Sim: com forma, rendendo 1, com três esmeraldas na primeira linha; esmeralda, comparador e esmeralda na segunda; e três lingotes de ouro na terceira. O cobre sai da receita. Muda a 1543 |
+| 1548 | A grade da Engineering Desk mostra o nome dos itens da receita? | Sim: ao passar o mouse sobre um item da receita na tela da mesa, aparece o tooltip do item, como num slot do jogo |
+| 1549 | O teste manual da revisão das receitas dos cards está aprovado? | Sim: as texturas da Card Casing e da Circuit Board, a receita nova da placa, o tooltip dos itens da receita, o desbloqueio pelo Module do tier e a cascata do card funcionam como no conceito, e o card segue para os commits |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 20:55 | Registra as respostas 1538 a 1549. |
 | Zennd | 2026-11-21 20:15 | Registra as respostas 1529 a 1537. |
 | Zennd | 2026-11-21 19:43 | Registra as respostas 1518 a 1528. |
 | Zennd | 2026-11-21 18:34 | Registra a resposta 1507. |

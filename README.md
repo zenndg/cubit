@@ -66,6 +66,8 @@ Os nomes estão em inglês porque são os que aparecem no jogo.
 | Advanced Power Bank | Bateria portátil com a capacidade do tier Advanced |
 | Elite Power Bank | Bateria portátil com a capacidade do tier Elite |
 | Ultimate Power Bank | Bateria portátil com a capacidade do tier Ultimate |
+| Card Casing | A carcaça plástica dos cards de trabalho, feita como a de um pendrive |
+| Circuit Board | A placa de circuito dos cards de trabalho, que vai dentro da carcaça |
 | Recharge Splash | Mistura de arremesso que recupera, aos poucos, parte da vida e da energia dos Cubits do dono |
 
 As receitas usarão só materiais do jogo puro, podendo combinar itens do próprio mod, como no conserto, e virão em datapack JSON, para os modpacks poderem sobrescrevê-las.

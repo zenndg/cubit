@@ -24,20 +24,7 @@ Segue as regras dos outros cards: slot exclusivo, um por Cubit, sai sem perda e 
 
 ### Receita
 
-Com forma, em JSON gerado por datagen e só com materiais do jogo puro (pergunta 1192):
-
-```text
-P C P
-R F R
-P R P
-```
-
-| Letra | Item | Quantidade |
-|---|---|---|
-| `P` | Papel | 4 |
-| `C` | Comparador | 1 |
-| `R` | Redstone | 3 |
-| `F` | Vara de pesca | 1 |
+Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e uma vara de pesca, em qualquer posição da grade da Engineering Desk. A carcaça, a placa e as receitas delas estão em [`itens.md`](../../itens.md#cards-de-trabalho) (perguntas 1192 e 1544).
 
 ## Como o player o põe para pescar
 
@@ -120,6 +107,7 @@ A reserva dos pontos fica só na memória do servidor e não vai para o save.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 21:21 | Troca a receita do card pela receita comum dos cards (perguntas 1540 a 1545). |
 | Marcelo Fabiano | 2026-11-15 09:30 | Troca a imagem conceito pela do visual novo (pergunta 1212). |
 | Marcelo Fabiano | 2026-11-14 23:10 | Fecha o refinamento do card #194, com as perguntas 1181 a 1204: o app Área, o ponto de pesca, o tempo e a tabela do jogo, a evolução por tier, o lixo, com a tag da pergunta 1207, a receita, o visual e o contrato. |
 | Marcelo Fabiano | 2026-11-14 21:37 | Acrescenta a imagem conceito do Pescador (pergunta 1177). |

@@ -24,20 +24,7 @@ Segue as regras dos outros cards: slot exclusivo, um por Cubit, sai sem perda e 
 
 ### Receita
 
-Com forma, em JSON gerado por datagen, na mesma família dos cards do Pescador e do Fazendeiro (pergunta 1299):
-
-```text
-P C P
-R F R
-P R P
-```
-
-| Letra | Item | Quantidade |
-|---|---|---|
-| `P` | Papel | 4 |
-| `C` | Comparador | 1 |
-| `R` | Redstone | 3 |
-| `F` | Funil | 1 |
+Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e um funil, em qualquer posição da grade da Engineering Desk. A carcaça, a placa e as receitas delas estão em [`itens.md`](../../itens.md#cards-de-trabalho) (perguntas 1299 e 1544).
 
 ## Como o player o põe para trabalhar
 
@@ -120,6 +107,7 @@ As marcas não vão para o item: recolher o Cubit as apaga, como a área e os ba
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 21:21 | Troca a receita do card pela receita comum dos cards (perguntas 1540 a 1545). |
 | Marcelo Fabiano | 2026-11-19 23:06 | Troca a chave das marcas para `MarkedBlocks` (pergunta 1327). |
 | Marcelo Fabiano | 2026-11-19 22:47 | Recria o livro e pena da mochila como parte do modelo (pergunta 1312). |
 | Marcelo Fabiano | 2026-11-19 22:41 | Acrescenta a imagem conceito aceita (pergunta 1311). |

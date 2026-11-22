@@ -47,6 +47,8 @@
 | Advanced Power Cell | `cubit:advanced_power_cell` | [Abaixo](#peças-de-montagem) |
 | Elite Power Cell | `cubit:elite_power_cell` | [Abaixo](#peças-de-montagem) |
 | Ultimate Power Cell | `cubit:ultimate_power_cell` | [Abaixo](#peças-de-montagem) |
+| Card Casing | `cubit:ml_card_casing` | [Abaixo](#cards-de-trabalho) |
+| Circuit Board | `cubit:ml_circuit_board` | [Abaixo](#cards-de-trabalho) |
 | Dock Solar Panel | `cubit:dock_solar_panel` | [Abaixo](#dock-solar) |
 | Solar Induction Dock | `cubit:solar_induction_dock` | [Abaixo](#dock-solar) |
 | Recharge Splash | `cubit:recharge_splash` | [Abaixo](#recharge-splash) |
@@ -59,8 +61,8 @@ Só com recursos do jogo puro. Todas as receitas do mod saem da [Engineering Des
 | Etapa | Quando libera | Receitas |
 |---|---|---|
 | 1 | Desde o início | Cubit, Cubit Casing, Cubit Visor, Cubit Treads, Cubit Neural Core e Toolbox |
-| 2 | Ao ter um Cubit | Induction Dock, Cubit Tablet, Power Bank Casing, Base Power Cell, Advanced Module, os cards e a Recharge Splash |
-| 3 | Ao ter o Module anterior | Elite Module, com o Advanced, e Ultimate Module, com o Elite |
+| 2 | Ao ter um Cubit | Induction Dock, Cubit Tablet, Power Bank Casing, Base Power Cell, Advanced Module e a Recharge Splash |
+| 3 | Ao ter o Module do tier | Com o Advanced, a Card Casing, a Circuit Board, os cards do Avançado e o Elite Module; com o Elite, os cards do Elite e o Ultimate Module; com o Ultimate, os cards do Ultimate (pergunta 1546) |
 | 4 | Ao ter o item anterior da cadeia | Base Power Bank, com a Base Power Cell; cada célula e cada Power Bank seguinte, com a Power Bank anterior; as Power Banks do zero, com a célula do tier; o Dock Solar Panel, com o Dock; o Solar Induction Dock, com o painel |
 | 5 | Ao precisar | Religar o Cubit, com uma Power Bank; o conserto, com um Damaged Cubit ou uma Toolbox |
 
@@ -152,6 +154,26 @@ As regras estão em [`pecas.md`](funcionalidades/pecas.md). As quatro peças do 
 | Ultimate Power Cell | Vazio, lingote de netherite, vazio | Vara de blaze, Elite Power Cell, vara de blaze | Vazio, lingote de netherite, vazio |
 
 O Visor ocupa uma linha só, em qualquer linha da grade, e as Esteiras, duas (perguntas 1353 e 1356). As tochas da Carcaça são as antenas. As células são encadeadas, numa cruz com a anterior no centro (pergunta 1354).
+
+### Cards de trabalho
+
+Todo card de Aprendizado de Máquina é feito como um pendrive: a carcaça plástica, a placa de circuito e o item que simboliza o trabalho, numa cascata na Engineering Desk, que puxa a carcaça e a placa da saída sozinha (perguntas 1540 a 1545). Os três ficam na categoria Cards do catálogo. O Advanced Module libera a carcaça, a placa e os cards do Avançado, e cada Module seguinte, os cards do seu tier, pelo tier mínimo de cada trabalho (perguntas 1145 e 1546).
+
+| Peça | Linha 1 | Linha 2 | Linha 3 | Rende |
+|---|---|---|---|---|
+| Card Casing | Quartzo, lápis-lazúli, quartzo | Quartzo, vazio, quartzo | Vazio, lápis-lazúli, vazio | 1 |
+| Circuit Board | Esmeralda, esmeralda, esmeralda | Esmeralda, comparador, esmeralda | Lingote de ouro, lingote de ouro, lingote de ouro | 1 |
+
+Cada card é sem forma, rendendo 1: Card Casing, Circuit Board e o item do trabalho, em qualquer posição da grade.
+
+| Card | Item do trabalho |
+|---|---|
+| Pescador, `cubit:ml_fisher` | Vara de pesca |
+| Fazendeiro, `cubit:ml_farmer` | Enxada de ferro |
+| Organizador, `cubit:ml_organizer` | Funil |
+| Cozinheiro, `cubit:ml_cook` | Defumador |
+
+Os cards que ainda não existem seguem o mesmo padrão, com o próprio item, decidido no refinamento de cada um.
 
 ### Religar o Cubit na Engineering Desk
 
@@ -283,19 +305,21 @@ Estes nomes não mudam sem migração (regra 18 do `AGENTS.md`).
 | NBT do jogo na entidade | `CustomName` | Nome do Cubit |
 | Dados do player | `cubit:following_robot` | `robot`: o UUID do robô que segue, ou nada |
 | Item | `cubit:general_robot_casing`, `cubit:general_robot_visor`, `cubit:general_robot_treads`, `cubit:general_robot_core`, `cubit:power_bank_casing` e `cubit:{tier}_power_cell` | As peças de montagem, sem data components (pergunta 1349) |
+| Item | `cubit:ml_card_casing` e `cubit:ml_circuit_board` | As duas peças de todo card, sem data components (perguntas 1541 a 1543) |
+| Receita | `cubit:ml_card_casing` e `cubit:ml_circuit_board` | As receitas das peças dos cards, em [Cards de trabalho](#cards-de-trabalho) (perguntas 1542 e 1547) |
 | Item | `cubit:ml_fisher` | O card do Pescador. Na base, só por `/give`, sem receita (perguntas 1161 e 1172). A receita entra no card do Pescador (pergunta 1192) |
 | Item | `cubit:ml_farmer` | O card do Fazendeiro, na tag `cubit:ml_cards` (pergunta 1228) |
-| Receita | `cubit:ml_farmer` | A receita do card do Fazendeiro, em [`fazendeiro.md`](funcionalidades/trabalhos/fazendeiro.md#receita) (pergunta 1228) |
+| Receita | `cubit:ml_farmer` | A receita do card do Fazendeiro, em [Cards de trabalho](#cards-de-trabalho) (perguntas 1228 e 1544) |
 | Tag de bloco | `cubit:farmer_crops` e `cubit:farmer_ignored` | As plantas que o Fazendeiro colhe além das que crescem por idade, e as que ele nunca colhe (pergunta 1222) |
 | Item | `cubit:ml_organizer` | O card do Organizador, na tag `cubit:ml_cards` (pergunta 1299) |
-| Receita | `cubit:ml_organizer` | A receita do card do Organizador, em [`organizador.md`](funcionalidades/trabalhos/organizador.md#receita) (pergunta 1299) |
+| Receita | `cubit:ml_organizer` | A receita do card do Organizador, em [Cards de trabalho](#cards-de-trabalho) (perguntas 1299 e 1544) |
 | Item | `cubit:ml_cook` | O card do Cozinheiro, na tag `cubit:ml_cards` (pergunta 1325) |
-| Receita | `cubit:ml_cook` | A receita do card do Cozinheiro, em [`cozinheiro.md`](funcionalidades/trabalhos/cozinheiro.md#receita) (pergunta 1325) |
+| Receita | `cubit:ml_cook` | A receita do card do Cozinheiro, em [Cards de trabalho](#cards-de-trabalho) (perguntas 1325 e 1544) |
 | Tag de item | `cubit:cook_fuels` | Os combustíveis do Cozinheiro, com carvão, carvão vegetal e bloco de carvão (pergunta 1319) |
 | Componente do item | `cubit:fertilizer_slot` | O fertilizante do slot do Fazendeiro, opcional, também no item danificado (perguntas 1244 e 1247) |
 | NBT da entidade | `FertilizerSlot` | O fertilizante do slot do Fazendeiro, como o `CardSlot` (pergunta 1247) |
 | Tag de item | `cubit:fishing_junk` | O lixo que a chave `Keep junk` do Pescador descarta. Um item encantado nunca é lixo (pergunta 1207) |
-| Receita | `cubit:ml_fisher` | A receita do card do Pescador, em [`pescador.md`](funcionalidades/trabalhos/pescador.md#receita) (pergunta 1192) |
+| Receita | `cubit:ml_fisher` | A receita do card do Pescador, em [Cards de trabalho](#cards-de-trabalho) (perguntas 1192 e 1544) |
 | NBT da entidade | `KeepJunkEnabled` | A chave `Keep junk` do Pescador. Sem a chave no save, vale ligada (pergunta 1191) |
 | Componente do item | `keep_junk_enabled`, em `cubit:robot_state` | A mesma chave no item. Sem o campo, vale ligada (pergunta 1191) |
 | Tag de item | `cubit:ml_cards` | Os cards que o slot do card aceita (pergunta 1162) |
@@ -322,6 +346,9 @@ O estado salvo é validado ao entrar no jogo, sem derrubá-lo (regra 17 do `AGEN
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 21:39 | Troca a receita da Circuit Board (pergunta 1547). |
+| Zennd | 2026-11-21 21:28 | Libera as peças e os cards pelo Module do tier (pergunta 1546). |
+| Zennd | 2026-11-21 21:21 | Troca as receitas dos cards pela Card Casing e pela Circuit Board (perguntas 1540 a 1545). |
 | Zennd | 2026-11-21 13:40 | Adiciona a ordem de liberação no catálogo da mesa (perguntas 1495 a 1498). |
 | Zennd | 2026-11-21 12:50 | Passa as receitas do mod para a Engineering Desk e adiciona a receita dela (perguntas 1427, 1430 e 1441). |
 | Marcelo Fabiano | 2026-11-21 11:30 | Adiciona a Recharge Splash (perguntas 1400, 1406 e 1410). |

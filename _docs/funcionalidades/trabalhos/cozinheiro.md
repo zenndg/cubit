@@ -24,20 +24,7 @@ Segue as regras dos outros cards: slot exclusivo, um por Cubit, sai sem perda e 
 
 ### Receita
 
-Com forma, em JSON gerado por datagen, na mesma família dos outros cards (pergunta 1325):
-
-```text
-P C P
-R S R
-P R P
-```
-
-| Letra | Item | Quantidade |
-|---|---|---|
-| `P` | Papel | 4 |
-| `C` | Comparador | 1 |
-| `R` | Redstone | 3 |
-| `S` | Fumeiro | 1 |
+Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e um defumador, em qualquer posição da grade da Engineering Desk. A carcaça, a placa e as receitas delas estão em [`itens.md`](../../itens.md#cards-de-trabalho) (perguntas 1325 e 1544).
 
 ## Como o player o põe para trabalhar
 
@@ -106,6 +93,7 @@ A reserva dos fornos fica só na memória do servidor e não vai para o save.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 21:21 | Troca a receita do card pela receita comum dos cards (perguntas 1540 a 1545). |
 | Marcelo Fabiano | 2026-11-19 23:04 | Fecha o conceito do Cozinheiro, com os baús da Descarga, o app Marcar, o combustível, a proteção, o visual e os números (perguntas 1314 a 1327). |
 | Marcelo Fabiano | 2026-11-14 20:25 | Leva o conceito de `tmp/fase5` para `_docs`, com as decisões da consolidação (perguntas 1145 a 1156). |
 | Marcelo Fabiano | 2026-11-13 11:43 | Cria o conceito do Cozinheiro, com o comportamento da pergunta 247 e a proposta de evolução por tier. |

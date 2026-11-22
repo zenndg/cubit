@@ -142,7 +142,7 @@ Uma prancheta de projetista: fundo azul quadriculado, como o forro, a grade de m
 
 ![As abas Projeto e Estoque da Engineering Desk](../imagens/conceito/tela-engineering-desk.png)
 
-- **Aba Projeto:** o catálogo, a grade com a quantidade, os botões − e + e o de cancelar, a seta de progresso, o slot de saída da receita, a barra de energia, o slot de redstone e o tier na cor dele (pergunta 1473).
+- **Aba Projeto:** o catálogo, a grade com a quantidade, os botões − e + e o de cancelar, a seta de progresso, o slot de saída da receita, a barra de energia, o slot de redstone e o tier na cor dele (pergunta 1473). Ao passar o mouse sobre um item da receita, na grade ou no resultado, aparece o tooltip dele (pergunta 1548).
 - **Aba Estoque:** os dois inventários lado a lado, a entrada à esquerda e a saída à direita, como na mesa.
 - **As duas abas** mostram o inventário do player.
 
@@ -193,6 +193,7 @@ Uma issue mãe e quatro PRs, em ordem, cada um testável no jogo (pergunta 1478)
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 21:39 | Registra o tooltip dos itens da receita (pergunta 1548). |
 | Zennd | 2026-11-21 20:18 | Detalha o plugin do JEI (perguntas 1531 a 1533). |
 | Zennd | 2026-11-21 20:02 | Registra o campo `desk_category` e a busca do catálogo (perguntas 1521 a 1525). |
 | Zennd | 2026-11-21 18:46 | Detalha o estado no cliente, o holograma, a tela do laptop e os gatilhos (perguntas 1508 a 1514). |
