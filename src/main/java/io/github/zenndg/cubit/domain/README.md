@@ -189,12 +189,12 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `JobTalkTopic` | O que um Cubit com card fala: uma das três frases ao receber o card e as frases de cada momento do trabalho |
 | `JobTalkRules` | Quando ele fala: a chance, quem ouve, a chave das falas e a expressão calma, e se o card é novo |
 | `PatrollerSpec` | O que um tier faz com o card do Patrulheiro Galático: a pistola, a lentidão, a lâmina, a armadura extra, o raio de procura, o salto, os pontos da rota e o lado da área, o dobro do dos outros cards |
-| `PatrolSettings` | Os números do Patrulheiro que valem em todo tier: a chance e o tempo da lentidão, a chance da cabeça, a perseguição, a distância da troca de arma e o passo da ronda (`Round`: a velocidade, a duração de cada parada e os blocos entre duas paradas) |
+| `PatrolSettings` | Os números do Patrulheiro que valem em todo tier: a chance e o tempo da lentidão, a chance da cabeça, a perseguição, a distância da troca de arma e o passo da ronda (`Round`: a velocidade e os limites de cada parada e dos blocos entre duas paradas, com o sorteio feito por quem chama e mantido nos limites) |
 | `RoutePoint` | Um ponto da rota: o topo de um bloco sólido e a dimensão dele |
 | `PatrolRoute` | Os pontos da rota, na ordem em que foram marcados, percorridos em laço, sem ponto repetido e até o limite do tier |
 | `RouteMarking` | O que um clique do app Marcar faz na rota: desmarca um ponto marcado, ou marca o topo de um bloco sólido dentro da área, com o motivo da recusa; e o Shift, que tira o ponto clicado ou o último |
 | `PatrolProgress` | Para qual ponto da rota o Cubit vai, em laço |
-| `PatrolStops` | As paradas da ronda: os blocos andados desde a última, a parada em curso e para onde a cabeça olha, duas vezes para cada lado e depois à frente |
+| `PatrolStops` | As paradas da ronda: os blocos andados desde a última, o trecho sorteado até a próxima, a parada em curso e para onde a cabeça olha, duas vezes para cada lado e depois à frente |
 | `WeaponChoice` | A arma que o Patrulheiro usa no alvo: a pistola de longe e no ar, a lâmina de perto e nenhuma no creeper que ele não pode alvejar |
 | `PatrolTargets` | O hostil que um Patrulheiro ataca: primeiro o que fere alguém, depois o mais perto de um protegido, sem repetir o alvo de outro Patrulheiro, salvo um hostil sozinho |
 | `PatrolRules` | O modo sempre Agressivo, os modos que o card trava na aba Defense, o limite da perseguição, quando ele salta e quando recua do creeper |

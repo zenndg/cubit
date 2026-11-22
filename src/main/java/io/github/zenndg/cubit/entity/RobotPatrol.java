@@ -150,14 +150,35 @@ public final class RobotPatrol {
     progress = progress.next(walkable().size());
   }
 
-  /** A stop where it is, at a corner of the edges (answer 1616). */
+  /** A stop where it is, at a corner of the edges, drawn with the next leg (answers 1616, 1628). */
   void stopHere() {
-    stops = stops.stop(round().stopTicks());
+    stops = stops.stop(drawStopTicks(), drawLeg());
   }
 
-  /** The blocks walked count toward the next stop on the way (answers 1616 and 1617). */
+  /** The blocks walked count toward the end of the leg (answers 1616, 1617 and 1628). */
   void walked(double blocks) {
-    stops = stops.walked(blocks, round());
+    if (!stops.hasLeg()) {
+      stops = stops.withLeg(drawLeg());
+    }
+    stops = stops.walked(blocks);
+    if (stops.due()) {
+      stopHere();
+    }
+  }
+
+  /** The draw stays out of the domain, which keeps it within the limits (answer 1628). */
+  private int drawStopTicks() {
+    PatrolSettings.Round round = round();
+    return round.stopTicks(
+        robot.getRandom().nextIntBetweenInclusive(round.stopMinTicks(), round.stopMaxTicks()));
+  }
+
+  private int drawLeg() {
+    PatrolSettings.Round round = round();
+    return round.stopDistance(
+        robot
+            .getRandom()
+            .nextIntBetweenInclusive(round.stopMinDistance(), round.stopMaxDistance()));
   }
 
   void waitOut() {
