@@ -1226,6 +1226,16 @@ Esta parte cobre o PR 4: o visual e os sons, em cinco entregas (pergunta 1771). 
 | 14 | No escuro, com o visor baixado | Os olhos decididos e as marcas brilham, como os olhos normais |
 | 15 | Tire o card durante um combate | O visor, as asas e a lâmina somem com as outras peças, e a tela volta ao normal |
 
+**Entrega 3, os efeitos.** Teste de dia e à noite, com `/time set night`.
+
+| # | Faça | Espere |
+|---|---|---|
+| 16 | Chame um husk a 10 blocos | Cada disparo é uma bolinha azul brilhante, com o rastro azul, e o acerto estoura em partículas azuis, sem quebrar blocos |
+| 17 | À noite, chame um husk | A bolinha brilha no escuro, e o visor baixado brilha em ciano |
+| 18 | À noite, deixe o husk chegar perto | A lâmina verde brilha no escuro enquanto está acesa |
+| 19 | À noite, empurre-o de 10 blocos de altura | Com as asas abertas, o LED da borda, as três luzes da aleta e a chama azul curta dos três propulsores acendem, e tudo apaga ao tocar o chão |
+| 20 | De dia, ande ao lado dele sem combate e olhe o corpo de perto | O corpo continua branco, sem manchas das cores do Patrulheiro, e só as peças dele têm as cores novas |
+
 ## Apresentação
 
 As regras estão em [`falas.md`](../conceito/falas.md#apresentação). Use um mundo novo no criativo, três Cubits novos da Engineering Desk ou do inventário criativo, um Induction Dock e um Cubit de um mundo da versão `0.1.1`, se houver.
@@ -1300,6 +1310,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 18:16 | Adiciona os efeitos do Patrulheiro, entrega 3 do PR 4 (perguntas 1772 e 1783). |
 | Zennd | 2026-11-22 18:12 | Adiciona as animações do Patrulheiro, entrega 2 do PR 4 (perguntas 1780 e 1781). |
 | Zennd | 2026-11-22 17:55 | Adiciona o visual do Patrulheiro, entrega 1 do PR 4 (perguntas 1770, 1771 e 1776). |
 | Zennd | 2026-11-22 17:00 | Acrescenta a escolta recusada em outra dimensão (pergunta 1764). |
