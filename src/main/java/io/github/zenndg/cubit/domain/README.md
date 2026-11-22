@@ -186,6 +186,8 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `DrawerPace` | Quando uma gaveta da mesa pode abrir de novo, a partir da hora do jogo |
 | `DeskCategory` | As categorias do catálogo da mesa, na ordem dos ícones, com Ferramentas como padrão |
 | `CatalogSearch` | A busca do catálogo: o nome que o player vê, sem maiúsculas e acentos, em todas as categorias |
+| `JobTalkTopic` | O que um Cubit com card fala: uma das três frases ao receber o card e as frases de cada momento do trabalho |
+| `JobTalkRules` | Quando ele fala: a chance, quem ouve, a chave das falas e a expressão calma, e se o card é novo |
 
 ## Regras e porquês
 
@@ -206,6 +208,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 - **A mesa mostra menos do que sabe:** os motivos da pausa ficam no servidor, e o cliente só precisa saber se a mesa está parada, criando ou esperando, o que cabe num estado de bloco e dá a luz sem pacote próprio (perguntas 1508 e 1513).
 - **Gaveta com intervalo:** a automação move itens a cada tick, e sem o intervalo a gaveta piscaria. Um relógio que voltou, por um comando de tempo, não trava a gaveta (pergunta 1511).
 - **Categoria padrão:** uma receita sem categoria, ou com uma desconhecida, vai para Ferramentas, e nunca some do catálogo por um erro de digitação num pack (perguntas 1521 e 1522).
+- **Falas das profissões por perto:** um Cubit trabalhando fica longe do dono, então as falas do trabalho vão para o dono a até uma distância, mesmo sem segui-lo, com chance e intervalo, para uma fazenda grande não virar spam. O sorteio fica com quem chama (perguntas 1585 e 1586).
 - **Esfera, não cubo:** o canto de um cubo fica a cerca de 1,7 vez o raio, então só conta o que está a até o raio em linha reta. Os dois scanners usam a mesma regra (perguntas 604 e 606).
 - **Varredura por número:** a área numera os blocos, então uma varredura em fatias só guarda um número entre os ticks, sem alocar nada (regra 21).
 - **Bloco pela subtag:** um bloco está em `c:ores` e nas subtags, e só elas dizem o que ele é. `c:ores` só vale para quem não tem subtag, então um filtro nele não pega todo minério (perguntas 546 e 566).

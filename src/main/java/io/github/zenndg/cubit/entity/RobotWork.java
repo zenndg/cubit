@@ -37,6 +37,7 @@ public final class RobotWork implements WorkControl {
   private final RobotMarks marks;
   private final RobotOrganizing organizing;
   private final RobotCooking cooking;
+  private final RobotJobTalk talk;
   private HibernationReason reason = HibernationReason.INVENTORY_FULL;
   private long nextCheck = Long.MIN_VALUE;
 
@@ -47,6 +48,22 @@ public final class RobotWork implements WorkControl {
     this.marks = new RobotMarks(robot);
     this.organizing = new RobotOrganizing(robot, marks);
     this.cooking = new RobotCooking(robot);
+    this.talk = new RobotJobTalk(robot);
+  }
+
+  /** What the Cubit says about its job (answers 1583 to 1590). */
+  public RobotJobTalk talk() {
+    return talk;
+  }
+
+  @Override
+  public void screenOpened() {
+    talk.screenOpened();
+  }
+
+  @Override
+  public void screenClosed(Player player) {
+    talk.screenClosed(player);
   }
 
   /** The work of the card of the Fisher, with its Keep junk switch. */
@@ -158,6 +175,7 @@ public final class RobotWork implements WorkControl {
   /** Called on the server on every tick. Without the card, the sleep ends (answer 1171). */
   void tick() {
     showJob();
+    talk.tick();
     fishing.tick();
     farming.tick();
     organizing.tick();

@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit.entity;
 
+import io.github.zenndg.cubit.domain.behavior.JobTalkTopic;
 import io.github.zenndg.cubit.domain.behavior.SpotReservations;
 import io.github.zenndg.cubit.domain.energy.PowerState;
 import io.github.zenndg.cubit.domain.robot.RobotJob;
@@ -81,6 +82,9 @@ public final class RobotCooking implements JobErrands {
     drop();
     if (perform(done) > 0) {
       robot.setBattery(spec().payForAction(robot.battery()));
+      if (done.kind() == CookTask.Kind.TAKE) {
+        robot.workArea().work().talk().onWork(JobTalkTopic.COOK_SERVE);
+      }
     }
     pause = spec().actionPauseTicks();
     nextLook = Long.MIN_VALUE;

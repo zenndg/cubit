@@ -391,4 +391,9 @@ public class RobotMenu extends RobotMenuReading {
   public boolean stillValid(Player player) {
     return stillValid.test(player);
   }
+
+  /** The job of the Cubit, for the phrase of a new card when the screen closes (answer 1589). */
+  public WorkControl work() {
+    return work;
+  }
 }

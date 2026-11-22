@@ -93,4 +93,10 @@ public interface WorkControl {
 
   /** One step of the buttons − and + of the interval, only for the owner (rule 20). */
   boolean stepUnloadInterval(Player player, int direction);
+
+  /** The screen of the Cubit opened, on the server, to know if the card changes in it. */
+  default void screenOpened() {}
+
+  /** The screen closed: a new card says its phrase to whoever closed it (answer 1589). */
+  default void screenClosed(Player player) {}
 }

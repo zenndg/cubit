@@ -6,6 +6,7 @@ import io.github.zenndg.cubit.domain.behavior.FishingSpot;
 import io.github.zenndg.cubit.domain.behavior.FishingSpots;
 import io.github.zenndg.cubit.domain.behavior.FishingTimes;
 import io.github.zenndg.cubit.domain.behavior.HibernationReason;
+import io.github.zenndg.cubit.domain.behavior.JobTalkTopic;
 import io.github.zenndg.cubit.domain.behavior.SpotReservations;
 import io.github.zenndg.cubit.domain.energy.PowerState;
 import io.github.zenndg.cubit.domain.robot.RobotJob;
@@ -176,6 +177,7 @@ public final class RobotFishing implements RobotSwitch {
       store(stack);
     }
     FishingEffects.splash(level, point);
+    robot.workArea().work().talk().onWork(JobTalkTopic.FISHER_CATCH);
   }
 
   private void store(ItemStack stack) {

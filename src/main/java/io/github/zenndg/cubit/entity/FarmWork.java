@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit.entity;
 
+import io.github.zenndg.cubit.domain.behavior.JobTalkTopic;
 import io.github.zenndg.cubit.domain.tier.FarmerSpec;
 import io.github.zenndg.cubit.menu.RobotStorage;
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ final class FarmWork {
     if (replanted && place(robot, pos, seed) && spec.boneMeal()) {
       fertilize(robot, pos);
     }
+    robot.workArea().work().talk().onWork(JobTalkTopic.FARMER_HARVEST);
   }
 
   /** Cuts a cane or a cactus from the top down to the block over its base (answer 1219). */
@@ -66,6 +68,7 @@ final class FarmWork {
       drops(robot, pos, level.getBlockState(pos), spec).forEach(stack -> store(robot, stack));
       level.destroyBlock(pos, false, robot);
     }
+    robot.workArea().work().talk().onWork(JobTalkTopic.FARMER_HARVEST);
   }
 
   /** Picks a fruit off its stem, which stays (answer 1219). */
