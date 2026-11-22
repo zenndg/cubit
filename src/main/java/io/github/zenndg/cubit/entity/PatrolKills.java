@@ -50,7 +50,7 @@ public final class PatrolKills {
   /** The draw comes from the caller, so a test can fix it. */
   public static void dropHead(RobotEntity robot, LivingEntity mob, int roll) {
     Item head = HEADS.get(mob.getType());
-    if (head == null || !CubitMod.CONFIG.patrolSettings().dropsHead(roll)) {
+    if (head == null || !CubitMod.CONFIG.patrol().settings().dropsHead(roll)) {
       return;
     }
     ItemStack stack = new ItemStack(head);

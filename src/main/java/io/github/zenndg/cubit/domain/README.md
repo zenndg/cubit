@@ -74,7 +74,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `RobotListing` | Um Cubit como a tela de seleção do Tablet o ordena: se segue o player, se está na mesma dimensão, se está carregado e a distância |
 | `RobotListings` | A ordem e a busca da tela de seleção do Tablet |
 | `TabletApps` | Os apps do Tablet que fazem sentido para o Cubit escolhido, a troca com Shift e a roda e a volta ao Open de um app que deixou de valer (perguntas 1006 e 1044) |
-| `WorkArea` | A área de um Cubit: um volume de blocos entre dois cantos, numa dimensão. Cabe no tier pela base e pela altura, conta o bloco acima do topo, onde os itens ficam, e dá os cantos da base para a ronda (perguntas 342, 1051 e 1062) |
+| `WorkArea` | A área de um Cubit: um volume de blocos entre dois cantos, numa dimensão. Cabe no tier pela base e pela altura, conta o bloco acima do topo, onde os itens ficam, dá os cantos da base para a ronda, sabe se toca outra área e a distância de um ponto até a base (perguntas 342, 1051, 1062, 1636 e 1707) |
 | `AreaCorner` | Um bloco marcado como canto pelo app Área |
 | `AreaCheck` | Se a área pode ser do Cubit, ou por quê não: sem modo área no tier, grande demais, em outra dimensão ou longe demais (perguntas 1050, 1054 e 1058) |
 | `AreaMarking` | A marcação pela metade do app Área: o Cubit e, depois, o primeiro canto, só na memória do servidor (perguntas 1054 e 1060) |
@@ -197,7 +197,8 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `PatrolStops` | As paradas da ronda: os blocos andados desde a última, o trecho sorteado até a próxima, a parada em curso e para onde a cabeça olha, duas vezes para cada lado e depois à frente |
 | `PatrolTraits` | O que o Patrulheiro sabe de um mob, lido dos sinais do jogo, sem lista fixa: se o ataca (todo `Enemy`, `MONSTER` e `NeutralMob`, e quem fere um protegido) e se o protege (players, robôs, aldeões e animais calmos). A tag de ignorar vence, e os protegidos nunca entram na de atacar |
 | `WeaponChoice` | A arma que o Patrulheiro usa no alvo: a pistola de longe e no ar, a lâmina de perto e nenhuma no creeper que ele não pode alvejar |
-| `PatrolTargets` | O hostil que um Patrulheiro ataca: primeiro o que fere alguém, depois o mais perto de um protegido, sem repetir o alvo de outro Patrulheiro, salvo um hostil sozinho |
+| `PatrolTargets` | O hostil que a equipe de Patrulheiros ataca, todos juntos: primeiro o mais perto de um Patrulheiro ferido, depois o que fere alguém, depois o mais perto de um protegido. A equipe mantém o alvo até ele cair ou sair do alcance, salvo se surgir um de tipo mais urgente |
+| `PatrolTeam` | A equipe dos Patrulheiros de um dono: quem luta junto (mesma dimensão, com áreas que se tocam ou dentro do chamado), o alcance do chamado, o raio do socorro e a vida abaixo da qual um Patrulheiro está ferido |
 | `PatrolRules` | O modo sempre Agressivo, os modos que o card trava na aba Defense, o limite da perseguição, quando ele salta e quando recua do creeper |
 
 ## Regras e porquês

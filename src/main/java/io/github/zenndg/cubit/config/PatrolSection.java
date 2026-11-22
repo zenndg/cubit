@@ -2,14 +2,15 @@ package io.github.zenndg.cubit.config;
 
 import com.mojang.logging.LogUtils;
 import io.github.zenndg.cubit.domain.behavior.PatrolSettings;
+import io.github.zenndg.cubit.domain.behavior.PatrolTeam;
 import java.util.concurrent.atomic.AtomicBoolean;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.slf4j.Logger;
 
 /**
  * The numbers of the Galactic Patroller that hold for every tier, beside the defense. The names are
- * a contract with the pack (answers 1557, 1559, 1562, 1577, 1614 to 1618, 1628 and 1632). A maximum
- * below its minimum counts as the minimum and goes to the log once (rule 17).
+ * a contract with the pack (answers 1557, 1559, 1562, 1577, 1614 to 1618, 1628, 1632, 1644 and
+ * 1691). A maximum below its minimum counts as the minimum and goes to the log once (rule 17).
  */
 public final class PatrolSection {
   private static final Logger LOGGER = LogUtils.getLogger();
@@ -24,6 +25,14 @@ public final class PatrolSection {
   private static final String STOP_MIN_DISTANCE = "patroller_stop_min_distance";
   private static final String STOP_MAX_DISTANCE = "patroller_stop_max_distance";
   private static final String SPEED = "patroller_patrol_speed";
+  private static final String CALL_RANGE = "patroller_call_range";
+  private static final String RESCUE_RADIUS = "patroller_rescue_radius";
+  private static final String LOW_HEALTH = "patroller_low_health_percent";
+  private static final int CALL_RANGE_DEFAULT = 32;
+  private static final int CALL_RANGE_MAX = 128;
+  private static final int RESCUE_RADIUS_DEFAULT = 8;
+  private static final int RESCUE_RADIUS_MAX = 32;
+  private static final int LOW_HEALTH_DEFAULT = 25;
   private static final int SLOWNESS_CHANCE_DEFAULT = 20;
   private static final int SLOWNESS_TICKS_DEFAULT = 60;
   private static final int HEAD_CHANCE_DEFAULT = 50;
@@ -53,6 +62,9 @@ public final class PatrolSection {
   private final ModConfigSpec.IntValue stopMinDistance;
   private final ModConfigSpec.IntValue stopMaxDistance;
   private final ModConfigSpec.DoubleValue speed;
+  private final ModConfigSpec.IntValue callRange;
+  private final ModConfigSpec.IntValue rescueRadius;
+  private final ModConfigSpec.IntValue lowHealth;
   private final AtomicBoolean warned = new AtomicBoolean();
 
   PatrolSection(ModConfigSpec.Builder builder) {
@@ -74,6 +86,10 @@ public final class PatrolSection {
         builder.defineInRange(
             STOP_MAX_DISTANCE, STOP_MAX_DISTANCE_DEFAULT, MIN_ONE, STOP_DISTANCE_MAX);
     speed = builder.defineInRange(SPEED, SPEED_DEFAULT, SPEED_MIN, SPEED_MAX);
+    callRange = builder.defineInRange(CALL_RANGE, CALL_RANGE_DEFAULT, MIN_ONE, CALL_RANGE_MAX);
+    rescueRadius =
+        builder.defineInRange(RESCUE_RADIUS, RESCUE_RADIUS_DEFAULT, MIN_ONE, RESCUE_RADIUS_MAX);
+    lowHealth = builder.defineInRange(LOW_HEALTH, LOW_HEALTH_DEFAULT, MIN_ZERO, PERCENT_MAX);
   }
 
   public PatrolSettings settings() {
@@ -84,6 +100,11 @@ public final class PatrolSection {
         chase.get(),
         weaponSwitch.get(),
         round());
+  }
+
+  /** The team of the Patrollers of one owner (answers 1644, 1686 and 1691). */
+  public PatrolTeam team() {
+    return new PatrolTeam(callRange.get(), rescueRadius.get(), lowHealth.get());
   }
 
   private PatrolSettings.Round round() {

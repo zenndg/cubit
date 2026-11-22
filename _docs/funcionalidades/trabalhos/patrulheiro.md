@@ -67,9 +67,9 @@ Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e uma
 - **Prioridade:** primeiro o mob que está ferindo alguém, depois o mais próximo de um protegido (pergunta 1568).
 - **Vários Patrulheiros:** os do mesmo dono lutam juntos, como uma equipe (perguntas 1643 a 1646):
   1. **Mesmo alvo:** todos atacam o hostil de maior prioridade, um de cada vez, e só passam ao próximo quando ele cai ou sai do limite. Um hostil que passa a ferir alguém vira o alvo da equipe.
-  2. **Chamado:** ao entrar em combate, um Patrulheiro avisa os outros do mesmo dono na mesma área ou a até 32 blocos. Quem não está lutando vem ajudar, mesmo com o hostil fora do próprio raio de procura, respeitando o próprio limite de perseguição. Na escolta, ele não deixa o dono para atender.
+  2. **Chamado:** ao entrar em combate, um Patrulheiro avisa os outros do mesmo dono na mesma área ou a até 32 blocos. Áreas na mesma dimensão que se sobrepõem ou se encostam contam como a mesma (pergunta 1707). Quem não está lutando vem ajudar, mesmo com o hostil fora do próprio raio de procura, respeitando o próprio limite de perseguição. Na escolta, ele não deixa o dono para atender.
   3. **Cerco:** cada um se aproxima por um lado do hostil, espalhados em volta dele, e na pistola cada um mira de uma posição diferente. O globo atravessa os robôs, sem fogo amigo.
-  4. **Ronda espaçada:** na mesma rota ou nas mesmas bordas, eles se espalham pelo laço, cada um partindo de um ponto diferente.
+  4. **Ronda espaçada:** na mesma rota ou nas mesmas bordas, eles se espalham pelo laço, cada um partindo de um ponto diferente. O espaçamento vale ao começar a ronda e quando dois ficam no mesmo trecho: o que chegou depois vai ao ponto mais longe dos colegas. A volta depois do combate vai ao ponto mais perto, e o espaçamento se refaz no ponto seguinte (perguntas 1625 e 1708).
   5. **Uma fala por equipe:** no mesmo combate, só um deles fala ao entrar em combate e ao abater.
   6. **Socorro:** um Patrulheiro com a vida baixa em combate, abaixo do limite da [cautela](#vida-baixa), vira a prioridade da equipe. O hostil mais perto dele, a até 8 blocos, passa a ser o alvo de todos, acima de quem fere outro protegido, até não sobrar hostil nesse raio. Atendem os da mesma área ou a até 32 blocos, mesmo fora do próprio raio de procura, e, na escolta, nenhum deixa o escoltado (pergunta 1691).
 
@@ -276,6 +276,7 @@ Uma issue, a #198 renomeada, e três PRs testados no jogo (perguntas 1578, 1605 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 15:30 | Detalha a mesma área do chamado e a ronda espaçada (perguntas 1707 e 1708). |
 | Zennd | 2026-11-22 15:10 | Acrescenta os casos de fronteira dos alvos (perguntas 1701 a 1703 e 1705). |
 | Zennd | 2026-11-22 14:50 | Acrescenta a vida baixa, o socorro, a bola de fogo, a bateria, a água, a noite, o teleporte, o enderman e o breeze (perguntas 1685 a 1699). |
 | Zennd | 2026-11-22 13:00 | Confere o documento com as respostas 1550 a 1665, com o app Escort só com o card e o visual do alerta, da guarda e das asas (perguntas 1664 e 1665). |

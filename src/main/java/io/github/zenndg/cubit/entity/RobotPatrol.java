@@ -191,7 +191,7 @@ public final class RobotPatrol {
   }
 
   private static PatrolSettings.Round round() {
-    return CubitMod.CONFIG.patrolSettings().round();
+    return CubitMod.CONFIG.patrol().settings().round();
   }
 
   void save(CompoundTag tag) {

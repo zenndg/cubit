@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit.entity;
 
+import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.PatrolTargets;
 import java.util.List;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,13 +26,21 @@ final class PatrolSight {
                     && PatrolProtection.isTarget(robot, entity));
   }
 
-  static PatrolTargets.Candidate candidate(RobotEntity robot, LivingEntity mob) {
+  /**
+   * The hostile as a candidate for the team: how near it is to a wounded Patroller, within the
+   * rescue, whether it hurts someone and how near it is to the one it guards (answers 1568 and
+   * 1691).
+   */
+  static PatrolTargets.Candidate candidate(
+      RobotEntity robot, LivingEntity mob, List<RobotEntity> wounded) {
     Player owner = RobotInteractions.onlineOwner(robot);
     LivingEntity guarded = owner != null && owner.level() == robot.level() ? owner : robot;
+    double toWounded = wounded.stream().mapToDouble(mob::distanceTo).min().orElse(Double.MAX_VALUE);
     return new PatrolTargets.Candidate(
         mob.getId(),
+        toWounded <= CubitMod.CONFIG.patrol().team().rescueRadius(),
+        toWounded,
         PatrolProtection.hurtingSomeone(robot, mob),
-        mob.distanceTo(guarded),
-        PatrolReservations.reservedByOther(mob.getUUID(), robot.getUUID()));
+        mob.distanceTo(guarded));
   }
 }

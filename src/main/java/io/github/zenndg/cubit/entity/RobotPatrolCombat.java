@@ -5,20 +5,29 @@ import io.github.zenndg.cubit.domain.behavior.JobTalkTopic;
 import io.github.zenndg.cubit.domain.behavior.PatrolRules;
 import io.github.zenndg.cubit.domain.behavior.PatrolSettings;
 import io.github.zenndg.cubit.domain.behavior.PatrolTargets;
+import io.github.zenndg.cubit.domain.behavior.PatrolTeam;
 import io.github.zenndg.cubit.domain.behavior.WeaponChoice;
 import io.github.zenndg.cubit.domain.energy.PowerState;
+import io.github.zenndg.cubit.domain.robot.RoutePoint;
 import io.github.zenndg.cubit.domain.tier.PatrollerSpec;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.Set;
+import java.util.stream.Stream;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
 /**
  * The fight of the Galactic Patroller, in place of the shock: it picks a hostile, chooses the
  * weapon by the distance, shoots its orb or swings its blade, jumps at a target in the air it
- * cannot shoot and glides when it falls (answers 1556, 1557, 1564, 1568 and 1596). The search runs
- * on an interval, never on every tick (rule 21).
+ * cannot shoot and glides when it falls (answers 1556, 1557, 1564, 1568 and 1596). It fights with
+ * its team, on the target of all, and comes to the call and to the rescue of a wounded one (answers
+ * 1643, 1644 and 1691). The search runs on an interval, never on every tick (rule 21).
  */
 public final class RobotPatrolCombat {
   private static final int SEARCH_TICKS = 10;
@@ -56,12 +65,13 @@ public final class RobotPatrolCombat {
   }
 
   static PatrolSettings settings() {
-    return CubitMod.CONFIG.patrolSettings();
+    return CubitMod.CONFIG.patrol().settings();
   }
 
   /** Called by the defense on every tick, in place of the shock, while it has the card. */
   void tick() {
     PatrolArmor.apply(robot, armed() ? spec().armor() : 0);
+    PatrolTeams.update(robot, armed());
     glide();
     if (!armed()) {
       drop();
@@ -88,23 +98,91 @@ public final class RobotPatrolCombat {
   }
 
   private void search() {
-    List<LivingEntity> hostiles = PatrolSight.hostiles(robot, spec().searchRadius());
+    List<RobotEntity> mates = escorting() ? List.of() : PatrolTeams.mates(robot);
+    List<RobotEntity> wounded = wounded(mates);
+    List<LivingEntity> pool = pool(mates, wounded);
     Optional<Integer> chosen =
         PatrolTargets.choose(
-            hostiles.stream().map(mob -> PatrolSight.candidate(robot, mob)).toList());
+            pool.stream().map(mob -> PatrolSight.candidate(robot, mob, wounded)).toList(),
+            Optional.ofNullable(target).map(LivingEntity::getId));
     LivingEntity next =
         chosen
-            .flatMap(id -> hostiles.stream().filter(mob -> mob.getId() == id).findFirst())
+            .flatMap(id -> pool.stream().filter(mob -> mob.getId() == id).findFirst())
             .orElse(null);
-    if (next != null && target == null) {
+    if (next != null && target == null && !targetOfAny(mates, next)) {
       robot.workArea().work().talk().onWork(JobTalkTopic.PATROLLER_COMBAT);
     }
     target = next;
-    if (target == null) {
-      PatrolReservations.release(robot.getUUID());
-    } else {
-      PatrolReservations.reserve(target.getUUID(), robot.getUUID());
+  }
+
+  /**
+   * What it may fight: the hostiles in its search, the targets of its team, which answers the call,
+   * and the hostiles near a wounded one, all within its own chase (answers 1643, 1644 and 1691).
+   */
+  private List<LivingEntity> pool(List<RobotEntity> mates, List<RobotEntity> wounded) {
+    Set<LivingEntity> pool =
+        new LinkedHashSet<>(PatrolSight.hostiles(robot, spec().searchRadius()));
+    mates.forEach(mate -> mate.workArea().work().patrolCombat().target().ifPresent(pool::add));
+    int rescue = team().rescueRadius();
+    wounded.forEach(one -> pool.addAll(PatrolSight.hostiles(one, rescue)));
+    return pool.stream()
+        .filter(mob -> mob.isAlive() && PatrolProtection.isTarget(robot, mob) && inReach(mob))
+        .toList();
+  }
+
+  /** The Patrollers of the team under the low health, itself among them (answer 1691). */
+  private List<RobotEntity> wounded(List<RobotEntity> mates) {
+    PatrolTeam team = team();
+    return Stream.concat(Stream.of(robot), mates.stream())
+        .filter(one -> team.wounded(one.getHealth(), one.getMaxHealth()))
+        .toList();
+  }
+
+  /** Only one of the team speaks when a fight begins (answer 1646). */
+  private static boolean targetOfAny(List<RobotEntity> mates, LivingEntity mob) {
+    return mates.stream()
+        .anyMatch(mate -> mate.workArea().work().patrolCombat().target().orElse(null) == mob);
+  }
+
+  /** On escort it never leaves the one it follows for a call (answers 1644 and 1691). */
+  private boolean escorting() {
+    return RobotInteractions.followedPlayer(robot) != null;
+  }
+
+  /** Within the chase, measured from what it guards (answers 1562, 1565 and 1636). */
+  boolean inReach(LivingEntity mob) {
+    return PatrolRules.mayChase(guardDistance(mob.position()), settings().chaseDistance());
+  }
+
+  /**
+   * How far a place is from what it guards: the one it escorts, else the nearest point of its
+   * route, else the base of its area, else itself (answers 1565 and 1636).
+   */
+  private double guardDistance(Vec3 at) {
+    Player escorted = RobotInteractions.followedPlayer(robot);
+    if (escorted != null) {
+      return escorted.position().distanceTo(at);
     }
+    OptionalDouble toRoute =
+        robot.workArea().work().patrol().walkable().points().stream()
+            .mapToDouble(point -> topOf(point).distanceTo(at))
+            .min();
+    if (toRoute.isPresent()) {
+      return toRoute.getAsDouble();
+    }
+    return robot
+        .workArea()
+        .here()
+        .map(area -> area.distanceToBase(at.x, at.z))
+        .orElse(robot.position().distanceTo(at));
+  }
+
+  private static Vec3 topOf(RoutePoint point) {
+    return Vec3.atBottomCenterOf(new BlockPos(point.x(), point.y(), point.z()).above());
+  }
+
+  private static PatrolTeam team() {
+    return CubitMod.CONFIG.patrol().team();
   }
 
   private void act(long now) {
@@ -169,6 +247,5 @@ public final class RobotPatrolCombat {
 
   void drop() {
     target = null;
-    PatrolReservations.release(robot.getUUID());
   }
 }

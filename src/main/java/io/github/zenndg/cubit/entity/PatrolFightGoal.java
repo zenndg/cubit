@@ -11,8 +11,9 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * How the Galactic Patroller moves in a fight: close in for the blade, stand and aim for the
- * pistol, and keep out of the blast of a creeper. It chases only so far from where the fight began,
- * the route or the owner it escorts, and then lets go (answers 1562, 1565, 1567 and 1595).
+ * pistol, and keep out of the blast of a creeper. It chases only so far from what it guards, the
+ * route, the area or the one it escorts, and then lets go (answers 1562, 1565, 1567, 1595 and
+ * 1636).
  */
 final class PatrolFightGoal extends Goal {
   private static final double SPEED_MODIFIER = 1;
@@ -22,7 +23,6 @@ final class PatrolFightGoal extends Goal {
   private static final int REPATH_TICKS = 5;
 
   private final RobotEntity robot;
-  private Vec3 anchor;
   private int repathCountdown;
 
   PatrolFightGoal(RobotEntity robot) {
@@ -47,7 +47,6 @@ final class PatrolFightGoal extends Goal {
 
   @Override
   public void start() {
-    anchor = robot.position();
     repathCountdown = 0;
   }
 
@@ -64,9 +63,7 @@ final class PatrolFightGoal extends Goal {
       return;
     }
     LivingEntity target = found.get();
-    Vec3 from = escortAnchor().orElse(anchor);
-    int chase = RobotPatrolCombat.settings().chaseDistance();
-    if (!PatrolRules.mayChase(target.position().distanceTo(from), chase)) {
+    if (!combat.inReach(target)) {
       combat.drop();
       return;
     }
@@ -98,11 +95,5 @@ final class PatrolFightGoal extends Goal {
     Vec3 away = robot.position().subtract(target.position()).multiply(1, 0, 1).normalize();
     Vec3 spot = robot.position().add(away.scale(KEEP_AWAY));
     robot.getNavigation().moveTo(spot.x, spot.y, spot.z, SPEED_MODIFIER);
-  }
-
-  /** On escort, the chase is measured from the owner it follows (answer 1565). */
-  private Optional<Vec3> escortAnchor() {
-    return Optional.ofNullable(RobotInteractions.followedPlayer(robot))
-        .map(owner -> owner.position());
   }
 }

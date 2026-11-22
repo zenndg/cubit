@@ -28,6 +28,18 @@ class WorkAreaTest {
   private static final double PAST_X = 26.0;
   private static final int REACH = 24;
   private static final int SHORT_REACH = 4;
+  private static final WorkArea BESIDE =
+      WorkArea.between(new AreaCorner(26, 64, -5), new AreaCorner(30, 70, 0), OVERWORLD);
+  private static final WorkArea APART =
+      WorkArea.between(new AreaCorner(28, 64, -5), new AreaCorner(30, 70, 0), OVERWORLD);
+  private static final WorkArea OVERLAPPING =
+      WorkArea.between(new AreaCorner(20, 60, 0), new AreaCorner(40, 66, 20), OVERWORLD);
+  private static final WorkArea IN_THE_NETHER = WorkArea.between(HIGH, LOW, NETHER);
+  private static final double EAST_X = 30;
+  private static final double SOUTH_Z = 15;
+  private static final double EAST_GAP = 4;
+  private static final double CORNER_GAP = Math.sqrt(32);
+  private static final double PRECISION = 1e-9;
 
   @Test
   void theCornersGoInAnyOrderAndMakeAVolume() {
@@ -77,5 +89,31 @@ class WorkAreaTest {
   void anAreaNeedsADimensionAndCornersInOrder() {
     assertThrows(IllegalArgumentException.class, () -> new WorkArea(HIGH, LOW, OVERWORLD));
     assertThrows(IllegalArgumentException.class, () -> new WorkArea(LOW, HIGH, BLANK));
+  }
+
+  @Test
+  void areasThatOverlapOrTouchAreOne() {
+    assertTrue(AREA.touches(BESIDE));
+    assertTrue(BESIDE.touches(AREA));
+    assertTrue(AREA.touches(OVERLAPPING));
+    assertTrue(AREA.touches(AREA));
+  }
+
+  @Test
+  void areasApartOrInAnotherDimensionAreNot() {
+    assertFalse(AREA.touches(APART));
+    assertFalse(AREA.touches(IN_THE_NETHER));
+  }
+
+  @Test
+  void theDistanceToTheBaseIsZeroInsideIt() {
+    assertEquals(0, AREA.distanceToBase(INSIDE_X, INSIDE_Z), PRECISION);
+    assertEquals(0, AREA.distanceToBase(PAST_X, INSIDE_Z), PRECISION);
+  }
+
+  @Test
+  void theDistanceToTheBaseGoesToItsNearestEdge() {
+    assertEquals(EAST_GAP, AREA.distanceToBase(EAST_X, INSIDE_Z), PRECISION);
+    assertEquals(CORNER_GAP, AREA.distanceToBase(EAST_X, SOUTH_Z), PRECISION);
   }
 }

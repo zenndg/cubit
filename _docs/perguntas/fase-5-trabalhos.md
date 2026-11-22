@@ -651,11 +651,15 @@ Não há perguntas pendentes nesta fase.
 | 1704 | Há algo a acrescentar à entrega 2 do PR 3, com os alvos novos e as tags? | Nada a acrescentar (1631) |
 | 1705 | Um mob de outro mod que ataca o player, mas não é `Enemy`, nem `MONSTER`, nem `NeutralMob`, conta como pacífico e nunca é atacado. Como fica? | Vira alvo ao ferir alguém: todo mob que mira num protegido é alvo do Patrulheiro, mesmo pacífico pelos sinais do jogo, desde que não seja protegido, golem, domesticado ou da tag `cubit:patroller_ignores`. Vale só para o Patrulheiro, e o choque dos outros Cubits não muda. Detalha a 1633 |
 | 1706 | A estrutura de pacotes do `AGENTS.md` pode citar o `PatrolTraits` e o novo papel do `PatrolProtection`, com os alvos e as tags? | Sim, num commit próprio, depois do commit da entrega 2 |
+| 1707 | O que conta como "mesma área" para o chamado da equipe de Patrulheiros (1644), se cada Cubit marca a própria área? | Áreas que se tocam: duas áreas na mesma dimensão que se sobrepõem ou se encostam contam como a mesma, e uma base guardada por várias áreas vizinhas tem uma equipe só. Detalha a 1644 |
+| 1708 | Quando vale a ronda espaçada (1646), se a volta à ronda (1625) leva ao ponto mais perto? | No início e ao se juntar: ao começar a ronda, ou quando dois Patrulheiros da mesma rota ficam no mesmo trecho, o que chegou depois vai ao ponto mais longe dos colegas no laço. A volta depois do combate segue a 1625, e o espaçamento se refaz no ponto seguinte. Detalha a 1625 e a 1646 |
+| 1709 | Há algo a acrescentar à entrega 3 do PR 3, a equipe de Patrulheiros? | Nada a acrescentar (1631) |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 15:30 | Registra as respostas 1707 a 1709. |
 | Zennd | 2026-11-22 15:00 | Registra as respostas 1700 a 1706. |
 | Zennd | 2026-11-22 14:35 | Registra as respostas do refinamento final do PR 3 do Patrulheiro, a partir da 1685. |
 | Zennd | 2026-11-22 14:30 | Registra a resposta 1684. |
