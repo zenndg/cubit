@@ -40,6 +40,7 @@ public final class CubitCreativeTabs {
                     output.accept(CubitItems.FARMER_CARD.get());
                     output.accept(CubitItems.ORGANIZER_CARD.get());
                     output.accept(CubitItems.COOK_CARD.get());
+                    output.accept(CubitItems.PATROLLER_CARD.get());
                     output.accept(CubitItems.BASE_POWER_BANK.get());
                     output.accept(CubitItems.ADVANCED_POWER_BANK.get());
                     output.accept(CubitItems.ELITE_POWER_BANK.get());

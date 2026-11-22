@@ -180,7 +180,7 @@ final class TierDefaults {
   private static final Set<RobotJob> ELITE_JOB_SET =
       union(
           ADVANCED_JOB_SET,
-          EnumSet.of(RobotJob.ORGANIZER, RobotJob.COOK, RobotJob.DEFENDER, RobotJob.MINER));
+          EnumSet.of(RobotJob.ORGANIZER, RobotJob.COOK, RobotJob.PATROLLER, RobotJob.MINER));
 
   /** Lure and Luck of the Sea from the Elite, and 300 FE a fish on every tier (1185, 1190). */
   private static final Energy FISHER_CATCH_COST = new Energy(300);

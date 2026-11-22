@@ -4,6 +4,7 @@ import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.robot.RobotColor;
 import io.github.zenndg.cubit.item.RobotItem;
 import io.github.zenndg.cubit.registry.CubitItems;
+import java.util.List;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -30,10 +31,7 @@ final class CubitItemModelProvider extends ItemModelProvider {
     basicItem(CubitItems.TOOLBOX.get());
     basicItem(CubitItems.TABLET.get());
     basicItem(CubitItems.RECHARGE_SPLASH.get());
-    basicItem(CubitItems.FISHER_CARD.get());
-    basicItem(CubitItems.FARMER_CARD.get());
-    basicItem(CubitItems.ORGANIZER_CARD.get());
-    basicItem(CubitItems.COOK_CARD.get());
+    cards();
     basicItem(CubitItems.ADVANCED_MODULE.get());
     basicItem(CubitItems.ELITE_MODULE.get());
     basicItem(CubitItems.ULTIMATE_MODULE.get());
@@ -53,6 +51,16 @@ final class CubitItemModelProvider extends ItemModelProvider {
     basicItem(CubitItems.ADVANCED_POWER_CELL.get());
     basicItem(CubitItems.ELITE_POWER_CELL.get());
     basicItem(CubitItems.ULTIMATE_POWER_CELL.get());
+  }
+
+  private void cards() {
+    List.of(
+            CubitItems.FISHER_CARD,
+            CubitItems.FARMER_CARD,
+            CubitItems.ORGANIZER_CARD,
+            CubitItems.COOK_CARD,
+            CubitItems.PATROLLER_CARD)
+        .forEach(card -> basicItem(card.get()));
   }
 
   /** The collar is white, and the client tints it with the color of the tier (answer 803). */

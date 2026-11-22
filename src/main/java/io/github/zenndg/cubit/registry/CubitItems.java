@@ -36,6 +36,7 @@ public final class CubitItems {
   private static final String FARMER_CARD_ID = "ml_farmer";
   private static final String ORGANIZER_CARD_ID = "ml_organizer";
   private static final String COOK_CARD_ID = "ml_cook";
+  private static final String PATROLLER_CARD_ID = "ml_patroller";
   private static final String CARD_CASING_ID = "ml_card_casing";
   private static final String CIRCUIT_BOARD_ID = "ml_circuit_board";
   private static final String CASING_SUFFIX = "_casing";
@@ -85,6 +86,11 @@ public final class CubitItems {
 
   public static final Supplier<Item> COOK_CARD =
       ITEMS.register(COOK_CARD_ID, () -> new JobCardItem(new Item.Properties(), RobotJob.COOK));
+
+  /** The Galactic Patroller, in the place of the Defender (answers 1550 and 1569). */
+  public static final Supplier<Item> PATROLLER_CARD =
+      ITEMS.register(
+          PATROLLER_CARD_ID, () -> new JobCardItem(new Item.Properties(), RobotJob.PATROLLER));
 
   public static final Supplier<Item> TOOLBOX =
       ITEMS.register(

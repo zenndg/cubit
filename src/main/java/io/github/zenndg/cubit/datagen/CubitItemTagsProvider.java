@@ -34,7 +34,8 @@ final class CubitItemTagsProvider extends ItemTagsProvider {
             CubitItems.FISHER_CARD.get(),
             CubitItems.FARMER_CARD.get(),
             CubitItems.ORGANIZER_CARD.get(),
-            CubitItems.COOK_CARD.get());
+            CubitItems.COOK_CARD.get(),
+            CubitItems.PATROLLER_CARD.get());
     tag(CookOvens.FUELS).add(Items.COAL, Items.CHARCOAL, Items.COAL_BLOCK);
     tag(FishingCatch.JUNK)
         .add(

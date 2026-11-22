@@ -58,7 +58,8 @@ final class DeskCategoryData {
               CubitItems.FISHER_CARD,
               CubitItems.FARMER_CARD,
               CubitItems.ORGANIZER_CARD,
-              CubitItems.COOK_CARD),
+              CubitItems.COOK_CARD,
+              CubitItems.PATROLLER_CARD),
           DeskCategory.TOOLS,
           List.of(CubitItems.TOOLBOX, CubitItems.TABLET));
 

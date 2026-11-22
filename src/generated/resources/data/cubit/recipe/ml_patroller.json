@@ -1,0 +1,20 @@
+{
+  "type": "cubit:engineering",
+  "category": "misc",
+  "desk_category": "cards",
+  "ingredients": [
+    {
+      "item": "cubit:ml_card_casing"
+    },
+    {
+      "item": "cubit:ml_circuit_board"
+    },
+    {
+      "item": "minecraft:firework_star"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "cubit:ml_patroller"
+  }
+}
