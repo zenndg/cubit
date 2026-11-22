@@ -650,12 +650,13 @@ Não há perguntas pendentes nesta fase.
 | 1703 | O shulker é um `AbstractGolem` e `Enemy`, e a 1633 exclui os golems, citando só o de ferro e o de neve. Como fica? | É alvo: só o golem de ferro e o de neve ficam de fora, e o shulker, que é `Enemy`, é atacado com a pistola. Detalha a 1633 |
 | 1704 | Há algo a acrescentar à entrega 2 do PR 3, com os alvos novos e as tags? | Nada a acrescentar (1631) |
 | 1705 | Um mob de outro mod que ataca o player, mas não é `Enemy`, nem `MONSTER`, nem `NeutralMob`, conta como pacífico e nunca é atacado. Como fica? | Vira alvo ao ferir alguém: todo mob que mira num protegido é alvo do Patrulheiro, mesmo pacífico pelos sinais do jogo, desde que não seja protegido, golem, domesticado ou da tag `cubit:patroller_ignores`. Vale só para o Patrulheiro, e o choque dos outros Cubits não muda. Detalha a 1633 |
+| 1706 | A estrutura de pacotes do `AGENTS.md` pode citar o `PatrolTraits` e o novo papel do `PatrolProtection`, com os alvos e as tags? | Sim, num commit próprio, depois do commit da entrega 2 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
-| Zennd | 2026-11-22 15:00 | Registra as respostas 1700 a 1705. |
+| Zennd | 2026-11-22 15:00 | Registra as respostas 1700 a 1706. |
 | Zennd | 2026-11-22 14:35 | Registra as respostas do refinamento final do PR 3 do Patrulheiro, a partir da 1685. |
 | Zennd | 2026-11-22 14:30 | Registra a resposta 1684. |
 | Zennd | 2026-11-22 14:25 | Registra a resposta 1683. |
