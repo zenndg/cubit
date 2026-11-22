@@ -2,24 +2,16 @@
   "type": "cubit:engineering",
   "category": "misc",
   "desk_category": "cards",
-  "key": {
-    "C": {
-      "item": "minecraft:comparator"
+  "ingredients": [
+    {
+      "item": "cubit:ml_card_casing"
     },
-    "H": {
+    {
+      "item": "cubit:ml_circuit_board"
+    },
+    {
       "item": "minecraft:iron_hoe"
-    },
-    "P": {
-      "item": "minecraft:paper"
-    },
-    "R": {
-      "item": "minecraft:redstone"
     }
-  },
-  "pattern": [
-    "PCP",
-    "RHR",
-    "PRP"
   ],
   "result": {
     "count": 1,

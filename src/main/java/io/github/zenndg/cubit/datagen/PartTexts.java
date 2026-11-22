@@ -14,6 +14,8 @@ final class PartTexts {
   private static final String ADVANCED_CELL = "Advanced Power Cell";
   private static final String ELITE_CELL = "Elite Power Cell";
   private static final String ULTIMATE_CELL = "Ultimate Power Cell";
+  private static final String CARD_CASING = "Card Casing";
+  private static final String CIRCUIT_BOARD = "Circuit Board";
 
   private PartTexts() {}
 
@@ -27,5 +29,7 @@ final class PartTexts {
     add.accept(CubitItems.ADVANCED_POWER_CELL.get().getDescriptionId(), ADVANCED_CELL);
     add.accept(CubitItems.ELITE_POWER_CELL.get().getDescriptionId(), ELITE_CELL);
     add.accept(CubitItems.ULTIMATE_POWER_CELL.get().getDescriptionId(), ULTIMATE_CELL);
+    add.accept(CubitItems.CARD_CASING.get().getDescriptionId(), CARD_CASING);
+    add.accept(CubitItems.CIRCUIT_BOARD.get().getDescriptionId(), CIRCUIT_BOARD);
   }
 }

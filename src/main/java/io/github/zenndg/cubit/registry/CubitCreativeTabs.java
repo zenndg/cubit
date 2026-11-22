@@ -53,6 +53,8 @@ public final class CubitCreativeTabs {
                     output.accept(CubitItems.ADVANCED_POWER_CELL.get());
                     output.accept(CubitItems.ELITE_POWER_CELL.get());
                     output.accept(CubitItems.ULTIMATE_POWER_CELL.get());
+                    output.accept(CubitItems.CARD_CASING.get());
+                    output.accept(CubitItems.CIRCUIT_BOARD.get());
                   })
                   .build());
 

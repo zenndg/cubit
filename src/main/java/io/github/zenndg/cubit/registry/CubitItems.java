@@ -36,6 +36,8 @@ public final class CubitItems {
   private static final String FARMER_CARD_ID = "ml_farmer";
   private static final String ORGANIZER_CARD_ID = "ml_organizer";
   private static final String COOK_CARD_ID = "ml_cook";
+  private static final String CARD_CASING_ID = "ml_card_casing";
+  private static final String CIRCUIT_BOARD_ID = "ml_circuit_board";
   private static final String CASING_SUFFIX = "_casing";
   private static final String VISOR_SUFFIX = "_visor";
   private static final String TREADS_SUFFIX = "_treads";
@@ -154,6 +156,11 @@ public final class CubitItems {
   public static final Supplier<Item> ADVANCED_POWER_CELL = powerCell(RobotTier.ADVANCED);
   public static final Supplier<Item> ELITE_POWER_CELL = powerCell(RobotTier.ELITE);
   public static final Supplier<Item> ULTIMATE_POWER_CELL = powerCell(RobotTier.ULTIMATE);
+
+  /** The two parts every card of Machine Learning is made of, as a USB stick (answer 1540). */
+  public static final Supplier<Item> CARD_CASING = part(CARD_CASING_ID);
+
+  public static final Supplier<Item> CIRCUIT_BOARD = part(CIRCUIT_BOARD_ID);
 
   private CubitItems() {}
 
