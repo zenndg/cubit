@@ -16,6 +16,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Husk;
@@ -66,6 +67,8 @@ public final class PatrollerGameTests {
   private static final String NO_CHECK = "The Patroller should look at its owner after the kill";
   private static final float ONE_SHOT = 1f;
   private static final float WOUNDED = 20f;
+  private static final float ALWAYS_DROPS = 2f;
+  private static final String NOT_STORED = "The drops of a kill should go into the inventory";
   private static final String NO_CARE = "A wounded Patroller should shoot even a near hostile";
   private static final String NO_INVESTIGATION = "The Patroller should look where the hostile was";
   private static final String NOT_BACK = "The Patroller should go back to its round after looking";
@@ -254,5 +257,18 @@ public final class PatrollerGameTests {
     // An orb in the world is the proof of the pistol, as walking also spends the battery.
     helper.succeedWhen(() ->
         helper.assertFalse(helper.getEntities(CubitEntities.LASER_ORB.get()).isEmpty(), NO_CARE));
+  }
+
+  /** A held item with a chance of two always drops, so the test needs no luck (answer 1635). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void theDropsOfAKillGoIntoTheInventory(GameTestHelper helper) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    RobotEntity robot = patroller(helper, owner);
+    Husk husk = helper.spawnWithNoFreeWill(EntityType.HUSK, FAR);
+    husk.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+    husk.setDropChance(EquipmentSlot.MAINHAND, ALWAYS_DROPS);
+    husk.setHealth(ONE_SHOT);
+    helper.succeedWhen(
+        () -> helper.assertTrue(robot.inventory().countItem(Items.IRON_SWORD) == 1, NOT_STORED));
   }
 }
