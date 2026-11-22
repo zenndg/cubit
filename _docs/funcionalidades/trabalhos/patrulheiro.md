@@ -60,6 +60,8 @@ Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e uma
 - **Modo:** só o Agressivo, enquanto tiver o card, porque atacar primeiro é a essência dele. A aba Defense mostra o modo travado como um modo bloqueado pelo tier: o Agressivo marcado, e o Pacífico e o Contra-atacar escurecidos, com `Locked by the Galactic Patroller card` no lugar do detalhe. Ao tirar o card, volta o modo que estava antes (perguntas 1566 e 1610).
 - **Procura:** ataca, no raio de procura em volta de onde está, todo mob que pode ser hostil, mesmo calmo: todo `Enemy`, todo mob da categoria `MONSTER` de qualquer mod e todo `NeutralMob`, como o enderman e o piglin zumbificado (pergunta 1633).
 - **Nunca ataca:** os protegidos, os golems de ferro e de neve, os mobs domesticados de alguém e os da água pacíficos, como o golfinho. Um piglin zumbificado atacado irrita o grupo contra o Cubit, como no jogo (pergunta 1633).
+- **Casos de fronteira:** um animal que também é `Enemy`, como o hoglin, é alvo. Os animais neutros, como o urso-polar, a abelha e o lobo selvagem, ficam protegidos enquanto calmos e viram alvo quando miram num protegido ou estão bravos com o dono. O shulker é alvo, porque só o golem de ferro e o de neve ficam de fora (perguntas 1701 a 1703).
+- **Mobs de outros mods:** ele os reconhece pelos sinais do jogo, sem lista fixa: a interface `Enemy`, a categoria `MONSTER` e a interface `NeutralMob`. Um mob que não tem nenhum deles vira alvo quando mira num protegido, e as tags corrigem o resto (perguntas 1633, 1634 e 1705).
 - **Tags:** `cubit:patroller_targets` acrescenta mobs que ele sempre ataca, e `cubit:patroller_ignores`, mobs que ele nunca ataca. A de ignorar vence, e os protegidos nunca entram (pergunta 1634).
 - **Protegidos:** o dono, os outros players, os robôs, os animais e os aldeões. Ele nunca os fere, e o globo e a lâmina passam por eles (perguntas 1558 e 1570).
 - **Prioridade:** primeiro o mob que está ferindo alguém, depois o mais próximo de um protegido (pergunta 1568).
@@ -274,6 +276,7 @@ Uma issue, a #198 renomeada, e três PRs testados no jogo (perguntas 1578, 1605 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 15:10 | Acrescenta os casos de fronteira dos alvos (perguntas 1701 a 1703 e 1705). |
 | Zennd | 2026-11-22 14:50 | Acrescenta a vida baixa, o socorro, a bola de fogo, a bateria, a água, a noite, o teleporte, o enderman e o breeze (perguntas 1685 a 1699). |
 | Zennd | 2026-11-22 13:00 | Confere o documento com as respostas 1550 a 1665, com o app Escort só com o card e o visual do alerta, da guarda e das asas (perguntas 1664 e 1665). |
 | Zennd | 2026-11-22 12:35 | Acrescenta a escolta marcada pelo app Escort (perguntas 1655 a 1661). |

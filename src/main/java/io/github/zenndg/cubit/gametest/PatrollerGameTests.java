@@ -14,6 +14,8 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +25,8 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 /**
  * The Galactic Patroller in the world: the locked mode, the armor of the card, the pistol from a
- * distance, the blade near and the head of a kill (answers 1552, 1557, 1559 and 1566).
+ * distance, the blade near, the head of a kill and who it attacks, by the signs of the game
+ * (answers 1552, 1557, 1559, 1566, 1633 and 1701 to 1705).
  */
 @GameTestHolder(CubitMod.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -52,6 +55,8 @@ public final class PatrollerGameTests {
   private static final String NOT_HIT = "The Patroller should have hit the hostile";
   private static final String NO_ENERGY_SPENT = "The shot should have cost energy";
   private static final String WRONG_HEAD = "Wrong head after the kill";
+  private static final String SPARED = "The Patroller should have attacked the mob";
+  private static final String ATTACKED = "The Patroller should have left the mob alone";
 
   private PatrollerGameTests() {}
 
@@ -136,6 +141,54 @@ public final class PatrollerGameTests {
     PatrolKills.dropHead(robot, spider, LUCKY);
     PatrolKills.dropHead(robot, zombie, LUCKY);
     helper.assertTrue(robot.inventory().countItem(Items.ZOMBIE_HEAD) == 1, WRONG_HEAD);
+    helper.succeed();
+  }
+
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void aCalmEndermanIsAttacked(GameTestHelper helper) {
+    attacks(helper, EntityType.ENDERMAN, true);
+  }
+
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void aHoglinIsAttacked(GameTestHelper helper) {
+    attacks(helper, EntityType.HOGLIN, true);
+  }
+
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void aShulkerIsAttacked(GameTestHelper helper) {
+    attacks(helper, EntityType.SHULKER, true);
+  }
+
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void aCalmBeeIsLeftAlone(GameTestHelper helper) {
+    attacks(helper, EntityType.BEE, false);
+  }
+
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void anIronGolemIsLeftAlone(GameTestHelper helper) {
+    attacks(helper, EntityType.IRON_GOLEM, false);
+  }
+
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void aBeeChasingTheOwnerIsAttacked(GameTestHelper helper) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    patroller(helper, owner);
+    Mob bee = helper.spawnWithNoFreeWill(EntityType.BEE, FAR);
+    bee.setTarget(owner);
+    helper.runAfterDelay(FIGHT_TICKS, () -> assertHurt(helper, bee, true));
+  }
+
+  private static <T extends Mob> void attacks(
+      GameTestHelper helper, EntityType<T> type, boolean expected) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    patroller(helper, owner);
+    T mob = helper.spawnWithNoFreeWill(type, FAR);
+    helper.runAfterDelay(FIGHT_TICKS, () -> assertHurt(helper, mob, expected));
+  }
+
+  private static void assertHurt(GameTestHelper helper, LivingEntity mob, boolean expected) {
+    boolean hurt = mob.getHealth() < mob.getMaxHealth();
+    helper.assertTrue(hurt == expected, expected ? SPARED : ATTACKED);
     helper.succeed();
   }
 }

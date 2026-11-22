@@ -195,6 +195,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `RouteMarking` | O que um clique do app Marcar faz na rota: desmarca um ponto marcado, ou marca o topo de um bloco sólido dentro da área, com o motivo da recusa; e o Shift, que tira o ponto clicado ou o último |
 | `PatrolProgress` | Para qual ponto da rota o Cubit vai, em laço |
 | `PatrolStops` | As paradas da ronda: os blocos andados desde a última, o trecho sorteado até a próxima, a parada em curso e para onde a cabeça olha, duas vezes para cada lado e depois à frente |
+| `PatrolTraits` | O que o Patrulheiro sabe de um mob, lido dos sinais do jogo, sem lista fixa: se o ataca (todo `Enemy`, `MONSTER` e `NeutralMob`, e quem fere um protegido) e se o protege (players, robôs, aldeões e animais calmos). A tag de ignorar vence, e os protegidos nunca entram na de atacar |
 | `WeaponChoice` | A arma que o Patrulheiro usa no alvo: a pistola de longe e no ar, a lâmina de perto e nenhuma no creeper que ele não pode alvejar |
 | `PatrolTargets` | O hostil que um Patrulheiro ataca: primeiro o que fere alguém, depois o mais perto de um protegido, sem repetir o alvo de outro Patrulheiro, salvo um hostil sozinho |
 | `PatrolRules` | O modo sempre Agressivo, os modos que o card trava na aba Defense, o limite da perseguição, quando ele salta e quando recua do creeper |

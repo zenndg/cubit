@@ -645,12 +645,17 @@ Não há perguntas pendentes nesta fase.
 | 1698 | O conceito final do comportamento do PR 3 do Patrulheiro está autorizado para o código? | Sim: as respostas 1623 a 1697, com o realismo, os alvos, a equipe, as asas, a escolta, as correções, as frases de apresentação e o refinamento final. O comportamento vai ao código na ordem do prompt de continuidade, com o aviso antes de cada entrega (1631), e o visual tem rodada e autorização próprias. Muda a 1652 |
 | 1699 | O Patrulheiro que segue o dono diz também o `I need to recharge` do retorno automático, junto com o aviso novo? | Não: com o card, só sai o aviso da barra de ação, com o nome do Cubit. Sem o card, nada muda. Detalha a 1068 e a 1690 |
 | 1700 | Como fica a primeira entrega em código do PR 3, se o pilar Sem excesso pede que uma chave de config entre junto com o código que a lê? | Cada entrega leva as próprias chaves, e a primeira é o ritmo variado (1628): `patroller_stop_ticks` e `patroller_stop_distance` viram as chaves `_min_` e `_max_`, com o sorteio fora do domínio e os testes antes. Depois seguem os alvos, a equipe e o resto, na ordem do prompt de continuidade. Muda o item 1 da ordem do prompt, que juntava todas as chaves |
+| 1701 | O hoglin é `Animal` e `Enemy` ao mesmo tempo e hoje conta como protegido. Como fica? | É alvo: um animal que também é `Enemy` é hostil, e a proteção de animal vale só para quem não é `Enemy`. Detalha a 1633 |
+| 1702 | O urso-polar, a abelha e o lobo selvagem são `Animal` e `NeutralMob`. A 1633 manda atacar todo `NeutralMob`, mas nunca os animais. Como fica? | Só quando ferem alguém: calmos, ficam protegidos, como os animais, e viram alvo quando miram num protegido ou estão bravos com o dono. O lobo domesticado continua protegido. Detalha a 1633 |
+| 1703 | O shulker é um `AbstractGolem` e `Enemy`, e a 1633 exclui os golems, citando só o de ferro e o de neve. Como fica? | É alvo: só o golem de ferro e o de neve ficam de fora, e o shulker, que é `Enemy`, é atacado com a pistola. Detalha a 1633 |
+| 1704 | Há algo a acrescentar à entrega 2 do PR 3, com os alvos novos e as tags? | Nada a acrescentar (1631) |
+| 1705 | Um mob de outro mod que ataca o player, mas não é `Enemy`, nem `MONSTER`, nem `NeutralMob`, conta como pacífico e nunca é atacado. Como fica? | Vira alvo ao ferir alguém: todo mob que mira num protegido é alvo do Patrulheiro, mesmo pacífico pelos sinais do jogo, desde que não seja protegido, golem, domesticado ou da tag `cubit:patroller_ignores`. Vale só para o Patrulheiro, e o choque dos outros Cubits não muda. Detalha a 1633 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
-| Zennd | 2026-11-22 15:00 | Registra a resposta 1700. |
+| Zennd | 2026-11-22 15:00 | Registra as respostas 1700 a 1705. |
 | Zennd | 2026-11-22 14:35 | Registra as respostas do refinamento final do PR 3 do Patrulheiro, a partir da 1685. |
 | Zennd | 2026-11-22 14:30 | Registra a resposta 1684. |
 | Zennd | 2026-11-22 14:25 | Registra a resposta 1683. |

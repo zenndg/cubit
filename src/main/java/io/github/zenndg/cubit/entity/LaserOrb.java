@@ -90,13 +90,16 @@ public final class LaserOrb extends Projectile {
     }
   }
 
-  /** Never a protected one: the owner, players, robots, animals and villagers (answer 1570). */
+  /**
+   * Only a mob the Patroller attacks: it passes through the protected ones, the golems and the
+   * tamed mobs, so it never hurts one (answers 1570, 1633 and 1701 to 1705).
+   */
   @Override
   protected boolean canHitEntity(Entity entity) {
     return super.canHitEntity(entity)
         && entity instanceof LivingEntity living
         && getOwner() instanceof RobotEntity robot
-        && !PatrolProtection.isProtected(robot, living);
+        && PatrolProtection.isTarget(robot, living);
   }
 
   @Override
