@@ -31,12 +31,18 @@ final class DeskGridView {
       int x = left + X + (cell % DeskGrid.SIDE) * CELL;
       int y = top + Y + (cell / DeskGrid.SIDE) * CELL;
       BlueprintPainter.slot(graphics, x, y);
-      ItemStack mark = recipe.isEmpty() ? hand.get(cell) : shown(recipe.get(cell), tick);
+      ItemStack mark = markAt(cell, recipe, hand, tick);
       if (!mark.isEmpty()) {
         graphics.renderFakeItem(mark, x + ICON_INSET, y + ICON_INSET);
         graphics.fill(x + ICON_INSET, y + ICON_INSET, x + CELL - 1, y + CELL - 1, MARK_VEIL);
       }
     }
+  }
+
+  /** The mark of a cell: the item the recipe shows now, or the one the player put by hand. */
+  static ItemStack markAt(
+      int cell, List<Ingredient> recipe, NonNullList<ItemStack> hand, long tick) {
+    return recipe.isEmpty() ? hand.get(cell) : shown(recipe.get(cell), tick);
   }
 
   /** An ingredient with many items shows each in turn. */
