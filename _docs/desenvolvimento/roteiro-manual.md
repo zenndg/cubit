@@ -1213,6 +1213,19 @@ Esta parte cobre o PR 4: o visual e os sons, em cinco entregas (pergunta 1771). 
 | 6 | Tire o card | Todas as peças somem, e ele volta ao Cubit sem trabalho. O painel solar reaparece |
 | 7 | Compare com o Cubit sem card e com o Pescador | Nenhuma peça do Patrulheiro aparece neles, e o chapéu e a mochila do Pescador continuam iguais |
 
+**Entrega 2, as animações.** Use o Cubit Elite com o card numa área marcada, com pontos de rota, e husks, com `/summon minecraft:husk`.
+
+| # | Faça | Espere |
+|---|---|---|
+| 8 | Deixe-o fazer a ronda e parar num ponto | Na parada, o braço da pistola sobe um pouco e desce ao retomar a caminhada |
+| 9 | Chame um husk a 10 blocos, à vista | O visor gira na dobradiça da frente e desce sobre o alto da tela, e a tela mostra os olhos decididos ciano com as marcas de mira nos cantos |
+| 10 | Deixe o husk chegar perto dele | A lâmina verde, com a ponta em cunha, aparece na garra esquerda do próprio Cubit e some quando ele volta a atirar de longe ou o combate acaba |
+| 11 | Mate o husk e espere uns 3 s sem ameaça | O visor sobe de volta ao topo do capacete, e a tela volta aos olhos normais |
+| 12 | Empurre-o de 10 blocos de altura | As asas abrem para trás e para baixo durante a queda e fecham ao tocar o chão |
+| 13 | Ponha um muro de 2 blocos sem passagem no caminho dele | As asas abrem no pulo de asa e fecham no pouso |
+| 14 | No escuro, com o visor baixado | Os olhos decididos e as marcas brilham, como os olhos normais |
+| 15 | Tire o card durante um combate | O visor, as asas e a lâmina somem com as outras peças, e a tela volta ao normal |
+
 ## Apresentação
 
 As regras estão em [`falas.md`](../conceito/falas.md#apresentação). Use um mundo novo no criativo, três Cubits novos da Engineering Desk ou do inventário criativo, um Induction Dock e um Cubit de um mundo da versão `0.1.1`, se houver.
@@ -1287,6 +1300,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 18:12 | Adiciona as animações do Patrulheiro, entrega 2 do PR 4 (perguntas 1780 e 1781). |
 | Zennd | 2026-11-22 17:55 | Adiciona o visual do Patrulheiro, entrega 1 do PR 4 (perguntas 1770, 1771 e 1776). |
 | Zennd | 2026-11-22 17:00 | Acrescenta a escolta recusada em outra dimensão (pergunta 1764). |
 | Zennd | 2026-11-22 16:09 | Adiciona o realismo do Patrulheiro, PR 3 (perguntas 1623 a 1756). |
