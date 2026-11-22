@@ -693,11 +693,13 @@ Não há perguntas pendentes nesta fase.
 | 1746 | Nos testes do desenvolvedor, o Cubit às vezes se perdia num teleporte longo do dono. O que fazer? | A causa é a distância da simulação: o teleporte do seguir roda no tick do Cubit, e num teleporte longo o chunk dele sai da simulação antes de ele ver o dono longe, sendo depois descarregado; pelo portal, o seguir só teleporta na mesma dimensão. Fica anotado para uma issue própria, depois do PR 3: no instante do teleporte do dono, o Cubit que segue e ainda está carregado vai junto, como no renascer (`RobotRespawn`), sem carregar chunk à força (regra 22). A dimensão diferente entra no refinamento dela |
 | 1747 | Ideias do desenvolvedor para o Tablet: a lista de todos os Cubits do dono, paginada, com busca pelo nome, filtros por profissão e a ordem pela última interação e depois pela ordem em que foram colocados; um botão que puxa o Cubit para o inventário de onde estiver; e o Tablet com tiers, que liberam as funcionalidades. Onde ficam? | Anotadas em `_docs/backlog.md`, criado para guardar as ideias do futuro, com o teleporte longo (1746) e o scanner do Minerador (1741). Nada está decidido: cada ideia vai ao refinamento quando entrar no roadmap |
 | 1748 | Ideia do desenvolvedor: ao colocar o Cubit no mundo, uma janela pede o nome dele, e sem nome ele se chama `Cubit` mais 8 caracteres do seu UUID. Onde fica? | Anotada em `_docs/backlog.md`, na seção Todo Cubit, sem nada decidido |
+| 1749 | O visual e os sons do Patrulheiro entram no PR 3? | Não: vão para um PR 4, com o modelo, as texturas, as animações, os efeitos, os sons e a textura do card, com rodada e autorização próprias. O PR 3 fecha com o comportamento. Muda a 1630 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:20 | Registra a resposta 1749. |
 | Zennd | 2026-11-22 23:00 | Registra a resposta 1748. |
 | Zennd | 2026-11-22 22:40 | Registra a resposta 1747. |
 | Zennd | 2026-11-22 22:20 | Registra a resposta 1746. |

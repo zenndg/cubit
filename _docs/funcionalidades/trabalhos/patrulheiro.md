@@ -2,7 +2,7 @@
 
 Conceito do trabalho de Patrulheiro Galático, que substitui o Defensor (#198). O documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui, com as exceções escritas abaixo.
 
-**Situação:** autorizado (perguntas 1591, 1613, 1632 e 1698). O conceito vem do desenvolvedor (perguntas 1550 a 1552) e foi refinado nas perguntas 1553 a 1697. O PR 1, com o comportamento, entrou no #238, o PR 2, com a rota e a ronda lenta, no #239, e o PR 3 traz o realismo e o visual. A prioridade é a mais alta, como a da Engineering Desk: cada detalhe do conceito e da aparência é decidido antes do código (pergunta 1560). Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
+**Situação:** autorizado (perguntas 1591, 1613, 1632 e 1698). O conceito vem do desenvolvedor (perguntas 1550 a 1552) e foi refinado nas perguntas 1553 a 1697. O PR 1, com o comportamento, entrou no #238, o PR 2, com a rota e a ronda lenta, no #239, o PR 3 traz o realismo, e o PR 4, o visual e os sons (pergunta 1749). A prioridade é a mais alta, como a da Engineering Desk: cada detalhe do conceito e da aparência é decidido antes do código (pergunta 1560). Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
 
 ## A ideia
 
@@ -268,16 +268,18 @@ Sons próprios em `.ogg`, descritos em [`sons.md`](../../conceito/sons.md#patrul
 
 ## Entrega
 
-Uma issue, a #198 renomeada, e três PRs testados no jogo (perguntas 1578, 1605 e 1630):
+Uma issue, a #198 renomeada, e quatro PRs testados no jogo (perguntas 1578, 1605, 1630 e 1749):
 
 1. **Comportamento:** as falas das cinco profissões, o card, a troca do Defensor, os tiers dos trabalhos, a ronda pelas bordas da área, a perseguição, os alvos, a escolta, o modo Agressivo no servidor, as armas com o dano, a lentidão, o empurrão e a cabeça, a armadura, o gasto, o planar, o salto, a receita e os GameTests, com um visual provisório.
 2. **Rota:** o modo travado na aba Defense, com o motivo, a rota no app Marcar, com as setas numeradas, a linha tracejada e o pacote `cubit:patrol_route`, e os GameTests da rota.
-3. **Visual e realismo:** o realismo da seção [Realismo](#realismo), os alvos novos, a equipe de Patrulheiros, as asas para se mover, a escolta marcada, as correções das perguntas 1635 a 1642, o refinamento final das perguntas 1685 a 1697, o modelo, as texturas, as animações, os efeitos e os sons, a partir das imagens e dos `.wav` aprovados.
+3. **Realismo:** o realismo da seção [Realismo](#realismo), os alvos novos, a equipe de Patrulheiros, as asas para se mover, a escolta marcada, as correções das perguntas 1635 a 1642, o refinamento final das perguntas 1685 a 1697, o XP como energia, as frases de apresentação de todo Cubit e o estado do Patrulheiro sincronizado com o cliente, que o visual vai ler.
+4. **Visual e sons:** o modelo, as texturas, as animações, os efeitos, os sons e a textura do card, a partir das imagens e dos `.wav` aprovados, com rodada e autorização próprias (pergunta 1749).
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:20 | Leva o visual e os sons a um PR 4 (pergunta 1749). |
 | Zennd | 2026-11-22 22:10 | Detalha o fim, as olhadas e os textos da escolta marcada (perguntas 1742 a 1744). |
 | Zennd | 2026-11-22 21:25 | Detalha a descida planando e o voo curto das asas (perguntas 1738 a 1740). |
 | Zennd | 2026-11-22 20:45 | Detalha a bola de fogo rebatida (perguntas 1734 e 1735). |
