@@ -32,6 +32,14 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
    - **Quando:** numa issue própria, depois do PR 3 do Patrulheiro.
    - **Em aberto:** o teleporte para outra dimensão.
 
+2. **Nome ao colocar o Cubit** (pergunta 1748).
+   - **A ideia:** ao colocar um Cubit no mundo, abre uma janela que pede o nome dele. Sem nome escolhido, ele se chama `Cubit` mais 8 caracteres do seu UUID.
+   - **Em aberto:**
+     - se a janela abre só na primeira colocação ou em toda colocação;
+     - como ela convive com as frases de apresentação da primeira colocação (perguntas 1672 a 1682);
+     - os Cubits que já existem nos mundos, que hoje podem não ter nome (regra 18);
+     - a regra do nome que o Tablet já aplica (`RobotName`).
+
 ## Profissões
 
 1. **Scanner de minérios só no Minerador** (pergunta 1741). Quando o Minerador começar, o scanner de minérios sai de todo Cubit e passa a ser só do Minerador, melhorado. Está anotado em [`trabalhos/minerador.md`](funcionalidades/trabalhos/minerador.md).
@@ -41,4 +49,5 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:00 | Acrescenta o nome pedido ao colocar o Cubit (pergunta 1748). |
 | Zennd | 2026-11-22 22:40 | Cria o backlog com as ideias do Tablet, do teleporte longo, do scanner do Minerador e do Explorador (perguntas 1741, 1746 e 1747). |
