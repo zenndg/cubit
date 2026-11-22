@@ -192,6 +192,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `PatrolSettings` | Os números do Patrulheiro que valem em todo tier: a chance e o tempo da lentidão, a chance da cabeça, a perseguição, a distância da troca de arma e a pausa em cada ponto |
 | `RoutePoint` | Um ponto da rota: o topo de um bloco sólido e a dimensão dele |
 | `PatrolRoute` | Os pontos da rota, na ordem em que foram marcados, percorridos em laço, sem ponto repetido e até o limite do tier |
+| `RouteMarking` | O que um clique do app Marcar faz na rota: desmarca um ponto marcado, ou marca o topo de um bloco sólido dentro da área, com o motivo da recusa; e o Shift, que tira o ponto clicado ou o último |
 | `PatrolProgress` | Onde o Cubit está na ronda: o ponto para onde vai e a pausa que ainda espera nele |
 | `WeaponChoice` | A arma que o Patrulheiro usa no alvo: a pistola de longe e no ar, a lâmina de perto e nenhuma no creeper que ele não pode alvejar |
 | `PatrolTargets` | O hostil que um Patrulheiro ataca: primeiro o que fere alguém, depois o mais perto de um protegido, sem repetir o alvo de outro Patrulheiro, salvo um hostil sozinho |
@@ -219,6 +220,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 - **Falas das profissões por perto:** um Cubit trabalhando fica longe do dono, então as falas do trabalho vão para o dono a até uma distância, mesmo sem segui-lo, com chance e intervalo, para uma fazenda grande não virar spam. O sorteio fica com quem chama (perguntas 1585 e 1586).
 - **Patrulheiro sempre Agressivo:** atacar primeiro é a essência do card, então o modo escolhido fica guardado e volta quando o card sai (pergunta 1566).
 - **Lâmina sem bateria:** só a pistola e o salto gastam energia, para ele nunca ficar sem defesa. Sem carga, ele não chega perto do creeper e fica entre ele e os protegidos (perguntas 1571 e 1595).
+- **Desmarcar vem antes de recusar:** um ponto marcado sai mesmo fora da área nova, para o player limpar uma rota antiga sem marcar a área de novo (pergunta 1611).
 - **Rota só na área:** os pontos fora da área ou de outra dimensão não valem, mas ficam guardados no NBT, e voltam a valer quando a área os inclui de novo (perguntas 1599 e 1602).
 - **Esfera, não cubo:** o canto de um cubo fica a cerca de 1,7 vez o raio, então só conta o que está a até o raio em linha reta. Os dois scanners usam a mesma regra (perguntas 604 e 606).
 - **Varredura por número:** a área numera os blocos, então uma varredura em fatias só guarda um número entre os ticks, sem alocar nada (regra 21).

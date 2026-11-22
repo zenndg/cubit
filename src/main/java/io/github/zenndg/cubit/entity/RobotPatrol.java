@@ -3,17 +3,22 @@ package io.github.zenndg.cubit.entity;
 import com.mojang.logging.LogUtils;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.PatrolProgress;
+import io.github.zenndg.cubit.domain.ownership.Ownership;
 import io.github.zenndg.cubit.domain.robot.PatrolRoute;
 import io.github.zenndg.cubit.domain.robot.RobotJob;
+import io.github.zenndg.cubit.domain.robot.RouteMarking;
 import io.github.zenndg.cubit.domain.robot.RoutePoint;
 import io.github.zenndg.cubit.domain.robot.WorkArea;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.slf4j.Logger;
 
 /**
@@ -46,6 +51,48 @@ public final class RobotPatrol {
   void setRoute(PatrolRoute next) {
     route = next;
     progress = progress.within(walkable().size());
+  }
+
+  /** How many points the tier keeps, from the config (answer 1579). */
+  public int limit() {
+    return robot.spec().jobs().patroller().routePoints();
+  }
+
+  /**
+   * A click of the owner with the Mark app: a marked point comes out, and the top of a solid block
+   * inside the area goes in at the end (answers 1579, 1599 and 1611). Nothing for anyone else.
+   */
+  public Optional<RouteMarking.Result> click(Player player, BlockPos pos) {
+    if (!Ownership.owns(robot.ownerId(), player.getUUID())) {
+      return Optional.empty();
+    }
+    Level level = player.level();
+    RoutePoint point = pointAt(level, pos);
+    boolean inside =
+        robot.workArea().area().filter(area -> area.isIn(point.dimension())).stream()
+            .anyMatch(area -> area.contains(point.x(), point.y(), point.z()));
+    boolean solid =
+        level.isLoaded(pos) && level.getBlockState(pos).isFaceSturdy(level, pos, Direction.UP);
+    RouteMarking.Click click =
+        new RouteMarking.Click(robot.workArea().area().isPresent(), inside, solid, point);
+    RouteMarking.Marked marked = RouteMarking.click(route, click, limit());
+    setRoute(marked.route());
+    return Optional.of(marked.result());
+  }
+
+  /** Shift and a click of the owner: the clicked point, or else the last one marked. */
+  public boolean unmark(Player player, Optional<BlockPos> clicked) {
+    if (!Ownership.owns(robot.ownerId(), player.getUUID())) {
+      return false;
+    }
+    Optional<PatrolRoute> next =
+        RouteMarking.unmark(route, clicked.map(pos -> pointAt(player.level(), pos)));
+    next.ifPresent(this::setRoute);
+    return next.isPresent();
+  }
+
+  private static RoutePoint pointAt(Level level, BlockPos pos) {
+    return new RoutePoint(RobotUnload.dimensionOf(level), pos.getX(), pos.getY(), pos.getZ());
   }
 
   /** The card of the Patroller is in the slot. */

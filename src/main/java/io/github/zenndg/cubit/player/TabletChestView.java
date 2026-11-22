@@ -9,6 +9,7 @@ import io.github.zenndg.cubit.entity.RobotUnload;
 import io.github.zenndg.cubit.network.CubitNetwork;
 import io.github.zenndg.cubit.network.DoorMarksPayload;
 import io.github.zenndg.cubit.network.OrganizerMarksPayload;
+import io.github.zenndg.cubit.network.PatrolRoutePayload;
 import io.github.zenndg.cubit.network.UnloadChestsPayload;
 import io.github.zenndg.cubit.registry.CubitEntities;
 import io.github.zenndg.cubit.registry.CubitItems;
@@ -26,10 +27,10 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 /**
- * Sends the marked chests of the Cubits of the player, with their slots, and the marks of its
- * Organizers, once a second while the player holds the Tablet, and clears them once when it leaves
- * the hand (answers 1090 to 1092 and 1297). Only loaded Cubits in the dimension of the player and
- * loaded chests count (rule 22).
+ * Sends the marked chests of the Cubits of the player, with their slots, the marks of its
+ * Organizers and the route of the chosen Patroller, once a second while the player holds the
+ * Tablet, and clears them once when it leaves the hand (answers 1090 to 1092 and 1297). Only loaded
+ * Cubits in the dimension of the player and loaded chests count (rule 22).
  */
 @EventBusSubscriber(modid = CubitMod.MOD_ID)
 public final class TabletChestView {
@@ -51,6 +52,7 @@ public final class TabletChestView {
       CubitNetwork.sendUnloadChests(player, UnloadChestsPayload.NONE);
       CubitNetwork.sendOrganizerMarks(player, OrganizerMarksPayload.NONE);
       CubitNetwork.sendDoorMarks(player, DoorMarksPayload.NONE);
+      CubitNetwork.sendPatrolRoute(player, PatrolRoutePayload.NONE);
     }
   }
 
@@ -77,6 +79,7 @@ public final class TabletChestView {
     CubitNetwork.sendUnloadChests(player, new UnloadChestsPayload(chests));
     CubitNetwork.sendOrganizerMarks(player, new OrganizerMarksPayload(marks(robots, dimension)));
     sendDoors(player, dimension);
+    CubitNetwork.sendPatrolRoute(player, TabletRouteView.of(player));
   }
 
   /** The doors the player marked, in its dimension, for the arrows of the Doors app. */

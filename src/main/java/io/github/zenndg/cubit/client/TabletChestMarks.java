@@ -130,8 +130,10 @@ public final class TabletChestMarks {
     line(buffers, camera, top.add(0, FIRST_LINE - LINE_GAP, 0), slots);
   }
 
-  private static void line(
-      MultiBufferSource.BufferSource buffers, Camera camera, Vec3 at, Component text) {
+  /**
+   * One line of text facing the camera, seen through blocks, also for the route of the Mark app.
+   */
+  static void line(MultiBufferSource.BufferSource buffers, Camera camera, Vec3 at, Component text) {
     Vec3 relative = at.subtract(camera.getPosition());
     PoseStack pose = new PoseStack();
     pose.translate(relative.x, relative.y, relative.z);
@@ -153,7 +155,7 @@ public final class TabletChestMarks {
         LightTexture.FULL_BRIGHT);
   }
 
-  private static boolean holdsTablet(LocalPlayer player) {
+  static boolean holdsTablet(LocalPlayer player) {
     return player.getMainHandItem().is(CubitItems.TABLET.get())
         || player.getOffhandItem().is(CubitItems.TABLET.get());
   }

@@ -29,6 +29,7 @@ public final class CubitNetwork {
   private static Consumer<OrganizerMarksPayload> organizerMarksDisplay = marks -> {};
   private static Consumer<DeathLogPayload> deathLogDisplay = log -> {};
   private static Consumer<DoorMarksPayload> doorMarksDisplay = doors -> {};
+  private static Consumer<PatrolRoutePayload> patrolRouteDisplay = route -> {};
   private static TabletRequests tabletRequests = TabletRequests.NONE;
 
   private CubitNetwork() {}
@@ -88,10 +89,15 @@ public final class CubitNetwork {
 
   /** The doors the player marked, for the arrows of the Doors app (answer 1371). */
   private static void registerDoorMarks(PayloadRegistrar registrar) {
-    registrar.playToClient(
-        DoorMarksPayload.TYPE,
-        DoorMarksPayload.STREAM_CODEC,
-        (payload, context) -> doorMarksDisplay.accept(payload));
+    registrar
+        .playToClient(
+            DoorMarksPayload.TYPE,
+            DoorMarksPayload.STREAM_CODEC,
+            (payload, context) -> doorMarksDisplay.accept(payload))
+        .playToClient(
+            PatrolRoutePayload.TYPE,
+            PatrolRoutePayload.STREAM_CODEC,
+            (payload, context) -> patrolRouteDisplay.accept(payload));
   }
 
   /** What the player asks from the Tablet, handled only for a player of the server. */
@@ -165,6 +171,11 @@ public final class CubitNetwork {
     organizerMarksDisplay = marks;
   }
 
+  /** On the client only: how the route of the chosen Patroller shows (answers 1580 and 1612). */
+  public static void setPatrolRouteDisplay(Consumer<PatrolRoutePayload> route) {
+    patrolRouteDisplay = route;
+  }
+
   /** On the client only: how the arrows over the marked doors show (answer 1371). */
   public static void setDoorMarksDisplay(Consumer<DoorMarksPayload> doors) {
     doorMarksDisplay = doors;
@@ -202,6 +213,10 @@ public final class CubitNetwork {
 
   public static void sendDoorMarks(ServerPlayer player, DoorMarksPayload doors) {
     send(player, doors);
+  }
+
+  public static void sendPatrolRoute(ServerPlayer player, PatrolRoutePayload route) {
+    send(player, route);
   }
 
   public static void sendDeathLog(ServerPlayer player, DeathLogPayload log) {

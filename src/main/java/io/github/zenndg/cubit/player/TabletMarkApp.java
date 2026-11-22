@@ -10,10 +10,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
 /**
- * The Mark app, for the chosen Organizer or Cook: a click on a block with an inventory, or on an
- * oven for the Cook, marks it with the face clicked, a click on a marked one unmarks it, and Shift
- * and a click anywhere take out the clicked block, or else the last one marked, as the Unload app
- * (answers 1296 and 1297).
+ * The Mark app, for the chosen Organizer or Cook, and the route of the Galactic Patroller in
+ * TabletRouteApp: a click on a block with an inventory, or on an oven for the Cook, marks it with
+ * the face clicked, a click on a marked one unmarks it, and Shift and a click anywhere take out the
+ * clicked block, or else the last one marked, as the Unload app (answers 1296 and 1297).
  */
 final class TabletMarkApp {
   private TabletMarkApp() {}
@@ -21,6 +21,10 @@ final class TabletMarkApp {
   static void click(ServerPlayer player, Optional<RobotEntity> chosen, TabletUse.Click click) {
     if (chosen.isEmpty()) {
       say(player, Component.translatable(TabletKeys.DOCK_NO_CUBIT));
+      return;
+    }
+    if (chosen.get().workArea().work().patrol().hasCard()) {
+      TabletRouteApp.click(player, chosen.get(), click);
       return;
     }
     RobotMarks marks = chosen.get().workArea().work().marks();
