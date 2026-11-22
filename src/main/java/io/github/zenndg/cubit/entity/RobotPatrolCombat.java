@@ -82,6 +82,22 @@ public final class RobotPatrolCombat {
     return busy() || armed() && threatNear;
   }
 
+  /**
+   * The battery of the return waits only for the fight and a hostile in its search: it skips the
+   * look at its owner and the investigation (answers 1689 and 1763).
+   */
+  boolean holdsTheReturn() {
+    return fighting() || armed() && threatNear;
+  }
+
+  /** Off to the Dock: back to the round, so neither the look nor the investigation is left. */
+  void leaveForTheDock() {
+    if (!fighting()) {
+      watch = PatrolWatch.START;
+      trail.clear();
+    }
+  }
+
   /** Where it walks to investigate: the last place it saw the hostile (answer 1624). */
   Optional<Vec3> investigationSpot() {
     return trail.lastSeen();

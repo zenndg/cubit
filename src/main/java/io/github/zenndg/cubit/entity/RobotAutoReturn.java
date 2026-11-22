@@ -26,6 +26,7 @@ public final class RobotAutoReturn implements RobotSwitch {
   private boolean switchedOn = true;
   private long nextCheck = Long.MIN_VALUE;
   private boolean told;
+  private boolean toldToDock;
 
   RobotAutoReturn(RobotEntity robot, RobotPreferredDock docks) {
     this.robot = robot;
@@ -63,17 +64,23 @@ public final class RobotAutoReturn implements RobotSwitch {
       return;
     }
     nextCheck = now + CubitMod.CONFIG.followRepathTicks();
+    // The escort of the Patroller also counts, so it goes back from it too (answer 1689).
     boolean following =
-        RobotInteractions.followedPlayer(robot) != null || robot.workArea().working();
+        RobotInteractions.followedPlayer(robot) != null
+            || robot.workArea().working()
+            || robot.workArea().work().escort().active();
     RobotPatrolCombat guard = robot.workArea().work().patrolCombat();
     AutoReturn rule = new AutoReturn(switchedOn, returnCharge());
     if (!rule.returns(
-        robot.powerState(), robot.battery(), following, onTrip, guard.holdsErrands())) {
+        robot.powerState(), robot.battery(), following, onTrip, guard.holdsTheReturn())) {
       told = false;
       return;
     }
     Optional<BlockPos> dock = docks.dockToGo();
-    dock.ifPresent(robot::callToDock);
+    dock.ifPresent(spot -> {
+      guard.leaveForTheDock();
+      robot.callToDock(spot);
+    });
     tell(dock.isPresent());
   }
 
@@ -99,10 +106,12 @@ public final class RobotAutoReturn implements RobotSwitch {
       return;
     }
     Player owner = RobotInteractions.onlineOwner(robot);
-    if (told || owner == null || !robot.chatter().switchedOn()) {
+    // A Dock found after the notice without one is told too, once (answer 1690).
+    if (owner == null || !robot.chatter().switchedOn() || told && toldToDock == toDock) {
       return;
     }
     told = true;
+    toldToDock = toDock;
     owner.displayClientMessage(
         Component.translatable(toDock ? HEADING_KEY : NO_DOCK_KEY, robot.getName()), true);
   }
