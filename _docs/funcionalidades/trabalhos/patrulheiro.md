@@ -65,7 +65,7 @@ Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e uma
 - **Tags:** `cubit:patroller_targets` acrescenta mobs que ele sempre ataca, e `cubit:patroller_ignores`, mobs que ele nunca ataca. A de ignorar vence, e os protegidos nunca entram (pergunta 1634).
 - **Protegidos:** o dono, os outros players, os robôs, os animais e os aldeões. Ele nunca os fere, e o globo e a lâmina passam por eles (perguntas 1558 e 1570).
 - **À vista:** um alvo novo da própria procura só é escolhido se estiver à vista, e um hostil atrás de uma parede só vira alvo quando aparece. Os alvos do chamado da equipe e do socorro valem sem a própria vista, porque um colega os vê (pergunta 1723).
-- **Prioridade:** primeiro o mob que está ferindo alguém, depois o mais próximo de um protegido (pergunta 1568).
+- **Prioridade:** primeiro uma bola de fogo de ghast indo para um protegido, depois o hostil mais perto de um Patrulheiro ferido, no socorro, depois o mob que está ferindo alguém e, por fim, o mais próximo de um protegido (perguntas 1568, 1691 e 1735).
 - **Vários Patrulheiros:** os do mesmo dono lutam juntos, como uma equipe (perguntas 1643 a 1646):
   1. **Mesmo alvo:** todos atacam o hostil de maior prioridade, um de cada vez, e só passam ao próximo quando ele cai ou sai do limite. Um hostil que passa a ferir alguém vira o alvo da equipe.
   2. **Chamado:** ao entrar em combate, um Patrulheiro avisa os outros do mesmo dono na mesma área ou a até 32 blocos. Áreas na mesma dimensão que se sobrepõem ou se encostam contam como a mesma (pergunta 1707). Quem não está lutando vem ajudar, mesmo com o hostil fora do próprio raio de procura, respeitando o próprio limite de perseguição. Na escolta, ele não deixa o dono para atender.
@@ -76,7 +76,7 @@ Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e uma
 
 ### Vida baixa
 
-Com a vida abaixo de 25%, ele luta com cautela: deixa o corpo a corpo, usa só a pistola, mantendo a distância da troca de arma, e recua para o lado do protegido mais próximo. Sem carga para atirar, usa a lâmina, para nunca ficar sem defesa. Volta ao normal quando a vida sobe, no Dock ou com a Recharge Splash (perguntas 1571 e 1686).
+Com a vida abaixo de 25%, ele luta com cautela: deixa o corpo a corpo, usa só a pistola, mantendo a distância da troca de arma, e, com o alvo a menos de 4 blocos, recua para o lado do protegido mais próximo ou, sem protegido por perto, se afasta do alvo. O recuo do creeper vem antes da cautela, e o cerco, depois. Sem carga para atirar, usa a lâmina, para nunca ficar sem defesa. Volta ao normal quando a vida sobe, no Dock ou com a Recharge Splash (perguntas 1571, 1686 e 1725).
 
 ### Bola de fogo
 
@@ -95,7 +95,7 @@ O comportamento de um vigia de verdade, decidido no início do PR 3 (perguntas 1
 3. **Conferir o dono:** ao abater o último hostil por perto, com o dono a até 16 blocos, ele vira a cabeça para o dono por 1 s, antes de investigar ou voltar (pergunta 1629).
 4. **Visor com calma:** depois do combate, o visor só sobe depois da investigação ou de 3 s sem ameaça (pergunta 1629).
 5. **Volta à ronda:** volta ao ponto da rota mais perto de onde está e segue a ordem a partir dele. Na ronda pelas bordas, volta ao canto mais perto (pergunta 1625).
-6. **Olhar para fora:** nas paradas das bordas, a varredura é feita de frente para fora da área e, nos cantos, de frente para a diagonal de fora. Nos pontos da rota, segue a direção em que andava (pergunta 1626).
+6. **Olhar para fora:** nas paradas das bordas, a varredura é feita de frente para fora da área, pela borda mais perto, e, a até 2 blocos de dois lados, como nos cantos, de frente para a diagonal de fora. Nos pontos da rota e na investigação, segue a direção em que andava (perguntas 1626 e 1724).
 7. **Guarda:** na parada, ele ergue um pouco o braço da pistola, apontada para onde olha, e o abaixa ao retomar a caminhada (pergunta 1627).
 8. **Ritmo variado:** cada parada sorteia entre 3 e 5 s, e cada trecho, entre 12 e 20 blocos (pergunta 1628).
 9. **Água:** ele nunca entra na água para perseguir. Contra um alvo na água, como o afogado e o guardião, atira da margem, com o alvo no alcance e à vista, e o globo não perde velocidade na água. Um alvo que só se alcança pela água, fora do alcance, conta como fugido, e ele investiga da margem. Se cair na água, luta de lá (pergunta 1693).
@@ -110,7 +110,7 @@ Seguindo o player, ele não patrulha, mas usa a pistola e a lâmina no lugar do 
 Além do dono, ele escolta quem o dono marcar no Tablet (perguntas 1655 a 1661):
 
 1. **Marcar:** com o Patrulheiro escolhido, o app novo `Escort` do Tablet, "Escolta" em português, em dourado (pergunta 1662), que só aparece quando o Cubit escolhido tem o card do Patrulheiro (pergunta 1664), marca o escoltado com um clique num player ou num mob. Um clique nele de novo, ou Shift + clique, desmarca.
-2. **Quem:** qualquer player, os protegidos (aldeões, animais e robôs) e os outros mobs que ele nunca ataca, como um golem ou um mob domesticado. Um mob que ele ataca não pode ser escoltado, e o Tablet avisa.
+2. **Quem:** qualquer player, os protegidos (aldeões, animais e robôs) e os outros mobs que ele nunca ataca, como um golem ou um mob domesticado. Um player ou mob de outra dimensão também não, com o aviso `%s only escorts in its own dimension` (pergunta 1764). Um mob que ele ataca não pode ser escoltado, e o Tablet avisa.
 3. **Como:** segue o escoltado com as regras do seguir, com a distância, o teleporte quando fica longe e as asas, e o protege como protege o dono, com a perseguição medida dele. Andando, a cada trecho sorteado da ronda, de 12 a 20 blocos, olha uma vez para cada lado sem parar. Quando o escoltado fica parado por 1 s, ele para e faz a varredura sorteada da parada (pergunta 1744).
 4. **Prioridade:** a escolta marcada vence a ronda e o seguir o dono. Cada Patrulheiro escolta um por vez, e vários podem escoltar o mesmo, como equipe.
 5. **Fim:** termina quando o dono desmarca, aperta o `Follow` do Tablet, ou quando o escoltado morre, muda de dimensão ou, sendo player, sai do jogo. Um mob num chunk descarregado não encerra a escolta: ele espera, e ela volta quando o mob carregar. Depois do fim, ele volta à ronda da área ou ao dono (pergunta 1742).
@@ -164,14 +164,14 @@ As duas armas são partes do modelo do Cubit com o card, sem item para o player 
 
 ## Bateria
 
-- **Retorno:** com o card, o retorno automático vale com 5% da bateria no Elite e 3% no Ultimate, no lugar da carga do tier. Ele termina o combate antes: espera não haver ameaça no raio de procura e vai direto ao Dock, sem investigar, também na escolta (perguntas 1688 e 1689).
+- **Retorno:** com o card, o retorno automático vale com 5% da bateria no Elite e 3% no Ultimate, no lugar da carga do tier. Ele termina o combate antes: espera não haver ameaça no raio de procura e vai direto ao Dock, sem conferir o dono e sem investigar, também na escolta (perguntas 1688, 1689 e 1763).
 - **Aviso:** na barra de ação do dono, com o nome do Cubit, `%s is low on power, heading to the Dock` ("%s está com pouca energia, indo ao Dock") e, sem Dock por perto, `%s is low on power and has no Dock` ("%s está com pouca energia e sem Dock"). Respeita a chave `Chatter`. Com o card, ele substitui o `I need to recharge` do retorno automático (perguntas 1690 e 1699).
 
 ## Drops e descarga
 
 - **Drops:** os drops de um mob que ele abate vão direto para o inventário dele, como a cabeça, enquanto couberem, sem depender do ímã nem do filtro de coleta. O resto cai no chão (perguntas 1570 e 1635).
 - **Abate do dono:** o abate conta como do dono, que ganha o XP e os drops que só caem quando um player mata, como se tivesse lutado (pergunta 1637).
-- **XP como energia:** com o dono online e a mais de 24 blocos, ou em outra dimensão, ele absorve o XP do próprio abate como energia, 50 FE por ponto, só os pontos que cabem na bateria, e o resto cai para o dono. Com o dono por perto, o XP cai como hoje. Com o dono offline, o jogo não derruba XP, e não há energia (perguntas 1728 a 1730 e 1733).
+- **XP como energia:** com o dono online e a mais de 24 blocos, ou em outra dimensão, ele absorve o XP do próprio abate como energia, 50 FE por ponto, só os pontos que cabem na bateria, e o resto cai para o dono. Com o dono por perto, o XP cai como hoje. Com o dono offline, o jogo não derruba XP, e não há energia. O abate é reconhecido pelo último que feriu o mob, porque o jogo guarda o último dano só depois do XP, então um mob ferido por ele que morra de outra causa logo depois também conta (perguntas 1728 a 1730, 1733 e 1759).
 - **Sem hibernar:** nunca hiberna por inventário cheio. Com o inventário cheio, segue protegendo, e os drops caem no chão. Só para sem bateria (perguntas 1570 e 1639).
 - **Descarga:** com baú marcado no app Descarga, descarrega quando não há ameaça. Um combate interrompe a ida ao baú e a busca de um item no chão, que voltam depois, e ele não começa uma descarga com um hostil no raio de procura (perguntas 1570 e 1640).
 
@@ -262,6 +262,7 @@ Sons próprios em `.ogg`, descritos em [`sons.md`](../../conceito/sons.md#patrul
 | App do Tablet | `escort` | O app Escort, só com o Patrulheiro escolhido (pergunta 1655) |
 | NBT da entidade | `EscortTarget` | O UUID do escoltado. Sem a chave, não há escolta. Não vai para o item (pergunta 1659) |
 | Pacote do servidor | `cubit:patrol_route` | Os pontos da rota do Cubit escolhido no Tablet, para as setas e a linha do app Marcar (pergunta 1612) |
+| Pacote do servidor | `cubit:escort_marks` | Os escoltados de cada Patrulheiro do dono, para as setas douradas do app Escort (pergunta 1661) |
 | Sons | Os eventos de `sons.md` | Disparo, estouro, lâmina, golpe, asas e visor |
 | Config, geral | `job_chatter_chance`, `job_chatter_interval_ticks` e `job_chatter_range` | As falas de todas as profissões: 20%, 2 min e 32 blocos (perguntas 1585 e 1586) |
 | Traduções | As frases de `falas.md` | As falas de entrada e do trabalho das cinco profissões, em inglês e português |
@@ -279,6 +280,7 @@ Uma issue, a #198 renomeada, e quatro PRs testados no jogo (perguntas 1578, 1605
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:58 | Completa a prioridade, a cautela, o olhar para fora, o XP, o retorno, a escolta de outra dimensão e o pacote da escolta (perguntas 1724, 1725, 1759, 1763, 1764 e 1765) |
 | Zennd | 2026-11-22 16:07 | Acrescenta ao Contrato as chaves da descida planando e da escolta parada (perguntas 1739, 1744 e 1757). |
 | Zennd | 2026-11-22 23:20 | Leva o visual e os sons a um PR 4 (pergunta 1749). |
 | Zennd | 2026-11-22 22:10 | Detalha o fim, as olhadas e os textos da escolta marcada (perguntas 1742 a 1744). |
