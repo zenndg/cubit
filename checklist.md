@@ -143,12 +143,13 @@ Um card por vez, na ordem do board "Cubit · Fase 5" (perguntas 1137, 1141 e 115
 21. [ ] Pecuarista (#201)
 22. [ ] Personalização visual por card (#202)
 23. [ ] Mecânico (#203)
-24. [ ] Alquimista (#204)
-25. [ ] Minerador, com a fornalha elétrica e a lanterna de cabeça (#199)
-26. [ ] Construtor (#200)
-27. [ ] Antena e carregamento de chunks (#205)
-28. [ ] Robot Server, log e viagem até o Dock (#206)
-29. [ ] Storage wireless (#207)
+24. [ ] Explorador, uma profissão nova, ainda sem issue (perguntas 1668 a 1670)
+25. [ ] Alquimista (#204)
+26. [ ] Minerador, com a fornalha elétrica e a lanterna de cabeça (#199)
+27. [ ] Construtor (#200)
+28. [ ] Antena e carregamento de chunks (#205)
+29. [ ] Robot Server, log e viagem até o Dock (#206)
+30. [ ] Storage wireless (#207)
 
 ## Ainda sem fase
 

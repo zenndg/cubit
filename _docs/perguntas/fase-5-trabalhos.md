@@ -612,11 +612,16 @@ Não há perguntas pendentes nesta fase.
 | 1665 | O que precisa estar nos documentos depois do refinamento do PR 3? | Tudo o que foi refinado, no `patrulheiro.md` e nos demais documentos que o citam, antes do código |
 | 1666 | Quais são as próximas profissões depois do Patrulheiro, e em que ordem? | Lenhador, uma profissão nova (pergunta 1594), Pecuarista, Mecânico e Alquimista, nesta ordem, e depois o Minerador e o Construtor. A personalização visual por card segue entre o Pecuarista e o Mecânico, como antes. Muda a ordem da pergunta 251 e das perguntas 1141 e 1146 |
 | 1667 | O conceito do Lenhador é criado agora? | Não: o Lenhador entra só no `ROADMAP.md`, no `checklist.md` e na ordem de entrega, e o conceito é criado quando o card começar. Cumpre o lembrete da 1594 |
+| 1668 | Há alguma ideia nova para registrar? | Sim, uma profissão nova, o Explorador: com o card no Cubit escolhido, o player ganha um app novo no Tablet, que lista os biomas da dimensão onde ele está (no Nether, os do Nether), e pode ser também o portal do End. O player escolhe um bioma, e o Cubit o guia até entrar nele. O Explorador também cria pontos de marcação onde está, com o nome escolhido pelo player e uma cor entre as do jogo. Na lista, o player localiza biomas ou marcações, com um filtro. O Explorador avisa quando começa o trajeto e quando está perto. Nada está decidido: os detalhes vão ao refinamento, quando o card começar |
+| 1669 | Onde o Explorador entra na ordem das profissões? | Depois do Mecânico: Patrulheiro, Lenhador, Pecuarista, personalização visual por card, Mecânico, Explorador, Alquimista, Minerador e Construtor. A recomendação, depois do Construtor, foi recusada. Detalha a 1666 |
+| 1670 | Como fica a anotação do Explorador? | Num arquivo de ideia, `_docs/funcionalidades/trabalhos/explorador.md`, com a ideia do desenvolvedor e a lista do que fica em aberto, sem nada decidido |
+| 1671 | Há mais alguma ideia para o Explorador? | Sim: enquanto anda guiando o player, ele gera mapas do jogo da região, aproveitando cada mapa da melhor forma. Nunca há mapa sobre mapa: cada mapa criado complementa os anteriores, sem repetir área. Isso só acontece quando há mapas em branco disponíveis no inventário. Nada está decidido: os detalhes vão ao refinamento. Detalha a 1668 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 13:40 | Registra as respostas 1668 a 1671. |
 | Zennd | 2026-11-22 13:10 | Registra as respostas 1666 e 1667. |
 | Zennd | 2026-11-22 11:00 | Registra as respostas 1622 a 1665. |
 | Zennd | 2026-11-22 10:45 | Registra a resposta 1621. |

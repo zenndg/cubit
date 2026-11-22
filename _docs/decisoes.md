@@ -107,6 +107,7 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 - **Asas do Patrulheiro para se mover (perguntas 1647 a 1650):** pula obstáculos até a altura do salto quando não há caminho a pé, atravessa vãos de até 4 e 6 blocos planando, desce planando de beiradas e nunca pousa em perigo, na ronda, no combate e na volta, nunca na escolta. Muda a 1597.
 - **Escolta marcada do Patrulheiro (perguntas 1653 a 1661):** as luzes das asas acendem em azul quando em uso, e ele usa as asas também seguindo o dono. Com o app novo Escort do Tablet, o dono marca um player ou um mob que ele não ataca, e o Patrulheiro o escolta como escolta o dono, olhando em volta, até o dono desmarcar, apertar o Follow ou o escoltado sumir. O escoltado fica no NBT, e um player escoltado recebe um aviso.
 - **Ordem das próximas profissões (perguntas 1666 e 1667):** depois do Patrulheiro, o Lenhador, uma profissão nova, o Pecuarista, o Mecânico e o Alquimista, e depois o Minerador e o Construtor. O conceito do Lenhador é criado quando o card começar.
+- **Explorador (perguntas 1668 a 1671):** uma profissão nova anotada, sem nada decidido: um app do Tablet que lista os biomas da dimensão e guia o player até o escolhido, com marcações nomeadas e coloridas, filtro, avisos e mapas do jogo gerados no caminho, sem sobrepor, com os mapas em branco do inventário. Entra depois do Mecânico, e a ideia está em [`explorador.md`](funcionalidades/trabalhos/explorador.md).
 - **Receita do Induction Dock:** em forma de L, com diamante, baú, ferro e redstone, conforme [`itens.md`](itens.md#induction-dock) (pergunta 1332).
 - **Receitas novas (perguntas 1330 a 1335, issue #219):** o Cubit, o Dock, o Tablet, os Modules e as Power Banks ganham as grades de [`itens.md`](itens.md#ids-e-receitas), com os mesmos IDs, tipos de receita e desbloqueios no livro. As do Cubit e das Power Banks mudam de novo com as peças de montagem (perguntas 1338 a 1351). A Ultimate Power Bank e o Ultimate Module ganham a carcaça escura de netherite, com os detalhes dourados mantidos.
 - **Conserto:** usa a `Toolbox` (`cubit:toolbox`), na grade do inventário ou na mesa de craft, num tipo de receita do mod, `cubit:robot_repair`, com os itens no JSON. Ela é consumida a cada conserto e empilha até 16. O robô sai com parte da vida, conforme [`tiers.md`](tiers.md#valores-gerais), e a bateria zerada.
@@ -198,6 +199,8 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 13:40 | Acrescenta os mapas ao resumo do Explorador (pergunta 1671). |
+| Zennd | 2026-11-22 13:30 | Resume a anotação do Explorador (perguntas 1668 a 1670). |
 | Zennd | 2026-11-22 13:10 | Resume a ordem das próximas profissões (perguntas 1666 e 1667). |
 | Zennd | 2026-11-22 12:35 | Resume a escolta marcada do Patrulheiro (perguntas 1653 a 1661). |
 | Zennd | 2026-11-22 12:15 | Resume as asas do Patrulheiro para se mover (perguntas 1647 a 1650). |

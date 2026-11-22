@@ -167,14 +167,15 @@ A Fase 5 é entregue como um kanban, no GitHub Project "Cubit · Fase 5", um car
 9. Pecuarista (#201)
 10. Personalização visual por card (#202)
 11. Mecânico (#203)
-12. Alquimista (#204)
-13. Minerador (#199)
-14. Construtor (#200)
-15. Antena e carregamento de chunks (#205)
-16. Robot Server, log e viagem até o Dock (#206)
-17. Storage wireless (#207)
+12. Explorador, uma profissão nova, ainda sem issue ([`explorador.md`](trabalhos/explorador.md))
+13. Alquimista (#204)
+14. Minerador (#199)
+15. Construtor (#200)
+16. Antena e carregamento de chunks (#205)
+17. Robot Server, log e viagem até o Dock (#206)
+18. Storage wireless (#207)
 
-A ordem segue a pergunta 251, mudada na 1666: depois do Patrulheiro, o Lenhador, o Pecuarista, o Mecânico e o Alquimista, e só então o Minerador e o Construtor.
+A ordem segue a pergunta 251, mudada na 1666: depois do Patrulheiro, o Lenhador, o Pecuarista, o Mecânico, o Explorador e o Alquimista, e só então o Minerador e o Construtor (perguntas 1666 e 1669).
 
 ## Pendente
 
@@ -186,6 +187,7 @@ A ordem segue a pergunta 251, mudada na 1666: depois do Patrulheiro, o Lenhador,
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 13:30 | Acrescenta o Explorador à ordem de entrega (perguntas 1668 a 1670). |
 | Zennd | 2026-11-22 13:10 | Troca a ordem de entrega dos trabalhos, com o Lenhador (perguntas 1666 e 1667). |
 | Zennd | 2026-11-22 13:00 | Registra as exceções do Patrulheiro na escolta e na hibernação (perguntas 1565, 1639 e 1655). |
 | Zennd | 2026-11-22 08:03 | Leva o Construtor, o Mecânico e o Alquimista para o Elite (pergunta 1598). |
