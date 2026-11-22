@@ -14,6 +14,7 @@ final class RobotSettings {
     robot.lampSwitch().setSwitchedOn(state.lampOn());
     robot.scanners().setSwitchedOn(state.scannersOn());
     robot.chatter().setSwitchedOn(state.chatterOn());
+    robot.chatter().setIntroduced(state.introduced());
     robot
         .scanners()
         .setOreFilter(state.oreFilter().fitting(robot.spec().scanners().oreFilterSlots()));
@@ -56,6 +57,7 @@ final class RobotSettings {
             robot.workArea().work().fishing().keepJunk(),
             robot.docking().unload().interval(),
             robot.workArea().work().organizing().mode()),
-        robot.speed().choice());
+        robot.speed().choice(),
+        robot.chatter().introduced());
   }
 }

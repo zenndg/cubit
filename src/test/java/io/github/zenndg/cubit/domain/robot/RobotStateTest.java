@@ -133,7 +133,8 @@ class RobotStateTest {
   void newRobotHasTheInitialChargeAndFullHealth() {
     RobotState state = RobotState.initial(RobotTier.BASE, SPEC, new Percentage(INITIAL_PERCENT));
 
-    assertEquals(new RobotState(RobotTier.BASE, INITIAL_ENERGY, MAX_HEALTH), state);
+    assertEquals(
+        new RobotState(RobotTier.BASE, INITIAL_ENERGY, MAX_HEALTH).withIntroduced(false), state);
   }
 
   @Test
@@ -212,7 +213,7 @@ class RobotStateTest {
     OreFilter filter = new OreFilter(List.of(new OreKind(DIAMOND_TAG)));
     RobotState state =
         new RobotState(
-            RobotTier.BASE, SOME_ENERGY, SOME_HEALTH, true, RobotColor.WHITE, false, filter);
+            RobotTier.BASE, SOME_ENERGY, SOME_HEALTH, true, RobotColor.WHITE, false, filter, true);
     RobotState repaired = state.damaged().repaired(SPEC, new Percentage(REPAIR_PERCENT));
 
     assertFalse(state.damaged().scannersOn());
@@ -240,7 +241,10 @@ class RobotStateTest {
             true,
             OreFilter.EMPTY,
             true,
-            DefenseMode.AGGRESSIVE);
+            DefenseMode.AGGRESSIVE,
+            true,
+            PickupSettings.INITIAL,
+            true);
 
     RobotState repaired = aggressive.damaged().repaired(SPEC, new Percentage(REPAIR_PERCENT));
 
@@ -266,7 +270,9 @@ class RobotStateTest {
             OreFilter.EMPTY,
             true,
             DefenseMode.PEACEFUL,
-            false);
+            false,
+            PickupSettings.INITIAL,
+            true);
 
     assertFalse(off.damaged().solarOn());
     assertFalse(off.damaged().repaired(SPEC, new Percentage(REPAIR_PERCENT)).solarOn());
@@ -319,5 +325,37 @@ class RobotStateTest {
             .withPickup(PickupSettings.INITIAL)
             .withWorkSettings(WorkSettings.INITIAL)
             .speed());
+  }
+
+  /** A new robot has not introduced itself yet, so its first placement speaks (1750). */
+  @Test
+  void aNewRobotIsNotIntroducedYet() {
+    assertFalse(
+        RobotState.initial(RobotTier.BASE, SPEC, new Percentage(INITIAL_PERCENT)).introduced());
+  }
+
+  /**
+   * What was saved before the introduction existed counts as introduced, and stays quiet (1679).
+   */
+  @Test
+  void olderSavesCountAsIntroduced() {
+    assertTrue(new RobotState(RobotTier.BASE, SOME_ENERGY, SOME_HEALTH).introduced());
+  }
+
+  @Test
+  void dyingRepairingAndTheOtherChangesKeepTheIntroduction() {
+    RobotState fresh = RobotState.initial(RobotTier.BASE, SPEC, new Percentage(INITIAL_PERCENT));
+    assertFalse(fresh.damaged().repaired(SPEC, new Percentage(REPAIR_PERCENT)).introduced());
+    assertFalse(
+        fresh
+            .withEnergy(SOME_ENERGY)
+            .withPickup(PickupSettings.INITIAL)
+            .withTorches(false)
+            .withAutoReturn(false)
+            .withUnload(false)
+            .withDeathPoint(false)
+            .withWorkSettings(WorkSettings.INITIAL)
+            .withSpeed(SpeedChoice.FULL)
+            .introduced());
   }
 }

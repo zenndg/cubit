@@ -27,7 +27,8 @@ public record RobotState(
     boolean unloadOn,
     boolean deathPointOn,
     WorkSettings workSettings,
-    SpeedChoice speed) {
+    SpeedChoice speed,
+    boolean introduced) {
   private static final String INVALID_HEALTH_MESSAGE = "Invalid robot health: ";
   private static final float MIN_PLACED_HEALTH = 1f;
 
@@ -39,7 +40,8 @@ public record RobotState(
 
   /**
    * The switches that came later start on, the ones of the jobs as at first (1191), and the speed
-   * whole (1266), also for what was saved before they existed.
+   * whole (1266), also for what was saved before they existed. Such a robot has been placed
+   * already, so it counts as introduced (1679).
    */
   public RobotState(
       RobotTier tier,
@@ -71,51 +73,11 @@ public record RobotState(
         true,
         true,
         WorkSettings.INITIAL,
-        SpeedChoice.FULL);
-  }
-
-  /** Pickup starts with its initial settings, also for what was saved before it existed. */
-  public RobotState(
-      RobotTier tier,
-      Energy energy,
-      float health,
-      boolean lampOn,
-      RobotColor color,
-      boolean scannersOn,
-      OreFilter oreFilter,
-      boolean chatterOn,
-      DefenseMode defenseMode,
-      boolean solarOn) {
-    this(
-        tier,
-        energy,
-        health,
-        lampOn,
-        color,
-        scannersOn,
-        oreFilter,
-        chatterOn,
-        defenseMode,
-        solarOn,
-        PickupSettings.INITIAL,
+        SpeedChoice.FULL,
         true);
   }
 
-  /** The solar panel starts switched on, also for what was saved before its switch existed. */
-  public RobotState(
-      RobotTier tier,
-      Energy energy,
-      float health,
-      boolean lampOn,
-      RobotColor color,
-      boolean scannersOn,
-      OreFilter oreFilter,
-      boolean chatterOn,
-      DefenseMode defenseMode) {
-    this(tier, energy, health, lampOn, color, scannersOn, oreFilter, chatterOn, defenseMode, true);
-  }
-
-  /** The robot starts peaceful, also for what was saved before the modes existed. */
+  /** Peaceful, with the solar panel and the torches on and the first pickup, as before them. */
   public RobotState(
       RobotTier tier,
       Energy energy,
@@ -126,7 +88,18 @@ public record RobotState(
       OreFilter oreFilter,
       boolean chatterOn) {
     this(
-        tier, energy, health, lampOn, color, scannersOn, oreFilter, chatterOn, DefenseMode.INITIAL);
+        tier,
+        energy,
+        health,
+        lampOn,
+        color,
+        scannersOn,
+        oreFilter,
+        chatterOn,
+        DefenseMode.INITIAL,
+        true,
+        PickupSettings.INITIAL,
+        true);
   }
 
   /** The lamp starts switched on, also for what was saved before the lamp existed. */
@@ -139,25 +112,15 @@ public record RobotState(
     this(tier, energy, health, lampOn, RobotColor.WHITE);
   }
 
-  /** The scanners start on and looking for nothing in particular, also for older saves. */
+  /** The scanners start on, looking for nothing in particular, and the chatter on, as before. */
   public RobotState(RobotTier tier, Energy energy, float health, boolean lampOn, RobotColor color) {
-    this(tier, energy, health, lampOn, color, true, OreFilter.EMPTY);
+    this(tier, energy, health, lampOn, color, true, OreFilter.EMPTY, true);
   }
 
-  /** The chatter starts on, also for what was saved before it existed. */
-  public RobotState(
-      RobotTier tier,
-      Energy energy,
-      float health,
-      boolean lampOn,
-      RobotColor color,
-      boolean scannersOn,
-      OreFilter oreFilter) {
-    this(tier, energy, health, lampOn, color, scannersOn, oreFilter, true);
-  }
-
+  /** A new robot has not been placed yet, so its first placement introduces it (1750). */
   public static RobotState initial(RobotTier tier, TierSpec spec, Percentage initialCharge) {
-    return new RobotState(tier, spec.newBattery(initialCharge).charge(), spec.maxHealth());
+    return new RobotState(tier, spec.newBattery(initialCharge).charge(), spec.maxHealth())
+        .withIntroduced(false);
   }
 
   /** What a robot keeps when it dies: the tier and the looks, without energy or health. */
@@ -179,7 +142,8 @@ public record RobotState(
         unloadOn,
         deathPointOn,
         workSettings,
-        speed);
+        speed,
+        introduced);
   }
 
   public RobotState repaired(TierSpec spec, Percentage health) {
@@ -200,7 +164,8 @@ public record RobotState(
         unloadOn,
         deathPointOn,
         workSettings,
-        speed);
+        speed,
+        introduced);
   }
 
   /**
@@ -224,7 +189,8 @@ public record RobotState(
         unloadOn,
         deathPointOn,
         workSettings,
-        speed);
+        speed,
+        introduced);
   }
 
   public RobotState withPickup(PickupSettings next) {
@@ -245,7 +211,8 @@ public record RobotState(
         unloadOn,
         deathPointOn,
         workSettings,
-        speed);
+        speed,
+        introduced);
   }
 
   public RobotState withTorches(boolean on) {
@@ -266,7 +233,8 @@ public record RobotState(
         unloadOn,
         deathPointOn,
         workSettings,
-        speed);
+        speed,
+        introduced);
   }
 
   public RobotState withAutoReturn(boolean on) {
@@ -287,7 +255,8 @@ public record RobotState(
         unloadOn,
         deathPointOn,
         workSettings,
-        speed);
+        speed,
+        introduced);
   }
 
   public RobotState withUnload(boolean on) {
@@ -308,7 +277,8 @@ public record RobotState(
         on,
         deathPointOn,
         workSettings,
-        speed);
+        speed,
+        introduced);
   }
 
   public RobotState withDeathPoint(boolean on) {
@@ -329,7 +299,8 @@ public record RobotState(
         unloadOn,
         on,
         workSettings,
-        speed);
+        speed,
+        introduced);
   }
 
   public RobotState withWorkSettings(WorkSettings on) {
@@ -350,7 +321,8 @@ public record RobotState(
         unloadOn,
         deathPointOn,
         on,
-        speed);
+        speed,
+        introduced);
   }
 
   /** The same robot walking at another percentage of its tier (answer 1266). */
@@ -372,6 +344,29 @@ public record RobotState(
         unloadOn,
         deathPointOn,
         workSettings,
+        next,
+        introduced);
+  }
+
+  public RobotState withIntroduced(boolean next) {
+    return new RobotState(
+        tier,
+        energy,
+        health,
+        lampOn,
+        color,
+        scannersOn,
+        oreFilter,
+        chatterOn,
+        defenseMode,
+        solarOn,
+        pickup,
+        torchesOn,
+        autoReturnOn,
+        unloadOn,
+        deathPointOn,
+        workSettings,
+        speed,
         next);
   }
 

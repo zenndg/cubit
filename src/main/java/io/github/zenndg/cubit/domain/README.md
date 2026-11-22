@@ -17,7 +17,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `RobotType` | Identifica o Cubit nos IDs e no config. O robô é único, e é um dado, identificado por um ID |
 | `RobotTier` | Nível de evolução: Base, Advanced, Elite e Ultimate. A `key` é o nome usado no config e nos saves. `next` é o tier seguinte, e `previous`, o que um Module desse tier exige |
 | `TierUpgrade` | O que um Module faz no robô: sobe o tier, pede o tier anterior primeiro ou encontra o robô já nesse tier ou acima |
-| `RobotState` | O que o robô guarda ao virar item: tier, energia, vida, a chave da lanterna, a cor, a chave dos scanners, o filtro de minérios, a chave das falas, o modo de defesa, a chave do painel solar, a coleta e as chaves das tochas, do retorno automático, da descarga e do local de morte. `damaged` e `repaired` dão o estado ao morrer e ao consertar |
+| `RobotState` | O que o robô guarda ao virar item: tier, energia, vida, a chave da lanterna, a cor, a chave dos scanners, o filtro de minérios, a chave das falas, o modo de defesa, a chave do painel solar, a coleta e as chaves das tochas, do retorno automático, da descarga e do local de morte, a velocidade e se o Cubit já se apresentou (`introduced`). O `initial` nasce sem a apresentação, e o que foi salvo antes dela conta como apresentado (perguntas 1679 e 1750). `damaged` e `repaired` dão o estado ao morrer e ao consertar |
 | `TierSpec` | Números de um tipo de robô num tier |
 | `ShockSpec` | O choque de um tier: dano, alcance, intervalo, custo, se atinge todos no alcance e os modos de defesa liberados. O Pacífico sempre está liberado. `NONE` é o tier sem choque |
 | `DefenseMode` | Quem o robô ataca: Pacífico, Contra-atacar, Agressivo ou Focus. A `key` é o nome usado no config e nos saves, e `INITIAL` é o Pacífico |
@@ -111,6 +111,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `DeathGuideSpec`, `DeathGuideProgress` e `DeathGuideStep` | Os números da guia, o quanto ela avançou e o próximo passo: andar, esperar o dono, chegar ou desistir (perguntas 1121, 1123 e 1126) |
 | `FollowCall` | Se o `Follow` do Tablet pode fazer o Cubit escolhido seguir o dono agora, ou por que não: já seguindo, sem carga ou em outra dimensão (perguntas 1073 a 1075) |
 | `TabletWheel` | Para que lado Shift + roda troca o app do Tablet. Sem rolagem vertical, como no mouse do macOS com Shift, vale a rolagem para o lado, com o sinal trocado, como na hotbar do jogo |
+| `IntroLink` | Quando o player viu o link da apresentação pela última vez, em ticks, com `NEVER` para nunca. O link só sai depois do temporizador, e um tempo anterior ao último link, como num outro mundo, o mostra de novo. Também diz se um endereço é seguro: só `https://`, com algo depois e sem espaços (perguntas 1674, 1677 e 1681) |
 | `RobotName` | O nome que o Tablet dá ao Cubit, com as regras da etiqueta: corta os espaços das pontas, aceita até 50 caracteres e, vazio, tira o nome (perguntas 1015 a 1017) |
 | `PickupSettings` | As chaves da coleta, do ímã e da busca e o filtro, que o item guarda |
 | `OreSignals` | Quais minérios avisam e qual deles o texto cita, a partir da lista dos raros |
@@ -213,6 +214,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 - **Animal abatido, às vezes:** a chance evita uma fala a cada animal numa fazenda, e um animal de estimação nunca vira piada (pergunta 587).
 - **Bioma por grupo:** só uma mudança de grupo conta, e um bioma sem grupo, como um rio, não muda nada, para o robô não repetir o comentário (pergunta 586).
 - **Reclamar uma vez:** ao se afastar, o dono só ouve de novo depois de o robô chegar perto, para não repetir a cada passo. Um salto além do teleporte não conta, porque não é o dono correndo (pergunta 585).
+- **Apresentação uma vez:** o Cubit fica apresentado antes de dizer qualquer coisa, então o que ficou quieto, pelo temporizador do link ou pela chave `Chatter` desligada, nunca fala depois (perguntas 1678 e 1753).
 - **Falas só com a expressão calma:** qualquer outra expressão indica algo mais importante, como um mob ou um dano.
 - **Sorteio fora do domínio:** o tempo da pesca e as chances da chuva e do céu são sorteados por quem chama, e o domínio só recebe os números. Assim ele continua sem dependências ocultas e testável sem relógio nem sorte (pergunta 1184).
 - **Recharge Splash aos poucos:** a dose é dividida a cada tick, e o último tick leva o que sobra, porque a energia é inteira e a soma precisa dar o total exato (regra 13 e pergunta 1415). O que não cabe na bateria cheia se perde, porque a mistura é uma fonte, como o painel, e não uma transferência entre duas baterias.

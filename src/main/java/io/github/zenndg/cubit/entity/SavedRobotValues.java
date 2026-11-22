@@ -53,6 +53,7 @@ final class SavedRobotValues {
   private static final String UNLOAD_INTERVAL_KEY = "UnloadIntervalMinutes";
   private static final String SPEED_KEY = "SpeedPercent";
   private static final String ORGANIZER_MODE_KEY = "OrganizerMode";
+  private static final String INTRODUCED_KEY = "Introduced";
   private static final int LOWEST_SPEED = 1;
   private static final String TORCH_SLOT_KEY = "TorchSlot";
   private static final String CARD_SLOT_KEY = "CardSlot";
@@ -92,6 +93,7 @@ final class SavedRobotValues {
     tag.putBoolean(DEATH_POINT_KEY, robot.state().deathPointOn());
     writeWorkSettings(tag, robot.state().workSettings());
     tag.putInt(SPEED_KEY, robot.state().speed().percent());
+    tag.putBoolean(INTRODUCED_KEY, robot.state().introduced());
     SavedPickup.write(tag, robot.state().pickup());
     robot
         .lastSafePosition()
@@ -191,14 +193,22 @@ final class SavedRobotValues {
             oreFilter(tag),
             chatterOn(tag),
             defenseMode(tag, robot),
-            solarOn(tag))
-        .withPickup(SavedPickup.read(tag))
-        .withTorches(!tag.contains(TORCHES_KEY) || tag.getBoolean(TORCHES_KEY))
+            solarOn(tag),
+            SavedPickup.read(tag),
+            !tag.contains(TORCHES_KEY) || tag.getBoolean(TORCHES_KEY))
         .withAutoReturn(!tag.contains(AUTO_RETURN_KEY) || tag.getBoolean(AUTO_RETURN_KEY))
         .withUnload(!tag.contains(UNLOAD_KEY) || tag.getBoolean(UNLOAD_KEY))
         .withDeathPoint(!tag.contains(DEATH_POINT_KEY) || tag.getBoolean(DEATH_POINT_KEY))
         .withWorkSettings(workSettings(tag).withOrganizerMode(organizerMode(tag, robot)))
-        .withSpeed(speed(tag, robot));
+        .withSpeed(speed(tag, robot))
+        .withIntroduced(introduced(tag));
+  }
+
+  /**
+   * Without the key, the robot was placed before the introduction existed, so it is quiet (1750).
+   */
+  private static boolean introduced(CompoundTag tag) {
+    return !tag.contains(INTRODUCED_KEY) || tag.getBoolean(INTRODUCED_KEY);
   }
 
   /** Without the key, the robot was saved before the control existed, so it walks at 100%. */

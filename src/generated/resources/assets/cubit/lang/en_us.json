@@ -582,6 +582,8 @@
   "notice.cubit.focus_target": "Target: %s",
   "notice.cubit.format": "Cubit: %s",
   "notice.cubit.hurt": "That hurts!",
+  "notice.cubit.intro.help": "Cubit: Happy to help you!",
+  "notice.cubit.intro.link": "Cubit: To learn everything I can do, visit: %s",
   "notice.cubit.items_unloaded": "Items unloaded",
   "notice.cubit.job.cook_entry.0": "Chef Cubit, at your service!",
   "notice.cubit.job.cook_entry.1": "The kitchen is open!",
