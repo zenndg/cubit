@@ -163,19 +163,18 @@ A Fase 5 é entregue como um kanban, no GitHub Project "Cubit · Fase 5", um car
 5. Organizador (#196)
 6. Cozinheiro (#197)
 7. Patrulheiro Galático, no lugar do Defensor (#198)
-8. Lenhador, uma profissão nova, ainda sem issue
-9. Pecuarista (#201)
-10. Personalização visual por card (#202)
-11. Mecânico (#203)
-12. Explorador, uma profissão nova, ainda sem issue ([`explorador.md`](trabalhos/explorador.md))
-13. Alquimista (#204)
-14. Minerador (#199)
-15. Construtor (#200)
-16. Antena e carregamento de chunks (#205)
-17. Robot Server, log e viagem até o Dock (#206)
-18. Storage wireless (#207)
+8. Servidor e Antenas, energia sem fio e carregamento de chunks (#205 e #206)
+9. Lenhador, uma profissão nova, ainda sem issue
+10. Pecuarista (#201)
+11. Personalização visual por card (#202)
+12. Mecânico (#203)
+13. Explorador, uma profissão nova, ainda sem issue ([`explorador.md`](trabalhos/explorador.md))
+14. Alquimista (#204)
+15. Minerador (#199)
+16. Construtor (#200)
+17. Storage wireless (#207)
 
-A ordem segue a pergunta 251, mudada na 1666: depois do Patrulheiro, o Lenhador, o Pecuarista, a personalização visual por card, o Mecânico, o Explorador e o Alquimista, e só então o Minerador e o Construtor (perguntas 1666 e 1669).
+A ordem segue a pergunta 251, mudada na 1666 e na 1777: depois do Patrulheiro, o Servidor e as Antenas, com a energia sem fio, que ainda vai ao refinamento, e o carregamento de chunks (perguntas 1777 a 1779), e então o Lenhador, o Pecuarista, a personalização visual por card, o Mecânico, o Explorador e o Alquimista, e só então o Minerador e o Construtor (perguntas 1666 e 1669).
 
 ## Pendente
 
@@ -187,6 +186,7 @@ A ordem segue a pergunta 251, mudada na 1666: depois do Patrulheiro, o Lenhador,
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 17:59 | Põe o Servidor e as Antenas, com a energia sem fio e o carregamento de chunks, logo depois do Patrulheiro (perguntas 1777 a 1779). |
 | Zennd | 2026-11-22 16:59 | Troca o Defensor pelo Patrulheiro e acrescenta a exceção do inventário cheio, a equipe e a personalização na ordem (perguntas 1639, 1643 e 1765) |
 | Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-22 13:30 | Acrescenta o Explorador à ordem de entrega (perguntas 1668 a 1670). |
