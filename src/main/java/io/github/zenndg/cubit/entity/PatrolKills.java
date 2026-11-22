@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.entity;
 
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.JobTalkTopic;
+import io.github.zenndg.cubit.domain.behavior.PatrolXp;
 import io.github.zenndg.cubit.domain.energy.Percentage;
 import io.github.zenndg.cubit.menu.RobotStorage;
 import io.github.zenndg.cubit.registry.CubitDamageTypes;
@@ -11,6 +12,7 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -18,11 +20,12 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
+import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
 
 /**
  * What a kill of the Galactic Patroller gives: a phrase, its drops and, with the blade, a chance of
- * the head of a mob the game has a head for, all into its inventory while they fit (answers 1559,
- * 1587 and 1635).
+ * the head of a mob the game has a head for, all into its inventory while they fit, and far from
+ * its owner the experience as energy (answers 1559, 1587, 1635 and 1728 to 1730).
  */
 @EventBusSubscriber(modid = CubitMod.MOD_ID)
 public final class PatrolKills {
@@ -65,6 +68,29 @@ public final class PatrolKills {
                   RobotStorage.insert(robot.inventory(), stack);
                   return stack.isEmpty();
                 }));
+  }
+
+  /**
+   * Far from its owner, the Patroller takes the experience of its kill as energy, the points that
+   * fit in its battery, and the rest falls for the owner as usual (answers 1728 to 1730).
+   */
+  @SubscribeEvent
+  public static void onExperience(LivingExperienceDropEvent event) {
+    DamageSource source = event.getEntity().getLastDamageSource();
+    if (source == null) {
+      return;
+    }
+    killer(source).ifPresent(robot -> absorb(robot, event));
+  }
+
+  private static void absorb(RobotEntity robot, LivingExperienceDropEvent event) {
+    PatrolXp xp = CubitMod.CONFIG.patrol().xp();
+    Player owner = RobotInteractions.onlineOwner(robot);
+    boolean ownerNear =
+        owner != null && owner.level() == robot.level() && xp.ownerNear(owner.distanceTo(robot));
+    PatrolXp.Absorbed taken = xp.absorb(event.getDroppedExperience(), robot.battery(), ownerNear);
+    robot.setBattery(taken.battery());
+    event.setDroppedExperience(event.getDroppedExperience() - taken.points());
   }
 
   /** The Patroller that killed with its weapons, on the server. */

@@ -5,6 +5,7 @@ import io.github.zenndg.cubit.domain.behavior.PatrolRules;
 import io.github.zenndg.cubit.domain.behavior.PatrolSettings;
 import io.github.zenndg.cubit.domain.behavior.PatrolTeam;
 import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
+import io.github.zenndg.cubit.domain.behavior.PatrolXp;
 import java.util.concurrent.atomic.AtomicBoolean;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.slf4j.Logger;
@@ -40,6 +41,12 @@ public final class PatrolSection {
   private static final String SEARCH_INTERVAL = "patroller_search_interval_ticks";
   private static final String KNOCKBACK_BASE = "patroller_blade_knockback_base";
   private static final String KNOCKBACK_STEP = "patroller_blade_knockback_step";
+  private static final String XP_ENERGY = "patroller_xp_energy";
+  private static final String XP_OWNER = "patroller_xp_owner_distance";
+  private static final int XP_ENERGY_DEFAULT = 50;
+  private static final int XP_ENERGY_MAX = 1000;
+  private static final int XP_OWNER_DEFAULT = 24;
+  private static final int XP_OWNER_MAX = 128;
   private static final int SEARCH_INTERVAL_DEFAULT = 10;
   private static final int SEARCH_INTERVAL_MAX = 200;
   private static final double KNOCKBACK_BASE_DEFAULT = 0.4;
@@ -164,6 +171,11 @@ public final class PatrolSection {
     return new PatrolRules.Knockback(fightKeys.knockbackBase.get(), fightKeys.knockbackStep.get());
   }
 
+  /** The experience of a kill as energy, far from the owner (answers 1728 to 1730). */
+  public PatrolXp xp() {
+    return new PatrolXp(fightKeys.xpEnergy.get(), fightKeys.xpOwner.get());
+  }
+
   private PatrolSettings.Round round() {
     int minTicks = stopMinTicks.get();
     int maxTicks = stopMaxTicks.get();
@@ -194,6 +206,8 @@ public final class PatrolSection {
     final ModConfigSpec.IntValue searchInterval;
     final ModConfigSpec.DoubleValue knockbackBase;
     final ModConfigSpec.DoubleValue knockbackStep;
+    final ModConfigSpec.IntValue xpEnergy;
+    final ModConfigSpec.IntValue xpOwner;
 
     FightKeys(ModConfigSpec.Builder builder) {
       alert = builder.defineInRange(ALERT, ALERT_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
@@ -213,6 +227,8 @@ public final class PatrolSection {
           builder.defineInRange(KNOCKBACK_BASE, KNOCKBACK_BASE_DEFAULT, MIN_ZERO, KNOCKBACK_MAX);
       knockbackStep =
           builder.defineInRange(KNOCKBACK_STEP, KNOCKBACK_STEP_DEFAULT, MIN_ZERO, KNOCKBACK_MAX);
+      xpEnergy = builder.defineInRange(XP_ENERGY, XP_ENERGY_DEFAULT, MIN_ZERO, XP_ENERGY_MAX);
+      xpOwner = builder.defineInRange(XP_OWNER, XP_OWNER_DEFAULT, MIN_ONE, XP_OWNER_MAX);
     }
   }
 }

@@ -672,13 +672,18 @@ Não há perguntas pendentes nesta fase.
 | 1725 | Como fica a cautela com a vida baixa (4d, 1686)? | O `WeaponChoice` recebe a cautela: abaixo de 25% da vida, com carga e o alvo no alcance, ele usa sempre a pistola, mesmo de perto, e sem poder atirar usa a lâmina (1571). Com o alvo a menos de 4 blocos, recua na direção do protegido mais perto, ou se afasta do alvo sem protegido por perto. O recuo do creeper vem antes, e o cerco depois. Nada a acrescentar (1631). Detalha a 1686 |
 | 1726 | A GameTest `thePistolShootsAFarHostile` prova o disparo pela energia gasta, mas andar também gasta energia. Ela é corrigida pela Regra do Escoteiro? | Sim, num commit próprio: ela passa a esperar o globo de laser no mundo |
 | 1727 | A GameTest `theBladeHitsANearHostile` usa um zumbi, que pega fogo com o sol. Ela é trocada pelo husk (Regra do Escoteiro)? | Sim, num commit próprio |
+| 1728 | Ideia do desenvolvedor: o XP de um abate do Patrulheiro vira energia para ele. Ele absorve o XP e deixa de cair para o dono? | Só quando o dono não está a até 24 blocos, inclusive offline ou em outra dimensão, no config, em `patroller_xp_owner_distance`. Com o dono por perto, o XP cai para ele, como hoje. Vale para o abate pelo globo ou pela lâmina, e os drops de player continuam caindo. Muda a 1637 só no XP |
+| 1729 | Quanto FE vale cada ponto de XP absorvido pelo Patrulheiro? | 50 FE por ponto, no config, em `patroller_xp_energy`, de 0 a 1.000, com 0 para desligar: um zumbi (5 XP) dá 250 FE, um quarto de um disparo. A recomendação, 20 FE, foi recusada. Detalha a 1728 |
+| 1730 | E com a bateria cheia, ou com a conversão desligada? | O XP cai para o dono: ele absorve só o que cabe na bateria, e o resto cai como hoje, então nada se perde. Detalha a 1728 |
 | 1731 | Creeper (1641): com carga, se o creeper acende perto de um protegido, mas o Patrulheiro já está fora do raio de 4 blocos, o que ele faz? | Segue atirando: o recuo é dele mesmo, só quando está dentro do raio, e ele continua atirando para derrubar o creeper antes da explosão. Sem carga, fica a 6 blocos do creeper, no caminho até o protegido mais próximo, como um escudo. Detalha a 1641 |
 | 1732 | Há algo a acrescentar à entrega 5 do PR 3, as correções (1635 a 1642)? | Nada a acrescentar (1631) |
+| 1733 | Com o dono offline, o jogo não derruba XP do mob, porque nenhum player o feriu. O que o Patrulheiro faz? | Nada, como no jogo: sem XP, não há energia. A absorção vale com o dono online e a mais de 24 blocos, ou em outra dimensão. Corrige a 1728, que citava o dono offline |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 20:10 | Registra as respostas 1728 a 1730 e 1733. |
 | Zennd | 2026-11-22 19:45 | Registra as respostas 1731 e 1732. |
 | Zennd | 2026-11-22 19:30 | Registra a resposta 1727. |
 | Zennd | 2026-11-22 18:20 | Registra as respostas 1724 a 1726. |

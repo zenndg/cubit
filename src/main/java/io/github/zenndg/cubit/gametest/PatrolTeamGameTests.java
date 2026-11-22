@@ -67,6 +67,11 @@ public final class PatrolTeamGameTests {
   private static final double FULL_TURN = 360;
   private static final int[] ROUTE_X = {2, 8, 14, 20};
   private static final double SPREAD_BLOCKS = 6;
+  private static final String ABSORBED = "Far from the owner the XP should become energy";
+  private static final String KEPT = "Near the owner the XP should fall for the owner";
+  private static final float ONE_SHOT = 1f;
+  private static final int OWNER_FAR_X = 60;
+  private static final int AFTER_DEATH = 5;
   private static final String TOGETHER = "The team should walk the round from apart points";
 
   private PatrolTeamGameTests() {}
@@ -209,5 +214,46 @@ public final class PatrolTeamGameTests {
       }
     }
     helper.succeedWhen(() -> helper.assertTrue(one.distanceTo(other) > SPREAD_BLOCKS, TOGETHER));
+  }
+
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void farFromTheOwnerTheXpBecomesEnergy(GameTestHelper helper) {
+    ServerPlayer owner = owner(helper);
+    patroller(helper, owner, NEAR_X, MIDDLE_Z, HEALTH);
+    BlockPos away = helper.absolutePos(new BlockPos(OWNER_FAR_X, STAND_Y, MIDDLE_Z));
+    owner.setPos(away.getX(), away.getY(), away.getZ());
+    killAndCountXp(helper, owner, true, ABSORBED);
+  }
+
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void nearTheOwnerTheXpFallsForTheOwner(GameTestHelper helper) {
+    ServerPlayer owner = owner(helper);
+    patroller(helper, owner, NEAR_X, MIDDLE_Z, HEALTH);
+    killAndCountXp(helper, owner, false, KEPT);
+  }
+
+  /**
+   * The orbs of XP appear when the mob is gone, so the count waits for it, and a near owner may
+   * have picked them already (answers 1728 to 1730).
+   */
+  private static void killAndCountXp(
+      GameTestHelper helper, ServerPlayer owner, boolean absorbed, String message) {
+    int before = owner.totalExperience;
+    onceTheTeamIsUp(
+        helper,
+        () -> {
+          Husk husk = hostile(helper, CLOSE_HOSTILE_X);
+          husk.setHealth(ONE_SHOT);
+          helper
+              .startSequence()
+              .thenWaitUntil(() -> helper.assertTrue(husk.isRemoved(), NOT_HIT))
+              .thenIdle(AFTER_DEATH)
+              .thenExecute(() -> {
+                boolean orbs = !helper.getEntities(EntityType.EXPERIENCE_ORB).isEmpty();
+                boolean fell = orbs || owner.totalExperience > before;
+                helper.assertTrue(fell != absorbed, message);
+              })
+              .thenSucceed();
+        });
   }
 }
