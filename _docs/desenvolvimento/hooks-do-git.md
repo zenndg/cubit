@@ -7,10 +7,10 @@ Os hooks ficam em `scripts/development/git-hooks/` e rodam em todo commit e todo
 Rode uma vez em cada clone:
 
 ```bash
-scripts/development/setup-dev.sh
+make setup
 ```
 
-O script baixa o gitleaks para `.tools/`, confere o checksum e aponta o `core.hooksPath` do repositório para os hooks. Nada é instalado fora do projeto. Por enquanto, só funciona em Linux x86_64.
+O `make setup` escolhe o script pelo sistema: `scripts/development/setup-dev.sh` no Linux x86_64 e `scripts/development/setup-dev-macos.sh` no macOS, com chip Apple (arm64) ou Intel (x86_64) (pergunta 1712). Os dois baixam o gitleaks para `.tools/`, conferem o checksum oficial e apontam o `core.hooksPath` do repositório para os hooks. Nada é instalado fora do projeto.
 
 ## O que cada hook faz
 
@@ -34,7 +34,7 @@ Os hooks rodam só na máquina local. Eles não bloqueiam merges feitos pelo Git
 
 - **O que faz:** procura senhas, tokens e chaves nas alterações antes do commit.
 - **Por que foi escolhido:** funciona como um único binário, sem depender de Java ou Gradle, que ainda não existiam no projeto quando ele foi adotado.
-- **Versão:** fixada em `scripts/development/setup-dev.sh`, com o checksum oficial.
+- **Versão:** fixada nos dois scripts de instalação, com o checksum oficial de cada sistema. Ao atualizar, mude a versão e os checksums nos dois juntos.
 
 ## Quando um gate reprova
 
@@ -44,7 +44,7 @@ Os hooks rodam só na máquina local. Eles não bloqueiam merges feitos pelo Git
 - **gitleaks:** remova o segredo do arquivo e troque-o, se ele já tiver sido exposto. O relatório oculta o valor. Em caso de falso positivo, consulte o desenvolvedor antes de criar qualquer exceção.
 - **Mensagem:** reescreva o título no formato `tipo(escopo opcional): descrição`, em português.
 - **Autoria:** remova a atribuição.
-- **gitleaks não encontrado:** rode `scripts/development/setup-dev.sh`.
+- **gitleaks não encontrado:** rode `make setup`.
 - **Build:** veja [`ferramentas-de-build.md`](ferramentas-de-build.md#quando-algo-reprova).
 - **GameTests:** veja [`ferramentas-de-build.md`](ferramentas-de-build.md#quando-algo-reprova). Se o log citar `invalid dist`, código comum referenciou uma classe de cliente: mova a referência para `client/`.
 - **Datagen:** se o `datagen/` mudou, rode `make data` e adicione `src/generated` ao commit. Se um arquivo gerado foi editado à mão, desfaça com `git restore src/generated` e leve a mudança para o `datagen/`, porque o cache da geração não sobrescreve a edição.
@@ -59,6 +59,7 @@ Ele exigiria aceitar o EULA em cada clone. As GameTests usam o mesmo alvo de ser
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Acrescenta o script do macOS (pergunta 1712). |
 | Marcelo Fabiano | 2026-11-05 21:02 | Avisa que o `pre-push` também roda ao apagar uma branch remota. |
 | Marcelo Fabiano | 2026-11-05 00:12 | Corrige o motivo da escolha do gitleaks. |
 | Marcelo Fabiano | 2026-11-04 23:45 | Limita o gate do histórico aos arquivos de `_docs/`. |

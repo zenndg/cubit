@@ -10,7 +10,7 @@ Rode uma vez em cada clone:
 make setup
 ```
 
-O script ativa os gates de commit e de push, descritos em [`hooks-do-git.md`](hooks-do-git.md).
+O comando escolhe o script do Linux ou do macOS e ativa os gates de commit e de push, descritos em [`hooks-do-git.md`](hooks-do-git.md).
 
 O `gh` precisa usar a conta `zenndg`:
 
@@ -206,6 +206,7 @@ O primeiro passo, separando o que está decidido do que está pendente.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Acrescenta o script do macOS (pergunta 1712). |
 | Marcelo Fabiano | 2026-11-19 20:48 | Troca a conta do `gh` para `zenndg` (resposta 1278). |
 | Marcelo Fabiano | 2026-11-13 10:30 | Exige que o agente dê o roteiro do teste manual na conversa. |
 | Marcelo Fabiano | 2026-11-13 09:20 | Adiciona o teste manual do desenvolvedor antes dos commits. |
