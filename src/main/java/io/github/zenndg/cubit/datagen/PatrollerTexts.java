@@ -27,6 +27,7 @@ final class PatrollerTexts {
   private static final String ESCORTING = "%s is escorting %s";
   private static final String ESCORT_STOPPED = "%s stopped the escort";
   private static final String NOT_ESCORTABLE = "%s attacks this mob, so it cannot escort it";
+  private static final String OTHER_DIMENSION = "%s only escorts in its own dimension";
   private static final String ESCORTING_YOU = "%s is escorting you";
   private static final String STOPPED_YOU = "%s stopped escorting you";
   private static final String HEADING = "%s is low on power, heading to the Dock";
@@ -50,6 +51,7 @@ final class PatrollerTexts {
     add.accept(TabletKeys.ESCORTING, ESCORTING);
     add.accept(TabletKeys.ESCORT_STOPPED, ESCORT_STOPPED);
     add.accept(TabletKeys.NOT_ESCORTABLE, NOT_ESCORTABLE);
+    add.accept(TabletKeys.ESCORT_OTHER_DIMENSION, OTHER_DIMENSION);
     add.accept(TabletKeys.ESCORTING_YOU, ESCORTING_YOU);
     add.accept(TabletKeys.STOPPED_ESCORTING_YOU, STOPPED_YOU);
   }

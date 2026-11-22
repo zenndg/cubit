@@ -56,7 +56,10 @@ public final class RobotEscort {
    * 1656 and 1658).
    */
   public boolean mark(LivingEntity entity) {
-    if (entity == robot || PatrolProtection.isTarget(robot, entity)) {
+    // In another dimension, nothing would ever end it, so it is refused (answer 1764).
+    if (entity == robot
+        || entity.level() != robot.level()
+        || PatrolProtection.isTarget(robot, entity)) {
       return false;
     }
     stop();
@@ -69,6 +72,20 @@ public final class RobotEscort {
   public void stop() {
     escortedHere().ifPresent(entity -> tell(entity, TabletKeys.STOPPED_ESCORTING_YOU));
     escorted = null;
+  }
+
+  /**
+   * A player escorted in another dimension ends the escort, as after a change while the Patroller
+   * was unloaded, which the event of the change did not reach (answers 1742 and 1764).
+   */
+  void checkTheDimension() {
+    if (escorted == null || robot.getServer() == null) {
+      return;
+    }
+    ServerPlayer player = robot.getServer().getPlayerList().getPlayer(escorted);
+    if (player != null && player.level() != robot.level()) {
+      endFor(player);
+    }
   }
 
   private void tell(LivingEntity entity, String key) {

@@ -30,6 +30,7 @@ final class PortuguesePatrollerTexts {
   private static final String ESCORTING = "%s está escoltando %s";
   private static final String ESCORT_STOPPED = "%s parou a escolta";
   private static final String NOT_ESCORTABLE = "%s ataca este mob, então não pode escoltá-lo";
+  private static final String OTHER_DIMENSION = "%s só escolta na própria dimensão";
   private static final String ESCORTING_YOU = "%s está escoltando você";
   private static final String STOPPED_YOU = "%s parou de escoltar você";
   private static final String HEADING = "%s está com pouca energia, indo ao Dock";
@@ -53,6 +54,7 @@ final class PortuguesePatrollerTexts {
     add.accept(TabletKeys.ESCORTING, ESCORTING);
     add.accept(TabletKeys.ESCORT_STOPPED, ESCORT_STOPPED);
     add.accept(TabletKeys.NOT_ESCORTABLE, NOT_ESCORTABLE);
+    add.accept(TabletKeys.ESCORT_OTHER_DIMENSION, OTHER_DIMENSION);
     add.accept(TabletKeys.ESCORTING_YOU, ESCORTING_YOU);
     add.accept(TabletKeys.STOPPED_ESCORTING_YOU, STOPPED_YOU);
   }

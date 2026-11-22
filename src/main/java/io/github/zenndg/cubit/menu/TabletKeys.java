@@ -80,6 +80,7 @@ public final class TabletKeys {
   public static final String ESCORTING = PREFIX + "escorting";
   public static final String ESCORT_STOPPED = PREFIX + "escort_stopped";
   public static final String NOT_ESCORTABLE = PREFIX + "not_escortable";
+  public static final String ESCORT_OTHER_DIMENSION = PREFIX + "escort_other_dimension";
   public static final String ESCORTING_YOU = PREFIX + "escorting_you";
   public static final String STOPPED_ESCORTING_YOU = PREFIX + "stopped_escorting_you";
   public static final String FOLLOW = PREFIX + "follow";

@@ -270,6 +270,7 @@
   "gui.cubit.tablet.doors.only_door": "Doors marks a door, a trapdoor or a fence gate",
   "gui.cubit.tablet.doors.unmarked": "Door unmarked",
   "gui.cubit.tablet.empty": "No Cubits placed",
+  "gui.cubit.tablet.escort_other_dimension": "%s only escorts in its own dimension",
   "gui.cubit.tablet.escort_stopped": "%s stopped the escort",
   "gui.cubit.tablet.escorting": "%s is escorting %s",
   "gui.cubit.tablet.escorting_you": "%s is escorting you",

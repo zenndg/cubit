@@ -32,6 +32,9 @@ final class TabletEscortApp {
     LivingEntity one = picked.get();
     if (chosen.workArea().work().escort().escorts(one.getUUID())) {
       stop(player, chosen);
+    } else if (one.level() != chosen.level()) {
+      player.displayClientMessage(
+          Component.translatable(TabletKeys.ESCORT_OTHER_DIMENSION, chosen.getName()), true);
     } else if (!chosen.workArea().work().escort().mark(one)) {
       player.displayClientMessage(
           Component.translatable(TabletKeys.NOT_ESCORTABLE, chosen.getName()), true);

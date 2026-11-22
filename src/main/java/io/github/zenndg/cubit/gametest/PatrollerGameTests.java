@@ -16,6 +16,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -28,6 +29,7 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -70,6 +72,8 @@ public final class PatrollerGameTests {
   private static final String ATTACKED = "The Patroller should have left the mob alone";
   private static final String NO_ALERT = "The Patroller should hold the alert before it shoots";
   private static final String NO_CHECK = "The Patroller should look at its owner after the kill";
+  private static final String NO_NETHER = "The test server should have the Nether";
+  private static final String ESCORTED_ELSEWHERE = "It should not escort in another dimension";
   private static final String NOT_SHOWN = "The client should see the round with the visor up";
   private static final String ALERT_NOT_SHOWN = "The client should see the alert, visor down";
   private static final float ONE_SHOT = 1f;
@@ -348,6 +352,18 @@ public final class PatrollerGameTests {
     helper.assertFalse(robot.workArea().work().escort().mark(husk), ESCORTED_A_TARGET);
     helper.assertTrue(robot.workArea().work().escort().mark(villager), NOT_ESCORTED);
     helper.assertTrue(robot.workArea().work().escort().escorts(villager.getUUID()), NOT_ESCORTED);
+    helper.succeed();
+  }
+
+  /** A mob of another dimension is refused, since nothing would end its escort (answer 1764). */
+  @GameTest(template = ARENA)
+  public static void itRefusesToEscortInAnotherDimension(GameTestHelper helper) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    RobotEntity robot = patroller(helper, owner);
+    ServerLevel nether = helper.getLevel().getServer().getLevel(Level.NETHER);
+    helper.assertTrue(nether != null, NO_NETHER);
+    Mob villager = EntityType.VILLAGER.create(nether);
+    helper.assertFalse(robot.workArea().work().escort().mark(villager), ESCORTED_ELSEWHERE);
     helper.succeed();
   }
 
