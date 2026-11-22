@@ -35,6 +35,8 @@ final class DeskCatalogOrder {
           CubitItems.POWER_BANK_CASING,
           CubitItems.BASE_POWER_CELL,
           CubitItems.ADVANCED_MODULE,
+          CubitItems.CARD_CASING,
+          CubitItems.CIRCUIT_BOARD,
           CubitItems.FISHER_CARD,
           CubitItems.FARMER_CARD,
           CubitItems.ORGANIZER_CARD,

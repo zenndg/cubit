@@ -24,20 +24,7 @@ Segue as regras dos outros cards: slot exclusivo, um por Cubit, sai sem perda e 
 
 ### Receita
 
-Com forma, em JSON gerado por datagen, na mesma família do card do Pescador (pergunta 1228):
-
-```text
-P C P
-R H R
-P R P
-```
-
-| Letra | Item | Quantidade |
-|---|---|---|
-| `P` | Papel | 4 |
-| `C` | Comparador | 1 |
-| `R` | Redstone | 3 |
-| `H` | Enxada de ferro | 1 |
+Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e uma enxada de ferro, em qualquer posição da grade da Engineering Desk. A carcaça, a placa e as receitas delas estão em [`itens.md`](../../itens.md#cards-de-trabalho) (perguntas 1228 e 1544).
 
 ## Como o player o põe para trabalhar
 
@@ -135,6 +122,7 @@ A reserva das plantas fica só na memória do servidor e não vai para o save.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 21:21 | Troca a receita do card pela receita comum dos cards (perguntas 1540 a 1545). |
 | Marcelo Fabiano | 2026-11-15 13:45 | Libera o fertilizante desde o Avançado e confirma que não há chave (perguntas 1248 e 1249). |
 | Marcelo Fabiano | 2026-11-15 13:25 | Troca a chave `Use bone meal` pelo slot de fertilizante, que aceita a tag `c:fertilizers` e se abastece no baú (perguntas 1243 a 1247). |
 | Marcelo Fabiano | 2026-11-15 12:45 | Acrescenta o graveto no chapéu de palha (pergunta 1242). |

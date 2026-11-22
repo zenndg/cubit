@@ -1,0 +1,22 @@
+{
+  "type": "cubit:engineering",
+  "category": "misc",
+  "desk_category": "cards",
+  "key": {
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "pattern": [
+    "QLQ",
+    "Q Q",
+    " L "
+  ],
+  "result": {
+    "count": 1,
+    "id": "cubit:ml_card_casing"
+  }
+}

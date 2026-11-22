@@ -45,17 +45,6 @@ final class CubitRecipeProvider extends RecipeProvider {
   private static final char CHEST = 'C';
   private static final String FROM_CASING_SUFFIX = "_from_casing";
   private static final char CORE = 'C';
-  private static final String FISHER_TOP_ROW = "PCP";
-  private static final String FISHER_MIDDLE_ROW = "RFR";
-  private static final String FISHER_BOTTOM_ROW = "PRP";
-  private static final char PAPER = 'P';
-  private static final char ROD = 'F';
-  private static final String FARMER_MIDDLE_ROW = "RHR";
-  private static final char HOE = 'H';
-  private static final String ORGANIZER_MIDDLE_ROW = "RFR";
-  private static final char HOPPER = 'F';
-  private static final String COOK_MIDDLE_ROW = "RSR";
-  private static final char SMOKER = 'S';
   private static final String HAS_DOCK = "has_dock";
   private static final String HAS_PANEL = "has_panel";
   private static final String PANEL_TOP_ROW = "GGG";
@@ -89,10 +78,7 @@ final class CubitRecipeProvider extends RecipeProvider {
     tablet(desk);
     modules(desk);
     powerBanks(desk);
-    fisherCard(desk);
-    farmerCard(desk);
-    organizerCard(desk);
-    cookCard(desk);
+    CubitCardRecipes.save(desk);
     recharge(desk);
     solarDock(desk);
     RechargeSplashRecipe.save(desk);
@@ -108,62 +94,6 @@ final class CubitRecipeProvider extends RecipeProvider {
         .define(REDSTONE, Items.REDSTONE)
         .define(OBSIDIAN, Items.OBSIDIAN)
         .unlockedBy(DeskRecipeData.FROM_START, DeskRecipeData.fromStart())
-        .save(output);
-  }
-
-  /** The card of the Fisher: a fishing rod, a comparator, redstone and paper (answer 1192). */
-  private void fisherCard(RecipeOutput output) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, CubitItems.FISHER_CARD.get())
-        .pattern(FISHER_TOP_ROW)
-        .pattern(FISHER_MIDDLE_ROW)
-        .pattern(FISHER_BOTTOM_ROW)
-        .define(PAPER, Items.PAPER)
-        .define(CORE, Items.COMPARATOR)
-        .define(REDSTONE, Items.REDSTONE)
-        .define(ROD, Items.FISHING_ROD)
-        .unlockedBy(HAS_ROBOT, has(CubitItems.GENERAL_ROBOT.get()))
-        .save(output);
-  }
-
-  /** The card of the Farmer, as the one of the Fisher with an iron hoe (answer 1228). */
-  private void farmerCard(RecipeOutput output) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, CubitItems.FARMER_CARD.get())
-        .pattern(FISHER_TOP_ROW)
-        .pattern(FARMER_MIDDLE_ROW)
-        .pattern(FISHER_BOTTOM_ROW)
-        .define(PAPER, Items.PAPER)
-        .define(CORE, Items.COMPARATOR)
-        .define(REDSTONE, Items.REDSTONE)
-        .define(HOE, Items.IRON_HOE)
-        .unlockedBy(HAS_ROBOT, has(CubitItems.GENERAL_ROBOT.get()))
-        .save(output);
-  }
-
-  /** The card of the Organizer, as the one of the Farmer with a hopper (answer 1299). */
-  private void organizerCard(RecipeOutput output) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, CubitItems.ORGANIZER_CARD.get())
-        .pattern(FISHER_TOP_ROW)
-        .pattern(ORGANIZER_MIDDLE_ROW)
-        .pattern(FISHER_BOTTOM_ROW)
-        .define(PAPER, Items.PAPER)
-        .define(CORE, Items.COMPARATOR)
-        .define(REDSTONE, Items.REDSTONE)
-        .define(HOPPER, Items.HOPPER)
-        .unlockedBy(HAS_ROBOT, has(CubitItems.GENERAL_ROBOT.get()))
-        .save(output);
-  }
-
-  /** The card of the Cook, as the one of the Farmer with a smoker (answer 1325). */
-  private void cookCard(RecipeOutput output) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, CubitItems.COOK_CARD.get())
-        .pattern(FISHER_TOP_ROW)
-        .pattern(COOK_MIDDLE_ROW)
-        .pattern(FISHER_BOTTOM_ROW)
-        .define(PAPER, Items.PAPER)
-        .define(CORE, Items.COMPARATOR)
-        .define(REDSTONE, Items.REDSTONE)
-        .define(SMOKER, Items.SMOKER)
-        .unlockedBy(HAS_ROBOT, has(CubitItems.GENERAL_ROBOT.get()))
         .save(output);
   }
 

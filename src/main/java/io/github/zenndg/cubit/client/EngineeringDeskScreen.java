@@ -152,7 +152,34 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
           .at(mouseX, mouseY, leftPos, topPos)
           .ifPresent(index -> catalog.tooltip(graphics, font, index, mouseX, mouseY));
       catalog.categoryTooltip(graphics, font, leftPos, topPos, mouseX, mouseY);
+      recipeTooltip(graphics, mouseX, mouseY);
     }
+  }
+
+  /**
+   * The name of an item of the recipe, in the grid or in the result, as in a slot (answer 1548).
+   */
+  private void recipeTooltip(GuiGraphics graphics, int mouseX, int mouseY) {
+    ItemStack item =
+        grid.at(mouseX, mouseY, leftPos, topPos)
+            .map(cell -> DeskGridView.markAt(cell, chosenMarks(), menu.marks(), playerTicks()))
+            .orElseGet(() -> overResult(mouseX, mouseY) ? chosenResult() : ItemStack.EMPTY);
+    if (!item.isEmpty()) {
+      graphics.renderTooltip(font, item, mouseX, mouseY);
+    }
+  }
+
+  private boolean overResult(int mouseX, int mouseY) {
+    int x = leftPos + RESULT_X;
+    int y = topPos + RESULT_Y;
+    return mouseX >= x
+        && mouseX < x + ScreenPainter.SLOT_SIZE
+        && mouseY >= y
+        && mouseY < y + ScreenPainter.SLOT_SIZE;
+  }
+
+  private long playerTicks() {
+    return minecraft.player == null ? 0 : minecraft.player.tickCount;
   }
 
   @Override
@@ -202,8 +229,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
         topPos + DeskGridView.Y - GRID_FRAME,
         gridSide,
         gridSide);
-    long tick = minecraft.player == null ? 0 : minecraft.player.tickCount;
-    grid.render(graphics, leftPos, topPos, chosenMarks(), menu.marks(), tick);
+    grid.render(graphics, leftPos, topPos, chosenMarks(), menu.marks(), playerTicks());
     BlueprintPainter.bar(
         graphics,
         new ScreenPainter.Box(leftPos + ARROW_X, topPos + ARROW_Y, ARROW_WIDTH, ARROW_HEIGHT),

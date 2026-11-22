@@ -53,6 +53,8 @@ final class DeskCategoryData {
           List.of(CubitItems.ADVANCED_MODULE, CubitItems.ELITE_MODULE, CubitItems.ULTIMATE_MODULE),
           DeskCategory.CARDS,
           List.of(
+              CubitItems.CARD_CASING,
+              CubitItems.CIRCUIT_BOARD,
               CubitItems.FISHER_CARD,
               CubitItems.FARMER_CARD,
               CubitItems.ORGANIZER_CARD,

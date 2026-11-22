@@ -355,6 +355,8 @@
   "item.cubit.general_robot_core": "Cubit Neural Core",
   "item.cubit.general_robot_treads": "Cubit Treads",
   "item.cubit.general_robot_visor": "Cubit Visor",
+  "item.cubit.ml_card_casing": "Card Casing",
+  "item.cubit.ml_circuit_board": "Circuit Board",
   "item.cubit.ml_cook": "Machine Learning: Cook",
   "item.cubit.ml_farmer": "Machine Learning: Farmer",
   "item.cubit.ml_fisher": "Machine Learning: Fisher",

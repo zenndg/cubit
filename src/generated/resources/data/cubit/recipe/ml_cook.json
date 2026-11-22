@@ -2,24 +2,16 @@
   "type": "cubit:engineering",
   "category": "misc",
   "desk_category": "cards",
-  "key": {
-    "C": {
-      "item": "minecraft:comparator"
+  "ingredients": [
+    {
+      "item": "cubit:ml_card_casing"
     },
-    "P": {
-      "item": "minecraft:paper"
+    {
+      "item": "cubit:ml_circuit_board"
     },
-    "R": {
-      "item": "minecraft:redstone"
-    },
-    "S": {
+    {
       "item": "minecraft:smoker"
     }
-  },
-  "pattern": [
-    "PCP",
-    "RSR",
-    "PRP"
   ],
   "result": {
     "count": 1,
