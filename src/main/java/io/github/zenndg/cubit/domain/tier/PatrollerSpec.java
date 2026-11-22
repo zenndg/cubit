@@ -19,7 +19,8 @@ public record PatrollerSpec(
       int slownessLevel,
       int bladeDamage,
       int bladeIntervalTicks,
-      int bladeKnockback) {
+      int bladeKnockback,
+      double bladeReach) {
     private static final String INVALID = "Invalid weapons of the Patroller: ";
     private static final String SEPARATOR = ", ";
 
@@ -30,7 +31,8 @@ public record PatrollerSpec(
           || slownessLevel < 1
           || bladeDamage < 0
           || bladeIntervalTicks < 1
-          || bladeKnockback < 0) {
+          || bladeKnockback < 0
+          || !(bladeReach > 0)) {
         throw new IllegalArgumentException(INVALID + pistolDamage + SEPARATOR + bladeDamage);
       }
     }
@@ -49,7 +51,7 @@ public record PatrollerSpec(
 
   public static final PatrollerSpec NONE =
       new PatrollerSpec(
-          new Weapons(0, 1, 1, Energy.ZERO, 1, 0, 1, 0), 0, 1, new Jump(0, Energy.ZERO), 0, 0);
+          new Weapons(0, 1, 1, Energy.ZERO, 1, 0, 1, 0, 1), 0, 1, new Jump(0, Energy.ZERO), 0, 0);
 
   private static final String INVALID = "Invalid Patroller numbers: armor ";
   private static final String RADIUS = ", radius ";

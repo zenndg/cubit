@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit.entity;
 
+import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.tier.PatrollerSpec;
 import io.github.zenndg.cubit.registry.CubitDamageTypes;
 import net.minecraft.core.particles.ParticleTypes;
@@ -14,8 +15,6 @@ import net.minecraft.world.entity.player.Player;
  * game stand in until the own sounds come (answer 1578).
  */
 final class RobotPatrolWeapons {
-  private static final double KNOCKBACK_PER_LEVEL = 0.5;
-  private static final double BASE_KNOCKBACK = 0.4;
   private static final int SPARKS = 6;
   private static final double SPARK_SPREAD = 0.2;
   private static final double SPARK_SPEED = 0.1;
@@ -57,7 +56,8 @@ final class RobotPatrolWeapons {
       target.setLastHurtByPlayer(owner);
     }
     if (target.hurt(CubitDamageTypes.plasmaBlade(robot), spec.weapons().bladeDamage())) {
-      double strength = BASE_KNOCKBACK + KNOCKBACK_PER_LEVEL * spec.weapons().bladeKnockback();
+      double strength =
+          CubitMod.CONFIG.patrol().knockback().strength(spec.weapons().bladeKnockback());
       target.knockback(strength, robot.getX() - target.getX(), robot.getZ() - target.getZ());
     }
     robot.swing(net.minecraft.world.InteractionHand.MAIN_HAND);

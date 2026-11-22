@@ -14,6 +14,11 @@ class PatrolRulesTest {
   private static final double SHIELD_KEEP = 6;
   private static final int SHIELD_KEEP_BLOCKS = 6;
   private static final double SHIELD_PRECISION = 1e-9;
+  private static final double PUSH_BASE = 0.4;
+  private static final double PUSH_STEP = 0.5;
+  private static final int PUSH_LEVEL = 2;
+  private static final double PUSH_AT_LEVEL = 1.4;
+  private static final double NEGATIVE_PUSH = -0.1;
   private static final int CHASE = 16;
   private static final int JUMP = 3;
   private static final double BLAST = 4;
@@ -82,5 +87,14 @@ class PatrolRulesTest {
     assertThrows(
         IllegalArgumentException.class,
         () -> new PatrolRules.CreeperDistances(0, SHIELD_KEEP_BLOCKS));
+  }
+
+  @Test
+  void theBladePushesWithABaseAndAStepPerLevel() {
+    PatrolRules.Knockback push = new PatrolRules.Knockback(PUSH_BASE, PUSH_STEP);
+    assertEquals(PUSH_BASE, push.strength(0), SHIELD_PRECISION);
+    assertEquals(PUSH_AT_LEVEL, push.strength(PUSH_LEVEL), SHIELD_PRECISION);
+    assertThrows(
+        IllegalArgumentException.class, () -> new PatrolRules.Knockback(NEGATIVE_PUSH, PUSH_STEP));
   }
 }

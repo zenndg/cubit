@@ -42,6 +42,21 @@ public final class PatrolRules {
         && check.heightAbove() <= check.jumpHeight();
   }
 
+  /** How hard the blade pushes: a base, and a step for each level of the tier (answer 1642). */
+  public record Knockback(double base, double step) {
+    private static final String INVALID_PUSH = "Invalid knockback of the blade: ";
+
+    public Knockback {
+      if (base < 0 || step < 0) {
+        throw new IllegalArgumentException(INVALID_PUSH + base);
+      }
+    }
+
+    public double strength(int level) {
+      return base + step * level;
+    }
+  }
+
   /** How far the blast of a creeper reaches and how far it keeps without a shot (1642). */
   public record CreeperDistances(int blast, int keepAway) {
     private static final String INVALID = "Invalid distances of the creeper: ";

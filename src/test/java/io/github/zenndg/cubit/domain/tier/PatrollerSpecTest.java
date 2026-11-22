@@ -28,6 +28,7 @@ class PatrollerSpecTest {
   private static final int JUMP_HEIGHT = 3;
   private static final int POINTS = 16;
   private static final int AREA = 64;
+  private static final double REACH = 2.5;
   private static final int TIER_AREA = 32;
   private static final int TIER_HEIGHT = 24;
   private static final PatrollerSpec.Weapons WEAPONS =
@@ -39,7 +40,8 @@ class PatrollerSpecTest {
           SLOWNESS,
           BLADE_DAMAGE,
           BLADE_TICKS,
-          KNOCKBACK);
+          KNOCKBACK,
+          REACH);
   private static final PatrollerSpec ELITE =
       new PatrollerSpec(
           WEAPONS, ARMOR, SEARCH, new PatrollerSpec.Jump(JUMP_HEIGHT, JUMP), POINTS, AREA);
@@ -92,7 +94,8 @@ class PatrollerSpecTest {
                 SLOWNESS,
                 BLADE_DAMAGE,
                 BLADE_TICKS,
-                KNOCKBACK));
+                KNOCKBACK,
+                REACH));
     assertThrows(IllegalArgumentException.class, () -> new PatrollerSpec.Jump(-1, JUMP));
   }
 }

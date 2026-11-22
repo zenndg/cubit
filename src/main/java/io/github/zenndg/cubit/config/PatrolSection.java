@@ -37,6 +37,14 @@ public final class PatrolSection {
   private static final String LOST_SIGHT = "patroller_lost_sight_ticks";
   private static final String CREEPER_BLAST = "patroller_creeper_blast";
   private static final String KEEP_AWAY = "patroller_keep_away";
+  private static final String SEARCH_INTERVAL = "patroller_search_interval_ticks";
+  private static final String KNOCKBACK_BASE = "patroller_blade_knockback_base";
+  private static final String KNOCKBACK_STEP = "patroller_blade_knockback_step";
+  private static final int SEARCH_INTERVAL_DEFAULT = 10;
+  private static final int SEARCH_INTERVAL_MAX = 200;
+  private static final double KNOCKBACK_BASE_DEFAULT = 0.4;
+  private static final double KNOCKBACK_STEP_DEFAULT = 0.5;
+  private static final double KNOCKBACK_MAX = 5;
   private static final int CREEPER_BLAST_DEFAULT = 4;
   private static final int CREEPER_BLAST_MAX = 16;
   private static final int KEEP_AWAY_DEFAULT = 6;
@@ -84,7 +92,7 @@ public final class PatrolSection {
   private final ModConfigSpec.IntValue callRange;
   private final ModConfigSpec.IntValue rescueRadius;
   private final ModConfigSpec.IntValue lowHealth;
-  private final WatchKeys watchKeys;
+  private final FightKeys fightKeys;
   private final AtomicBoolean warned = new AtomicBoolean();
 
   PatrolSection(ModConfigSpec.Builder builder) {
@@ -110,7 +118,7 @@ public final class PatrolSection {
     rescueRadius =
         builder.defineInRange(RESCUE_RADIUS, RESCUE_RADIUS_DEFAULT, MIN_ONE, RESCUE_RADIUS_MAX);
     lowHealth = builder.defineInRange(LOW_HEALTH, LOW_HEALTH_DEFAULT, MIN_ZERO, PERCENT_MAX);
-    watchKeys = new WatchKeys(builder);
+    fightKeys = new FightKeys(builder);
   }
 
   public PatrolSettings settings() {
@@ -134,16 +142,26 @@ public final class PatrolSection {
    */
   public PatrolWatch.Timings watch() {
     return new PatrolWatch.Timings(
-        watchKeys.alert.get(),
-        watchKeys.ownerCheck.get(),
-        watchKeys.ownerDistance.get(),
-        watchKeys.visorCalm.get(),
-        watchKeys.lostSight.get());
+        fightKeys.alert.get(),
+        fightKeys.ownerCheck.get(),
+        fightKeys.ownerDistance.get(),
+        fightKeys.visorCalm.get(),
+        fightKeys.lostSight.get());
   }
 
   /** The blast of a creeper and how far it keeps without a shot (answer 1642). */
   public PatrolRules.CreeperDistances creeper() {
-    return new PatrolRules.CreeperDistances(watchKeys.creeperBlast.get(), watchKeys.keepAway.get());
+    return new PatrolRules.CreeperDistances(fightKeys.creeperBlast.get(), fightKeys.keepAway.get());
+  }
+
+  /** How often it looks for a target, never on every tick (answer 1642 and rule 21). */
+  public int searchIntervalTicks() {
+    return fightKeys.searchInterval.get();
+  }
+
+  /** How hard the blade pushes (answer 1642). */
+  public PatrolRules.Knockback knockback() {
+    return new PatrolRules.Knockback(fightKeys.knockbackBase.get(), fightKeys.knockbackStep.get());
   }
 
   private PatrolSettings.Round round() {
@@ -162,8 +180,10 @@ public final class PatrolSection {
         Math.max(minDistance, maxDistance));
   }
 
-  /** The keys of the watch and of the creeper, kept apart so each part stays short. */
-  private static final class WatchKeys {
+  /**
+   * The keys of the watch, the creeper, the search and the blade, apart so each part stays short.
+   */
+  private static final class FightKeys {
     final ModConfigSpec.IntValue alert;
     final ModConfigSpec.IntValue ownerCheck;
     final ModConfigSpec.IntValue ownerDistance;
@@ -171,8 +191,11 @@ public final class PatrolSection {
     final ModConfigSpec.IntValue lostSight;
     final ModConfigSpec.IntValue creeperBlast;
     final ModConfigSpec.IntValue keepAway;
+    final ModConfigSpec.IntValue searchInterval;
+    final ModConfigSpec.DoubleValue knockbackBase;
+    final ModConfigSpec.DoubleValue knockbackStep;
 
-    WatchKeys(ModConfigSpec.Builder builder) {
+    FightKeys(ModConfigSpec.Builder builder) {
       alert = builder.defineInRange(ALERT, ALERT_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
       ownerCheck =
           builder.defineInRange(OWNER_CHECK, OWNER_CHECK_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
@@ -183,6 +206,13 @@ public final class PatrolSection {
       creeperBlast =
           builder.defineInRange(CREEPER_BLAST, CREEPER_BLAST_DEFAULT, MIN_ONE, CREEPER_BLAST_MAX);
       keepAway = builder.defineInRange(KEEP_AWAY, KEEP_AWAY_DEFAULT, MIN_ONE, KEEP_AWAY_MAX);
+      searchInterval =
+          builder.defineInRange(
+              SEARCH_INTERVAL, SEARCH_INTERVAL_DEFAULT, MIN_ONE, SEARCH_INTERVAL_MAX);
+      knockbackBase =
+          builder.defineInRange(KNOCKBACK_BASE, KNOCKBACK_BASE_DEFAULT, MIN_ZERO, KNOCKBACK_MAX);
+      knockbackStep =
+          builder.defineInRange(KNOCKBACK_STEP, KNOCKBACK_STEP_DEFAULT, MIN_ZERO, KNOCKBACK_MAX);
     }
   }
 }

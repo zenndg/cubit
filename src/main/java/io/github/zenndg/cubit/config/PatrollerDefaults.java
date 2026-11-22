@@ -10,7 +10,7 @@ import io.github.zenndg.cubit.domain.tier.PatrollerSpec;
 final class PatrollerDefaults {
   static final PatrollerSpec ELITE =
       new PatrollerSpec(
-          new PatrollerSpec.Weapons(5, 16, 20, new Energy(1_000), 1, 7, 12, 1),
+          new PatrollerSpec.Weapons(5, 16, 20, new Energy(1_000), 1, 7, 12, 1, 2.5),
           6,
           16,
           new PatrollerSpec.Jump(3, new Energy(500)),
@@ -18,7 +18,7 @@ final class PatrollerDefaults {
           64);
   static final PatrollerSpec ULTIMATE =
       new PatrollerSpec(
-          new PatrollerSpec.Weapons(7, 24, 12, new Energy(800), 2, 10, 10, 2),
+          new PatrollerSpec.Weapons(7, 24, 12, new Energy(800), 2, 10, 10, 2, 2.5),
           10,
           24,
           new PatrollerSpec.Jump(5, new Energy(400)),

@@ -31,8 +31,6 @@ import net.minecraft.world.phys.Vec3;
  * 1643, 1644 and 1691). The search runs on an interval, never on every tick (rule 21).
  */
 public final class RobotPatrolCombat {
-  private static final int SEARCH_TICKS = 10;
-  private static final double BLADE_REACH = 2.5;
   private static final double IN_AIR_BLOCKS = 1.5;
   private static final double GLIDE_FALL_SPEED = -0.12;
   private static final double JUMP_GRAVITY = 0.08;
@@ -126,7 +124,7 @@ public final class RobotPatrolCombat {
     }
     long now = robot.level().getGameTime();
     if (now >= nextSearch) {
-      nextSearch = now + SEARCH_TICKS;
+      nextSearch = now + CubitMod.CONFIG.patrol().searchIntervalTicks();
       search();
     }
     if (fighting()) {
@@ -278,7 +276,8 @@ public final class RobotPatrolCombat {
     WeaponChoice choice = weapon();
     if (choice == WeaponChoice.PISTOL) {
       weapons.shoot(target, spec(), now);
-    } else if (choice == WeaponChoice.BLADE && robot.distanceTo(target) <= BLADE_REACH) {
+    } else if (choice == WeaponChoice.BLADE
+        && robot.distanceTo(target) <= spec().weapons().bladeReach()) {
       weapons.swing(target, spec(), now);
     }
     if (choice != WeaponChoice.PISTOL) {
