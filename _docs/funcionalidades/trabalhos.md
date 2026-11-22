@@ -1,6 +1,6 @@
 # Trabalhos
 
-Conceito da Fase 5, planejada para depois da Fase 4. Nada aqui está implementado, e o documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). As decisões ficam em [`fase-5-trabalhos.md`](../perguntas/fase-5-trabalhos.md), nas perguntas 190 a 256 e 1136 a 1237. O conceito de cada trabalho fica na pasta [`trabalhos/`](trabalhos/) (pergunta 1148).
+Conceito da Fase 5, planejada para depois da Fase 4. Nada aqui está implementado, e o documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). As decisões ficam em [`fase-5-trabalhos.md`](../perguntas/fase-5-trabalhos.md), nas perguntas 190 a 256 e 1136 a 1237. O conceito de cada trabalho fica na pasta [`trabalhos/`](trabalhos/) (pergunta 1148).
 
 Números: [`tiers.md`](../tiers.md#trabalhos). Nomes e IDs previstos: [`itens.md`](../itens.md#previstos-na-fase-5).
 
@@ -185,6 +185,7 @@ A ordem segue a pergunta 251, com o Mecânico e o Alquimista no fim dos trabalho
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-22 08:03 | Leva o Construtor, o Mecânico e o Alquimista para o Elite (pergunta 1598). |
 | Zennd | 2026-11-21 23:14 | Acrescenta as falas das profissões (perguntas 1583 a 1590). |
 | Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |

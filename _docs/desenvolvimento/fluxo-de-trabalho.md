@@ -88,7 +88,7 @@ Use `git add` com os arquivos do plano, nunca `git add .`. Se um gate reprovar, 
 
 ### 9. Pull request
 
-Antes do push, atualize a branch com a de origem. Depois, abra o PR para a `develop`:
+Antes do push, atualize a branch com a de origem. Depois, execute e analise o que está em [`antes-do-pr.md`](antes-do-pr.md), com as GameTests, e só então abra o PR para a `develop` (regra 46):
 
 ```bash
 git push -u origin feature/{issue}-{slug}
@@ -101,7 +101,7 @@ A descrição do PR segue o template [`.github/pull_request_template.md`](../../
 
 - `Closes #n` na primeira linha;
 - o que muda;
-- a validação: os documentos conferidos e a evidência de cada um, os comandos, o teste numa instância limpa e no Iron Meridian e os checklists dos pilares;
+- a validação: os documentos conferidos e a evidência de cada um, as provas de [`antes-do-pr.md`](antes-do-pr.md), o teste numa instância limpa e no Iron Meridian e os checklists dos pilares;
 - como revisar ou testar;
 - o que ficou fora do escopo, quando houver.
 
@@ -115,7 +115,7 @@ O merge é feito no GitHub, somente pelo desenvolvedor.
 2. Atualize a `develop` local.
 3. Avalie se algum item de [`checklist.md`](../../checklist.md) deve ser marcado. A marcação entra num novo commit, no PR seguinte, nunca direto na `develop`.
 4. Peça autorização para apagar a branch da tarefa, local e remota, que não é mais necessária.
-5. Apresente no que vai atuar em seguida e pergunte se o desenvolvedor quer algum ajuste no roteiro das próximas tarefas (regra 52).
+5. Apresente no que vai atuar em seguida e pergunte se o desenvolvedor quer algum ajuste no roteiro das próximas tarefas (regra 53).
 
 ## O que precisa de autorização
 
@@ -206,6 +206,7 @@ O primeiro passo, separando o que está decidido do que está pendente.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:35 | Acrescenta o que vem antes do PR e a numeração nova das regras (perguntas 1715 e 1716). |
 | Zennd | 2026-11-22 16:30 | Acrescenta o script do macOS (pergunta 1712). |
 | Marcelo Fabiano | 2026-11-19 20:48 | Troca a conta do `gh` para `zenndg` (resposta 1278). |
 | Marcelo Fabiano | 2026-11-13 10:30 | Exige que o agente dê o roteiro do teste manual na conversa. |

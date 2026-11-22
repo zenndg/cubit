@@ -1,6 +1,6 @@
 # Construtor
 
-Conceito do trabalho de Construtor, da Fase 5.2. Nada aqui está implementado, e o documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área valem aqui.
+Conceito do trabalho de Construtor, da Fase 5.2. Nada aqui está implementado, e o documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área valem aqui.
 
 **Situação:** o comportamento base está decidido nas [perguntas 213 e 217](../../perguntas/fase-5-trabalhos.md). O tier mínimo, o Elite, está decidido na pergunta 1598, que muda a 1145. Os novos modos abaixo são proposta, e os detalhes em aberto são respondidos no refinamento do card (perguntas 1153 e 1154).
 
@@ -53,6 +53,7 @@ Cada item traz a recomendação atual, ainda sem resposta.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-22 08:03 | Leva o Construtor, o Mecânico e o Alquimista para o Elite (pergunta 1598). |
 | Marcelo Fabiano | 2026-11-14 20:25 | Leva o conceito de `tmp/fase5` para `_docs`, com as decisões da consolidação (perguntas 1145 a 1156). |
 | Marcelo Fabiano | 2026-11-13 11:43 | Cria o conceito do Construtor, com os modos das perguntas 213 e 217 e a proposta de Piso e Paredes no Ultimate. |

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Gates for every push: every check, the GameTests on a dedicated server and the generated files.
+# Gates for every push: every check and the generated files. The GameTests run by hand before a
+# pull request opens, as _docs/desenvolvimento/antes-do-pr.md says (answer 1711).
 set -euo pipefail
 
 root="$(git rev-parse --show-toplevel)"
 readonly root
 
 "${root}/gradlew" --project-dir "${root}" check
-"${root}/scripts/development/run-gametests.sh"
 "${root}/scripts/development/check-generated.sh"

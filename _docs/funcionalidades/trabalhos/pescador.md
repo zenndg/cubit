@@ -1,6 +1,6 @@
 # Pescador
 
-Conceito do trabalho de Pescador, da Fase 5.2, entregue no card #194. O documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui.
+Conceito do trabalho de Pescador, da Fase 5.2, entregue no card #194. O documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui.
 
 **Situação:** decidido. O comportamento base vem da [pergunta 248](../../perguntas/fase-5-trabalhos.md), o tier mínimo, o Avançado, da pergunta 1145, e o refinamento do card, das perguntas 1181 a 1204. Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
 
@@ -107,6 +107,7 @@ A reserva dos pontos fica só na memória do servidor e não vai para o save.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-21 21:21 | Troca a receita do card pela receita comum dos cards (perguntas 1540 a 1545). |
 | Marcelo Fabiano | 2026-11-15 09:30 | Troca a imagem conceito pela do visual novo (pergunta 1212). |
 | Marcelo Fabiano | 2026-11-14 23:10 | Fecha o refinamento do card #194, com as perguntas 1181 a 1204: o app Área, o ponto de pesca, o tempo e a tabela do jogo, a evolução por tier, o lixo, com a tag da pergunta 1207, a receita, o visual e o contrato. |

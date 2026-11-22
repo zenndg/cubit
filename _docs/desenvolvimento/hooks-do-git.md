@@ -1,6 +1,6 @@
 # Git hooks
 
-Os hooks ficam em `scripts/development/git-hooks/` e rodam em todo commit e todo push.
+Os hooks ficam em `scripts/development/git-hooks/` e rodam em todo commit e todo push. As GameTests não estão no push: rodam à mão antes de abrir um PR, como diz [`antes-do-pr.md`](antes-do-pr.md) (pergunta 1711).
 
 ## Como ativar
 
@@ -23,7 +23,6 @@ O `make setup` escolhe o script pelo sistema: `scripts/development/setup-dev.sh`
 | `commit-msg` | Mensagem | Título fora do Conventional Commits |
 | `commit-msg` | Autoria | Coautoria ou atribuição a uma IA. Citar uma ferramenta de IA como assunto da mudança é permitido |
 | `pre-push` | Build | Compilação, testes, arquitetura, cobertura, formatação ou análise estática reprovados, por meio de `./gradlew check` |
-| `pre-push` | GameTests | GameTest reprovada, ou mod que não carrega no servidor, como com uma classe de cliente, por meio de `scripts/development/run-gametests.sh` |
 | `pre-push` | Datagen | `src/generated` diferente do que a geração produz, por meio de `scripts/development/check-generated.sh` |
 
 O `pre-push` roda todos os gates também ao apagar uma branch remota, porque o script não diferencia esse caso.
@@ -46,7 +45,6 @@ Os hooks rodam só na máquina local. Eles não bloqueiam merges feitos pelo Git
 - **Autoria:** remova a atribuição.
 - **gitleaks não encontrado:** rode `make setup`.
 - **Build:** veja [`ferramentas-de-build.md`](ferramentas-de-build.md#quando-algo-reprova).
-- **GameTests:** veja [`ferramentas-de-build.md`](ferramentas-de-build.md#quando-algo-reprova). Se o log citar `invalid dist`, código comum referenciou uma classe de cliente: mova a referência para `client/`.
 - **Datagen:** se o `datagen/` mudou, rode `make data` e adicione `src/generated` ao commit. Se um arquivo gerado foi editado à mão, desfaça com `git restore src/generated` e leve a mudança para o `datagen/`, porque o cache da geração não sobrescreve a edição.
 
 Nunca use `--no-verify`.
@@ -59,6 +57,7 @@ Ele exigiria aceitar o EULA em cada clone. As GameTests usam o mesmo alvo de ser
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:35 | Tira as GameTests do push (pergunta 1711). |
 | Zennd | 2026-11-22 16:30 | Acrescenta o script do macOS (pergunta 1712). |
 | Marcelo Fabiano | 2026-11-05 21:02 | Avisa que o `pre-push` também roda ao apagar uma branch remota. |
 | Marcelo Fabiano | 2026-11-05 00:12 | Corrige o motivo da escolha do gitleaks. |

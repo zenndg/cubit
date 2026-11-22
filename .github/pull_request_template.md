@@ -14,11 +14,13 @@ Closes #
 
 **Comandos:**
 
-<!-- Informe os comandos que rodou e o resultado. Só cite o que rodou nesta versão da branch. -->
+<!-- As provas de _docs/desenvolvimento/antes-do-pr.md (regra 46 do AGENTS.md), sobre o último commit da branch, com o hash curto. Um item que não se aplica leva o motivo. -->
 
-- `./gradlew check --rerun-tasks`:
-- `make gametest`:
-- `make check-generated`:
+- Commit:
+- `make gametest` (`All N required tests passed`):
+- `./gradlew check --rerun-tasks` (`BUILD SUCCESSFUL` e a duração):
+- `make check-generated`, sem o cache:
+- `make gametest-coverage` (opcional):
 
 **Teste numa instância só com o mod e no Iron Meridian:**
 

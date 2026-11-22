@@ -1,6 +1,6 @@
 # Fazendeiro
 
-Conceito do trabalho de Fazendeiro, da Fase 5.2, entregue no card #195. O documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui.
+Conceito do trabalho de Fazendeiro, da Fase 5.2, entregue no card #195. O documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui.
 
 **Situação:** decidido. O comportamento base vem da [pergunta 204](../../perguntas/fase-5-trabalhos.md), o tier mínimo, o Avançado, da pergunta 1145, e o refinamento do card, das perguntas 1215 a 1249. Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
 
@@ -122,6 +122,7 @@ A reserva das plantas fica só na memória do servidor e não vai para o save.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-21 21:21 | Troca a receita do card pela receita comum dos cards (perguntas 1540 a 1545). |
 | Marcelo Fabiano | 2026-11-15 13:45 | Libera o fertilizante desde o Avançado e confirma que não há chave (perguntas 1248 e 1249). |
 | Marcelo Fabiano | 2026-11-15 13:25 | Troca a chave `Use bone meal` pelo slot de fertilizante, que aceita a tag `c:fertilizers` e se abastece no baú (perguntas 1243 a 1247). |
