@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.datagen;
 
 import io.github.zenndg.cubit.domain.robot.RobotJob;
+import io.github.zenndg.cubit.entity.RobotAutoReturn;
 import io.github.zenndg.cubit.menu.DefenseKeys;
 import io.github.zenndg.cubit.menu.TabletKeys;
 import io.github.zenndg.cubit.menu.WorkKeys;
@@ -20,6 +21,8 @@ final class PatrollerTexts {
   private static final String NO_AREA = "Mark the area first with the Area app";
   private static final String OUTSIDE = "Only inside the area of %s";
   private static final String NOT_SOLID = "Mark the top of a solid block";
+  private static final String HEADING = "%s is low on power, heading to the Dock";
+  private static final String NO_DOCK = "%s is low on power and has no Dock";
 
   private PatrollerTexts() {}
 
@@ -33,5 +36,7 @@ final class PatrollerTexts {
     add.accept(TabletKeys.ROUTE_NO_AREA, NO_AREA);
     add.accept(TabletKeys.ROUTE_OUTSIDE_AREA, OUTSIDE);
     add.accept(TabletKeys.ROUTE_NOT_SOLID, NOT_SOLID);
+    add.accept(RobotAutoReturn.HEADING_KEY, HEADING);
+    add.accept(RobotAutoReturn.NO_DOCK_KEY, NO_DOCK);
   }
 }

@@ -11,7 +11,17 @@ import io.github.zenndg.cubit.domain.energy.PowerState;
  */
 public record AutoReturn(boolean switchedOn, Percentage returnCharge) {
   public boolean returns(PowerState state, Battery battery, boolean following, boolean onTrip) {
-    return switchedOn
+    return returns(state, battery, following, onTrip, false);
+  }
+
+  /**
+   * The Galactic Patroller ends the fight first: with a hostile in its search it waits, and goes to
+   * the Dock once nothing threatens (answer 1689).
+   */
+  public boolean returns(
+      PowerState state, Battery battery, boolean following, boolean onTrip, boolean onGuard) {
+    return !onGuard
+        && switchedOn
         && state == PowerState.ACTIVE
         && following
         && !onTrip

@@ -47,4 +47,11 @@ class AutoReturnTest {
     assertFalse(ON.returns(PowerState.HIBERNATING, AT_RETURN, true, false));
     assertFalse(ON.returns(PowerState.INACTIVE_EXHAUSTED, AT_RETURN, true, false));
   }
+
+  /** On guard, the Patroller ends the fight before it goes (answer 1689). */
+  @Test
+  void onGuardItWaitsForTheEndOfTheFight() {
+    assertFalse(ON.returns(PowerState.ACTIVE, AT_RETURN, true, false, true));
+    assertTrue(ON.returns(PowerState.ACTIVE, AT_RETURN, true, false, false));
+  }
 }

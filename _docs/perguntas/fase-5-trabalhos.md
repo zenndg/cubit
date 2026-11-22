@@ -681,11 +681,13 @@ Não há perguntas pendentes nesta fase.
 | 1734 | Para onde vai a bola de fogo do ghast rebatida pelo globo (1687)? | De volta ao ghast que a lançou, como quando um player acerta no tempo certo. Sem o ghast à vista, ela segue para onde o Patrulheiro olha, como no jogo. Detalha a 1687 |
 | 1735 | Como ele sabe que a bola de fogo vai para um protegido? | Uma bola de fogo no alcance da pistola, com o movimento a até 20° da direção de um protegido a até 32 blocos, inclusive ele mesmo, vira o alvo na hora, antes de qualquer hostil. O ângulo é uma regra do domínio, sem chave no config. Detalha a 1687 |
 | 1736 | Há algo a acrescentar à entrega 6 do PR 3, as armas (1687, 1695 e 1696)? | Nada a acrescentar (1631) |
+| 1737 | Há algo a acrescentar à entrega 7 do PR 3, a bateria: o retorno com 5% no Elite e 3% no Ultimate, a espera pelo fim do combate e o aviso na barra de ação no lugar do `I need to recharge`? | Nada a acrescentar (1631). A pergunta veio depois do código, por um esquecimento do agente |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 21:00 | Registra a resposta 1737. |
 | Zennd | 2026-11-22 20:45 | Registra as respostas 1734 e 1735. |
 | Zennd | 2026-11-22 20:30 | Registra a resposta 1736. |
 | Zennd | 2026-11-22 20:10 | Registra as respostas 1728 a 1730 e 1733. |

@@ -3,10 +3,13 @@ package io.github.zenndg.cubit.entity;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.RobotNotice;
 import io.github.zenndg.cubit.domain.dock.AutoReturn;
+import io.github.zenndg.cubit.domain.energy.Percentage;
 import io.github.zenndg.cubit.domain.energy.PowerState;
 import io.github.zenndg.cubit.menu.RobotSwitch;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 
 /**
  * The auto return: with a low battery, the Cubit that follows, or works in an area, goes to the
@@ -15,10 +18,14 @@ import net.minecraft.core.BlockPos;
  * (rule 21).
  */
 public final class RobotAutoReturn implements RobotSwitch {
+  public static final String HEADING_KEY = "notice.cubit.patroller_heading_to_dock";
+  public static final String NO_DOCK_KEY = "notice.cubit.patroller_no_dock";
+
   private final RobotEntity robot;
   private final RobotPreferredDock docks;
   private boolean switchedOn = true;
   private long nextCheck = Long.MIN_VALUE;
+  private boolean told;
 
   RobotAutoReturn(RobotEntity robot, RobotPreferredDock docks) {
     this.robot = robot;
@@ -58,14 +65,45 @@ public final class RobotAutoReturn implements RobotSwitch {
     nextCheck = now + CubitMod.CONFIG.followRepathTicks();
     boolean following =
         RobotInteractions.followedPlayer(robot) != null || robot.workArea().working();
-    AutoReturn rule = new AutoReturn(switchedOn, robot.spec().returnCharge());
-    if (!rule.returns(robot.powerState(), robot.battery(), following, onTrip)) {
+    RobotPatrolCombat guard = robot.workArea().work().patrolCombat();
+    AutoReturn rule = new AutoReturn(switchedOn, returnCharge());
+    if (!rule.returns(
+        robot.powerState(), robot.battery(), following, onTrip, guard.holdsErrands())) {
+      told = false;
       return;
     }
     Optional<BlockPos> dock = docks.dockToGo();
-    if (dock.isPresent()) {
-      robot.callToDock(dock.get());
-      robot.notices().show(RobotNotice.NEED_RECHARGE);
+    dock.ifPresent(robot::callToDock);
+    tell(dock.isPresent());
+  }
+
+  /**
+   * The Patroller keeps on guard longer, so it goes back at a lower charge of its own (answer
+   * 1688).
+   */
+  private Percentage returnCharge() {
+    return robot.workArea().work().patrol().hasCard()
+        ? robot.spec().jobs().patroller().returnCharge()
+        : robot.spec().returnCharge();
+  }
+
+  /**
+   * The Patroller tells its owner on the action bar, with its name, once, in place of the text of
+   * every Cubit, and only with its talk on (answers 1690 and 1699).
+   */
+  private void tell(boolean toDock) {
+    if (!robot.workArea().work().patrol().hasCard()) {
+      if (toDock) {
+        robot.notices().show(RobotNotice.NEED_RECHARGE);
+      }
+      return;
     }
+    Player owner = RobotInteractions.onlineOwner(robot);
+    if (told || owner == null || !robot.chatter().switchedOn()) {
+      return;
+    }
+    told = true;
+    owner.displayClientMessage(
+        Component.translatable(toDock ? HEADING_KEY : NO_DOCK_KEY, robot.getName()), true);
   }
 }

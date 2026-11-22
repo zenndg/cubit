@@ -630,6 +630,8 @@
   "notice.cubit.ore": "%s!!!",
   "notice.cubit.ore_found": "Minério encontrado",
   "notice.cubit.owner_hurt": "Cuidado!",
+  "notice.cubit.patroller_heading_to_dock": "%s está com pouca energia, indo ao Dock",
+  "notice.cubit.patroller_no_dock": "%s está com pouca energia e sem Dock",
   "notice.cubit.upgraded": "Evoluí para %s!",
   "notice.cubit.work_inventory_full": "Estou cheio e não tenho onde descarregar",
   "notice.cubit.work_no_water": "Não acho água para pescar aqui",

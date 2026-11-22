@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.config;
 
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.Percentage;
 import io.github.zenndg.cubit.domain.tier.PatrollerSpec;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
@@ -15,6 +16,7 @@ final class PatrollerKeys {
   private static final String JUMP_COST = "patroller_jump_cost";
   private static final String ROUTE_POINTS = "patroller_route_points";
   private static final String AREA_SIZE = "patroller_area_size";
+  private static final String RETURN_CHARGE = "patroller_return_charge_percent";
   private static final int MAX_AREA = 256;
   private static final int MIN_ZERO = 0;
   private static final int MIN_ONE = 1;
@@ -29,6 +31,7 @@ final class PatrollerKeys {
   private final ModConfigSpec.IntValue jumpCost;
   private final ModConfigSpec.IntValue routePoints;
   private final ModConfigSpec.IntValue areaSize;
+  private final ModConfigSpec.IntValue returnCharge;
 
   PatrollerKeys(ModConfigSpec.Builder builder, PatrollerSpec defaults) {
     weapons = new PatrollerWeaponKeys(builder, defaults.weapons());
@@ -40,6 +43,9 @@ final class PatrollerKeys {
             JUMP_COST, (int) defaults.jump().cost().amount(), MIN_ZERO, Integer.MAX_VALUE);
     routePoints = builder.defineInRange(ROUTE_POINTS, defaults.routePoints(), MIN_ZERO, MAX_POINTS);
     areaSize = builder.defineInRange(AREA_SIZE, defaults.areaSize(), MIN_ZERO, MAX_AREA);
+    returnCharge =
+        builder.defineInRange(
+            RETURN_CHARGE, defaults.returnCharge().value(), MIN_ZERO, Percentage.MAX);
   }
 
   PatrollerSpec read() {
@@ -49,6 +55,7 @@ final class PatrollerKeys {
         search.get(),
         new PatrollerSpec.Jump(jumpHeight.get(), new Energy(jumpCost.get())),
         routePoints.get(),
-        areaSize.get());
+        areaSize.get(),
+        new Percentage(returnCharge.get()));
   }
 }
