@@ -40,6 +40,18 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
      - os Cubits que já existem nos mundos, que hoje podem não ter nome (regra 18);
      - a regra do nome que o Tablet já aplica (`RobotName`).
 
+3. **XP em tanque de líquido** (pergunta 1762).
+   - **A ideia:** um inventário novo, de líquido: o XP dentro do Cubit vira um tanque de XP líquido, com as conversões iguais às do mod Industrial Foregoing. O tanque enche quando o Cubit faz algo que gera XP, como um player. Quando ele vai ao Dock, passa o XP para um tanque próprio do Dock, e o player, interagindo com o Dock, puxa o XP para si.
+   - **Em aberto:**
+     - a taxa de conversão entre ponto de XP e líquido, conferida no Industrial Foregoing, e como ela fica no config (regra 3);
+     - o mod funcionar sem o Industrial Foregoing (regra 50) e se o líquido conversa com os tanques de outros mods, pela capability de fluido do NeoForge;
+     - o que gera XP para o Cubit, além do abate do Patrulheiro;
+     - a convivência com o XP como energia do Patrulheiro (perguntas 1728 a 1730 e 1759);
+     - o tamanho do tanque por tier, no Cubit e no Dock;
+     - como o player puxa o XP do Dock: tudo de uma vez, por nível ou por quantidade;
+     - o tanque no item do Cubit e do Dock, nos saves (regra 18);
+     - o visual na tela do Cubit e do Dock.
+
 ## Profissões
 
 1. **Scanner de minérios só no Minerador** (pergunta 1741). Quando o Minerador começar, o scanner de minérios sai de todo Cubit e passa a ser só do Minerador, melhorado. Está anotado em [`trabalhos/minerador.md`](funcionalidades/trabalhos/minerador.md).
@@ -49,5 +61,6 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:34 | Acrescenta o XP em tanque de líquido, no Cubit e no Dock (pergunta 1762). |
 | Zennd | 2026-11-22 23:00 | Acrescenta o nome pedido ao colocar o Cubit (pergunta 1748). |
 | Zennd | 2026-11-22 22:40 | Cria o backlog com as ideias do Tablet, do teleporte longo, do scanner do Minerador e do Explorador (perguntas 1741, 1746 e 1747). |

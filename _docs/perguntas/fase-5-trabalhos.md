@@ -706,11 +706,13 @@ Não há perguntas pendentes nesta fase.
 | 1759 | A GameTest `farFromTheOwnerTheXpBecomesEnergy` mostrou que, no evento de XP, o jogo ainda não guardou o último dano, que é `null` num abate de um golpe, e o Patrulheiro nunca absorve o XP. Como o código reconhece o abate dele? | Pelo último que feriu o mob, o `getLastHurtByMob`, que o jogo guarda antes da morte: vale quando é um Patrulheiro com o card, que nunca usa o choque. Um mob ferido por ele que morra de outra causa logo depois também conta. A recomendação foi aceita. Detalha a 1728 |
 | 1760 | A GameTest `aFireballHeadingForItIsShotBack` mostrou que o globo, a 1,6 bloco por tick, atravessa a bola de fogo que vem na direção dele sem detectar o toque, porque num tick ele começa dentro da caixa dela. Como corrigir? | Além do teste do jogo, o globo confere se a caixa do próprio trajeto no tick encosta numa bola de fogo que ele pode acertar, só para a bola de fogo. A recomendação foi aceita. Detalha a 1687 |
 | 1761 | A GameTest `theTeamBesiegesTheTargetFromEverySide` falha porque o empurrão da lâmina prende o husk na parede da arena, e o Patrulheiro na pistola só se move pela volta do círculo (1718), o que a arena de 5 blocos de largura não permite. Como corrigir o teste? | O husk nasce a menos de 4 blocos dos dois, que lutam com a lâmina, e ganha resistência total ao empurrão. O teste continua exigindo mais de 120° entre os dois. A recomendação foi aceita |
+| 1762 | Ideia do desenvolvedor: um inventário novo de líquido, em que o XP dentro do Cubit vira um tanque de XP líquido, com as conversões iguais às do Industrial Foregoing, abastecido quando o Cubit faz algo que gera XP, como um player, e passado a um tanque próprio do Dock, de onde o player puxa o XP. Onde fica? | Anotada em `_docs/backlog.md`, na seção Todo Cubit, sem nada decidido |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:34 | Registra a resposta 1762. |
 | Zennd | 2026-11-22 16:32 | Registra as respostas 1759 a 1761. |
 | Zennd | 2026-11-22 16:07 | Registra as respostas 1757 e 1758. |
 | Zennd | 2026-11-22 16:02 | Registra a resposta 1756. |
