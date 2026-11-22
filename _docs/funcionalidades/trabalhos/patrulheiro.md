@@ -2,7 +2,7 @@
 
 Conceito do trabalho de Patrulheiro Galático, que substitui o Defensor (#198). O documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui, com as exceções escritas abaixo.
 
-**Situação:** em refinamento. O conceito vem do desenvolvedor (perguntas 1550 a 1552) e foi refinado nas perguntas 1553 a 1590. A prioridade é a mais alta, como a da Engineering Desk: cada detalhe do conceito e da aparência é decidido antes do código (pergunta 1560). Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
+**Situação:** autorizado (perguntas 1591 e 1613). O conceito vem do desenvolvedor (perguntas 1550 a 1552) e foi refinado nas perguntas 1553 a 1612. O PR 1, com o comportamento, entrou no #238, e o PR 2 traz a rota. A prioridade é a mais alta, como a da Engineering Desk: cada detalhe do conceito e da aparência é decidido antes do código (pergunta 1560). Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
 
 ## A ideia
 
@@ -40,14 +40,16 @@ Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e uma
 1. Põe o card no slot de um Cubit Elite ou Ultimate.
 2. Com o app Área do Tablet, marca a área que ele guarda, que pode ter o dobro do lado da área dos outros cards: até 64×64 no Elite e 128×128 no Ultimate, com a altura do tier, de 24 e 32 blocos (perguntas 1600 e 1601). Sem área, ele segue o dono e faz a escolta (perguntas 1565 e 1599).
 3. Com o app Marcar, marca os pontos da rota dentro da área, na ordem em que quer que ele passe (perguntas 1579 e 1599).
-4. Sem pontos marcados, ele patrulha a área de borda a borda (pergunta 1561).
+4. Sem pontos marcados, ele patrulha a área pelas bordas, no mesmo passo lento, parando em cada canto e a cada 16 blocos andados (perguntas 1561 e 1616).
 5. Para guardar os drops, marca um baú com o app Descarga, como nos outros cards (pergunta 1570).
 
 ### A rota
 
-- **Marcar:** com o card do Patrulheiro, o app Marcar marca o topo de qualquer bloco sólido dentro da área, na ordem dos cliques, até 16 pontos no Elite e 32 no Ultimate. Shift + clique desmarca, como hoje, e a ordem dos outros pontos se mantém (pergunta 1579).
-- **Ver:** com o Tablet na mão e o app Marcar aberto, cada ponto mostra uma seta com o número da ordem, e uma linha ciano tracejada liga os pontos em laço (pergunta 1580).
-- **Ritmo:** ele percorre os pontos em laço. Em cada um, para 2 s e vira a cabeça para os lados, procurando hostis (pergunta 1581).
+- **Marcar:** com o card do Patrulheiro, o app Marcar marca o topo de qualquer bloco sólido dentro da área, na ordem dos cliques, até 16 pontos no Elite e 32 no Ultimate. O clique num ponto marcado o desmarca, e Shift + clique desmarca o ponto clicado ou, fora de um ponto, o último, como hoje. A ordem dos outros pontos se mantém (perguntas 1579 e 1611).
+- **Avisos:** na barra de ação, sem área, `Mark the area first with the Area app`; fora da área, `Only inside the area of %s`; num bloco que não é sólido, `Mark the top of a solid block`; e ao marcar, `Point %s of %s marked for %s`, com o número do ponto, o limite e o nome do Cubit. Desmarcar, rota cheia e nenhum ponto usam os avisos de hoje do app Marcar (pergunta 1611).
+- **Ver:** com o Tablet na mão e o app Marcar aberto, cada ponto da rota do Cubit escolhido mostra uma seta com o número da ordem, e uma linha ciano tracejada liga os pontos em laço. Só a rota do Cubit escolhido aparece, para os números de rotas diferentes não se misturarem (perguntas 1580 e 1612).
+- **Ritmo:** ele percorre os pontos em laço, num passo de vigia, a 60% da velocidade normal. A perseguição e a volta à rota seguem na velocidade normal (pergunta 1614).
+- **Paradas:** ele para em cada ponto e a cada 16 blocos andados no caminho, e o contador zera a cada parada. Em cada parada, fica 4 s, vira a cabeça devagar para a esquerda e para a direita duas vezes, volta ao centro e retoma a caminhada. Um combate interrompe a parada (perguntas 1615, 1617 e 1618).
 - **Guardar:** os pontos ficam salvos no NBT do Cubit, mesmo sem o card, e voltam a valer quando o card volta. Ao recolher o Cubit, eles se perdem, como a área e as marcas do Organizador (perguntas 1582 e 1602).
 - **Chunks:** ele nunca entra em chunk descarregado. Um ponto num chunk descarregado é pulado até carregar de novo (regra 22).
 
@@ -55,7 +57,7 @@ Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e uma
 
 ### Quem ele ataca
 
-- **Modo:** só o Agressivo, enquanto tiver o card, porque atacar primeiro é a essência dele. A aba Defense mostra o modo travado, com o motivo, e ao tirar o card volta o modo que estava antes (pergunta 1566).
+- **Modo:** só o Agressivo, enquanto tiver o card, porque atacar primeiro é a essência dele. A aba Defense mostra o modo travado como um modo bloqueado pelo tier: o Agressivo marcado, e o Pacífico e o Contra-atacar escurecidos, com `Locked by the Galactic Patroller card` no lugar do detalhe. Ao tirar o card, volta o modo que estava antes (perguntas 1566 e 1610).
 - **Procura:** ataca qualquer mob hostil no raio de procura, em volta de onde está, e todo mob, hostil ou neutro, que ferir o próprio Cubit ou um protegido.
 - **Protegidos:** o dono, os outros players, os robôs, os animais e os aldeões. Ele nunca os fere, e o globo e a lâmina passam por eles (perguntas 1558 e 1570).
 - **Prioridade:** primeiro o mob que está ferindo alguém, depois o mais próximo de um protegido (pergunta 1568).
@@ -135,7 +137,9 @@ Os números ficam em [`tiers.md`](../../tiers.md#trabalhos), todos no config (pe
 | Salto: custo | 500 FE | 400 FE |
 | Pontos da rota | 16 | 32 |
 | Lado da área | 64 blocos | 128 blocos |
-| Pausa em cada ponto | 2 s | 2 s |
+| Velocidade da ronda | 60% | 60% |
+| Parada | 4 s | 4 s |
+| Blocos até a próxima parada | 16 | 16 |
 
 ## Visual
 
@@ -178,11 +182,11 @@ Sons próprios em `.ogg`, descritos em [`sons.md`](../../conceito/sons.md#patrul
 | Receita | `cubit:ml_patroller` | Card Casing, Circuit Board e estrela de fogo de artifício, liberada pelo Elite Module (pergunta 1576) |
 | Config, `allowed_jobs` | `patroller` | No lugar de `defender`, no Elite e no Ultimate (pergunta 1569) |
 | Config, por tier | `patroller_pistol_damage`, `patroller_pistol_range`, `patroller_pistol_interval_ticks`, `patroller_pistol_cost`, `patroller_slowness_level`, `patroller_blade_damage`, `patroller_blade_interval_ticks`, `patroller_blade_knockback`, `patroller_armor`, `patroller_search_radius`, `patroller_jump_height`, `patroller_jump_cost`, `patroller_route_points` e `patroller_area_size` | Os números por tier da tabela acima |
-| Config, geral | `patroller_slowness_chance`, `patroller_slowness_ticks`, `patroller_head_chance`, `patroller_chase_distance`, `patroller_weapon_switch_distance` e `patroller_point_pause_ticks` | 20%, 3 s, 50%, 16 blocos, 4 blocos e 2 s |
+| Config, geral | `patroller_slowness_chance`, `patroller_slowness_ticks`, `patroller_head_chance`, `patroller_chase_distance`, `patroller_weapon_switch_distance`, `patroller_stop_ticks`, `patroller_stop_distance` e `patroller_patrol_speed` | 20%, 3 s, 50%, 16 blocos, 4 blocos, 4 s, 16 blocos e 0,6 (perguntas 1614 a 1618) |
 | NBT da entidade | `PatrolRoute` | Os pontos da rota, em ordem. Sem a chave no save, a rota é vazia. Não vai para o item (perguntas 1582 e 1602) |
 | Entidade | `cubit:laser_orb` | O globo de laser da pistola |
 | Tipos de dano | `cubit:laser_orb` e `cubit:plasma_blade` | O dano das duas armas, com as mensagens de morte em inglês e em português |
-| Pacote do servidor | `cubit:patrol_route` | Os pontos da rota dos Cubits do player, para as setas e a linha do app Marcar |
+| Pacote do servidor | `cubit:patrol_route` | Os pontos da rota do Cubit escolhido no Tablet, para as setas e a linha do app Marcar (pergunta 1612) |
 | Sons | Os eventos de `sons.md` | Disparo, estouro, lâmina, golpe, asas e visor |
 | Config, geral | `job_chatter_chance`, `job_chatter_interval_ticks` e `job_chatter_range` | As falas de todas as profissões: 20%, 2 min e 32 blocos (perguntas 1585 e 1586) |
 | Traduções | As frases de `falas.md` | As falas de entrada e do trabalho das cinco profissões, em inglês e português |
@@ -199,6 +203,9 @@ Uma issue, a #198 renomeada, e três PRs testados no jogo (perguntas 1578 e 1605
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 11:00 | Troca a pausa nos pontos pela ronda lenta, com paradas nos pontos, nos cantos e a cada 16 blocos (perguntas 1614 a 1618). |
+| Zennd | 2026-11-22 10:40 | Atualiza a situação do conceito (pergunta 1613). |
+| Zennd | 2026-11-22 09:50 | Detalha a aba Defense travada, os cliques e os avisos do app Marcar e a rota só do Cubit escolhido (perguntas 1610 a 1612). |
 | Zennd | 2026-11-22 09:30 | Divide a entrega em três PRs (pergunta 1605). |
 | Zennd | 2026-11-22 08:40 | Deixa a rota só no NBT, sem o componente do item (pergunta 1602). |
 | Zennd | 2026-11-22 08:10 | Dobra o lado da área do Patrulheiro (pergunta 1600). |

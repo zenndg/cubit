@@ -98,6 +98,8 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 - **Área do Patrulheiro e altura do Elite (perguntas 1600 e 1601):** a área do Patrulheiro tem o dobro do lado, até 64×64 no Elite e 128×128 no Ultimate, e a altura máxima da área do Elite sobe de 16 para 24 blocos, para todos os cards.
 - **Rota do Patrulheiro só no NBT (pergunta 1602):** a rota fica no save da entidade, como a área e as marcas do Organizador, e se perde ao recolher o Cubit. Sai do item, onde ela não valeria sem a área.
 - **Entrega do Patrulheiro em três PRs (pergunta 1605):** o comportamento, sem a rota marcada; a rota no app Marcar com o modo travado na aba Defense; e o visual.
+- **Rota do Patrulheiro no Tablet (perguntas 1610 a 1612):** a aba Defense mostra o Pacífico e o Contra-atacar escurecidos, travados pelo card. O app Marcar marca e desmarca os pontos como hoje, com avisos para sem área, fora da área e bloco não sólido. As setas e a linha mostram só a rota do Cubit escolhido.
+- **Ronda lenta do Patrulheiro (perguntas 1614 a 1618):** na ronda, ele anda a 60% da velocidade e para em cada ponto, em cada canto da área e a cada 16 blocos andados, por 4 s, olhando duas vezes para cada lado. A perseguição segue na velocidade normal, e `patroller_point_pause_ticks` vira `patroller_stop_ticks`.
 - **Receita do Induction Dock:** em forma de L, com diamante, baú, ferro e redstone, conforme [`itens.md`](itens.md#induction-dock) (pergunta 1332).
 - **Receitas novas (perguntas 1330 a 1335, issue #219):** o Cubit, o Dock, o Tablet, os Modules e as Power Banks ganham as grades de [`itens.md`](itens.md#ids-e-receitas), com os mesmos IDs, tipos de receita e desbloqueios no livro. As do Cubit e das Power Banks mudam de novo com as peças de montagem (perguntas 1338 a 1351). A Ultimate Power Bank e o Ultimate Module ganham a carcaça escura de netherite, com os detalhes dourados mantidos.
 - **Conserto:** usa a `Toolbox` (`cubit:toolbox`), na grade do inventário ou na mesa de craft, num tipo de receita do mod, `cubit:robot_repair`, com os itens no JSON. Ela é consumida a cada conserto e empilha até 16. O robô sai com parte da vida, conforme [`tiers.md`](tiers.md#valores-gerais), e a bateria zerada.
@@ -189,6 +191,8 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 11:00 | Resume a ronda lenta do Patrulheiro (perguntas 1614 a 1618). |
+| Zennd | 2026-11-22 09:50 | Resume a rota do Patrulheiro no Tablet (perguntas 1610 a 1612). |
 | Zennd | 2026-11-22 09:45 | Aponta a consolidação da Fase 5 para o Elite do Construtor, do Mecânico e do Alquimista (pergunta 1608). |
 | Zennd | 2026-11-22 08:40 | Resume a rota do Patrulheiro só no NBT e a entrega em três PRs (perguntas 1602 e 1605). |
 | Zennd | 2026-11-21 23:02 | Resume o Patrulheiro Galático (perguntas 1550 a 1582). |

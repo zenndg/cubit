@@ -1133,6 +1133,31 @@ As regras estão em [`patrulheiro.md`](../funcionalidades/trabalhos/patrulheiro.
 | 17 | Com o Pescador, o Fazendeiro, o Organizador e o Cozinheiro, ponha cada card e trabalhe perto dele | Cada um fala uma frase de entrada e, às vezes, uma frase do trabalho, com a profissão no prefixo |
 | 18 | Com o jogo em português | `Aprendizado de Máquina: Patrulheiro Galático` e `Cubit (Patrulheiro Galático): ` no prefixo |
 
+### Rota do Patrulheiro
+
+Esta parte cobre o PR 2: a aba Defense travada e a rota no app Marcar. Use o mesmo Cubit Elite com o card, com uma área marcada, e o Tablet com ele escolhido.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Abra a aba Defense | Agressivo marcado. Pacífico e Contra-atacar escurecidos, com `Locked by the Galactic Patroller card`, e sem clique |
+| 2 | Tire o card com a tela aberta | Os modos voltam ao normal, com o modo de antes marcado |
+| 3 | Com o card, troque o app do Tablet com Shift e a roda | O app Marcar aparece na troca |
+| 4 | Sem área marcada, clique num bloco com o app Marcar | `Mark the area first with the Area app` |
+| 5 | Com a área, clique no chão dentro dela, em quatro lugares | `Point 1 of 16 marked for Cubit`, e assim por diante. Cada ponto mostra uma seta com o número, e uma linha ciano tracejada liga os pontos em laço |
+| 6 | Clique fora da área e num bloco que não é sólido, como uma flor | `Only inside the area of Cubit` e `Mark the top of a solid block` |
+| 7 | Clique num ponto marcado | `Block unmarked for Cubit`, e os outros pontos mantêm a ordem |
+| 8 | Shift + clique no ar | O último ponto sai |
+| 9 | Marque 16 pontos e tente o 17º | `Cubit has 16 marks · Shift and a click unmarks` |
+| 10 | Feche o app Marcar, ou escolha outro Cubit | As setas e a linha somem |
+| 11 | Desligue o `Follow` | Ele percorre os pontos em laço, mais devagar que ao seguir. Em cada ponto e a cada 16 blocos do caminho, para 4 s, olha para a esquerda e para a direita duas vezes, volta ao centro e segue |
+| 12 | Desmarque todos os pontos | Ele contorna a área no mesmo passo lento, com uma parada em cada canto e a cada 16 blocos |
+| 13 | Chame um zumbi durante uma parada | Ele interrompe a parada, combate na velocidade normal e volta à ronda |
+| 14 | Afaste-se até o chunk de um ponto descarregar, com o Cubit ainda carregado, numa área grande do Ultimate | Ele pula esse ponto e volta a ele quando o chunk carrega |
+| 15 | Com dois Patrulheiros, recolha um no meio de um combate | O outro passa a atacar o alvo que era do primeiro |
+| 16 | Tire o card e ponha de novo | A rota continua |
+| 17 | Recolha o Cubit e coloque de novo | A rota e a área se perdem |
+| 18 | Com o jogo em português | `Travado pelo card do Patrulheiro Galático`, `Ponto 1 de 16 marcado para Cubit`, `Marque a área primeiro com o app Área`, `Só dentro da área de Cubit` e `Marque o topo de um bloco sólido` |
+
 ## Tradução
 
 | # | Passo | Resultado esperado |
@@ -1192,6 +1217,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 10:30 | Adiciona a rota do Patrulheiro, PR 2. |
 | Zennd | 2026-11-22 09:30 | Adiciona o Patrulheiro Galático, PR 1, e as falas das profissões. |
 | Zennd | 2026-11-21 14:20 | Começa o pedido em zero (pergunta 1506). |
 | Zennd | 2026-11-21 14:00 | Adiciona a cascata ao roteiro da Engineering Desk (perguntas 1500 a 1503). |
