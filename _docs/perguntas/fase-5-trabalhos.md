@@ -721,11 +721,15 @@ Não há perguntas pendentes nesta fase.
 | 1774 | O conceito do PR 4 do Patrulheiro (o modelo e a textura pelo padrão dos trabalhos, as cinco entregas, a camada emissiva, os sons por último, a branch `feature/198-patroller-visuals` e o `Closes #198`) pode ir ao código? | O desenvolvedor disse "est autorizado" (regra 54) |
 | 1775 | Há algo a acrescentar à entrega 1 do PR 4 do Patrulheiro, o modelo e a textura parados? | Nada a acrescentar (1771) |
 | 1776 | A 1574 diz "pistola na garra esquerda e emissor no pulso direito", mas a imagem conceito aceita (1592) mostra, de frente, a pistola à esquerda de quem olha, que é a garra direita do próprio Cubit. Qual lado vale no modelo? | Como na imagem: a pistola na garra direita do próprio Cubit, a mesma da vara do Pescador, que aparece à esquerda de quem olha de frente, e o emissor da lâmina e o distintivo do lado esquerdo do Cubit. A recomendação foi aceita. Muda a 1574 |
+| 1777 | Pedido do desenvolvedor: depois do Patrulheiro, entra no roadmap o item "Servidor e Antenas, energia sem fio e carregamento de chunk". Ele junta os dois itens de hoje, "Antena e carregamento de chunks" (#205) e "Robot Server, log e viagem até o Dock" (#206)? | Um item só, logo depois do Patrulheiro, com as duas issues, #205 e #206, e a energia sem fio. Os dois itens do fim da Fase 5 saem de lá. A recomendação foi aceita |
+| 1778 | O que é a energia sem fio, que ainda não existe em nenhum documento? | Só anotar, sem decidir: entra no roadmap pelo nome e fica para o refinamento do item. A recomendação foi aceita |
+| 1779 | Onde o item entra em relação à issue do teleporte longo (1746), que estava logo depois do Patrulheiro? | O desenvolvedor disse "nao vamos refinar agora": o item entra logo depois do Patrulheiro, e a ordem em relação ao teleporte longo fica para depois |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 17:59 | Registra as respostas 1777 a 1779. |
 | Zennd | 2026-11-22 17:53 | Registra a resposta 1776. |
 | Zennd | 2026-11-22 17:35 | Registra a resposta 1775. |
 | Zennd | 2026-11-22 17:33 | Registra a resposta 1774. |
