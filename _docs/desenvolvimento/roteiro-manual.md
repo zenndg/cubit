@@ -1158,6 +1158,21 @@ Esta parte cobre o PR 2: a aba Defense travada e a rota no app Marcar. Use o mes
 | 17 | Recolha o Cubit e coloque de novo | A rota e a área se perdem |
 | 18 | Com o jogo em português | `Travado pelo card do Patrulheiro Galático`, `Ponto 1 de 16 marcado para Cubit`, `Marque a área primeiro com o app Área`, `Só dentro da área de Cubit` e `Marque o topo de um bloco sólido` |
 
+## Apresentação
+
+As regras estão em [`falas.md`](../conceito/falas.md#apresentação). Use um mundo novo no criativo, três Cubits novos da Engineering Desk ou do inventário criativo, um Induction Dock e um Cubit de um mundo da versão `0.1.1`, se houver.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Coloque um Cubit novo no chão | `Cubit: Happy to help you!` acima da hotbar e, no chat, `Cubit: To learn everything I can do, visit: https://github.com/zenndg/cubit`, com o link sublinhado |
+| 2 | Clique no link | O jogo pede a confirmação e abre o repositório no navegador |
+| 3 | Coloque o segundo Cubit novo logo depois | Só a frase acima da hotbar. O chat não recebe outro link |
+| 4 | Recolha o primeiro Cubit e coloque-o de novo | Nenhuma das duas frases |
+| 5 | Depois de 10 minutos de jogo, coloque o terceiro Cubit novo direto no Induction Dock | As duas frases, com o Cubit já hibernando no Dock |
+| 6 | Coloque o Cubit do mundo da `0.1.1` | Nenhuma das duas frases |
+| 7 | No config, troque `intro_link_url` por um endereço `http://` e abra o jogo | O config volta ao endereço padrão, e o log avisa |
+| 8 | Com o jogo em português, coloque um Cubit novo | `Cubit: Estou feliz em lhe ajudar` e `Cubit: Para saber tudo o que posso fazer, acesse:` com o link |
+
 ## Tradução
 
 | # | Passo | Resultado esperado |
@@ -1217,6 +1232,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 15:50 | Adiciona a apresentação do Cubit (perguntas 1672 a 1682 e 1750 a 1753). |
 | Zennd | 2026-11-22 10:30 | Adiciona a rota do Patrulheiro, PR 2. |
 | Zennd | 2026-11-22 09:30 | Adiciona o Patrulheiro Galático, PR 1, e as falas das profissões. |
 | Zennd | 2026-11-21 14:20 | Começa o pedido em zero (pergunta 1506). |
