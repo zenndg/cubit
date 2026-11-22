@@ -628,11 +628,13 @@ Não há perguntas pendentes nesta fase.
 | 1681 | O temporizador de 10 minutos vale para qual frase? | Só para a do link: todo Cubit novo diz a frase de ajuda acima da hotbar, sempre, e só a frase do link no chat espera os 10 minutos, para o chat não encher de links. Detalha a 1677 |
 | 1682 | Qual é o texto em inglês da frase de ajuda? | `Cubit: Happy to help you!`, e em português, `Cubit: Estou feliz em lhe ajudar` |
 | 1683 | O "Estado atual" do `AGENTS.md`, que ainda cita o Defensor e não traz a ordem nova das profissões, pode ser atualizado? | Sim, num commit próprio, com o PR 2 do Patrulheiro já entregue, o que o PR 3 traz e a ordem das profissões das respostas 1666 e 1669 |
+| 1684 | O `config.md` recebe só as chaves do Organizador e do Cozinheiro, ou também as outras que estão no código e faltam na tabela (o local de morte, a Engineering Desk, a velocidade e as portas)? | Todas, num commit próprio, para o `config.md` voltar a listar todas as chaves do código (Regra do Escoteiro) |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 14:30 | Registra a resposta 1684. |
 | Zennd | 2026-11-22 14:25 | Registra a resposta 1683. |
 | Zennd | 2026-11-22 14:05 | Registra as respostas 1672 a 1682. |
 | Zennd | 2026-11-22 13:40 | Registra as respostas 1668 a 1671. |

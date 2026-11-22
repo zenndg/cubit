@@ -117,6 +117,11 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `pickup_filter_slots` | Filtro de coleta | 1 a 27 |
 | `general_robot.base` | `pickup_filter_tags` | Filtro de coleta com tags | `true` ou `false` |
 | `general_robot.base` | `power_bank_capacity` | Power Bank (70% da bateria) | 1 a 2147483647 |
+| `general_robot.base` | `death_point` | Local de morte: `locked`, `mark` ou `guide`. Um valor inválido vale como `locked` e vai para o log | `locked`, `mark` ou `guide` |
+| `general_robot.base` | `engineering_desk_energy_capacity` | Engineering Desk: energia que a mesa guarda | 1 a 2147483647 |
+| `general_robot.base` | `engineering_desk_craft_ticks` | Engineering Desk: tempo de cada craft | 1 a 72000 |
+| `general_robot.base` | `engineering_desk_storage_slots` | Engineering Desk: slots da entrada | 1 a 36 |
+| `general_robot.base` | `engineering_desk_max_order` | Engineering Desk: maior pedido | 1 a 4096 |
 | `general_robot.base` | `allowed_jobs` | Cards de Aprendizado de Máquina que o tier aceita: `fisher`, `farmer`, `rancher`, `organizer`, `cook`, `patroller`, `miner`, `builder`, `mechanic` e `alchemist`. Um nome inválido é ignorado e vai para o log | Lista com esses nomes |
 | `general_robot.base` | `fisher_lure_level` | Pescador: Isca | 0 a 3 |
 | `general_robot.base` | `fisher_luck_level` | Pescador: Sorte do Mar | 0 a 3 |
@@ -126,6 +131,15 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `farmer_special_crops` | Fazendeiro: plantas de colheita especial | `true` ou `false` |
 | `general_robot.base` | `farmer_bone_meal` | Fazendeiro: slot de fertilizante | `true` ou `false` |
 | `general_robot.base` | `farmer_fortune_level` | Fazendeiro: Fortuna | 0 a 3 |
+| `general_robot.base` | `organizer_chests` | Organizador: baús marcados | 0 a 64 |
+| `general_robot.base` | `organizer_marks` | Organizador: máquinas ou destinos marcados | 0 a 64 |
+| `general_robot.base` | `organizer_action_cost` | Organizador: custo por pilha movida | 0 a 2147483647 |
+| `general_robot.base` | `organizer_action_pause_ticks` | Organizador: pausa entre ações | 1 a 72000 |
+| `general_robot.base` | `organizer_scan_interval_ticks` | Organizador: intervalo da varredura | 1 a 72000 |
+| `general_robot.base` | `cook_ovens` | Cozinheiro: fornos marcados | 0 a 64 |
+| `general_robot.base` | `cook_action_cost` | Cozinheiro: custo por pilha movida | 0 a 2147483647 |
+| `general_robot.base` | `cook_action_pause_ticks` | Cozinheiro: pausa entre ações | 1 a 72000 |
+| `general_robot.base` | `cook_scan_interval_ticks` | Cozinheiro: intervalo da varredura | 1 a 72000 |
 | `general_robot.base` | `patroller_pistol_damage` | Patrulheiro: dano da pistola | 0 a 100 |
 | `general_robot.base` | `patroller_pistol_range` | Patrulheiro: alcance da pistola | 1 a 64 |
 | `general_robot.base` | `patroller_pistol_interval_ticks` | Patrulheiro: intervalo da pistola | 1 a 1200 |
@@ -142,6 +156,16 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `patroller_gap_distance` | Patrulheiro: maior vão que atravessa planando | 0 a 16 |
 | `general_robot.base` | `patroller_route_points` | Patrulheiro: pontos da rota | 0 a 128 |
 | `general_robot.base` | `patroller_area_size` | Patrulheiro: lado da área, com a altura do tier e 0 para bloqueado | 0 a 256 |
+| `general` | `death_log_size` | Mortes no histórico do player | 1 a 50 |
+| `general` | `death_guide_arrival_blocks` | Distância de chegada da guia ao local de morte | 1 a 16 |
+| `general` | `death_guide_lead_blocks` | Quanto o Cubit anda à frente do dono na guia | 2 a 16 |
+| `general` | `death_guide_stuck_seconds` | Tempo sem avançar antes de cancelar a guia | 1 a 60 |
+| `general` | `speed_control_min_percent` | Velocidade: o menor valor dos botões, sobre a velocidade do tier | 10 a 100 |
+| `general` | `speed_control_step_percent` | Velocidade: o passo dos botões − e + | 1 a 50 |
+| `general` | `door_open_cost` | Custo de abrir uma porta marcada | 0 a 10000 |
+| `general` | `door_marks_limit` | Portas marcadas por dono | 1 a 256 |
+| `general` | `engineering_desk_craft_energy` | Engineering Desk: custo de cada craft | 0 a 2147483647 |
+| `general` | `engineering_desk_input_per_tick` | Engineering Desk: energia que a mesa recebe por tick | 1 a 2147483647 |
 | `general` | `unload_interval_default_minutes` | Intervalo de descarga na área, padrão de um Cubit novo, com 0 para só quando cheio | 0 a 1440 |
 | `general` | `unload_interval_max_minutes` | Intervalo de descarga na área, o maior que a aba Trabalho oferece | 1 a 1440 |
 | `general` | `farmer_scan_interval_ticks` | Fazendeiro: intervalo da varredura da plantação | 1 a 72000 |
@@ -207,6 +231,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 14:30 | Acrescenta as chaves que faltavam: o local de morte, a Engineering Desk, o Organizador, o Cozinheiro, a velocidade e as portas (pergunta 1684). |
 | Zennd | 2026-11-22 14:05 | Acrescenta as chaves da apresentação do Cubit (perguntas 1674 e 1677). |
 | Zennd | 2026-11-22 12:55 | Acrescenta as chaves do Patrulheiro e das falas das profissões (perguntas 1577, 1586, 1614 a 1651 e 1665). |
 | Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |
