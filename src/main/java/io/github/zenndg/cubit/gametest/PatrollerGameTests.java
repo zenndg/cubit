@@ -14,6 +14,7 @@ import io.github.zenndg.cubit.registry.CubitItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -75,6 +76,10 @@ public final class PatrollerGameTests {
   private static final int FIREBALL_X = 12;
   private static final int FIREBALL_POWER = 1;
   private static final String NOT_RETURNED = "The orb should have sent the fireball back";
+  private static final String NOT_ESCORTED = "The Patroller should escort one it never attacks";
+  private static final String ESCORTED_A_TARGET = "The Patroller should refuse to escort a hostile";
+  private static final String ESCORT_NOT_KEPT = "The save should keep the escort";
+  private static final String ESCORT_IN_ITEM = "The item should not keep the escort";
   private static final String NOT_STORED = "The drops of a kill should go into the inventory";
   private static final String NO_CARE = "A wounded Patroller should shoot even a near hostile";
   private static final String NO_INVESTIGATION = "The Patroller should look where the hostile was";
@@ -300,5 +305,35 @@ public final class PatrollerGameTests {
     helper.getLevel().addFreshEntity(fireball);
     helper.succeedWhen(
         () -> helper.assertTrue(fireball.getOwner() instanceof RobotEntity, NOT_RETURNED));
+  }
+
+  /** It escorts one it never attacks and refuses a hostile (answers 1655 and 1656). */
+  @GameTest(template = ARENA)
+  public static void itEscortsOnlyOneItNeverAttacks(GameTestHelper helper) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    RobotEntity robot = patroller(helper, owner);
+    Husk husk = helper.spawnWithNoFreeWill(EntityType.HUSK, FAR);
+    Mob villager = helper.spawnWithNoFreeWill(EntityType.VILLAGER, NEAR);
+    helper.assertFalse(robot.workArea().work().escort().mark(husk), ESCORTED_A_TARGET);
+    helper.assertTrue(robot.workArea().work().escort().mark(villager), NOT_ESCORTED);
+    helper.assertTrue(robot.workArea().work().escort().escorts(villager.getUUID()), NOT_ESCORTED);
+    helper.succeed();
+  }
+
+  /** The escort lives in the save of the entity, never in the item (answer 1659). */
+  @GameTest(template = ARENA)
+  public static void theSaveKeepsTheEscortButTheItemDoesNot(GameTestHelper helper) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    RobotEntity robot = patroller(helper, owner);
+    Mob villager = helper.spawnWithNoFreeWill(EntityType.VILLAGER, NEAR);
+    robot.workArea().work().escort().mark(villager);
+    CompoundTag saved = robot.saveWithoutId(new CompoundTag());
+    RobotEntity loaded = GameTestRobots.loadRobot(helper, saved);
+    helper.assertTrue(
+        loaded.workArea().work().escort().escorts(villager.getUUID()), ESCORT_NOT_KEPT);
+    ItemStack item = GameTestRobots.collect(owner, robot);
+    RobotEntity placed = GameTestRobots.placeRobot(helper, owner, item, ROBOT_FLOOR);
+    helper.assertFalse(placed.workArea().work().escort().active(), ESCORT_IN_ITEM);
+    helper.succeed();
   }
 }

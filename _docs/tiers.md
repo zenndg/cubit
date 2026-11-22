@@ -109,6 +109,7 @@ Valem para todos os tiers e ficam no config. Os marcados como planejados entram 
 | Patrulheiro: intervalo da procura de uma bola de fogo, `patroller_intercept_interval_ticks` (pergunta 1735) | 2 ticks |
 | Patrulheiro: distância até o protegido a quem a bola de fogo se dirige, `patroller_intercept_guard_distance` (pergunta 1735) | 32 blocos |
 | Patrulheiro: maior queda que o caminho planeja, descendo planando, `patroller_glide_drop_blocks` (pergunta 1739) | 16 blocos |
+| Patrulheiro: tempo do escoltado parado até a parada da escolta, `patroller_escort_still_ticks` (pergunta 1744) | 1 s (20 ticks) |
 | Patrulheiro: raio da explosão do creeper, de onde ele recua, `patroller_creeper_blast` (perguntas 1567 e 1642) | 4 blocos |
 | Patrulheiro: distância que mantém do creeper sem carga, `patroller_keep_away` (perguntas 1595 e 1642) | 6 blocos |
 | Patrulheiro: intervalo da procura de alvos, `patroller_search_interval_ticks` (pergunta 1642 e regra 21) | 0,5 s (10 ticks) |
@@ -312,6 +313,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 22:10 | Acrescenta a parada da escolta marcada (pergunta 1744). |
 | Zennd | 2026-11-22 21:25 | Acrescenta a descida planando do Patrulheiro (pergunta 1739). |
 | Zennd | 2026-11-22 20:45 | Acrescenta a interceptação da bola de fogo (pergunta 1735). |
 | Zennd | 2026-11-22 20:10 | Acrescenta o XP como energia do Patrulheiro (perguntas 1728 e 1729). |

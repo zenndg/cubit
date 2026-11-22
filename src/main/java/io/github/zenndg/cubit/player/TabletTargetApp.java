@@ -37,7 +37,8 @@ final class TabletTargetApp {
     }
   }
 
-  private static Optional<LivingEntity> aimed(ServerPlayer player) {
+  /** The mob in the aim, up to the reach of the config, which stops at the first block. */
+  static Optional<LivingEntity> aimed(ServerPlayer player) {
     double reach = CubitMod.CONFIG.tabletTargetReachBlocks();
     Vec3 eye = player.getEyePosition();
     Vec3 look = player.getViewVector(1);

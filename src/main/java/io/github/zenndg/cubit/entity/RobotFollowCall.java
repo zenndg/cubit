@@ -38,6 +38,8 @@ public final class RobotFollowCall implements FollowControl {
       return false;
     }
     robot.workArea().work().wake();
+    // Follow is an order of the owner, so it ends a marked escort (answer 1660).
+    robot.workArea().work().escort().stop();
     if (robot.workArea().area().isPresent()) {
       robot.workArea().clear();
       if (player instanceof ServerPlayer server) {

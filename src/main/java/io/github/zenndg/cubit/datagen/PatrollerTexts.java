@@ -1,7 +1,9 @@
 package io.github.zenndg.cubit.datagen;
 
 import io.github.zenndg.cubit.domain.robot.RobotJob;
+import io.github.zenndg.cubit.domain.robot.TabletApp;
 import io.github.zenndg.cubit.entity.RobotAutoReturn;
+import io.github.zenndg.cubit.item.TabletItem;
 import io.github.zenndg.cubit.menu.DefenseKeys;
 import io.github.zenndg.cubit.menu.TabletKeys;
 import io.github.zenndg.cubit.menu.WorkKeys;
@@ -21,6 +23,12 @@ final class PatrollerTexts {
   private static final String NO_AREA = "Mark the area first with the Area app";
   private static final String OUTSIDE = "Only inside the area of %s";
   private static final String NOT_SOLID = "Mark the top of a solid block";
+  private static final String ESCORT_APP = "Escort";
+  private static final String ESCORTING = "%s is escorting %s";
+  private static final String ESCORT_STOPPED = "%s stopped the escort";
+  private static final String NOT_ESCORTABLE = "%s attacks this mob, so it cannot escort it";
+  private static final String ESCORTING_YOU = "%s is escorting you";
+  private static final String STOPPED_YOU = "%s stopped escorting you";
   private static final String HEADING = "%s is low on power, heading to the Dock";
   private static final String NO_DOCK = "%s is low on power and has no Dock";
 
@@ -38,5 +46,11 @@ final class PatrollerTexts {
     add.accept(TabletKeys.ROUTE_NOT_SOLID, NOT_SOLID);
     add.accept(RobotAutoReturn.HEADING_KEY, HEADING);
     add.accept(RobotAutoReturn.NO_DOCK_KEY, NO_DOCK);
+    add.accept(TabletItem.appKey(TabletApp.ESCORT), ESCORT_APP);
+    add.accept(TabletKeys.ESCORTING, ESCORTING);
+    add.accept(TabletKeys.ESCORT_STOPPED, ESCORT_STOPPED);
+    add.accept(TabletKeys.NOT_ESCORTABLE, NOT_ESCORTABLE);
+    add.accept(TabletKeys.ESCORTING_YOU, ESCORTING_YOU);
+    add.accept(TabletKeys.STOPPED_ESCORTING_YOU, STOPPED_YOU);
   }
 }

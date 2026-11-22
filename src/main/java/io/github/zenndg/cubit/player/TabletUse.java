@@ -62,6 +62,7 @@ public final class TabletUse {
       case UNLOAD -> TabletUnloadApp.click(player, chosen, click);
       case MARK -> TabletMarkApp.click(player, chosen, click);
       case DOORS -> TabletDoorApp.click(player, click);
+      case ESCORT -> TabletEscortApp.click(player, chosen.orElseThrow(), click);
     }
   }
 
@@ -103,13 +104,15 @@ public final class TabletUse {
   }
 
   private static TabletApps appsFor(Optional<RobotEntity> chosen) {
+    Optional<RobotJob> job = chosen.flatMap(robot -> robot.workArea().work().job());
     return new TabletApps(
         chosen.filter(robot -> robot.defense().mode() == DefenseMode.FOCUS).isPresent(),
-        chosen
-            .flatMap(robot -> robot.workArea().work().job())
-            .filter(job ->
-                job == RobotJob.ORGANIZER || job == RobotJob.COOK || job == RobotJob.PATROLLER)
-            .isPresent());
+        job.filter(found ->
+                found == RobotJob.ORGANIZER
+                    || found == RobotJob.COOK
+                    || found == RobotJob.PATROLLER)
+            .isPresent(),
+        job.filter(RobotJob.PATROLLER::equals).isPresent());
   }
 
   /** The chosen Cubit, only while it is loaded. */

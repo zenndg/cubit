@@ -192,6 +192,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general` | `patroller_intercept_interval_ticks` | Patrulheiro: intervalo da procura de uma bola de fogo | 1 a 20 |
 | `general` | `patroller_intercept_guard_distance` | Patrulheiro: distância até o protegido a quem a bola de fogo se dirige | 1 a 64 |
 | `general` | `patroller_glide_drop_blocks` | Patrulheiro: maior queda que o caminho planeja, descendo planando | 5 a 64 |
+| `general` | `patroller_escort_still_ticks` | Patrulheiro: tempo do escoltado parado até a parada da escolta | 1 a 200 |
 | `general` | `patroller_creeper_blast` | Patrulheiro: raio da explosão do creeper | 1 a 16 |
 | `general` | `patroller_keep_away` | Patrulheiro: distância que mantém do creeper sem carga | 1 a 32 |
 | `general` | `patroller_search_interval_ticks` | Patrulheiro: intervalo da procura de alvos | 1 a 200 |
@@ -240,6 +241,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 22:10 | Acrescenta a chave da parada da escolta (pergunta 1744). |
 | Zennd | 2026-11-22 21:25 | Acrescenta a chave da descida planando (pergunta 1739). |
 | Zennd | 2026-11-22 20:45 | Acrescenta as chaves da interceptação da bola de fogo (pergunta 1735). |
 | Zennd | 2026-11-22 20:10 | Acrescenta as chaves do XP como energia do Patrulheiro (perguntas 1728 e 1729). |

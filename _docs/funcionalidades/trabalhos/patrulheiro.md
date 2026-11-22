@@ -111,11 +111,11 @@ Além do dono, ele escolta quem o dono marcar no Tablet (perguntas 1655 a 1661):
 
 1. **Marcar:** com o Patrulheiro escolhido, o app novo `Escort` do Tablet, "Escolta" em português, em dourado (pergunta 1662), que só aparece quando o Cubit escolhido tem o card do Patrulheiro (pergunta 1664), marca o escoltado com um clique num player ou num mob. Um clique nele de novo, ou Shift + clique, desmarca.
 2. **Quem:** qualquer player, os protegidos (aldeões, animais e robôs) e os outros mobs que ele nunca ataca, como um golem ou um mob domesticado. Um mob que ele ataca não pode ser escoltado, e o Tablet avisa.
-3. **Como:** segue o escoltado com as regras do seguir, com a distância, o teleporte quando fica longe e as asas, e o protege como protege o dono, com a perseguição medida dele. Andando, vira a cabeça para os lados de tempos em tempos. Quando o escoltado para, ele para e faz a varredura da parada.
+3. **Como:** segue o escoltado com as regras do seguir, com a distância, o teleporte quando fica longe e as asas, e o protege como protege o dono, com a perseguição medida dele. Andando, a cada trecho sorteado da ronda, de 12 a 20 blocos, olha uma vez para cada lado sem parar. Quando o escoltado fica parado por 1 s, ele para e faz a varredura sorteada da parada (pergunta 1744).
 4. **Prioridade:** a escolta marcada vence a ronda e o seguir o dono. Cada Patrulheiro escolta um por vez, e vários podem escoltar o mesmo, como equipe.
-5. **Fim:** termina quando o dono desmarca, aperta o `Follow` do Tablet, ou quando o escoltado morre, muda de dimensão ou sai do mundo. Depois, ele volta à ronda da área ou ao dono.
+5. **Fim:** termina quando o dono desmarca, aperta o `Follow` do Tablet, ou quando o escoltado morre, muda de dimensão ou, sendo player, sai do jogo. Um mob num chunk descarregado não encerra a escolta: ele espera, e ela volta quando o mob carregar. Depois do fim, ele volta à ronda da área ou ao dono (pergunta 1742).
 6. **Save:** o escoltado fica no NBT do Cubit, em `EscortTarget`, e a escolta volta quando os dois estiverem carregados. Não vai para o item e se perde ao recolher o Cubit.
-7. **Avisos:** com o app `Escort` aberto, uma seta na cor do app marca o escoltado de cada Patrulheiro do dono. Um player escoltado recebe na barra de ação `%s is escorting you` ao começar e `%s stopped escorting you` ao terminar.
+7. **Avisos:** com o app `Escort` aberto, uma seta na cor do app marca o escoltado de cada Patrulheiro do dono. Um player escoltado recebe na barra de ação `%s is escorting you` ao começar e `%s stopped escorting you` ao terminar. Quem usa o Tablet recebe `%s is escorting %s` ao marcar, `%s stopped the escort` ao desmarcar e, num mob que ele ataca, `%s attacks this mob, so it cannot escort it` (pergunta 1743).
 
 ### Choque
 
@@ -278,6 +278,7 @@ Uma issue, a #198 renomeada, e três PRs testados no jogo (perguntas 1578, 1605 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 22:10 | Detalha o fim, as olhadas e os textos da escolta marcada (perguntas 1742 a 1744). |
 | Zennd | 2026-11-22 21:25 | Detalha a descida planando e o voo curto das asas (perguntas 1738 a 1740). |
 | Zennd | 2026-11-22 20:45 | Detalha a bola de fogo rebatida (perguntas 1734 e 1735). |
 | Zennd | 2026-11-22 20:10 | Acrescenta o XP como energia longe do dono (perguntas 1728 a 1730 e 1733). |

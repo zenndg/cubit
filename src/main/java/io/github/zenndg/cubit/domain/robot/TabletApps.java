@@ -7,20 +7,27 @@ import java.util.List;
  * The apps of the Tablet that make sense for the chosen Cubit: Open, Dock, Area and Unload always,
  * Target only with the chosen Cubit loaded and in Focus, and Mark only with the card of the
  * Organizer, of the Cook or of the Galactic Patroller (answers 1316 and 1579), and Doors always,
- * for every Cubit (answer 1364). Shift and the wheel go only through these, and an app that stops
- * making sense goes back to Open (answers 1006, 1044 and 1297).
+ * for every Cubit (answer 1364), and Escort only with the card of the Galactic Patroller (1664).
+ * Shift and the wheel go only through these, and an app that stops making sense goes back to Open
+ * (answers 1006, 1044 and 1297).
  */
-public record TabletApps(boolean targetAvailable, boolean markAvailable) {
+public record TabletApps(boolean targetAvailable, boolean markAvailable, boolean escortAvailable) {
   /** Without the Organizer, as before the Mark app existed. */
   public TabletApps(boolean targetAvailable) {
-    this(targetAvailable, false);
+    this(targetAvailable, false, false);
+  }
+
+  /** Without the Galactic Patroller, as before the Escort app existed. */
+  public TabletApps(boolean targetAvailable, boolean markAvailable) {
+    this(targetAvailable, markAvailable, false);
   }
 
   public List<TabletApp> available() {
     List<TabletApp> apps = new ArrayList<>();
     for (TabletApp app : TabletApp.values()) {
       if ((app != TabletApp.TARGET || targetAvailable)
-          && (app != TabletApp.MARK || markAvailable)) {
+          && (app != TabletApp.MARK || markAvailable)
+          && (app != TabletApp.ESCORT || escortAvailable)) {
         apps.add(app);
       }
     }

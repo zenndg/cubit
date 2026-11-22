@@ -686,11 +686,18 @@ Não há perguntas pendentes nesta fase.
 | 1739 | Até quantos blocos de queda o Patrulheiro planeja descer de uma beirada (1649)? | Até 16 blocos, no config, em `patroller_glide_drop_blocks`, de 5 a 64: com o card, a queda máxima do caminho passa de 5 para 16, o próprio jogo planeja a descida, e ele plana sem dano e sem energia |
 | 1740 | Há algo a acrescentar à entrega 8 do PR 3, as asas? | Nada a acrescentar (1631) |
 | 1741 | Ideia do desenvolvedor: o scanner de minérios, que hoje todo Cubit tem em todos os tiers, muda de lugar? | Quando o Minerador começar no roadmap, o scanner de minérios sai de todo Cubit e passa a ser só do Minerador, melhorado. Até lá, fica só no planejamento, sem mudança no código. O que acontece com a chave, o filtro e os saves do scanner de hoje é decidido no refinamento do Minerador (regra 18) |
+| 1742 | Quando a escolta marcada termina, se o documento diz "morre, muda de dimensão ou sai do mundo" (1658) e "volta quando os dois estiverem carregados" (1659)? | Pelo motivo da saída: termina quando o escoltado morre, muda de dimensão ou, sendo player, sai do jogo. Um mob num chunk descarregado não encerra a escolta: o Patrulheiro espera, e ela volta quando o mob carregar. Ao fechar e abrir o mundo, o escoltado salvo volta a valer quando carregar. Detalha a 1658 e a 1659 |
+| 1743 | Quais são os textos do Tablet ao marcar e desmarcar a escolta? | Na barra de ação de quem usa o Tablet: `%s is escorting %s` ("%s está escoltando %s"), `%s stopped the escort` ("%s parou a escolta") e, num mob que ele ataca, `%s attacks this mob, so it cannot escort it` ("%s ataca este mob, então não pode escoltá-lo"), com o nome do Cubit e o do escoltado. Detalha a 1655 e a 1656 |
+| 1744 | Na escolta, como ficam as olhadas para os lados andando e a parada quando o escoltado para (1657)? | Com os números da ronda: andando, a cada trecho sorteado da ronda, de 12 a 20 blocos, ele olha uma vez para cada lado sem parar; quando o escoltado fica parado por 1 s, ele para e faz a varredura sorteada da parada, de 3 a 5 s. A chave nova é `patroller_escort_still_ticks`, com 20, de 1 a 200. Detalha a 1657 |
+| 1745 | Há algo a acrescentar à entrega 9 do PR 3, a escolta marcada? | Nada a acrescentar (1631) |
+| 1746 | Nos testes do desenvolvedor, o Cubit às vezes se perdia num teleporte longo do dono. O que fazer? | A causa é a distância da simulação: o teleporte do seguir roda no tick do Cubit, e num teleporte longo o chunk dele sai da simulação antes de ele ver o dono longe, sendo depois descarregado; pelo portal, o seguir só teleporta na mesma dimensão. Fica anotado para uma issue própria, depois do PR 3: no instante do teleporte do dono, o Cubit que segue e ainda está carregado vai junto, como no renascer (`RobotRespawn`), sem carregar chunk à força (regra 22). A dimensão diferente entra no refinamento dela |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 22:20 | Registra a resposta 1746. |
+| Zennd | 2026-11-22 22:10 | Registra as respostas 1742 a 1745. |
 | Zennd | 2026-11-22 21:50 | Registra a resposta 1741. |
 | Zennd | 2026-11-22 21:20 | Registra as respostas 1738 a 1740. |
 | Zennd | 2026-11-22 21:00 | Registra a resposta 1737. |
