@@ -696,11 +696,15 @@ Não há perguntas pendentes nesta fase.
 | 1749 | O visual e os sons do Patrulheiro entram no PR 3? | Não: vão para um PR 4, com o modelo, as texturas, as animações, os efeitos, os sons e a textura do card, com rodada e autorização próprias. O PR 3 fecha com o comportamento. Muda a 1630 |
 | 1750 | Como ficam os nomes do que a apresentação guarda (1679)? | No item, o campo `introduced` no `cubit:robot_state`, opcional, que vale `true` quando falta: o estado inicial de um Cubit novo nasce com `false`, e um componente salvo por uma versão publicada fica `true`. Na entidade, a chave `Introduced` do NBT, com a mesma regra. No player, o attachment `cubit:intro_link_time`, com o tick do último link mostrado, para o temporizador de 10 minutos. Um Cubit antigo que saiu da mesa e nunca foi colocado fala na primeira colocação, porque é a primeira vez dele (1673). Detalha a 1679 |
 | 1751 | Há algo a acrescentar à entrega 10 do PR 3, as frases de apresentação? | Nada a acrescentar (1631) |
+| 1752 | O Cubit colocado direto num Induction Dock, onde já nasce hibernando, faz a primeira colocação da apresentação? | Sim: as duas frases saem nos dois caminhos, no chão e no Dock, e o Cubit fica apresentado. Detalha a 1673 |
+| 1753 | Um Cubit ainda não apresentado que chega com a chave `Chatter` desligada, por `/give` com o componente ou por KubeJS, fala depois? | Não: ele não fala e conta como apresentado, como o Cubit que ficou quieto pelo temporizador (1678). Detalha a 1675 |
+| 1754 | Quais são as classes novas da apresentação? | `IntroLink`, em `domain/robot`, o record que decide se o link sai pelo temporizador, com teste JUnit; `IntroSection`, em `config/`, com `intro_link_cooldown_ticks` e `intro_link_url`, como a `ChatterSection`; e `RobotIntro`, em `entity/`, que diz as frases e marca o Cubit como apresentado. A estrutura de pacotes do `AGENTS.md` as cita num commit próprio, com autorização |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 15:40 | Registra as respostas 1752 a 1754. |
 | Zennd | 2026-11-22 23:35 | Registra as respostas 1750 e 1751. |
 | Zennd | 2026-11-22 23:20 | Registra a resposta 1749. |
 | Zennd | 2026-11-22 23:00 | Registra a resposta 1748. |

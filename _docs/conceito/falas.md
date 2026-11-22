@@ -176,7 +176,9 @@ Duas frases que todo Cubit fala na primeira vez que é colocado no mundo: uma de
 - **Quando:** na primeira vez que cada Cubit é colocado no mundo, para quem o colocou. As duas respeitam a chave `Chatter` (perguntas 1673, 1675 e 1680).
 - **Link:** o repositório no GitHub, `https://github.com/zenndg/cubit`, no config (pergunta 1674).
 - **Temporizador:** só para a frase do link. Depois de um link, os Cubits novos que o mesmo player colocar nos 10 minutos seguintes só dizem a frase de ajuda (perguntas 1677 e 1681).
+- **No Dock:** colocar o Cubit direto num Induction Dock também é a primeira colocação, com as duas frases (pergunta 1752).
 - **Quieto:** um Cubit que não mostrou o link pelo temporizador conta como apresentado e não o mostra depois (pergunta 1678).
+- **Falas desligadas:** um Cubit ainda não apresentado que chega com a chave `Chatter` desligada não fala e conta como apresentado (pergunta 1753).
 - **Saves:** o estado do Cubit, no item e no NBT, ganha um campo opcional que diz se ele já foi apresentado. Sem o campo, como nos Cubits das versões publicadas, ele vale como já apresentado e não fala (pergunta 1679).
 
 ## Profissões
@@ -273,6 +275,7 @@ Numa equipe de Patrulheiros no mesmo combate, só um deles fala a frase de entra
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 15:40 | Acrescenta a apresentação no Dock e com as falas desligadas (perguntas 1752 e 1753). |
 | Zennd | 2026-11-22 14:05 | Acrescenta as frases de apresentação do Cubit (perguntas 1672 a 1682). |
 | Zennd | 2026-11-22 13:00 | Acrescenta a fala única da equipe de Patrulheiros (pergunta 1646). |
 | Zennd | 2026-11-21 23:14 | Acrescenta as falas das profissões (perguntas 1583 a 1590). |
