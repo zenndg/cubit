@@ -4,6 +4,7 @@ import io.github.zenndg.cubit.domain.behavior.PatrolSettings;
 import io.github.zenndg.cubit.domain.energy.Percentage;
 import io.github.zenndg.cubit.registry.CubitDamageTypes;
 import io.github.zenndg.cubit.registry.CubitEntities;
+import java.util.Optional;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -77,10 +78,12 @@ public final class LaserOrb extends Projectile {
       return;
     }
     HitResult hit = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
-    if (hit instanceof EntityHitResult found
-        && found.getEntity() instanceof LargeFireball shot
-        && getOwner() instanceof RobotEntity robot) {
-      PatrolIntercept.returnToSender(shot, robot);
+    Optional<LargeFireball> fireball =
+        hit instanceof EntityHitResult found && found.getEntity() instanceof LargeFireball shot
+            ? Optional.of(shot)
+            : fireballInTheWay();
+    if (fireball.isPresent() && getOwner() instanceof RobotEntity robot) {
+      PatrolIntercept.returnToSender(fireball.get(), robot);
       discard();
       return;
     }
@@ -93,6 +96,21 @@ public final class LaserOrb extends Projectile {
       level()
           .addParticle(new DustParticleOptions(BLUE, TRAIL_SIZE), getX(), getY(), getZ(), 0, 0, 0);
     }
+  }
+
+  /**
+   * A fireball that comes at it meets the orb faster than the width of its box, so on one tick the
+   * orb stops short of it and on the next it starts inside it, which the ray of the game does not
+   * count. The box of the path of this tick catches it (answer 1760).
+   */
+  private Optional<LargeFireball> fireballInTheWay() {
+    return level()
+        .getEntitiesOfClass(
+            LargeFireball.class,
+            getBoundingBox().expandTowards(getDeltaMovement()),
+            this::canHitEntity)
+        .stream()
+        .findFirst();
   }
 
   /**
