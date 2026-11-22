@@ -117,7 +117,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `pickup_filter_slots` | Filtro de coleta | 1 a 27 |
 | `general_robot.base` | `pickup_filter_tags` | Filtro de coleta com tags | `true` ou `false` |
 | `general_robot.base` | `power_bank_capacity` | Power Bank (70% da bateria) | 1 a 2147483647 |
-| `general_robot.base` | `allowed_jobs` | Cards de Aprendizado de Máquina que o tier aceita: `fisher`, `farmer`, `rancher`, `organizer`, `cook`, `defender`, `miner`, `builder`, `mechanic` e `alchemist`. Um nome inválido é ignorado e vai para o log | Lista com esses nomes |
+| `general_robot.base` | `allowed_jobs` | Cards de Aprendizado de Máquina que o tier aceita: `fisher`, `farmer`, `rancher`, `organizer`, `cook`, `patroller`, `miner`, `builder`, `mechanic` e `alchemist`. Um nome inválido é ignorado e vai para o log | Lista com esses nomes |
 | `general_robot.base` | `fisher_lure_level` | Pescador: Isca | 0 a 3 |
 | `general_robot.base` | `fisher_luck_level` | Pescador: Sorte do Mar | 0 a 3 |
 | `general_robot.base` | `fisher_catch_cost` | Pescador: custo por peixe pescado | 0 a 2147483647 |
@@ -168,6 +168,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |
 | Marcelo Fabiano | 2026-11-21 11:30 | Adiciona as chaves da Recharge Splash (perguntas 1413 e 1423). |
 | Marcelo Fabiano | 2026-11-21 08:20 | Adiciona a geração do Dock Solar (pergunta 1385). |
 | Marcelo Fabiano | 2026-11-21 06:30 | Leva o estoque do Dock para as seções de tier e adiciona a recarga e os slots (pergunta 1381). |

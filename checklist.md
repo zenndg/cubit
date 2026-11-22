@@ -138,7 +138,7 @@ Um card por vez, na ordem do board "Cubit · Fase 5" (perguntas 1137, 1141 e 115
 16. [x] Engineering Desk, a mesa de criação do mod, numa issue e quatro PRs (issue #231, PRs #232 a #235, perguntas 1424 a 1537)
 17. [x] Revisar os trabalhos por tier, com o tier mínimo de cada um, que ficou sem mudança (perguntas 1390, 1424 e 1539)
 18. [ ] Revisar as receitas dos cards de trabalho (issue #236, perguntas 1424 e 1540 a 1545)
-19. [ ] Defensor, que passa a se chamar Patrulheiro Galático (#198, pergunta 1424)
+19. [ ] Patrulheiro Galático, no lugar do Defensor (#198, perguntas 1424 e 1550 a 1582)
 20. [ ] Minerador, com a fornalha elétrica e a lanterna de cabeça (#199)
 21. [ ] Construtor (#200)
 22. [ ] Pecuarista (#201)

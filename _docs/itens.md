@@ -62,7 +62,7 @@ Só com recursos do jogo puro. Todas as receitas do mod saem da [Engineering Des
 |---|---|---|
 | 1 | Desde o início | Cubit, Cubit Casing, Cubit Visor, Cubit Treads, Cubit Neural Core e Toolbox |
 | 2 | Ao ter um Cubit | Induction Dock, Cubit Tablet, Power Bank Casing, Base Power Cell, Advanced Module e a Recharge Splash |
-| 3 | Ao ter o Module do tier | Com o Advanced, a Card Casing, a Circuit Board, os cards do Avançado e o Elite Module; com o Elite, os cards do Elite e o Ultimate Module; com o Ultimate, os cards do Ultimate (pergunta 1546) |
+| 3 | Ao ter o Module do tier | Com o Advanced, a Card Casing, a Circuit Board, os cards do Avançado e o Elite Module; com o Elite, os cards do Elite e o Ultimate Module. Nenhum card espera o Ultimate (perguntas 1546 e 1598) |
 | 4 | Ao ter o item anterior da cadeia | Base Power Bank, com a Base Power Cell; cada célula e cada Power Bank seguinte, com a Power Bank anterior; as Power Banks do zero, com a célula do tier; o Dock Solar Panel, com o Dock; o Solar Induction Dock, com o painel |
 | 5 | Ao precisar | Religar o Cubit, com uma Power Bank; o conserto, com um Damaged Cubit ou uma Toolbox |
 
@@ -255,7 +255,7 @@ Nomes aprovados nas perguntas 256, 1146 e 1147. Viram contrato só quando implem
 | Machine Learning: Farmer | `cubit:ml_farmer` | Do trabalho de Fazendeiro |
 | Machine Learning: Fisher | `cubit:ml_fisher` | Do trabalho de Pescador |
 | Machine Learning: Rancher | `cubit:ml_rancher` | Do trabalho de Pecuarista |
-| Machine Learning: Defender | `cubit:ml_defender` | Do trabalho de Defensor |
+| Machine Learning: Galactic Patroller | `cubit:ml_patroller` | Do trabalho de Patrulheiro Galático, no lugar do Defensor (pergunta 1569) |
 | Machine Learning: Organizer | `cubit:ml_organizer` | Do trabalho de Organizador |
 | Machine Learning: Cook | `cubit:ml_cook` | Do trabalho de Cozinheiro |
 | Machine Learning: Builder | `cubit:ml_builder` | Do trabalho de Construtor |
@@ -346,6 +346,8 @@ O estado salvo é validado ao entrar no jogo, sem derrubá-lo (regra 17 do `AGEN
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 09:45 | Tira os cards do Ultimate da liberação das receitas (pergunta 1608). |
+| Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |
 | Zennd | 2026-11-21 21:39 | Troca a receita da Circuit Board (pergunta 1547). |
 | Zennd | 2026-11-21 21:28 | Libera as peças e os cards pelo Module do tier (pergunta 1546). |
 | Zennd | 2026-11-21 21:21 | Troca as receitas dos cards pela Card Casing e pela Circuit Board (perguntas 1540 a 1545). |

@@ -19,6 +19,7 @@ O mod funciona numa instância só com ele e suas dependências. Tudo aceita red
 - **Seguindo:** age como generalista. O card só age em área marcada.
 - **Item:** um por trabalho, com receita própria em JSON e materiais do jogo puro. Os cards empilham.
 - **Receita:** como um pendrive, todo card junta a Card Casing, a Circuit Board e o item que simboliza o trabalho, numa cascata na Engineering Desk. As receitas estão em [`itens.md`](../itens.md#cards-de-trabalho) (perguntas 1540 a 1545). A receita de cada card libera com o Module do tier mínimo do trabalho, e a carcaça e a placa, com o Advanced Module (pergunta 1546).
+- **Falas:** cada profissão fala uma de três frases ao receber o card e frases próprias durante o trabalho, para o dono por perto. As frases estão em [`falas.md`](../conceito/falas.md#profissões) (perguntas 1583 a 1590).
 - **Custo:** gasta o consumo ao andar e mais um valor por ação, por card, sem gastar se não houver ação.
 
 ### Trabalhos por tier
@@ -27,8 +28,8 @@ O mod funciona numa instância só com ele e suas dependências. Tudo aceita red
 |---|---|
 | Base | Nenhum. Não aceita cards |
 | Avançado | Pescador, Fazendeiro e Pecuarista |
-| Elite | Os do Avançado, mais Organizador, Cozinheiro, Defensor e Minerador |
-| Ultimate | Os do Elite, mais Construtor, Mecânico e Alquimista |
+| Elite | Os do Avançado, mais Organizador, Cozinheiro, Patrulheiro Galático, Minerador, Construtor, Mecânico e Alquimista |
+| Ultimate | Os mesmos do Elite. Nenhum trabalho espera o Ultimate, que só melhora os números de cada card (pergunta 1598) |
 
 O tier também melhora o que o card faz, com mais velocidade, alcance ou opções. A evolução de cada card é proposta e é decidida no refinamento dele, com os números em [`tiers.md`](../tiers.md#trabalhos) (perguntas 1144 e 1154). A do Minerador e a do Defensor já estão decididas (perguntas 1149 e 1150), e as do Pescador e do Fazendeiro foram decididas no card de cada um (perguntas 1185, 1221 e 1226).
 
@@ -41,11 +42,11 @@ O tier também melhora o que o card faz, com mais velocidade, alcance ou opçõe
 | Pecuarista | `cubit:ml_rancher` | Avançado | Alimenta, tosquia, recolhe ovos e controla o rebanho | [`pecuarista.md`](trabalhos/pecuarista.md) |
 | Organizador | `cubit:ml_organizer` | Elite | Recolhe e guarda nos baús certos, ou abastece destinos | [`organizador.md`](trabalhos/organizador.md) |
 | Cozinheiro | `cubit:ml_cook` | Elite | Leva comida crua aos fornos e guarda a pronta | [`cozinheiro.md`](trabalhos/cozinheiro.md) |
-| Defensor | `cubit:ml_defender` | Elite | Protege a área e quem está nela | [`defensor.md`](trabalhos/defensor.md) |
+| Patrulheiro Galático | `cubit:ml_patroller` | Elite | Faz a ronda, procura hostis e ataca primeiro, com pistola laser e Plasma Blade | [`patrulheiro.md`](trabalhos/patrulheiro.md) |
 | Minerador | `cubit:ml_miner` | Elite | Escava, abre túneis ou busca minérios, com a fornalha elétrica | [`minerador.md`](trabalhos/minerador.md) |
-| Construtor | `cubit:ml_builder` | Ultimate | Aplaina e preenche, com os modos novos propostos | [`construtor.md`](trabalhos/construtor.md) |
-| Mecânico | `cubit:ml_mechanic` | Ultimate | Recarrega, conserta, repara a vida e destrava os outros Cubits | [`mecanico.md`](trabalhos/mecanico.md) |
-| Alquimista | `cubit:ml_alchemist` | Ultimate | Prepara poções em cadeia nos suportes de poções | [`alquimista.md`](trabalhos/alquimista.md) |
+| Construtor | `cubit:ml_builder` | Elite | Aplaina e preenche, com os modos novos propostos | [`construtor.md`](trabalhos/construtor.md) |
+| Mecânico | `cubit:ml_mechanic` | Elite | Recarrega, conserta, repara a vida e destrava os outros Cubits | [`mecanico.md`](trabalhos/mecanico.md) |
+| Alquimista | `cubit:ml_alchemist` | Elite | Prepara poções em cadeia nos suportes de poções | [`alquimista.md`](trabalhos/alquimista.md) |
 
 Os itens "Em aberto" de cada conceito são respondidos no refinamento do card daquele trabalho (pergunta 1153).
 
@@ -161,7 +162,7 @@ A Fase 5 é entregue como um kanban, no GitHub Project "Cubit · Fase 5", um car
 4. Fazendeiro (#195)
 5. Organizador (#196)
 6. Cozinheiro (#197)
-7. Defensor (#198)
+7. Patrulheiro Galático, no lugar do Defensor (#198)
 8. Minerador (#199)
 9. Construtor (#200)
 10. Pecuarista (#201)
@@ -184,6 +185,9 @@ A ordem segue a pergunta 251, com o Mecânico e o Alquimista no fim dos trabalho
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 08:03 | Leva o Construtor, o Mecânico e o Alquimista para o Elite (pergunta 1598). |
+| Zennd | 2026-11-21 23:14 | Acrescenta as falas das profissões (perguntas 1583 a 1590). |
+| Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |
 | Zennd | 2026-11-21 21:28 | Libera as receitas dos cards pelo Module do tier (pergunta 1546). |
 | Zennd | 2026-11-21 21:21 | Registra a receita comum dos cards (perguntas 1540 a 1545). |
 | Marcelo Fabiano | 2026-11-19 23:04 | Abre a exceção do Cozinheiro na proteção (pergunta 1316). |

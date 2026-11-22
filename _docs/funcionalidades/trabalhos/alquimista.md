@@ -2,11 +2,11 @@
 
 Conceito do trabalho de Alquimista, da Fase 5.2. Nada aqui está implementado, e o documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área valem aqui.
 
-**Situação:** o Alquimista entra como trabalho do Ultimate (pergunta 1146), mas o conceito abaixo ainda é uma proposta. Quase tudo está em [Em aberto](#em-aberto), respondido no refinamento do card (pergunta 1153).
+**Situação:** o Alquimista entra como trabalho do Elite (perguntas 1146 e 1598), mas o conceito abaixo ainda é uma proposta. Quase tudo está em [Em aberto](#em-aberto), respondido no refinamento do card (pergunta 1153).
 
 ## A ideia
 
-Um Cubit que prepara poções sozinho. O player escolhe a poção que quer, e o Alquimista monta a cadeia de preparo nos suportes de poções marcados: enche as garrafas, põe os ingredientes na ordem certa, abastece o combustível e guarda as poções prontas. Ele segue o molde do Cozinheiro, que leva itens entre baús e blocos do jogo, mas com uma cadeia de várias etapas, o que justifica o Ultimate.
+Um Cubit que prepara poções sozinho. O player escolhe a poção que quer, e o Alquimista monta a cadeia de preparo nos suportes de poções marcados: enche as garrafas, põe os ingredientes na ordem certa, abastece o combustível e guarda as poções prontas. Ele segue o molde do Cozinheiro, que leva itens entre baús e blocos do jogo, mas com uma cadeia de várias etapas, o que o põe no Elite, junto dos trabalhos complexos (pergunta 1598).
 
 ## Card
 
@@ -102,5 +102,6 @@ Cada item traz a recomendação atual, ainda sem resposta.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 08:03 | Leva o Construtor, o Mecânico e o Alquimista para o Elite (pergunta 1598). |
 | Marcelo Fabiano | 2026-11-14 20:25 | Leva o conceito de `tmp/fase5` para `_docs`, com as decisões da consolidação (perguntas 1145 a 1156). |
 | Marcelo Fabiano | 2026-11-13 11:35 | Cria a proposta de conceito do Alquimista, com o pedido, a cadeia de preparo e os blocos do jogo. |
