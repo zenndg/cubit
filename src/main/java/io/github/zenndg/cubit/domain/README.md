@@ -82,12 +82,12 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `MarkedDoor` e `DoorMarks` | As portas, os alçapões e os portões de cerca que o dono marcou com o app Portas, pelo bloco e pela dimensão, para todos os Cubits dele. Um segundo clique desmarca, e o config limita quantas (perguntas 1364 e 1369) |
 | `UnloadCall` | Se o `Descarregar` do Tablet pode mandar o Cubit, ou por que não, e quando ele descarrega sozinho: só cheio, na área e com a chave ligada (perguntas 1087, 1089 e 1093) |
 | `DeathPointLevel` | O que um tier faz com o local de morte: `locked`, `mark`, que só mostra a coordenada ao renascer, ou `guide`, que também guia até lá. A `key` é o nome usado no config (perguntas 1117 e 1129) |
-| `RobotJob` | Os trabalhos que um card dá ao Cubit, um por card. A `key` é o nome usado no `allowed_jobs` do config (perguntas 1145 e 1163) |
+| `RobotJob` | Os trabalhos que um card dá ao Cubit, um por card. A `key` é o nome usado no `allowed_jobs` do config (perguntas 1145 e 1163). `hibernatesWhenFull` diz se o inventário cheio, sem onde descarregar, o põe para dormir fora do Dock, o que o Patrulheiro nunca faz (pergunta 1639) |
 | `JobSpec` | Os trabalhos que um tier aceita e o que ele faz com cada card, como o `FisherSpec` e o `FarmerSpec`. Sem nenhum, o slot do card fica bloqueado, como no Base (perguntas 1145, 1162 e 1185) |
 | `FarmerSpec` | O Fazendeiro num tier: o custo e a pausa de cada ação, as plantas de colheita especial, a farinha de osso e a Fortuna, de 0 a 3 (perguntas 1221, 1226 e 1235) |
 | `FisherSpec` | O Pescador num tier: os níveis de Isca e de Sorte do Mar, de 0 a 3, como os encantamentos do jogo, e o custo por peixe pescado (perguntas 1185 e 1190) |
 | `HibernationReason` | Por que um Cubit com trabalho hiberna fora do Dock: o inventário cheio, da base, e o `NO_WATER` do Pescador sem água na área. A `key` é a do save (perguntas 1165, 1172 e 1188) |
-| `AwayHibernation` | Quando um Cubit hiberna fora do Dock: com card, na área, cheio e sem onde descarregar, ou pelo motivo do trabalho. O inventário cheio vem antes. O `Retomar` pergunta de novo, então um motivo que não sumiu o põe para dormir outra vez (perguntas 253, 1165 e 1188) |
+| `AwayHibernation` | Quando um Cubit hiberna fora do Dock: com card, na área, cheio e sem onde descarregar, ou pelo motivo do trabalho. O inventário cheio vem antes. O `Retomar` pergunta de novo, então um motivo que não sumiu o põe para dormir outra vez (perguntas 253, 1165 e 1188). Quem guarda a área, como o Patrulheiro, não hiberna pelo inventário cheio (`keepsGuard`, pergunta 1639) |
 | `WaterCell` e `OpenWater` | A água aberta do jogo, de `FishingHook.calculateOpenWater`: um volume de 5×4×5 em volta do ponto, em camadas de um tipo só, com água embaixo de ar. Só ela dá tesouro (pergunta 1183) |
 | `FishingTimes` | O tempo de uma pesca, como no jogo: a espera sorteada, menos a Isca, e a mordida. Os limites vêm do config, e quem chama sorteia (pergunta 1184) |
 | `FishingPace` | Quantos ticks da espera um tick conta: a chuva pode contar um a mais, e sem céu pode não contar, com as chances do jogo (perguntas 1184 e 1206) |
@@ -154,7 +154,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `DockTrip` | Um robô a caminho do Dock: o quanto chegou perto, há quanto tempo não avança e o que faz em cada tick |
 | `DockGoal` | Se o `Ir para o Dock` do Tablet pode mandar o Cubit ou por que não: desligado, hibernando ou sem Dock ao alcance (perguntas 1020 e 1041) |
 | `PreferredDock` | O Dock marcado com o app Dock do Tablet, pelo bloco e pela dimensão. Clicar no mesmo Dock tira a marca (perguntas 1008 e 1045) |
-| `AutoReturn` | Quando o Cubit volta sozinho a um Dock: com a chave ligada, ativo, seguindo o dono e com a bateria do retorno do tier ou menos, a não ser que já esteja a caminho (perguntas 1065 a 1068) |
+| `AutoReturn` | Quando o Cubit volta sozinho a um Dock: com a chave ligada, ativo, seguindo o dono e com a bateria do retorno do tier ou menos, a não ser que já esteja a caminho (perguntas 1065 a 1068). Em guarda (`onGuard`), o Patrulheiro espera o fim do combate e um raio de procura sem hostil, sem conferir o dono nem investigar (perguntas 1689 e 1763) |
 | `DockRemoval` | Quem pode quebrar um Dock |
 | `DockStorageRules` | O inventário do Dock: o que ele guarda, quais slots o tier abre, quando e qual Power Bank ele carrega, e o que a automação tira (perguntas 1361 e 1374) |
 | `DockStoredKind` | O que um item é para o inventário do Dock: Toolbox, Power Bank, Cubit, outro item do mod ou um item de fora |
@@ -189,7 +189,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `CatalogSearch` | A busca do catálogo: o nome que o player vê, sem maiúsculas e acentos, em todas as categorias |
 | `JobTalkTopic` | O que um Cubit com card fala: uma das três frases ao receber o card e as frases de cada momento do trabalho |
 | `JobTalkRules` | Quando ele fala: a chance, quem ouve, a chave das falas e a expressão calma, e se o card é novo |
-| `PatrollerSpec` | O que um tier faz com o card do Patrulheiro Galático: a pistola, a lentidão, a lâmina, a armadura extra, o raio de procura, o salto, os pontos da rota e o lado da área, o dobro do dos outros cards |
+| `PatrollerSpec` | O que um tier faz com o card do Patrulheiro Galático: a pistola, a lentidão, a lâmina, a armadura extra, o raio de procura, o salto, com o vão que atravessa planando (`gap`), os pontos da rota, o lado da área, o dobro do dos outros cards, o alcance do golpe da lâmina (`bladeReach`) e a bateria do retorno automático (`returnCharge`), de 5% no Elite e 3% no Ultimate (perguntas 1642, 1648 e 1689) |
 | `PatrolSettings` | Os números do Patrulheiro que valem em todo tier: a chance e o tempo da lentidão, a chance da cabeça, a perseguição, a distância da troca de arma e o passo da ronda (`Round`: a velocidade e os limites de cada parada e dos blocos entre duas paradas, com o sorteio feito por quem chama e mantido nos limites) |
 | `RoutePoint` | Um ponto da rota: o topo de um bloco sólido e a dimensão dele |
 | `PatrolRoute` | Os pontos da rota, na ordem em que foram marcados, percorridos em laço, sem ponto repetido e até o limite do tier, e o ponto mais perto de um lugar, de onde a ronda volta depois de um combate (pergunta 1625) |
