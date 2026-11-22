@@ -56,11 +56,15 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 1. **Scanner de minérios só no Minerador** (pergunta 1741). Quando o Minerador começar, o scanner de minérios sai de todo Cubit e passa a ser só do Minerador, melhorado. Está anotado em [`trabalhos/minerador.md`](funcionalidades/trabalhos/minerador.md).
 2. **Explorador** (perguntas 1668 a 1671). Profissão nova, anotada em [`trabalhos/explorador.md`](funcionalidades/trabalhos/explorador.md).
+3. **Busca no fim da escolta do Patrulheiro** (pergunta 1766).
+   - **A ideia:** hoje, a cada mob que sai do nível, por morte, despawn ou mudança de dimensão, o `RobotEscort.onLeave` percorre os robôs do nível para achar quem o escoltava. Medir o custo com muitos mobs e Cubits e, se pesar, trocar por um registro dos escoltados no servidor (regra 21).
+   - **Em aberto:** a medida, numa farm de mobs com 20 a 30 Cubits, e se o registro vale o código a mais (pilar Simplicidade).
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 17:00 | Acrescenta a busca no fim da escolta do Patrulheiro (pergunta 1766). |
 | Zennd | 2026-11-22 16:34 | Acrescenta o XP em tanque de líquido, no Cubit e no Dock (pergunta 1762). |
 | Zennd | 2026-11-22 23:00 | Acrescenta o nome pedido ao colocar o Cubit (pergunta 1748). |
 | Zennd | 2026-11-22 22:40 | Cria o backlog com as ideias do Tablet, do teleporte longo, do scanner do Minerador e do Explorador (perguntas 1741, 1746 e 1747). |
