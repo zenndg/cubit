@@ -703,11 +703,15 @@ Não há perguntas pendentes nesta fase.
 | 1756 | Há algo a acrescentar ao item 1 do fechamento do PR 3, o estado do Patrulheiro sincronizado com o cliente, com a fase do `PatrolWatch` e o visor baixado, só o dado, para o PR 4? | Nada a acrescentar (1631) |
 | 1757 | O Contrato de `patrulheiro.md` não cita `patroller_glide_drop_blocks` (1739) nem `patroller_escort_still_ticks` (1744), que já estão no código, no `tiers.md` e no `config.md`. Ele é corrigido? | Sim, num commit próprio (Regra do Escoteiro) |
 | 1758 | As frases do `decisoes.md` que citam a entrega em três PRs e o visual no PR 3, desatualizadas pela 1749, são atualizadas? | Sim, apontando para a 1749, no commit do resumo das respostas 1700 a 1756 |
+| 1759 | A GameTest `farFromTheOwnerTheXpBecomesEnergy` mostrou que, no evento de XP, o jogo ainda não guardou o último dano, que é `null` num abate de um golpe, e o Patrulheiro nunca absorve o XP. Como o código reconhece o abate dele? | Pelo último que feriu o mob, o `getLastHurtByMob`, que o jogo guarda antes da morte: vale quando é um Patrulheiro com o card, que nunca usa o choque. Um mob ferido por ele que morra de outra causa logo depois também conta. A recomendação foi aceita. Detalha a 1728 |
+| 1760 | A GameTest `aFireballHeadingForItIsShotBack` mostrou que o globo, a 1,6 bloco por tick, atravessa a bola de fogo que vem na direção dele sem detectar o toque, porque num tick ele começa dentro da caixa dela. Como corrigir? | Além do teste do jogo, o globo confere se a caixa do próprio trajeto no tick encosta numa bola de fogo que ele pode acertar, só para a bola de fogo. A recomendação foi aceita. Detalha a 1687 |
+| 1761 | A GameTest `theTeamBesiegesTheTargetFromEverySide` falha porque o empurrão da lâmina prende o husk na parede da arena, e o Patrulheiro na pistola só se move pela volta do círculo (1718), o que a arena de 5 blocos de largura não permite. Como corrigir o teste? | O husk nasce a menos de 4 blocos dos dois, que lutam com a lâmina, e ganha resistência total ao empurrão. O teste continua exigindo mais de 120° entre os dois. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:32 | Registra as respostas 1759 a 1761. |
 | Zennd | 2026-11-22 16:07 | Registra as respostas 1757 e 1758. |
 | Zennd | 2026-11-22 16:02 | Registra a resposta 1756. |
 | Zennd | 2026-11-22 16:00 | Registra a resposta 1755. |
