@@ -44,6 +44,7 @@ public final class RobotPatrolCombat {
   private LivingEntity target;
   private PatrolWatch watch = PatrolWatch.START;
   private final PatrolTrail trail = new PatrolTrail();
+  private boolean threatNear;
   private long nextSearch;
 
   RobotPatrolCombat(RobotEntity robot) {
@@ -69,6 +70,14 @@ public final class RobotPatrolCombat {
     return fighting()
         || armed()
             && (phase == PatrolWatch.Phase.OWNER_CHECK || phase == PatrolWatch.Phase.INVESTIGATION);
+  }
+
+  /**
+   * The errands wait: the trip to a chest and the fetch of an item stop in a fight and come back
+   * after it, and none starts with a hostile in its search (answer 1640).
+   */
+  boolean holdsErrands() {
+    return busy() || armed() && threatNear;
   }
 
   /** Where it walks to investigate: the last place it saw the hostile (answer 1624). */
@@ -108,6 +117,7 @@ public final class RobotPatrolCombat {
       drop();
       watch = PatrolWatch.START;
       trail.clear();
+      threatNear = false;
       return;
     }
     watch = watch.tick(timings());
@@ -188,9 +198,9 @@ public final class RobotPatrolCombat {
    */
   private List<LivingEntity> pool(List<RobotEntity> mates, List<RobotEntity> wounded) {
     Set<LivingEntity> pool = new LinkedHashSet<>();
-    PatrolSight.hostiles(robot, spec().searchRadius()).stream()
-        .filter(mob -> trail.mayChoose(robot, mob, timings()))
-        .forEach(pool::add);
+    List<LivingEntity> seen = PatrolSight.hostiles(robot, spec().searchRadius());
+    threatNear = !seen.isEmpty();
+    seen.stream().filter(mob -> trail.mayChoose(robot, mob, timings())).forEach(pool::add);
     mates.forEach(mate -> mate.workArea().work().patrolCombat().target().ifPresent(pool::add));
     int rescue = team().rescueRadius();
     wounded.forEach(one -> pool.addAll(PatrolSight.hostiles(one, rescue)));
