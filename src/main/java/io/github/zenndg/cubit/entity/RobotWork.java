@@ -216,6 +216,7 @@ public final class RobotWork implements WorkControl {
         robot.workArea().working(),
         robot.robotInventory().isFull(),
         canUnload,
+        job().filter(job -> !job.hibernatesWhenFull()).isPresent(),
         fishing.reason());
   }
 

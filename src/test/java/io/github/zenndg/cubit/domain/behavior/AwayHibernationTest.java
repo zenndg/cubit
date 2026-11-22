@@ -17,6 +17,7 @@ class AwayHibernationTest {
   private static final Optional<HibernationReason> NO_WATER =
       Optional.of(HibernationReason.NO_WATER);
   private static final Optional<HibernationReason> NONE = Optional.empty();
+  private static final boolean GUARDS = true;
 
   /** With a card, in an area, full and with nowhere to unload, it hibernates (answer 1165). */
   @Test
@@ -58,5 +59,16 @@ class AwayHibernationTest {
     assertEquals(
         Optional.empty(), AwayHibernation.reason(CARD, OUTSIDE, ROOM, CAN_UNLOAD, NO_WATER));
     assertEquals(Optional.empty(), AwayHibernation.reason(CARD, IN_AREA, ROOM, CAN_UNLOAD, NONE));
+  }
+
+  /**
+   * A job that guards never sleeps for a full inventory, but the job reason still counts (1639).
+   */
+  @Test
+  void aGuardNeverHibernatesForAFullInventory() {
+    assertEquals(NONE, AwayHibernation.reason(CARD, IN_AREA, FULL, CANNOT_UNLOAD, GUARDS, NONE));
+    assertEquals(
+        Optional.of(HibernationReason.INVENTORY_FULL),
+        AwayHibernation.reason(CARD, IN_AREA, FULL, CANNOT_UNLOAD, !GUARDS, NONE));
   }
 }
