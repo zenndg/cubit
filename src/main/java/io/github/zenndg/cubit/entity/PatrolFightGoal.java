@@ -20,8 +20,8 @@ import net.minecraft.world.phys.Vec3;
  * How the Galactic Patroller moves in a fight: close in for the blade, stand and aim for the
  * pistol, keep out of the blast of a creeper and, with the team, besiege the target from every
  * side. It chases only so far from what it guards, the route, the area or the one it escorts, and
- * then lets go, to investigate where it last saw the hostile (answers 1562, 1565, 1567, 1595, 1624,
- * 1636 and 1645).
+ * then lets go, to investigate where it last saw the hostile. Wounded, it backs off toward the
+ * nearest one it protects (answers 1562, 1565, 1567, 1595, 1624, 1636, 1645 and 1686).
  */
 final class PatrolFightGoal extends Goal {
   private static final double SPEED_MODIFIER = 1;
@@ -102,10 +102,7 @@ final class PatrolFightGoal extends Goal {
   }
 
   private void move(WeaponChoice weapon, LivingEntity target) {
-    boolean swelling = target instanceof Creeper creeper && creeper.getSwellDir() > 0;
-    if (PatrolRules.backsAway(swelling, robot.distanceTo(target), CREEPER_BLAST)
-        || weapon == WeaponChoice.NONE && robot.distanceTo(target) < KEEP_AWAY) {
-      keepAway(target);
+    if (backedOff(weapon, target)) {
       return;
     }
     if (weapon != WeaponChoice.NONE && besiege(weapon, target)) {
@@ -118,6 +115,25 @@ final class PatrolFightGoal extends Goal {
     if (weapon == WeaponChoice.BLADE && robot.distanceTo(target) > BLADE_STOP) {
       robot.getNavigation().moveTo(target, SPEED_MODIFIER);
     }
+  }
+
+  /**
+   * Out of the blast of a creeper, or away from a creeper it cannot shoot, and, wounded, back from
+   * a target too near (answers 1567, 1595 and 1686).
+   */
+  private boolean backedOff(WeaponChoice weapon, LivingEntity target) {
+    boolean swelling = target instanceof Creeper creeper && creeper.getSwellDir() > 0;
+    double distance = robot.distanceTo(target);
+    if (PatrolRules.backsAway(swelling, distance, CREEPER_BLAST)
+        || weapon == WeaponChoice.NONE && distance < KEEP_AWAY) {
+      keepAway(target);
+      return true;
+    }
+    if (robot.workArea().work().patrolCombat().cautious() && distance < switchDistance()) {
+      retreat(target);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -213,6 +229,32 @@ final class PatrolFightGoal extends Goal {
         robot.getLookControl().setLookAt(owner);
       }
     }
+  }
+
+  /**
+   * Wounded and too near, it backs off toward the nearest one it protects, or else away from the
+   * target (answer 1686).
+   */
+  private void retreat(LivingEntity target) {
+    int radius = robot.workArea().work().patrolCombat().spec().searchRadius();
+    Optional<LivingEntity> shelter =
+        robot
+            .level()
+            .getEntitiesOfClass(
+                LivingEntity.class,
+                robot.getBoundingBox().inflate(radius),
+                one -> one != robot && one.isAlive() && PatrolProtection.isProtected(robot, one))
+            .stream()
+            .min(Comparator.comparingDouble(robot::distanceTo));
+    if (shelter.isEmpty()) {
+      keepAway(target);
+      return;
+    }
+    robot.getNavigation().moveTo(shelter.get(), SPEED_MODIFIER);
+  }
+
+  private static int switchDistance() {
+    return RobotPatrolCombat.settings().weaponSwitchDistance();
   }
 
   /** Away from the target, on the other side from it. */

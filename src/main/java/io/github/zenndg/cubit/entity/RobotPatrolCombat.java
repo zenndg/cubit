@@ -284,6 +284,11 @@ public final class RobotPatrolCombat {
     robot.setYBodyRot(yaw);
   }
 
+  /** Under the low health it fights with care, by the pistol, from a distance (answer 1686). */
+  boolean cautious() {
+    return team().wounded(robot.getHealth(), robot.getMaxHealth());
+  }
+
   /** What the movement goal reads to approach, stop or keep away. */
   WeaponChoice weapon() {
     if (!fighting()) {
@@ -296,7 +301,8 @@ public final class RobotPatrolCombat {
             target instanceof Creeper,
             spec().canShoot(robot.battery()) && robot.hasLineOfSight(target),
             robot.distanceTo(target) <= spec().weapons().pistolRange(),
-            settings().weaponSwitchDistance()));
+            settings().weaponSwitchDistance(),
+            cautious()));
   }
 
   private void jumpIfNeeded() {

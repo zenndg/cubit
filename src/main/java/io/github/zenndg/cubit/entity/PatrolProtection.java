@@ -42,7 +42,7 @@ public final class PatrolProtection {
   }
 
   /** Someone it guards: a mob chasing it hurts someone, and its weapons pass through it. */
-  private static boolean isProtected(RobotEntity robot, LivingEntity entity) {
+  static boolean isProtected(RobotEntity robot, LivingEntity entity) {
     return traits(robot, entity, false).guarded();
   }
 

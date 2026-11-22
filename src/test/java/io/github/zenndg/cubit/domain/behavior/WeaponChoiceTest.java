@@ -12,7 +12,22 @@ class WeaponChoiceTest {
   private static WeaponChoice choose(
       double distance, boolean inAir, boolean creeper, boolean canShoot, boolean inRange) {
     return WeaponChoice.choose(
-        new WeaponChoice.Check(distance, inAir, creeper, canShoot, inRange, SWITCH));
+        new WeaponChoice.Check(distance, inAir, creeper, canShoot, inRange, SWITCH, false));
+  }
+
+  private static WeaponChoice cautious(double distance, boolean canShoot) {
+    return WeaponChoice.choose(
+        new WeaponChoice.Check(distance, false, false, canShoot, true, SWITCH, true));
+  }
+
+  @Test
+  void woundedItShootsEvenANearTarget() {
+    assertEquals(WeaponChoice.PISTOL, cautious(NEAR, true));
+  }
+
+  @Test
+  void woundedWithoutAShotItStillHasTheBlade() {
+    assertEquals(WeaponChoice.BLADE, cautious(NEAR, false));
   }
 
   @Test
