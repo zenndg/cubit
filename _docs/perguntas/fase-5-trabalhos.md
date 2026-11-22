@@ -610,11 +610,14 @@ Não há perguntas pendentes nesta fase.
 | 1663 | Os três pontos desatualizados do `tablet.md` (a linha do app Marcar sem o Patrulheiro, o componente `cubit:tablet_app` sem `doors` e a lista de cores sem Marcar e Portas) são corrigidos? | Sim, no mesmo PR, junto com a linha do app Escort (Regra do Escoteiro) |
 | 1664 | Quando o app Escort aparece no Tablet? | Só quando o Cubit escolhido tem o card do Patrulheiro no slot. Sem o card, ou com outro Cubit escolhido, o app não entra na troca de apps, e o Tablet ativo nele volta ao Open, como os outros apps que deixam de fazer sentido (perguntas 1006 e 1044). Detalha a 1655 |
 | 1665 | O que precisa estar nos documentos depois do refinamento do PR 3? | Tudo o que foi refinado, no `patrulheiro.md` e nos demais documentos que o citam, antes do código |
+| 1666 | Quais são as próximas profissões depois do Patrulheiro, e em que ordem? | Lenhador, uma profissão nova (pergunta 1594), Pecuarista, Mecânico e Alquimista, nesta ordem, e depois o Minerador e o Construtor. A personalização visual por card segue entre o Pecuarista e o Mecânico, como antes. Muda a ordem da pergunta 251 e das perguntas 1141 e 1146 |
+| 1667 | O conceito do Lenhador é criado agora? | Não: o Lenhador entra só no `ROADMAP.md`, no `checklist.md` e na ordem de entrega, e o conceito é criado quando o card começar. Cumpre o lembrete da 1594 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 13:10 | Registra as respostas 1666 e 1667. |
 | Zennd | 2026-11-22 11:00 | Registra as respostas 1622 a 1665. |
 | Zennd | 2026-11-22 10:45 | Registra a resposta 1621. |
 | Zennd | 2026-11-22 09:30 | Registra as respostas 1609 a 1620. |
