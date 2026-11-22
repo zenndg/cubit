@@ -2,7 +2,7 @@
 
 Conceito do trabalho de Patrulheiro Galático, que substitui o Defensor (#198). O documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui, com as exceções escritas abaixo.
 
-**Situação:** autorizado (perguntas 1591, 1613 e 1632). O conceito vem do desenvolvedor (perguntas 1550 a 1552) e foi refinado nas perguntas 1553 a 1642. O PR 1, com o comportamento, entrou no #238, o PR 2, com a rota e a ronda lenta, no #239, e o PR 3 traz o realismo e o visual. A prioridade é a mais alta, como a da Engineering Desk: cada detalhe do conceito e da aparência é decidido antes do código (pergunta 1560). Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
+**Situação:** autorizado (perguntas 1591, 1613, 1632 e 1698). O conceito vem do desenvolvedor (perguntas 1550 a 1552) e foi refinado nas perguntas 1553 a 1697. O PR 1, com o comportamento, entrou no #238, o PR 2, com a rota e a ronda lenta, no #239, e o PR 3 traz o realismo e o visual. A prioridade é a mais alta, como a da Engineering Desk: cada detalhe do conceito e da aparência é decidido antes do código (pergunta 1560). Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
 
 ## A ideia
 
@@ -69,6 +69,15 @@ Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e uma
   3. **Cerco:** cada um se aproxima por um lado do hostil, espalhados em volta dele, e na pistola cada um mira de uma posição diferente. O globo atravessa os robôs, sem fogo amigo.
   4. **Ronda espaçada:** na mesma rota ou nas mesmas bordas, eles se espalham pelo laço, cada um partindo de um ponto diferente.
   5. **Uma fala por equipe:** no mesmo combate, só um deles fala ao entrar em combate e ao abater.
+  6. **Socorro:** um Patrulheiro com a vida baixa em combate, abaixo do limite da [cautela](#vida-baixa), vira a prioridade da equipe. O hostil mais perto dele, a até 8 blocos, passa a ser o alvo de todos, acima de quem fere outro protegido, até não sobrar hostil nesse raio. Atendem os da mesma área ou a até 32 blocos, mesmo fora do próprio raio de procura, e, na escolta, nenhum deixa o escoltado (pergunta 1691).
+
+### Vida baixa
+
+Com a vida abaixo de 25%, ele luta com cautela: deixa o corpo a corpo, usa só a pistola, mantendo a distância da troca de arma, e recua para o lado do protegido mais próximo. Sem carga para atirar, usa a lâmina, para nunca ficar sem defesa. Volta ao normal quando a vida sobe, no Dock ou com a Recharge Splash (perguntas 1571 e 1686).
+
+### Bola de fogo
+
+Uma bola de fogo de ghast indo para um protegido vira alvo da pistola, e o globo a rebate, como o soco do player no jogo. Ele não desvia nem intercepta flechas: o atirador que mira num protegido já é o primeiro alvo (pergunta 1687).
 
 ### Perseguição
 
@@ -79,13 +88,15 @@ Ele sai da rota para ir atrás de um hostil até 16 blocos, medidos do ponto da 
 O comportamento de um vigia de verdade, decidido no início do PR 3 (perguntas 1619 e 1623 a 1629):
 
 1. **Alerta ao avistar:** ao ver um hostil, ele para por 0,5 s, vira o corpo e a cabeça para ele, baixa o visor com o bipe de mira travada e só então ataca. Se o hostil já estiver ferindo alguém, pula o alerta (pergunta 1623).
-2. **Investigar:** quando o hostil some de vista ou foge do limite, ele anda até onde o viu por último, se estiver dentro do limite de perseguição, para olhando em volta, como numa parada da ronda, e só então volta. Se o hostil reaparecer, retoma o combate (pergunta 1624).
+2. **Investigar:** quando o hostil some de vista ou foge do limite, ele anda até onde o viu por último, se estiver dentro do limite de perseguição, para olhando em volta, como numa parada da ronda, e só então volta. Se o hostil reaparecer, retoma o combate. O teleporte, como o do enderman e o do shulker, conta como sumir de vista: se o alvo reaparece no raio de procura, à vista e dentro do limite de perseguição, ele o retoma na hora, sem novo alerta (perguntas 1624 e 1694).
 3. **Conferir o dono:** ao abater o último hostil por perto, com o dono a até 16 blocos, ele vira a cabeça para o dono por 1 s, antes de investigar ou voltar (pergunta 1629).
 4. **Visor com calma:** depois do combate, o visor só sobe depois da investigação ou de 3 s sem ameaça (pergunta 1629).
 5. **Volta à ronda:** volta ao ponto da rota mais perto de onde está e segue a ordem a partir dele. Na ronda pelas bordas, volta ao canto mais perto (pergunta 1625).
 6. **Olhar para fora:** nas paradas das bordas, a varredura é feita de frente para fora da área e, nos cantos, de frente para a diagonal de fora. Nos pontos da rota, segue a direção em que andava (pergunta 1626).
 7. **Guarda:** na parada, ele ergue um pouco o braço da pistola, apontada para onde olha, e o abaixa ao retomar a caminhada (pergunta 1627).
 8. **Ritmo variado:** cada parada sorteia entre 3 e 5 s, e cada trecho, entre 12 e 20 blocos (pergunta 1628).
+9. **Água:** ele nunca entra na água para perseguir. Contra um alvo na água, como o afogado e o guardião, atira da margem, com o alvo no alcance e à vista, e o globo não perde velocidade na água. Um alvo que só se alcança pela água, fora do alcance, conta como fugido, e ele investiga da margem. Se cair na água, luta de lá (pergunta 1693).
+10. **Noite e chuva:** não mudam a ronda nem o combate. O bônus da noite fica para o DDoS (perguntas 1572 e 1692).
 
 ### Escolta
 
@@ -117,7 +128,7 @@ Contra o creeper, usa sempre a pistola, nunca a lâmina. Se o creeper começar a
 
 ## Armas
 
-As duas armas são partes do modelo do Cubit com o card, sem item para o player (pergunta 1573). A pistola fica na garra esquerda e o emissor da lâmina no pulso direito, o tempo todo (pergunta 1574). Ele escolhe a arma sozinho, pela distância: a pistola a partir de 4 blocos e contra alvos no ar, e a lâmina mais perto (pergunta 1557).
+As duas armas são partes do modelo do Cubit com o card, sem item para o player (pergunta 1573). A pistola fica na garra esquerda e o emissor da lâmina no pulso direito, o tempo todo (pergunta 1574). Ele escolhe a arma sozinho, pela distância: a pistola a partir de 4 blocos e contra alvos no ar, e a lâmina mais perto (pergunta 1557). Como no jogo, o globo conta como projétil: o enderman desvia dele teleportando, e os mobs da tag `minecraft:deflects_projectiles`, como o breeze, o rebatem, sem nunca ferir um protegido. Contra eles, ele usa só a lâmina, mesmo a mais de 4 blocos, com o salto quando o alvo está no ar (perguntas 1695 e 1696).
 
 ### Pistola laser
 
@@ -147,6 +158,11 @@ As duas armas são partes do modelo do Cubit com o card, sem item para o player 
 - **Pouso seguro:** nunca pula nem plana para lava, fogo, água funda ou bloco que fere (perguntas 1647 a 1649).
 - **Quando:** na ronda, na perseguição, na investigação, na volta à ronda e na escolta, para acompanhar quem ele segue, com o teleporte do seguir quando fica longe. Nunca usa as asas para sair da área fora de uma perseguição (perguntas 1650 e 1654).
 - **Luzes:** com as asas em uso, o LED da borda da frente e as três luzes da aleta acendem em azul, da cor dos olhos do Cubit, junto com os propulsores. Recolhidas, ficam apagadas (pergunta 1653).
+
+## Bateria
+
+- **Retorno:** com o card, o retorno automático vale com 5% da bateria no Elite e 3% no Ultimate, no lugar da carga do tier. Ele termina o combate antes: espera não haver ameaça no raio de procura e vai direto ao Dock, sem investigar, também na escolta (perguntas 1688 e 1689).
+- **Aviso:** na barra de ação do dono, com o nome do Cubit, `%s is low on power, heading to the Dock` ("%s está com pouca energia, indo ao Dock") e, sem Dock por perto, `%s is low on power and has no Dock` ("%s está com pouca energia e sem Dock"). Respeita a chave `Chatter`. Com o card, ele substitui o `I need to recharge` do retorno automático (perguntas 1690 e 1699).
 
 ## Drops e descarga
 
@@ -185,6 +201,9 @@ Os números ficam em [`tiers.md`](../../tiers.md#trabalhos), todos no config (pe
 | Blocos até a próxima parada | 12 a 20 | 12 a 20 |
 | Alerta ao avistar | 0,5 s | 0,5 s |
 | Investigação | 3 a 5 s | 3 a 5 s |
+| Vida da cautela | Abaixo de 25% | Abaixo de 25% |
+| Raio do socorro | 8 blocos | 8 blocos |
+| Retorno automático | 5% | 3% |
 
 ## Visual
 
@@ -228,12 +247,14 @@ Sons próprios em `.ogg`, descritos em [`sons.md`](../../conceito/sons.md#patrul
 | Item | `cubit:ml_patroller` | O card, na tag `cubit:ml_cards`. Substitui `cubit:ml_defender`, que não foi publicado (pergunta 1569) |
 | Receita | `cubit:ml_patroller` | Card Casing, Circuit Board e estrela de fogo de artifício, liberada pelo Elite Module (pergunta 1576) |
 | Config, `allowed_jobs` | `patroller` | No lugar de `defender`, no Elite e no Ultimate (pergunta 1569) |
-| Config, por tier | `patroller_pistol_damage`, `patroller_pistol_range`, `patroller_pistol_interval_ticks`, `patroller_pistol_cost`, `patroller_slowness_level`, `patroller_blade_damage`, `patroller_blade_interval_ticks`, `patroller_blade_knockback`, `patroller_armor`, `patroller_search_radius`, `patroller_jump_height`, `patroller_jump_cost`, `patroller_route_points`, `patroller_area_size`, `patroller_blade_reach` e `patroller_gap_distance` | Os números por tier da tabela acima (perguntas 1642 e 1648) |
-| Config, geral | `patroller_slowness_chance`, `patroller_slowness_ticks`, `patroller_head_chance`, `patroller_chase_distance`, `patroller_weapon_switch_distance`, `patroller_patrol_speed`, `patroller_stop_min_ticks`, `patroller_stop_max_ticks`, `patroller_stop_min_distance`, `patroller_stop_max_distance`, `patroller_alert_ticks`, `patroller_owner_check_ticks`, `patroller_owner_check_distance`, `patroller_visor_calm_ticks`, `patroller_creeper_blast`, `patroller_keep_away`, `patroller_search_interval_ticks`, `patroller_blade_knockback_base`, `patroller_blade_knockback_step`, `patroller_call_range` e `patroller_wing_detour_factor` | 20%, 3 s, 50%, 16 blocos, 4 blocos, 0,6, 3 s, 5 s, 12 blocos, 20 blocos, 0,5 s, 1 s, 16 blocos, 3 s, 4 blocos, 6 blocos, 0,5 s, 0,4, 0,5, 32 blocos e 2 (perguntas 1614 a 1618, 1632, 1642, 1644 e 1651) |
+| Config, por tier | `patroller_pistol_damage`, `patroller_pistol_range`, `patroller_pistol_interval_ticks`, `patroller_pistol_cost`, `patroller_slowness_level`, `patroller_blade_damage`, `patroller_blade_interval_ticks`, `patroller_blade_knockback`, `patroller_armor`, `patroller_search_radius`, `patroller_jump_height`, `patroller_jump_cost`, `patroller_route_points`, `patroller_area_size`, `patroller_blade_reach`, `patroller_gap_distance` e `patroller_return_charge_percent` | Os números por tier da tabela acima (perguntas 1642, 1648 e 1689) |
+| Config, geral | `patroller_slowness_chance`, `patroller_slowness_ticks`, `patroller_head_chance`, `patroller_chase_distance`, `patroller_weapon_switch_distance`, `patroller_patrol_speed`, `patroller_stop_min_ticks`, `patroller_stop_max_ticks`, `patroller_stop_min_distance`, `patroller_stop_max_distance`, `patroller_alert_ticks`, `patroller_owner_check_ticks`, `patroller_owner_check_distance`, `patroller_visor_calm_ticks`, `patroller_creeper_blast`, `patroller_keep_away`, `patroller_search_interval_ticks`, `patroller_blade_knockback_base`, `patroller_blade_knockback_step`, `patroller_call_range`, `patroller_wing_detour_factor`, `patroller_low_health_percent` e `patroller_rescue_radius` | 20%, 3 s, 50%, 16 blocos, 4 blocos, 0,6, 3 s, 5 s, 12 blocos, 20 blocos, 0,5 s, 1 s, 16 blocos, 3 s, 4 blocos, 6 blocos, 0,5 s, 0,4, 0,5, 32 blocos, 2, 25% e 8 blocos (perguntas 1614 a 1618, 1632, 1642, 1644, 1651, 1686 e 1691) |
 | NBT da entidade | `PatrolRoute` | Os pontos da rota, em ordem. Sem a chave no save, a rota é vazia. Não vai para o item (perguntas 1582 e 1602) |
 | Entidade | `cubit:laser_orb` | O globo de laser da pistola |
 | Tags de entidade | `cubit:patroller_targets` e `cubit:patroller_ignores` | Os mobs que ele sempre ataca e os que nunca ataca, vazias no mod (pergunta 1634) |
 | Tipos de dano | `cubit:laser_orb` e `cubit:plasma_blade` | O dano das duas armas, com as mensagens de morte em inglês e em português |
+| Tag de tipo de dano | `minecraft:is_projectile` | Recebe `cubit:laser_orb`, para o globo contar como projétil no jogo (pergunta 1695) |
+| Traduções | Os avisos da bateria | `%s is low on power, heading to the Dock` e `%s is low on power and has no Dock`, em inglês e português (pergunta 1690) |
 | App do Tablet | `escort` | O app Escort, só com o Patrulheiro escolhido (pergunta 1655) |
 | NBT da entidade | `EscortTarget` | O UUID do escoltado. Sem a chave, não há escolta. Não vai para o item (pergunta 1659) |
 | Pacote do servidor | `cubit:patrol_route` | Os pontos da rota do Cubit escolhido no Tablet, para as setas e a linha do app Marcar (pergunta 1612) |
@@ -247,12 +268,13 @@ Uma issue, a #198 renomeada, e três PRs testados no jogo (perguntas 1578, 1605 
 
 1. **Comportamento:** as falas das cinco profissões, o card, a troca do Defensor, os tiers dos trabalhos, a ronda pelas bordas da área, a perseguição, os alvos, a escolta, o modo Agressivo no servidor, as armas com o dano, a lentidão, o empurrão e a cabeça, a armadura, o gasto, o planar, o salto, a receita e os GameTests, com um visual provisório.
 2. **Rota:** o modo travado na aba Defense, com o motivo, a rota no app Marcar, com as setas numeradas, a linha tracejada e o pacote `cubit:patrol_route`, e os GameTests da rota.
-3. **Visual e realismo:** o realismo da seção [Realismo](#realismo), os alvos novos, a equipe de Patrulheiros, as asas para se mover, a escolta marcada, as correções das perguntas 1635 a 1642, o modelo, as texturas, as animações, os efeitos e os sons, a partir das imagens e dos `.wav` aprovados.
+3. **Visual e realismo:** o realismo da seção [Realismo](#realismo), os alvos novos, a equipe de Patrulheiros, as asas para se mover, a escolta marcada, as correções das perguntas 1635 a 1642, o refinamento final das perguntas 1685 a 1697, o modelo, as texturas, as animações, os efeitos e os sons, a partir das imagens e dos `.wav` aprovados.
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 14:50 | Acrescenta a vida baixa, o socorro, a bola de fogo, a bateria, a água, a noite, o teleporte, o enderman e o breeze (perguntas 1685 a 1699). |
 | Zennd | 2026-11-22 13:00 | Confere o documento com as respostas 1550 a 1665, com o app Escort só com o card e o visual do alerta, da guarda e das asas (perguntas 1664 e 1665). |
 | Zennd | 2026-11-22 12:35 | Acrescenta a escolta marcada pelo app Escort (perguntas 1655 a 1661). |
 | Zennd | 2026-11-22 12:25 | Acrescenta as luzes azuis das asas e as asas na escolta (perguntas 1653 e 1654). |

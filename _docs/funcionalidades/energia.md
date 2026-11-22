@@ -200,12 +200,14 @@ Entra com o item 15 da Fase 4.2, antes do modo área (perguntas 1065 a 1069).
 - **Sem Dock ao alcance:** o Cubit continua o que fazia e tenta de novo a cada intervalo da busca, até o crítico desligá-lo, como hoje (pergunta 1067).
 - **Texto:** `I need to recharge` sai uma vez, quando o retorno começa, e só do Cubit que segue (perguntas 457 e 1068).
 - **Ao sair do Dock:** com a carga cheia, o que seguia volta a seguir, pela regra de hoje, e o que estava numa área volta para ela (pergunta 1068).
+- **Patrulheiro:** com o card, o retorno vale com 5% no Elite e 3% no Ultimate, em `patroller_return_charge_percent`, só depois do combate e com um aviso ao dono na barra de ação, no lugar do `I need to recharge`. As regras estão em [`patrulheiro.md`](trabalhos/patrulheiro.md#bateria) (perguntas 1688 a 1690 e 1699).
 - **Chave:** `Auto return` / `Retorno automático`, desde o Base, ligada por padrão e guardada no item, na aba Settings da tela do Cubit e na aba Recursos do Tablet (pergunta 1066).
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 14:50 | Acrescenta o retorno do Patrulheiro (perguntas 1688 a 1690 e 1699). |
 | Zennd | 2026-11-21 12:50 | Passa a recarga do item para a Engineering Desk (pergunta 1427). |
 | Marcelo Fabiano | 2026-11-21 11:30 | Adiciona a Recharge Splash e a imagem dela (perguntas 1399 a 1423). |
 | Marcelo Fabiano | 2026-11-21 09:50 | Adiciona a aba Solar e o vidro sobre o painel (perguntas 1395 a 1398). |

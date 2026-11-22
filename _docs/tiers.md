@@ -110,6 +110,8 @@ Valem para todos os tiers e ficam no config. Os marcados como planejados entram 
 | Patrulheiro: alcance do chamado aos outros Patrulheiros do dono, `patroller_call_range` (pergunta 1644) | 32 blocos |
 | Patrulheiro: quantas vezes o caminho a pé pode ser maior que a linha reta antes do pulo de asa, `patroller_wing_detour_factor` (pergunta 1651) | 2 |
 | Patrulheiro: velocidade da ronda, sobre a velocidade normal, `patroller_patrol_speed` (pergunta 1614) | 60% (0,6) |
+| Patrulheiro: vida abaixo da qual ele luta só com a pistola, com cautela, `patroller_low_health_percent` (pergunta 1686) | 25% |
+| Patrulheiro: raio em volta de um Patrulheiro com a vida baixa em que a equipe o socorre, `patroller_rescue_radius` (pergunta 1691) | 8 blocos |
 | Falas das profissões: chance num evento do trabalho, `job_chatter_chance` (pergunta 1586) | 20% |
 | Falas das profissões: intervalo mínimo entre duas falas do mesmo Cubit, `job_chatter_interval_ticks` | 2 min (2.400 ticks) |
 | Apresentação: tempo, por player, em que os Cubits novos não repetem a frase do link, `intro_link_cooldown_ticks` (pergunta 1677) | 10 min (12.000 ticks) |
@@ -258,6 +260,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 | Patrulheiro: salto, custo, `patroller_jump_cost` | — | — | 500 FE | 400 FE |
 | Patrulheiro: pontos da rota, `patroller_route_points` (pergunta 1579) | — | — | 16 | 32 |
 | Patrulheiro: lado da área, com a altura do tier, `patroller_area_size` (pergunta 1600) | — | — | 64 blocos | 128 blocos |
+| Patrulheiro: bateria do retorno automático, no lugar de `return_charge_percent`, `patroller_return_charge_percent` (perguntas 1688 e 1689) | — | — | 5% | 3% |
 | Pescador: Isca, `fisher_lure_level` (pergunta 1185) | — | — | II | III |
 | Pescador: Sorte do Mar, `fisher_luck_level` (pergunta 1185) | — | — | II | III |
 | Pescador: custo por peixe pescado, `fisher_catch_cost` (pergunta 1190) | — | 300 FE | 300 FE | 300 FE |
@@ -303,6 +306,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 14:50 | Acrescenta a cautela, o socorro e o retorno do Patrulheiro (perguntas 1686, 1689 e 1691). |
 | Zennd | 2026-11-22 14:05 | Acrescenta os números da apresentação do Cubit (perguntas 1674 e 1677). |
 | Zennd | 2026-11-22 12:15 | Acrescenta o vão que o Patrulheiro atravessa planando (pergunta 1648). |
 | Zennd | 2026-11-22 12:05 | Acrescenta o alcance do chamado do Patrulheiro (pergunta 1644). |

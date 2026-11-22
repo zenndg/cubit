@@ -156,6 +156,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `patroller_gap_distance` | Patrulheiro: maior vão que atravessa planando | 0 a 16 |
 | `general_robot.base` | `patroller_route_points` | Patrulheiro: pontos da rota | 0 a 128 |
 | `general_robot.base` | `patroller_area_size` | Patrulheiro: lado da área, com a altura do tier e 0 para bloqueado | 0 a 256 |
+| `general_robot.base` | `patroller_return_charge_percent` | Patrulheiro: bateria do retorno automático, no lugar de `return_charge_percent` enquanto o card estiver no slot | 0 a 100 |
 | `general` | `death_log_size` | Mortes no histórico do player | 1 a 50 |
 | `general` | `death_guide_arrival_blocks` | Distância de chegada da guia ao local de morte | 1 a 16 |
 | `general` | `death_guide_lead_blocks` | Quanto o Cubit anda à frente do dono na guia | 2 a 16 |
@@ -191,6 +192,8 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general` | `patroller_blade_knockback_base` e `patroller_blade_knockback_step` | Patrulheiro: força do empurrão e o acréscimo por nível | 0 a 5 |
 | `general` | `patroller_call_range` | Patrulheiro: alcance do chamado aos outros Patrulheiros | 1 a 128 |
 | `general` | `patroller_wing_detour_factor` | Patrulheiro: quantas vezes o caminho a pé pode passar da linha reta antes do pulo de asa | 1 a 10 |
+| `general` | `patroller_low_health_percent` | Patrulheiro: vida abaixo da qual ele luta só com a pistola, com 0 para nunca | 0 a 100 |
+| `general` | `patroller_rescue_radius` | Patrulheiro: raio em volta do colega com a vida baixa em que a equipe o socorre | 1 a 32 |
 | `general` | `job_chatter_chance` | Falas das profissões: chance num evento do trabalho | 0 a 100 |
 | `general` | `job_chatter_interval_ticks` | Falas das profissões: intervalo mínimo entre duas falas do mesmo Cubit | 1 a 72000 |
 | `general` | `job_chatter_range` | Falas das profissões: distância do dono para ouvir | 1 a 128 |
@@ -231,6 +234,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 14:50 | Acrescenta as chaves da cautela, do socorro e do retorno do Patrulheiro (perguntas 1686, 1689 e 1691). |
 | Zennd | 2026-11-22 14:30 | Acrescenta as chaves que faltavam: o local de morte, a Engineering Desk, o Organizador, o Cozinheiro, a velocidade e as portas (pergunta 1684). |
 | Zennd | 2026-11-22 14:05 | Acrescenta as chaves da apresentação do Cubit (perguntas 1674 e 1677). |
 | Zennd | 2026-11-22 12:55 | Acrescenta as chaves do Patrulheiro e das falas das profissões (perguntas 1577, 1586, 1614 a 1651 e 1665). |
