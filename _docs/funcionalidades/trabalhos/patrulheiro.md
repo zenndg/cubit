@@ -155,9 +155,9 @@ As duas armas são partes do modelo do Cubit com o card, sem item para o player 
 - **Planar:** na queda, ele plana, sem dano de queda e sem gastar bateria (perguntas 1564 e 1571).
 - **Salto:** só no combate, para um alvo no ar ao alcance da altura do salto, quando a pistola não pode atirar, sem carga ou fora do alcance. Ele golpeia com a lâmina no ar. Com carga, atira de baixo e não salta. O Ultimate salta mais alto, e cada salto gasta bateria (perguntas 1564 e 1596).
 - **Mobs voadores:** a pistola alcança a maior parte, e o salto aproxima o Cubit de um Phantom ou de um Blaze para a lâmina quando a pistola não pode atirar (pergunta 1596).
-- **Pulo de asa:** quando o caminho a pé não existe ou tem mais que o dobro da distância em linha reta (pergunta 1651), ele abre as asas e pula por cima de cercas, muros e blocos até a altura do salto do tier, de 3 e 5 blocos, com a energia do salto. Precisa de espaço livre acima e de chão seguro do outro lado. Sem carga, contorna (pergunta 1647).
+- **Pulo de asa:** quando o caminho a pé não existe ou tem mais que o dobro da distância em linha reta (pergunta 1651), ele abre as asas e pula por cima de cercas, muros e blocos até a altura do salto do tier, de 3 e 5 blocos, com a energia do salto. Precisa de espaço livre acima e de chão seguro do outro lado. Sem carga, contorna (pergunta 1647). É um voo curto, guiado a cada tick: ele confere antes o trajeto livre e um pouso seguro a até 4 blocos no Elite e 6 no Ultimate, na direção do destino, sobe, avança e plana até lá. Sem pouso válido, segue a pé (pergunta 1738).
 - **Vãos:** atravessa vãos de até 4 blocos no Elite e 6 no Ultimate, saltando e planando até o outro lado, no mesmo nível ou abaixo, com a energia do salto. Um vão maior, ele contorna (pergunta 1648).
-- **Descida:** quando o destino está abaixo de uma beirada, salta e desce planando, sem gastar energia (pergunta 1649).
+- **Descida:** quando o destino está abaixo de uma beirada, salta e desce planando, sem gastar energia. Com o card, o caminho planeja quedas de até 16 blocos, no lugar dos 5 de todo Cubit (perguntas 1649 e 1739).
 - **Pouso seguro:** nunca pula nem plana para lava, fogo, água funda ou bloco que fere (perguntas 1647 a 1649).
 - **Quando:** na ronda, na perseguição, na investigação, na volta à ronda e na escolta, para acompanhar quem ele segue, com o teleporte do seguir quando fica longe. Nunca usa as asas para sair da área fora de uma perseguição (perguntas 1650 e 1654).
 - **Luzes:** com as asas em uso, o LED da borda da frente e as três luzes da aleta acendem em azul, da cor dos olhos do Cubit, junto com os propulsores. Recolhidas, ficam apagadas (pergunta 1653).
@@ -278,6 +278,7 @@ Uma issue, a #198 renomeada, e três PRs testados no jogo (perguntas 1578, 1605 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 21:25 | Detalha a descida planando e o voo curto das asas (perguntas 1738 a 1740). |
 | Zennd | 2026-11-22 20:45 | Detalha a bola de fogo rebatida (perguntas 1734 e 1735). |
 | Zennd | 2026-11-22 20:10 | Acrescenta o XP como energia longe do dono (perguntas 1728 a 1730 e 1733). |
 | Zennd | 2026-11-22 19:50 | Detalha o creeper perto de um protegido (pergunta 1731). |

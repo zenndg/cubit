@@ -43,6 +43,9 @@ public final class PatrolSection {
   private static final String KNOCKBACK_STEP = "patroller_blade_knockback_step";
   private static final String XP_ENERGY = "patroller_xp_energy";
   private static final String INTERCEPT_INTERVAL = "patroller_intercept_interval_ticks";
+  private static final String GLIDE_DROP = "patroller_glide_drop_blocks";
+  private static final int GLIDE_DROP_DEFAULT = 16;
+  private static final int GLIDE_DROP_MIN = 5;
   private static final String INTERCEPT_GUARD = "patroller_intercept_guard_distance";
   private static final int INTERCEPT_INTERVAL_DEFAULT = 2;
   private static final int INTERCEPT_INTERVAL_MAX = 20;
@@ -192,6 +195,11 @@ public final class PatrolSection {
     return fightKeys.interceptGuard.get();
   }
 
+  /** How far down its path may drop, as it glides with the card (answer 1739). */
+  public int glideDropBlocks() {
+    return fightKeys.glideDrop.get();
+  }
+
   private PatrolSettings.Round round() {
     int minTicks = stopMinTicks.get();
     int maxTicks = stopMaxTicks.get();
@@ -226,6 +234,7 @@ public final class PatrolSection {
     final ModConfigSpec.IntValue xpOwner;
     final ModConfigSpec.IntValue interceptInterval;
     final ModConfigSpec.IntValue interceptGuard;
+    final ModConfigSpec.IntValue glideDrop;
 
     FightKeys(ModConfigSpec.Builder builder) {
       alert = builder.defineInRange(ALERT, ALERT_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
@@ -253,6 +262,7 @@ public final class PatrolSection {
       interceptGuard =
           builder.defineInRange(
               INTERCEPT_GUARD, INTERCEPT_GUARD_DEFAULT, MIN_ONE, INTERCEPT_GUARD_MAX);
+      glideDrop = builder.defineInRange(GLIDE_DROP, GLIDE_DROP_DEFAULT, GLIDE_DROP_MIN, BLOCKS_MAX);
     }
   }
 }

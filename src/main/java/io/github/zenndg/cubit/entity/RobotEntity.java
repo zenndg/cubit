@@ -320,7 +320,10 @@ public final class RobotEntity extends PathfinderMob implements GeoEntity, Docka
   /** The route asks this. Tracks take no fall damage, so the game default of 3 is too careful. */
   @Override
   public int getMaxFallDistance() {
-    return CubitMod.CONFIG.maxDropBlocks();
+    // The wings of the Patroller glide it down, so its path may drop from higher (answer 1739).
+    return workArea.work().patrolCombat().armed()
+        ? CubitMod.CONFIG.patrol().glideDropBlocks()
+        : CubitMod.CONFIG.maxDropBlocks();
   }
 
   @Override
