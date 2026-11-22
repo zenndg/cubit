@@ -7,7 +7,12 @@ import io.github.zenndg.cubit.domain.tier.AreaSpec;
  * 1051). The base is the side the limits of the tier count, and the height comes from the corners.
  */
 public record WorkArea(AreaCorner min, AreaCorner max, String dimension) {
-  private static final int CORNERS = 4;
+  /** The corners of the base, which the round walks in a loop. */
+  public static final int CORNERS = 4;
+
+  /** How near both edges a place counts as at a corner, for the way out (answer 1626). */
+  private static final double CORNER_REACH = 2;
+
   private static final double HALF = 0.5;
   private static final String INVERTED_MESSAGE = "The corners of an area are inverted";
   private static final String NO_DIMENSION_MESSAGE = "An area needs a dimension";
@@ -57,6 +62,64 @@ public record WorkArea(AreaCorner min, AreaCorner max, String dimension) {
 
   public boolean isIn(String level) {
     return dimension.equals(level);
+  }
+
+  /**
+   * Another area in the same dimension that overlaps this one or touches it, so a base guarded by
+   * several areas side by side counts as one (answer 1707).
+   */
+  public boolean touches(WorkArea other) {
+    return dimension.equals(other.dimension)
+        && min.x() <= other.max.x() + 1
+        && other.min.x() <= max.x() + 1
+        && min.y() <= other.max.y() + 1
+        && other.min.y() <= max.y() + 1
+        && min.z() <= other.max.z() + 1
+        && other.min.z() <= max.z() + 1;
+  }
+
+  /** Which way is out of the area, on each axis of the ground: -1, 0 or 1. */
+  public record Outward(int x, int z) {}
+
+  /**
+   * Which way is out of the area from a place on the ground: across the nearest edge, or the
+   * diagonal near a corner, where the Patroller faces at a stop of its edges (answer 1626).
+   */
+  public Outward outwardFrom(double x, double z) {
+    double west = x - min.x();
+    double east = max.x() + 1 - x;
+    double north = z - min.z();
+    double south = max.z() + 1 - z;
+    int sideX = west <= east ? -1 : 1;
+    int sideZ = north <= south ? -1 : 1;
+    double nearX = Math.min(west, east);
+    double nearZ = Math.min(north, south);
+    if (nearX <= CORNER_REACH && nearZ <= CORNER_REACH) {
+      return new Outward(sideX, sideZ);
+    }
+    return nearX <= nearZ ? new Outward(sideX, 0) : new Outward(0, sideZ);
+  }
+
+  /** The corner of the base nearest to a place on the ground (answer 1625). */
+  public int nearestCorner(double x, double z) {
+    int nearest = 0;
+    double best = Double.MAX_VALUE;
+    for (int index = 0; index < CORNERS; index++) {
+      AreaCorner corner = corner(index);
+      double distance = Math.hypot(corner.x() - x, corner.z() - z);
+      if (distance < best) {
+        best = distance;
+        nearest = index;
+      }
+    }
+    return nearest;
+  }
+
+  /** How far a point is from the base of the area, on the ground, with 0 inside (answer 1636). */
+  public double distanceToBase(double x, double z) {
+    double dx = Math.max(0, Math.max(min.x() - x, x - (max.x() + 1)));
+    double dz = Math.max(0, Math.max(min.z() - z, z - (max.z() + 1)));
+    return Math.sqrt(dx * dx + dz * dz);
   }
 
   /**

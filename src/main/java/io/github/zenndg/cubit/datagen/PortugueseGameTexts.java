@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.datagen;
 
 import io.github.zenndg.cubit.domain.behavior.RobotNotice;
+import io.github.zenndg.cubit.entity.RobotIntro;
 import io.github.zenndg.cubit.entity.RobotNotices;
 import io.github.zenndg.cubit.entity.RobotScanners;
 import io.github.zenndg.cubit.player.ResetCommand;
@@ -38,6 +39,8 @@ final class PortugueseGameTexts {
   private static final String NEED_RECHARGE_NOTICE = "Preciso recarregar";
   private static final String ITEMS_UNLOADED_NOTICE = "Itens descarregados";
   private static final String NO_ROOM_NOTICE = "Sem espaço nos baús marcados";
+  private static final String INTRO_HELP = "Cubit: Estou feliz em lhe ajudar";
+  private static final String INTRO_LINK = "Cubit: Para saber tudo o que posso fazer, acesse: %s";
   private static final String HURT_NOTICE = "Isso dói!";
   private static final String OWNER_HURT_NOTICE = "Cuidado!";
 
@@ -73,6 +76,8 @@ final class PortugueseGameTexts {
   }
 
   private static void addNotices(BiConsumer<String, String> add) {
+    add.accept(RobotIntro.HELP_KEY, INTRO_HELP);
+    add.accept(RobotIntro.LINK_KEY, INTRO_LINK);
     add.accept(RobotNotices.keyOf(RobotNotice.CRITICAL_BATTERY), CRITICAL_BATTERY_NOTICE);
     add.accept(RobotNotices.keyOf(RobotNotice.HURT), HURT_NOTICE);
     add.accept(RobotNotices.keyOf(RobotNotice.OWNER_HURT), OWNER_HURT_NOTICE);

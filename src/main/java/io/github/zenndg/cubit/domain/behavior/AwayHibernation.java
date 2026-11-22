@@ -16,6 +16,20 @@ public final class AwayHibernation {
   }
 
   /**
+   * A job that guards, as the Patroller, never hibernates for a full inventory: it keeps guarding,
+   * and the drops fall on the ground (answer 1639).
+   */
+  public static Optional<HibernationReason> reason(
+      boolean withCard,
+      boolean inArea,
+      boolean full,
+      boolean canUnload,
+      boolean keepsGuard,
+      Optional<HibernationReason> jobReason) {
+    return reason(withCard, inArea, full && !keepsGuard, canUnload, jobReason);
+  }
+
+  /**
    * The job may also stop it, as the Fisher with no water (answer 1188). The full inventory comes
    * first, because it is what Resume asks to fix before the job can go on.
    */

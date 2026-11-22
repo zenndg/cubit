@@ -164,6 +164,23 @@ As frases e as regras estão nas perguntas 572 a 587 e 618 a 621.
 | Redstone | `Redstone! My favorite snack!` | Redstone! Meu lanche favorito! | O dono minera um minério de redstone, inclusive de outro mod |
 | Redstone | `Redstone runs in my circuits!` | A redstone corre nos meus circuitos! | O dono minera um minério de redstone, inclusive de outro mod |
 
+## Apresentação
+
+Duas frases que todo Cubit fala na primeira vez que é colocado no mundo: uma de ajuda, acima da hotbar, e uma com o link para saber tudo o que ele faz, no chat (perguntas 1672 a 1682). Entram no PR 3 do Patrulheiro (pergunta 1676).
+
+| Frase | Onde | Inglês, no jogo | Português |
+|---|---|---|---|
+| Ajuda | Barra de ação, acima da hotbar | `Cubit: Happy to help you!` | `Cubit: Estou feliz em lhe ajudar` |
+| Link | Chat, com o link sublinhado que abre o navegador ao clicar | `Cubit: To learn everything I can do, visit:` e o link | `Cubit: Para saber tudo o que posso fazer, acesse:` e o link |
+
+- **Quando:** na primeira vez que cada Cubit é colocado no mundo, para quem o colocou. As duas respeitam a chave `Chatter` (perguntas 1673, 1675 e 1680).
+- **Link:** o repositório no GitHub, `https://github.com/zenndg/cubit`, no config, em `intro_link_url`, que aceita só `https://` (perguntas 1674 e 1754).
+- **Temporizador:** só para a frase do link. Depois de um link, os Cubits novos que o mesmo player colocar nos 10 minutos seguintes só dizem a frase de ajuda. O tempo fica no config, em `intro_link_cooldown_ticks` (perguntas 1677, 1681 e 1754).
+- **No Dock:** colocar o Cubit direto num Induction Dock também é a primeira colocação, com as duas frases (pergunta 1752).
+- **Quieto:** um Cubit que não mostrou o link pelo temporizador conta como apresentado e não o mostra depois (pergunta 1678).
+- **Falas desligadas:** um Cubit ainda não apresentado que chega com a chave `Chatter` desligada não fala e conta como apresentado (pergunta 1753).
+- **Saves:** o estado do Cubit ganha um campo opcional que diz se ele já foi apresentado: `introduced`, no componente `cubit:robot_state` do item, e `Introduced`, no NBT da entidade. Sem o campo, como nos Cubits das versões publicadas, ele vale como já apresentado e não fala. O tick do último link de cada player fica no attachment `cubit:intro_link_time` (perguntas 1679 e 1750).
+
 ## Profissões
 
 Cada profissão tem frases próprias, todas originais, sem citar filmes nem personagens (perguntas 1583, 1584, 1587 e 1590). Elas aparecem com o nome do Cubit, ou "Cubit" sem nome, e a profissão no idioma do player, como `Cubit (Patrulheiro): ` (pergunta 1588).
@@ -193,6 +210,8 @@ Uma das três frases é sorteada toda vez que o card é colocado e a tela é fec
 ### Durante o trabalho
 
 Num evento do trabalho, com 20% de chance e pelo menos 2 min entre duas falas do mesmo Cubit, para o dono a até 32 blocos dele, na mesma dimensão (perguntas 1585 e 1586). Os números ficam em [`tiers.md`](../tiers.md#valores-gerais).
+
+Numa equipe de Patrulheiros no mesmo combate, só um deles fala a frase de entrar em combate e a de abate, para não virar um coro (pergunta 1646).
 
 | Profissão | Evento | Inglês, no jogo | Português |
 |---|---|---|---|
@@ -256,6 +275,10 @@ Num evento do trabalho, com 20% de chance e pelo menos 2 min entre duas falas do
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:59 | Cita os nomes salvos e as chaves de config da apresentação (perguntas 1750, 1754 e 1765) |
+| Zennd | 2026-11-22 15:40 | Acrescenta a apresentação no Dock e com as falas desligadas (perguntas 1752 e 1753). |
+| Zennd | 2026-11-22 14:05 | Acrescenta as frases de apresentação do Cubit (perguntas 1672 a 1682). |
+| Zennd | 2026-11-22 13:00 | Acrescenta a fala única da equipe de Patrulheiros (pergunta 1646). |
 | Zennd | 2026-11-21 23:14 | Acrescenta as falas das profissões (perguntas 1583 a 1590). |
 | Marcelo Fabiano | 2026-11-08 00:11 | Leva o português das falas para o jogo. |
 | Marcelo Fabiano | 2026-11-07 23:42 | Cita a redstone na introdução. |

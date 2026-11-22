@@ -16,7 +16,7 @@ O mod funciona numa instância só com ele e suas dependências. Tudo aceita red
 - **Quantidade:** um por Cubit, e o tier melhora o que o card faz.
 - **Tier:** o Base não aceita cards, e cada card tem o seu tier mínimo, na tabela abaixo (pergunta 1145). Cada tier mantém os trabalhos do anterior e ganha novos.
 - **Estado:** morrer e recolher preservam o card.
-- **Seguindo:** age como generalista. O card só age em área marcada.
+- **Seguindo:** age como generalista. O card só age em área marcada. A exceção é o Patrulheiro, que escolta o dono e quem o dono marcar com as armas (perguntas 1565 e 1655).
 - **Item:** um por trabalho, com receita própria em JSON e materiais do jogo puro. Os cards empilham.
 - **Receita:** como um pendrive, todo card junta a Card Casing, a Circuit Board e o item que simboliza o trabalho, numa cascata na Engineering Desk. As receitas estão em [`itens.md`](../itens.md#cards-de-trabalho) (perguntas 1540 a 1545). A receita de cada card libera com o Module do tier mínimo do trabalho, e a carcaça e a placa, com o Advanced Module (pergunta 1546).
 - **Falas:** cada profissão fala uma de três frases ao receber o card e frases próprias durante o trabalho, para o dono por perto. As frases estão em [`falas.md`](../conceito/falas.md#profissões) (perguntas 1583 a 1590).
@@ -31,7 +31,7 @@ O mod funciona numa instância só com ele e suas dependências. Tudo aceita red
 | Elite | Os do Avançado, mais Organizador, Cozinheiro, Patrulheiro Galático, Minerador, Construtor, Mecânico e Alquimista |
 | Ultimate | Os mesmos do Elite. Nenhum trabalho espera o Ultimate, que só melhora os números de cada card (pergunta 1598) |
 
-O tier também melhora o que o card faz, com mais velocidade, alcance ou opções. A evolução de cada card é proposta e é decidida no refinamento dele, com os números em [`tiers.md`](../tiers.md#trabalhos) (perguntas 1144 e 1154). A do Minerador e a do Defensor já estão decididas (perguntas 1149 e 1150), e as do Pescador e do Fazendeiro foram decididas no card de cada um (perguntas 1185, 1221 e 1226).
+O tier também melhora o que o card faz, com mais velocidade, alcance ou opções. A evolução de cada card é proposta e é decidida no refinamento dele, com os números em [`tiers.md`](../tiers.md#trabalhos) (perguntas 1144 e 1154). A do Minerador e a do Patrulheiro Galático, no lugar do Defensor, já estão decididas (perguntas 1149, 1150 e 1563), e as do Pescador e do Fazendeiro foram decididas no card de cada um (perguntas 1185, 1221 e 1226).
 
 ### Os trabalhos
 
@@ -68,8 +68,8 @@ Os baús são marcados com o app Descarga do Tablet, e a tela do Cubit tem uma a
 - **Limite:** o Cubit nunca sai da área marcada.
 - **Área carregada:** ela tem prioridade sobre o tier. Se o tier permitir uma área maior que a carregada, ele só atua na parte carregada.
 - **Proteção:** o Cubit nunca mexe em blocos com dados, como baús, máquinas, Dock, antena e Servidor, nem na tag de blocos protegidos, que o pack pode editar. Cada card só mexe no seu tipo de bloco. As exceções são o Organizador, que só tira pela face de baixo das máquinas marcadas e põe nos baús e destinos marcados, e o Cozinheiro, que só põe e tira nos fornos marcados, os dois pela capability do NeoForge, sem quebrar o bloco (perguntas 1289 e 1316, [`organizador.md`](trabalhos/organizador.md#proteção) e [`cozinheiro.md`](trabalhos/cozinheiro.md#proteção)).
-- **Vários Cubits:** há um número fixo por área, e cada um reserva o alvo antes de ir. Varreduras e ações têm limite por tick, e os robôs esperam a vez.
-- **Inventário cheio:** descarrega no baú marcado o que conseguir. Quando não conseguir mais, hiberna.
+- **Vários Cubits:** há um número fixo por área, e cada um reserva o alvo antes de ir. Varreduras e ações têm limite por tick, e os robôs esperam a vez. Os Patrulheiros são a exceção: lutam em equipe, no mesmo alvo ([`patrulheiro.md`](trabalhos/patrulheiro.md#quem-ele-ataca), pergunta 1643).
+- **Inventário cheio:** descarrega no baú marcado o que conseguir. Quando não conseguir mais, hiberna. O Patrulheiro nunca hiberna por inventário cheio (pergunta 1639).
 
 ## Base do trabalho
 
@@ -84,7 +84,7 @@ Entra com o card #193, a base do trabalho, sem trabalho próprio: o Pescador vem
 
 ### Cubit com card
 
-- **Seguindo o player:** age como generalista. O card só age em área marcada (pergunta 193).
+- **Seguindo o player:** age como generalista. O card só age em área marcada (pergunta 193). A exceção é o Patrulheiro, que faz a escolta com as armas (perguntas 1565 e 1655).
 - **Na área:** o Cubit com card está trabalhando. Até o trabalho do card existir, ele faz o mesmo que sem card: coleta, faz a ronda e descarrega (perguntas 340 e 1166). Cada card troca esse comportamento pelo do trabalho.
 - **Estado:** `Working · Fisher` / `Trabalhando · Pescador`, no lugar de `In area`, no topo da tela e na lista do Tablet (pergunta 1168).
 
@@ -99,7 +99,7 @@ Com o card do Organizador, a linha da chave do trabalho dá lugar à linha `Mode
 Estado semelhante ao desligado, mas com o inventário e as configurações acessíveis. O Cubit fica imóvel e sem tarefas, como dormindo (perguntas 198 e 1164).
 
 - **Estado:** `HIBERNATING_AWAY`, no NBT `PowerState`, com o motivo no NBT `HibernationReason`. A hibernação no Dock continua como está e sai sozinha (perguntas 55 e 1164).
-- **Motivo, na base:** só o inventário cheio, e o Pescador acrescenta o `Sem água na área` (pergunta 1188): o Cubit com card, na área, cheio e sem baú marcado com espaço. Sem card, ele segue como nas perguntas 1052 e 1088. Cada trabalho acrescenta os seus motivos (perguntas 196 e 1165).
+- **Motivo, na base:** só o inventário cheio, e o Pescador acrescenta o `Sem água na área` (pergunta 1188): o Cubit com card, na área, cheio e sem baú marcado com espaço. Sem card, ele segue como nas perguntas 1052 e 1088. Cada trabalho acrescenta os seus motivos (perguntas 196 e 1165). O Patrulheiro nunca hiberna por inventário cheio, para não deixar a área sem defesa (pergunta 1639).
 - **Parado:** sem choque, coleta, ímã, tochas, falas e scanners, com a lanterna apagada e sem consumo. O painel solar continua carregando (pergunta 1170).
 - **Na tela:** `Hibernating · Inventory full` / `Hibernando · Inventário cheio`, em azul, com a expressão de sono (perguntas 1168 e 1173).
 - **Texto curto:** `I'm full and have nowhere to unload` / `Estou cheio e não tenho onde descarregar`, uma vez ao hibernar, e de novo se o `Retomar` não resolver (pergunta 1174).
@@ -163,17 +163,19 @@ A Fase 5 é entregue como um kanban, no GitHub Project "Cubit · Fase 5", um car
 5. Organizador (#196)
 6. Cozinheiro (#197)
 7. Patrulheiro Galático, no lugar do Defensor (#198)
-8. Minerador (#199)
-9. Construtor (#200)
-10. Pecuarista (#201)
-11. Personalização visual por card (#202)
-12. Mecânico (#203)
+8. Lenhador, uma profissão nova, ainda sem issue
+9. Pecuarista (#201)
+10. Personalização visual por card (#202)
+11. Mecânico (#203)
+12. Explorador, uma profissão nova, ainda sem issue ([`explorador.md`](trabalhos/explorador.md))
 13. Alquimista (#204)
-14. Antena e carregamento de chunks (#205)
-15. Robot Server, log e viagem até o Dock (#206)
-16. Storage wireless (#207)
+14. Minerador (#199)
+15. Construtor (#200)
+16. Antena e carregamento de chunks (#205)
+17. Robot Server, log e viagem até o Dock (#206)
+18. Storage wireless (#207)
 
-A ordem segue a pergunta 251, com o Mecânico e o Alquimista no fim dos trabalhos (perguntas 1141 e 1146).
+A ordem segue a pergunta 251, mudada na 1666: depois do Patrulheiro, o Lenhador, o Pecuarista, a personalização visual por card, o Mecânico, o Explorador e o Alquimista, e só então o Minerador e o Construtor (perguntas 1666 e 1669).
 
 ## Pendente
 
@@ -185,7 +187,11 @@ A ordem segue a pergunta 251, com o Mecânico e o Alquimista no fim dos trabalho
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:59 | Troca o Defensor pelo Patrulheiro e acrescenta a exceção do inventário cheio, a equipe e a personalização na ordem (perguntas 1639, 1643 e 1765) |
 | Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
+| Zennd | 2026-11-22 13:30 | Acrescenta o Explorador à ordem de entrega (perguntas 1668 a 1670). |
+| Zennd | 2026-11-22 13:10 | Troca a ordem de entrega dos trabalhos, com o Lenhador (perguntas 1666 e 1667). |
+| Zennd | 2026-11-22 13:00 | Registra as exceções do Patrulheiro na escolta e na hibernação (perguntas 1565, 1639 e 1655). |
 | Zennd | 2026-11-22 08:03 | Leva o Construtor, o Mecânico e o Alquimista para o Elite (pergunta 1598). |
 | Zennd | 2026-11-21 23:14 | Acrescenta as falas das profissões (perguntas 1583 a 1590). |
 | Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |

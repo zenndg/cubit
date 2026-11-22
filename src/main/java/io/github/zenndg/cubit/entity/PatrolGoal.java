@@ -10,8 +10,9 @@ import net.minecraft.world.phys.Vec3;
 /**
  * The round of the Galactic Patroller: from point to point of its route, in a loop, at the pace of
  * a lookout, stopping at each point and every so many blocks on the way to look around (answers
- * 1561, 1614, 1615 and 1617). A point it cannot reach is skipped. Without points the area goal
- * walks the edges instead, and a fight comes first.
+ * 1561, 1614, 1615 and 1617), each one of the team from a different point (answers 1646 and 1708).
+ * A point it cannot reach is skipped. Without points the area goal walks the edges instead, and a
+ * fight comes first.
  */
 final class PatrolGoal extends Goal {
   private static final double ARRIVED_BLOCKS = 1.5;
@@ -33,7 +34,8 @@ final class PatrolGoal extends Goal {
   @Override
   public boolean canUse() {
     return robot.workArea().work().patrol().active()
-        && !robot.workArea().work().patrolCombat().fighting();
+        && !robot.workArea().work().escort().active()
+        && !robot.workArea().work().patrolCombat().busy();
   }
 
   @Override
@@ -51,6 +53,9 @@ final class PatrolGoal extends Goal {
     repathCountdown = 0;
     pause.reset();
     resetProgress();
+    RobotPatrol patrol = robot.workArea().work().patrol();
+    patrol.backToNearest();
+    patrol.spread();
   }
 
   @Override
@@ -61,6 +66,9 @@ final class PatrolGoal extends Goal {
   @Override
   public void tick() {
     RobotPatrol patrol = robot.workArea().work().patrol();
+    if (robot.workArea().work().patrolCombat().wings().flying()) {
+      return;
+    }
     if (pause.hold()) {
       repathCountdown = 0;
       resetProgress();
@@ -79,8 +87,14 @@ final class PatrolGoal extends Goal {
     pause.count();
     if (--repathCountdown <= 0) {
       repathCountdown = CubitMod.CONFIG.followRepathTicks();
-      robot.getNavigation().moveTo(target.x, target.y + HALF, target.z, patrol.speed());
+      walkTo(target, patrol.speed());
     }
+  }
+
+  /** On foot, or with a hop of its wings when the way on foot is too long (answer 1738). */
+  private void walkTo(Vec3 target, double speed) {
+    Vec3 above = new Vec3(target.x, target.y + HALF, target.z);
+    robot.workArea().work().patrolCombat().wings().moveTo(above, speed, false);
   }
 
   private boolean stuck(double distance) {

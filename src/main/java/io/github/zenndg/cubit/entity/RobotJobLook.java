@@ -1,11 +1,13 @@
 package io.github.zenndg.cubit.entity;
 
+import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
 import io.github.zenndg.cubit.domain.robot.RobotJob;
 import java.util.Optional;
 
 /**
- * What the client knows of the job, only for the looks: the card in the slot and whether the tool
- * of the job is in the claw (answers 1197, 1199 and 1229). The rules stay on the server.
+ * What the client knows of the job, only for the looks: the card in the slot, whether the tool of
+ * the job is in the claw and the watch of the Galactic Patroller, with its visor (answers 1197,
+ * 1199, 1229 and 1756). The rules stay on the server.
  */
 public final class RobotJobLook {
   private RobotJobLook() {}
@@ -34,6 +36,23 @@ public final class RobotJobLook {
 
   public static boolean toolInClaw(RobotEntity robot) {
     return robot.getEntityData().get(RobotSyncedData.TOOL_IN_CLAW);
+  }
+
+  /** An unknown order, as from a newer server, shows the round, the calmest look. */
+  public static PatrolWatch.Phase patrolPhase(RobotEntity robot) {
+    int shown = robot.getEntityData().get(RobotSyncedData.PATROL_PHASE);
+    PatrolWatch.Phase[] phases = PatrolWatch.Phase.values();
+    return shown >= 0 && shown < phases.length ? phases[shown] : PatrolWatch.Phase.ROUND;
+  }
+
+  public static boolean visorDown(RobotEntity robot) {
+    return robot.getEntityData().get(RobotSyncedData.VISOR_DOWN);
+  }
+
+  /** Set on the server on every tick of the watch. The game sends only a value that changed. */
+  static void showWatch(RobotEntity robot, PatrolWatch watch) {
+    robot.getEntityData().set(RobotSyncedData.PATROL_PHASE, (byte) watch.phase().ordinal());
+    robot.getEntityData().set(RobotSyncedData.VISOR_DOWN, watch.visorDown());
   }
 
   /** Set on the server: the tool of the job goes to the claw while the Cubit works. */

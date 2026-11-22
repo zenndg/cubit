@@ -98,11 +98,31 @@ Valem para todos os tiers e ficam no config. Os marcados como planejados entram 
 | Patrulheiro: chance de cabeça ao matar com a lâmina, `patroller_head_chance` (pergunta 1559) | 50% |
 | Patrulheiro: perseguição máxima, a partir da rota, `patroller_chase_distance` (pergunta 1562) | 16 blocos |
 | Patrulheiro: distância da troca de arma, `patroller_weapon_switch_distance` (pergunta 1557) | 4 blocos |
-| Patrulheiro: parada na ronda, num ponto, num canto ou no caminho, `patroller_stop_ticks` (perguntas 1581, 1615 e 1618) | 4 s (80 ticks) |
-| Patrulheiro: blocos andados na ronda até a próxima parada, `patroller_stop_distance` (perguntas 1616 e 1617) | 16 blocos |
+| Patrulheiro: parada na ronda ou na investigação, sorteada entre `patroller_stop_min_ticks` e `patroller_stop_max_ticks` (perguntas 1615, 1624 e 1628) | 3 a 5 s (60 a 100 ticks) |
+| Patrulheiro: blocos andados na ronda até a próxima parada, sorteados entre `patroller_stop_min_distance` e `patroller_stop_max_distance` (perguntas 1616, 1617 e 1628) | 12 a 20 blocos |
+| Patrulheiro: alerta ao avistar um hostil, antes do primeiro ataque, `patroller_alert_ticks` (pergunta 1623) | 0,5 s (10 ticks) |
+| Patrulheiro: olhar para o dono depois do combate, `patroller_owner_check_ticks`, com o dono a até `patroller_owner_check_distance` (pergunta 1629) | 1 s (20 ticks), até 16 blocos |
+| Patrulheiro: tempo sem ameaça até o visor subir, `patroller_visor_calm_ticks` (pergunta 1629) | 3 s (60 ticks) |
+| Patrulheiro: tempo sem ver o alvo até ele sumir de vista, `patroller_lost_sight_ticks` (pergunta 1721) | 2 s (40 ticks) |
+| Patrulheiro: energia de cada ponto de XP do abate, longe do dono, `patroller_xp_energy` (pergunta 1729) | 50 FE |
+| Patrulheiro: distância do dono até a qual o XP cai para ele, `patroller_xp_owner_distance` (pergunta 1728) | 24 blocos |
+| Patrulheiro: intervalo da procura de uma bola de fogo, `patroller_intercept_interval_ticks` (pergunta 1735) | 2 ticks |
+| Patrulheiro: distância até o protegido a quem a bola de fogo se dirige, `patroller_intercept_guard_distance` (pergunta 1735) | 32 blocos |
+| Patrulheiro: maior queda que o caminho planeja, descendo planando, `patroller_glide_drop_blocks` (pergunta 1739) | 16 blocos |
+| Patrulheiro: tempo do escoltado parado até a parada da escolta, `patroller_escort_still_ticks` (pergunta 1744) | 1 s (20 ticks) |
+| Patrulheiro: raio da explosão do creeper, de onde ele recua, `patroller_creeper_blast` (perguntas 1567 e 1642) | 4 blocos |
+| Patrulheiro: distância que mantém do creeper sem carga, `patroller_keep_away` (perguntas 1595 e 1642) | 6 blocos |
+| Patrulheiro: intervalo da procura de alvos, `patroller_search_interval_ticks` (pergunta 1642 e regra 21) | 0,5 s (10 ticks) |
+| Patrulheiro: força do empurrão da lâmina, `patroller_blade_knockback_base` mais `patroller_blade_knockback_step` por nível (pergunta 1642) | 0,4 e 0,5 |
+| Patrulheiro: alcance do chamado aos outros Patrulheiros do dono, `patroller_call_range` (pergunta 1644) | 32 blocos |
+| Patrulheiro: quantas vezes o caminho a pé pode ser maior que a linha reta antes do pulo de asa, `patroller_wing_detour_factor` (pergunta 1651) | 2 |
 | Patrulheiro: velocidade da ronda, sobre a velocidade normal, `patroller_patrol_speed` (pergunta 1614) | 60% (0,6) |
+| Patrulheiro: vida abaixo da qual ele luta só com a pistola, com cautela, `patroller_low_health_percent` (pergunta 1686) | 25% |
+| Patrulheiro: raio em volta de um Patrulheiro com a vida baixa em que a equipe o socorre, `patroller_rescue_radius` (pergunta 1691) | 8 blocos |
 | Falas das profissões: chance num evento do trabalho, `job_chatter_chance` (pergunta 1586) | 20% |
 | Falas das profissões: intervalo mínimo entre duas falas do mesmo Cubit, `job_chatter_interval_ticks` | 2 min (2.400 ticks) |
+| Apresentação: tempo, por player, em que os Cubits novos não repetem a frase do link, `intro_link_cooldown_ticks` (pergunta 1677) | 10 min (12.000 ticks) |
+| Apresentação: endereço do link, `intro_link_url` (pergunta 1674) | `https://github.com/zenndg/cubit` |
 | Falas das profissões: distância máxima até o dono, `job_chatter_range` (pergunta 1585) | 32 blocos |
 | Recarga da Power Bank no inventário do Dock | A do tier do Dock, uma por vez, sem Cubit na base ou com o Cubit da base de bateria cheia (perguntas 952 e 1376) |
 | Descarga da Power Bank no slot de entrada do Dock | O limite de entrada do Dock, junto dos cabos (pergunta 920) |
@@ -239,12 +259,15 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 | Patrulheiro: lâmina, dano, `patroller_blade_damage` | — | — | 7 | 10 |
 | Patrulheiro: lâmina, intervalo, `patroller_blade_interval_ticks` | — | — | 0,6 s (12 ticks) | 0,5 s (10 ticks) |
 | Patrulheiro: lâmina, empurrão, `patroller_blade_knockback` | — | — | Médio | Forte |
+| Patrulheiro: lâmina, alcance do golpe, `patroller_blade_reach` (pergunta 1642) | — | — | 2,5 blocos | 2,5 blocos |
+| Patrulheiro: maior vão que atravessa planando, `patroller_gap_distance` (pergunta 1648) | — | — | 4 blocos | 6 blocos |
 | Patrulheiro: armadura extra, `patroller_armor` (perguntas 1552 e 1555) | — | — | +6 | +10 |
 | Patrulheiro: raio de procura, `patroller_search_radius` | — | — | 16 blocos | 24 blocos |
 | Patrulheiro: salto, altura, `patroller_jump_height` (pergunta 1564) | — | — | 3 blocos | 5 blocos |
 | Patrulheiro: salto, custo, `patroller_jump_cost` | — | — | 500 FE | 400 FE |
 | Patrulheiro: pontos da rota, `patroller_route_points` (pergunta 1579) | — | — | 16 | 32 |
 | Patrulheiro: lado da área, com a altura do tier, `patroller_area_size` (pergunta 1600) | — | — | 64 blocos | 128 blocos |
+| Patrulheiro: bateria do retorno automático, no lugar de `return_charge_percent`, `patroller_return_charge_percent` (perguntas 1688 e 1689) | — | — | 5% | 3% |
 | Pescador: Isca, `fisher_lure_level` (pergunta 1185) | — | — | II | III |
 | Pescador: Sorte do Mar, `fisher_luck_level` (pergunta 1185) | — | — | II | III |
 | Pescador: custo por peixe pescado, `fisher_catch_cost` (pergunta 1190) | — | 300 FE | 300 FE | 300 FE |
@@ -290,6 +313,17 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 22:10 | Acrescenta a parada da escolta marcada (pergunta 1744). |
+| Zennd | 2026-11-22 21:25 | Acrescenta a descida planando do Patrulheiro (pergunta 1739). |
+| Zennd | 2026-11-22 20:45 | Acrescenta a interceptação da bola de fogo (pergunta 1735). |
+| Zennd | 2026-11-22 20:10 | Acrescenta o XP como energia do Patrulheiro (perguntas 1728 e 1729). |
+| Zennd | 2026-11-22 18:10 | Acrescenta o tempo até o alvo sumir de vista (pergunta 1721). |
+| Zennd | 2026-11-22 14:50 | Acrescenta a cautela, o socorro e o retorno do Patrulheiro (perguntas 1686, 1689 e 1691). |
+| Zennd | 2026-11-22 14:05 | Acrescenta os números da apresentação do Cubit (perguntas 1674 e 1677). |
+| Zennd | 2026-11-22 12:15 | Acrescenta o vão que o Patrulheiro atravessa planando (pergunta 1648). |
+| Zennd | 2026-11-22 12:05 | Acrescenta o alcance do chamado do Patrulheiro (pergunta 1644). |
+| Zennd | 2026-11-22 11:55 | Acrescenta os números do creeper, da procura e do empurrão do Patrulheiro (pergunta 1642). |
+| Zennd | 2026-11-22 11:30 | Acrescenta o ritmo variado, o alerta, a conferida no dono e o visor com calma do Patrulheiro (perguntas 1628, 1629 e 1632). |
 | Zennd | 2026-11-22 11:00 | Troca a pausa nos pontos pelas paradas da ronda lenta (perguntas 1614 a 1618). |
 | Zennd | 2026-11-22 08:12 | Sobe a altura da área do Elite para 24 blocos (pergunta 1601). |
 | Zennd | 2026-11-22 08:10 | Acrescenta o lado da área do Patrulheiro (pergunta 1600). |

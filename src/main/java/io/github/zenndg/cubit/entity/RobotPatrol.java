@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.PatrolProgress;
 import io.github.zenndg.cubit.domain.behavior.PatrolSettings;
+import io.github.zenndg.cubit.domain.behavior.PatrolSpread;
 import io.github.zenndg.cubit.domain.behavior.PatrolStops;
 import io.github.zenndg.cubit.domain.ownership.Ownership;
 import io.github.zenndg.cubit.domain.robot.PatrolRoute;
@@ -42,6 +43,9 @@ public final class RobotPatrol {
   private PatrolRoute route = PatrolRoute.EMPTY;
   private PatrolProgress progress = PatrolProgress.START;
   private PatrolStops stops = PatrolStops.START;
+  private long progressSince;
+  private int edgeCorner;
+  private long edgeSince;
 
   RobotPatrol(RobotEntity robot) {
     this.robot = robot;
@@ -53,7 +57,7 @@ public final class RobotPatrol {
 
   void setRoute(PatrolRoute next) {
     route = next;
-    progress = progress.within(walkable().size());
+    walkTo(progress.within(walkable().size()));
   }
 
   /** How many points the tier keeps, from the config (answer 1579). */
@@ -124,14 +128,14 @@ public final class RobotPatrol {
   /** The point it walks to, skipping the ones in a chunk that is not loaded (rule 22). */
   Optional<BlockPos> currentPoint() {
     PatrolRoute walkable = walkable();
-    progress = progress.within(walkable.size());
+    walkTo(progress.within(walkable.size()));
     for (int tried = 0; tried < walkable.size(); tried++) {
       Optional<BlockPos> point =
           walkable.at(progress.index()).map(found -> new BlockPos(found.x(), found.y(), found.z()));
       if (point.filter(robot.level()::isLoaded).isPresent()) {
         return point;
       }
-      progress = progress.next(walkable.size());
+      walkTo(progress.next(walkable.size()));
     }
     return Optional.empty();
   }
@@ -147,17 +151,106 @@ public final class RobotPatrol {
   /** It reached its point: a stop there, and then the next point (answer 1615). */
   void arrived() {
     stopHere();
-    progress = progress.next(walkable().size());
+    walkTo(progress.next(walkable().size()));
+    spread();
   }
 
-  /** A stop where it is, at a corner of the edges (answer 1616). */
+  /** Each change of the point it walks to is timed, to know who came first (answer 1708). */
+  private void walkTo(PatrolProgress next) {
+    if (next.index() != progress.index()) {
+      progressSince = robot.level().getGameTime();
+    }
+    progress = next;
+  }
+
+  /**
+   * When a mate on the same route heads to the same point first, it goes to the point farthest from
+   * its mates, at the start of the round and at each point (answers 1646 and 1708).
+   */
+  void spread() {
+    PatrolRoute route = walkable();
+    List<PatrolSpread.Walker> mates =
+        PatrolTeams.mates(robot).stream()
+            .map(mate -> mate.workArea().work().patrol())
+            .filter(mate -> mate.active() && mate.walkable().equals(route))
+            .map(RobotPatrol::walker)
+            .toList();
+    walkTo(new PatrolProgress(PatrolSpread.place(route.size(), walker(), mates)));
+  }
+
+  private PatrolSpread.Walker walker() {
+    return new PatrolSpread.Walker(progress.index(), progressSince, robot.getId());
+  }
+
+  /** After a fight, it goes on from the point nearest to where it is (answer 1625). */
+  void backToNearest() {
+    PatrolRoute route = walkable();
+    walkTo(new PatrolProgress(route.nearestTo(robot.getX(), robot.getY() - 1, robot.getZ())));
+  }
+
+  /** Walking the edges of its area, without points of a route (answer 1616). */
+  boolean onEdges() {
+    return hasCard() && robot.workArea().working() && walkable().isEmpty();
+  }
+
+  /**
+   * The corner of the edges it walks to, spread from the mates on the same edges as on a route
+   * (answers 1616 and 1708).
+   */
+  int spreadCorner(int corner) {
+    edgeTo(Math.floorMod(corner, WorkArea.CORNERS));
+    Optional<WorkArea> area = robot.workArea().here();
+    List<PatrolSpread.Walker> mates =
+        PatrolTeams.mates(robot).stream()
+            .filter(mate -> mate.workArea().here().equals(area))
+            .map(mate -> mate.workArea().work().patrol())
+            .filter(RobotPatrol::onEdges)
+            .map(RobotPatrol::edgeWalker)
+            .toList();
+    edgeTo(PatrolSpread.place(WorkArea.CORNERS, edgeWalker(), mates));
+    return edgeCorner;
+  }
+
+  private void edgeTo(int corner) {
+    if (corner != edgeCorner) {
+      edgeSince = robot.level().getGameTime();
+    }
+    edgeCorner = corner;
+  }
+
+  private PatrolSpread.Walker edgeWalker() {
+    return new PatrolSpread.Walker(edgeCorner, edgeSince, robot.getId());
+  }
+
+  /** A stop where it is, at a corner of the edges, drawn with the next leg (answers 1616, 1628). */
   void stopHere() {
-    stops = stops.stop(round().stopTicks());
+    stops = stops.stop(drawStopTicks(), drawLeg());
   }
 
-  /** The blocks walked count toward the next stop on the way (answers 1616 and 1617). */
+  /** The blocks walked count toward the end of the leg (answers 1616, 1617 and 1628). */
   void walked(double blocks) {
-    stops = stops.walked(blocks, round());
+    if (!stops.hasLeg()) {
+      stops = stops.withLeg(drawLeg());
+    }
+    stops = stops.walked(blocks);
+    if (stops.due()) {
+      stopHere();
+    }
+  }
+
+  /** The draw stays out of the domain, which keeps it within the limits (answer 1628). */
+  private int drawStopTicks() {
+    PatrolSettings.Round round = round();
+    return round.stopTicks(
+        robot.getRandom().nextIntBetweenInclusive(round.stopMinTicks(), round.stopMaxTicks()));
+  }
+
+  private int drawLeg() {
+    PatrolSettings.Round round = round();
+    return round.stopDistance(
+        robot
+            .getRandom()
+            .nextIntBetweenInclusive(round.stopMinDistance(), round.stopMaxDistance()));
   }
 
   void waitOut() {
@@ -170,7 +263,7 @@ public final class RobotPatrol {
   }
 
   private static PatrolSettings.Round round() {
-    return CubitMod.CONFIG.patrolSettings().round();
+    return CubitMod.CONFIG.patrol().settings().round();
   }
 
   void save(CompoundTag tag) {

@@ -17,7 +17,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `RobotType` | Identifica o Cubit nos IDs e no config. O robô é único, e é um dado, identificado por um ID |
 | `RobotTier` | Nível de evolução: Base, Advanced, Elite e Ultimate. A `key` é o nome usado no config e nos saves. `next` é o tier seguinte, e `previous`, o que um Module desse tier exige |
 | `TierUpgrade` | O que um Module faz no robô: sobe o tier, pede o tier anterior primeiro ou encontra o robô já nesse tier ou acima |
-| `RobotState` | O que o robô guarda ao virar item: tier, energia, vida, a chave da lanterna, a cor, a chave dos scanners, o filtro de minérios, a chave das falas, o modo de defesa, a chave do painel solar, a coleta e as chaves das tochas, do retorno automático, da descarga e do local de morte. `damaged` e `repaired` dão o estado ao morrer e ao consertar |
+| `RobotState` | O que o robô guarda ao virar item: tier, energia, vida, a chave da lanterna, a cor, a chave dos scanners, o filtro de minérios, a chave das falas, o modo de defesa, a chave do painel solar, a coleta e as chaves das tochas, do retorno automático, da descarga e do local de morte, a velocidade e se o Cubit já se apresentou (`introduced`). O `initial` nasce sem a apresentação, e o que foi salvo antes dela conta como apresentado (perguntas 1679 e 1750). `damaged` e `repaired` dão o estado ao morrer e ao consertar |
 | `TierSpec` | Números de um tipo de robô num tier |
 | `ShockSpec` | O choque de um tier: dano, alcance, intervalo, custo, se atinge todos no alcance e os modos de defesa liberados. O Pacífico sempre está liberado. `NONE` é o tier sem choque |
 | `DefenseMode` | Quem o robô ataca: Pacífico, Contra-atacar, Agressivo ou Focus. A `key` é o nome usado no config e nos saves, e `INITIAL` é o Pacífico |
@@ -73,8 +73,8 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `TabletApp` | Os apps do Tablet, um ativo por vez. A `key` é o nome no componente do item, e uma chave desconhecida vale Open |
 | `RobotListing` | Um Cubit como a tela de seleção do Tablet o ordena: se segue o player, se está na mesma dimensão, se está carregado e a distância |
 | `RobotListings` | A ordem e a busca da tela de seleção do Tablet |
-| `TabletApps` | Os apps do Tablet que fazem sentido para o Cubit escolhido, a troca com Shift e a roda e a volta ao Open de um app que deixou de valer (perguntas 1006 e 1044) |
-| `WorkArea` | A área de um Cubit: um volume de blocos entre dois cantos, numa dimensão. Cabe no tier pela base e pela altura, conta o bloco acima do topo, onde os itens ficam, e dá os cantos da base para a ronda (perguntas 342, 1051 e 1062) |
+| `TabletApps` | Os apps do Tablet que fazem sentido para o Cubit escolhido, a troca com Shift e a roda e a volta ao Open de um app que deixou de valer (perguntas 1006 e 1044). O Escort só entra com o card do Patrulheiro no Cubit escolhido (pergunta 1664) |
+| `WorkArea` | A área de um Cubit: um volume de blocos entre dois cantos, numa dimensão. Cabe no tier pela base e pela altura, conta o bloco acima do topo, onde os itens ficam, dá os cantos da base para a ronda, sabe se toca outra área, a distância de um ponto até a base, o canto mais perto e o lado de fora, para onde o Patrulheiro olha nas paradas das bordas (perguntas 342, 1051, 1062, 1625, 1626, 1636 e 1707) |
 | `AreaCorner` | Um bloco marcado como canto pelo app Área |
 | `AreaCheck` | Se a área pode ser do Cubit, ou por quê não: sem modo área no tier, grande demais, em outra dimensão ou longe demais (perguntas 1050, 1054 e 1058) |
 | `AreaMarking` | A marcação pela metade do app Área: o Cubit e, depois, o primeiro canto, só na memória do servidor (perguntas 1054 e 1060) |
@@ -82,12 +82,12 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `MarkedDoor` e `DoorMarks` | As portas, os alçapões e os portões de cerca que o dono marcou com o app Portas, pelo bloco e pela dimensão, para todos os Cubits dele. Um segundo clique desmarca, e o config limita quantas (perguntas 1364 e 1369) |
 | `UnloadCall` | Se o `Descarregar` do Tablet pode mandar o Cubit, ou por que não, e quando ele descarrega sozinho: só cheio, na área e com a chave ligada (perguntas 1087, 1089 e 1093) |
 | `DeathPointLevel` | O que um tier faz com o local de morte: `locked`, `mark`, que só mostra a coordenada ao renascer, ou `guide`, que também guia até lá. A `key` é o nome usado no config (perguntas 1117 e 1129) |
-| `RobotJob` | Os trabalhos que um card dá ao Cubit, um por card. A `key` é o nome usado no `allowed_jobs` do config (perguntas 1145 e 1163) |
+| `RobotJob` | Os trabalhos que um card dá ao Cubit, um por card. A `key` é o nome usado no `allowed_jobs` do config (perguntas 1145 e 1163). `hibernatesWhenFull` diz se o inventário cheio, sem onde descarregar, o põe para dormir fora do Dock, o que o Patrulheiro nunca faz (pergunta 1639) |
 | `JobSpec` | Os trabalhos que um tier aceita e o que ele faz com cada card, como o `FisherSpec` e o `FarmerSpec`. Sem nenhum, o slot do card fica bloqueado, como no Base (perguntas 1145, 1162 e 1185) |
 | `FarmerSpec` | O Fazendeiro num tier: o custo e a pausa de cada ação, as plantas de colheita especial, a farinha de osso e a Fortuna, de 0 a 3 (perguntas 1221, 1226 e 1235) |
 | `FisherSpec` | O Pescador num tier: os níveis de Isca e de Sorte do Mar, de 0 a 3, como os encantamentos do jogo, e o custo por peixe pescado (perguntas 1185 e 1190) |
 | `HibernationReason` | Por que um Cubit com trabalho hiberna fora do Dock: o inventário cheio, da base, e o `NO_WATER` do Pescador sem água na área. A `key` é a do save (perguntas 1165, 1172 e 1188) |
-| `AwayHibernation` | Quando um Cubit hiberna fora do Dock: com card, na área, cheio e sem onde descarregar, ou pelo motivo do trabalho. O inventário cheio vem antes. O `Retomar` pergunta de novo, então um motivo que não sumiu o põe para dormir outra vez (perguntas 253, 1165 e 1188) |
+| `AwayHibernation` | Quando um Cubit hiberna fora do Dock: com card, na área, cheio e sem onde descarregar, ou pelo motivo do trabalho. O inventário cheio vem antes. O `Retomar` pergunta de novo, então um motivo que não sumiu o põe para dormir outra vez (perguntas 253, 1165 e 1188). Quem guarda a área, como o Patrulheiro, não hiberna pelo inventário cheio (`keepsGuard`, pergunta 1639) |
 | `WaterCell` e `OpenWater` | A água aberta do jogo, de `FishingHook.calculateOpenWater`: um volume de 5×4×5 em volta do ponto, em camadas de um tipo só, com água embaixo de ar. Só ela dá tesouro (pergunta 1183) |
 | `FishingTimes` | O tempo de uma pesca, como no jogo: a espera sorteada, menos a Isca, e a mordida. Os limites vêm do config, e quem chama sorteia (pergunta 1184) |
 | `FishingPace` | Quantos ticks da espera um tick conta: a chuva pode contar um a mais, e sem céu pode não contar, com as chances do jogo (perguntas 1184 e 1206) |
@@ -111,6 +111,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `DeathGuideSpec`, `DeathGuideProgress` e `DeathGuideStep` | Os números da guia, o quanto ela avançou e o próximo passo: andar, esperar o dono, chegar ou desistir (perguntas 1121, 1123 e 1126) |
 | `FollowCall` | Se o `Follow` do Tablet pode fazer o Cubit escolhido seguir o dono agora, ou por que não: já seguindo, sem carga ou em outra dimensão (perguntas 1073 a 1075) |
 | `TabletWheel` | Para que lado Shift + roda troca o app do Tablet. Sem rolagem vertical, como no mouse do macOS com Shift, vale a rolagem para o lado, com o sinal trocado, como na hotbar do jogo |
+| `IntroLink` | Quando o player viu o link da apresentação pela última vez, em ticks, com `NEVER` para nunca. O link só sai depois do temporizador, e um tempo anterior ao último link, como num outro mundo, o mostra de novo. Também diz se um endereço é seguro: só `https://`, com algo depois e sem espaços (perguntas 1674, 1677 e 1681) |
 | `RobotName` | O nome que o Tablet dá ao Cubit, com as regras da etiqueta: corta os espaços das pontas, aceita até 50 caracteres e, vazio, tira o nome (perguntas 1015 a 1017) |
 | `PickupSettings` | As chaves da coleta, do ímã e da busca e o filtro, que o item guarda |
 | `OreSignals` | Quais minérios avisam e qual deles o texto cita, a partir da lista dos raros |
@@ -153,7 +154,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `DockTrip` | Um robô a caminho do Dock: o quanto chegou perto, há quanto tempo não avança e o que faz em cada tick |
 | `DockGoal` | Se o `Ir para o Dock` do Tablet pode mandar o Cubit ou por que não: desligado, hibernando ou sem Dock ao alcance (perguntas 1020 e 1041) |
 | `PreferredDock` | O Dock marcado com o app Dock do Tablet, pelo bloco e pela dimensão. Clicar no mesmo Dock tira a marca (perguntas 1008 e 1045) |
-| `AutoReturn` | Quando o Cubit volta sozinho a um Dock: com a chave ligada, ativo, seguindo o dono e com a bateria do retorno do tier ou menos, a não ser que já esteja a caminho (perguntas 1065 a 1068) |
+| `AutoReturn` | Quando o Cubit volta sozinho a um Dock: com a chave ligada, ativo, seguindo o dono e com a bateria do retorno do tier ou menos, a não ser que já esteja a caminho (perguntas 1065 a 1068). Em guarda (`onGuard`), o Patrulheiro espera o fim do combate e um raio de procura sem hostil, sem conferir o dono nem investigar (perguntas 1689 e 1763) |
 | `DockRemoval` | Quem pode quebrar um Dock |
 | `DockStorageRules` | O inventário do Dock: o que ele guarda, quais slots o tier abre, quando e qual Power Bank ele carrega, e o que a automação tira (perguntas 1361 e 1374) |
 | `DockStoredKind` | O que um item é para o inventário do Dock: Toolbox, Power Bank, Cubit, outro item do mod ou um item de fora |
@@ -188,16 +189,23 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `CatalogSearch` | A busca do catálogo: o nome que o player vê, sem maiúsculas e acentos, em todas as categorias |
 | `JobTalkTopic` | O que um Cubit com card fala: uma das três frases ao receber o card e as frases de cada momento do trabalho |
 | `JobTalkRules` | Quando ele fala: a chance, quem ouve, a chave das falas e a expressão calma, e se o card é novo |
-| `PatrollerSpec` | O que um tier faz com o card do Patrulheiro Galático: a pistola, a lentidão, a lâmina, a armadura extra, o raio de procura, o salto, os pontos da rota e o lado da área, o dobro do dos outros cards |
-| `PatrolSettings` | Os números do Patrulheiro que valem em todo tier: a chance e o tempo da lentidão, a chance da cabeça, a perseguição, a distância da troca de arma e o passo da ronda (`Round`: a velocidade, a duração de cada parada e os blocos entre duas paradas) |
+| `PatrollerSpec` | O que um tier faz com o card do Patrulheiro Galático: a pistola, a lentidão, a lâmina, a armadura extra, o raio de procura, o salto, com o vão que atravessa planando (`gap`), os pontos da rota, o lado da área, o dobro do dos outros cards, o alcance do golpe da lâmina (`bladeReach`) e a bateria do retorno automático (`returnCharge`), de 5% no Elite e 3% no Ultimate (perguntas 1642, 1648 e 1689) |
+| `PatrolSettings` | Os números do Patrulheiro que valem em todo tier: a chance e o tempo da lentidão, a chance da cabeça, a perseguição, a distância da troca de arma e o passo da ronda (`Round`: a velocidade e os limites de cada parada e dos blocos entre duas paradas, com o sorteio feito por quem chama e mantido nos limites) |
 | `RoutePoint` | Um ponto da rota: o topo de um bloco sólido e a dimensão dele |
-| `PatrolRoute` | Os pontos da rota, na ordem em que foram marcados, percorridos em laço, sem ponto repetido e até o limite do tier |
+| `PatrolRoute` | Os pontos da rota, na ordem em que foram marcados, percorridos em laço, sem ponto repetido e até o limite do tier, e o ponto mais perto de um lugar, de onde a ronda volta depois de um combate (pergunta 1625) |
 | `RouteMarking` | O que um clique do app Marcar faz na rota: desmarca um ponto marcado, ou marca o topo de um bloco sólido dentro da área, com o motivo da recusa; e o Shift, que tira o ponto clicado ou o último |
 | `PatrolProgress` | Para qual ponto da rota o Cubit vai, em laço |
-| `PatrolStops` | As paradas da ronda: os blocos andados desde a última, a parada em curso e para onde a cabeça olha, duas vezes para cada lado e depois à frente |
-| `WeaponChoice` | A arma que o Patrulheiro usa no alvo: a pistola de longe e no ar, a lâmina de perto e nenhuma no creeper que ele não pode alvejar |
-| `PatrolTargets` | O hostil que um Patrulheiro ataca: primeiro o que fere alguém, depois o mais perto de um protegido, sem repetir o alvo de outro Patrulheiro, salvo um hostil sozinho |
-| `PatrolRules` | O modo sempre Agressivo, os modos que o card trava na aba Defense, o limite da perseguição, quando ele salta e quando recua do creeper |
+| `PatrolSiege` | O cerco da equipe num alvo: o lado de cada Patrulheiro, em ângulos iguais a partir do primeiro, que mantém o seu, e a distância de cada arma, a da lâmina perto e a da pistola entre a troca de arma e o alcance |
+| `PatrolSpread` | A ronda de vários Patrulheiros na mesma rota ou nas mesmas bordas: quando dois vão ao mesmo ponto, o que chegou depois segue para o ponto do laço mais longe dos colegas, e o empate se decide pelo id |
+| `PatrolXp` | O XP de um abate do Patrulheiro como energia: longe do dono, ele toma só os pontos inteiros que cabem na bateria, cada um com um pouco de energia, e o resto fica para o dono, sem criar FE (perguntas 1728 a 1730) |
+| `WingHop` | O pulo de asa do Patrulheiro: quando vale pular (o caminho do jogo não chega ou passa do fator da linha reta), a altura do voo curto sobre o que está no caminho, dentro do salto do tier, e o movimento de cada tick, que sobe, avança e plana até o pouso (perguntas 1647, 1648, 1651 e 1738) |
+| `PatrolWatch` | O que o Patrulheiro faz como vigia: a ronda, o alerta ao avistar um hostil, pulado quando ele já fere alguém, o combate, a conferida no dono depois do último abate e a investigação do último lugar onde viu um hostil que sumiu, com o visor, que baixa no alerta e só sobe depois da calma ou da investigação (`Timings`: os tempos, a distância do dono e o tempo até o alvo sumir de vista) |
+| `PatrolStops` | As paradas da ronda: os blocos andados desde a última, o trecho sorteado até a próxima, a parada em curso e para onde a cabeça olha, duas vezes para cada lado e depois à frente |
+| `PatrolTraits` | O que o Patrulheiro sabe de um mob, lido dos sinais do jogo, sem lista fixa: se o ataca (todo `Enemy`, `MONSTER` e `NeutralMob`, e quem fere um protegido) e se o protege (players, robôs, aldeões e animais calmos). A tag de ignorar vence, e os protegidos nunca entram na de atacar |
+| `WeaponChoice` | A arma que o Patrulheiro usa no alvo: a pistola de longe e no ar, a lâmina de perto e nenhuma no creeper que ele não pode alvejar. Ferido, com cautela, ele usa a pistola mesmo de perto, e a lâmina só sem poder atirar (pergunta 1686). Contra um alvo que o globo não fere, como o enderman, que desvia, e o breeze, que o rebate, só a lâmina (perguntas 1695 e 1696) |
+| `PatrolTargets` | O hostil que a equipe de Patrulheiros ataca, todos juntos: primeiro o mais perto de um Patrulheiro ferido, depois o que fere alguém, depois o mais perto de um protegido. A equipe mantém o alvo até ele cair ou sair do alcance, salvo se surgir um de tipo mais urgente |
+| `PatrolTeam` | A equipe dos Patrulheiros de um dono: quem luta junto (mesma dimensão, com áreas que se tocam ou dentro do chamado), o alcance do chamado, o raio do socorro e a vida abaixo da qual um Patrulheiro está ferido |
+| `PatrolRules` | O modo sempre Agressivo, os modos que o card trava na aba Defense, o limite da perseguição, quando ele salta e quando recua do creeper. Também guarda o escudo contra o creeper, o empurrão da lâmina e o cone de 20° de um tiro que vai para alguém (perguntas 1642, 1731 e 1735) |
 
 ## Regras e porquês
 
@@ -206,6 +214,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 - **Animal abatido, às vezes:** a chance evita uma fala a cada animal numa fazenda, e um animal de estimação nunca vira piada (pergunta 587).
 - **Bioma por grupo:** só uma mudança de grupo conta, e um bioma sem grupo, como um rio, não muda nada, para o robô não repetir o comentário (pergunta 586).
 - **Reclamar uma vez:** ao se afastar, o dono só ouve de novo depois de o robô chegar perto, para não repetir a cada passo. Um salto além do teleporte não conta, porque não é o dono correndo (pergunta 585).
+- **Apresentação uma vez:** o Cubit fica apresentado antes de dizer qualquer coisa, então o que ficou quieto, pelo temporizador do link ou pela chave `Chatter` desligada, nunca fala depois (perguntas 1678 e 1753).
 - **Falas só com a expressão calma:** qualquer outra expressão indica algo mais importante, como um mob ou um dano.
 - **Sorteio fora do domínio:** o tempo da pesca e as chances da chuva e do céu são sorteados por quem chama, e o domínio só recebe os números. Assim ele continua sem dependências ocultas e testável sem relógio nem sorte (pergunta 1184).
 - **Recharge Splash aos poucos:** a dose é dividida a cada tick, e o último tick leva o que sobra, porque a energia é inteira e a soma precisa dar o total exato (regra 13 e pergunta 1415). O que não cabe na bateria cheia se perde, porque a mistura é uma fonte, como o painel, e não uma transferência entre duas baterias.

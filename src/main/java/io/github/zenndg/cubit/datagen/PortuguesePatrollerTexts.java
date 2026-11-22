@@ -1,6 +1,9 @@
 package io.github.zenndg.cubit.datagen;
 
 import io.github.zenndg.cubit.domain.robot.RobotJob;
+import io.github.zenndg.cubit.domain.robot.TabletApp;
+import io.github.zenndg.cubit.entity.RobotAutoReturn;
+import io.github.zenndg.cubit.item.TabletItem;
 import io.github.zenndg.cubit.menu.DefenseKeys;
 import io.github.zenndg.cubit.menu.TabletKeys;
 import io.github.zenndg.cubit.menu.WorkKeys;
@@ -23,6 +26,15 @@ final class PortuguesePatrollerTexts {
   private static final String NO_AREA = "Marque a área primeiro com o app Área";
   private static final String OUTSIDE = "Só dentro da área de %s";
   private static final String NOT_SOLID = "Marque o topo de um bloco sólido";
+  private static final String ESCORT_APP = "Escolta";
+  private static final String ESCORTING = "%s está escoltando %s";
+  private static final String ESCORT_STOPPED = "%s parou a escolta";
+  private static final String NOT_ESCORTABLE = "%s ataca este mob, então não pode escoltá-lo";
+  private static final String OTHER_DIMENSION = "%s só escolta na própria dimensão";
+  private static final String ESCORTING_YOU = "%s está escoltando você";
+  private static final String STOPPED_YOU = "%s parou de escoltar você";
+  private static final String HEADING = "%s está com pouca energia, indo ao Dock";
+  private static final String NO_DOCK = "%s está com pouca energia e sem Dock";
 
   private PortuguesePatrollerTexts() {}
 
@@ -36,5 +48,14 @@ final class PortuguesePatrollerTexts {
     add.accept(TabletKeys.ROUTE_NO_AREA, NO_AREA);
     add.accept(TabletKeys.ROUTE_OUTSIDE_AREA, OUTSIDE);
     add.accept(TabletKeys.ROUTE_NOT_SOLID, NOT_SOLID);
+    add.accept(RobotAutoReturn.HEADING_KEY, HEADING);
+    add.accept(RobotAutoReturn.NO_DOCK_KEY, NO_DOCK);
+    add.accept(TabletItem.appKey(TabletApp.ESCORT), ESCORT_APP);
+    add.accept(TabletKeys.ESCORTING, ESCORTING);
+    add.accept(TabletKeys.ESCORT_STOPPED, ESCORT_STOPPED);
+    add.accept(TabletKeys.NOT_ESCORTABLE, NOT_ESCORTABLE);
+    add.accept(TabletKeys.ESCORT_OTHER_DIMENSION, OTHER_DIMENSION);
+    add.accept(TabletKeys.ESCORTING_YOU, ESCORTING_YOU);
+    add.accept(TabletKeys.STOPPED_ESCORTING_YOU, STOPPED_YOU);
   }
 }

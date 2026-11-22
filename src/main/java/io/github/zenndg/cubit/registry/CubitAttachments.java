@@ -4,6 +4,8 @@ import com.mojang.serialization.Codec;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.DeathLog;
 import io.github.zenndg.cubit.domain.energy.RechargeSplashDose;
+import io.github.zenndg.cubit.domain.robot.IntroLink;
+import io.github.zenndg.cubit.entity.RobotIntro;
 import io.github.zenndg.cubit.entity.RobotTickReading;
 import io.github.zenndg.cubit.player.ChosenRobotLink;
 import io.github.zenndg.cubit.player.FollowingRobotLink;
@@ -25,6 +27,7 @@ public final class CubitAttachments {
   private static final String DEATH_LOG_ID = "death_log";
   private static final String RECHARGE_SPLASH_ID = "recharge_splash";
   private static final String DESK_SEEN_ID = "engineering_desk_seen";
+  private static final String INTRO_LINK_TIME_ID = "intro_link_time";
   private static final DeferredRegister<AttachmentType<?>> ATTACHMENTS =
       DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, CubitMod.MOD_ID);
 
@@ -73,6 +76,17 @@ public final class CubitAttachments {
       ATTACHMENTS.register(
           DESK_SEEN_ID,
           () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).copyOnDeath().build());
+
+  // When the player last saw the link of the introduction, for its cooldown (answers 1677 and
+  // 1750).
+  public static final Supplier<AttachmentType<IntroLink>> INTRO_LINK_TIME =
+      ATTACHMENTS.register(
+          INTRO_LINK_TIME_ID,
+          () ->
+              AttachmentType.builder(() -> IntroLink.NEVER)
+                  .serialize(RobotIntro.LINK_CODEC)
+                  .copyOnDeath()
+                  .build());
 
   private CubitAttachments() {}
 

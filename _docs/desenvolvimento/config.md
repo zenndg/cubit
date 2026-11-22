@@ -117,6 +117,11 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `pickup_filter_slots` | Filtro de coleta | 1 a 27 |
 | `general_robot.base` | `pickup_filter_tags` | Filtro de coleta com tags | `true` ou `false` |
 | `general_robot.base` | `power_bank_capacity` | Power Bank (70% da bateria) | 1 a 2147483647 |
+| `general_robot.base` | `death_point` | Local de morte: `locked`, `mark` ou `guide`. Um valor inválido vale como `locked` e vai para o log | `locked`, `mark` ou `guide` |
+| `general_robot.base` | `engineering_desk_energy_capacity` | Engineering Desk: energia que a mesa guarda | 1 a 2147483647 |
+| `general_robot.base` | `engineering_desk_craft_ticks` | Engineering Desk: tempo de cada craft | 1 a 72000 |
+| `general_robot.base` | `engineering_desk_storage_slots` | Engineering Desk: slots da entrada | 1 a 36 |
+| `general_robot.base` | `engineering_desk_max_order` | Engineering Desk: maior pedido | 1 a 4096 |
 | `general_robot.base` | `allowed_jobs` | Cards de Aprendizado de Máquina que o tier aceita: `fisher`, `farmer`, `rancher`, `organizer`, `cook`, `patroller`, `miner`, `builder`, `mechanic` e `alchemist`. Um nome inválido é ignorado e vai para o log | Lista com esses nomes |
 | `general_robot.base` | `fisher_lure_level` | Pescador: Isca | 0 a 3 |
 | `general_robot.base` | `fisher_luck_level` | Pescador: Sorte do Mar | 0 a 3 |
@@ -126,6 +131,42 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `farmer_special_crops` | Fazendeiro: plantas de colheita especial | `true` ou `false` |
 | `general_robot.base` | `farmer_bone_meal` | Fazendeiro: slot de fertilizante | `true` ou `false` |
 | `general_robot.base` | `farmer_fortune_level` | Fazendeiro: Fortuna | 0 a 3 |
+| `general_robot.base` | `organizer_chests` | Organizador: baús marcados | 0 a 64 |
+| `general_robot.base` | `organizer_marks` | Organizador: máquinas ou destinos marcados | 0 a 64 |
+| `general_robot.base` | `organizer_action_cost` | Organizador: custo por pilha movida | 0 a 2147483647 |
+| `general_robot.base` | `organizer_action_pause_ticks` | Organizador: pausa entre ações | 1 a 72000 |
+| `general_robot.base` | `organizer_scan_interval_ticks` | Organizador: intervalo da varredura | 1 a 72000 |
+| `general_robot.base` | `cook_ovens` | Cozinheiro: fornos marcados | 0 a 64 |
+| `general_robot.base` | `cook_action_cost` | Cozinheiro: custo por pilha movida | 0 a 2147483647 |
+| `general_robot.base` | `cook_action_pause_ticks` | Cozinheiro: pausa entre ações | 1 a 72000 |
+| `general_robot.base` | `cook_scan_interval_ticks` | Cozinheiro: intervalo da varredura | 1 a 72000 |
+| `general_robot.base` | `patroller_pistol_damage` | Patrulheiro: dano da pistola | 0 a 100 |
+| `general_robot.base` | `patroller_pistol_range` | Patrulheiro: alcance da pistola | 1 a 64 |
+| `general_robot.base` | `patroller_pistol_interval_ticks` | Patrulheiro: intervalo da pistola | 1 a 1200 |
+| `general_robot.base` | `patroller_pistol_cost` | Patrulheiro: custo por disparo | 0 a 2147483647 |
+| `general_robot.base` | `patroller_slowness_level` | Patrulheiro: nível da lentidão do globo | 1 a 5 |
+| `general_robot.base` | `patroller_blade_damage` | Patrulheiro: dano da lâmina | 0 a 100 |
+| `general_robot.base` | `patroller_blade_interval_ticks` | Patrulheiro: intervalo da lâmina | 1 a 1200 |
+| `general_robot.base` | `patroller_blade_knockback` | Patrulheiro: nível do empurrão da lâmina | 0 a 5 |
+| `general_robot.base` | `patroller_blade_reach` | Patrulheiro: alcance do golpe da lâmina | 1 a 6 |
+| `general_robot.base` | `patroller_armor` | Patrulheiro: armadura extra | 0 a 30 |
+| `general_robot.base` | `patroller_search_radius` | Patrulheiro: raio de procura | 1 a 64 |
+| `general_robot.base` | `patroller_jump_height` | Patrulheiro: altura do salto e do pulo de asa | 0 a 64 |
+| `general_robot.base` | `patroller_jump_cost` | Patrulheiro: custo do salto | 0 a 2147483647 |
+| `general_robot.base` | `patroller_gap_distance` | Patrulheiro: maior vão que atravessa planando | 0 a 16 |
+| `general_robot.base` | `patroller_route_points` | Patrulheiro: pontos da rota | 0 a 128 |
+| `general_robot.base` | `patroller_area_size` | Patrulheiro: lado da área, com a altura do tier e 0 para bloqueado | 0 a 256 |
+| `general_robot.base` | `patroller_return_charge_percent` | Patrulheiro: bateria do retorno automático, no lugar de `return_charge_percent` enquanto o card estiver no slot | 0 a 100 |
+| `general` | `death_log_size` | Mortes no histórico do player | 1 a 50 |
+| `general` | `death_guide_arrival_blocks` | Distância de chegada da guia ao local de morte | 1 a 16 |
+| `general` | `death_guide_lead_blocks` | Quanto o Cubit anda à frente do dono na guia | 2 a 16 |
+| `general` | `death_guide_stuck_seconds` | Tempo sem avançar antes de cancelar a guia | 1 a 60 |
+| `general` | `speed_control_min_percent` | Velocidade: o menor valor dos botões, sobre a velocidade do tier | 10 a 100 |
+| `general` | `speed_control_step_percent` | Velocidade: o passo dos botões − e + | 1 a 50 |
+| `general` | `door_open_cost` | Custo de abrir uma porta marcada | 0 a 10000 |
+| `general` | `door_marks_limit` | Portas marcadas por dono | 1 a 256 |
+| `general` | `engineering_desk_craft_energy` | Engineering Desk: custo de cada craft | 0 a 2147483647 |
+| `general` | `engineering_desk_input_per_tick` | Engineering Desk: energia que a mesa recebe por tick | 1 a 2147483647 |
 | `general` | `unload_interval_default_minutes` | Intervalo de descarga na área, padrão de um Cubit novo, com 0 para só quando cheio | 0 a 1440 |
 | `general` | `unload_interval_max_minutes` | Intervalo de descarga na área, o maior que a aba Trabalho oferece | 1 a 1440 |
 | `general` | `farmer_scan_interval_ticks` | Fazendeiro: intervalo da varredura da plantação | 1 a 72000 |
@@ -133,6 +174,38 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general` | `fisher_bite_min_ticks` e `fisher_bite_max_ticks` | Pescador: mordida | 1 a 72000 |
 | `general` | `fisher_lure_ticks_per_level` | Pescador: espera a menos por nível de Isca | 0 a 72000 |
 | `general` | `fisher_cast_reach_blocks` | Pescador: alcance do lançamento | 1 a 16 |
+| `general` | `patroller_slowness_chance` | Patrulheiro: chance de lentidão no acerto da pistola | 0 a 100 |
+| `general` | `patroller_slowness_ticks` | Patrulheiro: duração da lentidão | 1 a 72000 |
+| `general` | `patroller_head_chance` | Patrulheiro: chance de cabeça ao matar com a lâmina | 0 a 100 |
+| `general` | `patroller_chase_distance` | Patrulheiro: perseguição máxima | 0 a 64 |
+| `general` | `patroller_weapon_switch_distance` | Patrulheiro: distância da troca de arma | 0 a 64 |
+| `general` | `patroller_patrol_speed` | Patrulheiro: velocidade da ronda, sobre a normal | 0,1 a 1 |
+| `general` | `patroller_stop_min_ticks` e `patroller_stop_max_ticks` | Patrulheiro: parada na ronda ou na investigação | 0 a 72000 |
+| `general` | `patroller_stop_min_distance` e `patroller_stop_max_distance` | Patrulheiro: blocos andados até a próxima parada | 1 a 256 |
+| `general` | `patroller_alert_ticks` | Patrulheiro: alerta ao avistar um hostil | 0 a 1200 |
+| `general` | `patroller_owner_check_ticks` | Patrulheiro: olhar para o dono depois do combate | 0 a 1200 |
+| `general` | `patroller_owner_check_distance` | Patrulheiro: distância do dono para olhar para ele | 1 a 64 |
+| `general` | `patroller_visor_calm_ticks` | Patrulheiro: tempo sem ameaça até o visor subir | 0 a 1200 |
+| `general` | `patroller_lost_sight_ticks` | Patrulheiro: tempo sem ver o alvo até ele sumir de vista, com 0 para na hora | 0 a 1200 |
+| `general` | `patroller_xp_energy` | Patrulheiro: energia de cada ponto de XP do abate, longe do dono, com 0 para desligar | 0 a 1000 |
+| `general` | `patroller_xp_owner_distance` | Patrulheiro: distância do dono até a qual o XP cai para ele | 1 a 128 |
+| `general` | `patroller_intercept_interval_ticks` | Patrulheiro: intervalo da procura de uma bola de fogo | 1 a 20 |
+| `general` | `patroller_intercept_guard_distance` | Patrulheiro: distância até o protegido a quem a bola de fogo se dirige | 1 a 64 |
+| `general` | `patroller_glide_drop_blocks` | Patrulheiro: maior queda que o caminho planeja, descendo planando | 5 a 64 |
+| `general` | `patroller_escort_still_ticks` | Patrulheiro: tempo do escoltado parado até a parada da escolta | 1 a 200 |
+| `general` | `patroller_creeper_blast` | Patrulheiro: raio da explosão do creeper | 1 a 16 |
+| `general` | `patroller_keep_away` | Patrulheiro: distância que mantém do creeper sem carga | 1 a 32 |
+| `general` | `patroller_search_interval_ticks` | Patrulheiro: intervalo da procura de alvos | 1 a 200 |
+| `general` | `patroller_blade_knockback_base` e `patroller_blade_knockback_step` | Patrulheiro: força do empurrão e o acréscimo por nível | 0 a 5 |
+| `general` | `patroller_call_range` | Patrulheiro: alcance do chamado aos outros Patrulheiros | 1 a 128 |
+| `general` | `patroller_wing_detour_factor` | Patrulheiro: quantas vezes o caminho a pé pode passar da linha reta antes do pulo de asa | 1 a 10 |
+| `general` | `patroller_low_health_percent` | Patrulheiro: vida abaixo da qual ele luta só com a pistola, com 0 para nunca | 0 a 100 |
+| `general` | `patroller_rescue_radius` | Patrulheiro: raio em volta do colega com a vida baixa em que a equipe o socorre | 1 a 32 |
+| `general` | `job_chatter_chance` | Falas das profissões: chance num evento do trabalho | 0 a 100 |
+| `general` | `job_chatter_interval_ticks` | Falas das profissões: intervalo mínimo entre duas falas do mesmo Cubit | 1 a 72000 |
+| `general` | `job_chatter_range` | Falas das profissões: distância do dono para ouvir | 1 a 128 |
+| `general` | `intro_link_cooldown_ticks` | Apresentação: tempo, por player, sem repetir a frase do link | 0 a 72000 |
+| `general` | `intro_link_url` | Apresentação: endereço do link, só `https://` | Texto |
 
 ## Por que esses limites
 
@@ -168,6 +241,15 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 22:10 | Acrescenta a chave da parada da escolta (pergunta 1744). |
+| Zennd | 2026-11-22 21:25 | Acrescenta a chave da descida planando (pergunta 1739). |
+| Zennd | 2026-11-22 20:45 | Acrescenta as chaves da interceptação da bola de fogo (pergunta 1735). |
+| Zennd | 2026-11-22 20:10 | Acrescenta as chaves do XP como energia do Patrulheiro (perguntas 1728 e 1729). |
+| Zennd | 2026-11-22 18:10 | Acrescenta a chave do tempo até o alvo sumir de vista (pergunta 1721). |
+| Zennd | 2026-11-22 14:50 | Acrescenta as chaves da cautela, do socorro e do retorno do Patrulheiro (perguntas 1686, 1689 e 1691). |
+| Zennd | 2026-11-22 14:30 | Acrescenta as chaves que faltavam: o local de morte, a Engineering Desk, o Organizador, o Cozinheiro, a velocidade e as portas (pergunta 1684). |
+| Zennd | 2026-11-22 14:05 | Acrescenta as chaves da apresentação do Cubit (perguntas 1674 e 1677). |
+| Zennd | 2026-11-22 12:55 | Acrescenta as chaves do Patrulheiro e das falas das profissões (perguntas 1577, 1586, 1614 a 1651 e 1665). |
 | Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |
 | Marcelo Fabiano | 2026-11-21 11:30 | Adiciona as chaves da Recharge Splash (perguntas 1413 e 1423). |
 | Marcelo Fabiano | 2026-11-21 08:20 | Adiciona a geração do Dock Solar (pergunta 1385). |

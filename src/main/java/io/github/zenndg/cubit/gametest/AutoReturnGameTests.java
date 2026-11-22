@@ -2,17 +2,25 @@ package io.github.zenndg.cubit.gametest;
 
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
+import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
 import io.github.zenndg.cubit.domain.behavior.RobotNotice;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.PowerState;
+import io.github.zenndg.cubit.domain.robot.RobotState;
+import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.entity.RobotEntity;
+import io.github.zenndg.cubit.entity.RobotJobLook;
 import io.github.zenndg.cubit.entity.RobotNotices;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
+import io.github.zenndg.cubit.registry.CubitItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -44,6 +52,21 @@ public final class AutoReturnGameTests {
   private static final String DOCKED = "The Cubit went to the Dock without a reason";
   private static final String NOT_SAID = "The Cubit did not say it needs to recharge";
   private static final String NOT_KEPT = "The auto return switch was not kept";
+
+  /** Below the 5% of the return of an Elite Patroller, of 3 million FE (answer 1688). */
+  private static final Energy LOW_PATROLLER = new Energy(120_000);
+
+  private static final float PATROLLER_HEALTH = 100f;
+  private static final int CARD_SLOT = 0;
+  private static final int STAND_Y = 2;
+  private static final int BEHIND_X = 2;
+  private static final double TOUGH = 1000;
+
+  /** Longer than the check of the return and shorter than an investigation (answer 1624). */
+  private static final int SETTLE_TICKS = 40;
+
+  private static final String NO_FIGHT = "The Patroller should have fought the hostile";
+  private static final String INVESTIGATED = "With a low battery it should not investigate";
 
   private AutoReturnGameTests() {}
 
@@ -116,10 +139,52 @@ public final class AutoReturnGameTests {
     helper.succeed();
   }
 
+  /** With the battery of its return it skips the investigation and goes (answers 1689, 1763). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void aLowPatrollerGoesStraightToTheDock(GameTestHelper helper) {
+    ServerPlayer owner = DockScene.ownerBeside(helper);
+    DockScene.placeDock(helper, owner, DockScene.FLOOR, STOCK);
+    RobotEntity robot = patroller(helper, owner);
+    Husk husk =
+        helper.spawnWithNoFreeWill(
+            EntityType.HUSK, new BlockPos(BEHIND_X, STAND_Y, DockScene.MIDDLE_Z));
+    husk.getAttribute(Attributes.MAX_HEALTH).setBaseValue(TOUGH);
+    husk.setHealth((float) TOUGH);
+    helper
+        .startSequence()
+        .thenWaitUntil(() ->
+            helper.assertTrue(RobotJobLook.patrolPhase(robot) == PatrolWatch.Phase.FIGHT, NO_FIGHT))
+        .thenExecute(husk::discard)
+        .thenIdle(SETTLE_TICKS)
+        .thenExecute(() ->
+            helper.assertFalse(
+                RobotJobLook.patrolPhase(robot) == PatrolWatch.Phase.INVESTIGATION, INVESTIGATED))
+        .thenWaitUntil(() -> checkDocked(helper, robot, DockScene.DOCK))
+        .thenSucceed();
+  }
+
+  private static RobotEntity patroller(GameTestHelper helper, ServerPlayer owner) {
+    ItemStack item = new ItemStack(CubitItems.GENERAL_ROBOT.get());
+    item.set(
+        CubitDataComponents.ROBOT_STATE.get(),
+        new RobotState(RobotTier.ELITE, LOW_PATROLLER, PATROLLER_HEALTH));
+    RobotEntity robot = GameTestRobots.placeRobot(helper, owner, item, ROBOT_FLOOR);
+    robot
+        .workArea()
+        .work()
+        .slot()
+        .setItem(CARD_SLOT, new ItemStack(CubitItems.PATROLLER_CARD.get()));
+    return robot;
+  }
+
   private static void assertDocked(GameTestHelper helper, RobotEntity robot, BlockPos dock) {
+    checkDocked(helper, robot, dock);
+    helper.succeed();
+  }
+
+  private static void checkDocked(GameTestHelper helper, RobotEntity robot, BlockPos dock) {
     helper.assertValueEqual(robot.powerState(), PowerState.HIBERNATING, NOT_DOCKED);
     helper.assertTrue(robot.docking().isDockedAt(helper.absolutePos(dock)), NOT_DOCKED);
-    helper.succeed();
   }
 
   private static void assertStillOut(GameTestHelper helper, RobotEntity robot) {

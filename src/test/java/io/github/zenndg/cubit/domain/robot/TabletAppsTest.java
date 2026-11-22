@@ -1,6 +1,8 @@
 package io.github.zenndg.cubit.domain.robot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -67,5 +69,13 @@ class TabletAppsTest {
         organizer.available());
     assertEquals(TabletApp.OPEN, WITHOUT_TARGET.effective(TabletApp.MARK));
     assertEquals(TabletApp.MARK, organizer.effective(TabletApp.MARK));
+  }
+
+  /** Escort only with the card of the Galactic Patroller (answer 1664). */
+  @Test
+  void escortOnlyWithThePatroller() {
+    assertTrue(new TabletApps(false, true, true).available().contains(TabletApp.ESCORT));
+    assertFalse(new TabletApps(false, true, false).available().contains(TabletApp.ESCORT));
+    assertEquals(TabletApp.OPEN, new TabletApps(false, true, false).effective(TabletApp.ESCORT));
   }
 }

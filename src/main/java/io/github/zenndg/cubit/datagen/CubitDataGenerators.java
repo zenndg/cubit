@@ -32,8 +32,12 @@ public final class CubitDataGenerators {
         new CubitEntityTagsProvider(output, event.getLookupProvider(), existingFiles));
     generator.addProvider(
         event.includeServer(), new CubitRecipeProvider(output, event.getLookupProvider()));
+    CubitDamageTypeProvider damageTypes =
+        generator.addProvider(
+            event.includeServer(), new CubitDamageTypeProvider(output, event.getLookupProvider()));
     generator.addProvider(
-        event.includeServer(), new CubitDamageTypeProvider(output, event.getLookupProvider()));
+        event.includeServer(),
+        new CubitDamageTypeTagsProvider(output, damageTypes.getRegistryProvider(), existingFiles));
     generator.addProvider(
         event.includeClient(), new CubitBlockStateProvider(output, existingFiles));
     addTags(event, generator, output, existingFiles);

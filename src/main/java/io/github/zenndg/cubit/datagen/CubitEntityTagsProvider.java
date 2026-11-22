@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.datagen;
 
 import io.github.zenndg.cubit.CubitMod;
+import io.github.zenndg.cubit.entity.PatrolProtection;
 import io.github.zenndg.cubit.registry.CubitEntities;
 import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.HolderLookup;
@@ -9,7 +10,10 @@ import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.tags.EntityTypeTags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-/** The game decides who drowns by this tag, and a robot does not breathe. */
+/**
+ * The game decides who drowns by this tag, and a robot does not breathe. The tags of the targets of
+ * the Patroller are generated empty, for the pack to fill (answer 1634).
+ */
 final class CubitEntityTagsProvider extends EntityTypeTagsProvider {
   CubitEntityTagsProvider(
       PackOutput output,
@@ -21,5 +25,7 @@ final class CubitEntityTagsProvider extends EntityTypeTagsProvider {
   @Override
   protected void addTags(HolderLookup.Provider lookup) {
     tag(EntityTypeTags.CAN_BREATHE_UNDER_WATER).add(CubitEntities.GENERAL_ROBOT.get());
+    tag(PatrolProtection.TARGETS);
+    tag(PatrolProtection.IGNORES);
   }
 }

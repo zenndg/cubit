@@ -8,16 +8,28 @@ import java.util.Optional;
  * The keys are a config contract, in the lists of the jobs each tier accepts (answer 1163).
  */
 public enum RobotJob {
-  FISHER,
-  FARMER,
-  RANCHER,
-  ORGANIZER,
-  COOK,
-  PATROLLER,
-  MINER,
-  BUILDER,
-  MECHANIC,
-  ALCHEMIST;
+  FISHER(true),
+  FARMER(true),
+  RANCHER(true),
+  ORGANIZER(true),
+  COOK(true),
+  /** It guards, so it never stops for a full inventory and never leaves its area unguarded. */
+  PATROLLER(false),
+  MINER(true),
+  BUILDER(true),
+  MECHANIC(true),
+  ALCHEMIST(true);
+
+  private final boolean hibernatesWhenFull;
+
+  RobotJob(boolean hibernatesWhenFull) {
+    this.hibernatesWhenFull = hibernatesWhenFull;
+  }
+
+  /** Whether a full inventory with nowhere to unload puts it to sleep away from the Dock (1639). */
+  public boolean hibernatesWhenFull() {
+    return hibernatesWhenFull;
+  }
 
   public String key() {
     return name().toLowerCase(Locale.ROOT);

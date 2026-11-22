@@ -25,13 +25,15 @@ import net.minecraft.world.level.Level;
 
 /**
  * The comments of the robot that follows, on the weather and on what its owner achieves. The rules
- * live in the domain. Only the switch is saved, because the rest is recalculated.
+ * live in the domain. Only the switch and whether the robot introduced itself are saved, because
+ * the rest is recalculated.
  */
 public final class RobotChatter implements RobotSwitch {
   private static final String KEY = "notice.cubit.chat.%s.%d";
 
   private final RobotEntity robot;
   private boolean switchedOn = true;
+  private boolean introduced = true;
   private ChatWatch watch;
   private NoticeRepeat repeat = NoticeRepeat.READY;
   private LeftBehindWatch leftBehind = LeftBehindWatch.READY;
@@ -83,6 +85,15 @@ public final class RobotChatter implements RobotSwitch {
 
   boolean switchedOn() {
     return switchedOn;
+  }
+
+  void setIntroduced(boolean introduced) {
+    this.introduced = introduced;
+  }
+
+  /** Whether the first placement already happened, with the introduction or quiet (1678). */
+  public boolean introduced() {
+    return introduced;
   }
 
   @Override

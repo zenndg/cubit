@@ -2,8 +2,10 @@ package io.github.zenndg.cubit.domain.behavior;
 
 /**
  * Which weapon the Patroller uses on its target: the pistol from a distance and on a target in the
- * air, the blade near, and nothing on a creeper it cannot shoot, as it keeps away (answers 1557,
- * 1567, 1571 and 1595).
+ * air, the blade near, and nothing on a creeper it cannot shoot, as it keeps away. Wounded, it
+ * shoots even a near target, and keeps the blade only without a shot. On a target the orb cannot
+ * hurt, as the enderman that dodges it and the breeze that sends it back, only the blade (answers
+ * 1557, 1567, 1571, 1595, 1686, 1695 and 1696).
  */
 public enum WeaponChoice {
   PISTOL,
@@ -17,9 +19,11 @@ public enum WeaponChoice {
       boolean creeper,
       boolean canShoot,
       boolean inPistolRange,
-      int switchDistance) {
+      int switchDistance,
+      boolean cautious,
+      boolean shotUseless) {
     boolean shotPossible() {
-      return canShoot && inPistolRange;
+      return canShoot && inPistolRange && !shotUseless;
     }
   }
 
@@ -27,7 +31,8 @@ public enum WeaponChoice {
     if (check.creeper()) {
       return check.shotPossible() ? PISTOL : NONE;
     }
-    if (check.shotPossible() && (check.inAir() || check.distance() >= check.switchDistance())) {
+    boolean far = check.distance() >= check.switchDistance();
+    if (check.shotPossible() && (check.cautious() || check.inAir() || far)) {
       return PISTOL;
     }
     return BLADE;

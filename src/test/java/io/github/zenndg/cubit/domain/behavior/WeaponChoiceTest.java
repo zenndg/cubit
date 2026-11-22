@@ -12,7 +12,22 @@ class WeaponChoiceTest {
   private static WeaponChoice choose(
       double distance, boolean inAir, boolean creeper, boolean canShoot, boolean inRange) {
     return WeaponChoice.choose(
-        new WeaponChoice.Check(distance, inAir, creeper, canShoot, inRange, SWITCH));
+        new WeaponChoice.Check(distance, inAir, creeper, canShoot, inRange, SWITCH, false, false));
+  }
+
+  private static WeaponChoice cautious(double distance, boolean canShoot) {
+    return WeaponChoice.choose(
+        new WeaponChoice.Check(distance, false, false, canShoot, true, SWITCH, true, false));
+  }
+
+  @Test
+  void woundedItShootsEvenANearTarget() {
+    assertEquals(WeaponChoice.PISTOL, cautious(NEAR, true));
+  }
+
+  @Test
+  void woundedWithoutAShotItStillHasTheBlade() {
+    assertEquals(WeaponChoice.BLADE, cautious(NEAR, false));
   }
 
   @Test
@@ -51,5 +66,14 @@ class WeaponChoiceTest {
     assertEquals(WeaponChoice.PISTOL, choose(NEAR, false, true, true, true));
     assertEquals(WeaponChoice.NONE, choose(FAR, false, true, false, true));
     assertEquals(WeaponChoice.NONE, choose(FAR, false, true, true, false));
+  }
+
+  /** The enderman dodges the orb and the breeze sends it back, so only the blade (1695, 1696). */
+  @Test
+  void aTargetTheShotCannotHurtGetsTheBlade() {
+    WeaponChoice choice =
+        WeaponChoice.choose(
+            new WeaponChoice.Check(FAR, true, false, true, true, SWITCH, true, true));
+    assertEquals(WeaponChoice.BLADE, choice);
   }
 }

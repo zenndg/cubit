@@ -5,37 +5,53 @@ import io.github.zenndg.cubit.domain.behavior.JobTalkTopic;
 import io.github.zenndg.cubit.domain.behavior.PatrolRules;
 import io.github.zenndg.cubit.domain.behavior.PatrolSettings;
 import io.github.zenndg.cubit.domain.behavior.PatrolTargets;
+import io.github.zenndg.cubit.domain.behavior.PatrolTeam;
+import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
 import io.github.zenndg.cubit.domain.behavior.WeaponChoice;
 import io.github.zenndg.cubit.domain.energy.PowerState;
 import io.github.zenndg.cubit.domain.tier.PatrollerSpec;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Stream;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.phys.Vec3;
 
 /**
  * The fight of the Galactic Patroller, in place of the shock: it picks a hostile, chooses the
  * weapon by the distance, shoots its orb or swings its blade, jumps at a target in the air it
- * cannot shoot and glides when it falls (answers 1556, 1557, 1564, 1568 and 1596). The search runs
- * on an interval, never on every tick (rule 21).
+ * cannot shoot and glides when it falls (answers 1556, 1557, 1564, 1568 and 1596). It fights with
+ * its team, on the target of all, and comes to the call and to the rescue of a wounded one (answers
+ * 1643, 1644 and 1691). The search runs on an interval, never on every tick (rule 21).
  */
 public final class RobotPatrolCombat {
-  private static final int SEARCH_TICKS = 10;
-  private static final double BLADE_REACH = 2.5;
   private static final double IN_AIR_BLOCKS = 1.5;
   private static final double GLIDE_FALL_SPEED = -0.12;
   private static final double JUMP_GRAVITY = 0.08;
   private static final double FALLING = -0.08;
+  private static final float QUARTER_TURN = 90f;
 
   private final RobotEntity robot;
   private final RobotPatrolWeapons weapons;
+  private final RobotWings wings;
   private LivingEntity target;
+  private PatrolWatch watch = PatrolWatch.START;
+  private final PatrolTrail trail = new PatrolTrail();
+  private boolean threatNear;
+  private LargeFireball incoming;
+  private long nextIntercept;
   private long nextSearch;
 
   RobotPatrolCombat(RobotEntity robot) {
     this.robot = robot;
     this.weapons = new RobotPatrolWeapons(robot);
+    this.wings = new RobotWings(robot);
   }
 
   /** With the card and awake, the weapons replace the shock (answer 1556). */
@@ -47,6 +63,62 @@ public final class RobotPatrolCombat {
     return armed() && target != null && target.isAlive();
   }
 
+  /**
+   * In a fight, checking on its owner after it or investigating, so the round waits (answers 1624
+   * and 1629).
+   */
+  boolean busy() {
+    PatrolWatch.Phase phase = watch.phase();
+    return fighting()
+        || armed()
+            && (phase == PatrolWatch.Phase.OWNER_CHECK || phase == PatrolWatch.Phase.INVESTIGATION);
+  }
+
+  /**
+   * The errands wait: the trip to a chest and the fetch of an item stop in a fight and come back
+   * after it, and none starts with a hostile in its search (answer 1640).
+   */
+  boolean holdsErrands() {
+    return busy() || armed() && threatNear;
+  }
+
+  /**
+   * The battery of the return waits only for the fight and a hostile in its search: it skips the
+   * look at its owner and the investigation (answers 1689 and 1763).
+   */
+  boolean holdsTheReturn() {
+    return fighting() || armed() && threatNear;
+  }
+
+  /** Off to the Dock: back to the round, so neither the look nor the investigation is left. */
+  void leaveForTheDock() {
+    if (!fighting()) {
+      watch = PatrolWatch.START;
+      trail.clear();
+    }
+  }
+
+  /** Where it walks to investigate: the last place it saw the hostile (answer 1624). */
+  Optional<Vec3> investigationSpot() {
+    return trail.lastSeen();
+  }
+
+  /** It looked around the last place: back to the round, with the visor up (answer 1629). */
+  void searched() {
+    watch = watch.searched();
+    trail.clear();
+  }
+
+  /** The wings on the move, which the goals walk through (answer 1738). */
+  RobotWings wings() {
+    return wings;
+  }
+
+  /** What it is doing as a lookout, which the look of the visor follows. */
+  public PatrolWatch watch() {
+    return watch;
+  }
+
   Optional<LivingEntity> target() {
     return fighting() ? Optional.of(target) : Optional.empty();
   }
@@ -56,20 +128,40 @@ public final class RobotPatrolCombat {
   }
 
   static PatrolSettings settings() {
-    return CubitMod.CONFIG.patrolSettings();
+    return CubitMod.CONFIG.patrol().settings();
   }
 
-  /** Called by the defense on every tick, in place of the shock, while it has the card. */
+  /**
+   * Called by the defense on every tick, in place of the shock, while it has the card. The client
+   * sees the watch after the tick, also the round of a Cubit that lost the card.
+   */
   void tick() {
+    step();
+    RobotJobLook.showWatch(robot, watch);
+  }
+
+  private void step() {
     PatrolArmor.apply(robot, armed() ? spec().armor() : 0);
+    PatrolTeams.update(robot, armed());
+    wings.tick();
     glide();
     if (!armed()) {
       drop();
+      watch = PatrolWatch.START;
+      trail.clear();
+      threatNear = false;
       return;
     }
+    watch = watch.tick(timings());
+    if (fighting()) {
+      trail.tick(robot, target, weapon() == WeaponChoice.PISTOL);
+    }
     long now = robot.level().getGameTime();
+    if (intercept(now)) {
+      return;
+    }
     if (now >= nextSearch) {
-      nextSearch = now + SEARCH_TICKS;
+      nextSearch = now + CubitMod.CONFIG.patrol().searchIntervalTicks();
       search();
     }
     if (fighting()) {
@@ -88,36 +180,163 @@ public final class RobotPatrolCombat {
   }
 
   private void search() {
-    List<LivingEntity> hostiles = PatrolSight.hostiles(robot, spec().searchRadius());
+    List<RobotEntity> mates = escorting() ? List.of() : PatrolTeams.mates(robot);
+    List<RobotEntity> wounded = wounded(mates);
+    List<LivingEntity> pool = pool(mates, wounded);
     Optional<Integer> chosen =
         PatrolTargets.choose(
-            hostiles.stream().map(mob -> PatrolSight.candidate(robot, mob)).toList());
+            pool.stream().map(mob -> PatrolSight.candidate(robot, mob, wounded)).toList(),
+            Optional.ofNullable(target).map(LivingEntity::getId));
     LivingEntity next =
         chosen
-            .flatMap(id -> hostiles.stream().filter(mob -> mob.getId() == id).findFirst())
+            .flatMap(id -> pool.stream().filter(mob -> mob.getId() == id).findFirst())
             .orElse(null);
-    if (next != null && target == null) {
+    if (next != null && target == null && !targetOfAny(mates, next)) {
       robot.workArea().work().talk().onWork(JobTalkTopic.PATROLLER_COMBAT);
     }
-    target = next;
-    if (target == null) {
-      PatrolReservations.release(robot.getUUID());
-    } else {
-      PatrolReservations.reserve(target.getUUID(), robot.getUUID());
+    follow(next);
+  }
+
+  /**
+   * The watch follows the target: a new one brings the alert, the last one killed brings the look
+   * at the owner, and one gone without a kill ends the fight (answers 1623 and 1629).
+   */
+  private void follow(LivingEntity next) {
+    if (next != null) {
+      boolean hurting = PatrolProtection.hurtingSomeone(robot, next);
+      watch = watch.sighted(hurting, trail.lookedFor(next), timings());
+      trail.follow(next);
+    } else if (target != null && target.isDeadOrDying()) {
+      watch = watch.killedTheLast(ownerNear(), timings());
+      trail.clear();
+    } else if (target != null) {
+      trail.lost(target);
+      watch = watch.lost(trail.lastSeen().filter(this::inReachAt).isPresent());
     }
+    target = next;
+  }
+
+  private boolean ownerNear() {
+    Player owner = RobotInteractions.onlineOwner(robot);
+    return owner != null
+        && owner.level() == robot.level()
+        && timings().ownerNear(owner.distanceTo(robot));
+  }
+
+  private static PatrolWatch.Timings timings() {
+    return CubitMod.CONFIG.patrol().watch();
+  }
+
+  /**
+   * What it may fight: the hostiles in its search, the targets of its team, which answers the call,
+   * and the hostiles near a wounded one, all within its own chase (answers 1643, 1644 and 1691).
+   */
+  private List<LivingEntity> pool(List<RobotEntity> mates, List<RobotEntity> wounded) {
+    Set<LivingEntity> pool = new LinkedHashSet<>();
+    List<LivingEntity> seen = PatrolSight.hostiles(robot, spec().searchRadius());
+    threatNear = !seen.isEmpty();
+    seen.stream().filter(mob -> trail.mayChoose(robot, mob, timings())).forEach(pool::add);
+    mates.forEach(mate -> mate.workArea().work().patrolCombat().target().ifPresent(pool::add));
+    int rescue = team().rescueRadius();
+    wounded.forEach(one -> pool.addAll(PatrolSight.hostiles(one, rescue)));
+    return pool.stream()
+        .filter(mob -> mob.isAlive() && PatrolProtection.isTarget(robot, mob) && inReach(mob))
+        .filter(mob -> !trail.gone(mob, timings()))
+        .toList();
+  }
+
+  /** The Patrollers of the team under the low health, itself among them (answer 1691). */
+  private List<RobotEntity> wounded(List<RobotEntity> mates) {
+    PatrolTeam team = team();
+    return Stream.concat(Stream.of(robot), mates.stream())
+        .filter(one -> team.wounded(one.getHealth(), one.getMaxHealth()))
+        .toList();
+  }
+
+  /** Only one of the team speaks when a fight begins (answer 1646). */
+  private static boolean targetOfAny(List<RobotEntity> mates, LivingEntity mob) {
+    return mates.stream()
+        .anyMatch(mate -> mate.workArea().work().patrolCombat().target().orElse(null) == mob);
+  }
+
+  /** On escort it never leaves the one it follows for a call (answers 1644 and 1691). */
+  private boolean escorting() {
+    return RobotInteractions.followedPlayer(robot) != null
+        || robot.workArea().work().escort().active();
+  }
+
+  /** Within the chase, measured from what it guards (answers 1562, 1565 and 1636). */
+  boolean inReach(LivingEntity mob) {
+    return inReachAt(mob.position());
+  }
+
+  private boolean inReachAt(Vec3 at) {
+    return PatrolReach.mayChase(robot, at);
+  }
+
+  private static PatrolTeam team() {
+    return CubitMod.CONFIG.patrol().team();
   }
 
   private void act(long now) {
     robot.getLookControl().setLookAt(target);
+    if (!watch.attacks()) {
+      face(target);
+      return;
+    }
     WeaponChoice choice = weapon();
     if (choice == WeaponChoice.PISTOL) {
       weapons.shoot(target, spec(), now);
-    } else if (choice == WeaponChoice.BLADE && robot.distanceTo(target) <= BLADE_REACH) {
+    } else if (choice == WeaponChoice.BLADE
+        && robot.distanceTo(target) <= spec().weapons().bladeReach()) {
       weapons.swing(target, spec(), now);
     }
     if (choice != WeaponChoice.PISTOL) {
       jumpIfNeeded();
     }
+  }
+
+  /** On the alert, the body turns to the hostile with the head (answer 1623). */
+  private void face(LivingEntity mob) {
+    Vec3 toward = mob.position().subtract(robot.position());
+    float yaw = (float) (Math.toDegrees(Math.atan2(toward.z, toward.x)) - QUARTER_TURN);
+    robot.setYRot(yaw);
+    robot.setYBodyRot(yaw);
+  }
+
+  /**
+   * A target the orb cannot hurt: the enderman, which dodges it as it dodges arrows, and the mobs
+   * of the game that send projectiles back, as the breeze (answers 1695 and 1696).
+   */
+  private static boolean shotUseless(LivingEntity mob) {
+    return mob instanceof EnderMan || mob.getType().is(EntityTypeTags.DEFLECTS_PROJECTILES);
+  }
+
+  /** Under the low health it fights with care, by the pistol, from a distance (answer 1686). */
+  boolean cautious() {
+    return team().wounded(robot.getHealth(), robot.getMaxHealth());
+  }
+
+  /**
+   * A fireball heading for someone it protects comes before any hostile: it turns to it and shoots
+   * it back, with a check more often than the search, as a fireball is fast (answer 1735).
+   */
+  private boolean intercept(long now) {
+    if (now >= nextIntercept) {
+      nextIntercept = now + CubitMod.CONFIG.patrol().interceptIntervalTicks();
+      int range = spec().weapons().pistolRange();
+      incoming =
+          spec().canShoot(robot.battery())
+              ? PatrolIntercept.incoming(robot, range).orElse(null)
+              : null;
+    }
+    if (incoming == null || !incoming.isAlive() || incoming.getOwner() instanceof RobotEntity) {
+      incoming = null;
+      return false;
+    }
+    robot.getLookControl().setLookAt(incoming);
+    weapons.shoot(incoming, spec(), now);
+    return true;
   }
 
   /** What the movement goal reads to approach, stop or keep away. */
@@ -132,12 +351,15 @@ public final class RobotPatrolCombat {
             target instanceof Creeper,
             spec().canShoot(robot.battery()) && robot.hasLineOfSight(target),
             robot.distanceTo(target) <= spec().weapons().pistolRange(),
-            settings().weaponSwitchDistance()));
+            settings().weaponSwitchDistance(),
+            cautious(),
+            shotUseless(target)));
   }
 
   private void jumpIfNeeded() {
     double height = target.getY() - robot.getY();
-    boolean shot = spec().canShoot(robot.battery()) && robot.hasLineOfSight(target);
+    boolean shot =
+        spec().canShoot(robot.battery()) && robot.hasLineOfSight(target) && !shotUseless(target);
     PatrolRules.JumpCheck check =
         new PatrolRules.JumpCheck(
             inAir(target),
@@ -169,6 +391,5 @@ public final class RobotPatrolCombat {
 
   void drop() {
     target = null;
-    PatrolReservations.release(robot.getUUID());
   }
 }

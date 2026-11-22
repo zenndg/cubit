@@ -40,6 +40,7 @@ public final class RobotWork implements WorkControl {
   private final RobotJobTalk talk;
   private final RobotPatrol patrol;
   private final RobotPatrolCombat patrolCombat;
+  private final RobotEscort escort;
   private HibernationReason reason = HibernationReason.INVENTORY_FULL;
   private long nextCheck = Long.MIN_VALUE;
 
@@ -53,6 +54,7 @@ public final class RobotWork implements WorkControl {
     this.talk = new RobotJobTalk(robot);
     this.patrol = new RobotPatrol(robot);
     this.patrolCombat = new RobotPatrolCombat(robot);
+    this.escort = new RobotEscort(robot);
   }
 
   /** The route of the Galactic Patroller (answers 1561 and 1579). */
@@ -63,6 +65,11 @@ public final class RobotWork implements WorkControl {
   /** The fight of the Galactic Patroller, in place of the shock (answer 1556). */
   public RobotPatrolCombat patrolCombat() {
     return patrolCombat;
+  }
+
+  /** The one the Galactic Patroller escorts, marked with the Tablet (answer 1655). */
+  public RobotEscort escort() {
+    return escort;
   }
 
   /** What the Cubit says about its job (answers 1583 to 1590). */
@@ -189,6 +196,7 @@ public final class RobotWork implements WorkControl {
   /** Called on the server on every tick. Without the card, the sleep ends (answer 1171). */
   void tick() {
     showJob();
+    escort.checkTheDimension();
     talk.tick();
     fishing.tick();
     farming.tick();
@@ -216,6 +224,7 @@ public final class RobotWork implements WorkControl {
         robot.workArea().working(),
         robot.robotInventory().isFull(),
         canUnload,
+        job().filter(job -> !job.hibernatesWhenFull()).isPresent(),
         fishing.reason());
   }
 
@@ -247,6 +256,7 @@ public final class RobotWork implements WorkControl {
   void save(CompoundTag tag) {
     marks.save(tag);
     patrol.save(tag);
+    escort.save(tag);
     if (asleep()) {
       tag.putString(REASON_KEY, reason.key());
     }
@@ -256,6 +266,7 @@ public final class RobotWork implements WorkControl {
   void load(CompoundTag tag) {
     marks.load(tag);
     patrol.load(tag);
+    escort.load(tag);
     if (!asleep()) {
       return;
     }

@@ -42,7 +42,70 @@ public final class PatrolRules {
         && check.heightAbove() <= check.jumpHeight();
   }
 
-  /** A swelling creeper near it or near a protected one sends it out of the blast. */
+  /** How wide the cone of a shot heading for someone is, in degrees (answer 1735). */
+  private static final double HEADING_CONE = 20;
+
+  /**
+   * A shot heading for someone: its motion within the cone of the way to them (answer 1735). A shot
+   * that does not move heads for no one.
+   */
+  public static boolean headsFor(
+      double motionX,
+      double motionY,
+      double motionZ,
+      double towardX,
+      double towardY,
+      double towardZ) {
+    double motion = Math.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
+    double toward = Math.sqrt(towardX * towardX + towardY * towardY + towardZ * towardZ);
+    if (motion == 0 || toward == 0) {
+      return false;
+    }
+    double cosine = (motionX * towardX + motionY * towardY + motionZ * towardZ) / (motion * toward);
+    return cosine >= Math.cos(Math.toRadians(HEADING_CONE));
+  }
+
+  /** How hard the blade pushes: a base, and a step for each level of the tier (answer 1642). */
+  public record Knockback(double base, double step) {
+    private static final String INVALID_PUSH = "Invalid knockback of the blade: ";
+
+    public Knockback {
+      if (base < 0 || step < 0) {
+        throw new IllegalArgumentException(INVALID_PUSH + base);
+      }
+    }
+
+    public double strength(int level) {
+      return base + step * level;
+    }
+  }
+
+  /** How far the blast of a creeper reaches and how far it keeps without a shot (1642). */
+  public record CreeperDistances(int blast, int keepAway) {
+    private static final String INVALID = "Invalid distances of the creeper: ";
+    private static final String SEPARATOR = ", ";
+
+    public CreeperDistances {
+      if (blast < 1 || keepAway < 1) {
+        throw new IllegalArgumentException(INVALID + blast + SEPARATOR + keepAway);
+      }
+    }
+  }
+
+  /**
+   * Where it stands as a shield without a shot: out of the blast, on the way from the creeper to
+   * the one it protects (answers 1595, 1641 and 1731).
+   */
+  public static PatrolSiege.Spot shield(
+      double creeperX, double creeperZ, double guardedX, double guardedZ, double keepAway) {
+    double angle = Math.atan2(guardedZ - creeperZ, guardedX - creeperX);
+    return PatrolSiege.spot(creeperX, creeperZ, angle, keepAway);
+  }
+
+  /**
+   * A swelling creeper near it sends it out of the blast. Near a protected one, with it already out
+   * of the blast, it keeps shooting to bring the creeper down first (answer 1731).
+   */
   public static boolean backsAway(boolean swelling, double distance, double blastRadius) {
     return swelling && distance < blastRadius;
   }

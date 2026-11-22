@@ -1,6 +1,8 @@
 package io.github.zenndg.cubit.domain.robot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -23,5 +25,11 @@ class RobotJobTest {
   @Test
   void anUnknownKeyIsNoJob() {
     assertEquals(Optional.empty(), RobotJob.fromKey(UNKNOWN_KEY));
+  }
+
+  @Test
+  void onlyThePatrollerKeepsGuardingWhenFull() {
+    assertFalse(RobotJob.PATROLLER.hibernatesWhenFull());
+    assertTrue(RobotJob.FISHER.hibernatesWhenFull());
   }
 }

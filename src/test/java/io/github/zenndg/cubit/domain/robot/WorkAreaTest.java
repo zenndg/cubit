@@ -28,6 +28,24 @@ class WorkAreaTest {
   private static final double PAST_X = 26.0;
   private static final int REACH = 24;
   private static final int SHORT_REACH = 4;
+  private static final WorkArea BESIDE =
+      WorkArea.between(new AreaCorner(26, 64, -5), new AreaCorner(30, 70, 0), OVERWORLD);
+  private static final WorkArea APART =
+      WorkArea.between(new AreaCorner(28, 64, -5), new AreaCorner(30, 70, 0), OVERWORLD);
+  private static final WorkArea OVERLAPPING =
+      WorkArea.between(new AreaCorner(20, 60, 0), new AreaCorner(40, 66, 20), OVERWORLD);
+  private static final WorkArea IN_THE_NETHER = WorkArea.between(HIGH, LOW, NETHER);
+  private static final double EAST_X = 30;
+  private static final double SOUTH_Z = 15;
+  private static final double EAST_GAP = 4;
+  private static final double CORNER_GAP = Math.sqrt(32);
+  private static final double PRECISION = 1e-9;
+  private static final double BY_THE_WEST = 10.5;
+  private static final double BY_THE_EAST = 25.5;
+  private static final double BY_THE_SOUTH = 10.5;
+  private static final double MID_X = 18;
+  private static final int OUT = 1;
+  private static final int IN = -1;
 
   @Test
   void theCornersGoInAnyOrderAndMakeAVolume() {
@@ -77,5 +95,48 @@ class WorkAreaTest {
   void anAreaNeedsADimensionAndCornersInOrder() {
     assertThrows(IllegalArgumentException.class, () -> new WorkArea(HIGH, LOW, OVERWORLD));
     assertThrows(IllegalArgumentException.class, () -> new WorkArea(LOW, HIGH, BLANK));
+  }
+
+  @Test
+  void areasThatOverlapOrTouchAreOne() {
+    assertTrue(AREA.touches(BESIDE));
+    assertTrue(BESIDE.touches(AREA));
+    assertTrue(AREA.touches(OVERLAPPING));
+    assertTrue(AREA.touches(AREA));
+  }
+
+  @Test
+  void areasApartOrInAnotherDimensionAreNot() {
+    assertFalse(AREA.touches(APART));
+    assertFalse(AREA.touches(IN_THE_NETHER));
+  }
+
+  @Test
+  void theDistanceToTheBaseIsZeroInsideIt() {
+    assertEquals(0, AREA.distanceToBase(INSIDE_X, INSIDE_Z), PRECISION);
+    assertEquals(0, AREA.distanceToBase(PAST_X, INSIDE_Z), PRECISION);
+  }
+
+  @Test
+  void theDistanceToTheBaseGoesToItsNearestEdge() {
+    assertEquals(EAST_GAP, AREA.distanceToBase(EAST_X, INSIDE_Z), PRECISION);
+    assertEquals(CORNER_GAP, AREA.distanceToBase(EAST_X, SOUTH_Z), PRECISION);
+  }
+
+  @Test
+  void theNearestCornerOfTheBase() {
+    assertEquals(0, AREA.nearestCorner(LOW.x(), LOW.z()));
+    assertEquals(LAST_CORNER - 1, AREA.nearestCorner(EAST_X, SOUTH_Z));
+  }
+
+  @Test
+  void onAnEdgeTheOutsideIsAcrossIt() {
+    assertEquals(new WorkArea.Outward(IN, 0), AREA.outwardFrom(BY_THE_WEST, INSIDE_Z));
+    assertEquals(new WorkArea.Outward(0, OUT), AREA.outwardFrom(MID_X, BY_THE_SOUTH));
+  }
+
+  @Test
+  void atACornerTheOutsideIsTheDiagonal() {
+    assertEquals(new WorkArea.Outward(OUT, OUT), AREA.outwardFrom(BY_THE_EAST, BY_THE_SOUTH));
   }
 }

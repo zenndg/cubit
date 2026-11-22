@@ -40,7 +40,7 @@ final class FetchItemGoal extends Goal {
   @Override
   public boolean canUse() {
     long now = robot.level().getGameTime();
-    if (now < nextCheckTick) {
+    if (now < nextCheckTick || robot.workArea().work().patrolCombat().holdsErrands()) {
       return false;
     }
     nextCheckTick = now + CubitMod.CONFIG.fetchCheckTicks();
@@ -81,7 +81,7 @@ final class FetchItemGoal extends Goal {
 
   @Override
   public boolean canContinueToUse() {
-    if (target == null || noRoute || gaveUp()) {
+    if (target == null || noRoute || gaveUp() || robot.workArea().work().patrolCombat().busy()) {
       return false;
     }
     Optional<WorkArea> area = workingArea();

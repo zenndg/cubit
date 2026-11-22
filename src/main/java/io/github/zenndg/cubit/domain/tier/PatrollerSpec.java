@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.domain.tier;
 
 import io.github.zenndg.cubit.domain.energy.Battery;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.Percentage;
 
 /**
  * What a tier does with the card of the Galactic Patroller: the pistol, the slowness of its orb,
@@ -9,7 +10,13 @@ import io.github.zenndg.cubit.domain.energy.Energy;
  * the side of its area, twice the one of the other cards (answers 1564, 1577, 1579 and 1600).
  */
 public record PatrollerSpec(
-    Weapons weapons, int armor, int searchRadius, Jump jump, int routePoints, int areaSize) {
+    Weapons weapons,
+    int armor,
+    int searchRadius,
+    Jump jump,
+    int routePoints,
+    int areaSize,
+    Percentage returnCharge) {
   /** The pistol and the blade of a tier. */
   public record Weapons(
       int pistolDamage,
@@ -19,7 +26,8 @@ public record PatrollerSpec(
       int slownessLevel,
       int bladeDamage,
       int bladeIntervalTicks,
-      int bladeKnockback) {
+      int bladeKnockback,
+      double bladeReach) {
     private static final String INVALID = "Invalid weapons of the Patroller: ";
     private static final String SEPARATOR = ", ";
 
@@ -30,18 +38,22 @@ public record PatrollerSpec(
           || slownessLevel < 1
           || bladeDamage < 0
           || bladeIntervalTicks < 1
-          || bladeKnockback < 0) {
+          || bladeKnockback < 0
+          || !(bladeReach > 0)) {
         throw new IllegalArgumentException(INVALID + pistolDamage + SEPARATOR + bladeDamage);
       }
     }
   }
 
-  /** How high the wings take it and the energy of each jump. */
-  public record Jump(int height, Energy cost) {
+  /**
+   * How high the wings take it, the energy of each jump and the widest gap it crosses gliding,
+   * which is also how far its short flight lands (answers 1564, 1648 and 1738).
+   */
+  public record Jump(int height, Energy cost, int gap) {
     private static final String INVALID = "Invalid jump of the Patroller: ";
 
     public Jump {
-      if (height < 0) {
+      if (height < 0 || gap < 0) {
         throw new IllegalArgumentException(INVALID + height);
       }
     }
@@ -49,14 +61,20 @@ public record PatrollerSpec(
 
   public static final PatrollerSpec NONE =
       new PatrollerSpec(
-          new Weapons(0, 1, 1, Energy.ZERO, 1, 0, 1, 0), 0, 1, new Jump(0, Energy.ZERO), 0, 0);
+          new Weapons(0, 1, 1, Energy.ZERO, 1, 0, 1, 0, 1),
+          0,
+          1,
+          new Jump(0, Energy.ZERO, 0),
+          0,
+          0,
+          new Percentage(0));
 
   private static final String INVALID = "Invalid Patroller numbers: armor ";
   private static final String RADIUS = ", radius ";
   private static final String POINTS = ", points ";
 
   public PatrollerSpec {
-    if (armor < 0 || searchRadius < 1 || routePoints < 0 || areaSize < 0) {
+    if (armor < 0 || searchRadius < 1 || routePoints < 0 || areaSize < 0 || returnCharge == null) {
       throw new IllegalArgumentException(
           INVALID + armor + RADIUS + searchRadius + POINTS + routePoints);
     }

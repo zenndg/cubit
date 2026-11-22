@@ -30,6 +30,7 @@ public final class CubitNetwork {
   private static Consumer<DeathLogPayload> deathLogDisplay = log -> {};
   private static Consumer<DoorMarksPayload> doorMarksDisplay = doors -> {};
   private static Consumer<PatrolRoutePayload> patrolRouteDisplay = route -> {};
+  private static Consumer<EscortMarksPayload> escortMarksDisplay = marks -> {};
   private static TabletRequests tabletRequests = TabletRequests.NONE;
 
   private CubitNetwork() {}
@@ -97,7 +98,11 @@ public final class CubitNetwork {
         .playToClient(
             PatrolRoutePayload.TYPE,
             PatrolRoutePayload.STREAM_CODEC,
-            (payload, context) -> patrolRouteDisplay.accept(payload));
+            (payload, context) -> patrolRouteDisplay.accept(payload))
+        .playToClient(
+            EscortMarksPayload.TYPE,
+            EscortMarksPayload.STREAM_CODEC,
+            (payload, context) -> escortMarksDisplay.accept(payload));
   }
 
   /** What the player asks from the Tablet, handled only for a player of the server. */
@@ -176,6 +181,11 @@ public final class CubitNetwork {
     patrolRouteDisplay = route;
   }
 
+  /** On the client only: how the arrows over the escorted ones show (answer 1661). */
+  public static void setEscortMarksDisplay(Consumer<EscortMarksPayload> marks) {
+    escortMarksDisplay = marks;
+  }
+
   /** On the client only: how the arrows over the marked doors show (answer 1371). */
   public static void setDoorMarksDisplay(Consumer<DoorMarksPayload> doors) {
     doorMarksDisplay = doors;
@@ -217,6 +227,10 @@ public final class CubitNetwork {
 
   public static void sendPatrolRoute(ServerPlayer player, PatrolRoutePayload route) {
     send(player, route);
+  }
+
+  public static void sendEscortMarks(ServerPlayer player, EscortMarksPayload marks) {
+    send(player, marks);
   }
 
   public static void sendDeathLog(ServerPlayer player, DeathLogPayload log) {

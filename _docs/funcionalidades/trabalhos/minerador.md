@@ -48,7 +48,7 @@ Cada item traz a recomendação atual, ainda sem resposta.
 3. **Blocos protegidos.** Recomendação: além da regra de toda área, ele nunca quebra o bloco embaixo de si nem os que deixariam líquido vazar para fora da área.
 4. **Líquidos.** Recomendação: ao encontrar lava ou água, tampa com um bloco do inventário, se tiver, ou desvia e avisa.
 5. **Iluminação.** Recomendação: põe tochas pelo slot exclusivo de tochas da Fase 4.1, para não nascer mob no túnel.
-6. **Buscar minérios.** Recomendação: usa o scanner de minérios do tier para achar o alvo e cava só o caminho até ele.
+6. **Buscar minérios.** Recomendação: usa o scanner de minérios do tier para achar o alvo e cava só o caminho até ele. Pela pergunta 1741, o scanner de minérios sai de todo Cubit e passa a ser só do Minerador, melhorado: o refinamento decide como fica a chave, o filtro e os saves do scanner de hoje, já publicado (regra 18).
 7. **O que conta como minério.** Recomendação: tudo o que tem receita de fornalha e vem de um bloco da tag comum de minérios, como o ferro bruto e, com Toque Suave, o próprio bloco de minério. Pedra, terra e o resto vão direto para o inventário.
 8. **Fila da fornalha.** Recomendação: o minério que chega enquanto outro funde espera no próprio slot da fornalha, na mesma pilha. Um minério diferente, ou a pilha cheia, espera no inventário e entra quando o slot liberar. Com o inventário cheio, o resultado fica na fornalha e ela para até ter espaço.
 9. **Chave sem o card.** Recomendação: a chave da fornalha só aparece na seção Functions com o card do Minerador no slot. Sem o card, ela some, e o estado escolhido fica guardado para quando o card voltar.
@@ -60,6 +60,7 @@ Cada item traz a recomendação atual, ainda sem resposta.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 21:50 | Anota a mudança do scanner de minérios para o Minerador (pergunta 1741). |
 | Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Marcelo Fabiano | 2026-11-14 20:25 | Leva o conceito de `tmp/fase5` para `_docs`, com as decisões da consolidação (perguntas 1145 a 1156). |
 | Marcelo Fabiano | 2026-11-13 12:14 | Põe a chave da fornalha na seção Functions da tela do Cubit. |

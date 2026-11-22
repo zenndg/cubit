@@ -13,10 +13,13 @@ class PatrolSettingsTest {
   private static final int CHASE = 16;
   private static final int SWITCH = 4;
   private static final double SPEED = 0.6;
-  private static final int STOP_TICKS = 80;
-  private static final int STOP_DISTANCE = 16;
+  private static final int STOP_MIN_TICKS = 60;
+  private static final int STOP_MAX_TICKS = 100;
+  private static final int STOP_MIN_DISTANCE = 12;
+  private static final int STOP_MAX_DISTANCE = 20;
   private static final PatrolSettings.Round ROUND =
-      new PatrolSettings.Round(SPEED, STOP_TICKS, STOP_DISTANCE);
+      new PatrolSettings.Round(
+          SPEED, STOP_MIN_TICKS, STOP_MAX_TICKS, STOP_MIN_DISTANCE, STOP_MAX_DISTANCE);
   private static final int OVER_A_HUNDRED = 101;
   private static final PatrolSettings DEFAULTS =
       new PatrolSettings(SLOW_CHANCE, SLOW_TICKS, HEAD_CHANCE, CHASE, SWITCH, ROUND);

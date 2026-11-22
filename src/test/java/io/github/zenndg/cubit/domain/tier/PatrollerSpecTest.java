@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.github.zenndg.cubit.domain.energy.Battery;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.Percentage;
 import org.junit.jupiter.api.Test;
 
 class PatrollerSpecTest {
@@ -28,6 +29,9 @@ class PatrollerSpecTest {
   private static final int JUMP_HEIGHT = 3;
   private static final int POINTS = 16;
   private static final int AREA = 64;
+  private static final double REACH = 2.5;
+  private static final int GAP = 4;
+  private static final Percentage RETURN = new Percentage(5);
   private static final int TIER_AREA = 32;
   private static final int TIER_HEIGHT = 24;
   private static final PatrollerSpec.Weapons WEAPONS =
@@ -39,10 +43,17 @@ class PatrollerSpecTest {
           SLOWNESS,
           BLADE_DAMAGE,
           BLADE_TICKS,
-          KNOCKBACK);
+          KNOCKBACK,
+          REACH);
   private static final PatrollerSpec ELITE =
       new PatrollerSpec(
-          WEAPONS, ARMOR, SEARCH, new PatrollerSpec.Jump(JUMP_HEIGHT, JUMP), POINTS, AREA);
+          WEAPONS,
+          ARMOR,
+          SEARCH,
+          new PatrollerSpec.Jump(JUMP_HEIGHT, JUMP, GAP),
+          POINTS,
+          AREA,
+          RETURN);
 
   private static Battery charged(long amount) {
     return new Battery(CAPACITY, new Energy(amount));
@@ -80,7 +91,7 @@ class PatrollerSpecTest {
   void rejectsInvalidNumbers() {
     assertThrows(
         IllegalArgumentException.class,
-        () -> new PatrollerSpec(WEAPONS, -1, SEARCH, ELITE.jump(), POINTS, AREA));
+        () -> new PatrollerSpec(WEAPONS, -1, SEARCH, ELITE.jump(), POINTS, AREA, RETURN));
     assertThrows(
         IllegalArgumentException.class,
         () ->
@@ -92,7 +103,8 @@ class PatrollerSpecTest {
                 SLOWNESS,
                 BLADE_DAMAGE,
                 BLADE_TICKS,
-                KNOCKBACK));
-    assertThrows(IllegalArgumentException.class, () -> new PatrollerSpec.Jump(-1, JUMP));
+                KNOCKBACK,
+                REACH));
+    assertThrows(IllegalArgumentException.class, () -> new PatrollerSpec.Jump(-1, JUMP, GAP));
   }
 }

@@ -58,6 +58,27 @@ public record PatrolRoute(List<RoutePoint> points) {
     return new PatrolRoute(points.stream().filter(point -> point.in(dimension)).toList());
   }
 
+  /**
+   * The point nearest to a place, where it goes back to after a fight, going on with the order from
+   * it (answer 1625). The first point on an empty route.
+   */
+  public int nearestTo(double x, double y, double z) {
+    int nearest = 0;
+    double best = Double.MAX_VALUE;
+    for (int index = 0; index < points.size(); index++) {
+      RoutePoint point = points.get(index);
+      double dx = point.x() - x;
+      double dy = point.y() - y;
+      double dz = point.z() - z;
+      double distance = dx * dx + dy * dy + dz * dz;
+      if (distance < best) {
+        best = distance;
+        nearest = index;
+      }
+    }
+    return nearest;
+  }
+
   /** The point after this one, back to the first after the last. */
   public int nextIndex(int index) {
     return isEmpty() ? 0 : (index + 1) % points.size();

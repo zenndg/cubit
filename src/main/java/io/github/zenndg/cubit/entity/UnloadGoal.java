@@ -37,12 +37,15 @@ final class UnloadGoal extends Goal {
   public boolean canUse() {
     return robot.powerState() == PowerState.ACTIVE
         && !robot.docking().hasTrip()
+        && !robot.workArea().work().patrolCombat().holdsErrands()
         && robot.docking().unload().wantsToGo();
   }
 
   @Override
   public boolean canContinueToUse() {
-    return robot.powerState() == PowerState.ACTIVE && robot.docking().unload().onTrip();
+    return robot.powerState() == PowerState.ACTIVE
+        && robot.docking().unload().onTrip()
+        && !robot.workArea().work().patrolCombat().busy();
   }
 
   /** The stuck time counts ticks, so this goal runs on all of them. */
@@ -60,7 +63,8 @@ final class UnloadGoal extends Goal {
   @Override
   public void stop() {
     robot.getNavigation().stop();
-    if (robot.docking().unload().onTrip()) {
+    // A fight of the Patroller only pauses the trip, which goes on after it (answer 1640).
+    if (robot.docking().unload().onTrip() && !robot.workArea().work().patrolCombat().busy()) {
       robot.docking().unload().finish(moved);
     }
     target = null;

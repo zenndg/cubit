@@ -9,6 +9,7 @@ O inglês é o idioma base do mod, e o jogo também tem a tradução para o port
 | Mod e robô | Cubit |
 | Tablet, que substitui o controle remoto | Cubit Tablet |
 | App do Tablet | Tablet app |
+| Apps do Tablet: Abrir, Alvo, Dock, Área, Descarga, Marcar, Portas e Escolta | Open, Target, Dock, Area, Unload, Mark, Doors e Escort |
 | Cubit danificado | Damaged Cubit |
 | Caixa de ferramentas | Toolbox |
 | Mesa de Engenharia | Engineering Desk |
@@ -32,6 +33,9 @@ O inglês é o idioma base do mod, e o jogo também tem a tradução para o port
 | Contra-atacar | Retaliate |
 | Agressivo | Aggressive |
 | Só o alvo | Focus |
+| Pistola laser e globo de laser, do Patrulheiro | Laser pistol e laser orb |
+| Lâmina de plasma, do Patrulheiro | Plasma Blade |
+| Escolta marcada, do Patrulheiro | Escort |
 
 Os IDs estão em [`itens.md`](itens.md).
 
@@ -72,6 +76,7 @@ Os IDs estão em [`itens.md`](itens.md).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 13:00 | Acrescenta os apps do Tablet, as armas e a escolta marcada do Patrulheiro (perguntas 1554, 1655 e 1665). |
 | Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |
 | Zennd | 2026-11-21 12:45 | Adiciona a Mesa de Engenharia, o pedido e a marcação (perguntas 1424 a 1484). |
 | Marcelo Fabiano | 2026-11-21 11:30 | Adiciona a Recharge Splash. |

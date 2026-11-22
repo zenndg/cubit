@@ -39,6 +39,7 @@ public final class ChatterSection {
   private final ModConfigSpec.IntValue leftBehindRepeatTicks;
   private final ModConfigSpec.IntValue checkTicks;
   private final JobChatterSection jobs;
+  private final IntroSection intro;
 
   ChatterSection(ModConfigSpec.Builder builder) {
     repeatTicks =
@@ -68,11 +69,17 @@ public final class ChatterSection {
     checkTicks =
         builder.defineInRange(CHECK_TICKS, CHECK_TICKS_DEFAULT, CHECK_TICKS_MIN, CHECK_TICKS_MAX);
     jobs = new JobChatterSection(builder);
+    intro = new IntroSection(builder);
   }
 
   /** The phrases of the jobs, beside the chatter (answers 1585 and 1586). */
   public JobChatterSection jobs() {
     return jobs;
+  }
+
+  /** The introduction of a new Cubit, which obeys the same switch (answer 1675). */
+  public IntroSection intro() {
+    return intro;
   }
 
   public int repeatTicks() {

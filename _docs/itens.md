@@ -5,7 +5,7 @@
 | Cubit | Robô companheiro, colocado no mundo como item |
 | Damaged Cubit | O que cai quando o Cubit morre. Guarda o estado dele e não pode ser colocado no mundo |
 | Toolbox | Conserta o Damaged Cubit e é consumida a cada conserto |
-| Cubit Tablet | Abre a tela de gerenciamento dos Cubits do player, de qualquer distância, com apps que marcam o alvo do Focus e o Dock preferido, e na Fase 4.2 a área e os baús ([`tablet.md`](funcionalidades/tablet.md)) |
+| Cubit Tablet | Abre a tela de gerenciamento dos Cubits do player, de qualquer distância, com apps que marcam o alvo do Focus, o Dock preferido, a área, os baús, as portas, as marcas dos trabalhos, a rota e o escoltado do Patrulheiro ([`tablet.md`](funcionalidades/tablet.md)) |
 | Advanced Module | Leva o Cubit do tier Base para o Advanced |
 | Elite Module | Leva o Cubit do tier Advanced para o Elite |
 | Ultimate Module | Leva o Cubit do tier Elite para o Ultimate |
@@ -268,7 +268,7 @@ Estes nomes não mudam sem migração (regra 18 do `AGENTS.md`).
 
 | Onde | Nome | Conteúdo |
 |---|---|---|
-| Componente do item | `cubit:robot_state` | `tier`, `energy`, `health`, `lamp_enabled`, opcional, com o padrão ligado, `color`, opcional, com o padrão `white`, `scanners_enabled` e `chatter_enabled`, opcionais, com o padrão ligado, `ore_filter`, opcional, com a lista de tags de minério, vazia por padrão (perguntas 560 e 582), `defense_mode`, opcional, com o padrão `peaceful` (pergunta 830), `solar_enabled`, opcional, com o padrão ligado (pergunta 859), e `pickup_enabled`, `magnet_enabled` e `pickup_filter`, opcionais, com o padrão ligado, ligado e a lista negra vazia, com `mode` e `entries` (pergunta 889), `fetch_enabled`, opcional, com o padrão ligado (pergunta 944), `torches_enabled`, opcional, com o padrão ligado (pergunta 981), `auto_return_enabled` e `unload_enabled`, opcionais, com o padrão ligado (perguntas 1066 e 1093), e `death_point_enabled`, opcional, com o padrão ligado (pergunta 1118), também no item danificado |
+| Componente do item | `cubit:robot_state` | `tier`, `energy`, `health`, `lamp_enabled`, opcional, com o padrão ligado, `color`, opcional, com o padrão `white`, `scanners_enabled` e `chatter_enabled`, opcionais, com o padrão ligado, `ore_filter`, opcional, com a lista de tags de minério, vazia por padrão (perguntas 560 e 582), `defense_mode`, opcional, com o padrão `peaceful` (pergunta 830), `solar_enabled`, opcional, com o padrão ligado (pergunta 859), e `pickup_enabled`, `magnet_enabled` e `pickup_filter`, opcionais, com o padrão ligado, ligado e a lista negra vazia, com `mode` e `entries` (pergunta 889), `fetch_enabled`, opcional, com o padrão ligado (pergunta 944), `torches_enabled`, opcional, com o padrão ligado (pergunta 981), `auto_return_enabled` e `unload_enabled`, opcionais, com o padrão ligado (perguntas 1066 e 1093), `death_point_enabled`, opcional, com o padrão ligado (pergunta 1118), `unload_interval_minutes`, opcional, sem o campo para o intervalo do config (pergunta 1254), `speed_percent`, opcional, com o padrão 100 (pergunta 1266), `organizer_mode`, opcional, com o padrão `organize` (pergunta 1301), e `introduced`, opcional, com o padrão `true`, que só o Cubit novo traz como `false` (pergunta 1750), também no item danificado |
 | Componente do item | `cubit:energy_slot` | Item do slot de energia e reserva de FE, também no item danificado |
 | Componente do item | `cubit:torch_slot` | As tochas do slot de tochas, também no item danificado. Sem o componente, o slot fica vazio (pergunta 981) |
 | Componente do item do Dock | `cubit:dock_energy` | Energia do estoque |
@@ -346,6 +346,8 @@ O estado salvo é validado ao entrar no jogo, sem derrubá-lo (regra 17 do `AGEN
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:59 | Completa os campos de `cubit:robot_state`, com a apresentação (perguntas 1254, 1266, 1301, 1750 e 1765) |
+| Zennd | 2026-11-22 13:00 | Atualiza o que os apps do Tablet marcam, com a rota e a escolta do Patrulheiro (perguntas 1579 e 1655). |
 | Zennd | 2026-11-22 09:45 | Tira os cards do Ultimate da liberação das receitas (pergunta 1608). |
 | Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |
 | Zennd | 2026-11-21 21:39 | Troca a receita da Circuit Board (pergunta 1547). |

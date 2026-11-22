@@ -59,6 +59,9 @@ public final class RobotStateComponent {
   private static final String UNLOAD_INTERVAL_FIELD = "unload_interval_minutes";
   private static final String SPEED_FIELD = "speed_percent";
   private static final String ORGANIZER_MODE_FIELD = "organizer_mode";
+  private static final String INTRODUCED_FIELD = "introduced";
+  // Missing in the items of the published versions, whose Cubits count as introduced (1750).
+  private static final boolean INTRODUCED_DEFAULT = true;
   private static final String UNKNOWN_MODE_MESSAGE = "Unknown Organizer mode {}. Using organize.";
   private static final int LOWEST_SPEED = 1;
   private static final String INVALID_SPEED_MESSAGE = "Invalid speed percentage {}. Using {}.";
@@ -96,7 +99,8 @@ public final class RobotStateComponent {
       boolean keepJunk,
       Optional<Integer> unloadInterval,
       SpeedChoice speed,
-      OrganizerMode organizerMode) {}
+      OrganizerMode organizerMode,
+      boolean introduced) {}
 
   private static final MapCodec<LateSwitches> LATE_SWITCHES =
       RecordCodecBuilder.mapCodec(instance ->
@@ -125,7 +129,10 @@ public final class RobotStateComponent {
                       .forGetter(LateSwitches::speed),
                   MODE_CODEC
                       .optionalFieldOf(ORGANIZER_MODE_FIELD, OrganizerMode.INITIAL)
-                      .forGetter(LateSwitches::organizerMode))
+                      .forGetter(LateSwitches::organizerMode),
+                  Codec.BOOL
+                      .optionalFieldOf(INTRODUCED_FIELD, INTRODUCED_DEFAULT)
+                      .forGetter(LateSwitches::introduced))
               .apply(instance, LateSwitches::new));
 
   public static final Codec<RobotState> CODEC =
@@ -177,7 +184,8 @@ public final class RobotStateComponent {
                           state.workSettings().keepJunk(),
                           savedInterval(state.workSettings().unloadInterval()),
                           state.speed(),
-                          state.workSettings().organizerMode())))
+                          state.workSettings().organizerMode(),
+                          state.introduced())))
               .apply(
                   instance,
                   (tier,
@@ -215,7 +223,8 @@ public final class RobotStateComponent {
                               late.keepJunk(),
                               intervalOf(late.unloadInterval()),
                               late.organizerMode()),
-                          late.speed())));
+                          late.speed(),
+                          late.introduced())));
 
   public static final StreamCodec<ByteBuf, RobotState> STREAM_CODEC =
       ByteBufCodecs.fromCodec(CODEC);

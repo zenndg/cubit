@@ -57,7 +57,7 @@ Os nomes estão em inglês porque são os que aparecem no jogo.
 | Cubit | Robô companheiro, colocado no mundo como item |
 | Damaged Cubit | O que cai quando o Cubit morre. Guarda o estado dele e não pode ser colocado no mundo |
 | Toolbox | Conserta o Damaged Cubit e é consumida a cada conserto |
-| Cubit Tablet | Abre a tela de gerenciamento dos Cubits de qualquer distância e marca o alvo do Focus, o Dock preferido e, depois, as áreas de trabalho |
+| Cubit Tablet | Abre a tela de gerenciamento dos Cubits de qualquer distância e marca o alvo do Focus, o Dock preferido, as áreas de trabalho, os baús, as portas, as marcas dos trabalhos, a rota do Patrulheiro e quem ele escolta |
 | Advanced Module | Leva o Cubit do tier Base para o Advanced |
 | Elite Module | Leva o Cubit do tier Advanced para o Elite |
 | Ultimate Module | Leva o Cubit do tier Elite para o Ultimate |

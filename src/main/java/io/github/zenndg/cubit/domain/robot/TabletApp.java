@@ -13,7 +13,8 @@ public enum TabletApp {
   AREA,
   UNLOAD,
   MARK,
-  DOORS;
+  DOORS,
+  ESCORT;
 
   public String key() {
     return name().toLowerCase(Locale.ROOT);

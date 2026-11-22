@@ -1158,6 +1158,60 @@ Esta parte cobre o PR 2: a aba Defense travada e a rota no app Marcar. Use o mes
 | 17 | Recolha o Cubit e coloque de novo | A rota e a área se perdem |
 | 18 | Com o jogo em português | `Travado pelo card do Patrulheiro Galático`, `Ponto 1 de 16 marcado para Cubit`, `Marque a área primeiro com o app Área`, `Só dentro da área de Cubit` e `Marque o topo de um bloco sólido` |
 
+### Realismo do Patrulheiro
+
+Esta parte cobre o PR 3: o realismo, os alvos novos, a equipe, as asas, a escolta marcada, a bateria e o XP. O visual continua provisório: o visor, a guarda e as luzes das asas entram no PR 4 (pergunta 1749). Use um mundo plano no criativo, com `/difficulty normal`, dois Cubits Elite com o card e uma área marcada, um baú marcado com o app Descarga, um Induction Dock e um segundo player, se houver, para a escolta. Os itens 1 a 4 da lista abaixo não têm GameTest e dependem deste teste (perguntas 1640, 1688, 1739 e 1742 a 1744).
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Desligue o `Follow` e observe a ronda | Cada parada dura de 3 a 5 s, e os trechos entre duas paradas variam de 12 a 20 blocos |
+| 2 | Nas bordas, sem pontos marcados, repare nas paradas | Ele olha para fora da área e, nos cantos, para a diagonal de fora |
+| 3 | Chame um husk a 10 blocos, à vista | Ele para por meio segundo, vira para o husk e só então atira |
+| 4 | Abata o último hostil com você a até 16 blocos | Ele vira a cabeça para você por 1 s antes de voltar à ronda |
+| 5 | Faça um hostil fugir para trás de uma parede, dentro do limite de 16 blocos | Depois de 2 s sem vê-lo, ele anda até onde o viu por último, olha em volta e volta ao ponto mais perto da rota |
+| 6 | Chame um enderman calmo e um breeze | Ele ataca os dois, só com a lâmina, mesmo de longe |
+| 7 | Chame um hoglin, um shulker, uma abelha calma, um golem de ferro e um lobo selvagem calmo | Ataca o hoglin e o shulker. A abelha, o golem e o lobo ficam em paz |
+| 8 | Irrite a abelha contra você | Ele passa a atacá-la |
+| 9 | Deixe a vida de um dos Patrulheiros abaixo de 25%, com `/damage` | Ele deixa a lâmina, atira de longe e recua para perto de um protegido, e o colega vem socorrê-lo |
+| 10 | Com os dois Patrulheiros, chame um hostil perto de um deles, fora do raio do outro | O outro vem ajudar. Os dois cercam o hostil por lados diferentes, e só um deles fala ao entrar em combate |
+| 11 | Deixe os dois na mesma rota | Eles se espalham pelo laço e não andam juntos |
+| 12 | Chame um creeper e deixe-o acender perto de você, com o Patrulheiro a mais de 4 blocos | Ele segue atirando, sem recuar |
+| 13 | Num ghast, deixe uma bola de fogo vir na sua direção | O globo a rebate de volta ao ghast |
+| 14 | Mate um zumbi com o Patrulheiro | Os drops e, às vezes, a cabeça vão para o inventário dele, e o XP cai para você |
+| 15 | Encha o inventário dele e mate mais hostis | Os drops caem no chão, e ele não hiberna |
+| 16 | Afaste-se mais de 24 blocos e deixe-o abater um hostil | O XP vira energia, 50 FE por ponto, e a bateria sobe |
+| 17 | Deixe-o descarregar no baú marcado e chame um hostil no caminho | Ele para a descarga, combate e volta ao baú depois |
+| 18 | Deixe um item no chão perto dele e chame um hostil enquanto ele vai buscar | Ele para a busca, combate e volta ao item depois |
+| 19 | Dê um Patrulheiro com pouca carga, com `/give @s cubit:general_robot[cubit:robot_state={tier:"elite",energy:180000L,health:100f}]`, ponha o card e deixe-o combater | Ao chegar a 5%, termina o combate, vai direto ao Dock, sem investigar, e a barra de ação diz `Cubit is low on power, heading to the Dock`, sem o `I need to recharge` |
+| 20 | Repita sem Dock ao alcance | `Cubit is low on power and has no Dock` |
+| 21 | Repita o passo 19 com `tier:"ultimate"`, `energy:260000L` e `health:200f` | O retorno vale com 3% |
+| 22 | Ponha um muro de 2 blocos sem passagem entre ele e o próximo ponto | Ele abre as asas, pula por cima e pousa do outro lado. Sem carga, ele contorna |
+| 23 | Abra um vão de 4 blocos no caminho | Ele salta e atravessa planando. Um vão de 5 blocos, ele contorna |
+| 24 | Ponha o próximo ponto da rota 12 blocos abaixo de uma beirada | Ele salta e desce planando, sem dano e sem gastar bateria |
+| 25 | Com o app `Escort` do Tablet, clique no segundo player | Na sua barra de ação, `Cubit is escorting <player>`, e, na dele, `Cubit is escorting you`. Uma seta dourada fica sobre ele com o app aberto |
+| 26 | Faça o escoltado andar e parar | Andando, o Patrulheiro olha para os lados a cada trecho. Parado por 1 s, ele para e faz a varredura |
+| 27 | Chame um hostil perto do escoltado | Ele o protege como protege você |
+| 28 | Clique num zumbi com o app `Escort` | `Cubit attacks this mob, so it cannot escort it` |
+| 29 | Clique de novo no escoltado | `Cubit stopped the escort`, e o escoltado recebe `Cubit stopped escorting you` |
+| 30 | Escolte de novo e deixe o escoltado sair do jogo | A escolta termina, e ele volta à ronda |
+| 31 | Com o segundo player no Nether e o Patrulheiro no Overworld, clique nele com o app `Escort` | `Cubit only escorts in its own dimension`, e nada é marcado |
+| 32 | Com o jogo em português | `Cubit está com pouca energia, indo ao Dock`, `Cubit está escoltando você` e `Escolta` no app |
+
+## Apresentação
+
+As regras estão em [`falas.md`](../conceito/falas.md#apresentação). Use um mundo novo no criativo, três Cubits novos da Engineering Desk ou do inventário criativo, um Induction Dock e um Cubit de um mundo da versão `0.1.1`, se houver.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Coloque um Cubit novo no chão | `Cubit: Happy to help you!` acima da hotbar e, no chat, `Cubit: To learn everything I can do, visit: https://github.com/zenndg/cubit`, com o link sublinhado |
+| 2 | Clique no link | O jogo pede a confirmação e abre o repositório no navegador |
+| 3 | Coloque o segundo Cubit novo logo depois | Só a frase acima da hotbar. O chat não recebe outro link |
+| 4 | Recolha o primeiro Cubit e coloque-o de novo | Nenhuma das duas frases |
+| 5 | Depois de 10 minutos de jogo, coloque o terceiro Cubit novo direto no Induction Dock | As duas frases, com o Cubit já hibernando no Dock |
+| 6 | Coloque o Cubit do mundo da `0.1.1` | Nenhuma das duas frases |
+| 7 | No config, troque `intro_link_url` por um endereço `http://` e abra o jogo | O config volta ao endereço padrão, e o log avisa |
+| 8 | Com o jogo em português, coloque um Cubit novo | `Cubit: Estou feliz em lhe ajudar` e `Cubit: Para saber tudo o que posso fazer, acesse:` com o link |
+
 ## Tradução
 
 | # | Passo | Resultado esperado |
@@ -1217,6 +1271,9 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 17:00 | Acrescenta a escolta recusada em outra dimensão (pergunta 1764). |
+| Zennd | 2026-11-22 16:09 | Adiciona o realismo do Patrulheiro, PR 3 (perguntas 1623 a 1756). |
+| Zennd | 2026-11-22 15:50 | Adiciona a apresentação do Cubit (perguntas 1672 a 1682 e 1750 a 1753). |
 | Zennd | 2026-11-22 10:30 | Adiciona a rota do Patrulheiro, PR 2. |
 | Zennd | 2026-11-22 09:30 | Adiciona o Patrulheiro Galático, PR 1, e as falas das profissões. |
 | Zennd | 2026-11-21 14:20 | Começa o pedido em zero (pergunta 1506). |
