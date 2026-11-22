@@ -701,11 +701,14 @@ Não há perguntas pendentes nesta fase.
 | 1754 | Quais são as classes novas da apresentação? | `IntroLink`, em `domain/robot`, o record que decide se o link sai pelo temporizador, com teste JUnit; `IntroSection`, em `config/`, com `intro_link_cooldown_ticks` e `intro_link_url`, como a `ChatterSection`; e `RobotIntro`, em `entity/`, que diz as frases e marca o Cubit como apresentado. A estrutura de pacotes do `AGENTS.md` as cita num commit próprio, com autorização |
 | 1755 | Quando rodam as GameTests no resto do PR 3 do Patrulheiro? | Só no fechamento do PR 3, uma vez, sobre o último commit, antes de abrir o PR (`antes-do-pr.md`). As entregas que faltam seguem com o `./gradlew check` e o datagen. Muda a 1710 |
 | 1756 | Há algo a acrescentar ao item 1 do fechamento do PR 3, o estado do Patrulheiro sincronizado com o cliente, com a fase do `PatrolWatch` e o visor baixado, só o dado, para o PR 4? | Nada a acrescentar (1631) |
+| 1757 | O Contrato de `patrulheiro.md` não cita `patroller_glide_drop_blocks` (1739) nem `patroller_escort_still_ticks` (1744), que já estão no código, no `tiers.md` e no `config.md`. Ele é corrigido? | Sim, num commit próprio (Regra do Escoteiro) |
+| 1758 | As frases do `decisoes.md` que citam a entrega em três PRs e o visual no PR 3, desatualizadas pela 1749, são atualizadas? | Sim, apontando para a 1749, no commit do resumo das respostas 1700 a 1756 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:07 | Registra as respostas 1757 e 1758. |
 | Zennd | 2026-11-22 16:02 | Registra a resposta 1756. |
 | Zennd | 2026-11-22 16:00 | Registra a resposta 1755. |
 | Zennd | 2026-11-22 15:40 | Registra as respostas 1752 a 1754. |
