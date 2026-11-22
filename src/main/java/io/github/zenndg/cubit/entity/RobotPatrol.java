@@ -3,6 +3,8 @@ package io.github.zenndg.cubit.entity;
 import com.mojang.logging.LogUtils;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.PatrolProgress;
+import io.github.zenndg.cubit.domain.behavior.PatrolSettings;
+import io.github.zenndg.cubit.domain.behavior.PatrolStops;
 import io.github.zenndg.cubit.domain.ownership.Ownership;
 import io.github.zenndg.cubit.domain.robot.PatrolRoute;
 import io.github.zenndg.cubit.domain.robot.RobotJob;
@@ -39,6 +41,7 @@ public final class RobotPatrol {
   private final RobotEntity robot;
   private PatrolRoute route = PatrolRoute.EMPTY;
   private PatrolProgress progress = PatrolProgress.START;
+  private PatrolStops stops = PatrolStops.START;
 
   RobotPatrol(RobotEntity robot) {
     this.robot = robot;
@@ -134,16 +137,40 @@ public final class RobotPatrol {
   }
 
   boolean pausing() {
-    return progress.pausing();
+    return stops.pausing();
   }
 
+  PatrolStops.Gaze gaze() {
+    return stops.gaze();
+  }
+
+  /** It reached its point: a stop there, and then the next point (answer 1615). */
   void arrived() {
-    progress = progress.arrived(CubitMod.CONFIG.patrolSettings().pointPauseTicks());
+    stopHere();
+    progress = progress.next(walkable().size());
   }
 
-  /** One tick of the pause, or the next point once it ends. */
-  void waitOrGoOn() {
-    progress = progress.pausing() ? progress.tick() : progress.next(walkable().size());
+  /** A stop where it is, at a corner of the edges (answer 1616). */
+  void stopHere() {
+    stops = stops.stop(round().stopTicks());
+  }
+
+  /** The blocks walked count toward the next stop on the way (answers 1616 and 1617). */
+  void walked(double blocks) {
+    stops = stops.walked(blocks, round());
+  }
+
+  void waitOut() {
+    stops = stops.tick();
+  }
+
+  /** The share of the normal speed of the round; a chase keeps the normal one (answer 1614). */
+  double speed() {
+    return round().speed();
+  }
+
+  private static PatrolSettings.Round round() {
+    return CubitMod.CONFIG.patrolSettings().round();
   }
 
   void save(CompoundTag tag) {
@@ -180,5 +207,6 @@ public final class RobotPatrol {
     }
     route = new PatrolRoute(points);
     progress = PatrolProgress.START;
+    stops = PatrolStops.START;
   }
 }

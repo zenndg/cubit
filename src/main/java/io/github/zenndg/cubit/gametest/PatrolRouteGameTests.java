@@ -24,8 +24,8 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 /**
  * The route of the Galactic Patroller marked with the Mark app: only the top of a solid block
  * inside the area, a click on a point unmarks it, Shift takes out the last, the limit of the tier,
- * only the owner, and the route kept in the save but lost with the item (answers 1579, 1599, 1602
- * and 1611).
+ * only the owner, the route kept in the save but lost with the item, and the stop at each point
+ * (answers 1579, 1599, 1602, 1611 and 1615).
  */
 @GameTestHolder(CubitMod.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -40,6 +40,7 @@ public final class PatrolRouteGameTests {
   private static final int OTHER_X = 7;
   private static final int OUTSIDE_X = 20;
   private static final int CARD_SLOT = 0;
+  private static final double HALF = 0.5;
   private static final Energy CHARGE = new Energy(1_000_000);
   private static final float HEALTH = 100f;
   private static final BlockPos ROBOT_FLOOR = new BlockPos(ROBOT_X, FLOOR_Y, MIDDLE_Z);
@@ -53,6 +54,17 @@ public final class PatrolRouteGameTests {
   private static final String NOT_OWNER = "Only the owner marks the route";
   private static final String NOT_KEPT = "The save should keep the route";
   private static final String KEPT_IN_ITEM = "The item should not keep the route";
+  private static final String NOT_STOPPED = "The Patroller should stand still at its point";
+  private static final String NOT_ARRIVED = "The Patroller should reach its point";
+  private static final String NOT_GONE_ON = "The Patroller should go on after the stop";
+  private static final int ROUND_TIMEOUT = 400;
+  private static final int FIRST_X = 4;
+  private static final int SECOND_X = 11;
+  private static final int DURING_STOP = 40;
+  private static final double AT_POINT = 1.5;
+  private static final double LEFT_POINT = 2.5;
+  private static final BlockPos FIRST = new BlockPos(FIRST_X, FLOOR_Y, MIDDLE_Z);
+  private static final BlockPos SECOND = new BlockPos(SECOND_X, FLOOR_Y, MIDDLE_Z);
 
   private PatrolRouteGameTests() {}
 
@@ -170,5 +182,32 @@ public final class PatrolRouteGameTests {
     RobotEntity placed = GameTestRobots.placeRobot(helper, owner, item, ROBOT_FLOOR);
     helper.assertTrue(placed.workArea().work().patrol().route().isEmpty(), KEPT_IN_ITEM);
     helper.succeed();
+  }
+
+  @GameTest(template = ARENA, timeoutTicks = ROUND_TIMEOUT)
+  public static void theRoundStopsAtAPointAndGoesOn(GameTestHelper helper) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    RobotEntity robot = patroller(helper, owner, true);
+    RobotPatrol patrol = robot.workArea().work().patrol();
+    click(helper, patrol, owner, FIRST);
+    click(helper, patrol, owner, SECOND);
+    helper
+        .startSequence()
+        .thenWaitUntil(
+            () -> helper.assertTrue(distanceTo(helper, robot, FIRST) < AT_POINT, NOT_ARRIVED))
+        .thenExecuteAfter(
+            DURING_STOP,
+            () -> helper.assertTrue(distanceTo(helper, robot, FIRST) < AT_POINT, NOT_STOPPED))
+        .thenWaitUntil(
+            () -> helper.assertTrue(distanceTo(helper, robot, FIRST) > LEFT_POINT, NOT_GONE_ON))
+        .thenSucceed();
+  }
+
+  private static double distanceTo(GameTestHelper helper, RobotEntity robot, BlockPos floor) {
+    BlockPos top = helper.absolutePos(floor.above());
+    return robot
+        .position()
+        .subtract(top.getX() + HALF, robot.getY(), top.getZ() + HALF)
+        .horizontalDistance();
   }
 }

@@ -189,11 +189,12 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `JobTalkTopic` | O que um Cubit com card fala: uma das três frases ao receber o card e as frases de cada momento do trabalho |
 | `JobTalkRules` | Quando ele fala: a chance, quem ouve, a chave das falas e a expressão calma, e se o card é novo |
 | `PatrollerSpec` | O que um tier faz com o card do Patrulheiro Galático: a pistola, a lentidão, a lâmina, a armadura extra, o raio de procura, o salto, os pontos da rota e o lado da área, o dobro do dos outros cards |
-| `PatrolSettings` | Os números do Patrulheiro que valem em todo tier: a chance e o tempo da lentidão, a chance da cabeça, a perseguição, a distância da troca de arma e a pausa em cada ponto |
+| `PatrolSettings` | Os números do Patrulheiro que valem em todo tier: a chance e o tempo da lentidão, a chance da cabeça, a perseguição, a distância da troca de arma e o passo da ronda (`Round`: a velocidade, a duração de cada parada e os blocos entre duas paradas) |
 | `RoutePoint` | Um ponto da rota: o topo de um bloco sólido e a dimensão dele |
 | `PatrolRoute` | Os pontos da rota, na ordem em que foram marcados, percorridos em laço, sem ponto repetido e até o limite do tier |
 | `RouteMarking` | O que um clique do app Marcar faz na rota: desmarca um ponto marcado, ou marca o topo de um bloco sólido dentro da área, com o motivo da recusa; e o Shift, que tira o ponto clicado ou o último |
-| `PatrolProgress` | Onde o Cubit está na ronda: o ponto para onde vai e a pausa que ainda espera nele |
+| `PatrolProgress` | Para qual ponto da rota o Cubit vai, em laço |
+| `PatrolStops` | As paradas da ronda: os blocos andados desde a última, a parada em curso e para onde a cabeça olha, duas vezes para cada lado e depois à frente |
 | `WeaponChoice` | A arma que o Patrulheiro usa no alvo: a pistola de longe e no ar, a lâmina de perto e nenhuma no creeper que ele não pode alvejar |
 | `PatrolTargets` | O hostil que um Patrulheiro ataca: primeiro o que fere alguém, depois o mais perto de um protegido, sem repetir o alvo de outro Patrulheiro, salvo um hostil sozinho |
 | `PatrolRules` | O modo sempre Agressivo, os modos que o card trava na aba Defense, o limite da perseguição, quando ele salta e quando recua do creeper |
@@ -220,6 +221,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 - **Falas das profissões por perto:** um Cubit trabalhando fica longe do dono, então as falas do trabalho vão para o dono a até uma distância, mesmo sem segui-lo, com chance e intervalo, para uma fazenda grande não virar spam. O sorteio fica com quem chama (perguntas 1585 e 1586).
 - **Patrulheiro sempre Agressivo:** atacar primeiro é a essência do card, então o modo escolhido fica guardado e volta quando o card sai (pergunta 1566).
 - **Lâmina sem bateria:** só a pistola e o salto gastam energia, para ele nunca ficar sem defesa. Sem carga, ele não chega perto do creeper e fica entre ele e os protegidos (perguntas 1571 e 1595).
+- **Ronda de vigia:** o passo lento e as paradas valem só na ronda. Na perseguição, ele corre na velocidade normal, e qualquer parada, num ponto, num canto ou no caminho, zera a contagem de blocos, para as paradas não se amontoarem (perguntas 1614 a 1618).
 - **Desmarcar vem antes de recusar:** um ponto marcado sai mesmo fora da área nova, para o player limpar uma rota antiga sem marcar a área de novo (pergunta 1611).
 - **Rota só na área:** os pontos fora da área ou de outra dimensão não valem, mas ficam guardados no NBT, e voltam a valer quando a área os inclui de novo (perguntas 1599 e 1602).
 - **Esfera, não cubo:** o canto de um cubo fica a cerca de 1,7 vez o raio, então só conta o que está a até o raio em linha reta. Os dois scanners usam a mesma regra (perguntas 604 e 606).
