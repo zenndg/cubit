@@ -670,12 +670,13 @@ Não há perguntas pendentes nesta fase.
 | 1723 | Um alvo novo da própria procura só é escolhido se estiver à vista, para o alvo que some não ser escolhido de novo enquanto continua escondido? | Sim: só escolhe o que vê, como em "ao ver um hostil" (1623). O alvo atual continua valendo por até 2 s sem visão (1721), e os alvos do chamado da equipe e do socorro valem sem a própria vista, porque um colega os vê. Um hostil atrás de uma parede só vira alvo quando aparece. Detalha a 1623 e a 1633 |
 | 1724 | Como fica o olhar para fora nas paradas das bordas (4c, 1626)? | O `WorkArea` calcula o lado de fora a partir de onde o Cubit está: a 2 blocos ou menos de dois lados, a diagonal; fora disso, a borda mais perto. O `PatrolPause` recebe de quem o usa a direção inicial da varredura, e a rota e a investigação seguem com a direção do corpo. Nada a acrescentar (1631). Detalha a 1626 |
 | 1725 | Como fica a cautela com a vida baixa (4d, 1686)? | O `WeaponChoice` recebe a cautela: abaixo de 25% da vida, com carga e o alvo no alcance, ele usa sempre a pistola, mesmo de perto, e sem poder atirar usa a lâmina (1571). Com o alvo a menos de 4 blocos, recua na direção do protegido mais perto, ou se afasta do alvo sem protegido por perto. O recuo do creeper vem antes, e o cerco depois. Nada a acrescentar (1631). Detalha a 1686 |
+| 1726 | A GameTest `thePistolShootsAFarHostile` prova o disparo pela energia gasta, mas andar também gasta energia. Ela é corrigida pela Regra do Escoteiro? | Sim, num commit próprio: ela passa a esperar o globo de laser no mundo |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
-| Zennd | 2026-11-22 18:20 | Registra as respostas 1724 e 1725. |
+| Zennd | 2026-11-22 18:20 | Registra as respostas 1724 a 1726. |
 | Zennd | 2026-11-22 18:00 | Registra as respostas 1721 a 1723. |
 | Zennd | 2026-11-22 17:40 | Registra a resposta 1720. |
 | Zennd | 2026-11-22 17:20 | Registra a resposta 1719. |

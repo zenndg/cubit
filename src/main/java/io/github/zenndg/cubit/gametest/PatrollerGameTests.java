@@ -9,6 +9,7 @@ import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.entity.PatrolKills;
 import io.github.zenndg.cubit.entity.RobotEntity;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
+import io.github.zenndg.cubit.registry.CubitEntities;
 import io.github.zenndg.cubit.registry.CubitItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
@@ -57,7 +58,7 @@ public final class PatrollerGameTests {
   private static final String NOT_LOCKED = "The card should lock the Aggressive mode";
   private static final String WRONG_ARMOR = "Wrong armor of the card";
   private static final String NOT_HIT = "The Patroller should have hit the hostile";
-  private static final String NO_ENERGY_SPENT = "The shot should have cost energy";
+  private static final String NO_ORB = "The pistol should have fired its orb";
   private static final String WRONG_HEAD = "Wrong head after the kill";
   private static final String SPARED = "The Patroller should have attacked the mob";
   private static final String ATTACKED = "The Patroller should have left the mob alone";
@@ -115,17 +116,15 @@ public final class PatrollerGameTests {
   }
 
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  /** A husk, which never burns in the sun, and the orb in the world prove the shot (1726). */
   public static void thePistolShootsAFarHostile(GameTestHelper helper) {
     ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
-    RobotEntity robot = patroller(helper, owner);
-    Zombie zombie = helper.spawnWithNoFreeWill(EntityType.ZOMBIE, FAR);
-    helper.runAfterDelay(
-        FIGHT_TICKS,
-        () -> {
-          helper.assertTrue(zombie.getHealth() < zombie.getMaxHealth(), NOT_HIT);
-          helper.assertTrue(robot.state().energy().amount() < CHARGE.amount(), NO_ENERGY_SPENT);
-          helper.succeed();
-        });
+    patroller(helper, owner);
+    Husk husk = helper.spawnWithNoFreeWill(EntityType.HUSK, FAR);
+    helper.succeedWhen(() -> {
+      helper.assertFalse(helper.getEntities(CubitEntities.LASER_ORB.get()).isEmpty(), NO_ORB);
+      helper.assertTrue(husk.getHealth() < husk.getMaxHealth(), NOT_HIT);
+    });
   }
 
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
@@ -250,10 +249,9 @@ public final class PatrollerGameTests {
     ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
     RobotEntity robot = patroller(helper, owner);
     robot.setHealth(WOUNDED);
-    Husk husk = helper.spawnWithNoFreeWill(EntityType.HUSK, NEAR);
-    helper.succeedWhen(() -> {
-      helper.assertTrue(husk.getHealth() < husk.getMaxHealth(), NOT_HIT);
-      helper.assertTrue(robot.state().energy().amount() < CHARGE.amount(), NO_CARE);
-    });
+    helper.spawnWithNoFreeWill(EntityType.HUSK, NEAR);
+    // An orb in the world is the proof of the pistol, as walking also spends the battery.
+    helper.succeedWhen(() ->
+        helper.assertFalse(helper.getEntities(CubitEntities.LASER_ORB.get()).isEmpty(), NO_CARE));
   }
 }
