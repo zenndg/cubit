@@ -61,7 +61,9 @@ public final class PatrolTeamGameTests {
   private static final String HIT = "The team should have left this hostile for later";
   private static final String NOT_CALLED = "The mate should have come to the call";
   private static final String CROWDED = "The team should have taken different sides";
-  private static final int SIEGED_X = 12;
+  // Within the switch of weapons of both, so both close in with the blade (answer 1761).
+  private static final int SIEGED_X = 4;
+  private static final double NO_KNOCKBACK = 1;
   private static final double TOUGH = 1000;
   private static final double SPREAD_DEGREES = 120;
   private static final double HALF_TURN = 180;
@@ -191,6 +193,8 @@ public final class PatrolTeamGameTests {
           Husk target = hostile(helper, SIEGED_X);
           target.getAttribute(Attributes.MAX_HEALTH).setBaseValue(TOUGH);
           target.setHealth((float) TOUGH);
+          // Kept in place, or the blade pins it against the end of the narrow arena (1761).
+          target.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(NO_KNOCKBACK);
           helper.succeedWhen(
               () -> helper.assertTrue(apart(target, one, other) > SPREAD_DEGREES, CROWDED));
         });
