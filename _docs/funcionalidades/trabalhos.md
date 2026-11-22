@@ -31,7 +31,7 @@ O mod funciona numa instância só com ele e suas dependências. Tudo aceita red
 | Elite | Os do Avançado, mais Organizador, Cozinheiro, Patrulheiro Galático, Minerador, Construtor, Mecânico e Alquimista |
 | Ultimate | Os mesmos do Elite. Nenhum trabalho espera o Ultimate, que só melhora os números de cada card (pergunta 1598) |
 
-O tier também melhora o que o card faz, com mais velocidade, alcance ou opções. A evolução de cada card é proposta e é decidida no refinamento dele, com os números em [`tiers.md`](../tiers.md#trabalhos) (perguntas 1144 e 1154). A do Minerador e a do Defensor já estão decididas (perguntas 1149 e 1150), e as do Pescador e do Fazendeiro foram decididas no card de cada um (perguntas 1185, 1221 e 1226).
+O tier também melhora o que o card faz, com mais velocidade, alcance ou opções. A evolução de cada card é proposta e é decidida no refinamento dele, com os números em [`tiers.md`](../tiers.md#trabalhos) (perguntas 1144 e 1154). A do Minerador e a do Patrulheiro Galático, no lugar do Defensor, já estão decididas (perguntas 1149, 1150 e 1563), e as do Pescador e do Fazendeiro foram decididas no card de cada um (perguntas 1185, 1221 e 1226).
 
 ### Os trabalhos
 
@@ -68,8 +68,8 @@ Os baús são marcados com o app Descarga do Tablet, e a tela do Cubit tem uma a
 - **Limite:** o Cubit nunca sai da área marcada.
 - **Área carregada:** ela tem prioridade sobre o tier. Se o tier permitir uma área maior que a carregada, ele só atua na parte carregada.
 - **Proteção:** o Cubit nunca mexe em blocos com dados, como baús, máquinas, Dock, antena e Servidor, nem na tag de blocos protegidos, que o pack pode editar. Cada card só mexe no seu tipo de bloco. As exceções são o Organizador, que só tira pela face de baixo das máquinas marcadas e põe nos baús e destinos marcados, e o Cozinheiro, que só põe e tira nos fornos marcados, os dois pela capability do NeoForge, sem quebrar o bloco (perguntas 1289 e 1316, [`organizador.md`](trabalhos/organizador.md#proteção) e [`cozinheiro.md`](trabalhos/cozinheiro.md#proteção)).
-- **Vários Cubits:** há um número fixo por área, e cada um reserva o alvo antes de ir. Varreduras e ações têm limite por tick, e os robôs esperam a vez.
-- **Inventário cheio:** descarrega no baú marcado o que conseguir. Quando não conseguir mais, hiberna.
+- **Vários Cubits:** há um número fixo por área, e cada um reserva o alvo antes de ir. Varreduras e ações têm limite por tick, e os robôs esperam a vez. Os Patrulheiros são a exceção: lutam em equipe, no mesmo alvo ([`patrulheiro.md`](trabalhos/patrulheiro.md#quem-ele-ataca), pergunta 1643).
+- **Inventário cheio:** descarrega no baú marcado o que conseguir. Quando não conseguir mais, hiberna. O Patrulheiro nunca hiberna por inventário cheio (pergunta 1639).
 
 ## Base do trabalho
 
@@ -175,7 +175,7 @@ A Fase 5 é entregue como um kanban, no GitHub Project "Cubit · Fase 5", um car
 17. Robot Server, log e viagem até o Dock (#206)
 18. Storage wireless (#207)
 
-A ordem segue a pergunta 251, mudada na 1666: depois do Patrulheiro, o Lenhador, o Pecuarista, o Mecânico, o Explorador e o Alquimista, e só então o Minerador e o Construtor (perguntas 1666 e 1669).
+A ordem segue a pergunta 251, mudada na 1666: depois do Patrulheiro, o Lenhador, o Pecuarista, a personalização visual por card, o Mecânico, o Explorador e o Alquimista, e só então o Minerador e o Construtor (perguntas 1666 e 1669).
 
 ## Pendente
 
@@ -187,6 +187,7 @@ A ordem segue a pergunta 251, mudada na 1666: depois do Patrulheiro, o Lenhador,
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:59 | Troca o Defensor pelo Patrulheiro e acrescenta a exceção do inventário cheio, a equipe e a personalização na ordem (perguntas 1639, 1643 e 1765) |
 | Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-22 13:30 | Acrescenta o Explorador à ordem de entrega (perguntas 1668 a 1670). |
 | Zennd | 2026-11-22 13:10 | Troca a ordem de entrega dos trabalhos, com o Lenhador (perguntas 1666 e 1667). |
