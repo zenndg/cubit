@@ -118,12 +118,19 @@ public final class RobotPatrol {
     return hasCard() && robot.workArea().working() && !walkable().isEmpty();
   }
 
+  /** The point it walks to, skipping the ones in a chunk that is not loaded (rule 22). */
   Optional<BlockPos> currentPoint() {
     PatrolRoute walkable = walkable();
     progress = progress.within(walkable.size());
-    return walkable
-        .at(progress.index())
-        .map(point -> new BlockPos(point.x(), point.y(), point.z()));
+    for (int tried = 0; tried < walkable.size(); tried++) {
+      Optional<BlockPos> point =
+          walkable.at(progress.index()).map(found -> new BlockPos(found.x(), found.y(), found.z()));
+      if (point.filter(robot.level()::isLoaded).isPresent()) {
+        return point;
+      }
+      progress = progress.next(walkable.size());
+    }
+    return Optional.empty();
   }
 
   boolean pausing() {
