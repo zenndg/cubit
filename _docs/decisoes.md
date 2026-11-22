@@ -118,6 +118,7 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 - **Escolta marcada, detalhes (perguntas 1742 a 1745):** termina quando o escoltado morre, muda de dimensão ou, sendo player, sai do jogo, e um mob num chunk descarregado só pausa a escolta. O Tablet avisa `%s is escorting %s`, `%s stopped the escort` e, num mob que ele ataca, que não pode escoltá-lo. Andando, ele olha para os lados a cada trecho da ronda, e para com a varredura quando o escoltado fica parado por 1 s, em `patroller_escort_still_ticks`.
 - **Visual e sons do Patrulheiro num PR 4 (pergunta 1749):** o modelo, as texturas, as animações, os efeitos, os sons e a textura do card saem do PR 3 e vão para um PR 4, com rodada e autorização próprias. O PR 3 fecha com o comportamento. Muda a 1605, que dividia a entrega em três PRs.
 - **Estado do Patrulheiro no cliente (pergunta 1756):** a fase do `PatrolWatch` e o visor baixado vão ao cliente pelo `SynchedEntityData`, só como dado, sem visual, para o PR 4 ler.
+- **Correções das GameTests do PR 3 (perguntas 1759 a 1761):** o XP como energia reconhece o abate pelo último que feriu o mob, porque o jogo guarda o último dano só depois de derrubar o XP. O globo confere também a caixa do próprio trajeto contra a bola de fogo, que vem rápido demais para o raio do jogo. E o teste do cerco põe o husk perto dos dois, com resistência ao empurrão, porque na arena estreita o cerco na pistola não cabe.
 - **Ordem das próximas profissões (perguntas 1666 e 1667):** depois do Patrulheiro, o Lenhador, uma profissão nova, o Pecuarista, o Mecânico e o Alquimista, e depois o Minerador e o Construtor. O conceito do Lenhador é criado quando o card começar.
 - **Explorador (perguntas 1668 a 1671):** uma profissão nova anotada, sem nada decidido: um app do Tablet que lista os biomas da dimensão e guia o player até o escolhido, com marcações nomeadas e coloridas, filtro, avisos e mapas do jogo gerados no caminho, sem sobrepor, com os mapas em branco do inventário. Entra depois do Mecânico, e a ideia está em [`explorador.md`](funcionalidades/trabalhos/explorador.md).
 - **Scanner de minérios só no Minerador (pergunta 1741):** quando o Minerador começar, o scanner sai de todo Cubit e passa a ser só dele, melhorado. A chave, o filtro e os saves de hoje são decididos no refinamento do Minerador.
@@ -218,6 +219,7 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:33 | Resume as correções das GameTests do PR 3 (perguntas 1759 a 1761). |
 | Zennd | 2026-11-22 16:05 | Resume as respostas 1700 a 1756 do PR 3 do Patrulheiro, da apresentação e do backlog, e atualiza a entrega em PRs (pergunta 1758). |
 | Zennd | 2026-11-22 16:30 | Resume os gates e o que vem antes do PR, e atualiza a numeração das regras do `AGENTS.md` (perguntas 1710 a 1717). |
 | Zennd | 2026-11-22 14:50 | Resume o refinamento final do Patrulheiro (perguntas 1685 a 1699). |
