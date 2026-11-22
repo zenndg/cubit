@@ -1,6 +1,6 @@
 # Cozinheiro
 
-Conceito do trabalho de Cozinheiro, da Fase 5.2, entregue no card #197. O documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui.
+Conceito do trabalho de Cozinheiro, da Fase 5.2, entregue no card #197. O documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui.
 
 **Situação:** decidido. O comportamento base vem da [pergunta 247](../../perguntas/fase-5-trabalhos.md), o tier mínimo, o Elite, da pergunta 1145, e o refinamento do card, das perguntas 1314 a 1326. Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
 
@@ -93,6 +93,7 @@ A reserva dos fornos fica só na memória do servidor e não vai para o save.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-21 21:21 | Troca a receita do card pela receita comum dos cards (perguntas 1540 a 1545). |
 | Marcelo Fabiano | 2026-11-19 23:04 | Fecha o conceito do Cozinheiro, com os baús da Descarga, o app Marcar, o combustível, a proteção, o visual e os números (perguntas 1314 a 1327). |
 | Marcelo Fabiano | 2026-11-14 20:25 | Leva o conceito de `tmp/fase5` para `_docs`, com as decisões da consolidação (perguntas 1145 a 1156). |

@@ -12,7 +12,7 @@ Este diretório concentra as perguntas do projeto, com um arquivo por fase. A pe
 
 ## Como usar
 
-- **Registro:** toda pergunta respondida pelo desenvolvedor entra aqui antes do próximo passo (regra 47 do `AGENTS.md`).
+- **Registro:** toda pergunta respondida pelo desenvolvedor entra aqui antes do próximo passo (regra 48 do `AGENTS.md`).
 - **Numeração:** o número de uma pergunta é único no projeto e nunca muda. Pergunta nova recebe o próximo número livre.
 - **Ordem:** nas tabelas, a mais nova fica no topo. Os trechos antigos em outra ordem ficam como estão, e a busca é pelo número (pergunta 720).
 - **Ponteiros:** quando uma resposta muda outra, a nova cita a antiga, e a antiga ganha um ponteiro para a nova.
@@ -25,6 +25,7 @@ Este diretório concentra as perguntas do projeto, com um arquivo por fase. A pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Marcelo Fabiano | 2026-11-12 21:30 | Atualiza o próximo número livre. |
 | Marcelo Fabiano | 2026-11-12 20:30 | Atualiza o próximo número livre. |
 | Marcelo Fabiano | 2026-11-12 19:40 | Atualiza o próximo número livre. |

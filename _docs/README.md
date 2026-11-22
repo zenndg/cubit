@@ -40,6 +40,7 @@ Este é o mapa dos documentos do projeto. A apresentação do mod e o roadmap fi
 | Chaves e limites do config | [`desenvolvimento/config.md`](desenvolvimento/config.md) |
 | Roteiro de teste manual no jogo | [`desenvolvimento/roteiro-manual.md`](desenvolvimento/roteiro-manual.md) |
 | Git hooks | [`desenvolvimento/hooks-do-git.md`](desenvolvimento/hooks-do-git.md) |
+| O que vem antes do PR e as provas na descrição | [`desenvolvimento/antes-do-pr.md`](desenvolvimento/antes-do-pr.md) |
 | Publicação no Modrinth e no CurseForge | [`desenvolvimento/publicacao.md`](desenvolvimento/publicacao.md) |
 | Descrição do mod no jogo e nas plataformas | [`desenvolvimento/descricao-das-plataformas.md`](desenvolvimento/descricao-das-plataformas.md) |
 | Lugar reservado à wiki para o player (fase a definir) | [`_wiki/v1/index.html`](../_wiki/v1/index.html) |
@@ -50,6 +51,7 @@ Os números ficam em [`tiers.md`](tiers.md). As outras páginas apontam para lá
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Acrescenta o documento do que vem antes do PR (pergunta 1715). |
 | Marcelo Fabiano | 2026-11-21 03:25 | Cita as portas. |
 | Marcelo Fabiano | 2026-11-21 01:00 | Cita as peças de montagem. |
 | Marcelo Fabiano | 2026-11-14 20:27 | Acrescenta a pasta dos conceitos dos trabalhos (pergunta 1148). |

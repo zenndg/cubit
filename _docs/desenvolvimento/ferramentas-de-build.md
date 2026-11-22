@@ -25,11 +25,11 @@ Os comandos ficam no `Makefile`. Rode `make` para ver a lista.
 | `make bundle` | Baixa o jar da última release com as dependências num `.zip` em `build/dist/`. Com `VERSION=0.1.0`, baixa a release escolhida |
 | `make stop` | Para os daemons do Gradle |
 
-**`make gametest`:** o jogo termina com sucesso mesmo quando o mod falha ao carregar, então `scripts/development/run-gametests.sh` só aprova se o log trouxer `All N required tests passed`. Foi conferido que o comando falha com uma GameTest reprovada e com uma classe de cliente no código comum. O `pre-push` também o roda, e o log fica em `build/gametest.log`. O servidor roda em `run/gametest/`, separado do `run/` do `make client`, para um config editado à mão não mudar o resultado. Num diretório novo, o log mostra um erro por falta do `server.properties`, que o jogo cria em seguida.
+**`make gametest`:** o jogo termina com sucesso mesmo quando o mod falha ao carregar, então `scripts/development/run-gametests.sh` só aprova se o log trouxer `All N required tests passed`. Foi conferido que o comando falha com uma GameTest reprovada e com uma classe de cliente no código comum. Ele não está no `pre-push`: roda à mão antes de abrir um PR, como diz [`antes-do-pr.md`](antes-do-pr.md) (pergunta 1711). O log fica em `build/gametest.log`. O servidor roda em `run/gametest/`, separado do `run/` do `make client`, para um config editado à mão não mudar o resultado. Num diretório novo, o log mostra um erro por falta do `server.properties`, que o jogo cria em seguida.
 
 **GameTests:** ficam no pacote `gametest`, e cobrem o que está fora de `domain/` (regra 34 do `AGENTS.md`). Os testes usam as estruturas `empty.nbt` e `arena.nbt`, de `data/cubit/structure/`. O framework cerca cada estrutura com paredes e teto de barreira invisível, então a `arena`, com 24 blocos de comprimento e 8 de altura, limita o robô. Nela, o piso de pedra fica em `y=1`, porque o `y=0` relativo está uma camada abaixo da estrutura, e `helper.getEntities` não enxerga nada fora dela. Não compare posições com `helper.relativePos`, que devolve X e Z negativos: use `helper.absolutePos`.
 
-**`make gametest-coverage`:** liga o agente do JaCoCo só nesse comando, pela propriedade `gameTestCoverage`, para os GameTests do `pre-push` rodarem sem ele. O relatório fica em `build/reports/jacoco/gametest/index.html`, sem `domain/`, que tem gate próprio, e sem `client/`, que não roda numa GameTest (perguntas 527 e 538). Se o mod não carregar, o relatório sai vazio, então leia a contagem de testes no log.
+**`make gametest-coverage`:** liga o agente do JaCoCo só nesse comando, pela propriedade `gameTestCoverage`, para o `make gametest` rodar sem ele. O relatório fica em `build/reports/jacoco/gametest/index.html`, sem `domain/`, que tem gate próprio, e sem `client/`, que não roda numa GameTest (perguntas 527 e 538). Se o mod não carregar, o relatório sai vazio, então leia a contagem de testes no log.
 
 **Jar publicado:** a tarefa `jar` exclui os pacotes `gametest` e `datagen` e as estruturas de `data/cubit/structure/`, que só servem ao desenvolvimento. As execuções de `make gametest`, `make data`, `make client` e `make server` leem as classes direto, sem passar pelo jar, então um problema só no jar aparece nos testes de instância, no fim da Fase 3.
 
@@ -39,7 +39,7 @@ Os comandos ficam no `Makefile`. Rode `make` para ver a lista.
 
 **JEI:** é uma dependência opcional, como o Jade. O plugin em `compat/jei` mostra as receitas da Engineering Desk (perguntas 1461, 1486 e 1531 a 1535). O mod compila contra o mesmo arquivo que o pack baixa, por `compileOnly`, e o `neoforge.mods.toml` o declara como opcional, recusando só uma versão anterior a `jei_min_version`. O jar não o leva, e ele roda só no `make client`, então `make server`, `make gametest` e `make data` não o carregam e confirmam que o mod abre sem ele. A versão é fixada pelo ID da versão no Modrinth, `iv3KiVkE`, e não pelo número `19.64.0.455`, porque o JEI publica o mesmo número para NeoForge, Forge e Fabric, e o número traz o jar errado.
 
-Receita com mais de 3 linhas vira um script `.sh` em `scripts/`, e o `Makefile` só o chama (regra 46 do `AGENTS.md`).
+Receita com mais de 3 linhas vira um script `.sh` em `scripts/`, e o `Makefile` só o chama (regra 47 do `AGENTS.md`).
 
 O primeiro build leva alguns minutos, porque baixa o JDK e prepara o Minecraft.
 
@@ -109,6 +109,7 @@ As bibliotecas de teste vêm só do Maven Central, para o build não depender do
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Tira as GameTests do push e atualiza a numeração das regras do `AGENTS.md` (perguntas 1711 e 1716). |
 | Zennd | 2026-11-21 20:26 | Passa o JEI a dependência opcional, com o plugin da Engineering Desk (perguntas 1461, 1486 e 1534). |
 | Marcelo Fabiano | 2026-11-19 20:55 | Adiciona o JEI ao `make client`, só para testes (perguntas 1282 a 1284). |
 | Marcelo Fabiano | 2026-11-12 21:50 | Adiciona o `make bundle`. |

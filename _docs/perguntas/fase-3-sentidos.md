@@ -143,7 +143,7 @@ Nenhuma. A pendente 425 foi para a Fase 4 (pergunta 721).
 | 685 | Que texto cada estado do Dock mostra no topo da tela? | Os nomes das imagens: `OFF` e `NO_ENERGY` mostram `● No power`, em laranja; `IDLE`, `● Idle`, em azul; `CHARGING`, `● Charging`, em verde; e `COMPLETE`, `● Complete`, em verde. O Jade passa a usar os mesmos textos. O enum e o nome de contrato `status` (resposta 313) não mudam |
 | 684 | O que a tela do Cubit faz se ele desligar com ela aberta? | Fecha na hora: o menu deixa de valer com o Cubit inativo, e o item no cursor volta ao inventário do player, sem perder nem duplicar. Detalha a resposta 677 |
 | 683 | Como os botões novos das telas chegam ao servidor? | Pelo clique de botão de menu do próprio jogo (`clickMenuButton`), validado no servidor pelo menu, sem pacote próprio do cliente para o servidor. Vale para o botão de chamar do Dock e para as chaves da aba Settings. Responde a pergunta 680 e mantém a resposta 467 |
-| 682 | Há algo a acrescentar no alinhamento das telas próprias (regra 50), antes da leitura e da rodada de decisões? | Não: "vamos trabalhar conforme o prompt de continuidade". O agente resumiu o que entendeu de `tmp/prompt/2026-11-07_22h14_continuidade_fase-3-telas.md`, e o desenvolvedor respondeu "pode seguir" para a leitura obrigatória e a rodada das 9 decisões em aberto |
+| 682 | Há algo a acrescentar no alinhamento das telas próprias (regra 51, antes 50), antes da leitura e da rodada de decisões? | Não: "vamos trabalhar conforme o prompt de continuidade". O agente resumiu o que entendeu de `tmp/prompt/2026-11-07_22h14_continuidade_fase-3-telas.md`, e o desenvolvedor respondeu "pode seguir" para a leitura obrigatória e a rodada das 9 decisões em aberto |
 | 681 | E a barra de bateria vermelha com o Cubit desligado? | "Vamos ajustar para ficar como imagem": as barras seguem os mockups. O agente entendeu que o vermelho continua só na bateria crítica (respostas 415 e 416), como nas imagens, em que o Cubit desligado tem a barra vazia |
 | 680 | As telas criam pacotes próprios do cliente para o servidor? | "Depois falamos melhor sobre." Fica em aberto. Hoje as chaves usam `clickMenuButton`, sem pacote próprio (resposta 467) |
 | 679 | O botão de chamar fica desabilitado com o Dock sem energia, como no mockup? | Não: mantém o comportamento atual. A chamada funciona, e o Cubit entra e hiberna (resposta 352), então o botão fica habilitado |
@@ -470,6 +470,7 @@ Nenhuma. A pendente 425 foi para a Fase 4 (pergunta 721).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Marcelo Fabiano | 2026-11-14 20:28 | Aponta a nova ordem da Fase 5 nas respostas 722 e 725. |
 | Marcelo Fabiano | 2026-11-10 10:17 | Registra as respostas 792 e 793 e os ponteiros nas 722, 723, 724 e 726. |
 | Marcelo Fabiano | 2026-11-10 09:53 | Registra as respostas 785 a 791 e o ponteiro na 714. |

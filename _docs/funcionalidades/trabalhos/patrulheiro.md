@@ -1,6 +1,6 @@
 # Patrulheiro Galático
 
-Conceito do trabalho de Patrulheiro Galático, que substitui o Defensor (#198). O documentado pode mudar se aparecer um impedimento técnico (regra 48 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui, com as exceções escritas abaixo.
+Conceito do trabalho de Patrulheiro Galático, que substitui o Defensor (#198). O documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui, com as exceções escritas abaixo.
 
 **Situação:** autorizado (perguntas 1591 e 1613). O conceito vem do desenvolvedor (perguntas 1550 a 1552) e foi refinado nas perguntas 1553 a 1612. O PR 1, com o comportamento, entrou no #238, e o PR 2 traz a rota. A prioridade é a mais alta, como a da Engineering Desk: cada detalhe do conceito e da aparência é decidido antes do código (pergunta 1560). Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
 
@@ -203,6 +203,7 @@ Uma issue, a #198 renomeada, e três PRs testados no jogo (perguntas 1578 e 1605
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-22 11:00 | Troca a pausa nos pontos pela ronda lenta, com paradas nos pontos, nos cantos e a cada 16 blocos (perguntas 1614 a 1618). |
 | Zennd | 2026-11-22 10:40 | Atualiza a situação do conceito (pergunta 1613). |
 | Zennd | 2026-11-22 09:50 | Detalha a aba Defense travada, os cliques e os avisos do app Marcar e a rota só do Cubit escolhido (perguntas 1610 a 1612). |

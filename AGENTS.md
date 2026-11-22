@@ -122,7 +122,7 @@ O significado de cada pilar, os checklists e a matriz de decisão estão em [`_d
 ### Gates
 
 36. **Commit:** branch, histórico de modificações, formatação, mensagem e gitleaks já estão ativos. Veja [`_docs/desenvolvimento/hooks-do-git.md`](_docs/desenvolvimento/hooks-do-git.md).
-37. **Push:** build, testes, ArchUnit, cobertura, formatação, Checkstyle, GameTests e datagen já estão ativos. As GameTests carregam o mod como servidor dedicado, o que também detecta classe de cliente carregada no servidor.
+37. **Push:** build, testes, ArchUnit, cobertura, formatação, Checkstyle e datagen já estão ativos. As GameTests saíram do push e rodam à mão antes de abrir um PR, pela regra 46 (pergunta 1711). Elas carregam o mod como servidor dedicado, o que também detecta classe de cliente carregada no servidor.
 38. **Ferramentas:** toda ferramenta ou hook entra com um documento em `_docs/desenvolvimento/`: o que faz, por que foi escolhido, a versão e o que fazer quando reprova.
 
 ### Robô único
@@ -140,45 +140,49 @@ O Cubit é o único robô do mod. O que muda entre um Cubit e outro é o tier e 
 44. **Os documentos validam a entrega:** toda entrega é conferida contra os documentos `.md`, e as respostas em `_docs/perguntas/` prevalecem sobre os demais. Artefatos, como testes, logs, relatórios e capturas de tela, são bem-vindos na validação, mas não substituem os documentos.
 45. **Validação no PR:** a descrição do PR informa os documentos conferidos e a evidência de cada um, incluindo os checklists dos pilares que se aplicam.
 
+### Antes do PR
+
+46. **Antes do PR:** antes de abrir um PR, o agente executa e analisa tudo o que está em [`_docs/desenvolvimento/antes-do-pr.md`](_docs/desenvolvimento/antes-do-pr.md) e põe na descrição as provas que o documento pede (pergunta 1715).
+
 ### Comandos do projeto
 
-46. **Makefile:** os comandos do projeto ficam no `Makefile`. Receita com mais de 3 linhas vira um script `.sh` em `scripts/`, e o `Makefile` só o chama.
+47. **Makefile:** os comandos do projeto ficam no `Makefile`. Receita com mais de 3 linhas vira um script `.sh` em `scripts/`, e o `Makefile` só o chama.
 
 ### Perguntas
 
-47. **Toda pergunta respondida fica registrada:** qualquer pergunta feita ao desenvolvedor e respondida por ele entra em `_docs/perguntas/`, no arquivo da fase e com o próximo número livre, antes de seguir para o próximo passo. Vale também para pergunta não bloqueante e para resposta que só confirma a recomendação. Resposta que muda outra aponta para ela. A exceção é a autorização de uma ação pontual, como commit, push ou apagar uma branch, que vale só para aquela vez.
+48. **Toda pergunta respondida fica registrada:** qualquer pergunta feita ao desenvolvedor e respondida por ele entra em `_docs/perguntas/`, no arquivo da fase e com o próximo número livre, antes de seguir para o próximo passo. Vale também para pergunta não bloqueante e para resposta que só confirma a recomendação. Resposta que muda outra aponta para ela. A exceção é a autorização de uma ação pontual, como commit, push ou apagar uma branch, que vale só para aquela vez.
 
 ### Mudança no que está documentado
 
-48. **O documentado pode mudar:** se um impedimento técnico aparecer ao avançar, a decisão pode ser alterada ou desfeita. O impedimento é mostrado com evidência, o desenvolvedor decide, e a nova resposta aponta para a antiga. O que já foi publicado continua seguindo a regra 18.
+49. **O documentado pode mudar:** se um impedimento técnico aparecer ao avançar, a decisão pode ser alterada ou desfeita. O impedimento é mostrado com evidência, o desenvolvedor decide, e a nova resposta aponta para a antiga. O que já foi publicado continua seguindo a regra 18.
 
 ### Independência
 
-49. **Independência:** o mod prioriza funcionar numa instância de Minecraft só com ele e suas dependências. Nenhum recurso pode exigir outro mod ou modpack, e todo cenário é pensado primeiro assim. As exceções são GeckoLib e LambDynamicLights, obrigatórias, e Jade e JEI, opcionais.
+50. **Independência:** o mod prioriza funcionar numa instância de Minecraft só com ele e suas dependências. Nenhum recurso pode exigir outro mod ou modpack, e todo cenário é pensado primeiro assim. As exceções são GeckoLib e LambDynamicLights, obrigatórias, e Jade e JEI, opcionais.
 
 ### Início de feature
 
-50. **Alinhamento:** ao iniciar uma feature, o agente descreve em poucas linhas o que vamos fazer e pergunta ao desenvolvedor se tem algo mais para acrescentar, antes da rodada de decisões, da issue e da branch.
+51. **Alinhamento:** ao iniciar uma feature, o agente descreve em poucas linhas o que vamos fazer e pergunta ao desenvolvedor se tem algo mais para acrescentar, antes da rodada de decisões, da issue e da branch.
 
 ### Rodadas de perguntas
 
-51. **Nenhuma das opções:** toda pergunta com opções traz, de forma explícita, a opção "Nenhuma das opções". Vale para qualquer rodada, sem exceção.
+52. **Nenhuma das opções:** toda pergunta com opções traz, de forma explícita, a opção "Nenhuma das opções". Vale para qualquer rodada, sem exceção.
 
 ### Depois do merge
 
-52. **Encerramento do PR:** depois do merge de um PR, nesta ordem, o agente pede autorização para apagar a branch local e a remota, que não são mais necessárias, apresenta no que vai atuar em seguida e pergunta se o desenvolvedor quer algum ajuste no roteiro das próximas tarefas.
+53. **Encerramento do PR:** depois do merge de um PR, nesta ordem, o agente pede autorização para apagar a branch local e a remota, que não são mais necessárias, apresenta no que vai atuar em seguida e pergunta se o desenvolvedor quer algum ajuste no roteiro das próximas tarefas.
 
 ### Autorização do conceito
 
-53. **Código só com o conceito autorizado:** para atuar no código, primeiro é preciso ter a autorização explícita do desenvolvedor sobre o conceito. Ao fechar o refinamento, o agente apresenta o conceito e espera essa autorização, que entra em `_docs/perguntas/` (regra 47).
+54. **Código só com o conceito autorizado:** para atuar no código, primeiro é preciso ter a autorização explícita do desenvolvedor sobre o conceito. Ao fechar o refinamento, o agente apresenta o conceito e espera essa autorização, que entra em `_docs/perguntas/` (regra 48).
 
 ### Apresentação
 
-54. **Listas numeradas:** ao apresentar itens ao desenvolvedor, como opções, pendências, passos ou achados, prefira listas ordenadas numericamente, para ele poder citar cada item pelo número.
+55. **Listas numeradas:** ao apresentar itens ao desenvolvedor, como opções, pendências, passos ou achados, prefira listas ordenadas numericamente, para ele poder citar cada item pelo número.
 
 ### Prompts de imagem
 
-55. **Prompt em arquivo:** todo prompt de imagem fica em `tmp/arte/{nome}/prompt.md`, em que `{nome}` é o item ou o assunto, como `cascata`, com vários itens. Cada prompt traz o caminho completo da imagem que ele gera, na mesma pasta do `prompt.md`, como `tmp/arte/cascata/robot_core.png`, e o destino dela depois de aceita.
+56. **Prompt em arquivo:** todo prompt de imagem fica em `tmp/arte/{nome}/prompt.md`, em que `{nome}` é o item ou o assunto, como `cascata`, com vários itens. Cada prompt traz o caminho completo da imagem que ele gera, na mesma pasta do `prompt.md`, como `tmp/arte/cascata/robot_core.png`, e o destino dela depois de aceita.
 
 ## Git
 
