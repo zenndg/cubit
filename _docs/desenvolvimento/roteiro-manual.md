@@ -1194,7 +1194,8 @@ Esta parte cobre o PR 3: o realismo, os alvos novos, a equipe, as asas, a escolt
 | 28 | Clique num zumbi com o app `Escort` | `Cubit attacks this mob, so it cannot escort it` |
 | 29 | Clique de novo no escoltado | `Cubit stopped the escort`, e o escoltado recebe `Cubit stopped escorting you` |
 | 30 | Escolte de novo e deixe o escoltado sair do jogo | A escolta termina, e ele volta à ronda |
-| 31 | Com o jogo em português | `Cubit está com pouca energia, indo ao Dock`, `Cubit está escoltando você` e `Escolta` no app |
+| 31 | Com o segundo player no Nether e o Patrulheiro no Overworld, clique nele com o app `Escort` | `Cubit only escorts in its own dimension`, e nada é marcado |
+| 32 | Com o jogo em português | `Cubit está com pouca energia, indo ao Dock`, `Cubit está escoltando você` e `Escolta` no app |
 
 ## Apresentação
 
@@ -1270,6 +1271,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 17:00 | Acrescenta a escolta recusada em outra dimensão (pergunta 1764). |
 | Zennd | 2026-11-22 16:09 | Adiciona o realismo do Patrulheiro, PR 3 (perguntas 1623 a 1756). |
 | Zennd | 2026-11-22 15:50 | Adiciona a apresentação do Cubit (perguntas 1672 a 1682 e 1750 a 1753). |
 | Zennd | 2026-11-22 10:30 | Adiciona a rota do Patrulheiro, PR 2. |
