@@ -691,11 +691,13 @@ Não há perguntas pendentes nesta fase.
 | 1744 | Na escolta, como ficam as olhadas para os lados andando e a parada quando o escoltado para (1657)? | Com os números da ronda: andando, a cada trecho sorteado da ronda, de 12 a 20 blocos, ele olha uma vez para cada lado sem parar; quando o escoltado fica parado por 1 s, ele para e faz a varredura sorteada da parada, de 3 a 5 s. A chave nova é `patroller_escort_still_ticks`, com 20, de 1 a 200. Detalha a 1657 |
 | 1745 | Há algo a acrescentar à entrega 9 do PR 3, a escolta marcada? | Nada a acrescentar (1631) |
 | 1746 | Nos testes do desenvolvedor, o Cubit às vezes se perdia num teleporte longo do dono. O que fazer? | A causa é a distância da simulação: o teleporte do seguir roda no tick do Cubit, e num teleporte longo o chunk dele sai da simulação antes de ele ver o dono longe, sendo depois descarregado; pelo portal, o seguir só teleporta na mesma dimensão. Fica anotado para uma issue própria, depois do PR 3: no instante do teleporte do dono, o Cubit que segue e ainda está carregado vai junto, como no renascer (`RobotRespawn`), sem carregar chunk à força (regra 22). A dimensão diferente entra no refinamento dela |
+| 1747 | Ideias do desenvolvedor para o Tablet: a lista de todos os Cubits do dono, paginada, com busca pelo nome, filtros por profissão e a ordem pela última interação e depois pela ordem em que foram colocados; um botão que puxa o Cubit para o inventário de onde estiver; e o Tablet com tiers, que liberam as funcionalidades. Onde ficam? | Anotadas em `_docs/backlog.md`, criado para guardar as ideias do futuro, com o teleporte longo (1746) e o scanner do Minerador (1741). Nada está decidido: cada ideia vai ao refinamento quando entrar no roadmap |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 22:40 | Registra a resposta 1747. |
 | Zennd | 2026-11-22 22:20 | Registra a resposta 1746. |
 | Zennd | 2026-11-22 22:10 | Registra as respostas 1742 a 1745. |
 | Zennd | 2026-11-22 21:50 | Registra a resposta 1741. |

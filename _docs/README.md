@@ -30,6 +30,7 @@ Este é o mapa dos documentos do projeto. A apresentação do mod e o roadmap fi
 | Números por tier | [`tiers.md`](tiers.md) |
 | Resumo das decisões | [`decisoes.md`](decisoes.md) |
 | Perguntas e respostas por fase | [`perguntas/`](perguntas/README.md) |
+| Ideias para o futuro, ainda sem decisão | [`backlog.md`](backlog.md) |
 | Termos e nomes oficiais | [`glossario.md`](glossario.md) |
 | As fases e o que entra em cada uma | [`ROADMAP.md`](../ROADMAP.md) |
 | O que está pronto e o que falta em cada fase | [`checklist.md`](../checklist.md) |
@@ -51,6 +52,7 @@ Os números ficam em [`tiers.md`](tiers.md). As outras páginas apontam para lá
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 22:40 | Acrescenta o backlog das ideias para o futuro (pergunta 1747). |
 | Zennd | 2026-11-22 16:30 | Acrescenta o documento do que vem antes do PR (pergunta 1715). |
 | Marcelo Fabiano | 2026-11-21 03:25 | Cita as portas. |
 | Marcelo Fabiano | 2026-11-21 01:00 | Cita as peças de montagem. |
