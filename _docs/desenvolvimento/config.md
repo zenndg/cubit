@@ -170,6 +170,8 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general` | `job_chatter_chance` | Falas das profissões: chance num evento do trabalho | 0 a 100 |
 | `general` | `job_chatter_interval_ticks` | Falas das profissões: intervalo mínimo entre duas falas do mesmo Cubit | 1 a 72000 |
 | `general` | `job_chatter_range` | Falas das profissões: distância do dono para ouvir | 1 a 128 |
+| `general` | `intro_link_cooldown_ticks` | Apresentação: tempo, por player, sem repetir a frase do link | 0 a 72000 |
+| `general` | `intro_link_url` | Apresentação: endereço do link, só `https://` | Texto |
 
 ## Por que esses limites
 
@@ -205,6 +207,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 14:05 | Acrescenta as chaves da apresentação do Cubit (perguntas 1674 e 1677). |
 | Zennd | 2026-11-22 12:55 | Acrescenta as chaves do Patrulheiro e das falas das profissões (perguntas 1577, 1586, 1614 a 1651 e 1665). |
 | Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |
 | Marcelo Fabiano | 2026-11-21 11:30 | Adiciona as chaves da Recharge Splash (perguntas 1413 e 1423). |

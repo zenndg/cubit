@@ -112,6 +112,8 @@ Valem para todos os tiers e ficam no config. Os marcados como planejados entram 
 | Patrulheiro: velocidade da ronda, sobre a velocidade normal, `patroller_patrol_speed` (pergunta 1614) | 60% (0,6) |
 | Falas das profissões: chance num evento do trabalho, `job_chatter_chance` (pergunta 1586) | 20% |
 | Falas das profissões: intervalo mínimo entre duas falas do mesmo Cubit, `job_chatter_interval_ticks` | 2 min (2.400 ticks) |
+| Apresentação: tempo, por player, em que os Cubits novos não repetem a frase do link, `intro_link_cooldown_ticks` (pergunta 1677) | 10 min (12.000 ticks) |
+| Apresentação: endereço do link, `intro_link_url` (pergunta 1674) | `https://github.com/zenndg/cubit` |
 | Falas das profissões: distância máxima até o dono, `job_chatter_range` (pergunta 1585) | 32 blocos |
 | Recarga da Power Bank no inventário do Dock | A do tier do Dock, uma por vez, sem Cubit na base ou com o Cubit da base de bateria cheia (perguntas 952 e 1376) |
 | Descarga da Power Bank no slot de entrada do Dock | O limite de entrada do Dock, junto dos cabos (pergunta 920) |
@@ -301,6 +303,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 14:05 | Acrescenta os números da apresentação do Cubit (perguntas 1674 e 1677). |
 | Zennd | 2026-11-22 12:15 | Acrescenta o vão que o Patrulheiro atravessa planando (pergunta 1648). |
 | Zennd | 2026-11-22 12:05 | Acrescenta o alcance do chamado do Patrulheiro (pergunta 1644). |
 | Zennd | 2026-11-22 11:55 | Acrescenta os números do creeper, da procura e do empurrão do Patrulheiro (pergunta 1642). |

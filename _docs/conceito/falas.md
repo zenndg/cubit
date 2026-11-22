@@ -164,6 +164,21 @@ As frases e as regras estão nas perguntas 572 a 587 e 618 a 621.
 | Redstone | `Redstone! My favorite snack!` | Redstone! Meu lanche favorito! | O dono minera um minério de redstone, inclusive de outro mod |
 | Redstone | `Redstone runs in my circuits!` | A redstone corre nos meus circuitos! | O dono minera um minério de redstone, inclusive de outro mod |
 
+## Apresentação
+
+Duas frases que todo Cubit fala na primeira vez que é colocado no mundo: uma de ajuda, acima da hotbar, e uma com o link para saber tudo o que ele faz, no chat (perguntas 1672 a 1682). Entram no PR 3 do Patrulheiro (pergunta 1676).
+
+| Frase | Onde | Inglês, no jogo | Português |
+|---|---|---|---|
+| Ajuda | Barra de ação, acima da hotbar | `Cubit: Happy to help you!` | `Cubit: Estou feliz em lhe ajudar` |
+| Link | Chat, com o link sublinhado que abre o navegador ao clicar | `Cubit: To learn everything I can do, visit:` e o link | `Cubit: Para saber tudo o que posso fazer, acesse:` e o link |
+
+- **Quando:** na primeira vez que cada Cubit é colocado no mundo, para quem o colocou. As duas respeitam a chave `Chatter` (perguntas 1673, 1675 e 1680).
+- **Link:** o repositório no GitHub, `https://github.com/zenndg/cubit`, no config (pergunta 1674).
+- **Temporizador:** só para a frase do link. Depois de um link, os Cubits novos que o mesmo player colocar nos 10 minutos seguintes só dizem a frase de ajuda (perguntas 1677 e 1681).
+- **Quieto:** um Cubit que não mostrou o link pelo temporizador conta como apresentado e não o mostra depois (pergunta 1678).
+- **Saves:** o estado do Cubit, no item e no NBT, ganha um campo opcional que diz se ele já foi apresentado. Sem o campo, como nos Cubits das versões publicadas, ele vale como já apresentado e não fala (pergunta 1679).
+
 ## Profissões
 
 Cada profissão tem frases próprias, todas originais, sem citar filmes nem personagens (perguntas 1583, 1584, 1587 e 1590). Elas aparecem com o nome do Cubit, ou "Cubit" sem nome, e a profissão no idioma do player, como `Cubit (Patrulheiro): ` (pergunta 1588).
@@ -258,6 +273,7 @@ Numa equipe de Patrulheiros no mesmo combate, só um deles fala a frase de entra
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 14:05 | Acrescenta as frases de apresentação do Cubit (perguntas 1672 a 1682). |
 | Zennd | 2026-11-22 13:00 | Acrescenta a fala única da equipe de Patrulheiros (pergunta 1646). |
 | Zennd | 2026-11-21 23:14 | Acrescenta as falas das profissões (perguntas 1583 a 1590). |
 | Marcelo Fabiano | 2026-11-08 00:11 | Leva o português das falas para o jogo. |

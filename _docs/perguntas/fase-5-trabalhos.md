@@ -616,11 +616,23 @@ Não há perguntas pendentes nesta fase.
 | 1669 | Onde o Explorador entra na ordem das profissões? | Depois do Mecânico: Patrulheiro, Lenhador, Pecuarista, personalização visual por card, Mecânico, Explorador, Alquimista, Minerador e Construtor. A recomendação, depois do Construtor, foi recusada. Detalha a 1666 |
 | 1670 | Como fica a anotação do Explorador? | Num arquivo de ideia, `_docs/funcionalidades/trabalhos/explorador.md`, com a ideia do desenvolvedor e a lista do que fica em aberto, sem nada decidido |
 | 1671 | Há mais alguma ideia para o Explorador? | Sim: enquanto anda guiando o player, ele gera mapas do jogo da região, aproveitando cada mapa da melhor forma. Nunca há mapa sobre mapa: cada mapa criado complementa os anteriores, sem repetir área. Isso só acontece quando há mapas em branco disponíveis no inventário. Nada está decidido: os detalhes vão ao refinamento. Detalha a 1668 |
+| 1672 | Há mais alguma ideia para registrar? | Sim: uma frase para todos os Cubits, quando colocados pela primeira vez no mundo pelo player, como "Cubit: para saber mais o que posso fazer acesse o link", com o endereço do GitHub |
+| 1673 | Quando a frase de apresentação aparece? | Na primeira vez que cada Cubit é colocado no mundo, com um temporizador por player para quando ele coloca vários em sequência. A recomendação, só no primeiro Cubit do player, foi recusada |
+| 1674 | Para qual endereço o link aponta? | Para o repositório no GitHub, `https://github.com/zenndg/cubit`, com o endereço no config. A recomendação, a página do Modrinth, foi recusada |
+| 1675 | Como a frase aparece? | No chat, para quem colocou o Cubit, com o prefixo `Cubit: ` e o link sublinhado, que abre o navegador ao clicar: em inglês, `Cubit: To learn everything I can do, visit:`, e em português, `Cubit: Para saber tudo o que posso fazer, acesse:`. Respeita a chave `Chatter` |
+| 1676 | Quando a frase de apresentação entra? | Junto do PR 3 do Patrulheiro. A recomendação, um card próprio, foi recusada |
+| 1677 | Quanto tempo dura o temporizador da frase de apresentação? | 10 minutos por player: depois de uma frase, os Cubits novos que o mesmo player colocar nos 10 minutos seguintes ficam quietos, no config. A recomendação, 5 minutos, foi recusada |
+| 1678 | O Cubit que ficou quieto pelo temporizador fala depois? | Não: a primeira colocação dele já passou, e ele conta como apresentado |
+| 1679 | E os Cubits que já existem nos mundos das versões publicadas? | Contam como apresentados: o estado do Cubit, no item e no NBT, ganha um campo opcional, e sem ele no save o Cubit vale como já apresentado, sem quebrar os saves antigos (regra 18). Só os Cubits criados depois da atualização falam |
+| 1680 | Como fica a apresentação, depois da ideia extra do desenvolvedor? | Com duas frases na primeira colocação de cada Cubit: "Cubit: Estou feliz em lhe ajudar", acima da hotbar, na barra de ação, e a frase do link no chat. Detalha a 1673 e a 1675 |
+| 1681 | O temporizador de 10 minutos vale para qual frase? | Só para a do link: todo Cubit novo diz a frase de ajuda acima da hotbar, sempre, e só a frase do link no chat espera os 10 minutos, para o chat não encher de links. Detalha a 1677 |
+| 1682 | Qual é o texto em inglês da frase de ajuda? | `Cubit: Happy to help you!`, e em português, `Cubit: Estou feliz em lhe ajudar` |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 14:05 | Registra as respostas 1672 a 1682. |
 | Zennd | 2026-11-22 13:40 | Registra as respostas 1668 a 1671. |
 | Zennd | 2026-11-22 13:10 | Registra as respostas 1666 e 1667. |
 | Zennd | 2026-11-22 11:00 | Registra as respostas 1622 a 1665. |
