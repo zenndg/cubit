@@ -699,11 +699,13 @@ Não há perguntas pendentes nesta fase.
 | 1752 | O Cubit colocado direto num Induction Dock, onde já nasce hibernando, faz a primeira colocação da apresentação? | Sim: as duas frases saem nos dois caminhos, no chão e no Dock, e o Cubit fica apresentado. Detalha a 1673 |
 | 1753 | Um Cubit ainda não apresentado que chega com a chave `Chatter` desligada, por `/give` com o componente ou por KubeJS, fala depois? | Não: ele não fala e conta como apresentado, como o Cubit que ficou quieto pelo temporizador (1678). Detalha a 1675 |
 | 1754 | Quais são as classes novas da apresentação? | `IntroLink`, em `domain/robot`, o record que decide se o link sai pelo temporizador, com teste JUnit; `IntroSection`, em `config/`, com `intro_link_cooldown_ticks` e `intro_link_url`, como a `ChatterSection`; e `RobotIntro`, em `entity/`, que diz as frases e marca o Cubit como apresentado. A estrutura de pacotes do `AGENTS.md` as cita num commit próprio, com autorização |
+| 1755 | Quando rodam as GameTests no resto do PR 3 do Patrulheiro? | Só no fechamento do PR 3, uma vez, sobre o último commit, antes de abrir o PR (`antes-do-pr.md`). As entregas que faltam seguem com o `./gradlew check` e o datagen. Muda a 1710 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 16:00 | Registra a resposta 1755. |
 | Zennd | 2026-11-22 15:40 | Registra as respostas 1752 a 1754. |
 | Zennd | 2026-11-22 23:35 | Registra as respostas 1750 e 1751. |
 | Zennd | 2026-11-22 23:20 | Registra a resposta 1749. |
