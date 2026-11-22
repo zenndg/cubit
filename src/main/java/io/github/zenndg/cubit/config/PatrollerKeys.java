@@ -17,6 +17,8 @@ final class PatrollerKeys {
   private static final String ROUTE_POINTS = "patroller_route_points";
   private static final String AREA_SIZE = "patroller_area_size";
   private static final String RETURN_CHARGE = "patroller_return_charge_percent";
+  private static final String GAP = "patroller_gap_distance";
+  private static final int MAX_GAP = 16;
   private static final int MAX_AREA = 256;
   private static final int MIN_ZERO = 0;
   private static final int MIN_ONE = 1;
@@ -32,6 +34,7 @@ final class PatrollerKeys {
   private final ModConfigSpec.IntValue routePoints;
   private final ModConfigSpec.IntValue areaSize;
   private final ModConfigSpec.IntValue returnCharge;
+  private final ModConfigSpec.IntValue gap;
 
   PatrollerKeys(ModConfigSpec.Builder builder, PatrollerSpec defaults) {
     weapons = new PatrollerWeaponKeys(builder, defaults.weapons());
@@ -46,6 +49,7 @@ final class PatrollerKeys {
     returnCharge =
         builder.defineInRange(
             RETURN_CHARGE, defaults.returnCharge().value(), MIN_ZERO, Percentage.MAX);
+    gap = builder.defineInRange(GAP, defaults.jump().gap(), MIN_ZERO, MAX_GAP);
   }
 
   PatrollerSpec read() {
@@ -53,7 +57,7 @@ final class PatrollerKeys {
         weapons.read(),
         armor.get(),
         search.get(),
-        new PatrollerSpec.Jump(jumpHeight.get(), new Energy(jumpCost.get())),
+        new PatrollerSpec.Jump(jumpHeight.get(), new Energy(jumpCost.get()), gap.get()),
         routePoints.get(),
         areaSize.get(),
         new Percentage(returnCharge.get()));

@@ -44,6 +44,10 @@ public final class PatrolSection {
   private static final String XP_ENERGY = "patroller_xp_energy";
   private static final String INTERCEPT_INTERVAL = "patroller_intercept_interval_ticks";
   private static final String GLIDE_DROP = "patroller_glide_drop_blocks";
+  private static final String DETOUR = "patroller_wing_detour_factor";
+  private static final double DETOUR_DEFAULT = 2;
+  private static final double DETOUR_MIN = 1;
+  private static final double DETOUR_MAX = 10;
   private static final int GLIDE_DROP_DEFAULT = 16;
   private static final int GLIDE_DROP_MIN = 5;
   private static final String INTERCEPT_GUARD = "patroller_intercept_guard_distance";
@@ -200,6 +204,11 @@ public final class PatrolSection {
     return fightKeys.glideDrop.get();
   }
 
+  /** How many times the straight line a path may walk before the wings hop (answer 1651). */
+  public double wingDetourFactor() {
+    return fightKeys.detour.get();
+  }
+
   private PatrolSettings.Round round() {
     int minTicks = stopMinTicks.get();
     int maxTicks = stopMaxTicks.get();
@@ -235,6 +244,7 @@ public final class PatrolSection {
     final ModConfigSpec.IntValue interceptInterval;
     final ModConfigSpec.IntValue interceptGuard;
     final ModConfigSpec.IntValue glideDrop;
+    final ModConfigSpec.DoubleValue detour;
 
     FightKeys(ModConfigSpec.Builder builder) {
       alert = builder.defineInRange(ALERT, ALERT_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
@@ -263,6 +273,7 @@ public final class PatrolSection {
           builder.defineInRange(
               INTERCEPT_GUARD, INTERCEPT_GUARD_DEFAULT, MIN_ONE, INTERCEPT_GUARD_MAX);
       glideDrop = builder.defineInRange(GLIDE_DROP, GLIDE_DROP_DEFAULT, GLIDE_DROP_MIN, BLOCKS_MAX);
+      detour = builder.defineInRange(DETOUR, DETOUR_DEFAULT, DETOUR_MIN, DETOUR_MAX);
     }
   }
 }

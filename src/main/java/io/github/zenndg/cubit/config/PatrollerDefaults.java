@@ -15,7 +15,7 @@ final class PatrollerDefaults {
           new PatrollerSpec.Weapons(5, 16, 20, new Energy(1_000), 1, 7, 12, 1, 2.5),
           6,
           16,
-          new PatrollerSpec.Jump(3, new Energy(500)),
+          new PatrollerSpec.Jump(3, new Energy(500), 4),
           16,
           64,
           new Percentage(5));
@@ -24,7 +24,7 @@ final class PatrollerDefaults {
           new PatrollerSpec.Weapons(7, 24, 12, new Energy(800), 2, 10, 10, 2, 2.5),
           10,
           24,
-          new PatrollerSpec.Jump(5, new Energy(400)),
+          new PatrollerSpec.Jump(5, new Energy(400), 6),
           32,
           128,
           new Percentage(3));

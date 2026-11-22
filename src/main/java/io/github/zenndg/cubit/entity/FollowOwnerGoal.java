@@ -66,7 +66,13 @@ final class FollowOwnerGoal extends Goal {
     if (nextAction(owner) == FollowAction.TELEPORT) {
       teleportNear(owner);
     } else {
-      robot.getNavigation().moveTo(owner, ROUTE_SPEED_MODIFIER);
+      // The Patroller escorts with its wings too (answer 1654); any other Cubit just walks.
+      robot
+          .workArea()
+          .work()
+          .patrolCombat()
+          .wings()
+          .moveTo(owner.position(), ROUTE_SPEED_MODIFIER, false);
     }
   }
 

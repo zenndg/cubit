@@ -74,6 +74,9 @@ final class PatrolFightGoal extends Goal {
   @Override
   public void tick() {
     RobotPatrolCombat combat = robot.workArea().work().patrolCombat();
+    if (combat.wings().flying()) {
+      return;
+    }
     if (combat.watch().holdsStill()) {
       holdStill(combat);
       return;
@@ -111,7 +114,12 @@ final class PatrolFightGoal extends Goal {
       return;
     }
     if (weapon == WeaponChoice.BLADE && robot.distanceTo(target) > BLADE_STOP) {
-      robot.getNavigation().moveTo(target, SPEED_MODIFIER);
+      robot
+          .workArea()
+          .work()
+          .patrolCombat()
+          .wings()
+          .moveTo(target.position(), SPEED_MODIFIER, true);
     }
   }
 
@@ -237,7 +245,7 @@ final class PatrolFightGoal extends Goal {
     }
     if (--repathCountdown <= 0) {
       repathCountdown = REPATH_TICKS;
-      robot.getNavigation().moveTo(spot.x, spot.y, spot.z, SPEED_MODIFIER);
+      robot.workArea().work().patrolCombat().wings().moveTo(spot, SPEED_MODIFIER, true);
     }
   }
 

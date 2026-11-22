@@ -19,6 +19,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -72,6 +73,10 @@ public final class PatrolTeamGameTests {
   private static final float ONE_SHOT = 1f;
   private static final int OWNER_FAR_X = 60;
   private static final int AFTER_DEATH = 5;
+  private static final int WALL_X = 10;
+  private static final int WALL_HEIGHT = 2;
+  private static final int BEYOND_WALL_X = 18;
+  private static final String NOT_OVER = "The wings should have taken it over the wall";
   private static final String TOGETHER = "The team should walk the round from apart points";
 
   private PatrolTeamGameTests() {}
@@ -255,5 +260,24 @@ public final class PatrolTeamGameTests {
               })
               .thenSucceed();
         });
+  }
+
+  /** A wall across the whole arena leaves no way on foot, so the wings take it over (1738). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void theWingsHopOverAWallWithNoWayAround(GameTestHelper helper) {
+    ServerPlayer owner = owner(helper);
+    RobotEntity robot = patroller(helper, owner, NEAR_X, MIDDLE_Z, HEALTH);
+    for (int z = 0; z <= LAST_Z; z++) {
+      for (int y = STAND_Y; y < STAND_Y + WALL_HEIGHT; y++) {
+        helper.setBlock(new BlockPos(WALL_X, y, z), Blocks.STONE);
+      }
+    }
+    robot
+        .workArea()
+        .work()
+        .patrol()
+        .click(owner, helper.absolutePos(new BlockPos(BEYOND_WALL_X, FLOOR_Y, MIDDLE_Z)));
+    double wall = helper.absolutePos(new BlockPos(WALL_X, FLOOR_Y, MIDDLE_Z)).getX() + 1;
+    helper.succeedWhen(() -> helper.assertTrue(robot.getX() > wall, NOT_OVER));
   }
 }

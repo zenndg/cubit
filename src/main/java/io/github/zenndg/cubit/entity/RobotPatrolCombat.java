@@ -42,6 +42,7 @@ public final class RobotPatrolCombat {
 
   private final RobotEntity robot;
   private final RobotPatrolWeapons weapons;
+  private final RobotWings wings;
   private LivingEntity target;
   private PatrolWatch watch = PatrolWatch.START;
   private final PatrolTrail trail = new PatrolTrail();
@@ -53,6 +54,7 @@ public final class RobotPatrolCombat {
   RobotPatrolCombat(RobotEntity robot) {
     this.robot = robot;
     this.weapons = new RobotPatrolWeapons(robot);
+    this.wings = new RobotWings(robot);
   }
 
   /** With the card and awake, the weapons replace the shock (answer 1556). */
@@ -94,6 +96,11 @@ public final class RobotPatrolCombat {
     trail.clear();
   }
 
+  /** The wings on the move, which the goals walk through (answer 1738). */
+  RobotWings wings() {
+    return wings;
+  }
+
   /** What it is doing as a lookout, which the look of the visor follows. */
   public PatrolWatch watch() {
     return watch;
@@ -115,6 +122,7 @@ public final class RobotPatrolCombat {
   void tick() {
     PatrolArmor.apply(robot, armed() ? spec().armor() : 0);
     PatrolTeams.update(robot, armed());
+    wings.tick();
     glide();
     if (!armed()) {
       drop();

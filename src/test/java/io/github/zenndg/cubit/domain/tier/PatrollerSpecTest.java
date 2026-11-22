@@ -30,6 +30,7 @@ class PatrollerSpecTest {
   private static final int POINTS = 16;
   private static final int AREA = 64;
   private static final double REACH = 2.5;
+  private static final int GAP = 4;
   private static final Percentage RETURN = new Percentage(5);
   private static final int TIER_AREA = 32;
   private static final int TIER_HEIGHT = 24;
@@ -46,7 +47,13 @@ class PatrollerSpecTest {
           REACH);
   private static final PatrollerSpec ELITE =
       new PatrollerSpec(
-          WEAPONS, ARMOR, SEARCH, new PatrollerSpec.Jump(JUMP_HEIGHT, JUMP), POINTS, AREA, RETURN);
+          WEAPONS,
+          ARMOR,
+          SEARCH,
+          new PatrollerSpec.Jump(JUMP_HEIGHT, JUMP, GAP),
+          POINTS,
+          AREA,
+          RETURN);
 
   private static Battery charged(long amount) {
     return new Battery(CAPACITY, new Energy(amount));
@@ -98,6 +105,6 @@ class PatrollerSpecTest {
                 BLADE_TICKS,
                 KNOCKBACK,
                 REACH));
-    assertThrows(IllegalArgumentException.class, () -> new PatrollerSpec.Jump(-1, JUMP));
+    assertThrows(IllegalArgumentException.class, () -> new PatrollerSpec.Jump(-1, JUMP, GAP));
   }
 }

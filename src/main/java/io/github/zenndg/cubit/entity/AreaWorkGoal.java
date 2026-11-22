@@ -83,6 +83,9 @@ final class AreaWorkGoal extends Goal {
   @Override
   public void tick() {
     WorkArea area = robot.workArea().here().orElse(null);
+    if (robot.workArea().work().patrolCombat().wings().flying()) {
+      return;
+    }
     if (area == null || (patroller() && pause.hold())) {
       return;
     }
@@ -114,7 +117,7 @@ final class AreaWorkGoal extends Goal {
     }
     if (--repathCountdown <= 0) {
       repathCountdown = CubitMod.CONFIG.followRepathTicks();
-      robot.getNavigation().moveTo(target.x, target.y, target.z, speed());
+      robot.workArea().work().patrolCombat().wings().moveTo(target, speed(), false);
     }
   }
 

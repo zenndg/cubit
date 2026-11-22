@@ -65,6 +65,9 @@ final class PatrolGoal extends Goal {
   @Override
   public void tick() {
     RobotPatrol patrol = robot.workArea().work().patrol();
+    if (robot.workArea().work().patrolCombat().wings().flying()) {
+      return;
+    }
     if (pause.hold()) {
       repathCountdown = 0;
       resetProgress();
@@ -83,8 +86,14 @@ final class PatrolGoal extends Goal {
     pause.count();
     if (--repathCountdown <= 0) {
       repathCountdown = CubitMod.CONFIG.followRepathTicks();
-      robot.getNavigation().moveTo(target.x, target.y + HALF, target.z, patrol.speed());
+      walkTo(target, patrol.speed());
     }
+  }
+
+  /** On foot, or with a hop of its wings when the way on foot is too long (answer 1738). */
+  private void walkTo(Vec3 target, double speed) {
+    Vec3 above = new Vec3(target.x, target.y + HALF, target.z);
+    robot.workArea().work().patrolCombat().wings().moveTo(above, speed, false);
   }
 
   private boolean stuck(double distance) {

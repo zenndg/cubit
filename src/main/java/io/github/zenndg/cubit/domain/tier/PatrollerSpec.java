@@ -45,12 +45,15 @@ public record PatrollerSpec(
     }
   }
 
-  /** How high the wings take it and the energy of each jump. */
-  public record Jump(int height, Energy cost) {
+  /**
+   * How high the wings take it, the energy of each jump and the widest gap it crosses gliding,
+   * which is also how far its short flight lands (answers 1564, 1648 and 1738).
+   */
+  public record Jump(int height, Energy cost, int gap) {
     private static final String INVALID = "Invalid jump of the Patroller: ";
 
     public Jump {
-      if (height < 0) {
+      if (height < 0 || gap < 0) {
         throw new IllegalArgumentException(INVALID + height);
       }
     }
@@ -61,7 +64,7 @@ public record PatrollerSpec(
           new Weapons(0, 1, 1, Energy.ZERO, 1, 0, 1, 0, 1),
           0,
           1,
-          new Jump(0, Energy.ZERO),
+          new Jump(0, Energy.ZERO, 0),
           0,
           0,
           new Percentage(0));
