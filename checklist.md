@@ -137,7 +137,7 @@ Um card por vez, na ordem do board "Cubit · Fase 5" (perguntas 1137, 1141 e 115
 15. [x] Recharge Splash, uma mistura de arremesso que aumenta aos poucos a vida e a energia dos Cubits de quem a arremessou. Só faz efeito no Cubit, que continua recebendo os efeitos do jogo (issue #229, PR #230, perguntas 1393 a 1423)
 16. [x] Engineering Desk, a mesa de criação do mod, numa issue e quatro PRs (issue #231, PRs #232 a #235, perguntas 1424 a 1537)
 17. [x] Revisar os trabalhos por tier, com o tier mínimo de cada um, que ficou sem mudança (perguntas 1390, 1424 e 1539)
-18. [ ] Revisar as receitas dos cards de trabalho (issue #236, perguntas 1424 e 1540 a 1545)
+18. [x] Revisar as receitas dos cards de trabalho (issue #236, PR #237, perguntas 1424 e 1538 a 1549)
 19. [ ] Patrulheiro Galático, no lugar do Defensor (#198, perguntas 1424 e 1550 a 1582)
 20. [ ] Minerador, com a fornalha elétrica e a lanterna de cabeça (#199)
 21. [ ] Construtor (#200)
