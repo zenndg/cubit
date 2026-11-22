@@ -727,11 +727,13 @@ Não há perguntas pendentes nesta fase.
 | 1780 | Há algo a acrescentar à entrega 2 do PR 4 do Patrulheiro, as animações do visor, da tela, da guarda, da lâmina e das asas, com a lâmina acesa e as asas em uso sincronizadas com o cliente? | Nada a acrescentar (1771) |
 | 1781 | Como é feita a textura da tela do Patrulheiro com o visor baixado, com os olhos decididos ciano e as marcas de mira nos cantos? | Por prompt, com arte do desenvolvedor: o agente escreve o prompt em `tmp/arte/patrulheiro/prompt.md`, com a `normal.png` e a `alert.png` como gabarito, e até a arte chegar a tela usa a `alert.png` como provisória. A recomendação foi aceita |
 | 1782 | A arte da tela do Patrulheiro com o visor baixado, `tmp/arte/patrulheiro/tela_visor_baixado.png`, com o brilho derivado por script, está aceita? | O desenvolvedor disse "arte aceita": entra em `general_robot_screen/patroller.png` e `general_robot_screen_glow/patroller.png`. Detalha a 1781 |
+| 1783 | Há algo a acrescentar à entrega 3 do PR 4 do Patrulheiro, os efeitos: o globo desenhado, o estouro, os propulsores e a camada emissiva? | Nada a acrescentar (1771) |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 18:13 | Registra a resposta 1783. |
 | Zennd | 2026-11-22 18:12 | Registra a resposta 1782. |
 | Zennd | 2026-11-22 18:01 | Registra a resposta 1781. |
 | Zennd | 2026-11-22 18:00 | Registra a resposta 1780. |
