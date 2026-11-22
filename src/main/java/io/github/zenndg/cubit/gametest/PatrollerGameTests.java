@@ -127,15 +127,16 @@ public final class PatrollerGameTests {
     });
   }
 
+  /** A husk, which never burns in the sun, so only the blade hurts it (answer 1727). */
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
   public static void theBladeHitsANearHostile(GameTestHelper helper) {
     ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
     patroller(helper, owner);
-    Zombie zombie = helper.spawnWithNoFreeWill(EntityType.ZOMBIE, NEAR);
+    Husk husk = helper.spawnWithNoFreeWill(EntityType.HUSK, NEAR);
     helper.runAfterDelay(
         FIGHT_TICKS,
         () -> {
-          helper.assertTrue(zombie.getHealth() < zombie.getMaxHealth(), NOT_HIT);
+          helper.assertTrue(husk.getHealth() < husk.getMaxHealth(), NOT_HIT);
           helper.succeed();
         });
   }

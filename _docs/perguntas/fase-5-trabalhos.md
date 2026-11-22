@@ -671,11 +671,13 @@ Não há perguntas pendentes nesta fase.
 | 1724 | Como fica o olhar para fora nas paradas das bordas (4c, 1626)? | O `WorkArea` calcula o lado de fora a partir de onde o Cubit está: a 2 blocos ou menos de dois lados, a diagonal; fora disso, a borda mais perto. O `PatrolPause` recebe de quem o usa a direção inicial da varredura, e a rota e a investigação seguem com a direção do corpo. Nada a acrescentar (1631). Detalha a 1626 |
 | 1725 | Como fica a cautela com a vida baixa (4d, 1686)? | O `WeaponChoice` recebe a cautela: abaixo de 25% da vida, com carga e o alvo no alcance, ele usa sempre a pistola, mesmo de perto, e sem poder atirar usa a lâmina (1571). Com o alvo a menos de 4 blocos, recua na direção do protegido mais perto, ou se afasta do alvo sem protegido por perto. O recuo do creeper vem antes, e o cerco depois. Nada a acrescentar (1631). Detalha a 1686 |
 | 1726 | A GameTest `thePistolShootsAFarHostile` prova o disparo pela energia gasta, mas andar também gasta energia. Ela é corrigida pela Regra do Escoteiro? | Sim, num commit próprio: ela passa a esperar o globo de laser no mundo |
+| 1727 | A GameTest `theBladeHitsANearHostile` usa um zumbi, que pega fogo com o sol. Ela é trocada pelo husk (Regra do Escoteiro)? | Sim, num commit próprio |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 19:30 | Registra a resposta 1727. |
 | Zennd | 2026-11-22 18:20 | Registra as respostas 1724 a 1726. |
 | Zennd | 2026-11-22 18:00 | Registra as respostas 1721 a 1723. |
 | Zennd | 2026-11-22 17:40 | Registra a resposta 1720. |
