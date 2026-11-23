@@ -163,9 +163,10 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `DockStorageRules` | O inventário do Dock: o que ele guarda, quais slots o tier abre, quando e qual Power Bank ele carrega, e o que a automação tira (perguntas 1361 e 1374) |
 | `DockStoredKind` | O que um item é para o inventário do Dock: Toolbox, Power Bank, Cubit, outro item do mod ou um item de fora |
 | `DockSpec` e `DockCatalog` | Os números do Dock em cada tier: o estoque, a recarga do Cubit e da Power Bank guardada, os slots, em linhas inteiras de 9, e a geração do painel do Dock Solar. O config os serve (perguntas 1374, 1381 e 1385) |
-| `DockSun` | O que o painel do Dock vê: dia, céu aberto, chuva e um mundo com sol. Só gera com tudo a favor, e sem sol é um Dock normal (pergunta 1384) |
+| `DockSun` | O que o painel do Dock vê: dia, céu aberto, chuva, um mundo com sol e o 3º bloco, onde o painel fica. Só gera com tudo a favor, e sem sol é um Dock normal. Um Dock de antes, sem espaço para o 3º bloco, fica sem o painel, e só um mundo sem sol é um motivo mais duradouro (perguntas 1384 e 1897) |
 | `DockPanel` | O painel solar de todo Dock: sai do armário depois de um tempo seguido com sol e volta depois do mesmo tempo sem sol, também à noite; o movimento dos braços vai até o fim, qualquer que seja o céu; só o painel montado por completo gera; e só o destino do movimento é salvo (`Timings`: a espera e o movimento) (perguntas 1856, 1859, 1862 e 1864) |
 | `DockPanelState` | Onde o painel está: guardado, montando, montado ou guardando, para a aba Solar e a luz das portas (perguntas 1863 e 1865) |
+| `DockDoorLight` | A luz na borda das folhas das portas: vermelha com o painel guardado, verde com ele montado e amarela, piscando, durante o movimento (perguntas 1853 e 1863) |
 | `DockName` | O nome de um Dock: o dado pelo dono, com as regras do nome do Cubit, ou o padrão `Dock` e os 8 primeiros dígitos do UUID dele, para o Dock nunca ficar sem nome (perguntas 1867 a 1869) |
 | `RobotClick` | O que o clique direito faz no robô: ignorar, recolher, subir o tier, pintar, escolher o minério, abrir ou ligar |
 | `InventoryFit` | Separa os itens que cabem nos slots do config dos que sobram |

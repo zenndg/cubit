@@ -6,5 +6,7 @@ public enum DockSunState {
   NIGHT,
   RAIN,
   COVERED,
-  NO_SUN
+  NO_SUN,
+  /** A Dock from before the third block, with the space above it taken (answer 1897). */
+  NO_ROOM
 }

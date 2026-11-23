@@ -20,8 +20,8 @@ import net.minecraft.world.level.Level;
  * the input of the cables. What it gave last shows on the screen and in Jade.
  */
 final class DockSolarPanel {
-  /** The panel lies on the top of the tower, so the sky is read in the block above the Dock. */
-  private static final int ABOVE_THE_PANEL = 2;
+  /** The panel lies in the third block of the Dock, so the sky is read just above it (1901). */
+  private static final int ABOVE_THE_PANEL = 3;
 
   /** The transformation of the arms, about 6 s, as long as its animation (answer 1895). */
   private static final int MOTION_TICKS = 120;
@@ -39,6 +39,8 @@ final class DockSolarPanel {
   private boolean read;
   private boolean skyOpen;
   private boolean sunExists;
+  private boolean room;
+  private Boolean plateShown;
 
   /** On the client, whether the panel is generating, for the pulse of the cells (1392, 1853). */
   private boolean sunlit;
@@ -100,8 +102,10 @@ final class DockSolarPanel {
       readSky(level, lower);
     }
     boolean day = SolarPanel.isDay(level.getDayTime());
-    state = new DockSun(day, skyOpen, level.isRaining() || level.isThundering(), sunExists).state();
+    boolean raining = level.isRaining() || level.isThundering();
+    state = new DockSun(day, skyOpen, raining, sunExists, room).state();
     move(changed);
+    showPlate(level, lower);
     if (rate.isZero() || state != DockSunState.GENERATING || !panel.generates()) {
       return stock;
     }
@@ -124,6 +128,15 @@ final class DockSolarPanel {
     }
   }
 
+  /** The third block stands as the plate of the panel only with it deployed (answer 1898). */
+  private void showPlate(Level level, BlockPos lower) {
+    boolean deployed = panel.state() == DockPanelState.DEPLOYED;
+    if (plateShown == null || plateShown != deployed) {
+      DockTop.show(level, lower, deployed);
+      plateShown = deployed;
+    }
+  }
+
   /** An unknown state, as from a newer server, shows the panel in the cabinet. */
   private static DockPanelState shown(String name) {
     for (DockPanelState value : DockPanelState.values()) {
@@ -137,10 +150,11 @@ final class DockSolarPanel {
   /**
    * As the panel of the Cubit: light that passes through glass still counts, an opaque block over
    * the Dock stops it, and the Nether and the End have no sun. Only this waits for the interval of
-   * the Cubit (rule 21).
+   * the Cubit (rule 21). A Dock from before the third block takes it here, if the space is empty.
    */
   private void readSky(Level level, BlockPos lower) {
     read = true;
+    room = DockTop.claim(level, lower);
     skyOpen = level.canSeeSky(lower.above(ABOVE_THE_PANEL));
     sunExists = level.dimensionType().hasSkyLight() && !level.dimensionType().hasCeiling();
   }

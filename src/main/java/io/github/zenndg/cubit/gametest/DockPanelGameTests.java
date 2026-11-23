@@ -30,6 +30,10 @@ public final class DockPanelGameTests {
   private static final int DEPLOYED_TICKS = 360;
 
   private static final long BASE_SOLAR = 25;
+
+  /** Just above the third block of the Dock, where the panel lies (answer 1901). */
+  private static final int ABOVE_THE_PANEL = 3;
+
   private static final String NOT_DEPLOYED = "The panel should be on the tower";
   private static final String NOT_STORED = "The panel should stay in the cabinet";
   private static final String NOT_DEPLOYING = "The arms should be taking the panel out";
@@ -66,20 +70,20 @@ public final class DockPanelGameTests {
         });
   }
 
-  /** An opaque block above the Dock keeps the panel in the cabinet (answer 1853). */
+  /** An opaque block above the third block keeps the panel in the cabinet (1853 and 1901). */
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT, batch = SolarGameTests.DAYLIGHT_BATCH)
   public static void aRoofKeepsThePanelIn(GameTestHelper helper) {
     InductionDockBlockEntity dock = place(helper);
-    helper.setBlock(DockScene.DOCK.above(2), Blocks.STONE);
+    helper.setBlock(DockScene.DOCK.above(ABOVE_THE_PANEL), Blocks.STONE);
 
     assertStoredAfterAWhile(helper, dock);
   }
 
-  /** Light that passes through glass still counts, as for the panel of the Cubit (1853). */
+  /** Light that passes through glass still counts, as for the panel of the Cubit (1853, 1901). */
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT, batch = SolarGameTests.DAYLIGHT_BATCH)
   public static void glassAboveLetsThePanelOut(GameTestHelper helper) {
     InductionDockBlockEntity dock = place(helper);
-    helper.setBlock(DockScene.DOCK.above(2), Blocks.GLASS);
+    helper.setBlock(DockScene.DOCK.above(ABOVE_THE_PANEL), Blocks.GLASS);
 
     helper.runAfterDelay(
         DEPLOYED_TICKS,

@@ -21,6 +21,7 @@ final class PortugueseSolarDockTexts {
   private static final String RAIN = "Chuva";
   private static final String COVERED = "Céu coberto";
   private static final String NO_SUN_HERE = "Sem sol nesta dimensão";
+  private static final String NO_ROOM = "Sem espaço para o painel";
   private static final String PANEL = "Painel";
   private static final String STORED = "Guardado";
   private static final String DEPLOYING = "Montando";
@@ -54,6 +55,7 @@ final class PortugueseSolarDockTexts {
     add.accept(ScreenKeys.dockSunReason(DockSunState.RAIN), RAIN);
     add.accept(ScreenKeys.dockSunReason(DockSunState.COVERED), COVERED);
     add.accept(ScreenKeys.dockSunReason(DockSunState.NO_SUN), NO_SUN_HERE);
+    add.accept(ScreenKeys.dockSunReason(DockSunState.NO_ROOM), NO_ROOM);
   }
 
   /** Where the panel of the Dock is, on the Solar tab and in Jade (answer 1865). */

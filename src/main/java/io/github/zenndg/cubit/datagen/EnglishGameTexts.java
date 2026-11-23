@@ -64,6 +64,7 @@ final class EnglishGameTexts {
     add.accept(CubitItems.DAMAGED_GENERAL_ROBOT.get().getDescriptionId(), DAMAGED_ROBOT_NAME);
     add.accept(CubitItems.TOOLBOX.get().getDescriptionId(), TOOLBOX_NAME);
     add.accept(CubitBlocks.INDUCTION_DOCK.get().getDescriptionId(), DOCK_NAME);
+    add.accept(CubitBlocks.INDUCTION_DOCK_TOP.get().getDescriptionId(), DOCK_NAME);
     add.accept(ResetCommand.CLEARED_KEY, RESET_CLEARED);
     add.accept(ResetCommand.NOBODY_KEY, RESET_NOBODY);
     add.accept(RobotNotices.FORMAT_KEY, NOTICE_FORMAT);

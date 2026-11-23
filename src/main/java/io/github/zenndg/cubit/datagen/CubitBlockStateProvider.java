@@ -60,6 +60,10 @@ final class CubitBlockStateProvider extends BlockStateProvider {
         CubitBlocks.INDUCTION_DOCK.get(),
         CubitBlocks.INDUCTION_DOCK_ID,
         CubitBlocks.INDUCTION_DOCK_ID + DOCK_BODY);
+    particlesOnly(
+        CubitBlocks.INDUCTION_DOCK_TOP.get(),
+        CubitBlocks.INDUCTION_DOCK_TOP_ID,
+        CubitBlocks.INDUCTION_DOCK_ID + DOCK_BODY);
     dockItem();
   }
 

@@ -1,24 +1,28 @@
 package io.github.zenndg.cubit.domain.dock;
 
 /**
- * What the panel of a Solar Dock sees: whether it is day, whether the sky above it is open, whether
- * it rains there and whether the world has a sun at all, which the Nether and the End do not
- * (answer 1384).
+ * What the panel of a Dock sees: whether it is day, whether the sky above it is open, whether it
+ * rains there, whether the world has a sun at all, which the Nether and the End do not, and whether
+ * the Dock has its third block, where the panel goes (answers 1384 and 1897).
  */
-public record DockSun(boolean day, boolean skyOpen, boolean raining, boolean naturalSky) {
+public record DockSun(
+    boolean day, boolean skyOpen, boolean raining, boolean naturalSky, boolean room) {
   /** Under the sun the panel generates, and otherwise the dock is a normal one. */
   public static boolean generates(DockSun sun) {
     return sun.state() == DockSunState.GENERATING;
   }
 
   /**
-   * Why the panel stops, the most lasting reason first: a world without a sun, then a block over
-   * the panel, then the night and then the rain, which only the player can change or wait for
-   * (answer 1396).
+   * Why the panel stops, the most lasting reason first: a world without a sun, then a Dock without
+   * room for the panel, then a block over the panel, then the night and then the rain, which only
+   * the player can change or wait for (answers 1396 and 1897).
    */
   public DockSunState state() {
     if (!naturalSky) {
       return DockSunState.NO_SUN;
+    }
+    if (!room) {
+      return DockSunState.NO_ROOM;
     }
     if (!skyOpen) {
       return DockSunState.COVERED;

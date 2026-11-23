@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.registry;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.EngineeringDeskBlock;
 import io.github.zenndg.cubit.block.InductionDockBlock;
+import io.github.zenndg.cubit.block.InductionDockTopBlock;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
@@ -15,6 +16,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 /** Blocks. The IDs are part of the saves, so they cannot change without a migration. */
 public final class CubitBlocks {
   public static final String INDUCTION_DOCK_ID = "induction_dock";
+  public static final String INDUCTION_DOCK_TOP_ID = "induction_dock_top";
   public static final String ENGINEERING_DESK_ID = "engineering_desk";
   private static final float DOCK_HARDNESS = 3.5f;
 
@@ -26,6 +28,11 @@ public final class CubitBlocks {
 
   public static final Supplier<Block> INDUCTION_DOCK =
       BLOCKS.register(INDUCTION_DOCK_ID, () -> new InductionDockBlock(dockProperties()));
+
+  /** The third block of the dock, where the panel goes; it drops nothing of its own (1896). */
+  public static final Supplier<Block> INDUCTION_DOCK_TOP =
+      BLOCKS.register(
+          INDUCTION_DOCK_TOP_ID, () -> new InductionDockTopBlock(dockProperties().noLootTable()));
 
   /** The crafting desk of the mod, two blocks wide (answers 1428 and 1456). */
   public static final Supplier<Block> ENGINEERING_DESK =

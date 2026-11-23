@@ -127,16 +127,23 @@ public final class InductionDockBlock extends BaseEntityBlock {
             type, CubitBlockEntities.INDUCTION_DOCK.get(), InductionDockBlockEntity::serverTick);
   }
 
-  /** Without the space above, nothing is placed, and the item stays in the hand. */
+  /**
+   * Without the two blocks of space above, for the tower and the panel, nothing is placed, and the
+   * item stays in the hand (answer 1892).
+   */
   @Override
   public BlockState getStateForPlacement(BlockPlaceContext context) {
     BlockPos above = context.getClickedPos().above();
-    Level level = context.getLevel();
-    if (above.getY() >= level.getMaxBuildHeight()
-        || !level.getBlockState(above).canBeReplaced(context)) {
+    if (!roomAt(context, above) || !roomAt(context, DockTop.of(context.getClickedPos()))) {
       return null;
     }
     return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+  }
+
+  private static boolean roomAt(BlockPlaceContext context, BlockPos pos) {
+    Level level = context.getLevel();
+    return pos.getY() < level.getMaxBuildHeight()
+        && level.getBlockState(pos).canBeReplaced(context);
   }
 
   @Override
@@ -146,6 +153,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
     BlockState placed = state.setValue(TIER, DockTierProperty.of(tier));
     level.setBlock(pos, placed, UPDATE_ALL);
     level.setBlock(pos.above(), placed.setValue(HALF, DoubleBlockHalf.UPPER), UPDATE_ALL);
+    DockTop.place(level, pos);
     if (placer instanceof Player player
         && level.getBlockEntity(pos) instanceof InductionDockBlockEntity dock) {
       dock.setOwner(player);
@@ -255,8 +263,8 @@ public final class InductionDockBlock extends BaseEntityBlock {
             Component.literal(dock.identity().name().value()));
   }
 
-  private static boolean canBreak(
-      BlockGetter level, BlockPos pos, BlockState state, Player player) {
+  /** Only the owner, an operator or a player in creative breaks a dock, by any of its parts. */
+  static boolean mayBreak(BlockGetter level, BlockPos pos, BlockState state, Player player) {
     InductionDockBlockEntity dock = dockAt(level, pos, state);
     return DockRemoval.allows(
         player.isCreative(),
@@ -268,7 +276,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
   @Override
   protected float getDestroyProgress(
       BlockState state, Player player, BlockGetter level, BlockPos pos) {
-    return canBreak(level, pos, state, player)
+    return mayBreak(level, pos, state, player)
         ? super.getDestroyProgress(state, player, level, pos)
         : CANNOT_BREAK;
   }
@@ -282,7 +290,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
       Player player,
       boolean willHarvest,
       FluidState fluid) {
-    return canBreak(level, pos, state, player)
+    return mayBreak(level, pos, state, player)
         && super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
   }
 
@@ -293,7 +301,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
     if (!level.isClientSide()
         && player.isCreative()
         && dock != null
-        && canBreak(level, pos, state, player)) {
+        && mayBreak(level, pos, state, player)) {
       ItemStack item = new ItemStack(this);
       item.applyComponents(dock.collectComponents());
       popResource(level, dock.getBlockPos(), item);
