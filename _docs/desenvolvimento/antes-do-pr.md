@@ -10,7 +10,7 @@ O que se executa e o que se analisa antes de abrir um PR, e a prova que cada ite
 
 ## O que se executa
 
-1. **GameTests:** `make gametest`, obrigatório quando a tarefa muda o jar (código, assets, dados ou config). Uma GameTest reprovada impede o PR. Numa tarefa só de documentos, não se aplica.
+1. **GameTests:** `make gametest`, obrigatório quando a tarefa muda o jar (código, assets, dados ou config). Uma GameTest reprovada impede o PR. Numa tarefa só de documentos, não se aplica. Depois de uma rodada aprovada, ela só se repete se mudar código de teste ou do mod. Um commit só de documentos não pede outra, e a prova cita o commit em que elas rodaram (pergunta 2004).
 2. **Build completo:** `./gradlew check --rerun-tasks`, que compila e roda os testes JUnit, o ArchUnit, a cobertura de 85% do domínio, o Spotless e o Checkstyle, sem o cache do Gradle.
 3. **Datagen:** `rm -rf src/generated/resources/.cache` e `make check-generated`. Sem o cache, um arquivo gerado restaurado também é conferido.
 4. **Cobertura das GameTests:** `make gametest-coverage`, opcional, quando a tarefa muda bastante o código fora do domínio.
@@ -47,4 +47,5 @@ As provas ficam na seção Validação do [modelo de PR](../../.github/pull_requ
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 13:08 | Repete as GameTests só quando muda código de teste ou do mod (pergunta 2004). |
 | Zennd | 2026-11-22 16:30 | Cria o documento do que vem antes do PR e das provas na descrição (perguntas 1711 e 1715). |
