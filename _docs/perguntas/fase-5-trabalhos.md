@@ -871,11 +871,19 @@ Não há perguntas pendentes nesta fase.
 | 1924 | A textura nova do Dock encaixa no gabarito e detalha as peças novas, mas traz o contorno preto em todas as faces, com riscos de emenda na torre e na placa. Como seguir? | A textura nova entra, com os detalhes das peças novas. Nas faces da torre, da placa e da faixa, que vêm da arte antiga, o agente troca o contorno preto pelos pixels de antes, por script, sem tocar no resto, e depois gera a do Ultimate e o brilho e mostra as prévias. A recomendação foi aceita. Detalha a 1923 |
 | 1925 | O `AGENTS.md` pode mudar no fechamento da #246, com o "Estado atual" e a estrutura de pacotes atualizados? | O desenvolvedor disse "sim, autorizo a mudança no AGENTS.md": o PR 4 do Patrulheiro entra como entregue (#243), o Dock unificado (#246) à frente do XP (1852), o XP só em documentos (#245), e a estrutura de pacotes cita as classes novas do Dock e do nome do Cubit, com a `DeskBand` virando `TierBand` |
 | 1926 | Pedido do desenvolvedor: como o `AGENTS.md` cita o Dock unificado? | Como entregue, e não em fechamento: o desenvolvedor disse "o dock unificado também podemos considerar entregue". Detalha a 1925 |
+| 1927 | Pedido do desenvolvedor: onde entra o Trader no roteiro? | Depois do Mecânico, na ordem das profissões. O desenvolvedor disse "no roadmap a profissão de trader não está presente, pensei em fazer ela após o mecânico". Muda a 1666 e a 1669 na ordem |
+| 1928 | Quando o Trader entra no roteiro, depois do Mecânico? | Neste PR, num commit de documentos a mais na branch da #246, com o `checklist.md`, o `ROADMAP.md` e o "Estado atual" do `AGENTS.md`, este com a autorização própria. O build e o datagen rodam de novo sobre ele, e as GameTests não, porque só mudam documentos. A recomendação, deixar para o próximo PR, foi recusada. Detalha a 1927 |
+| 1929 | O "Estado atual" do `AGENTS.md` pode ganhar o Trader depois do Mecânico, na ordem das profissões? | O desenvolvedor disse "sim, autorizo a mudança no AGENTS.md": a ordem passa a ser Lenhador, Pecuarista, a personalização visual por card, Mecânico, Trader, Explorador, Alquimista, Minerador e Construtor. Detalha a 1927 e a 1928 |
+| 1930 | Pedido do desenvolvedor: o que fazer com a personalização visual por card (#202), se o visual de cada profissão já entra no card dela? | Sai do roteiro: o desenvolvedor disse "esse item é feito a cada entrega de profissão, não entregamos uma profissão que não tem esta caracterização personalizada". Toda profissão entra com o seu visual. O item sai do `checklist.md`, do `ROADMAP.md`, do `trabalhos.md` e do "Estado atual" do `AGENTS.md`, nos mesmos commits do Trader, e a #202 é fechada no GitHub com um comentário, com autorização para essa ação. A recomendação foi aceita. Muda a 725 e a 1666 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 03:25 | Registra a resposta 1930. |
+| Zennd | 2026-11-23 03:23 | Registra a resposta 1929. |
+| Zennd | 2026-11-23 03:22 | Registra a resposta 1928. |
+| Zennd | 2026-11-23 03:21 | Registra a resposta 1927. |
 | Zennd | 2026-11-23 03:17 | Registra a resposta 1926. |
 | Zennd | 2026-11-23 03:17 | Registra a resposta 1925. |
 | Zennd | 2026-11-23 03:12 | Registra a resposta 1924. |
