@@ -827,11 +827,16 @@ Não há perguntas pendentes nesta fase.
 | 1880 | Como a janela do nome convive com as frases de apresentação da primeira colocação? | A janela abre primeiro, e as duas frases saem quando o player confirma ou fecha a janela, já com o nome escolhido no prefixo, como "Rex: Happy to help you!". A recomendação foi aceita. Detalha a 1680 |
 | 1881 | O nome do Cubit e a janela entram em qual issue e PR? | Na #246, na entrega 1 do Dock unificado, junto do nome do Dock, com as mesmas regras. A issue e o conceito passam a citar o nome do Cubit, e o item 2 do backlog vira um link para o conceito. A recomendação foi aceita |
 | 1882 | O conceito do nome do Cubit, com o nome padrão, a janela na primeira colocação, as frases depois dela, o nome dos saves antigos e o nome vazio voltando ao padrão (respostas 1874 a 1881), pode ir ao código, na entrega 1 da #246? | O desenvolvedor disse "sim, conceito autorizado, pode seguir com a entrega 1" (regra 54) |
+| 1883 | A prancha conceito do Dock pede 13 quadros numa imagem só, o que costuma fazer o gerador errar os detalhes críticos. Como gerá-la? | Em três imagens: as quatro vistas do Dock, guardado e montado; os seis passos da montagem; e os detalhes, com a luz da porta, o braço com a garra e o Dock com o Cubit encaixado. As três juntas são a prancha aceita. O desenvolvedor reforçou que o Dock é crítico e precisa de qualidade e realismo, como na 1853. A recomendação foi aceita. Detalha a 1860 e a 1873 |
+| 1884 | A prancha conceito do Dock, em três imagens (vistas, montagem e detalhes), está aceita? Ela confere com o conceito, com três desvios: o painel flutuando acima da torre na vista três-quartos, a torre e a placa quadradas nas vistas em três-quartos e os pontos laranja do painel pouco visíveis | Aceita como referência, com os três desvios corrigidos direto no modelo e na textura, como na Engineering Desk (1487): o painel rente ao topo, por dentro da faixa, como na vista de cima e no passo 6; a torre arredondada com a placa em U, como no Dock de hoje; e os pontos laranja visíveis nos cantos. A recomendação foi aceita. Detalha a 1860 e a 1883 |
+| 1885 | No passo 3 da montagem, a prancha mostra as metades em pé acima do topo da torre, entrando no espaço do bloco de cima, o que atravessaria um vidro por cerca de 1 s. Como deve ser a animação? | Os braços sobem as metades já inclinando para trás, e cada metade chega ao topo deitando pela borda de trás, sem nunca passar da altura do Dock, nem durante o movimento. A recomendação foi aceita. Detalha a 1857 e a 1859 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 00:33 | Registra as respostas 1884 a 1885. |
+| Zennd | 2026-11-23 00:27 | Registra a resposta 1883. |
 | Zennd | 2026-11-23 00:01 | Registra a resposta 1882. |
 | Zennd | 2026-11-22 23:59 | Registra as respostas 1879 a 1881. |
 | Zennd | 2026-11-22 23:57 | Registra as respostas 1875 a 1878. |
