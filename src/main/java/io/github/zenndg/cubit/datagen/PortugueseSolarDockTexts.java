@@ -16,6 +16,9 @@ final class PortugueseSolarDockTexts {
   private static final String NOW = "Agora";
   private static final String MAX = "Máximo do tier";
   private static final String HINT = "Ao ar livre, de dia e sem chuva";
+  private static final String NIGHT_HINT = "Ao ar livre, sem chuva, também à noite";
+  private static final String MOONLIGHT = "Luz da lua";
+  private static final String MOONLIGHT_RATE = "Luz da lua +%s";
   private static final String GENERATING = "Gerando";
   private static final String STOPPED = "Parado";
   private static final String NIGHT = "Noite";
@@ -43,6 +46,8 @@ final class PortugueseSolarDockTexts {
     add.accept(ScreenKeys.DOCK_SOLAR_NOW, NOW);
     add.accept(ScreenKeys.DOCK_SOLAR_MAX, MAX);
     add.accept(ScreenKeys.DOCK_SOLAR_HINT, HINT);
+    add.accept(ScreenKeys.DOCK_SOLAR_NIGHT_HINT, NIGHT_HINT);
+    add.accept(ScreenKeys.DOCK_MOONLIGHT, MOONLIGHT_RATE);
     addStates(add);
     addPanel(add);
     addSounds(add);
@@ -59,12 +64,14 @@ final class PortugueseSolarDockTexts {
 
   private static void addStates(BiConsumer<String, String> add) {
     add.accept(ScreenKeys.dockSun(DockSunState.GENERATING), GENERATING);
+    add.accept(ScreenKeys.dockSun(DockSunState.MOONLIGHT), MOONLIGHT);
     for (DockSunState state : DockSunState.values()) {
-      if (state != DockSunState.GENERATING) {
+      if (!state.generates()) {
         add.accept(ScreenKeys.dockSun(state), STOPPED);
       }
     }
     add.accept(ScreenKeys.dockSunReason(DockSunState.GENERATING), GENERATING);
+    add.accept(ScreenKeys.dockSunReason(DockSunState.MOONLIGHT), MOONLIGHT);
     add.accept(ScreenKeys.dockSunReason(DockSunState.NIGHT), NIGHT);
     add.accept(ScreenKeys.dockSunReason(DockSunState.RAIN), RAIN);
     add.accept(ScreenKeys.dockSunReason(DockSunState.COVERED), COVERED);

@@ -33,7 +33,8 @@ final class DockScreenValues implements ContainerData {
   static final int SUN_STATE = 23;
   static final int SOLAR_MAX = 24;
   static final int PANEL = 26;
-  static final int COUNT = 27;
+  static final int SOLAR_NIGHT = 27;
+  static final int COUNT = 28;
   private static final int TRUE_VALUE = 1;
 
   private final InductionDockBlockEntity dock;
@@ -53,6 +54,7 @@ final class DockScreenValues implements ContainerData {
     values[SUN_STATE] = solar.state().ordinal();
     putEnergy(SOLAR_MAX, solar.max());
     values[PANEL] = solar.panel().ordinal();
+    values[SOLAR_NIGHT] = solar.givesAtNight() ? TRUE_VALUE : 0;
     values[STATUS] = dock.status().ordinal();
     values[WAITING] = dock.waitingCount();
     values[ROBOT_PRESENT] = 0;

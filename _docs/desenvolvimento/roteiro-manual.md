@@ -729,10 +729,10 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#painel-solar-do
 | 1 | Procure no inventário criativo, no catálogo da Engineering Desk e no JEI | Só o `Induction Dock`. O `Solar Induction Dock` e o `Dock Solar Panel` não existem mais |
 | 2 | Coloque o Dock ao ar livre e abra a tela, com Shift + clique direito | O título é o nome padrão, como `Dock 3f9a2c1b · Base`, e há três abas: `Dock`, `Storage` e `Solar`, esta com o ícone do painel solar do Cubit |
 | 3 | Vá logo à aba `Solar` | No alto, `Stored` em vermelho; `Status: Generating`, `Panel: Stored` e `Now 0 FE/t` |
-| 4 | Espere uns 10 s | `Deploying` em amarelo por uns 4 s, e depois `Deployed` em verde, com `Now 25 FE/t`. O estoque sobe sem cabos, e o Jade mostra o nome, `Solar +25 FE/t` e `Panel: Deployed` |
-| 5 | Ponha um bloco de pedra logo acima do Dock e espere uns 15 s | `Why: Sky covered`, a geração para, e depois de 10 s o painel passa por `Retracting` até `Stored` |
+| 4 | Espere uns 12 s | `Deploying` em amarelo por uns 6 s, e depois `Deployed` em verde, com `Now 25 FE/t`. O estoque sobe sem cabos, e o Jade mostra o nome, `Solar +25 FE/t` e `Panel: Deployed` |
+| 5 | Ponha um bloco de pedra logo acima do Dock e espere uns 15 s | `Why: Sky covered`, a geração para, e depois de 3 s o painel passa por `Retracting` até `Stored` |
 | 6 | Troque a pedra por vidro e espere uns 15 s | O painel volta a montar e a gerar |
-| 7 | Use `/time set night` e espere uns 15 s, e depois `/time set day` com `/weather rain` | `Why: Night` e depois `Why: Rain`, sem geração, e o painel volta para `Stored` depois de 10 s |
+| 7 | Use `/time set night` e espere uns 15 s, e depois `/time set day` com `/weather rain` | `Why: Night` e depois `Why: Rain`, sem geração, e o painel volta para `Stored` depois de 3 s |
 | 8 | Com sol, suba o Dock com o Advanced Module | Com o painel montado, `Now 100 FE/t` |
 | 9 | Na aba `Dock`, clique em `Rename`, apague o campo, escreva `Garden` e confirme | A janela `Rename the Dock` abre com o nome atual. O título passa a `Garden · Advanced`, e o Jade mostra `Garden` |
 | 10 | Renomeie de novo com o campo vazio | O nome volta ao padrão, com os mesmos 8 dígitos de antes |
@@ -764,6 +764,28 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#painel-solar-do
 | 36 | Ponha pedra acima do 3º bloco | No começo da desmontagem, o som de guardar: o giro e o destravar, os estalos ao contrário, os servos descendo e as portas fechando. Legenda `Dock panel retracts` |
 | 37 | Fique a uns 10 blocos do Dock, de costas para ele, e depois a uns 20 | A uns 10 blocos, os sons tocam mesmo sem olhar o Dock; a uns 20, não se ouvem |
 | 38 | Com o jogo em português | Legendas `Painel do Dock monta`, `Painel do Dock trava` e `Painel do Dock guarda` |
+
+### Luz da lua
+
+As regras estão em [`energia.md`](../funcionalidades/energia.md#luz-da-lua) (issue #248). Use o criativo, com `/gamerule doDaylightCycle false` e `/weather clear`, um Dock Elite e um Dock Ultimate ao ar livre, com os 3 blocos livres.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | `/time set noon`, espere uns 12 s e abra a aba `Solar` do Ultimate | `Status: Generating`, `Now` e `Tier max` em 1.400 FE/t e a dica `Outdoors, without rain, also at night` |
+| 2 | Com o painel montado, `/time set midnight` | O painel do Ultimate continua montado, sem fechar e abrir. O do Elite se guarda depois de uns 3 s |
+| 3 | Abra a aba `Solar` do Ultimate e olhe o Jade | `Status: Moonlight`, sem `Why`, `Now` e `Tier max` em 350 FE/t, o estoque subindo e, no Jade, `Moonlight +350 FE/t` e `Panel: Deployed` |
+| 4 | Olhe as células do Ultimate, de perto e de longe | Pulsam num azul-claro, mais fraco que de dia |
+| 5 | Abra a aba `Solar` do Elite | `Status: Stopped`, `Why: Night`, `Tier max` em 500 FE/t e a dica de hoje, `Outdoors, by day and without rain` |
+| 6 | `/weather rain`, espere uns 10 s, e depois `/weather clear` | `Why: Rain`, com `Tier max` em 350 FE/t, e o painel se guarda. Com o céu limpo, ele monta de novo, ainda à noite, com os sons de sempre |
+| 7 | Ponha pedra acima do 3º bloco e depois vidro | `Why: Sky covered` e o painel guardado. Com vidro, ele monta e volta a `Moonlight` |
+| 8 | `/time set noon` com o painel montado | Ele continua montado, e o pulso volta ao branco, com 1.400 FE/t |
+| 9 | À noite, salve, saia e entre no mundo | O painel do Ultimate aparece montado e gerando |
+| 10 | Suba um Dock Elite com o Ultimate Module, à noite | O painel monta, com `Moonlight` |
+| 11 | Com o jogo em português | `Luz da lua`, `Luz da lua +350 FE/t` e `Ao ar livre, sem chuva, também à noite` |
+| 12 | À noite, com o Ultimate gerando, olhe a tela da torre | Uma lua minguante em azul bem claro, com a linha e a faixa da placa em azul, acesas no escuro |
+| 13 | Encaixe um Cubit descarregado no Ultimate | A lua continua na tela enquanto a energia entra, e a aba `Dock` e o Jade mostram `Charging` como hoje |
+| 14 | `/weather rain`, e depois `/weather clear` | A tela volta ao status de sempre e, com o painel montado de novo e gerando, a lua volta |
+| 15 | `/time set noon`, com o painel montado | De dia, a tela volta ao status de sempre |
 
 ## Recharge Splash
 
@@ -1362,6 +1384,10 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 11:03 | Corrige a espera e a montagem do painel do Dock (perguntas 1895, 1912 e 1963). |
+| Zennd | 2026-11-23 10:57 | Acrescenta a lua na tela do Dock ao roteiro (perguntas 1956 a 1961). |
+| Zennd | 2026-11-23 10:52 | Baixa a geração da noite para 25% do dia, 350 FE/t (pergunta 1955). |
+| Zennd | 2026-11-23 10:46 | Acrescenta o roteiro da luz da lua (issue #248). |
 | Zennd | 2026-11-23 03:03 | Acrescenta ao Dock unificado os passos dos sons do painel (perguntas 1920 a 1922). |
 | Zennd | 2026-11-23 02:46 | Acrescenta ao Dock unificado os passos do Dock refeito e do bloco do topo (perguntas 1891 a 1918). |
 | Zennd | 2026-11-23 00:10 | Troca o Dock Solar pelo Dock unificado, com o painel, o nome do Dock e o nome do Cubit, na entrega 1 (perguntas 1852 a 1882). |

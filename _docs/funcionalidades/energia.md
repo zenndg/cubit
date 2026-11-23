@@ -110,11 +110,11 @@ O Induction Dock sobe de tier com os mesmos Modules do Cubit (issue #225, pergun
 
 Todo Induction Dock tem um painel solar embutido, que ele monta e guarda sozinho (issue #246, perguntas 1852 a 1866, com o conceito autorizado na 1872). O Solar Induction Dock, o Dock Solar Panel e a receita que os juntava, da issue #227, saem do mod sem migração, porque nunca foram publicados (pergunta 1854). Os números estão em [`tiers.md`](../tiers.md#induction-dock).
 
-- **Gera:** de dia, a céu aberto e sem chuva, com o painel montado por completo, o painel põe no estoque 25, 100, 500 ou 1.400 FE/t, pelo tier do Dock, também no Base. A geração soma à entrada dos cabos e da redstone, sem passar do estoque (pergunta 1855).
+- **Gera:** de dia, a céu aberto e sem chuva, com o painel montado por completo, o painel põe no estoque 25, 100, 500 ou 1.400 FE/t, pelo tier do Dock, também no Base. A geração soma à entrada dos cabos e da redstone, sem passar do estoque (pergunta 1855). O Ultimate também gera à noite, pela [luz da lua](#luz-da-lua) (pergunta 1943).
 - **Três blocos:** o Dock ocupa sempre 3 blocos de altura: a base e a torre nos 2 de baixo, como antes, e um bloco próprio e invisível no 3º, `cubit:induction_dock_top`, onde o painel monta. Para colocar o Dock, os 3 blocos precisam estar livres, e quebrar qualquer parte quebra o Dock inteiro, que sai como item. O estado de bloco das duas partes de baixo não muda (perguntas 1892 e 1896).
 - **Colisão do topo:** só com o painel montado, uma placa fina no alto, que segura quem subir nela. Com o painel guardado, o 3º bloco fica vazio e se atravessa, mas continua reservado ao Dock, sem aceitar outro bloco (pergunta 1898).
 - **Sol:** a leitura do céu é a de antes, um bloco mais alta, acima do 3º bloco. Dentro de casa, com um bloco opaco acima do painel, com chuva ou tempestade, à noite, no Nether e no End, não há sol. O vidro e os outros blocos translúcidos acima do painel deixam passar a luz (perguntas 1398, 1853 e 1901).
-- **Montar:** depois de 3 s seguidos com sol, o Dock monta o painel. **Guardar:** depois de 3 s seguidos sem sol, inclusive ao anoitecer, ele o guarda no armário. A espera evita abrir e fechar a cada troca rápida, e o pack pode mudá-la no config (perguntas 1856, 1862 e 1912).
+- **Montar:** depois de 3 s seguidos com sol, o Dock monta o painel. **Guardar:** depois de 3 s seguidos sem sol, inclusive ao anoitecer, ele o guarda no armário, menos no tier que gera à noite (pergunta 1943). A espera evita abrir e fechar a cada troca rápida, e o pack pode mudá-la no config (perguntas 1856, 1862 e 1912).
 - **Torre:** as mesmas medidas de antes, 9 px de largura, 4 px de fundo e 1,75 bloco de altura, mas 1 px à frente do limite de trás do bloco. A colisão e o Cubit encaixado andam junto, e o Cubit sobra 1 px para fora da frente da placa (perguntas 1887, 1902 e 1914).
 - **Armários:** um em cada lateral da torre, embutido 1,5 px nela, com uma moldura de 0,5 px em relevo em volta da abertura. Cada um guarda um braço articulado e um pacote de 4 lâminas dobradas em sanfona, em pé. A porta de cada armário tem duas folhas, que deslizam uma para cima e outra para baixo, para dentro da torre. As costas ficam lisas, com o quadro do raio e o arco do cabo (perguntas 1894, 1913, 1915 e 1916).
 - **Painel montado:** uma placa fina, como um painel solar de verdade, e não um bloco, com 16×16 px, o bloco inteiro, centrada sobre o Dock, no 3º bloco. Fica inclinada uns 15° para a frente, com o lado mais alto nas costas e o topo a 38 px, um pouco abaixo da metade do 3º bloco. Os dois braços, de 7,5 px por segmento, sobem rentes às laterais, por fora da torre, com os cotovelos dobrados para a frente, para ficarem dentro do bloco, e seguram o painel pelas bordas. Nada passa por dentro da torre nem por cima do topo (perguntas 1891, 1893, 1903, 1904, 1907, 1909 e 1915).
@@ -143,6 +143,22 @@ Todo Induction Dock tem um painel solar embutido, que ele monta e guarda sozinho
 - **Modelo:** o Dock usa o GeckoLib, como a Engineering Desk, no mundo e no inventário, com o modelo e o prompt da textura com o gabarito UV (pergunta 1860). A tela, a linha abaixo dela e a faixa da placa mostram as mesmas cinco imagens de status de antes, desenhadas por uma camada própria e acesas no escuro (pergunta 1886). A textura final é a arte do desenvolvedor sobre o gabarito, com a torre e a placa sem contorno, como a arte de antes. A do Ultimate e o brilho das células saem dela por script (perguntas 1923 e 1924).
 - **O resto:** tudo o que o Dock faz continua igual: recebe o Cubit, hiberna, fila, inventário, cabos e os tiers pelos Modules.
 - **Saves antigos:** um Dock de antes vem com o painel guardado. Ao carregar, se o espaço acima dele estiver vazio, ele ganha o 3º bloco sozinho e monta o painel quando houver sol. Se o espaço estiver ocupado, ele continua funcionando sem o painel, até o espaço ficar livre. Nada é quebrado nem perdido (pergunta 1897).
+
+#### Luz da lua
+
+Com o céu limpo, o Dock Ultimate também gera à noite, com o painel montado. O conceito é do desenvolvedor (perguntas 1941, 1943 a 1950 e 1955).
+
+**Situação:** autorizado (pergunta 1952), na issue #248.
+
+- **Gera:** à noite, 25% do que gera de dia, 350 FE/t no Ultimate, com as regras do dia: céu aberto, sem chuva nem tempestade, com o painel montado por completo e sem passar do estoque (perguntas 1943 e 1955). As fases da lua não mudam o valor (pergunta 1945).
+- **Por dado:** a geração da noite vem da chave por tier `dock_solar_night_per_tick`, com 0, 0, 0 e 350. Um tier com 0 não gera à noite e guarda o painel ao anoitecer, como hoje. O pack pode dar a geração da noite a outros tiers (regra 39 e pergunta 1944).
+- **Painel:** no tier que gera à noite, o painel continua montado ao anoitecer e ao amanhecer, sem fechar e abrir. Se não houver sol nem lua, por chuva ou por um bloco opaco acima, ele se guarda depois da espera de sempre, e monta de novo à noite quando o céu limpar.
+- **Estado:** `Moonlight` / `Luz da lua`, no Status da aba Solar, no lugar de `Generating`, sem a linha do motivo (pergunta 1946).
+- **Aba Solar:** à noite, `Tier max` mostra a geração da noite, e de dia, a do dia. No tier que gera à noite, a dica vira `Outdoors, without rain, also at night` / `Ao ar livre, sem chuva, também à noite` (pergunta 1949).
+- **Jade:** `Moonlight +350 FE/t` / `Luz da lua +350 FE/t` (pergunta 1948).
+- **Brilho:** as células pulsam num azul-claro de lua, mais fraco que o do dia, sem textura nova (pergunta 1950).
+- **Tela do Dock:** enquanto a energia da lua entra no estoque, a tela da torre, a linha abaixo dela e a faixa da placa mostram uma lua minguante, em azul bem claro sobre o fundo escuro, com a linha em azul, no lugar de qualquer imagem de status, também com um Cubit encaixado. Quando para de gerar, por estoque cheio, chuva, cobertura ou amanhecer, volta a imagem do status. É só desenho: o estado do Dock, a aba Dock, o Jade e o estado de bloco não mudam (perguntas 1956 a 1960).
+- **Sem mudança:** o painel do Cubit, os modelos, as animações, os sons e os saves. Os Docks Ultimate que já existem passam a gerar à noite, e o config ganha a chave com o padrão (regra 18).
 
 ### Nome do Dock
 
@@ -238,6 +254,10 @@ Entra com o item 15 da Fase 4.2, antes do modo área (perguntas 1065 a 1069).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 10:56 | Acrescenta a lua na tela do Dock (perguntas 1956 a 1960). |
+| Zennd | 2026-11-23 10:52 | Baixa a geração da noite para 25% do dia, 350 FE/t (pergunta 1955). |
+| Zennd | 2026-11-23 10:46 | Marca a luz da lua como autorizada (pergunta 1952). |
+| Zennd | 2026-11-23 10:40 | Acrescenta a luz da lua no Dock Ultimate (perguntas 1943 a 1950). |
 | Zennd | 2026-11-23 03:15 | Acrescenta a textura final do Dock (perguntas 1923 e 1924). |
 | Zennd | 2026-11-23 02:30 | Volta a faixa do tier para o topo da torre (pergunta 1918). |
 | Zennd | 2026-11-23 02:18 | Passa os armários para as laterais, com as folhas das portas e as quatro luzes, e a torre 1 px à frente (perguntas 1911 a 1916). |

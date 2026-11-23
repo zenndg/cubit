@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import io.github.zenndg.cubit.domain.dock.DockSpec;
 import io.github.zenndg.cubit.domain.dock.DockStorageRules;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.SolarOutput;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.slf4j.Logger;
 
@@ -17,6 +18,7 @@ final class DockKeys {
   private static final String RECHARGE = "dock_recharge_per_tick";
   private static final String SLOTS = "dock_storage_slots";
   private static final String SOLAR = "dock_solar_per_tick";
+  private static final String SOLAR_NIGHT = "dock_solar_night_per_tick";
   private static final int MIN_ZERO = 0;
   private static final int MIN_POSITIVE = 1;
   private static final int MAX_ENERGY = Integer.MAX_VALUE;
@@ -26,6 +28,7 @@ final class DockKeys {
   private final ModConfigSpec.IntValue recharge;
   private final ModConfigSpec.IntValue slots;
   private final ModConfigSpec.IntValue solar;
+  private final ModConfigSpec.IntValue solarNight;
 
   DockKeys(ModConfigSpec.Builder builder, DockSpec defaults) {
     capacity =
@@ -38,7 +41,11 @@ final class DockKeys {
         builder.defineInRange(
             SLOTS, defaults.storageSlots(), DockSpec.ROW, DockStorageRules.MAX_SLOTS);
     solar =
-        builder.defineInRange(SOLAR, (int) defaults.solarPerTick().amount(), MIN_ZERO, MAX_ENERGY);
+        builder.defineInRange(
+            SOLAR, (int) defaults.solar().dayPerTick().amount(), MIN_ZERO, MAX_ENERGY);
+    solarNight =
+        builder.defineInRange(
+            SOLAR_NIGHT, (int) defaults.solar().nightPerTick().amount(), MIN_ZERO, MAX_ENERGY);
   }
 
   /** Slots that are not whole rows fall to the row below, with a warning (rule 17). */
@@ -49,6 +56,9 @@ final class DockKeys {
       LOGGER.warn(NOT_A_ROW, configured, rows);
     }
     return new DockSpec(
-        new Energy(capacity.get()), new Energy(recharge.get()), rows, new Energy(solar.get()));
+        new Energy(capacity.get()),
+        new Energy(recharge.get()),
+        rows,
+        new SolarOutput(new Energy(solar.get()), new Energy(solarNight.get())));
   }
 }

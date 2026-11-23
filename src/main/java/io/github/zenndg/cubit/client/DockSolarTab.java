@@ -34,18 +34,17 @@ final class DockSolarTab {
     Component title =
         Component.translatable(ScreenKeys.DOCK_TAB_SOLAR).withStyle(ChatFormatting.BOLD);
     painter.text(graphics, title, TITLE, ScreenPainter.TEXT, ScreenPainter.FULL_SCALE);
-    DockSunState state = menu.sunState();
-    boolean generating = state == DockSunState.GENERATING;
+    DockSunState state = menu.solar().sun();
     Component sun = Component.translatable(ScreenKeys.dockSun(state));
-    Component panel = Component.translatable(ScreenKeys.dockPanel(menu.panelState()));
-    painter.status(graphics, panel, STATUS, lightOf(menu.panelState()));
+    Component panel = Component.translatable(ScreenKeys.dockPanel(menu.solar().panel()));
+    painter.status(graphics, panel, STATUS, lightOf(menu.solar().panel()));
     painter.pair(
         graphics,
         STATE,
         Component.translatable(ScreenKeys.DOCK_SOLAR_STATUS),
         sun,
         Colors.TITLE_FIRST);
-    if (!generating) {
+    if (!state.generates()) {
       painter.pair(
           graphics,
           REASON,
@@ -62,21 +61,25 @@ final class DockSolarTab {
         graphics,
         NOW,
         Component.translatable(ScreenKeys.DOCK_SOLAR_NOW),
-        Component.literal(EnergyFormat.rate(menu.solar())),
+        Component.literal(EnergyFormat.rate(menu.solar().now())),
         Colors.TITLE_FIRST);
     painter.pair(
         graphics,
         MAX,
         Component.translatable(ScreenKeys.DOCK_SOLAR_MAX),
-        Component.literal(EnergyFormat.rate(menu.solarMax())),
+        Component.literal(EnergyFormat.rate(menu.solar().most())),
         Colors.TITLE_FIRST);
     painter.pair(
         graphics,
         PANEL,
         Component.translatable(ScreenKeys.DOCK_SOLAR_PANEL),
-        Component.translatable(ScreenKeys.dockPanel(menu.panelState())),
+        Component.translatable(ScreenKeys.dockPanel(menu.solar().panel())),
         Colors.TITLE_FIRST);
-    Component hint = Component.translatable(ScreenKeys.DOCK_SOLAR_HINT);
+    Component hint =
+        Component.translatable(
+            menu.solar().givesAtNight()
+                ? ScreenKeys.DOCK_SOLAR_NIGHT_HINT
+                : ScreenKeys.DOCK_SOLAR_HINT);
     painter.text(graphics, hint, HINT, ScreenPainter.DETAIL, ScreenPainter.DETAIL_SCALE);
   }
 

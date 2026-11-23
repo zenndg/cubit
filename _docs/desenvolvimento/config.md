@@ -78,6 +78,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `dock_recharge_per_tick` | Recarga do Cubit e da Power Bank guardada no Dock desse tier | 1 a 2147483647 |
 | `general_robot.base` | `dock_storage_slots` | Slots do inventário do Dock desse tier | 9 a 54, em múltiplos de 9 |
 | `general_robot.base` | `dock_solar_per_tick` | Geração do painel do Dock desse tier, com o painel montado (perguntas 1385 e 1855) | 0 a 2147483647 |
+| `general_robot.base` | `dock_solar_night_per_tick` | Geração do painel do Dock desse tier à noite, com 0 para não gerar (pergunta 1944) | 0 a 2147483647 |
 | `general_robot.base` | `moving_consumption_per_tick` | Andar | 0 a 2147483647 |
 | `general_robot.base` | `full_inventory_extra_per_tick` | Extra ao andar com o inventário cheio | 0 a 2147483647 |
 | `general_robot.base` | `water_extra_per_tick` | Extra ao andar na água | 0 a 2147483647 |
@@ -245,6 +246,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 10:40 | Acrescenta a geração do painel do Dock à noite (pergunta 1944). |
 | Zennd | 2026-11-23 01:58 | Cita a espera de 3 s do painel do Dock (pergunta 1912). |
 | Zennd | 2026-11-23 00:09 | Acrescenta o tempo para o Dock montar e guardar o painel (pergunta 1856). |
 | Zennd | 2026-11-22 23:45 | Passa a geração solar a todo Dock (pergunta 1855). |

@@ -4,12 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.SolarOutput;
 import org.junit.jupiter.api.Test;
 
 class DockSpecTest {
   private static final Energy CAPACITY = new Energy(300_000);
   private static final Energy RECHARGE = new Energy(500);
-  private static final Energy SOLAR = new Energy(25);
+  private static final SolarOutput SOLAR = new SolarOutput(new Energy(25), Energy.ZERO);
   private static final int ROWS_OF_THREE = 27;
   private static final int NOT_A_ROW = 28;
   private static final int TOO_MANY = 63;
@@ -23,7 +24,7 @@ class DockSpecTest {
     assertEquals(CAPACITY, spec.capacity());
     assertEquals(RECHARGE, spec.rechargePerTick());
     assertEquals(ROWS, spec.storageRows());
-    assertEquals(SOLAR, spec.solarPerTick());
+    assertEquals(SOLAR, spec.solar());
   }
 
   @Test

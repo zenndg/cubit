@@ -153,7 +153,7 @@ A tela tem três abas, à direita da janela, como as da tela do Cubit (perguntas
 |---|---|---|
 | `Dock` / `Dock` | A torre do Dock | As partes abaixo |
 | `Storage` / `Armazenamento` | Uma caixa com uma Power Bank e uma Toolbox | O [inventário do Dock](#aba-storage) |
-| `Solar` / `Solar` | O painel solar do Dock | O painel solar do Dock, em [`energia.md`](energia.md#painel-solar-do-dock): gerando ou parado, o motivo, a geração de agora, a máxima do tier e o estado do painel, Guardado, Montando, Montado ou Guardando, com a luz (pergunta 1865) |
+| `Solar` / `Solar` | O painel solar do Dock | O painel solar do Dock, em [`energia.md`](energia.md#painel-solar-do-dock): gerando ou parado, o motivo, a geração de agora, a máxima do tier e o estado do painel, Guardado, Montando, Montado ou Guardando, com a luz (pergunta 1865). À noite, no tier que gera, o Status é `Moonlight` / `Luz da lua`, com a máxima da noite e uma dica própria (perguntas 1946 e 1949) |
 
 ### Partes
 
@@ -253,6 +253,7 @@ Pergunta 691.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 10:40 | Acrescenta a luz da lua na aba Solar (perguntas 1946 e 1949). |
 | Zennd | 2026-11-22 23:45 | Acrescenta a aba Solar a todo Dock e o nome e o Rename no topo da tela do Dock (perguntas 1865, 1867 e 1870). |
 | Marcelo Fabiano | 2026-11-19 21:45 | Mostra a dica da linha `Speed` só sobre o ícone e o nome (pergunta 1302). |
 | Marcelo Fabiano | 2026-11-19 20:18 | Adiciona a linha `Speed` à aba Settings (perguntas 1269 a 1271). |

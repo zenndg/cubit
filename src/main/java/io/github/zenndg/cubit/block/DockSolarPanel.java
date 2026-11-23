@@ -8,6 +8,7 @@ import io.github.zenndg.cubit.domain.dock.DockStock;
 import io.github.zenndg.cubit.domain.dock.DockSun;
 import io.github.zenndg.cubit.domain.dock.DockSunState;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.SolarOutput;
 import io.github.zenndg.cubit.domain.energy.SolarPanel;
 import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.Locale;
@@ -21,7 +22,8 @@ import net.minecraft.world.level.Level;
  * The solar panel of every Dock (answers 1852 to 1866). After a while with sun in a row the arms
  * take it out of the cabinet onto the tower, after the same while without sun they put it back, and
  * only a panel fully on the tower puts its rate into the stock, without passing it and apart from
- * the input of the cables. What it gave last shows on the screen and in Jade.
+ * the input of the cables. At a tier that gives at night, the moon counts as the sun (answer 1943).
+ * What it gave last shows on the screen and in Jade.
  */
 final class DockSolarPanel {
   /** The panel lies in the third block of the Dock, so the sky is read just above it (1901). */
@@ -46,6 +48,7 @@ final class DockSolarPanel {
   private DockSunState state = DockSunState.NO_SUN;
   private DockPanel panel = DockPanel.STORED;
   private DockPanelState sent = DockPanelState.STORED;
+  private boolean day = true;
   private boolean read;
   private boolean skyOpen;
   private boolean sunExists;
@@ -55,22 +58,10 @@ final class DockSolarPanel {
   /** On the client, whether the panel is generating, for the pulse of the cells (1392, 1853). */
   private boolean sunlit;
 
-  Energy given() {
-    return given;
-  }
-
-  /** What the sky does for the panel and why it stops, for the Solar tab (answer 1396). */
-  DockSunState state() {
-    return state;
-  }
-
-  /** Where the panel is, on the server and on the client (answer 1865). */
-  DockPanelState panelState() {
-    return panel.state();
-  }
-
-  boolean sunlit() {
-    return sunlit;
+  /** For the Solar tab, Jade and the client (answers 1396, 1865 and 1949). */
+  DockSolarReading reading(SolarOutput rates) {
+    return new DockSolarReading(
+        given, rates.most(day), rates.givesAtNight(), state, sunlit, panel.state());
   }
 
   /** True when the pulse or the place of the panel changed, so the client hears of it once. */
@@ -106,17 +97,19 @@ final class DockSolarPanel {
     }
   }
 
-  DockStock generate(Level level, BlockPos lower, DockStock stock, Energy rate, Runnable changed) {
+  DockStock generate(
+      Level level, BlockPos lower, DockStock stock, SolarOutput rates, Runnable changed) {
     given = Energy.ZERO;
     if (!read || level.getGameTime() % CubitMod.CONFIG.solarCheckTicks() == 0) {
       readSky(level, lower);
     }
-    boolean day = SolarPanel.isDay(level.getDayTime());
+    day = SolarPanel.isDay(level.getDayTime());
     boolean raining = level.isRaining() || level.isThundering();
-    state = new DockSun(day, skyOpen, raining, sunExists, room).state();
+    state = new DockSun(day, skyOpen, raining, sunExists, room, rates.givesAtNight()).state();
     move(level, lower, changed);
     showPlate(level, lower);
-    if (rate.isZero() || state != DockSunState.GENERATING || !panel.generates()) {
+    Energy rate = rates.at(day);
+    if (rate.isZero() || !state.generates() || !panel.generates()) {
       return stock;
     }
     DockStock.Received received = stock.receive(rate, rate);
@@ -132,7 +125,7 @@ final class DockSolarPanel {
     DockPanel before = panel;
     DockPanel.Timings timings =
         new DockPanel.Timings(CubitMod.CONFIG.dock().solarDelayTicks(), MOTION_TICKS);
-    panel = panel.tick(state == DockSunState.GENERATING, timings);
+    panel = panel.tick(state.generates(), timings);
     if (before.deployedAtTheEnd() != panel.deployedAtTheEnd()) {
       changed.run();
     }

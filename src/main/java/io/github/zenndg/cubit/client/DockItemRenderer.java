@@ -21,7 +21,7 @@ import software.bernie.geckolib.renderer.GeoItemRenderer;
 public final class DockItemRenderer extends GeoItemRenderer<InductionDockItem> {
   public DockItemRenderer() {
     super(new ItemModel());
-    addRenderLayer(new DockScreenLayer<>(this, item -> DockStatusProperty.IDLE));
+    addRenderLayer(new DockScreenLayer<>(this, item -> DockStatusProperty.IDLE, item -> false));
   }
 
   /** The texture follows the tier of the stack being drawn, read on the render thread. */
