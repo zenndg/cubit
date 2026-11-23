@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.gametest;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.RobotExpression;
 import io.github.zenndg.cubit.domain.robot.RobotColor;
+import io.github.zenndg.cubit.domain.robot.RobotName;
 import io.github.zenndg.cubit.domain.robot.RobotState;
 import io.github.zenndg.cubit.entity.RobotEntity;
 import io.github.zenndg.cubit.entity.RobotFace;
@@ -94,7 +95,8 @@ public final class CustomizationGameTests {
 
     GameTestRobots.clickRobot(stranger, robot, tag);
 
-    helper.assertTrue(robot.getCustomName() == null, WRONG_NAME);
+    helper.assertValueEqual(
+        robot.getCustomName().getString(), RobotName.standard(robot.getUUID()).value(), WRONG_NAME);
     helper.assertValueEqual(tag.getCount(), 1, WRONG_COUNT);
     helper.succeed();
   }
