@@ -23,9 +23,7 @@ public final class CubitBlockEntities {
           CubitBlocks.INDUCTION_DOCK_ID,
           () ->
               BlockEntityType.Builder.of(
-                      InductionDockBlockEntity::new,
-                      CubitBlocks.INDUCTION_DOCK.get(),
-                      CubitBlocks.SOLAR_INDUCTION_DOCK.get())
+                      InductionDockBlockEntity::new, CubitBlocks.INDUCTION_DOCK.get())
                   .build(null));
 
   public static final Supplier<BlockEntityType<EngineeringDeskBlockEntity>> ENGINEERING_DESK =
@@ -51,16 +49,14 @@ public final class CubitBlockEntities {
           InductionDockBlockEntity dock = InductionDockBlock.dockAt(level, pos, state);
           return dock == null ? null : dock.energyStorage();
         },
-        CubitBlocks.INDUCTION_DOCK.get(),
-        CubitBlocks.SOLAR_INDUCTION_DOCK.get());
+        CubitBlocks.INDUCTION_DOCK.get());
     event.registerBlock(
         Capabilities.ItemHandler.BLOCK,
         (level, pos, state, entity, side) -> {
           InductionDockBlockEntity dock = InductionDockBlock.dockAt(level, pos, state);
           return dock == null ? null : dock.itemHandler();
         },
-        CubitBlocks.INDUCTION_DOCK.get(),
-        CubitBlocks.SOLAR_INDUCTION_DOCK.get());
+        CubitBlocks.INDUCTION_DOCK.get());
     DeskFaces.register(event, CubitBlocks.ENGINEERING_DESK.get());
   }
 }

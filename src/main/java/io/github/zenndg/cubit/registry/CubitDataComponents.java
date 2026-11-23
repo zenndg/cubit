@@ -31,6 +31,7 @@ public final class CubitDataComponents {
   private static final String DOCK_ENERGY_ID = "dock_energy";
   private static final String DOCK_STORAGE_ID = "dock_storage";
   private static final String DOCK_TIER_ID = "dock_tier";
+  private static final String DOCK_ID_ID = "dock_id";
   private static final String DESK_TIER_ID = "engineering_desk_tier";
   private static final String DESK_ENERGY_ID = "engineering_desk_energy";
   private static final String DESK_INPUT_ID = "engineering_desk_input";
@@ -116,6 +117,12 @@ public final class CubitDataComponents {
               builder
                   .persistent(DockTierCodec.CODEC)
                   .networkSynchronized(DockTierCodec.STREAM_CODEC));
+
+  /** The own id of a dock, which gives its standard name, kept in its item (answer 1869). */
+  public static final Supplier<DataComponentType<UUID>> DOCK_ID =
+      COMPONENTS.registerComponentType(
+          DOCK_ID_ID,
+          builder -> builder.persistent(UUIDUtil.CODEC).networkSynchronized(UUIDUtil.STREAM_CODEC));
 
   /** The storage of a dock, kept in its item when it breaks (answers 954 and 958). */
   public static final Supplier<DataComponentType<ItemContainerContents>> DOCK_STORAGE =

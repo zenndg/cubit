@@ -55,7 +55,7 @@ final class InductionDockScreen extends AbstractContainerScreen<InductionDockMen
   private static final int QUEUE_TOP = 119;
   private static final int ROW_HEIGHT = 13;
   private static final Box QUEUE = new Box(11, 122, 154, LINE);
-  private static final Box OWNER = new Box(11, 135, 154, LINE);
+  private static final Box OWNER = new Box(11, 135, 104, LINE);
   private static final Box CALL = new Box(7, 149, 162, 16);
   private static final int INVENTORY_LABEL_Y = 169;
   private static final int ROWS = 3;
@@ -64,12 +64,13 @@ final class InductionDockScreen extends AbstractContainerScreen<InductionDockMen
   private static final int HOTBAR_GAP = 58;
 
   private final ScreenPainter painter = new ScreenPainter();
-  private final DockScreenTabs tabs;
+  private final DockScreenTabs tabs = new DockScreenTabs();
+  private final DockRename rename;
   private FlatButton callButton;
 
   InductionDockScreen(InductionDockMenu menu, Inventory playerInventory, Component title) {
     super(menu, playerInventory, title);
-    this.tabs = new DockScreenTabs(menu.isSolar());
+    this.rename = new DockRename(menu);
     imageWidth = WIDTH;
     imageHeight = HEIGHT;
     inventoryLabelX = MARGIN;
@@ -86,12 +87,14 @@ final class InductionDockScreen extends AbstractContainerScreen<InductionDockMen
     callButton =
         addRenderableWidget(
             new FlatButton(shown.x(), shown.y(), shown.width(), shown.height(), label, this::call));
+    rename.init(font, width, height, leftPos, topPos, this::addRenderableWidget);
     showOpenTab();
   }
 
   private void showOpenTab() {
     menu.showStorage(tabs.open() == DockScreenTabs.Tab.STORAGE);
     callButton.visible = tabs.open() == DockScreenTabs.Tab.DOCK;
+    rename.show(tabs.open() == DockScreenTabs.Tab.DOCK);
   }
 
   private void call() {
@@ -108,6 +111,8 @@ final class InductionDockScreen extends AbstractContainerScreen<InductionDockMen
     graphics.pose().translate(leftPos, topPos, 0);
     painter.cutTooltip(graphics, mouseX - leftPos, mouseY - topPos);
     graphics.pose().popPose();
+    rename.render(graphics, width, height, mouseX, mouseY, partialTick);
+    showOpenTab();
     tabAt(mouseX, mouseY)
         .ifPresent(under ->
             graphics.renderTooltip(font, Component.translatable(under.title()), mouseX, mouseY));
@@ -223,7 +228,8 @@ final class InductionDockScreen extends AbstractContainerScreen<InductionDockMen
 
   private void renderDockLabels(GuiGraphics graphics) {
     Component bold =
-        Component.translatable(ScreenKeys.DOCK_TITLE_TIER, title, TierLook.name(menu.dockTier()))
+        Component.translatable(
+                ScreenKeys.DOCK_TITLE_TIER, rename.name(), TierLook.name(menu.dockTier()))
             .withStyle(ChatFormatting.BOLD);
     painter.text(graphics, bold, TITLE, ScreenPainter.TEXT, ScreenPainter.FULL_SCALE);
     DockStatus status = menu.status();
@@ -339,6 +345,9 @@ final class InductionDockScreen extends AbstractContainerScreen<InductionDockMen
 
   @Override
   public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    if (rename.isOpen()) {
+      return rename.mouseClicked(mouseX, mouseY, button);
+    }
     Optional<DockScreenTabs.Tab> clicked = tabAt(mouseX, mouseY);
     if (clicked.isPresent()) {
       tabs.open(clicked.get());
@@ -346,6 +355,19 @@ final class InductionDockScreen extends AbstractContainerScreen<InductionDockMen
       return true;
     }
     return super.mouseClicked(mouseX, mouseY, button);
+  }
+
+  /** The dialog takes the keys, so typing a name never moves the items. */
+  @Override
+  public boolean keyPressed(int key, int scanCode, int modifiers) {
+    return rename.isOpen()
+        ? rename.keyPressed(key, scanCode, modifiers)
+        : super.keyPressed(key, scanCode, modifiers);
+  }
+
+  @Override
+  public boolean charTyped(char typed, int modifiers) {
+    return rename.isOpen() ? rename.charTyped(typed, modifiers) : super.charTyped(typed, modifiers);
   }
 
   /** The tabs stand outside the window, and a click there must not throw the item. */

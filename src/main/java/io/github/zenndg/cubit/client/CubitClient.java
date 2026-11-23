@@ -92,10 +92,7 @@ public final class CubitClient {
         CubitEntities.GENERAL_ROBOT.get(),
         context -> new RobotRenderer(context, CubitConfig.GENERAL_ROBOT));
     event.registerEntityRenderer(CubitEntities.RECHARGE_SPLASH.get(), ThrownItemRenderer::new);
-    // The orb shows only its trail of particles until its look comes (answer 1578).
     event.registerEntityRenderer(CubitEntities.LASER_ORB.get(), LaserOrbRenderer::new);
-    event.registerBlockEntityRenderer(
-        CubitBlockEntities.INDUCTION_DOCK.get(), SolarDockRenderer::new);
     event.registerBlockEntityRenderer(CubitBlockEntities.ENGINEERING_DESK.get(), DeskRenderer::new);
   }
 

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
@@ -31,7 +32,6 @@ final class CubitBlockLootProvider extends BlockLootSubProvider {
   @Override
   protected void generate() {
     dockLoot(CubitBlocks.INDUCTION_DOCK.get());
-    dockLoot(CubitBlocks.SOLAR_INDUCTION_DOCK.get());
     deskLoot(CubitBlocks.ENGINEERING_DESK.get());
   }
 
@@ -56,7 +56,9 @@ final class CubitBlockLootProvider extends BlockLootSubProvider {
                                         CopyComponentsFunction.Source.BLOCK_ENTITY)
                                     .include(CubitDataComponents.DOCK_ENERGY.get())
                                     .include(CubitDataComponents.DOCK_STORAGE.get())
-                                    .include(CubitDataComponents.DOCK_TIER.get())))));
+                                    .include(CubitDataComponents.DOCK_TIER.get())
+                                    .include(CubitDataComponents.DOCK_ID.get())
+                                    .include(DataComponents.CUSTOM_NAME)))));
   }
 
   /** Only the left half drops the desk, with its tier, energy, inventories and order (1432). */
@@ -86,9 +88,6 @@ final class CubitBlockLootProvider extends BlockLootSubProvider {
 
   @Override
   protected Iterable<Block> getKnownBlocks() {
-    return List.of(
-        CubitBlocks.INDUCTION_DOCK.get(),
-        CubitBlocks.SOLAR_INDUCTION_DOCK.get(),
-        CubitBlocks.ENGINEERING_DESK.get());
+    return List.of(CubitBlocks.INDUCTION_DOCK.get(), CubitBlocks.ENGINEERING_DESK.get());
   }
 }

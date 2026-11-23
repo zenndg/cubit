@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -25,6 +26,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -70,22 +72,12 @@ public final class InductionDockBlock extends BaseEntityBlock {
       ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, ULTIMATE_NAME);
 
   private static final MapCodec<InductionDockBlock> CODEC = simpleCodec(InductionDockBlock::new);
-  private static final MapCodec<InductionDockBlock> SOLAR_CODEC =
-      simpleCodec(properties -> new InductionDockBlock(properties, true));
   private static final float CANNOT_BREAK = 0f;
   private static final int OPERATOR_LEVEL = 2;
   private static final int REMOVE_WITHOUT_DROPS = 35;
 
-  private final boolean solar;
-
   public InductionDockBlock(Properties properties) {
-    this(properties, false);
-  }
-
-  /** The Solar Dock is the same dock with a panel on the tower (answer 1384). */
-  public InductionDockBlock(Properties properties, boolean solar) {
     super(properties);
-    this.solar = solar;
     registerDefaultState(
         stateDefinition
             .any()
@@ -97,11 +89,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
 
   @Override
   protected MapCodec<? extends BaseEntityBlock> codec() {
-    return solar ? SOLAR_CODEC : CODEC;
-  }
-
-  public boolean isSolar() {
-    return solar;
+    return CODEC;
   }
 
   /** How much the models turn for a facing, as in the block state: the front faces the player. */
@@ -214,10 +202,26 @@ public final class InductionDockBlock extends BaseEntityBlock {
       DockUpgrade.apply(dock, player, stack);
       return ItemInteractionResult.CONSUME;
     }
+    if (renamedByTag(dock, player, stack)) {
+      return ItemInteractionResult.CONSUME;
+    }
     if (dock.insert(stack)) {
       return ItemInteractionResult.CONSUME;
     }
     return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+  }
+
+  /** The name tag of the game names the Dock too, and is used up, as on a mob (answer 1868). */
+  private static boolean renamedByTag(
+      InductionDockBlockEntity dock, Player player, ItemStack stack) {
+    Component tagged = stack.get(DataComponents.CUSTOM_NAME);
+    if (!stack.is(Items.NAME_TAG)
+        || tagged == null
+        || !dock.identity().rename(tagged.getString())) {
+      return false;
+    }
+    stack.consume(1, player);
+    return true;
   }
 
   @Override
@@ -258,7 +262,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
         : new SimpleMenuProvider(
             (containerId, inventory, player) ->
                 InductionDockMenu.onServer(containerId, inventory, dock),
-            Component.translatable(getDescriptionId()));
+            Component.literal(dock.identity().name().value()));
   }
 
   private static boolean canBreak(

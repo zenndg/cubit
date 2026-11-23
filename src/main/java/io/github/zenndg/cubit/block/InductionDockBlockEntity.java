@@ -21,6 +21,7 @@ import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -69,11 +70,11 @@ public final class InductionDockBlockEntity extends BlockEntity {
         }
       };
 
-  /** The Toolbox and the Power Banks, which the stock charges (answers 947 to 959). */
   private final DockTier tier = new DockTier();
-
   private final DockSolarPanel panel = new DockSolarPanel();
+  private final DockIdentity identity = new DockIdentity(this::setChanged);
 
+  /** The Toolbox and the Power Banks, which the stock charges (answers 947 to 959). */
   private final DockStorage storage =
       new DockStorage(this::setChanged, () -> tier.spec().storageSlots());
 
@@ -112,13 +113,18 @@ public final class InductionDockBlockEntity extends BlockEntity {
     return tier.spec().rechargePerTick();
   }
 
-  public boolean isSolar() {
-    return getBlockState().getBlock() instanceof InductionDockBlock block && block.isSolar();
-  }
-
   public DockSolarReading solar() {
     return new DockSolarReading(
-        panel.given(), tier.spec().solarPerTick(), panel.state(), panel.sunlit());
+        panel.given(),
+        tier.spec().solarPerTick(),
+        panel.state(),
+        panel.sunlit(),
+        panel.panelState());
+  }
+
+  /** Its own id and the name the owner gave it (answers 1867 to 1870). */
+  public DockIdentity identity() {
+    return identity;
   }
 
   public int storageSlots() {
@@ -149,12 +155,10 @@ public final class InductionDockBlockEntity extends BlockEntity {
     boolean chargesBanks = DockStorageRules.chargesBanks(dock.isOccupied(), dock.robotFull);
     dock.stock =
         dock.storage.charge(dock.stock, chargesBanks, dock.rechargePerTick(), dock::setChanged);
-    if (dock.isSolar()) {
-      Energy rate = dock.tier.spec().solarPerTick();
-      dock.stock = dock.panel.generate(level, pos, dock.stock, rate, dock::setChanged);
-      if (dock.panel.switched()) {
-        level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
-      }
+    Energy rate = dock.tier.spec().solarPerTick();
+    dock.stock = dock.panel.generate(level, pos, dock.stock, rate, dock::setChanged);
+    if (dock.panel.switched()) {
+      level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
     }
     dock.showStatus(level, pos, state);
   }
@@ -336,6 +340,8 @@ public final class InductionDockBlockEntity extends BlockEntity {
       tag.put(SLOT_KEY, stack.save(registries));
     }
     storage.save(tag, registries);
+    panel.save(tag);
+    identity.save(tag);
   }
 
   @Override
@@ -346,7 +352,9 @@ public final class InductionDockBlockEntity extends BlockEntity {
       LOGGER.warn(NO_OWNER_MESSAGE, worldPosition);
     }
     tier.load(tag, worldPosition);
+    panel.load(tag);
     panel.readSun(tag);
+    identity.load(tag);
     stock = DockStock.of(capacity(), SavedEnergy.of(tag.getLong(ENERGY_KEY)));
     slot.setItem(SLOT, DockShapes.savedStack(tag, SLOT_KEY, registries));
     storage.load(tag, registries, worldPosition);
@@ -361,6 +369,8 @@ public final class InductionDockBlockEntity extends BlockEntity {
     storage.apply(
         input.getOrDefault(CubitDataComponents.DOCK_STORAGE.get(), ItemContainerContents.EMPTY),
         worldPosition);
+    identity.apply(
+        input.get(CubitDataComponents.DOCK_ID.get()), input.get(DataComponents.CUSTOM_NAME));
   }
 
   @Override
@@ -369,9 +379,10 @@ public final class InductionDockBlockEntity extends BlockEntity {
     components.set(CubitDataComponents.DOCK_ENERGY.get(), energy().amount());
     tier.collect(components);
     components.set(CubitDataComponents.DOCK_STORAGE.get(), storage.contents());
+    identity.collect(components);
   }
 
-  /** Only the owner travels to the client, because it decides who can break the block. */
+  /** The owner, who decides who can break the block, and the panel travel to the client. */
   @Override
   public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
     CompoundTag tag = new CompoundTag();

@@ -23,7 +23,6 @@ public final class DeskSpecialRecipesGameTests {
   private static final String ARENA = "arena";
   private static final String REPAIR = "repair_general_robot";
   private static final String RECHARGE = "recharge_general_robot";
-  private static final String SOLAR_DOCK = "solar_induction_dock";
   private static final int INGREDIENTS = 2;
   private static final String WRONG_INGREDIENTS = "Wrong ingredients shown for ";
   private static final String WRONG_RESULT = "Wrong item shown for ";
@@ -31,8 +30,7 @@ public final class DeskSpecialRecipesGameTests {
   private static final Map<String, Supplier<Item>> RESULTS =
       Map.of(
           REPAIR, CubitItems.GENERAL_ROBOT,
-          RECHARGE, CubitItems.GENERAL_ROBOT,
-          SOLAR_DOCK, CubitItems.SOLAR_INDUCTION_DOCK);
+          RECHARGE, CubitItems.GENERAL_ROBOT);
 
   private DeskSpecialRecipesGameTests() {}
 

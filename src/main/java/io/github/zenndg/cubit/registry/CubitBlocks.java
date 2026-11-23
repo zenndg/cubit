@@ -15,7 +15,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 /** Blocks. The IDs are part of the saves, so they cannot change without a migration. */
 public final class CubitBlocks {
   public static final String INDUCTION_DOCK_ID = "induction_dock";
-  public static final String SOLAR_INDUCTION_DOCK_ID = "solar_induction_dock";
   public static final String ENGINEERING_DESK_ID = "engineering_desk";
   private static final float DOCK_HARDNESS = 3.5f;
 
@@ -26,12 +25,7 @@ public final class CubitBlocks {
       DeferredRegister.create(Registries.BLOCK, CubitMod.MOD_ID);
 
   public static final Supplier<Block> INDUCTION_DOCK =
-      BLOCKS.register(INDUCTION_DOCK_ID, () -> new InductionDockBlock(dockProperties(), false));
-
-  /** The dock with the solar panel on the tower (answers 1384 and 1386). */
-  public static final Supplier<Block> SOLAR_INDUCTION_DOCK =
-      BLOCKS.register(
-          SOLAR_INDUCTION_DOCK_ID, () -> new InductionDockBlock(dockProperties(), true));
+      BLOCKS.register(INDUCTION_DOCK_ID, () -> new InductionDockBlock(dockProperties()));
 
   /** The crafting desk of the mod, two blocks wide (answers 1428 and 1456). */
   public static final Supplier<Block> ENGINEERING_DESK =

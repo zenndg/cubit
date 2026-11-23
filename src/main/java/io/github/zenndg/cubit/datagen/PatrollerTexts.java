@@ -31,7 +31,7 @@ final class PatrollerTexts {
   private static final String OTHER_DIMENSION = "%s only escorts in its own dimension";
   private static final String ESCORTING_YOU = "%s is escorting you";
   private static final String STOPPED_YOU = "%s stopped escorting you";
-  private static final String HEADING = "%s is low on power, heading to the Dock";
+  private static final String HEADING = "%s is low on power, heading to %s";
   private static final String NO_DOCK = "%s is low on power and has no Dock";
 
   private static final String PISTOL_SHOT_SUBTITLE = "Cubit fires a laser";

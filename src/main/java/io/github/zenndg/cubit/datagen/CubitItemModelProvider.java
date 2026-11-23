@@ -46,7 +46,6 @@ final class CubitItemModelProvider extends ItemModelProvider {
     basicItem(CubitItems.POWER_BANK_CASING.get());
     basicItem(CubitItems.CARD_CASING.get());
     basicItem(CubitItems.CIRCUIT_BOARD.get());
-    basicItem(CubitItems.DOCK_SOLAR_PANEL.get());
     basicItem(CubitItems.BASE_POWER_CELL.get());
     basicItem(CubitItems.ADVANCED_POWER_CELL.get());
     basicItem(CubitItems.ELITE_POWER_CELL.get());

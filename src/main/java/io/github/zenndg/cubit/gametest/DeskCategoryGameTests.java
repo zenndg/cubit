@@ -35,7 +35,7 @@ public final class DeskCategoryGameTests {
   private static final String REPAIR = "repair_general_robot";
   private static final String RECHARGE = "recharge_general_robot";
   private static final String POWER_BANK = "advanced_power_bank";
-  private static final String SOLAR_DOCK = "solar_induction_dock";
+  private static final String DOCK = "induction_dock";
   private static final String MODULE = "elite_module";
   private static final String CARD = "ml_cook";
   private static final String TABLET = "tablet";
@@ -47,7 +47,7 @@ public final class DeskCategoryGameTests {
           REPAIR, DeskCategory.ROBOT,
           RECHARGE, DeskCategory.ENERGY,
           POWER_BANK, DeskCategory.ENERGY,
-          SOLAR_DOCK, DeskCategory.DOCK,
+          DOCK, DeskCategory.DOCK,
           MODULE, DeskCategory.MODULES,
           CARD, DeskCategory.CARDS,
           TABLET, DeskCategory.TOOLS);

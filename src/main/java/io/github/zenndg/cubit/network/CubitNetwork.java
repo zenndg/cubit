@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit.network;
 
+import io.github.zenndg.cubit.menu.InductionDockMenu;
 import java.util.UUID;
 import java.util.function.Consumer;
 import net.minecraft.network.chat.Component;
@@ -131,6 +132,15 @@ public final class CubitNetwork {
                     context,
                     player -> tabletRequests.switchApp().accept(player, payload.direction())));
     registerDeathRequests(registrar);
+    registerNames(registrar);
+  }
+
+  /** The Rename of the Dock (answer 1868). */
+  private static void registerNames(PayloadRegistrar registrar) {
+    registrar.playToServer(
+        RenameDockPayload.TYPE,
+        RenameDockPayload.STREAM_CODEC,
+        (payload, context) -> onServer(context, player -> renameDock(player, payload)));
   }
 
   /** The guide and delete buttons of the Deaths tab (answer 1111). */
@@ -260,6 +270,19 @@ public final class CubitNetwork {
   /** On the client: Shift and the wheel with the Tablet in hand. */
   public static void switchTabletApp(int direction) {
     PacketDistributor.sendToServer(new SwitchTabletAppPayload(direction));
+  }
+
+  /** Only the Dock of the screen the player has open, which checks the owner and the reach. */
+  private static void renameDock(ServerPlayer player, RenameDockPayload payload) {
+    if (player.containerMenu instanceof InductionDockMenu menu
+        && menu.containerId == payload.containerId()) {
+      menu.rename(player, payload.name());
+    }
+  }
+
+  /** On the client: asks the server to name the Dock of the open screen (answer 1868). */
+  public static void renameDock(int containerId, String name) {
+    PacketDistributor.sendToServer(new RenameDockPayload(containerId, name));
   }
 
   /** On the client: asks the server to name a Cubit. */
