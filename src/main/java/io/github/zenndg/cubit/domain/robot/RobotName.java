@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.domain.robot;
 
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * The name the owner gives a Cubit on the Tablet, with the rules of the name tag of the game: up to
@@ -11,6 +12,8 @@ public record RobotName(String value) {
   /** The limit of the anvil, so the Tablet names as the name tag does. */
   public static final int MAX_LENGTH = 50;
 
+  private static final String STANDARD_PREFIX = "Cubit ";
+  private static final int ID_DIGITS = 8;
   private static final String INVALID_MESSAGE = "A name is cut and has up to 50 characters: ";
 
   public RobotName {
@@ -23,6 +26,11 @@ public record RobotName(String value) {
   public static Optional<RobotName> typed(String text) {
     String cut = text.strip();
     return cut.length() > MAX_LENGTH ? Optional.empty() : Optional.of(new RobotName(cut));
+  }
+
+  /** The name of a Cubit without one: Cubit and the first eight characters of its id (1874). */
+  public static RobotName standard(UUID id) {
+    return new RobotName(STANDARD_PREFIX + id.toString().substring(0, ID_DIGITS));
   }
 
   public boolean removes() {
