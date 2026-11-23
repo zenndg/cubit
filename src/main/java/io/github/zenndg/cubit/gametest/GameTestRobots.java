@@ -55,6 +55,14 @@ final class GameTestRobots {
     return helper.makeMockServerPlayerInLevel();
   }
 
+  /** An online player standing on a floor block, within reach of what it places there. */
+  static ServerPlayer onlinePlayerAt(GameTestHelper helper, BlockPos floor) {
+    ServerPlayer player = onlinePlayer(helper);
+    Vec3 standing = helper.absoluteVec(Vec3.atBottomCenterOf(floor.above()));
+    player.moveTo(standing.x, standing.y, standing.z);
+    return player;
+  }
+
   /** The owner picks the robot up with an empty hand, and the item lands in the first slot. */
   static ItemStack collect(Player owner, RobotEntity robot) {
     owner.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);

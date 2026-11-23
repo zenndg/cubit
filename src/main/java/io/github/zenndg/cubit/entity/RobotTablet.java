@@ -88,8 +88,8 @@ public final class RobotTablet {
   }
 
   /**
-   * Names the Cubit as the name tag does, without spending the tag. An empty name removes it, and
-   * an active Cubit reacts with the happy face (answers 1015 to 1017).
+   * Names the Cubit as the name tag does, without spending the tag. An empty name goes back to the
+   * standard one, and an active Cubit reacts with the happy face (answers 1015 to 1017 and 1878).
    */
   public static boolean rename(ServerPlayer player, UUID robot, String typed) {
     Optional<RobotEntity> found = find(player, robot);
@@ -98,7 +98,8 @@ public final class RobotTablet {
       return false;
     }
     RobotEntity named = found.get();
-    named.setCustomName(name.get().removes() ? null : Component.literal(name.get().value()));
+    RobotName kept = name.get().removes() ? RobotName.standard(named.getUUID()) : name.get();
+    named.setCustomName(Component.literal(kept.value()));
     RobotPaint.react(named);
     return true;
   }

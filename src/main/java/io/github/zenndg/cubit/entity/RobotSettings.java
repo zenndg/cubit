@@ -9,8 +9,12 @@ import io.github.zenndg.cubit.domain.tier.RobotTier;
 final class RobotSettings {
   private RobotSettings() {}
 
-  /** The filter is fitted to the tier, because the config may have changed in the meantime. */
+  /**
+   * The filter is fitted to the tier, because the config may have changed in the meantime. A
+   * nameless Cubit of an old save gets its standard name here, once, on load (answer 1877).
+   */
   static void apply(RobotEntity robot, RobotState state) {
+    RobotNaming.nameIfNameless(robot);
     robot.lampSwitch().setSwitchedOn(state.lampOn());
     robot.scanners().setSwitchedOn(state.scannersOn());
     robot.chatter().setSwitchedOn(state.chatterOn());

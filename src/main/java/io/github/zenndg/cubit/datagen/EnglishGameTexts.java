@@ -39,8 +39,8 @@ final class EnglishGameTexts {
   private static final String NEED_RECHARGE_NOTICE = "I need to recharge";
   private static final String ITEMS_UNLOADED_NOTICE = "Items unloaded";
   private static final String NO_ROOM_NOTICE = "No room in the marked chests";
-  private static final String INTRO_HELP = "Cubit: Happy to help you!";
-  private static final String INTRO_LINK = "Cubit: To learn everything I can do, visit: %s";
+  private static final String INTRO_HELP = "%s: Happy to help you!";
+  private static final String INTRO_LINK = "%s: To learn everything I can do, visit: %s";
   private static final String HURT_NOTICE = "That hurts!";
   private static final String OWNER_HURT_NOTICE = "Careful!";
 

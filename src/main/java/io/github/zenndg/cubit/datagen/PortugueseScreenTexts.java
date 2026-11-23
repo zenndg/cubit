@@ -43,6 +43,7 @@ final class PortugueseScreenTexts {
   private static final String QUEUE_MANY = "%s Cubits esperando";
   private static final String OWNER = "Dono";
   private static final String RENAME_DOCK = "Renomear o Dock";
+  private static final String NAME_ROBOT = "Dê um nome ao seu Cubit";
   private static final String OWNER_UNKNOWN = "Desconhecido";
   private static final String CALL = "Chamar o Cubit mais próximo (%s blocos)";
 
@@ -254,6 +255,7 @@ final class PortugueseScreenTexts {
     add.accept(ScreenKeys.DOCK_QUEUE_MANY, QUEUE_MANY);
     add.accept(ScreenKeys.DOCK_OWNER, OWNER);
     add.accept(ScreenKeys.DOCK_RENAME_TITLE, RENAME_DOCK);
+    add.accept(ScreenKeys.ROBOT_NAME_TITLE, NAME_ROBOT);
     add.accept(ScreenKeys.DOCK_OWNER_UNKNOWN, OWNER_UNKNOWN);
     add.accept(ScreenKeys.DOCK_CALL, CALL);
   }

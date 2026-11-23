@@ -29,6 +29,7 @@ public final class CubitNetwork {
   private static Consumer<UnloadChestsPayload> unloadChestsDisplay = chests -> {};
   private static Consumer<OrganizerMarksPayload> organizerMarksDisplay = marks -> {};
   private static Consumer<DeathLogPayload> deathLogDisplay = log -> {};
+  private static Consumer<AskRobotNamePayload> askNameDisplay = ask -> {};
   private static Consumer<DoorMarksPayload> doorMarksDisplay = doors -> {};
   private static Consumer<PatrolRoutePayload> patrolRouteDisplay = route -> {};
   private static Consumer<EscortMarksPayload> escortMarksDisplay = marks -> {};
@@ -135,12 +136,22 @@ public final class CubitNetwork {
     registerNames(registrar);
   }
 
-  /** The Rename of the Dock (answer 1868). */
+  /** The window of the name of a new Cubit and the Rename of the Dock (1868, 1879). */
   private static void registerNames(PayloadRegistrar registrar) {
-    registrar.playToServer(
-        RenameDockPayload.TYPE,
-        RenameDockPayload.STREAM_CODEC,
-        (payload, context) -> onServer(context, player -> renameDock(player, payload)));
+    registrar
+        .playToClient(
+            AskRobotNamePayload.TYPE,
+            AskRobotNamePayload.STREAM_CODEC,
+            (payload, context) -> askNameDisplay.accept(payload))
+        .playToServer(
+            RobotNamedPayload.TYPE,
+            RobotNamedPayload.STREAM_CODEC,
+            (payload, context) ->
+                onServer(context, player -> tabletRequests.named().accept(player, payload)))
+        .playToServer(
+            RenameDockPayload.TYPE,
+            RenameDockPayload.STREAM_CODEC,
+            (payload, context) -> onServer(context, player -> renameDock(player, payload)));
   }
 
   /** The guide and delete buttons of the Deaths tab (answer 1111). */
@@ -283,6 +294,26 @@ public final class CubitNetwork {
   /** On the client: asks the server to name the Dock of the open screen (answer 1868). */
   public static void renameDock(int containerId, String name) {
     PacketDistributor.sendToServer(new RenameDockPayload(containerId, name));
+  }
+
+  /**
+   * On the server: opens the window of the name of a Cubit placed for the first time (1879). A real
+   * client always has the channel, since the game refuses one without the mod; only a test player
+   * lacks it, and then nothing is sent.
+   */
+  public static void askName(ServerPlayer player, UUID robot, String standard) {
+    if (player.connection.hasChannel(AskRobotNamePayload.TYPE)) {
+      PacketDistributor.sendToPlayer(player, new AskRobotNamePayload(robot, standard));
+    }
+  }
+
+  /** On the client: the answer of the window, the name typed or nothing (answer 1879). */
+  public static void answerName(UUID robot, String name) {
+    PacketDistributor.sendToServer(new RobotNamedPayload(robot, name));
+  }
+
+  public static void setAskNameDisplay(Consumer<AskRobotNamePayload> display) {
+    askNameDisplay = display;
   }
 
   /** On the client: asks the server to name a Cubit. */

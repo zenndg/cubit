@@ -58,6 +58,7 @@ public final class ScreenKeys {
 
   private static final String DOCK_STATUS = DOCK + "status.";
   private static final String ROBOT = PREFIX + "robot.";
+  public static final String ROBOT_NAME_TITLE = ROBOT + "name_title";
   private static final String ROBOT_STATUS = ROBOT + "status.";
   private static final String RECHARGE = ROBOT + "recharge.";
   private static final String SOLAR = ROBOT + "solar.";

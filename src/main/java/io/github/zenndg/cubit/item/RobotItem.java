@@ -11,7 +11,7 @@ import io.github.zenndg.cubit.domain.robot.RobotType;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.domain.tier.TierSpec;
 import io.github.zenndg.cubit.entity.RobotEntity;
-import io.github.zenndg.cubit.entity.RobotIntro;
+import io.github.zenndg.cubit.entity.RobotNaming;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
 import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
@@ -71,7 +71,7 @@ public final class RobotItem extends Item implements DockableRobotItem, Storable
     }
     ItemStack stack = context.getItemInHand();
     robot.placedBy(player, stateOf(stack), stack);
-    RobotIntro.greet(robot, player);
+    RobotNaming.placed(robot, player);
     // Always spent, even in creative: the item carries the state, and a copy would duplicate it.
     stack.shrink(1);
     return InteractionResult.CONSUME;
@@ -91,7 +91,7 @@ public final class RobotItem extends Item implements DockableRobotItem, Storable
     }
     ItemStack stack = context.getItemInHand();
     robot.placedBy(player, stateOf(stack), stack);
-    RobotIntro.greet(robot, player);
+    RobotNaming.placed(robot, player);
     robot.docking().enterNow(dock);
     stack.shrink(1);
     return InteractionResult.CONSUME;
