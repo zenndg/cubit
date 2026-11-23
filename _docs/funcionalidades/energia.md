@@ -140,7 +140,7 @@ Todo Induction Dock tem um painel solar embutido, que ele monta e guarda sozinho
 
   ![A sanfona, o braço, a trava com as luzes e o Dock com o Cubit encaixado](../imagens/conceito/induction-dock-transforma-detalhes.png)
 
-- **Modelo:** o Dock usa o GeckoLib, como a Engineering Desk, no mundo e no inventário, com o modelo e o prompt da textura com o gabarito UV (pergunta 1860). A tela, a linha abaixo dela e a faixa da placa mostram as mesmas cinco imagens de status de antes, desenhadas por uma camada própria e acesas no escuro (pergunta 1886).
+- **Modelo:** o Dock usa o GeckoLib, como a Engineering Desk, no mundo e no inventário, com o modelo e o prompt da textura com o gabarito UV (pergunta 1860). A tela, a linha abaixo dela e a faixa da placa mostram as mesmas cinco imagens de status de antes, desenhadas por uma camada própria e acesas no escuro (pergunta 1886). A textura final é a arte do desenvolvedor sobre o gabarito, com a torre e a placa sem contorno, como a arte de antes. A do Ultimate e o brilho das células saem dela por script (perguntas 1923 e 1924).
 - **O resto:** tudo o que o Dock faz continua igual: recebe o Cubit, hiberna, fila, inventário, cabos e os tiers pelos Modules.
 - **Saves antigos:** um Dock de antes vem com o painel guardado. Ao carregar, se o espaço acima dele estiver vazio, ele ganha o 3º bloco sozinho e monta o painel quando houver sol. Se o espaço estiver ocupado, ele continua funcionando sem o painel, até o espaço ficar livre. Nada é quebrado nem perdido (pergunta 1897).
 
@@ -238,6 +238,7 @@ Entra com o item 15 da Fase 4.2, antes do modo área (perguntas 1065 a 1069).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 03:15 | Acrescenta a textura final do Dock (perguntas 1923 e 1924). |
 | Zennd | 2026-11-23 02:30 | Volta a faixa do tier para o topo da torre (pergunta 1918). |
 | Zennd | 2026-11-23 02:18 | Passa os armários para as laterais, com as folhas das portas e as quatro luzes, e a torre 1 px à frente (perguntas 1911 a 1916). |
 | Zennd | 2026-11-23 01:58 | Baixa a espera do painel para 3 s (pergunta 1912). |
