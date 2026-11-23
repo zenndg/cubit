@@ -28,6 +28,7 @@ Este é o mapa dos documentos do projeto. A apresentação do mod e o roadmap fi
 | Trabalhos, antena, Servidor e storage wireless (Fase 5, planejada) | [`funcionalidades/trabalhos.md`](funcionalidades/trabalhos.md) |
 | Conceito de cada trabalho da Fase 5 | [`funcionalidades/trabalhos/`](funcionalidades/trabalhos/) |
 | Itens, blocos, nomes e receitas | [`itens.md`](itens.md) |
+| Guia do player: a árvore de crafts, o que cada item libera e as dúvidas comuns | [`arvore-de-crafts.md`](arvore-de-crafts.md) |
 | Números por tier | [`tiers.md`](tiers.md) |
 | Resumo das decisões | [`decisoes.md`](decisoes.md) |
 | Perguntas e respostas por fase | [`perguntas/`](perguntas/README.md) |
@@ -53,6 +54,7 @@ Os números ficam em [`tiers.md`](tiers.md). As outras páginas apontam para lá
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 11:36 | Aponta o guia da árvore de crafts (pergunta 1975). |
 | Zennd | 2026-11-22 23:12 | Aponta o conceito do XP Cubit e Dock (pergunta 1850). |
 | Zennd | 2026-11-22 22:40 | Acrescenta o backlog das ideias para o futuro (pergunta 1747). |
 | Zennd | 2026-11-22 16:30 | Acrescenta o documento do que vem antes do PR (pergunta 1715). |
