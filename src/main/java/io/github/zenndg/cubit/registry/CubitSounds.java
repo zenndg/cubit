@@ -27,6 +27,9 @@ public final class CubitSounds {
   public static final String DESK_CRAFTING_NAME = "crafting";
   public static final String DESK_DONE_NAME = "done";
   public static final String DESK_STARTUP_NAME = "startup";
+  public static final String DOCK_PANEL_DEPLOY_NAME = "panel_deploy";
+  public static final String DOCK_PANEL_LOCK_NAME = "panel_lock";
+  public static final String DOCK_PANEL_RETRACT_NAME = "panel_retract";
   public static final String PATROL_PISTOL_SHOT_NAME = "pistol_shot";
   public static final String PATROL_ORB_BURST_NAME = "orb_burst";
   public static final String PATROL_BLADE_IGNITE_NAME = "blade_ignite";
@@ -41,6 +44,7 @@ public final class CubitSounds {
   private static final String GENERAL_ROBOT_PREFIX = "general_robot.";
   private static final String PATROLLER_PREFIX = "patroller.";
   private static final String DESK_PREFIX = "engineering_desk.";
+  private static final String DOCK_PREFIX = "induction_dock.";
   private static final DeferredRegister<SoundEvent> SOUNDS =
       DeferredRegister.create(Registries.SOUND_EVENT, CubitMod.MOD_ID);
 
@@ -61,6 +65,12 @@ public final class CubitSounds {
 
   public static final Supplier<SoundEvent> DESK_DONE = desk(DESK_DONE_NAME);
   public static final Supplier<SoundEvent> DESK_STARTUP = desk(DESK_STARTUP_NAME);
+
+  /** The panel of the Induction Dock, which a pack can swap (answers 1861 and 1921). */
+  public static final Supplier<SoundEvent> DOCK_PANEL_DEPLOY = dock(DOCK_PANEL_DEPLOY_NAME);
+
+  public static final Supplier<SoundEvent> DOCK_PANEL_LOCK = dock(DOCK_PANEL_LOCK_NAME);
+  public static final Supplier<SoundEvent> DOCK_PANEL_RETRACT = dock(DOCK_PANEL_RETRACT_NAME);
 
   /** The sounds of the Galactic Patroller, in a folder of their own (answers 1575 and 1791). */
   public static final Supplier<SoundEvent> PATROL_PISTOL_SHOT = patroller(PATROL_PISTOL_SHOT_NAME);
@@ -115,6 +125,10 @@ public final class CubitSounds {
 
   private static Supplier<SoundEvent> patroller(String name) {
     return generalRobot(PATROLLER_PREFIX + name);
+  }
+
+  private static Supplier<SoundEvent> dock(String name) {
+    return sound(DOCK_PREFIX + name);
   }
 
   private static Supplier<SoundEvent> desk(String name) {

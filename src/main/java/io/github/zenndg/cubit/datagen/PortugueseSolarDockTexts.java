@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.datagen;
 import io.github.zenndg.cubit.domain.dock.DockPanelState;
 import io.github.zenndg.cubit.domain.dock.DockSunState;
 import io.github.zenndg.cubit.menu.ScreenKeys;
+import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.function.BiConsumer;
 
 /** The Solar Dock and its Solar tab, in Portuguese (answers 1386 and 1396). */
@@ -22,6 +23,9 @@ final class PortugueseSolarDockTexts {
   private static final String COVERED = "Céu coberto";
   private static final String NO_SUN_HERE = "Sem sol nesta dimensão";
   private static final String NO_ROOM = "Sem espaço para o painel";
+  private static final String DEPLOY_SOUND = "Painel do Dock monta";
+  private static final String LOCK_SOUND = "Painel do Dock trava";
+  private static final String RETRACT_SOUND = "Painel do Dock guarda";
   private static final String PANEL = "Painel";
   private static final String STORED = "Guardado";
   private static final String DEPLOYING = "Montando";
@@ -41,6 +45,16 @@ final class PortugueseSolarDockTexts {
     add.accept(ScreenKeys.DOCK_SOLAR_HINT, HINT);
     addStates(add);
     addPanel(add);
+    addSounds(add);
+  }
+
+  /** The subtitles of the sounds of the panel (answer 1921). */
+  private static void addSounds(BiConsumer<String, String> add) {
+    add.accept(
+        CubitSoundProvider.dockSubtitleKey(CubitSounds.DOCK_PANEL_DEPLOY_NAME), DEPLOY_SOUND);
+    add.accept(CubitSoundProvider.dockSubtitleKey(CubitSounds.DOCK_PANEL_LOCK_NAME), LOCK_SOUND);
+    add.accept(
+        CubitSoundProvider.dockSubtitleKey(CubitSounds.DOCK_PANEL_RETRACT_NAME), RETRACT_SOUND);
   }
 
   private static void addStates(BiConsumer<String, String> add) {

@@ -2,15 +2,19 @@ package io.github.zenndg.cubit.block;
 
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.dock.DockPanel;
+import io.github.zenndg.cubit.domain.dock.DockPanelSound;
 import io.github.zenndg.cubit.domain.dock.DockPanelState;
 import io.github.zenndg.cubit.domain.dock.DockStock;
 import io.github.zenndg.cubit.domain.dock.DockSun;
 import io.github.zenndg.cubit.domain.dock.DockSunState;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.SolarPanel;
+import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.Locale;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 
 /**
@@ -25,6 +29,12 @@ final class DockSolarPanel {
 
   /** The transformation of the arms, about 6 s, as long as its animation (answer 1895). */
   private static final int MOTION_TICKS = 120;
+
+  /** The tick of the deploy at which the two halves meet and lock, at 5.3 s (answer 1921). */
+  private static final int LOCK_TICK = 106;
+
+  private static final float VOLUME = 1f;
+  private static final float PITCH = 1f;
 
   private static final String SUN_KEY = "Sun";
   private static final String PANEL_KEY = "SolarPanel";
@@ -104,7 +114,7 @@ final class DockSolarPanel {
     boolean day = SolarPanel.isDay(level.getDayTime());
     boolean raining = level.isRaining() || level.isThundering();
     state = new DockSun(day, skyOpen, raining, sunExists, room).state();
-    move(changed);
+    move(level, lower, changed);
     showPlate(level, lower);
     if (rate.isZero() || state != DockSunState.GENERATING || !panel.generates()) {
       return stock;
@@ -118,14 +128,26 @@ final class DockSolarPanel {
   }
 
   /** The arms follow the sky; a new end of the motion is saved (answers 1856 and 1862). */
-  private void move(Runnable changed) {
-    boolean before = panel.deployedAtTheEnd();
+  private void move(Level level, BlockPos lower, Runnable changed) {
+    DockPanel before = panel;
     DockPanel.Timings timings =
         new DockPanel.Timings(CubitMod.CONFIG.dock().solarDelayTicks(), MOTION_TICKS);
     panel = panel.tick(state == DockSunState.GENERATING, timings);
-    if (before != panel.deployedAtTheEnd()) {
+    if (before.deployedAtTheEnd() != panel.deployedAtTheEnd()) {
       changed.run();
     }
+    DockPanelSound.between(before, panel, LOCK_TICK)
+        .ifPresent(sound ->
+            level.playSound(null, lower, eventOf(sound), SoundSource.BLOCKS, VOLUME, PITCH));
+  }
+
+  /** The server plays them, so everyone near hears them, as the Patroller (answer 1921). */
+  private static SoundEvent eventOf(DockPanelSound sound) {
+    return switch (sound) {
+      case DEPLOY -> CubitSounds.DOCK_PANEL_DEPLOY.get();
+      case LOCK -> CubitSounds.DOCK_PANEL_LOCK.get();
+      case RETRACT -> CubitSounds.DOCK_PANEL_RETRACT.get();
+    };
   }
 
   /** The third block stands as the plate of the panel only with it deployed (answer 1898). */

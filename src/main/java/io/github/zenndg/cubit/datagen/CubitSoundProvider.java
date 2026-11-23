@@ -15,6 +15,7 @@ import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 final class CubitSoundProvider extends SoundDefinitionsProvider {
   private static final String ROBOT = "general_robot";
   private static final String DESK = "engineering_desk";
+  private static final String DOCK = "induction_dock";
   private static final String PATROLLER = "patroller";
   private static final String SUBTITLE_PREFIX = "subtitles.cubit.";
   private static final char FOLDER_END = '/';
@@ -41,6 +42,10 @@ final class CubitSoundProvider extends SoundDefinitionsProvider {
     return subtitleKey(PATROLLER + KEY_END + name);
   }
 
+  static String dockSubtitleKey(String name) {
+    return SUBTITLE_PREFIX + DOCK + KEY_END + name;
+  }
+
   static String deskSubtitleKey(String name) {
     return SUBTITLE_PREFIX + DESK + KEY_END + name;
   }
@@ -61,6 +66,9 @@ final class CubitSoundProvider extends SoundDefinitionsProvider {
     addDeskSound(CubitSounds.DESK_CRAFTING, CubitSounds.DESK_CRAFTING_NAME);
     addDeskSound(CubitSounds.DESK_DONE, CubitSounds.DESK_DONE_NAME);
     addDeskSound(CubitSounds.DESK_STARTUP, CubitSounds.DESK_STARTUP_NAME);
+    addDockSound(CubitSounds.DOCK_PANEL_DEPLOY, CubitSounds.DOCK_PANEL_DEPLOY_NAME);
+    addDockSound(CubitSounds.DOCK_PANEL_LOCK, CubitSounds.DOCK_PANEL_LOCK_NAME);
+    addDockSound(CubitSounds.DOCK_PANEL_RETRACT, CubitSounds.DOCK_PANEL_RETRACT_NAME);
     registerPatrolSounds();
   }
 
@@ -83,6 +91,11 @@ final class CubitSoundProvider extends SoundDefinitionsProvider {
 
   private void addSound(Supplier<SoundEvent> event, String name) {
     add(event, ROBOT, name, subtitleKey(name));
+  }
+
+  /** In their own folder, for a pack to swap them, as the desk (answers 1861 and 1921). */
+  private void addDockSound(Supplier<SoundEvent> event, String name) {
+    add(event, DOCK, name, dockSubtitleKey(name));
   }
 
   /** In their own folder, for a pack to swap them (answer 1451). */
