@@ -731,11 +731,15 @@ Não há perguntas pendentes nesta fase.
 | 1784 | Há algo a acrescentar à entrega 4 do PR 4 do Patrulheiro, os sons? E ela segue agora ou depois da entrega 5, a textura do card? | Nada a acrescentar, e a entrega 5 vem antes da 4, que espera os `.wav` do desenvolvedor. Muda a ordem da 1771 |
 | 1785 | A textura do card do Patrulheiro, `tmp/arte/patrulheiro/ml_patroller.png`, com o mesmo formato dos outros cards e a faixa do alto no mesmo azul da do Pescador, está aceita assim, ou a faixa muda de cor? | O desenvolvedor disse "sim continue": o card entra como está, com a faixa azul, no lugar da textura provisória |
 | 1786 | A arte da textura do modelo do Patrulheiro, `tmp/arte/patrulheiro/general_robot_patroller.png`, com a textura de brilho nas cores dela e as luzes da aleta em azul aceso, está aceita? | O desenvolvedor disse "arte aceita": a arte entra no lugar da textura provisória, e o brilho usa as cores dela. Detalha a 1770 e a 1772 |
+| 1787 | Pedido do desenvolvedor: depois do Patrulheiro, entra no roadmap o item "XP Cubit e Dock". Quando ele é refinado? | O desenvolvedor disse "vamos refinar quando iniciarmos": entra só com o nome, sem nada decidido |
+| 1788 | Em que posição o "XP Cubit e Dock" entra, se logo depois do Patrulheiro já está o Servidor e as Antenas (1777)? | Antes do Servidor: o Patrulheiro, o XP Cubit e Dock, o Servidor e as Antenas, e então as profissões. A recomendação, depois do Servidor, foi recusada. Muda a ordem da 1777 |
+| 1789 | O "XP Cubit e Dock" é a ideia anotada no backlog na 1762, o XP em tanque de líquido no Cubit e no Dock? | Sim: o item do roadmap aponta para essa ideia, que sai do backlog e vira um item do roadmap, com o refinamento quando ele começar. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 21:03 | Registra as respostas 1787 a 1789. |
 | Zennd | 2026-11-22 18:26 | Registra a resposta 1786. |
 | Zennd | 2026-11-22 18:21 | Registra a resposta 1785. |
 | Zennd | 2026-11-22 18:18 | Registra a resposta 1784. |
