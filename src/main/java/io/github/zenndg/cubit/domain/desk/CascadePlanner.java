@@ -100,12 +100,7 @@ public final class CascadePlanner {
     List<CascadeTask> tasks = new ArrayList<>();
     for (String item : made) {
       CascadeRecipe recipe = book.recipeOf(item).orElseThrow();
-      Set<Integer> needs = new HashSet<>();
-      recipe.materials().keySet().stream()
-          .map(made::indexOf)
-          .filter(index -> index >= 0)
-          .forEach(needs::add);
-      tasks.add(new CascadeTask(recipe, crafts.get(item), needs));
+      tasks.add(new CascadeTask(recipe, crafts.get(item), CascadeTask.needsOf(recipe, made)));
     }
     return tasks;
   }

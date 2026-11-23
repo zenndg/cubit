@@ -10,6 +10,11 @@ public enum CascadeStart {
   ORDER_ACTIVE,
   STOCK_LEFT;
 
+  /** Every material is there, so the plan may be seen, also while it cannot start (2015, 2017). */
+  public boolean showsPlan() {
+    return this == READY || this == ORDER_ACTIVE || this == STOCK_LEFT;
+  }
+
   public static CascadeStart decide(CascadeCheck check) {
     if (!check.tier()) {
       return TIER;

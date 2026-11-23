@@ -1,6 +1,8 @@
 package io.github.zenndg.cubit.domain.desk;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Map;
@@ -41,6 +43,18 @@ class CascadeRulesTest {
     assertEquals(
         CascadeStart.STOCK_LEFT,
         CascadeStart.decide(new CascadeCheck(true, true, true, true, false, true)));
+  }
+
+  /** The plan opens with every material, and only the start waits for the rest (2015, 2017). */
+  @Test
+  void thePlanShowsWithEveryMaterial() {
+    assertTrue(CascadeStart.READY.showsPlan());
+    assertTrue(CascadeStart.ORDER_ACTIVE.showsPlan());
+    assertTrue(CascadeStart.STOCK_LEFT.showsPlan());
+    assertFalse(CascadeStart.TIER.showsPlan());
+    assertFalse(CascadeStart.NO_PLAN.showsPlan());
+    assertFalse(CascadeStart.LOCKED.showsPlan());
+    assertFalse(CascadeStart.MISSING.showsPlan());
   }
 
   /** With many items for a mark, the one the input has most, or the first (answer 2033). */
