@@ -940,11 +940,22 @@ Não há perguntas pendentes nesta fase.
 | 1993 | As conquistas visíveis (1968, 1972 e 1973) entram nesta entrega ou depois? | Esta entrega primeiro, com a proteção sobre as conquistas escondidas de hoje, e a aba Cubit depois, noutro PR da #250. A recomendação foi aceita |
 | 1994 | Quando se define o recurso exclusivo do Ultimate (1964)? | Depois desta entrega. A recomendação foi aceita |
 | 1995 | O `AGENTS.md` pode citar `DeskOrderGate`, `DeskShortage`, `DeskUnlocks`, `DeskOpeners` e `DeskOrderView` na estrutura de pacotes e a entrega no "Estado atual"? | Sim, no último commit da entrega. A recomendação foi aceita |
+| 1996 | Pedido do desenvolvedor: como a Engineering Desk mostra o que falta e o que está ok na grade? | "pensei outra melhoria para messa temos a questao do "missing materials" quando player seleciona um item para crafting e falta recurso nos slots de itens da receita o que esta faltando fica na cor vermelha transparencia e cor fraca so para indicar qual item esta faltando. Os demais itens que tiver ok ficam na cor verde da mesma forma transparencia e cor fraca. Esta validacao é conforme a quantidade definida se colocar 1 na quantidade se for possivel fazer e se o player colocar em 2 na quantidade e ja faltar recurso é apresentado. A cada atualizacao da quantidade é recalculado". Detalha a 1988 e muda a conta, que era só de 1 unidade e só antes do pedido. Vai à rodada |
+| 1997 | Com o pedido em andamento, qual quantidade a cor da grade confere (1996)? | O que ainda falta fazer: com 3 de 8 prontos, os materiais de 5. A cor muda sozinha a cada item pronto ou material que entra, e com o pedido em 0 vale 1 unidade. A recomendação foi aceita |
+| 1998 | Com ferro para parte do pedido, o que fica vermelho nos 7 espaços de ferro da Toolbox? | Só os espaços sem material: cada espaço precisa do item para todas as unidades, e, com ferro para 6 espaços, 1 fica vermelho e 6 verdes. A recomendação, todos os espaços do item, foi recusada |
+| 1999 | O + também trava quando a quantidade pedida não tem material (1996)? | Não, só mostra: o + só trava de 0 para 1, como na 1984, e a mesa pausa quando o material acaba, o que deixa a automação entregar aos poucos. A recomendação foi aceita |
+| 2000 | Onde entra a melhoria das cores (1996)? | Na mesma branch, antes do PR: um commit novo, um teste manual só, cobrindo tudo, e as GameTests de novo no fim. A recomendação foi aceita |
+| 2001 | O conceito das cores da grade pela quantidade do pedido (respostas 1996 a 2000) pode ir ao código? | O desenvolvedor disse "1 autorizo o conceito" (regra 54): segue na mesma branch, antes do PR |
+| 2002 | O teste do pedido travado e das cores foi num mundo novo, e o bloqueio da 1967 apareceu? | O desenvolvedor disse "teste aprovado em mundo novo". O save do mundo novo, lido depois do teste, tem as receitas do início no livro e nenhuma conquista concluída sem a receita: o bloqueio não se repetiu, e fica como falso positivo neste cenário. Responde à 1979 e detalha a 1975 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 12:38 | Registra a resposta 2002. |
+| Zennd | 2026-11-23 12:31 | Registra a resposta 2001. |
+| Zennd | 2026-11-23 12:29 | Registra as respostas 1997 a 2000. |
+| Zennd | 2026-11-23 12:27 | Registra a resposta 1996. |
 | Zennd | 2026-11-23 12:18 | Registra a resposta 1995. |
 | Zennd | 2026-11-23 12:11 | Registra as respostas 1992 a 1994. |
 | Zennd | 2026-11-23 12:09 | Registra a resposta 1991. |

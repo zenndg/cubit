@@ -80,6 +80,11 @@ Toda receita pode ser vista, e o que trava é o pedido: o + não sai de 0 para 1
 - **Aviso:** com o + cinza, a dica dele diz o motivo, um por linha (perguntas 1970 e 1988):
   - na progressão, o que libera, como `Unlocks with: Cubit` / `Liberada com: Cubit`;
   - no material, o que falta, como `Missing: 2 Diamond` / `Falta: 2 Diamante`, com os itens em vermelho na grade.
+- **Cores da grade** (perguntas 1996 a 2000), com um véu fraco e transparente sobre o item, que continua à vista:
+  - **verde**, o espaço que tem material, e **vermelho**, o que não tem, somando a entrada e a saída;
+  - a conta é pela quantidade que ainda falta fazer: com o pedido em 0, 1 unidade, e com 3 de 8 prontos, 5. Ela é refeita a cada − ou +, a cada item pronto e a cada material que entra ou sai;
+  - cada espaço precisa do item para todas as unidades. Com material para parte delas, só os espaços sem material ficam vermelhos;
+  - a dica do + e o `Missing` contam tudo o que falta para a quantidade. Com o pedido ativo, o + não trava, e a grade só mostra.
 - **O que libera, para o cliente:** o jogo não envia ao cliente as conquistas escondidas das receitas, então o servidor manda, ao abrir a tela, os itens que liberam cada receita bloqueada, lidos das conquistas do datapack. Não há pacote novo: vai nos dados de abertura da tela.
 - **Liberação protegida** (perguntas 1969 e 1974): uma receita sem conquista que a bloqueie, como a inicial ou a de um pack, fica sempre liberada. A conquista já concluída libera mesmo que o livro tenha perdido a receita. O servidor confere ao abrir a mesa e repara o livro. Os itens na entrada e na saída da mesa contam para quem a abre, e, com a tela aberta, contam de novo quando um item fica pronto.
 - **Sem mudança:** saves, config, IDs, receitas, custo, tempo, automação, o guia do player e a imagem da árvore. O guia ganha só a explicação do + e da dica, junto do código.
@@ -214,6 +219,7 @@ Uma issue mãe e quatro PRs, em ordem, cada um testável no jogo (pergunta 1478)
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 12:29 | Acrescenta as cores da grade pela quantidade do pedido (perguntas 1996 a 2000). |
 | Zennd | 2026-11-23 12:17 | Marca o pedido com a progressão e o material como autorizado (pergunta 1992). |
 | Zennd | 2026-11-23 12:09 | Ajusta o conceito do pedido à alternativa A, com a progressão e o material (pergunta 1991). |
 | Zennd | 2026-11-23 12:07 | Acrescenta o conceito do pedido com os materiais na mesa, sem a trava de progressão (perguntas 1982 a 1990). |
