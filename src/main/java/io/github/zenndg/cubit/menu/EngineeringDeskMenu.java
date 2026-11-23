@@ -5,6 +5,7 @@ import io.github.zenndg.cubit.block.DeskMaterialFilter;
 import io.github.zenndg.cubit.block.DeskShortage;
 import io.github.zenndg.cubit.block.DeskUnlocks;
 import io.github.zenndg.cubit.block.EngineeringDeskBlockEntity;
+import io.github.zenndg.cubit.domain.desk.DeskOrder;
 import io.github.zenndg.cubit.domain.desk.DeskSpec;
 import io.github.zenndg.cubit.domain.desk.DeskStatus;
 import io.github.zenndg.cubit.domain.energy.Energy;
@@ -212,8 +213,13 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
 
   /** What the desk has no item for, to make one of the recipe (answer 1984). */
   public DeskShortage shortage(RecipeHolder<CraftingRecipe> recipe) {
+    return shortage(recipe, DeskOrder.STEP);
+  }
+
+  /** What the desk has no item for, to make as many of the recipe (answer 1997). */
+  public DeskShortage shortage(RecipeHolder<CraftingRecipe> recipe, int units) {
     return DeskShortage.of(
-        DeskGrid.of(recipe.value()), containers.input(), containers.output(), activeSlots());
+        DeskGrid.of(recipe.value()), containers.input(), containers.output(), activeSlots(), units);
   }
 
   private int activeSlots() {

@@ -38,11 +38,22 @@ final class DeskMaterials {
 
   /** Counts one item for the mark in the slot that serves, if any. Nothing leaves the slot. */
   static boolean take(Ingredient mark, Container inventory, int[] taken) {
-    int slot = firstServing(mark, inventory, taken);
-    if (slot >= 0) {
-      taken[slot]++;
+    return takeUpTo(mark, inventory, taken, 1) > 0;
+  }
+
+  /** Counts up to the wanted items for the mark, in the order of the slots, and tells how many. */
+  static int takeUpTo(Ingredient mark, Container inventory, int[] taken, int wanted) {
+    int found = 0;
+    for (int slot = 0; slot < taken.length && found < wanted; slot++) {
+      ItemStack stack = inventory.getItem(slot);
+      int free = stack.getCount() - taken[slot];
+      if (free > 0 && mark.test(stack)) {
+        int count = Math.min(free, wanted - found);
+        taken[slot] += count;
+        found += count;
+      }
     }
-    return slot >= 0;
+    return found;
   }
 
   private static int firstServing(Ingredient mark, Container inventory, int[] taken) {

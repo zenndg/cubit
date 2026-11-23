@@ -146,7 +146,7 @@ Você ainda não teve o item que a libera. Passe o mouse sobre ela: a dica diz q
 Ela já está liberada, e faltam materiais na mesa.
 
 **O botão + está cinza.**
-Passe o mouse sobre ele. A dica diz o que falta: o item que libera a receita ou os materiais, como `Falta: 2 Diamante`. Os materiais que faltam aparecem em vermelho na grade. Basta ter os de uma unidade, na entrada ou na saída da mesa. Depois que o pedido começa, o + fica livre.
+Passe o mouse sobre ele. A dica diz o que falta: o item que libera a receita ou os materiais, como `Falta: 2 Diamante`. Na grade, o que você tem fica verde e o que falta fica vermelho, conforme a quantidade pedida. Basta ter os de uma unidade, na entrada ou na saída da mesa. Depois que o pedido começa, o + fica livre.
 
 **Fiz o item, e o seguinte continua bloqueado.**
 Feche e abra a mesa. Se continuar, avise a equipe do mod.
@@ -176,6 +176,7 @@ O JEI mostra todas as receitas, também as bloqueadas. Quem decide é a mesa.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 12:39 | Explica as cores da grade pela quantidade (pergunta 1996). |
 | Zennd | 2026-11-23 12:17 | Explica o +, a dica do que falta e os itens dentro da mesa (perguntas 1969 a 1992). |
 | Zennd | 2026-11-23 11:57 | Acrescenta a imagem da árvore (pergunta 1976). |
 | Zennd | 2026-11-23 11:36 | Cria o guia da árvore de crafts para o player (perguntas 1951, 1965 e 1975). |

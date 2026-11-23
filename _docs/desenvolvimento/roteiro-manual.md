@@ -1177,6 +1177,12 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 13 | Marque uma receita bloqueada à mão na grade | A mesa a reconhece e abre, com o + cinza |
 | 14 | Saia e entre no mundo | As receitas liberadas continuam liberadas |
 | 15 | Com o jogo em português | `Bloqueada`, `Liberada com: Cubit` e `Falta: 2 Diamante` |
+| 16 | Escolha a Toolbox com os materiais de 1 na entrada, e o pedido em 0 | Os 9 espaços em verde fraco e transparente, com os itens à vista |
+| 17 | Tire 1 ferro | Um espaço de ferro em vermelho fraco, e os outros em verde |
+| 18 | Devolva o ferro, aperte + até 1 e depois até 2, sem energia na mesa | Com 1, tudo verde. Com 2, 3 espaços de ferro verdes e 4 vermelhos, com a redstone e a obsidiana vermelhas, e o + continua aceso |
+| 19 | Com 2 no pedido, ponha mais 5 ferros | 6 espaços de ferro verdes e 1 vermelho, com a redstone e a obsidiana vermelhas |
+| 20 | Complete os materiais de 2 e dê energia | Tudo verde. Com 1 pronto, a conta é de 1, e continua verde |
+| 21 | Aperte − e + | As cores são refeitas a cada clique |
 
 ## Patrulheiro Galático
 
@@ -1406,6 +1412,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 12:31 | Acrescenta as cores da grade ao roteiro (perguntas 1996 a 2001). |
 | Zennd | 2026-11-23 12:17 | Acrescenta o roteiro do pedido com a progressão e o material (issue #250). |
 | Zennd | 2026-11-23 11:03 | Corrige a espera e a montagem do painel do Dock (perguntas 1895, 1912 e 1963). |
 | Zennd | 2026-11-23 10:57 | Acrescenta a lua na tela do Dock ao roteiro (perguntas 1956 a 1961). |

@@ -70,7 +70,8 @@ public final class DeskControl {
   private static DeskOrderGate gate(
       EngineeringDeskBlockEntity desk, ServerPlayer player, RecipeHolder<CraftingRecipe> recipe) {
     DeskShortage shortage =
-        DeskShortage.of(DeskGrid.of(recipe.value()), desk.input(), desk.output(), desk.slots());
+        DeskShortage.of(
+            DeskGrid.of(recipe.value()), desk.input(), desk.output(), desk.slots(), DeskOrder.STEP);
     return new DeskOrderGate(DeskRecipes.unlocked(player, recipe), shortage.isEmpty());
   }
 

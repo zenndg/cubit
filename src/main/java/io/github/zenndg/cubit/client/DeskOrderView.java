@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.client;
 
 import io.github.zenndg.cubit.block.DeskShortage;
+import io.github.zenndg.cubit.domain.desk.DeskOrder;
 import io.github.zenndg.cubit.domain.desk.DeskOrderGate;
 import io.github.zenndg.cubit.menu.DeskScreenKeys;
 import io.github.zenndg.cubit.menu.EngineeringDeskMenu;
@@ -15,7 +16,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 /**
@@ -47,11 +47,10 @@ final class DeskOrderView {
         .orElse(false);
   }
 
-  /** Nothing is missing without a recipe, or while an order is on its way and shows its pause. */
+  /** What is missing for what is left of the order, or for one item without an order (1997). */
   DeskShortage shortage() {
-    return menu.total() > menu.done()
-        ? DeskShortage.NONE
-        : chosen().map(menu::shortage).orElse(DeskShortage.NONE);
+    int units = Math.max(DeskOrder.STEP, menu.total() - menu.done());
+    return chosen().map(recipe -> menu.shortage(recipe, units)).orElse(DeskShortage.NONE);
   }
 
   List<Component> reasons() {
@@ -83,10 +82,10 @@ final class DeskOrderView {
   /** One line for each missing item, with how many. */
   private static List<Component> missing(DeskShortage shortage) {
     Map<String, Integer> counts = new LinkedHashMap<>();
-    for (Ingredient mark : shortage.missing()) {
-      ItemStack[] items = mark.getItems();
+    for (DeskShortage.Lack lack : shortage.lacks().values()) {
+      ItemStack[] items = lack.mark().getItems();
       if (items.length > 0) {
-        counts.merge(items[0].getHoverName().getString(), 1, Integer::sum);
+        counts.merge(items[0].getHoverName().getString(), lack.count(), Integer::sum);
       }
     }
     List<Component> lines = new ArrayList<>();
