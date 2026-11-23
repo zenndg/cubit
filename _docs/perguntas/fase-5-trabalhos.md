@@ -850,11 +850,13 @@ Não há perguntas pendentes nesta fase.
 | 1903 | Como o painel do Dock fica montado no 3º bloco? | Inclinado uns 15° para a frente, como um painel de verdade virado para o sol, com o lado mais alto nas costas. A recomendação, plano no alto, foi recusada. Detalha a 1893 |
 | 1904 | Pedido do desenvolvedor: qual a espessura do painel do Dock? | Fina, como a de um painel solar de verdade: o painel é uma placa, e não um bloco com os lados iguais. O desenvolvedor disse "lembre o painel solar é fino em espessura da base a altura igual um painel solar REAL. Ele não é um bloco quadrado com lados iguais". Detalha a 1893 |
 | 1905 | O conceito do Dock refeito, com os 3 blocos, o bloco do topo e a migração, o painel fino de 16×16 px inclinado 15° no 3º bloco e sustentado pelos braços, a transformação em sanfona de cerca de 6 s, a faixa acima da placa, a prancha nova e as prévias (respostas 1891 a 1904), pode ir aos documentos e depois ao código? | O desenvolvedor escolheu "Autorizado" (regra 54): seguem os documentos e os prompts da prancha nova, e o código vem depois da prancha aceita |
+| 1906 | A prancha nova do Dock, em três imagens (vistas, transformação e detalhes), está aceita? Ela confere com o conceito, com seis desvios | Aceita como referência, com os desvios corrigidos direto no modelo e na textura, como na 1487: os braços saem do armário das costas e passam sobre a torre, nunca da lateral ou da frente; o cotovelo fica dentro da área de 1 bloco; a torre continua arredondada, com a placa em U do Dock de hoje; cada metade tem 4 lâminas; as portas deslizam no passo 1; e os pontos laranja ficam visíveis nos cantos do painel. A recomendação foi aceita. Detalha a 1900 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 01:28 | Registra a resposta 1906. |
 | Zennd | 2026-11-23 01:16 | Registra a resposta 1905. |
 | Zennd | 2026-11-23 01:16 | Registra as respostas 1900 a 1904. |
 | Zennd | 2026-11-23 01:14 | Registra as respostas 1896 a 1899. |
