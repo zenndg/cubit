@@ -722,7 +722,7 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#tiers-do-dock),
 
 ## Dock Solar
 
-As regras estão em [`energia.md`](../funcionalidades/energia.md#dock-solar). Use um Induction Dock com algum tier, energia e itens no inventário, e os materiais do painel: vidro, 2 sensores de luz do dia, 1 bloco de redstone e 3 lingotes de ferro.
+As regras estão em [`energia.md`](../funcionalidades/energia.md#painel-solar-do-dock). Esta seção é refeita na entrega 1 do Dock unificado (issue #246), porque o Dock Solar saiu do mod (pergunta 1854). Use um Induction Dock com algum tier, energia e itens no inventário, e os materiais do painel: vidro, 2 sensores de luz do dia, 1 bloco de redstone e 3 lingotes de ferro.
 
 | # | Faça | Espere |
 |---|---|---|
@@ -1336,6 +1336,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:45 | Aponta a seção do Dock Solar para o painel de todo Dock (pergunta 1854). |
 | Zennd | 2026-11-22 22:08 | Deixa os olhos nítidos atrás do visor nos passos do visual do Patrulheiro (pergunta 1811). |
 | Zennd | 2026-11-22 22:05 | Faz o visor descer à frente dos olhos nos passos do visual do Patrulheiro (perguntas 1809 e 1810). |
 | Zennd | 2026-11-22 22:00 | Faz as asas crescerem e fecharem 2 s depois do pouso nos passos do visual e dos sons (perguntas 1806 a 1808). |

@@ -44,8 +44,8 @@ O Dock sobe de tier com os mesmos Modules do Cubit (perguntas 1373 a 1380). Os n
 | Recarga do Cubit e da Power Bank guardada | 500 FE/t | 1.000 FE/t | 2.500 FE/t | 5.000 FE/t |
 | Slots do inventário | 27 | 36 | 45 | 54 |
 | Entrada, por cabos e redstone | 5.000 FE/t | 5.000 FE/t | 5.000 FE/t | 5.000 FE/t |
-| Geração do painel do Dock Solar, de dia, a céu aberto e sem chuva, em `dock_solar_per_tick` (pergunta 1385) | 25 FE/t | 100 FE/t | 500 FE/t | 1.400 FE/t |
-| Faixa, no topo da torre (pergunta 1389) | Cinza | Azul | Roxa | Dourada, com o corpo em netherite |
+| Geração do painel do Dock, de dia, a céu aberto e sem chuva, com o painel montado, em `dock_solar_per_tick` (perguntas 1385 e 1855) | 25 FE/t | 100 FE/t | 500 FE/t | 1.400 FE/t |
+| Faixa, na borda em volta do topo da torre (perguntas 1389 e 1871) | Cinza | Azul | Roxa | Dourada, com o corpo em netherite |
 
 ## Engineering Desk
 
@@ -188,6 +188,7 @@ Valem para todos os tiers e ficam no config. Os marcados como planejados entram 
 | Intervalo do ímã | 10 ticks (resposta 887) |
 | Custo de abrir uma porta marcada, `door_open_cost` | 50 FE (pergunta 1368) |
 | Portas marcadas por dono, `door_marks_limit` | 64 (pergunta 1369) |
+| Dock: tempo seguido com sol para montar o painel, e sem sol para guardá-lo, `dock_solar_deploy_delay_ticks` (pergunta 1856) | 10 s (200 ticks) |
 
 ## Coleta e inventário
 
@@ -334,6 +335,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:45 | Passa a geração solar a todo Dock e a faixa para a borda do topo (perguntas 1855 e 1871). |
 | Zennd | 2026-11-22 23:10 | Acrescenta os números do XP Cubit e Dock (perguntas 1817 a 1835). |
 | Zennd | 2026-11-22 22:00 | Acrescenta o tempo em que as asas continuam abertas (pergunta 1807). |
 | Zennd | 2026-11-22 21:46 | Acrescenta a distância em que a Plasma Blade acende e o tempo em que ela continua acesa (perguntas 1804 e 1805). |

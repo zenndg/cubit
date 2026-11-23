@@ -10,7 +10,7 @@ A Engineering Desk, `cubit:engineering_desk`, é a mesa de criação do mod: tod
 
 ## Receita da própria mesa
 
-- **Única na mesa do jogo:** a Engineering Desk é a única receita do mod que fica na mesa de craft do jogo (pergunta 1430). Todas as outras saem dela, inclusive as que carregam estado: o upgrade da Power Bank, o Dock Solar, religar o Cubit com a Power Bank e o conserto com a Toolbox (pergunta 1427).
+- **Única na mesa do jogo:** a Engineering Desk é a única receita do mod que fica na mesa de craft do jogo (pergunta 1430). Todas as outras saem dela, inclusive as que carregam estado: o upgrade da Power Bank, religar o Cubit com a Power Bank e o conserto com a Toolbox (pergunta 1427).
 - **Grade:** painel de vidro, redstone, painel de vidro / baú, mesa de craft, baú / lingote de ferro, lingote de ferro, lingote de ferro. O laptop em cima, os gaveteiros nas laterais.
 - **Livro:** aparece no livro de receitas do jogo desde o início.
 - **Primeira mesa:** ao colocar a primeira mesa, um texto curto, no estilo dos textos do Cubit, diz para escolher uma receita no catálogo e alimentar a mesa com redstone ou FE (pergunta 1479).
@@ -83,7 +83,6 @@ Uma receita feita de itens que a própria mesa fabrica, como o Cubit, feito das 
 
 - **Item real:** a mesa usa o primeiro item do inventário de entrada que serve, na ordem dos slots, e passa o estado como hoje (pergunta 1427).
 - **Upgrade da Power Bank:** se a carga não couber na nova, a receita não roda, e a tela explica por quê (pergunta 907).
-- **Dock Solar:** o Dock passa o tier, a energia e o inventário para o Dock Solar.
 - **Religar o Cubit:** a Power Bank volta para o inventário de saída com a carga que sobrou, junto do Cubit.
 - **Conserto:** a Toolbox é consumida, e o Cubit sai como no conserto de hoje.
 
@@ -193,6 +192,7 @@ Uma issue mãe e quatro PRs, em ordem, cada um testável no jogo (pergunta 1478)
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:45 | Tira a receita do Dock Solar, que saiu do mod (pergunta 1854). |
 | Zennd | 2026-11-21 21:39 | Registra o tooltip dos itens da receita (pergunta 1548). |
 | Zennd | 2026-11-21 20:18 | Detalha o plugin do JEI (perguntas 1531 a 1533). |
 | Zennd | 2026-11-21 20:02 | Registra o campo `desk_category` e a busca do catálogo (perguntas 1521 a 1525). |

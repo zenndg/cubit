@@ -17,8 +17,6 @@
 | Cubit Casing, Cubit Visor, Cubit Treads e Cubit Neural Core | As peças que montam o Cubit ([`pecas.md`](funcionalidades/pecas.md)) |
 | Power Bank Casing | A carcaça das Power Banks |
 | Base, Advanced, Elite e Ultimate Power Cell | A célula de cada tier, que vai dentro da Power Bank |
-| Dock Solar Panel | O painel solar que, com um Induction Dock, faz o Solar Induction Dock |
-| Solar Induction Dock | O Induction Dock com o painel solar acoplado, que gera FE ao ar livre ([`energia.md`](funcionalidades/energia.md#dock-solar)) |
 | Recharge Splash | Mistura de arremesso que recupera parte da vida e da energia dos Cubits do dono ([`energia.md`](funcionalidades/energia.md#recharge-splash)) |
 | Engineering Desk | A mesa de criação do mod, de onde saem todos os itens dele ([`mesa-de-engenharia.md`](funcionalidades/mesa-de-engenharia.md)) |
 
@@ -49,8 +47,6 @@
 | Ultimate Power Cell | `cubit:ultimate_power_cell` | [Abaixo](#peças-de-montagem) |
 | Card Casing | `cubit:ml_card_casing` | [Abaixo](#cards-de-trabalho) |
 | Circuit Board | `cubit:ml_circuit_board` | [Abaixo](#cards-de-trabalho) |
-| Dock Solar Panel | `cubit:dock_solar_panel` | [Abaixo](#dock-solar) |
-| Solar Induction Dock | `cubit:solar_induction_dock` | [Abaixo](#dock-solar) |
 | Recharge Splash | `cubit:recharge_splash` | [Abaixo](#recharge-splash) |
 | Engineering Desk | `cubit:engineering_desk` | [Abaixo](#engineering-desk) |
 
@@ -63,7 +59,7 @@ Só com recursos do jogo puro. Todas as receitas do mod saem da [Engineering Des
 | 1 | Desde o início | Cubit, Cubit Casing, Cubit Visor, Cubit Treads, Cubit Neural Core e Toolbox |
 | 2 | Ao ter um Cubit | Induction Dock, Cubit Tablet, Power Bank Casing, Base Power Cell, Advanced Module e a Recharge Splash |
 | 3 | Ao ter o Module do tier | Com o Advanced, a Card Casing, a Circuit Board, os cards do Avançado e o Elite Module; com o Elite, os cards do Elite e o Ultimate Module. Nenhum card espera o Ultimate (perguntas 1546 e 1598) |
-| 4 | Ao ter o item anterior da cadeia | Base Power Bank, com a Base Power Cell; cada célula e cada Power Bank seguinte, com a Power Bank anterior; as Power Banks do zero, com a célula do tier; o Dock Solar Panel, com o Dock; o Solar Induction Dock, com o painel |
+| 4 | Ao ter o item anterior da cadeia | Base Power Bank, com a Base Power Cell; cada célula e cada Power Bank seguinte, com a Power Bank anterior; as Power Banks do zero, com a célula do tier |
 | 5 | Ao precisar | Religar o Cubit, com uma Power Bank; o conserto, com um Damaged Cubit ou uma Toolbox |
 
 ### Engineering Desk
@@ -108,15 +104,6 @@ Na Engineering Desk, com forma (perguntas 1025, 1030 e 1331): 2 painéis de vidr
 | Linha 1 | Painel de vidro | Redstone | Painel de vidro |
 | Linha 2 | Quartzo | Diamante | Quartzo |
 | Linha 3 | Quartzo | Obsidiana | Quartzo |
-
-### Dock Solar
-
-Na Engineering Desk (perguntas 1384 e 1387). O Dock Solar Panel aparece no livro com um Induction Dock, e o Solar Induction Dock, com o painel.
-
-| Item | Receita |
-|---|---|
-| Dock Solar Panel | Vidro, vidro, vidro / sensor de luz do dia, bloco de redstone, sensor de luz do dia / lingote de ferro, lingote de ferro, lingote de ferro |
-| Solar Induction Dock | O Dock Solar Panel e um Induction Dock, sem forma, no tipo `cubit:solar_dock_assembly`, que passa o tier, a energia e o inventário do Dock |
 
 ### Recharge Splash
 
@@ -272,8 +259,7 @@ Estes nomes não mudam sem migração (regra 18 do `AGENTS.md`).
 | Componente do item | `cubit:energy_slot` | Item do slot de energia e reserva de FE, também no item danificado |
 | Componente do item | `cubit:torch_slot` | As tochas do slot de tochas, também no item danificado. Sem o componente, o slot fica vazio (pergunta 981) |
 | Componente do item do Dock | `cubit:dock_energy` | Energia do estoque |
-| Bloco e item | `cubit:solar_induction_dock` | O Dock Solar, com os mesmos componentes, NBT e estados do Induction Dock (pergunta 1386) |
-| Tipo de receita | `cubit:solar_dock_assembly` | O Dock Solar Panel e um Induction Dock, que passa os componentes do Dock para o Dock Solar |
+| Componente do item do Dock | `cubit:dock_id` | O UUID próprio do Dock, que dá o nome padrão. Sem o componente, o Dock sorteia um ao ser colocado (pergunta 1869) |
 | Componente do item do Dock | `cubit:dock_tier` | O tier do Dock: `base`, `advanced`, `elite` ou `ultimate`. Sem o componente, vale `base` (pergunta 1373) |
 | Componente do Tablet | `cubit:tablet_app` | O app ativo: `open`, `target` ou `dock`. Sem o componente, vale `open` (pergunta 1026) |
 | Attachment do player | `cubit:chosen_robot` | O UUID do Cubit escolhido no Tablet (pergunta 1026) |
@@ -288,7 +274,9 @@ Estes nomes não mudam sem migração (regra 18 do `AGENTS.md`).
 | Dados do mundo | `cubit_dead_robots` | Robôs mortos com o dono offline |
 | NBT da entidade | `Owner`, `Tier`, `Energy`, `PowerState`, `LastSafePosition`, `Inventory`, `EnergySlot`, `TorchSlot` e `TorchesEnabled` | Dono, tier, carga da bateria, estado, última posição segura, inventário, com `Slot` em cada item, slot de energia, com `Item` e `Reserve`, as tochas do slot de tochas e a chave delas, que vale ligada sem a chave no save (pergunta 981) |
 | NBT do bloco do Dock | `Owner`, `Energy`, `Slot`, `Storage` e `Tier` | Dono, estoque, item do slot de entrada, inventário e tier, que sem a chave vale `base` (pergunta 1373), com `Slot` em cada item (pergunta 958). `ChargeSlot`, de antes, só é lido, e a Power Bank dele vai para o primeiro slot do inventário (pergunta 955) |
-| Estado do bloco do Dock | `facing`, `half`, `status` e `tier` | Direção, parte de baixo ou de cima e estado da tela: `off`, `idle`, `charging`, `complete` ou `no_energy`. O `tier` escolhe a faixa e o corpo: `base`, `advanced`, `elite` ou `ultimate` (pergunta 1379) |
+| NBT do bloco do Dock | `DockId`, `CustomName` e `SolarPanel` | O UUID próprio do Dock, sorteado ao carregar se faltar; o nome dado pelo Rename ou pela etiqueta, que sem a chave é o padrão `Dock` e os 8 primeiros dígitos do UUID; e o painel, `stored` ou `deployed`, que sem a chave vale `stored` (perguntas 1864, 1868 e 1869) |
+| Nome do item do Dock | O componente `minecraft:custom_name` do jogo | O nome dado ao Dock, que volta com ele ao ser colocado (pergunta 1870) |
+| Estado do bloco do Dock | `facing`, `half`, `status` e `tier` | Direção, parte de baixo ou de cima e estado da tela: `off`, `idle`, `charging`, `complete` ou `no_energy`. O `tier` escolhe a faixa, na borda em volta do topo, e o corpo: `base`, `advanced`, `elite` ou `ultimate` (perguntas 1379 e 1871) |
 | NBT da entidade na base | `DockPosition` | Posição do Dock em que hiberna |
 | NBT da entidade | `PreferredDock` | O Dock preferido, escolhido pelo app Dock do Tablet, com a posição e a dimensão (perguntas 1026 e 1036) |
 | NBT da entidade | `LampEnabled` | Chave da lanterna. Sem a chave no save, vale ligada |
@@ -346,6 +334,7 @@ O estado salvo é validado ao entrar no jogo, sem derrubá-lo (regra 17 do `AGEN
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:45 | Tira o Dock Solar Panel e o Solar Induction Dock e acrescenta o UUID, o nome e o painel do Dock (perguntas 1854 e 1864 a 1871). |
 | Zennd | 2026-11-22 16:59 | Completa os campos de `cubit:robot_state`, com a apresentação (perguntas 1254, 1266, 1301, 1750 e 1765) |
 | Zennd | 2026-11-22 13:00 | Atualiza o que os apps do Tablet marcam, com a rota e a escolta do Patrulheiro (perguntas 1579 e 1655). |
 | Zennd | 2026-11-22 09:45 | Tira os cards do Ultimate da liberação das receitas (pergunta 1608). |

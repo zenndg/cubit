@@ -26,6 +26,16 @@ Os arquivos ficam em `src/main/resources/assets/cubit/sounds/engineering_desk/`,
 | `done.ogg` | Quando cada item fica pronto | Menos de 1 s. Um "plim" eletrônico curto e satisfatório, com um leve estalo de faísca e o clique da gaveta fechando |
 | `startup.ogg` | Na animação de ligação, ao colocar a mesa | 1 a 2 s. Um bipe de ligação simpático, da família dos bipes do Cubit, subindo de tom, como um computador fofo acordando |
 
+## Induction Dock
+
+Os arquivos ficam em `src/main/resources/assets/cubit/sounds/induction_dock/`, a partir dos `.wav` fornecidos pelo desenvolvedor, convertidos para Ogg, mono e 48 kHz, com os originais em `tmp/wav/dock/` (perguntas 1490, 1491 e 1861). Os IDs são `cubit:induction_dock.{nome}`, com as legendas em inglês e português, ouvidos até 16 blocos, como os outros sons do mod. O Dock é um dos itens mais importantes do mod, e os sons seguem o cuidado do visual (pergunta 1853).
+
+| Arquivo | Para que é usado | Duração e clima |
+|---|---|---|
+| `panel_deploy.ogg` | A montagem do painel: as portas deslizando, os braços saindo e subindo e as metades deitando (passos 1 a 4 da montagem) | Cerca de 3 s. Um mecanismo preciso e bem lubrificado: o deslize suave das portas, o zumbido de servos subindo de tom enquanto os braços sobem, e um leve assentar das metades. Tecnológico e caprichado, sem rangido nem pancada |
+| `panel_lock.ogg` | As duas metades se unindo no centro, com a trava (passo 5) | Menos de 0,5 s. Um clique metálico firme e satisfatório, com um bipe curto de confirmação, da família dos bipes do Cubit |
+| `panel_retract.ogg` | A desmontagem do painel, do destravar ao fechar das portas | Cerca de 3,5 s. O destravar curto, o zumbido dos servos descendo de tom, as metades recolhendo e o deslize das portas fechando, terminando num assentar macio |
+
 ## Patrulheiro Galático
 
 Os arquivos ficam em `src/main/resources/assets/cubit/sounds/general_robot/patroller/`, a partir dos `.wav` fornecidos pelo desenvolvedor, convertidos para Ogg, com os originais em `tmp/wav/patrulheiro/` (pergunta 1575). O card tem a prioridade mais alta, e os sons seguem o mesmo cuidado do visual (pergunta 1560). Todos têm o tom de ficção científica alegre do Cubit: nada de tiro realista nem de zumbido que lembre o sabre de luz.
@@ -53,6 +63,7 @@ Os arquivos ficam em `src/main/resources/assets/cubit/sounds/general_robot/patro
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:45 | Descreve os três sons do painel do Dock (perguntas 1853 e 1861). |
 | Zennd | 2026-11-22 22:00 | Toca o fechamento das asas no fim do tempo em que ficam abertas (pergunta 1807). |
 | Zennd | 2026-11-22 21:46 | Liga os sons da lâmina à distância em que ela acende e ao tempo em que continua acesa (perguntas 1804 e 1805). |
 | Zennd | 2026-11-22 21:31 | Registra os IDs, os tons, o mono do golpe, o estouro num bloco, onde tocam e o volume dos sons do Patrulheiro (perguntas 1790 a 1799). |

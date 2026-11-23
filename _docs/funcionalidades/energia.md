@@ -101,25 +101,44 @@ O Induction Dock sobe de tier com os mesmos Modules do Cubit (issue #225, pergun
 - **O que muda com o tier:** o estoque, os slots do inventário e a recarga do Cubit e da Power Bank guardada. A entrada, por cabos e redstone, fica em 5.000 FE/t em todos (pergunta 1374).
 - **Slots novos:** ao subir, os slots a mais aparecem vazios, e os itens continuam onde estavam.
 - **Recolher:** o item do Dock guarda o tier, com a energia e o inventário, e o Dock volta no mesmo tier ao ser colocado (pergunta 1373).
-- **Faixa:** a tampa do topo da torre fica na cor do tier, para ser fácil de ver: cinza, azul, roxo e dourado (perguntas 1379 e 1389).
+- **Faixa:** uma borda em volta do topo da torre, nas quatro laterais, fica na cor do tier, para ser fácil de ver: cinza, azul, roxo e dourado. O painel montado deita por dentro dela (perguntas 1379, 1389 e 1871).
 - **Ultimate:** o corpo do Dock fica em netherite, como a Ultimate Power Bank e o Ultimate Module (pergunta 1380).
 - **Tela e Jade:** a tela do Dock e o Jade mostram o tier, na cor dele.
 - **Saves antigos:** um Dock sem o tier, colocado antes, vale como Base, e o estoque dele passa a caber 300 mil FE.
 
-### Dock Solar
+### Painel solar do Dock
 
-O Solar Induction Dock é o Induction Dock com um painel solar acoplado no topo da torre (issue #227, perguntas 1362 e 1384 a 1388). Os números estão em [`tiers.md`](../tiers.md#induction-dock).
+Todo Induction Dock tem um painel solar embutido, que ele monta e guarda sozinho (issue #246, perguntas 1852 a 1866, com o conceito autorizado na 1872). O Solar Induction Dock, o Dock Solar Panel e a receita que os juntava, da issue #227, saem do mod sem migração, porque nunca foram publicados (pergunta 1854). Os números estão em [`tiers.md`](../tiers.md#induction-dock).
 
-- **Craft:** o Dock Solar Panel e um Induction Dock, em qualquer posição da grade. O Dock passa o tier, a energia e o inventário para o Dock Solar, como a Power Bank passa a carga.
-- **Gera:** de dia, a céu aberto e sem chuva, o painel põe no estoque 25, 100, 500 ou 1.400 FE/t, pelo tier, o que enche o estoque em cerca de um dia de sol. A geração soma à entrada dos cabos e da redstone, sem passar do estoque.
-- **Sem sol:** dentro de casa, com um bloco opaco sobre o painel, com chuva ou tempestade, à noite, no Nether e no End, ele se comporta como um Dock normal, sem gerar. O vidro deixa passar a luz, como no painel do Cubit, que usa a mesma leitura do céu e o mesmo intervalo (pergunta 1398).
-- **O resto:** faz tudo o que o Dock faz: recebe o Cubit, hiberna, fila, inventário, cabos e os tiers pelos Modules.
-- **Aba Solar:** só no Dock Solar, com o ícone do Dock Solar Panel. Mostra o status, gerando ou parado; quando parado, o motivo: noite, chuva, céu coberto ou sem sol na dimensão; a geração de agora; e a máxima do tier. A aba principal fica igual à do Dock comum (perguntas 1395 a 1397).
-- **Jade:** mostra a geração, como `Solar +25 FE/t`, ou `Solar: no sun` sem sol.
-- **Sinal:** enquanto gera, a face do painel clareia e escurece devagar, com o mesmo pulso do painel do Cubit (pergunta 1392).
-- **Visual:** o painel fica num mastro curto sobre a torre, inclinado para a frente, como na [imagem conceito](../imagens/conceito/induction-dock-solar.png).
-- **Quebrar:** o item é o Solar Induction Dock, com o tier, a energia e o inventário, sem separar o painel.
-- **Onde colocar:** ao ar livre, para o painel ver o céu.
+- **Gera:** de dia, a céu aberto e sem chuva, com o painel montado por completo, o painel põe no estoque 25, 100, 500 ou 1.400 FE/t, pelo tier do Dock, também no Base. A geração soma à entrada dos cabos e da redstone, sem passar do estoque (pergunta 1855).
+- **Sol:** a leitura do céu é a de hoje. Dentro de casa, com um bloco opaco acima do Dock, com chuva ou tempestade, à noite, no Nether e no End, não há sol. O vidro e os outros blocos translúcidos deixam passar a luz, e o painel monta (perguntas 1398 e 1853).
+- **Montar:** depois de 10 s seguidos com sol, o Dock monta o painel. **Guardar:** depois de 10 s seguidos sem sol, inclusive ao anoitecer, ele o guarda no armário. A espera evita abrir e fechar a cada nuvem de chuva (perguntas 1856 e 1862).
+- **Armário:** fica na parte de trás da torre, com as duas metades do painel guardadas em pé e dois braços. As duas portas deslizam para os lados, por dentro da parede, como portas de elevador, e abrem mesmo com um bloco encostado atrás do Dock (perguntas 1852 e 1858).
+- **Painel montado:** deitado sobre o topo da torre, por dentro da borda da faixa do tier, inclinado só o que couber no bloco de cima do Dock, com a mesma largura dele, sem nunca entrar no bloco acima. A faixa continua visível em volta (perguntas 1857 e 1871).
+- **Montagem,** em seis passos, cerca de 4 s, e a desmontagem na ordem contrária (pergunta 1859):
+  1. A luz das portas pisca em amarelo, e as portas deslizam (0,6 s).
+  2. Os dois braços saem com as metades do painel em pé (0,8 s).
+  3. Os braços sobem as metades até o topo da torre (1 s).
+  4. Deitam cada metade de um lado (0,6 s).
+  5. Encostam as duas no centro, com o clique da trava (0,5 s).
+  6. Os braços recolhem, a luz fica verde e o painel começa a pulsar (0,5 s). As portas ficam abertas.
+- **Luz:** um pequeno ponto na borda de cada porta, verde com o painel montado, vermelho com as portas fechadas e o painel guardado, e piscando em amarelo durante o movimento. O painel não troca de cor (perguntas 1853 e 1863).
+- **Sinal:** com o painel montado e gerando, a face dele clareia e escurece devagar, com o mesmo efeito do painel do Cubit (pergunta 1853).
+- **No meio do movimento:** o servidor decide e salva só se o painel está montado ou guardado, e o cliente toca a animação. Ao carregar o mundo ou o chunk no meio de um movimento, o Dock aparece direto no destino. Quebrado, o painel some com o Dock, que sai como item, como hoje (pergunta 1864).
+- **Sons:** três sons próprios, descritos em [`sons.md`](../conceito/sons.md#induction-dock): a abertura e a montagem, a desmontagem e o fechamento, e a trava (pergunta 1861).
+- **Aba Solar:** em todo Dock, com o que mostrava no Dock Solar (gerando ou parado, o motivo, a geração de agora e a máxima do tier) e o estado do painel: Guardado, Montando, Montado ou Guardando, com a luz (pergunta 1865).
+- **Jade:** mostra a geração, como `Solar +25 FE/t`, ou `Solar: no sun`, e o estado do painel (pergunta 1865).
+- **Modelo:** o Dock passa a usar o GeckoLib, como a Engineering Desk, no mundo e no inventário. Primeiro vem uma prancha conceito com o armário, os braços e o painel, por prompt, com a arte do desenvolvedor. Depois, o modelo e o prompt da textura com o gabarito UV (pergunta 1860).
+- **O resto:** tudo o que o Dock faz continua igual: recebe o Cubit, hiberna, fila, inventário, cabos e os tiers pelos Modules.
+- **Saves antigos:** um Dock de antes vem com o painel guardado e o monta sozinho quando houver sol.
+
+### Nome do Dock
+
+O Dock tem um nome, como o Cubit (perguntas 1867 a 1870).
+
+- **Padrão:** `Dock` seguido dos 8 primeiros dígitos de um UUID próprio do Dock, como `Dock 3f9a2c1b`. O UUID é sorteado ao colocar o Dock, salvo no NBT e no item, e não muda ao quebrar e colocar de novo. Um Dock de um mundo antigo, sem UUID, sorteia o seu ao carregar, sem mudar mais nada (regra 18).
+- **Renomear:** um botão `Rename` na tela do Dock, com as regras do Rename do Cubit: até 50 caracteres, espaços das pontas cortados, só o dono, conferido no servidor. Um nome vazio volta ao padrão, para o Dock nunca ficar sem nome. A etiqueta do jogo também renomeia.
+- **Onde aparece:** no título da tela do Dock, no lugar de `Induction Dock`; no Jade; no app Dock do Tablet e no Dock preferido; no nome do item do Dock quebrado; e nos avisos que citam um Dock, como os do retorno automático e do XP.
 
 ### Ir para a base e sair dela
 
@@ -207,6 +226,7 @@ Entra com o item 15 da Fase 4.2, antes do modo área (perguntas 1065 a 1069).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:44 | Troca o Dock Solar pelo painel embutido em todo Dock, com o armário animado, e acrescenta o nome do Dock (perguntas 1852 a 1871). |
 | Zennd | 2026-11-22 14:50 | Acrescenta o retorno do Patrulheiro (perguntas 1688 a 1690 e 1699). |
 | Zennd | 2026-11-21 12:50 | Passa a recarga do item para a Engineering Desk (pergunta 1427). |
 | Marcelo Fabiano | 2026-11-21 11:30 | Adiciona a Recharge Splash e a imagem dela (perguntas 1399 a 1423). |
