@@ -1001,11 +1001,13 @@ Não há perguntas pendentes nesta fase.
 | 2054 | As prévias da quantidade em 0 e das peças prontas em slots (2052 e 2053) podem ir ao código? | Sim, como estão. Em 0: o nome do item, `Press + to set the amount` / `Use + para escolher a quantidade`, nenhum slot e o View plan apagado com esse motivo. De 1 em diante: os materiais e as peças prontas em slots azul-claros, com a dica `Already made: uses 1` / `Já pronta: usa 1`, sem a linha Using, e o − desce até 0. A recomendação foi aceita |
 | 2055 | O `AGENTS.md` pode citar `CascadeAmount` e `CascadeNeed` na estrutura de pacotes, e o "Estado atual" as respostas 2006 a 2054? | Sim, autorizado. A recomendação foi aceita |
 | 2056 | A correção da quantidade em 0 e das peças prontas em slots (2052 a 2054) foi testada no jogo e está aprovada? | Testado e aprovado |
+| 2057 | Ideia do desenvolvedor: "um novo tier acima do ultimate usando estrela do whiter e outros itens mais raros do minecraft o status é dobro do tier anterior e pode ser aplicado somente para cubit". Onde fica? | Anotada em `_docs/backlog.md`, na seção Todo Cubit, sem nada decidido |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 20:27 | Registra a resposta 2057. |
 | Zennd | 2026-11-23 20:23 | Registra as respostas 2055 a 2056. |
 | Zennd | 2026-11-23 16:53 | Registra a resposta 2054. |
 | Zennd | 2026-11-23 16:52 | Registra a resposta 2053. |
