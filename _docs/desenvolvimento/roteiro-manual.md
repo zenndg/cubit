@@ -1205,10 +1205,10 @@ Esta parte cobre o PR 4: o visual e os sons, em cinco entregas (pergunta 1771). 
 
 | # | Faça | Espere |
 |---|---|---|
-| 1 | Ponha o card no Cubit e olhe de frente | Aparecem o capacete branco, com o filete ciano, a base escura da estrela no alto e as dobradiças laranja dos lados, e o visor ciano translúcido deitado no topo. As antenas saem por cima do capacete |
+| 1 | Ponha o card no Cubit e olhe de frente | Aparecem o capacete cinza-grafite, com o filete ciano, a base escura da estrela no alto e as dobradiças laranja dos lados, e o visor ciano translúcido deitado no topo, com as hastes das antenas passando por ele. As antenas saem por cima do capacete |
 | 2 | Olhe a garra direita do próprio Cubit, à esquerda de quem olha de frente | A pistola branca, com o cano ciano para a frente, o cabo escuro e o botão laranja |
 | 3 | Olhe o pulso esquerdo do próprio Cubit e a lateral esquerda do corpo | O emissor escuro com o anel laranja no pulso, sem lâmina, e o distintivo escuro na lateral |
-| 4 | Olhe por trás | A mochila branca com a tampa, os três propulsores escuros embaixo e as duas asas recolhidas sobre ela, com as pontas passando das bordas |
+| 4 | Olhe por trás | A mochila cinza-grafite com a tampa, os três propulsores escuros embaixo e as duas asas recolhidas sobre ela, com as pontas passando das bordas |
 | 5 | Ande com ele e deixe-o seguir você | As peças acompanham o corpo e os braços, sem se soltar nem atravessar o corpo de um jeito estranho |
 | 6 | Tire o card | Todas as peças somem, e ele volta ao Cubit sem trabalho. O painel solar reaparece |
 | 7 | Compare com o Cubit sem card e com o Pescador | Nenhuma peça do Patrulheiro aparece neles, e o chapéu e a mochila do Pescador continuam iguais |
@@ -1218,11 +1218,11 @@ Esta parte cobre o PR 4: o visual e os sons, em cinco entregas (pergunta 1771). 
 | # | Faça | Espere |
 |---|---|---|
 | 8 | Deixe-o fazer a ronda e parar num ponto | Na parada, o braço da pistola sobe um pouco e desce ao retomar a caminhada |
-| 9 | Chame um husk a 10 blocos, à vista | O visor gira na dobradiça da frente e desce sobre o alto da tela, e a tela mostra os olhos decididos ciano com as marcas de mira nos cantos |
-| 10 | Deixe o husk chegar perto dele | A lâmina verde, com a ponta em cunha, aparece na garra esquerda do próprio Cubit e some quando ele volta a atirar de longe ou o combate acaba |
+| 9 | Chame um husk a 10 blocos, à vista | O visor gira na dobradiça da frente e desce à frente dos olhos, cobrindo-os, e atrás da lente, bem transparente, a tela mostra nítidos os olhos decididos ciano com as marcas de mira nos cantos |
+| 10 | Deixe o husk chegar perto dele | A lâmina verde, com a ponta em cunha e o dobro do comprimento que tinha nas entregas anteriores, aparece na garra esquerda do próprio Cubit quando o husk chega a cerca de 8 blocos, mesmo com ele ainda atirando, e some uns 2 s depois que o husk se afasta ou morre |
 | 11 | Mate o husk e espere uns 3 s sem ameaça | O visor sobe de volta ao topo do capacete, e a tela volta aos olhos normais |
-| 12 | Empurre-o de 10 blocos de altura | As asas abrem para trás e para baixo durante a queda e fecham ao tocar o chão |
-| 13 | Ponha um muro de 2 blocos sem passagem no caminho dele | As asas abrem no pulo de asa e fecham no pouso |
+| 12 | Empurre-o de 10 blocos de altura | As asas abrem para trás e para baixo durante a queda, crescendo até o dobro do tamanho, e continuam abertas uns 2 s depois do pouso, quando fecham e voltam ao tamanho normal |
+| 13 | Ponha um muro de 2 blocos sem passagem no caminho dele | As asas abrem e crescem no pulo de asa e fecham uns 2 s depois do pouso. Se ele pular de novo nesse tempo, elas não fecham e reabrem |
 | 14 | No escuro, com o visor baixado | Os olhos decididos e as marcas brilham, como os olhos normais |
 | 15 | Tire o card durante um combate | O visor, as asas e a lâmina somem com as outras peças, e a tela volta ao normal |
 
@@ -1231,9 +1231,9 @@ Esta parte cobre o PR 4: o visual e os sons, em cinco entregas (pergunta 1771). 
 | # | Faça | Espere |
 |---|---|---|
 | 16 | Chame um husk a 10 blocos | Cada disparo é uma bolinha azul brilhante, com o rastro azul, e o acerto estoura em partículas azuis, sem quebrar blocos |
-| 17 | À noite, chame um husk | A bolinha brilha no escuro, e o visor baixado brilha em ciano |
+| 17 | À noite, chame um husk | A bolinha brilha no escuro, e o visor baixado brilha num ciano leve, com os olhos decididos nítidos atrás dele |
 | 18 | À noite, deixe o husk chegar perto | A lâmina verde brilha no escuro enquanto está acesa |
-| 19 | À noite, empurre-o de 10 blocos de altura | Com as asas abertas, o LED da borda, as três luzes da aleta e a chama azul curta dos três propulsores acendem, e tudo apaga ao tocar o chão |
+| 19 | À noite, empurre-o de 10 blocos de altura | Com as asas abertas, o LED da borda, as três luzes da aleta e a chama azul curta dos três propulsores acendem, e tudo apaga quando as asas fecham, uns 2 s depois do pouso |
 | 20 | De dia, ande ao lado dele sem combate e olhe o corpo de perto | O corpo continua branco, sem manchas das cores do Patrulheiro, e só as peças dele têm as cores novas |
 
 **Entrega 5, a textura do card.**
@@ -1242,6 +1242,25 @@ Esta parte cobre o PR 4: o visual e os sons, em cinco entregas (pergunta 1771). 
 |---|---|---|
 | 21 | Pegue o card do Patrulheiro e os dos outros trabalhos no inventário criativo | O card do Patrulheiro tem a mesma carcaça dos outros, com o escudo escuro e a estrela dourada no meio |
 | 22 | Ponha o card no slot do Cubit e abra a receita dele na Engineering Desk | O card aparece igual no slot, no catálogo da mesa e no JEI |
+
+**Entrega 4, os sons.** Ligue as legendas do jogo (Opções, Acessibilidade, Mostrar legendas) e use o volume de "Criaturas amigáveis" no padrão. Use o Cubit Elite com o card numa área marcada, com pontos de rota, e husks, com `/summon minecraft:husk`.
+
+| # | Faça | Espere |
+|---|---|---|
+| 23 | Chame um husk a 10 blocos, à vista | Ao baixar o visor, o deslize de servo e o bipe de mira travada, com a legenda `Cubit locks on` |
+| 24 | Deixe-o atirar várias vezes | Cada disparo é um "piu" eletrônico, em três tons que variam, com `Cubit fires a laser`, e nenhum som do jogo puro |
+| 25 | Ouça o globo acertar o husk e, depois, um bloco | O estalo magnético abafado nos dois casos, com `Laser orb bursts` |
+| 26 | Deixe o husk chegar a cerca de 8 blocos e depois perto | A lâmina acende a uns 8 blocos, ainda com ele atirando, com o "fuuum" subindo e `Plasma Blade ignites`, e de perto e cada golpe tem o sopro elétrico em três tons, com `Plasma Blade swings` |
+| 27 | Deixe a lâmina acertar o husk | O estalo de energia junto do empurrão, com `Plasma Blade hits` |
+| 28 | Mate o husk, ou afaste-o a mais de 8 blocos | Uns 2 s depois, a lâmina apaga com o "fuuum" descendo e o clique, com `Plasma Blade shuts off`. Se outro husk chegar perto nesses 2 s, ela segue acesa, sem apagar e reacender |
+| 29 | Espere uns 3 s sem ameaça | O visor sobe com o deslize ao contrário e o bipe calmo, com `Cubit raises its visor` |
+| 30 | Empurre-o de 10 blocos de altura | As asas abrem com o clique duplo e o sopro, com `Cubit opens its wings`, sem som de impulso, e fecham uns 2 s depois do pouso, com `Cubit folds its wings` |
+| 31 | Ponha um muro de 2 blocos sem passagem no caminho dele | No pulo de asa, o impulso grave, com `Cubit boosts`, junto da abertura das asas |
+| 32 | Chame um breeze, com `/summon minecraft:breeze`, e espere ele pular perto do Cubit | Contra o breeze ele usa só a lâmina, e o salto do combate tem o impulso, com `Cubit boosts` (pergunta 1696) |
+| 33 | Deixe-o andar descendo degraus de 1 bloco | As asas abrem, grandes, e ficam uns 2 s abertas a cada degrau. Confira se isso e os sons incomodam (perguntas 1800 e 1808) |
+| 34 | Tire o card durante um combate, com a lâmina acesa | Tocam o visor subindo e a lâmina apagando, e as peças somem (pergunta 1799) |
+| 35 | Afaste-se mais de 16 blocos durante um combate | Os sons somem aos poucos, até não serem mais ouvidos |
+| 36 | Com o jogo em português | As legendas `Cubit trava a mira`, `Cubit dispara o laser`, `Globo de laser estoura`, `Plasma Blade acende`, `Plasma Blade golpeia`, `Plasma Blade acerta`, `Plasma Blade apaga`, `Cubit ergue o visor`, `Cubit abre as asas`, `Cubit fecha as asas` e `Cubit dá um impulso` |
 
 ## Apresentação
 
@@ -1317,6 +1336,12 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 22:08 | Deixa os olhos nítidos atrás do visor nos passos do visual do Patrulheiro (pergunta 1811). |
+| Zennd | 2026-11-22 22:05 | Faz o visor descer à frente dos olhos nos passos do visual do Patrulheiro (perguntas 1809 e 1810). |
+| Zennd | 2026-11-22 22:00 | Faz as asas crescerem e fecharem 2 s depois do pouso nos passos do visual e dos sons (perguntas 1806 a 1808). |
+| Zennd | 2026-11-22 21:46 | Acende a lâmina a 8 blocos e a apaga 2 s depois nos passos do visual e dos sons (perguntas 1804 e 1805). |
+| Zennd | 2026-11-22 21:42 | Troca as cores do capacete e da mochila e o tamanho da lâmina nos passos do visual do Patrulheiro (perguntas 1801 e 1802). |
+| Zennd | 2026-11-22 21:31 | Adiciona os sons do Patrulheiro ao roteiro manual (perguntas 1790 a 1800). |
 | Zennd | 2026-11-22 18:21 | Adiciona a textura do card do Patrulheiro, entrega 5 do PR 4 (perguntas 1784 e 1785). |
 | Zennd | 2026-11-22 18:16 | Adiciona os efeitos do Patrulheiro, entrega 3 do PR 4 (perguntas 1772 e 1783). |
 | Zennd | 2026-11-22 18:12 | Adiciona as animações do Patrulheiro, entrega 2 do PR 4 (perguntas 1780 e 1781). |
