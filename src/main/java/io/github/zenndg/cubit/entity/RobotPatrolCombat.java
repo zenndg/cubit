@@ -22,6 +22,7 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.LargeFireball;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -138,6 +139,8 @@ public final class RobotPatrolCombat {
    */
   void tick() {
     step();
+    weapons.updateBlade(this, robot.level().getGameTime());
+    wings.updateOpen(armed(), robot.level().getGameTime());
     RobotJobLook.showPatrol(robot, this);
   }
 
@@ -384,11 +387,11 @@ public final class RobotPatrolCombat {
   }
 
   private static double floorBelow(LivingEntity mob) {
-    return mob.level()
-        .getHeight(
-            net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING,
-            mob.getBlockX(),
-            mob.getBlockZ());
+    return mob.level().getHeight(Heightmap.Types.MOTION_BLOCKING, mob.getBlockX(), mob.getBlockZ());
+  }
+
+  RobotPatrolWeapons weapons() {
+    return weapons;
   }
 
   void drop() {

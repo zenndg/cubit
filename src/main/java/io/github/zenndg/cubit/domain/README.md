@@ -140,6 +140,8 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `PowerSound` | Som tocado uma vez, ao ligar ou desligar |
 | `ContinuousSound` | Som em loop enquanto a condição valer: esteira, curto elétrico e recarga |
 | `PatrolSound` | Som do Patrulheiro Galático tocado uma vez, quando uma peça muda: o visor descendo e subindo, a lâmina acendendo e apagando e as asas abrindo e fechando |
+| `BladeGlow` | Quando a Plasma Blade é pedida acesa: com o alvo a até a distância de acender, mesmo enquanto ele atira (`Timings`: a distância e o tempo depois). Contra o creeper, sem arma, não acende |
+| `Linger` | Uma peça do Patrulheiro que continua ligada por um tempo depois do último momento em que foi pedida, sem desligar e religar se for pedida de novo a tempo: a lâmina acesa e as asas abertas |
 | `PatrolGear` | As peças do Patrulheiro que mudam com o uso: o visor baixado, a lâmina acesa e as asas abertas |
 | `RobotSoundRules` | Diz qual som cada situação toca, inclusive os de cada peça do Patrulheiro que mudou |
 | `SlotRecharge` | Reserva de FE do slot de energia e sua passagem para a bateria |

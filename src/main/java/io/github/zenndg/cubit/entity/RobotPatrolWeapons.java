@@ -1,6 +1,8 @@
 package io.github.zenndg.cubit.entity;
 
 import io.github.zenndg.cubit.CubitMod;
+import io.github.zenndg.cubit.domain.behavior.BladeGlow;
+import io.github.zenndg.cubit.domain.behavior.Linger;
 import io.github.zenndg.cubit.domain.tier.PatrollerSpec;
 import io.github.zenndg.cubit.registry.CubitDamageTypes;
 import io.github.zenndg.cubit.registry.CubitSounds;
@@ -24,9 +26,29 @@ final class RobotPatrolWeapons {
   private final RobotEntity robot;
   private long nextShot;
   private long nextSwing;
+  private Linger glow = Linger.OFF;
 
   RobotPatrolWeapons(RobotEntity robot) {
     this.robot = robot;
+  }
+
+  /**
+   * The blade lights from a target on the way in and stays lit a while after (answers 1804 and
+   * 1805). Without the card, it goes off at once, with the other parts (answer 1799).
+   */
+  void updateBlade(RobotPatrolCombat combat, long now) {
+    if (!combat.armed()) {
+      glow = Linger.OFF;
+      return;
+    }
+    BladeGlow.Timings timings = CubitMod.CONFIG.patrol().blade();
+    double distance = combat.target().map(robot::distanceTo).orElse(Float.MAX_VALUE);
+    boolean wanted = BladeGlow.wanted(combat.fighting(), combat.weapon(), distance, timings);
+    glow = glow.tick(wanted, now, timings.lingerTicks());
+  }
+
+  boolean bladeLit(long now) {
+    return glow.on(now);
   }
 
   void shoot(Entity target, PatrollerSpec spec, long now) {

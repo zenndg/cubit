@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.config;
 
 import com.mojang.logging.LogUtils;
+import io.github.zenndg.cubit.domain.behavior.BladeGlow;
 import io.github.zenndg.cubit.domain.behavior.PatrolRules;
 import io.github.zenndg.cubit.domain.behavior.PatrolSettings;
 import io.github.zenndg.cubit.domain.behavior.PatrolTeam;
@@ -46,6 +47,12 @@ public final class PatrolSection {
   private static final String GLIDE_DROP = "patroller_glide_drop_blocks";
   private static final String DETOUR = "patroller_wing_detour_factor";
   private static final String ESCORT_STILL = "patroller_escort_still_ticks";
+  private static final String BLADE_IGNITE = "patroller_blade_ignite_distance";
+  private static final String BLADE_LINGER = "patroller_blade_linger_ticks";
+  private static final int BLADE_IGNITE_DEFAULT = 8;
+  private static final int BLADE_LINGER_DEFAULT = 40;
+  private static final String WINGS_LINGER = "patroller_wings_linger_ticks";
+  private static final int WINGS_LINGER_DEFAULT = 40;
   private static final int ESCORT_STILL_DEFAULT = 20;
   private static final int ESCORT_STILL_MAX = 200;
   private static final double DETOUR_DEFAULT = 2;
@@ -189,6 +196,11 @@ public final class PatrolSection {
     return new PatrolRules.Knockback(fightKeys.knockbackBase.get(), fightKeys.knockbackStep.get());
   }
 
+  /** How near a target lights the blade and how long it stays lit (answers 1804 and 1805). */
+  public BladeGlow.Timings blade() {
+    return new BladeGlow.Timings(fightKeys.bladeIgnite.get(), fightKeys.bladeLinger.get());
+  }
+
   /** The experience of a kill as energy, far from the owner (answers 1728 to 1730). */
   public PatrolXp xp() {
     return new PatrolXp(fightKeys.xpEnergy.get(), fightKeys.xpOwner.get());
@@ -212,6 +224,11 @@ public final class PatrolSection {
   /** How many times the straight line a path may walk before the wings hop (answer 1651). */
   public double wingDetourFactor() {
     return moveKeys.detour.get();
+  }
+
+  /** How long the wings stay open and big after their use (answer 1807). */
+  public int wingsLingerTicks() {
+    return moveKeys.wingsLinger.get();
   }
 
   /** How long the escorted one stands still before the escort stops to look (answer 1744). */
@@ -251,6 +268,8 @@ public final class PatrolSection {
     final ModConfigSpec.DoubleValue knockbackStep;
     final ModConfigSpec.IntValue xpEnergy;
     final ModConfigSpec.IntValue xpOwner;
+    final ModConfigSpec.IntValue bladeIgnite;
+    final ModConfigSpec.IntValue bladeLinger;
 
     FightKeys(ModConfigSpec.Builder builder) {
       alert = builder.defineInRange(ALERT, ALERT_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
@@ -272,6 +291,9 @@ public final class PatrolSection {
           builder.defineInRange(KNOCKBACK_STEP, KNOCKBACK_STEP_DEFAULT, MIN_ZERO, KNOCKBACK_MAX);
       xpEnergy = builder.defineInRange(XP_ENERGY, XP_ENERGY_DEFAULT, MIN_ZERO, XP_ENERGY_MAX);
       xpOwner = builder.defineInRange(XP_OWNER, XP_OWNER_DEFAULT, MIN_ONE, XP_OWNER_MAX);
+      bladeIgnite = builder.defineInRange(BLADE_IGNITE, BLADE_IGNITE_DEFAULT, MIN_ZERO, BLOCKS_MAX);
+      bladeLinger =
+          builder.defineInRange(BLADE_LINGER, BLADE_LINGER_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
     }
   }
 
@@ -282,6 +304,7 @@ public final class PatrolSection {
     final ModConfigSpec.IntValue glideDrop;
     final ModConfigSpec.DoubleValue detour;
     final ModConfigSpec.IntValue escortStill;
+    final ModConfigSpec.IntValue wingsLinger;
 
     MoveKeys(ModConfigSpec.Builder builder) {
       interceptInterval =
@@ -294,6 +317,8 @@ public final class PatrolSection {
       detour = builder.defineInRange(DETOUR, DETOUR_DEFAULT, DETOUR_MIN, DETOUR_MAX);
       escortStill =
           builder.defineInRange(ESCORT_STILL, ESCORT_STILL_DEFAULT, MIN_ONE, ESCORT_STILL_MAX);
+      wingsLinger =
+          builder.defineInRange(WINGS_LINGER, WINGS_LINGER_DEFAULT, MIN_ZERO, SHORT_TICKS_MAX);
     }
   }
 }

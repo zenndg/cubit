@@ -193,6 +193,9 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general` | `patroller_intercept_guard_distance` | Patrulheiro: distância até o protegido a quem a bola de fogo se dirige | 1 a 64 |
 | `general` | `patroller_glide_drop_blocks` | Patrulheiro: maior queda que o caminho planeja, descendo planando | 5 a 64 |
 | `general` | `patroller_escort_still_ticks` | Patrulheiro: tempo do escoltado parado até a parada da escolta | 1 a 200 |
+| `general` | `patroller_blade_ignite_distance` | Patrulheiro: distância do alvo em que a Plasma Blade acende, mesmo enquanto ele atira | 0 a 64 |
+| `general` | `patroller_wings_linger_ticks` | Patrulheiro: tempo em que as asas continuam abertas e grandes depois do pouso ou do fim do voo | 0 a 1200 |
+| `general` | `patroller_blade_linger_ticks` | Patrulheiro: tempo em que a Plasma Blade continua acesa depois do último momento em que devia estar acesa | 0 a 1200 |
 | `general` | `patroller_creeper_blast` | Patrulheiro: raio da explosão do creeper | 1 a 16 |
 | `general` | `patroller_keep_away` | Patrulheiro: distância que mantém do creeper sem carga | 1 a 32 |
 | `general` | `patroller_search_interval_ticks` | Patrulheiro: intervalo da procura de alvos | 1 a 200 |
@@ -241,6 +244,8 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 22:00 | Acrescenta o tempo em que as asas continuam abertas (pergunta 1807). |
+| Zennd | 2026-11-22 21:46 | Acrescenta a distância em que a Plasma Blade acende e o tempo em que ela continua acesa (perguntas 1804 e 1805). |
 | Zennd | 2026-11-22 22:10 | Acrescenta a chave da parada da escolta (pergunta 1744). |
 | Zennd | 2026-11-22 21:25 | Acrescenta a chave da descida planando (pergunta 1739). |
 | Zennd | 2026-11-22 20:45 | Acrescenta as chaves da interceptação da bola de fogo (pergunta 1735). |
