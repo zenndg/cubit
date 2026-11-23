@@ -38,12 +38,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 /**
  * The state of a dock: its owner, its energy, its input slot and its storage. The rules live in the
  * domain.
  */
-public final class InductionDockBlockEntity extends BlockEntity {
+public final class InductionDockBlockEntity extends BlockEntity implements GeoBlockEntity {
   private static final String ENERGY_KEY = "Energy";
   private static final String SLOT_KEY = "Slot";
   private static final int SLOT = 0;
@@ -78,6 +82,7 @@ public final class InductionDockBlockEntity extends BlockEntity {
   private final IItemHandler itemHandler = DockItemHandler.of(slot, storage.handler());
 
   private final DockOwner owner = new DockOwner();
+  private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
   private UUID occupant;
   private long occupantSeen;
   private boolean robotFull;
@@ -379,5 +384,15 @@ public final class InductionDockBlockEntity extends BlockEntity {
   @Override
   public Packet<ClientGamePacketListener> getUpdatePacket() {
     return ClientboundBlockEntityDataPacket.create(this);
+  }
+
+  @Override
+  public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+    DockAnimations.register(controllers, this);
+  }
+
+  @Override
+  public AnimatableInstanceCache getAnimatableInstanceCache() {
+    return animationCache;
   }
 }

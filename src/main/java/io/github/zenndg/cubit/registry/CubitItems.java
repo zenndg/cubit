@@ -6,6 +6,7 @@ import io.github.zenndg.cubit.domain.robot.RobotJob;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.DamagedRobotItem;
 import io.github.zenndg.cubit.item.EngineeringDeskItem;
+import io.github.zenndg.cubit.item.InductionDockItem;
 import io.github.zenndg.cubit.item.JobCardItem;
 import io.github.zenndg.cubit.item.ModuleItem;
 import io.github.zenndg.cubit.item.PowerBankItem;
@@ -14,7 +15,6 @@ import io.github.zenndg.cubit.item.RobotItem;
 import io.github.zenndg.cubit.item.TabletItem;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -104,7 +104,7 @@ public final class CubitItems {
       ITEMS.register(
           CubitBlocks.INDUCTION_DOCK_ID,
           () ->
-              new BlockItem(
+              new InductionDockItem(
                   CubitBlocks.INDUCTION_DOCK.get(),
                   new Item.Properties().stacksTo(DOCK_STACK_SIZE)));
 

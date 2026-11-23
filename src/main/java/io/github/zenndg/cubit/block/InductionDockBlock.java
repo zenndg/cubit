@@ -1,7 +1,6 @@
 package io.github.zenndg.cubit.block;
 
 import com.mojang.serialization.MapCodec;
-import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.dock.DockRemoval;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.ModuleItem;
@@ -14,7 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -57,19 +55,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public final class InductionDockBlock extends BaseEntityBlock {
   private static final String STATUS_NAME = "status";
   private static final String TIER_NAME = "tier";
-  private static final int HALF_TURN_DEGREES = 180;
-  private static final int FULL_TURN_DEGREES = 360;
-  private static final String ULTIMATE_NAME = "ultimate";
   public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
   public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
   public static final EnumProperty<DockStatusProperty> STATUS =
       EnumProperty.create(STATUS_NAME, DockStatusProperty.class);
   public static final EnumProperty<DockTierProperty> TIER =
       EnumProperty.create(TIER_NAME, DockTierProperty.class);
-
-  /** The item picks the netherite body by this, from its tier (answer 1380). */
-  public static final ResourceLocation ULTIMATE_PROPERTY =
-      ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, ULTIMATE_NAME);
 
   private static final MapCodec<InductionDockBlock> CODEC = simpleCodec(InductionDockBlock::new);
   private static final float CANNOT_BREAK = 0f;
@@ -92,11 +83,6 @@ public final class InductionDockBlock extends BaseEntityBlock {
     return CODEC;
   }
 
-  /** How much the models turn for a facing, as in the block state: the front faces the player. */
-  public static int turnOf(Direction facing) {
-    return ((int) facing.toYRot() + HALF_TURN_DEGREES) % FULL_TURN_DEGREES;
-  }
-
   @Override
   protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
     builder.add(FACING, HALF, STATUS, TIER);
@@ -117,9 +103,13 @@ public final class InductionDockBlock extends BaseEntityBlock {
     return isLower(state) ? new InductionDockBlockEntity(pos, state) : null;
   }
 
+  /**
+   * GeckoLib draws the whole dock from its lower part, with the panel and its cabinet (answer
+   * 1860), so the upper part draws nothing.
+   */
   @Override
   protected RenderShape getRenderShape(BlockState state) {
-    return RenderShape.MODEL;
+    return isLower(state) ? RenderShape.ENTITYBLOCK_ANIMATED : RenderShape.INVISIBLE;
   }
 
   @Override

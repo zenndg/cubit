@@ -95,12 +95,14 @@ public final class CubitClient {
     event.registerEntityRenderer(CubitEntities.RECHARGE_SPLASH.get(), ThrownItemRenderer::new);
     event.registerEntityRenderer(CubitEntities.LASER_ORB.get(), LaserOrbRenderer::new);
     event.registerBlockEntityRenderer(CubitBlockEntities.ENGINEERING_DESK.get(), DeskRenderer::new);
+    event.registerBlockEntityRenderer(CubitBlockEntities.INDUCTION_DOCK.get(), DockRenderer::new);
   }
 
-  /** The item of the desk is drawn by its GeckoLib model (answer 1494). */
+  /** The items of the desk and of the dock are drawn by their GeckoLib models (1494 and 1860). */
   @SubscribeEvent
   public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
     event.registerItem(DeskItemExtensions.INSTANCE, CubitItems.ENGINEERING_DESK.get());
+    event.registerItem(DockItemExtensions.INSTANCE, CubitItems.INDUCTION_DOCK.get());
   }
 
   /** The recipes of the desk have no place in the recipe book of the game (answer 1459). */

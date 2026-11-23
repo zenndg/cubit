@@ -23,8 +23,8 @@ final class DockSolarPanel {
   /** The panel lies on the top of the tower, so the sky is read in the block above the Dock. */
   private static final int ABOVE_THE_PANEL = 2;
 
-  /** The six steps of the arms, about 4 s (answer 1859). */
-  private static final int MOTION_TICKS = 80;
+  /** The transformation of the arms, about 6 s, as long as its animation (answer 1895). */
+  private static final int MOTION_TICKS = 120;
 
   private static final String SUN_KEY = "Sun";
   private static final String PANEL_KEY = "SolarPanel";
