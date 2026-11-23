@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.compat.jade;
 import io.github.zenndg.cubit.block.InductionDockBlock;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
 import io.github.zenndg.cubit.domain.dock.DockPanelState;
+import io.github.zenndg.cubit.domain.dock.DockSunState;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.EnergyFormat;
 import io.github.zenndg.cubit.domain.energy.EnergyReading;
@@ -30,6 +31,7 @@ enum DockJadeProvider implements IBlockComponentProvider, IServerDataProvider<Bl
   private static final String STOCK = "Stock";
   private static final String CAPACITY = "Capacity";
   private static final String SOLAR = "Solar";
+  private static final String MOONLIGHT = "Moonlight";
   private static final String NAME = "Name";
   private static final String PANEL = "Panel";
   private static final String SEPARATOR = ": ";
@@ -40,6 +42,7 @@ enum DockJadeProvider implements IBlockComponentProvider, IServerDataProvider<Bl
       data.putLong(STOCK, dock.energy().amount());
       data.putLong(CAPACITY, dock.capacity().amount());
       data.putLong(SOLAR, dock.solar().given().amount());
+      data.putBoolean(MOONLIGHT, dock.solar().state() == DockSunState.MOONLIGHT);
       data.putString(NAME, dock.identity().name().value());
       data.putInt(PANEL, dock.solar().panel().ordinal());
     }
@@ -56,12 +59,7 @@ enum DockJadeProvider implements IBlockComponentProvider, IServerDataProvider<Bl
           JadeEnergyText.stock(EnergyReading.capped(data.getLong(STOCK), data.getLong(CAPACITY))));
     }
     if (data.contains(SOLAR)) {
-      long solar = data.getLong(SOLAR);
-      tooltip.add(
-          solar == 0
-              ? Component.translatable(ScreenKeys.DOCK_NO_SUN)
-              : Component.translatable(
-                  ScreenKeys.DOCK_SOLAR, EnergyFormat.rate(new Energy(solar))));
+      tooltip.add(solarLine(data.getLong(SOLAR), data.getBoolean(MOONLIGHT)));
     }
     if (data.contains(PANEL)) {
       tooltip.add(panelLine(data.getInt(PANEL)));
@@ -75,6 +73,15 @@ enum DockJadeProvider implements IBlockComponentProvider, IServerDataProvider<Bl
       String status = state.getValue(InductionDockBlock.STATUS).getSerializedName();
       tooltip.add(Component.translatable(JadeKeys.dockStatus(status)));
     }
+  }
+
+  /** Under the moon the line has the name of its state (answer 1948). */
+  private static Component solarLine(long solar, boolean moonlight) {
+    if (solar == 0) {
+      return Component.translatable(ScreenKeys.DOCK_NO_SUN);
+    }
+    String key = moonlight ? ScreenKeys.DOCK_MOONLIGHT : ScreenKeys.DOCK_SOLAR;
+    return Component.translatable(key, EnergyFormat.rate(new Energy(solar)));
   }
 
   /** An unknown state, as from a newer server, shows the panel in the cabinet. */

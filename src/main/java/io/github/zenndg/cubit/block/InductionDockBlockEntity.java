@@ -8,6 +8,7 @@ import io.github.zenndg.cubit.domain.dock.DockStock;
 import io.github.zenndg.cubit.domain.dock.DockStorageRules;
 import io.github.zenndg.cubit.domain.energy.Battery;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.SolarOutput;
 import io.github.zenndg.cubit.domain.ownership.Ownership;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.EnergySlotItems;
@@ -114,12 +115,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
   }
 
   public DockSolarReading solar() {
-    return new DockSolarReading(
-        panel.given(),
-        tier.spec().solarPerTick(),
-        panel.state(),
-        panel.sunlit(),
-        panel.panelState());
+    return panel.reading(tier.spec().solar());
   }
 
   /** Its own id and the name the owner gave it (answers 1867 to 1870). */
@@ -155,8 +151,8 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     boolean chargesBanks = DockStorageRules.chargesBanks(dock.isOccupied(), dock.robotFull);
     dock.stock =
         dock.storage.charge(dock.stock, chargesBanks, dock.rechargePerTick(), dock::setChanged);
-    Energy rate = dock.tier.spec().solarPerTick();
-    dock.stock = dock.panel.generate(level, pos, dock.stock, rate, dock::setChanged);
+    SolarOutput rates = dock.tier.spec().solar();
+    dock.stock = dock.panel.generate(level, pos, dock.stock, rates, dock::setChanged);
     if (dock.panel.switched()) {
       level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
     }

@@ -765,6 +765,28 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#painel-solar-do
 | 37 | Fique a uns 10 blocos do Dock, de costas para ele, e depois a uns 20 | A uns 10 blocos, os sons tocam mesmo sem olhar o Dock; a uns 20, não se ouvem |
 | 38 | Com o jogo em português | Legendas `Painel do Dock monta`, `Painel do Dock trava` e `Painel do Dock guarda` |
 
+### Luz da lua
+
+As regras estão em [`energia.md`](../funcionalidades/energia.md#luz-da-lua) (issue #248). Use o criativo, com `/gamerule doDaylightCycle false` e `/weather clear`, um Dock Elite e um Dock Ultimate ao ar livre, com os 3 blocos livres.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | `/time set noon`, espere uns 12 s e abra a aba `Solar` do Ultimate | `Status: Generating`, `Now` e `Tier max` em 1.400 FE/t e a dica `Outdoors, without rain, also at night` |
+| 2 | Com o painel montado, `/time set midnight` | O painel do Ultimate continua montado, sem fechar e abrir. O do Elite se guarda depois de uns 3 s |
+| 3 | Abra a aba `Solar` do Ultimate e olhe o Jade | `Status: Moonlight`, sem `Why`, `Now` e `Tier max` em 350 FE/t, o estoque subindo e, no Jade, `Moonlight +350 FE/t` e `Panel: Deployed` |
+| 4 | Olhe as células do Ultimate, de perto e de longe | Pulsam num azul-claro, mais fraco que de dia |
+| 5 | Abra a aba `Solar` do Elite | `Status: Stopped`, `Why: Night`, `Tier max` em 500 FE/t e a dica de hoje, `Outdoors, by day and without rain` |
+| 6 | `/weather rain`, espere uns 10 s, e depois `/weather clear` | `Why: Rain`, com `Tier max` em 350 FE/t, e o painel se guarda. Com o céu limpo, ele monta de novo, ainda à noite, com os sons de sempre |
+| 7 | Ponha pedra acima do 3º bloco e depois vidro | `Why: Sky covered` e o painel guardado. Com vidro, ele monta e volta a `Moonlight` |
+| 8 | `/time set noon` com o painel montado | Ele continua montado, e o pulso volta ao branco, com 1.400 FE/t |
+| 9 | À noite, salve, saia e entre no mundo | O painel do Ultimate aparece montado e gerando |
+| 10 | Suba um Dock Elite com o Ultimate Module, à noite | O painel monta, com `Moonlight` |
+| 11 | Com o jogo em português | `Luz da lua`, `Luz da lua +350 FE/t` e `Ao ar livre, sem chuva, também à noite` |
+| 12 | À noite, com o Ultimate gerando, olhe a tela da torre | Uma lua minguante em azul bem claro, com a linha e a faixa da placa em azul, acesas no escuro |
+| 13 | Encaixe um Cubit descarregado no Ultimate | A lua continua na tela enquanto a energia entra, e a aba `Dock` e o Jade mostram `Charging` como hoje |
+| 14 | `/weather rain`, e depois `/weather clear` | A tela volta ao status de sempre e, com o painel montado de novo e gerando, a lua volta |
+| 15 | `/time set noon`, com o painel montado | De dia, a tela volta ao status de sempre |
+
 ## Recharge Splash
 
 As regras estão em [`energia.md`](../funcionalidades/energia.md#recharge-splash). Use dois Cubits Base seus, com metade da bateria e com vida perdida, um Cubit de outro player, se houver, e os materiais: garrafa de vidro, bloco de redstone, lingote de ferro, pólvora e lápis-lazúli.
@@ -1363,6 +1385,9 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
 | Zennd | 2026-11-23 11:03 | Corrige a espera e a montagem do painel do Dock (perguntas 1895, 1912 e 1963). |
+| Zennd | 2026-11-23 10:57 | Acrescenta a lua na tela do Dock ao roteiro (perguntas 1956 a 1961). |
+| Zennd | 2026-11-23 10:52 | Baixa a geração da noite para 25% do dia, 350 FE/t (pergunta 1955). |
+| Zennd | 2026-11-23 10:46 | Acrescenta o roteiro da luz da lua (issue #248). |
 | Zennd | 2026-11-23 03:03 | Acrescenta ao Dock unificado os passos dos sons do painel (perguntas 1920 a 1922). |
 | Zennd | 2026-11-23 02:46 | Acrescenta ao Dock unificado os passos do Dock refeito e do bloco do topo (perguntas 1891 a 1918). |
 | Zennd | 2026-11-23 00:10 | Troca o Dock Solar pelo Dock unificado, com o painel, o nome do Dock e o nome do Cubit, na entrega 1 (perguntas 1852 a 1882). |

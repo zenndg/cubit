@@ -33,6 +33,8 @@ public final class ScreenKeys {
   public static final String DOCK_SOLAR_NOW = DOCK + "solar_now";
   public static final String DOCK_SOLAR_MAX = DOCK + "solar_max";
   public static final String DOCK_SOLAR_HINT = DOCK + "solar_hint";
+  public static final String DOCK_SOLAR_NIGHT_HINT = DOCK + "solar_night_hint";
+  public static final String DOCK_MOONLIGHT = DOCK + "moonlight";
   public static final String DOCK_SOLAR = DOCK + "solar";
   public static final String DOCK_SOLAR_PANEL = DOCK + "solar_panel";
   public static final String DOCK_NO_SUN = DOCK + "no_sun";

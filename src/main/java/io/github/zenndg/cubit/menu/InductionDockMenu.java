@@ -4,10 +4,8 @@ import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
 import io.github.zenndg.cubit.config.CubitConfig;
 import io.github.zenndg.cubit.domain.behavior.RobotExpression;
-import io.github.zenndg.cubit.domain.dock.DockPanelState;
 import io.github.zenndg.cubit.domain.dock.DockStatus;
 import io.github.zenndg.cubit.domain.dock.DockStorageRules;
-import io.github.zenndg.cubit.domain.dock.DockSunState;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.robot.HealTime;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
@@ -218,14 +216,9 @@ public final class InductionDockMenu extends AbstractContainerMenu {
     return opening.storageSlots();
   }
 
-  /** What the panel of the Dock gives now, zero without the sun (answers 1391 and 1855). */
-  public Energy solar() {
-    return DockScreenValues.energy(values, DockScreenValues.SOLAR);
-  }
-
-  /** Where the panel is: in the cabinet, on its way or on the tower (answer 1865). */
-  public DockPanelState panelState() {
-    return ScreenEnums.of(DockPanelState.values(), values.get(DockScreenValues.PANEL));
+  /** What the Solar tab shows (answers 1396, 1865 and 1949). */
+  public DockSolarView solar() {
+    return new DockSolarView(values);
   }
 
   /** The own id of the Dock, which gives its standard name (answer 1869). */
@@ -236,15 +229,6 @@ public final class InductionDockMenu extends AbstractContainerMenu {
   /** The name the Dock had when the screen opened (answer 1870). */
   public String dockName() {
     return opening.dockName();
-  }
-
-  public DockSunState sunState() {
-    return ScreenEnums.of(DockSunState.values(), values.get(DockScreenValues.SUN_STATE));
-  }
-
-  /** What the panel gives at most, at the tier of the dock (answer 1396). */
-  public Energy solarMax() {
-    return DockScreenValues.energy(values, DockScreenValues.SOLAR_MAX);
   }
 
   public RobotTier dockTier() {

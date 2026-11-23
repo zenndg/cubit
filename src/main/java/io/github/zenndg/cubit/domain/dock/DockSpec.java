@@ -1,14 +1,15 @@
 package io.github.zenndg.cubit.domain.dock;
 
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.SolarOutput;
 
 /**
  * The numbers of an Induction Dock at a tier: the stock, the recharge of the Cubit and of the
- * stored Power Bank, the slots of the storage, in whole rows of the screen, and what the panel of a
- * Solar Dock gives under the sun, which may be zero (answers 1374 and 1385).
+ * stored Power Bank, the slots of the storage, in whole rows of the screen, and what its panel
+ * gives by day and at night, which may be zero (answers 1374, 1385 and 1944).
  */
 public record DockSpec(
-    Energy capacity, Energy rechargePerTick, int storageSlots, Energy solarPerTick) {
+    Energy capacity, Energy rechargePerTick, int storageSlots, SolarOutput solar) {
   public static final int ROW = 9;
   private static final String NO_CAPACITY = "A dock needs a stock";
   private static final String NO_RECHARGE = "A dock needs a recharge";

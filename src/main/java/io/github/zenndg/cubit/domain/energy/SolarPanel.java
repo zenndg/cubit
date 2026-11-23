@@ -18,6 +18,6 @@ public final class SolarPanel {
     if (state != PowerState.ACTIVE || !switchedOn || !sunReachesIt) {
       return Energy.ZERO;
     }
-    return day ? solar.dayPerTick() : solar.nightPerTick();
+    return solar.at(day);
   }
 }

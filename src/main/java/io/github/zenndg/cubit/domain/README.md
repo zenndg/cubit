@@ -134,7 +134,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `LampPolicy` | Quando a lanterna acende e apaga, conforme a chave, o estado e a luz do ambiente |
 | `RobotLight` | A luz final que o robô dá ao mundo: a tela e a lanterna |
 | `LampPulse` | A força do halo das antenas em cada momento |
-| `SolarOutput` | O que o painel dá por tick, de dia e à noite |
+| `SolarOutput` | O que um painel, do Cubit ou do Dock, dá por tick, de dia e à noite, a taxa do momento, se dá à noite e o máximo do momento, que é o do dia quando ele não dá à noite (pergunta 1949) |
 | `SolarPanel` | Quando o painel dá energia: ativo, com a chave ligada e com o sol chegando |
 | `SolarPulse` | A força do brilho da célula em cada momento |
 | `PowerSound` | Som tocado uma vez, ao ligar ou desligar |
@@ -162,9 +162,9 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `DockRemoval` | Quem pode quebrar um Dock |
 | `DockStorageRules` | O inventário do Dock: o que ele guarda, quais slots o tier abre, quando e qual Power Bank ele carrega, e o que a automação tira (perguntas 1361 e 1374) |
 | `DockStoredKind` | O que um item é para o inventário do Dock: Toolbox, Power Bank, Cubit, outro item do mod ou um item de fora |
-| `DockSpec` e `DockCatalog` | Os números do Dock em cada tier: o estoque, a recarga do Cubit e da Power Bank guardada, os slots, em linhas inteiras de 9, e a geração do painel do Dock Solar. O config os serve (perguntas 1374, 1381 e 1385) |
-| `DockSun` | O que o painel do Dock vê: dia, céu aberto, chuva, um mundo com sol e o 3º bloco, onde o painel fica. Só gera com tudo a favor, e sem sol é um Dock normal. Um Dock de antes, sem espaço para o 3º bloco, fica sem o painel, e só um mundo sem sol é um motivo mais duradouro (perguntas 1384 e 1897) |
-| `DockPanel` | O painel solar de todo Dock: sai do armário depois de um tempo seguido com sol e volta depois do mesmo tempo sem sol, também à noite; o movimento dos braços vai até o fim, qualquer que seja o céu; só o painel montado por completo gera; e só o destino do movimento é salvo (`Timings`: a espera e o movimento) (perguntas 1856, 1859, 1862 e 1864) |
+| `DockSpec` e `DockCatalog` | Os números do Dock em cada tier: o estoque, a recarga do Cubit e da Power Bank guardada, os slots, em linhas inteiras de 9, e a geração do painel, de dia e à noite. O config os serve (perguntas 1374, 1381, 1385 e 1944) |
+| `DockSun` | O que o painel do Dock vê: dia, céu aberto, chuva, um mundo com sol e o 3º bloco, onde o painel fica. Só gera com tudo a favor, e sem sol é um Dock normal. Um Dock de antes, sem espaço para o 3º bloco, fica sem o painel, e só um mundo sem sol é um motivo mais duradouro. No tier que gera à noite, a noite não para o painel, que fica em `MOONLIGHT`, e a chuva o para como de dia (perguntas 1384, 1897 e 1943) |
+| `DockPanel` | O painel solar de todo Dock: sai do armário depois de um tempo seguido com sol e volta depois do mesmo tempo sem sol, também à noite, menos no tier que gera à noite (pergunta 1943); o movimento dos braços vai até o fim, qualquer que seja o céu; só o painel montado por completo gera; e só o destino do movimento é salvo (`Timings`: a espera e o movimento) (perguntas 1856, 1859, 1862 e 1864) |
 | `DockPanelState` | Onde o painel está: guardado, montando, montado ou guardando, para a aba Solar e a luz das portas (perguntas 1863 e 1865) |
 | `DockPanelSound` | O som de cada momento do painel: a montagem quando os braços começam a sair, a trava quando as metades se encontram no centro e a desmontagem quando os braços começam a voltar (perguntas 1861 e 1921) |
 | `DockDoorLight` | A luz na borda das folhas das portas: vermelha com o painel guardado, verde com ele montado e amarela, piscando, durante o movimento (perguntas 1853 e 1863) |
