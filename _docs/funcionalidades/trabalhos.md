@@ -163,7 +163,7 @@ A Fase 5 é entregue como um kanban, no GitHub Project "Cubit · Fase 5", um car
 5. Organizador (#196)
 6. Cozinheiro (#197)
 7. Patrulheiro Galático, no lugar do Defensor (#198)
-8. XP Cubit e Dock, o XP em tanque de líquido no Cubit e no Dock, ainda sem issue ([`backlog.md`](../backlog.md))
+8. XP Cubit e Dock, o XP como fluido no tanque do Cubit e do Dock (#244, [`xp.md`](xp.md))
 9. Servidor e Antenas, energia sem fio e carregamento de chunks (#205 e #206)
 10. Lenhador, uma profissão nova, ainda sem issue
 11. Pecuarista (#201)
@@ -187,6 +187,7 @@ A ordem segue a pergunta 251, mudada na 1666, na 1777 e na 1788: depois do Patru
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:12 | Liga o XP Cubit e Dock à #244 e ao conceito (pergunta 1851). |
 | Zennd | 2026-11-22 21:03 | Põe o XP Cubit e Dock depois do Patrulheiro, antes do Servidor e das Antenas (perguntas 1787 a 1789). |
 | Zennd | 2026-11-22 17:59 | Põe o Servidor e as Antenas, com a energia sem fio e o carregamento de chunks, logo depois do Patrulheiro (perguntas 1777 a 1779). |
 | Zennd | 2026-11-22 16:59 | Troca o Defensor pelo Patrulheiro e acrescenta a exceção do inventário cheio, a equipe e a personalização na ordem (perguntas 1639, 1643 e 1765) |

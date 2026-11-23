@@ -36,6 +36,8 @@ O inglês é o idioma base do mod, e o jogo também tem a tradução para o port
 | Pistola laser e globo de laser, do Patrulheiro | Laser pistol e laser orb |
 | Lâmina de plasma, do Patrulheiro | Plasma Blade |
 | Escolta marcada, do Patrulheiro | Escort |
+| Fluido de XP, o XP guardado nos tanques do Cubit e do Dock ([`xp.md`](funcionalidades/xp.md)) | Cubit XP Fluid |
+| Tanque de XP | XP tank |
 
 Os IDs estão em [`itens.md`](itens.md).
 
@@ -43,6 +45,7 @@ Os IDs estão em [`itens.md`](itens.md).
 
 - **FE (Forge Energy):** unidade de energia padrão entre os mods de NeoForge.
 - **FE/t:** FE por tick. O jogo roda a 20 ticks por segundo.
+- **mB (milibalde):** unidade de fluido. Um balde tem 1.000 mB, e 1 ponto de XP vale 20 mB do Cubit XP Fluid.
 - **Tier:** nível de evolução do robô.
 - **Base:** o Induction Dock, bloco fixo de recarga.
 - **Robô que segue:** o único Cubit do player que o acompanha naquele momento.
@@ -76,6 +79,7 @@ Os IDs estão em [`itens.md`](itens.md).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:12 | Acrescenta o Cubit XP Fluid, o tanque de XP e o mB (pergunta 1850). |
 | Zennd | 2026-11-22 13:00 | Acrescenta os apps do Tablet, as armas e a escolta marcada do Patrulheiro (perguntas 1554, 1655 e 1665). |
 | Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |
 | Zennd | 2026-11-21 12:45 | Adiciona a Mesa de Engenharia, o pedido e a marcação (perguntas 1424 a 1484). |

@@ -19,6 +19,7 @@ Este é o mapa dos documentos do projeto. A apresentação do mod e o roadmap fi
 | Upgrade de tier com os Modules | [`funcionalidades/upgrade-de-tier.md`](funcionalidades/upgrade-de-tier.md) |
 | Peças de montagem do Cubit e das Power Banks | [`funcionalidades/pecas.md`](funcionalidades/pecas.md) |
 | Portas marcadas que o Cubit abre | [`funcionalidades/portas.md`](funcionalidades/portas.md) |
+| XP como fluido, no tanque do Cubit e do Induction Dock | [`funcionalidades/xp.md`](funcionalidades/xp.md) |
 | Scanners, alertas e lanterna | [`funcionalidades/sensores.md`](funcionalidades/sensores.md) |
 | Telas próprias do Cubit e do Induction Dock | [`funcionalidades/telas.md`](funcionalidades/telas.md) |
 | Choque e modos de defesa | [`funcionalidades/combate.md`](funcionalidades/combate.md) |
@@ -52,6 +53,7 @@ Os números ficam em [`tiers.md`](tiers.md). As outras páginas apontam para lá
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:12 | Aponta o conceito do XP Cubit e Dock (pergunta 1850). |
 | Zennd | 2026-11-22 22:40 | Acrescenta o backlog das ideias para o futuro (pergunta 1747). |
 | Zennd | 2026-11-22 16:30 | Acrescenta o documento do que vem antes do PR (pergunta 1715). |
 | Marcelo Fabiano | 2026-11-21 03:25 | Cita as portas. |
