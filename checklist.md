@@ -138,7 +138,7 @@ Um card por vez, na ordem do board "Cubit · Fase 5" (perguntas 1137, 1141 e 115
 16. [x] Engineering Desk, a mesa de criação do mod, numa issue e quatro PRs (issue #231, PRs #232 a #235, perguntas 1424 a 1537)
 17. [x] Revisar os trabalhos por tier, com o tier mínimo de cada um, que ficou sem mudança (perguntas 1390, 1424 e 1539)
 18. [x] Revisar as receitas dos cards de trabalho (issue #236, PR #237, perguntas 1424 e 1538 a 1549)
-19. [ ] Patrulheiro Galático, no lugar do Defensor (#198, PRs #238 e #239, perguntas 1424 e 1550 a 1667)
+19. [x] Patrulheiro Galático, no lugar do Defensor (#198, PRs #238, #239, #242 e #243, perguntas 1424, 1550 a 1786 e 1790 a 1812)
 20. [ ] XP Cubit e Dock, o XP em tanque de líquido no Cubit e no Dock, ainda sem issue (perguntas 1762 e 1787 a 1789)
 21. [ ] Servidor e Antenas, energia sem fio e carregamento de chunks, com o log e a viagem até o Dock (#205 e #206, perguntas 1777 a 1779 e 1788)
 22. [ ] Lenhador, uma profissão nova, ainda sem issue (perguntas 1594, 1666 e 1667)
