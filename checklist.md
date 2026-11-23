@@ -142,7 +142,7 @@ Um card por vez, na ordem do board "Cubit · Fase 5" (perguntas 1137, 1141 e 115
 20. [x] Dock unificado, com o painel solar em todo Dock e os nomes do Dock e do Cubit (issue #246, PR #247, perguntas 1852 a 1925)
 21. [x] Luz da lua no Dock Ultimate (issue #248, PR #249, perguntas 1941 a 1963)
 22. [ ] **CRÍTICO:** árvore de crafts e auditoria do progresso do player, do início ao fim, com a avaliação dos itens bloqueados na Engineering Desk que impediriam o player de começar, logo depois da luz da lua no Dock (#250, perguntas 1951 e 1965 a 1977)
-23. [ ] Engineering Desk: um recurso exclusivo do último tier, a refinar quando começar, ainda sem issue (pergunta 1964)
+23. [ ] Engineering Desk: a fabricação em cascata no último tier, com o conceito em `_docs/funcionalidades/cascata-da-mesa.md`, (#253, perguntas 1964 e 2006 a 2031)
 24. [ ] XP Cubit e Dock, o XP como fluido no tanque do Cubit e do Dock (#244, perguntas 1762, 1787 a 1789 e 1814 a 1851)
 25. [ ] Servidor e Antenas, energia sem fio e carregamento de chunks, com o log e a viagem até o Dock (#205 e #206, perguntas 1777 a 1779 e 1788)
 26. [ ] Lenhador, uma profissão nova, ainda sem issue (perguntas 1594, 1666 e 1667)
