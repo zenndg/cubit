@@ -30,16 +30,21 @@ Os arquivos ficam em `src/main/resources/assets/cubit/sounds/engineering_desk/`,
 
 Os arquivos ficam em `src/main/resources/assets/cubit/sounds/general_robot/patroller/`, a partir dos `.wav` fornecidos pelo desenvolvedor, convertidos para Ogg, com os originais em `tmp/wav/patrulheiro/` (pergunta 1575). O card tem a prioridade mais alta, e os sons seguem o mesmo cuidado do visual (pergunta 1560). Todos têm o tom de ficção científica alegre do Cubit: nada de tiro realista nem de zumbido que lembre o sabre de luz.
 
+- **IDs:** `cubit:general_robot.patroller.{nome}`, com o nome do arquivo sem a extensão, e as legendas em `subtitles.cubit.general_robot.patroller.{nome}`, em inglês e português (pergunta 1791).
+- **Onde tocam:** todos no servidor. O visor, a lâmina e as asas tocam na troca do estado, também ao tirar o card, quando tudo se recolhe. O disparo, o golpe, o acerto, o estouro e o impulso tocam na própria ação (perguntas 1792, 1797 e 1799).
+- **Volume e alcance:** o nível dos arquivos definitivos, no volume normal do jogo, até 16 blocos, como os outros sons do mod (perguntas 1795 e 1796).
+- **Arquivos:** os originais definitivos ficam em `tmp/wav/patrulheiro/sintetizados/` (pergunta 1790).
+
 | Arquivo | Para que é usado | Duração e clima |
 |---|---|---|
-| `pistol_shot.ogg` | Cada disparo da pistola laser | Menos de 0,5 s. Um "piu" eletrônico curto e brilhante, subindo de tom, com um leve chiado de carga no começo. Várias variações de tom no `sounds.json`, para os disparos seguidos não cansarem |
-| `orb_burst.ogg` | O estouro do globo de laser no alvo | Menos de 0,7 s. Um estalo magnético abafado, como uma bolha de energia estourando, com um eco curto metálico. Lembra uma explosão magnética, sem estrondo |
-| `blade_ignite.ogg` | A Plasma Blade acendendo, ao entrar no combate de perto | 0,5 a 1 s. Um "fuuum" elétrico subindo, que termina num chiado estável |
-| `blade_swing.ogg` | Cada golpe da lâmina | Menos de 0,5 s. Um sopro elétrico rápido, que passa da esquerda para a direita. Variações de tom no `sounds.json` |
+| `pistol_shot.ogg` | Cada disparo da pistola laser | Menos de 0,5 s. Um "piu" eletrônico curto e brilhante, subindo de tom, com um leve chiado de carga no começo. Três tons no `sounds.json`, 0,9, 1,0 e 1,1, sorteados pelo jogo, para os disparos seguidos não cansarem (pergunta 1793) |
+| `orb_burst.ogg` | O estouro do globo de laser, no mob ou num bloco (pergunta 1798) | Menos de 0,7 s. Um estalo magnético abafado, como uma bolha de energia estourando, com um eco curto metálico. Lembra uma explosão magnética, sem estrondo |
+| `blade_ignite.ogg` | A Plasma Blade acendendo, com o alvo a 8 blocos (pergunta 1804) | 0,5 a 1 s. Um "fuuum" elétrico subindo, que termina num chiado estável |
+| `blade_swing.ogg` | Cada golpe da lâmina | Menos de 0,5 s. Um sopro elétrico rápido, em mono, como os outros, porque o jogo só diminui com a distância o volume de um som mono (pergunta 1794). Três tons no `sounds.json`, 0,9, 1,0 e 1,1 (pergunta 1793) |
 | `blade_hit.ogg` | A lâmina acertando um mob, com o empurrão | Menos de 0,5 s. Um estalo de energia curto e encorpado, com um leve crepitar |
-| `blade_off.ogg` | A lâmina apagando, ao sair do combate | Menos de 0,7 s. O "fuuum" ao contrário, descendo, e um clique do emissor |
+| `blade_off.ogg` | A lâmina apagando, 2 s depois que o alvo se afasta ou cai, ou na hora, ao tirar o card (perguntas 1799 e 1805) | Menos de 0,7 s. O "fuuum" ao contrário, descendo, e um clique do emissor |
 | `wings_open.ogg` | As asas abrindo, no salto, no pulo de asa, no vão, na descida e na queda (perguntas 1647 a 1649) | Menos de 1 s. Um clique mecânico duplo das dobradiças, seguido do sopro dos propulsores acendendo |
-| `wings_close.ogg` | As asas fechando ao tocar o chão | Menos de 0,5 s. O clique das dobradiças e o sopro apagando |
+| `wings_close.ogg` | As asas fechando, 2 s depois do pouso ou do fim do voo, ou na hora, ao tirar o card (perguntas 1799 e 1807) | Menos de 0,5 s. O clique das dobradiças e o sopro apagando |
 | `jump.ogg` | O impulso das asas, no salto do combate, no pulo de asa e no início de um vão. A descida e a queda não têm impulso | Menos de 0,7 s. Um impulso de propulsor curto e grave, como um jato pequeno |
 | `visor_down.ogg` | O visor baixando, no alerta ao avistar um hostil, antes do primeiro ataque (pergunta 1623) | Menos de 0,5 s. Um deslize de servo e um bipe de mira travada |
 | `visor_up.ogg` | O visor subindo, depois da investigação ou de 3 s sem ameaça (pergunta 1629) | Menos de 0,5 s. O deslize de servo ao contrário e um bipe calmo |
@@ -48,6 +53,9 @@ Os arquivos ficam em `src/main/resources/assets/cubit/sounds/general_robot/patro
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 22:00 | Toca o fechamento das asas no fim do tempo em que ficam abertas (pergunta 1807). |
+| Zennd | 2026-11-22 21:46 | Liga os sons da lâmina à distância em que ela acende e ao tempo em que continua acesa (perguntas 1804 e 1805). |
+| Zennd | 2026-11-22 21:31 | Registra os IDs, os tons, o mono do golpe, o estouro num bloco, onde tocam e o volume dos sons do Patrulheiro (perguntas 1790 a 1799). |
 | Zennd | 2026-11-22 13:00 | Liga os sons das asas e do visor ao pulo de asa, ao alerta e ao visor com calma (perguntas 1623, 1629 e 1647 a 1649). |
 | Zennd | 2026-11-21 23:02 | Descreve os sons do Patrulheiro Galático (pergunta 1575). |
 | Zennd | 2026-11-21 12:30 | Descreve os sons da Engineering Desk (perguntas 1451, 1452 e 1477). |

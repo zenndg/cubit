@@ -2,7 +2,7 @@
 
 Conceito do trabalho de Patrulheiro Galático, que substitui o Defensor (#198). O documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui, com as exceções escritas abaixo.
 
-**Situação:** autorizado (perguntas 1591, 1613, 1632 e 1698). O conceito vem do desenvolvedor (perguntas 1550 a 1552) e foi refinado nas perguntas 1553 a 1697. O PR 1, com o comportamento, entrou no #238, o PR 2, com a rota e a ronda lenta, no #239, o PR 3 traz o realismo, e o PR 4, o visual e os sons (pergunta 1749). A prioridade é a mais alta, como a da Engineering Desk: cada detalhe do conceito e da aparência é decidido antes do código (pergunta 1560). Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
+**Situação:** autorizado (perguntas 1591, 1613, 1632 e 1698). O conceito vem do desenvolvedor (perguntas 1550 a 1552) e foi refinado nas perguntas 1553 a 1697. O PR 1, com o comportamento, entrou no #238, o PR 2, com a rota e a ronda lenta, no #239, o PR 3, com o realismo, no #242, e o PR 4 traz o visual e os sons e fecha a #198 (perguntas 1749 e 1767). A prioridade é a mais alta, como a da Engineering Desk: cada detalhe do conceito e da aparência é decidido antes do código (pergunta 1560). Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
 
 ## A ideia
 
@@ -144,14 +144,14 @@ As duas armas são partes do modelo do Cubit com o card, sem item para o player 
 ### Plasma Blade
 
 - **Forma:** sem cabo. Um emissor hexagonal preso ao pulso, com um anel laranja, projeta a lâmina verde direto da garra, um pouco mais larga e com a ponta em cunha (pergunta 1554). O nome no jogo é "Plasma Blade", e nunca "sabre de luz".
-- **Acende:** a lâmina acende, com som, só no combate de perto, e apaga depois (pergunta 1574).
+- **Acende:** a lâmina acende, com som, quando o alvo chega a 8 blocos, mesmo enquanto ele ainda atira com a pistola na outra garra, e continua acesa 2 s depois do último momento em que devia estar acesa, sem apagar e reacender se o alvo voltar perto nesse tempo. Contra o creeper, de quem ele se afasta, ela não acende. Sem o card, apaga na hora (perguntas 1574, 1799, 1804 e 1805).
 - **Empurrão:** cada golpe empurra o alvo para trás (pergunta 1551).
 - **Cabeça:** ao matar um mob que tem cabeça no jogo (zumbi, esqueleto, creeper, piglin e wither skeleton), 50% de chance de derrubar a cabeça. Os outros hostis não derrubam nada a mais, e a cabeça vai para o inventário do Cubit, como os outros drops (pergunta 1559).
 - **Energia:** a lâmina não gasta bateria, para ele nunca ficar sem defesa (pergunta 1571).
 
 ## Asas
 
-- **Abrem:** na queda e no salto, para trás e para baixo, como uma asa-delta, com os propulsores acesos. Fecham ao tocar o chão (pergunta 1553).
+- **Abrem:** na queda e no salto, para trás e para baixo, como uma asa-delta, com os propulsores acesos, e crescem até o dobro do tamanho, a partir da dobradiça. Continuam abertas e grandes 2 s depois do pouso ou do fim do voo, sem fechar e reabrir se ele voltar a usá-las nesse tempo, e então fecham e voltam ao tamanho normal. Toda queda abre as asas, até a de um degrau. Sem o card, fecham na hora (perguntas 1553, 1799 e 1806 a 1808).
 - **Planar:** na queda, ele plana, sem dano de queda e sem gastar bateria (perguntas 1564 e 1571).
 - **Salto:** só no combate, para um alvo no ar ao alcance da altura do salto, quando a pistola não pode atirar, sem carga ou fora do alcance. Ele golpeia com a lâmina no ar. Com carga, atira de baixo e não salta. O Ultimate salta mais alto, e cada salto gasta bateria (perguntas 1564 e 1596).
 - **Mobs voadores:** a pistola alcança a maior parte, e o salto aproxima o Cubit de um Phantom ou de um Blaze para a lâmina quando a pistola não pode atirar (pergunta 1596).
@@ -213,23 +213,32 @@ Os números ficam em [`tiers.md`](../../tiers.md#trabalhos), todos no config (pe
 
 | Peça | Como é |
 |---|---|
-| Capacete | Branco, cobre o topo da cabeça e desce pela lateral. Tem um filete ciano, a estrela dourada no alto e uma dobradiça de cada lado, com o centro laranja das antenas. As antenas saem por cima dele |
-| Visor | Lente ciano translúcida, presa às dobradiças, que se curva pela frente e pela lateral. Baixado, cobre o alto da tela e mostra uma mira. Erguido, fica recolhido no topo do capacete |
+| Capacete | Cinza-grafite, diferente do corpo branco do Cubit (pergunta 1802), cobre o topo da cabeça e desce pela lateral. Tem um filete ciano, a estrela dourada no alto e uma dobradiça de cada lado, com o centro laranja das antenas. As antenas saem por cima dele |
+| Visor | Lente ciano bem transparente, com 25% de opacidade (pergunta 1811), presa às dobradiças, que se curva pela frente e pela lateral. Baixado, desce à frente dos olhos e os cobre, com os olhos decididos e as marcas de mira visíveis atrás da lente. Erguido, fica deitado no topo do capacete, atravessado pelas hastes das antenas (perguntas 1809 e 1810) |
 | Tela | Com o visor erguido, os olhos normais do Cubit. Com o visor baixado, olhos decididos e marcas de mira nos cantos |
-| Mochila | Branca, com um filete ciano no topo, um painel escuro com barras de carga atrás e três propulsores embaixo |
-| Asas | Saem da mochila por uma dobradiça mecânica escura com centro laranja. Cada asa tem a lâmina principal varrida para trás, com a borda da frente curva, a de trás reta e uma espessura escura embaixo; um LED na borda da frente; painéis divididos por linhas finas; uma aleta cinza embaixo, com três luzes; as luzes ficam apagadas com as asas recolhidas e acendem em azul, da cor dos olhos, com as asas em uso (pergunta 1653); e uma cápsula branca com janela ciano na ponta. Recolhidas, ficam deitadas sobre a mochila. Abertas, vão para trás e para baixo, como uma asa-delta (pergunta 1553) |
+| Mochila | Cinza-grafite, como o capacete (pergunta 1802), com um filete ciano no topo, um painel escuro com barras de carga atrás e três propulsores embaixo |
+| Asas | Saem da mochila por uma dobradiça mecânica escura com centro laranja. Cada asa tem a lâmina principal varrida para trás, com a borda da frente curva, a de trás reta e uma espessura escura embaixo; um LED na borda da frente; painéis divididos por linhas finas; uma aleta cinza embaixo, com três luzes; as luzes ficam apagadas com as asas recolhidas e acendem em azul, da cor dos olhos, com as asas em uso (pergunta 1653); e uma cápsula branca com janela ciano na ponta. Recolhidas, ficam deitadas sobre a mochila. Abertas, vão para trás e para baixo, como uma asa-delta, com o dobro do tamanho, e ficam assim 2 s depois do uso (perguntas 1553, 1806 e 1807) |
 | Pistola | Na garra direita do próprio Cubit (pergunta 1776), branca, com cano ciano, faixas de energia acesas e um botão laranja |
-| Plasma Blade | No pulso esquerdo do próprio Cubit (pergunta 1776), o emissor hexagonal com anel laranja. A lâmina verde, larga e com ponta em cunha, sai direto da garra (pergunta 1554) |
+| Plasma Blade | No pulso esquerdo do próprio Cubit (pergunta 1776), o emissor hexagonal com anel laranja. A lâmina verde, larga e com ponta em cunha, sai direto da garra (pergunta 1554), com o dobro do comprimento do primeiro modelo: 13 no lugar de 6,5, com a altura e a espessura de antes. O alcance do golpe não muda (pergunta 1801) |
 | Distintivo | Escudo escuro com a estrela dourada, na lateral esquerda do corpo do próprio Cubit, do lado da lâmina (pergunta 1776) |
 | Coleira | A cor do tier, como nas outras profissões |
 
 ### Combate e patrulha
 
 - **Alerta:** ao avistar um hostil, ele vira para ele, e o visor desce com o bipe de mira travada (pergunta 1623).
-- **Combate:** com o visor baixado, os olhos ficam decididos, e a lâmina acende quando o alvo chega perto. O player vê o modo de combate só de olhar para ele.
+- **Combate:** com o visor baixado, os olhos ficam decididos, e a lâmina acende quando o alvo chega a 8 blocos e apaga 2 s depois que ele se afasta ou cai (perguntas 1804 e 1805). O player vê o modo de combate só de olhar para ele.
 - **Depois do combate:** confere o dono com a cabeça, investiga o último local, e o visor só sobe depois da investigação ou de 3 s sem ameaça (perguntas 1624 e 1629).
 - **Patrulha:** com o visor erguido, ele percorre a rota no passo de vigia, e nas paradas ergue a pistola em prontidão, apontada para onde olha (perguntas 1614 e 1627).
 - **Asas em uso:** abertas, com os propulsores e as luzes azuis acesos (pergunta 1653).
+
+### Como entrou no modelo
+
+- **Peças:** dez ossos `patroller_*` no modelo do Cubit, escondidos sem o card, desenhados pela camada de trabalho com a textura `general_robot_patroller.png`, a arte do desenvolvedor (perguntas 1770 e 1786), com o branco do capacete e da mochila trocado por cinza-grafite por script, mantendo a sombra da arte (perguntas 1802 e 1803). As peças nunca usam as áreas da textura do corpo, porque a camada desenha o corpo de novo.
+- **Estado no cliente:** o visor baixado e um byte sincronizado com a lâmina acesa, as asas em uso e a guarda nas paradas, decididos no servidor, levam as animações ao cliente (pergunta 1780).
+- **Tela:** com o visor baixado, a tela `patroller.png`, com os olhos decididos e as marcas de mira, e o brilho dela (perguntas 1781 e 1782).
+- **Brilho:** uma camada emissiva acende no escuro só a parte em uso: o visor baixado, num ciano leve, a 25%, para não apagar os olhos atrás dele (pergunta 1811), a lâmina acesa e, com as asas em uso, o LED, as luzes da aleta, a chama e a ponta dos propulsores (perguntas 1772 e 1783).
+- **Globo:** uma bolinha azul de 16 × 16 desenhada no lugar do globo invisível, com o rastro e o estouro azuis (pergunta 1783).
+- **Card:** a textura `ml_patroller.png`, a arte do desenvolvedor, com a faixa azul do Pescador (perguntas 1784 e 1785).
 
 ## Falas
 
@@ -237,7 +246,7 @@ Como todas as profissões, ele fala uma de três frases ao receber o card e fras
 
 ## Sons
 
-Sons próprios em `.ogg`, descritos em [`sons.md`](../../conceito/sons.md#patrulheiro-galático): o agente descreve cada um, com a duração e o clima, o desenvolvedor fornece os `.wav`, e o agente os trata (pergunta 1575).
+Sons próprios em `.ogg`, descritos em [`sons.md`](../../conceito/sons.md#patrulheiro-galático): o agente descreve cada um, com a duração e o clima, o desenvolvedor fornece os `.wav`, e o agente os trata (pergunta 1575). São 11, com os IDs `cubit:general_robot.patroller.{nome}`, todos tocados no servidor: o visor, a lâmina e as asas na troca do estado, e o disparo, o estouro, o golpe, o acerto e o impulso na própria ação. Substituem os dois provisórios do jogo puro (perguntas 1790 a 1800).
 
 ## Fora do escopo
 
@@ -252,7 +261,7 @@ Sons próprios em `.ogg`, descritos em [`sons.md`](../../conceito/sons.md#patrul
 | Receita | `cubit:ml_patroller` | Card Casing, Circuit Board e estrela de fogo de artifício, liberada pelo Elite Module (pergunta 1576) |
 | Config, `allowed_jobs` | `patroller` | No lugar de `defender`, no Elite e no Ultimate (pergunta 1569) |
 | Config, por tier | `patroller_pistol_damage`, `patroller_pistol_range`, `patroller_pistol_interval_ticks`, `patroller_pistol_cost`, `patroller_slowness_level`, `patroller_blade_damage`, `patroller_blade_interval_ticks`, `patroller_blade_knockback`, `patroller_armor`, `patroller_search_radius`, `patroller_jump_height`, `patroller_jump_cost`, `patroller_route_points`, `patroller_area_size`, `patroller_blade_reach`, `patroller_gap_distance` e `patroller_return_charge_percent` | Os números por tier da tabela acima (perguntas 1642, 1648 e 1689) |
-| Config, geral | `patroller_slowness_chance`, `patroller_slowness_ticks`, `patroller_head_chance`, `patroller_chase_distance`, `patroller_weapon_switch_distance`, `patroller_patrol_speed`, `patroller_stop_min_ticks`, `patroller_stop_max_ticks`, `patroller_stop_min_distance`, `patroller_stop_max_distance`, `patroller_alert_ticks`, `patroller_owner_check_ticks`, `patroller_owner_check_distance`, `patroller_visor_calm_ticks`, `patroller_creeper_blast`, `patroller_keep_away`, `patroller_search_interval_ticks`, `patroller_blade_knockback_base`, `patroller_blade_knockback_step`, `patroller_call_range`, `patroller_wing_detour_factor`, `patroller_low_health_percent`, `patroller_rescue_radius`, `patroller_lost_sight_ticks`, `patroller_xp_energy`, `patroller_xp_owner_distance`, `patroller_intercept_interval_ticks`, `patroller_intercept_guard_distance`, `patroller_glide_drop_blocks` e `patroller_escort_still_ticks` | 20%, 3 s, 50%, 16 blocos, 4 blocos, 0,6, 3 s, 5 s, 12 blocos, 20 blocos, 0,5 s, 1 s, 16 blocos, 3 s, 4 blocos, 6 blocos, 0,5 s, 0,4, 0,5, 32 blocos, 2, 25%, 8 blocos, 2 s, 50 FE, 24 blocos, 2 ticks, 32 blocos, 16 blocos e 1 s (perguntas 1614 a 1618, 1632, 1642, 1644, 1651, 1686, 1691, 1721, 1728, 1729, 1735, 1739 e 1744) |
+| Config, geral | `patroller_slowness_chance`, `patroller_slowness_ticks`, `patroller_head_chance`, `patroller_chase_distance`, `patroller_weapon_switch_distance`, `patroller_patrol_speed`, `patroller_stop_min_ticks`, `patroller_stop_max_ticks`, `patroller_stop_min_distance`, `patroller_stop_max_distance`, `patroller_alert_ticks`, `patroller_owner_check_ticks`, `patroller_owner_check_distance`, `patroller_visor_calm_ticks`, `patroller_creeper_blast`, `patroller_keep_away`, `patroller_search_interval_ticks`, `patroller_blade_knockback_base`, `patroller_blade_knockback_step`, `patroller_call_range`, `patroller_wing_detour_factor`, `patroller_low_health_percent`, `patroller_rescue_radius`, `patroller_lost_sight_ticks`, `patroller_xp_energy`, `patroller_xp_owner_distance`, `patroller_intercept_interval_ticks`, `patroller_intercept_guard_distance`, `patroller_glide_drop_blocks`, `patroller_escort_still_ticks`, `patroller_blade_ignite_distance`, `patroller_blade_linger_ticks` e `patroller_wings_linger_ticks` | 20%, 3 s, 50%, 16 blocos, 4 blocos, 0,6, 3 s, 5 s, 12 blocos, 20 blocos, 0,5 s, 1 s, 16 blocos, 3 s, 4 blocos, 6 blocos, 0,5 s, 0,4, 0,5, 32 blocos, 2, 25%, 8 blocos, 2 s, 50 FE, 24 blocos, 2 ticks, 32 blocos, 16 blocos, 1 s, 8 blocos, 2 s e 2 s (perguntas 1614 a 1618, 1632, 1642, 1644, 1651, 1686, 1691, 1721, 1728, 1729, 1735, 1739, 1744, 1804, 1805 e 1807) |
 | NBT da entidade | `PatrolRoute` | Os pontos da rota, em ordem. Sem a chave no save, a rota é vazia. Não vai para o item (perguntas 1582 e 1602) |
 | Entidade | `cubit:laser_orb` | O globo de laser da pistola |
 | Tags de entidade | `cubit:patroller_targets` e `cubit:patroller_ignores` | Os mobs que ele sempre ataca e os que nunca ataca, vazias no mod (pergunta 1634) |
@@ -263,7 +272,7 @@ Sons próprios em `.ogg`, descritos em [`sons.md`](../../conceito/sons.md#patrul
 | NBT da entidade | `EscortTarget` | O UUID do escoltado. Sem a chave, não há escolta. Não vai para o item (pergunta 1659) |
 | Pacote do servidor | `cubit:patrol_route` | Os pontos da rota do Cubit escolhido no Tablet, para as setas e a linha do app Marcar (pergunta 1612) |
 | Pacote do servidor | `cubit:escort_marks` | Os escoltados de cada Patrulheiro do dono, para as setas douradas do app Escort (pergunta 1661) |
-| Sons | Os eventos de `sons.md` | Disparo, estouro, lâmina, golpe, asas e visor |
+| Sons | `cubit:general_robot.patroller.pistol_shot`, `orb_burst`, `blade_ignite`, `blade_swing`, `blade_hit`, `blade_off`, `wings_open`, `wings_close`, `jump`, `visor_down` e `visor_up` | Os 11 eventos de `sons.md`, com os arquivos em `sounds/general_robot/patroller/` e as legendas em `subtitles.cubit.general_robot.patroller.{nome}`, em inglês e português. O disparo e o golpe têm três tons (perguntas 1791 e 1793) |
 | Config, geral | `job_chatter_chance`, `job_chatter_interval_ticks` e `job_chatter_range` | As falas de todas as profissões: 20%, 2 min e 32 blocos (perguntas 1585 e 1586) |
 | Traduções | As frases de `falas.md` | As falas de entrada e do trabalho das cinco profissões, em inglês e português |
 
@@ -280,6 +289,12 @@ Uma issue, a #198 renomeada, e quatro PRs testados no jogo (perguntas 1578, 1605
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 22:08 | Deixa a lente do visor e o brilho dela mais transparentes, para os olhos aparecerem (pergunta 1811). |
+| Zennd | 2026-11-22 22:05 | Alonga o visor até cobrir os olhos quando baixado (perguntas 1809 e 1810). |
+| Zennd | 2026-11-22 22:00 | Dobra o tamanho das asas abertas e as mantém abertas 2 s depois do uso, com a chave no Contrato (perguntas 1806 a 1808). |
+| Zennd | 2026-11-22 21:46 | Acende a Plasma Blade a 8 blocos e a mantém acesa 2 s depois, com as duas chaves no Contrato (perguntas 1804 e 1805). |
+| Zennd | 2026-11-22 21:42 | Passa o capacete e a mochila a cinza-grafite e dobra o comprimento da Plasma Blade (perguntas 1801 a 1803). |
+| Zennd | 2026-11-22 21:31 | Atualiza a Situação com o #242, descreve como o visual entrou e acrescenta os 11 sons ao Contrato (perguntas 1767, 1770 a 1776, 1780 a 1786 e 1790 a 1800). |
 | Zennd | 2026-11-22 17:53 | Põe a pistola na garra direita e a lâmina e o distintivo no lado esquerdo do próprio Cubit, como na imagem (pergunta 1776). |
 | Zennd | 2026-11-22 16:58 | Completa a prioridade, a cautela, o olhar para fora, o XP, o retorno, a escolta de outra dimensão e o pacote da escolta (perguntas 1724, 1725, 1759, 1763, 1764 e 1765) |
 | Zennd | 2026-11-22 16:07 | Acrescenta ao Contrato as chaves da descida planando e da escolta parada (perguntas 1739, 1744 e 1757). |
