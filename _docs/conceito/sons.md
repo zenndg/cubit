@@ -32,9 +32,9 @@ Os arquivos ficam em `src/main/resources/assets/cubit/sounds/induction_dock/`, a
 
 | Arquivo | Para que é usado | Duração e clima |
 |---|---|---|
-| `panel_deploy.ogg` | A montagem do painel: as portas deslizando, os braços saindo e subindo e as metades deitando (passos 1 a 4 da montagem) | Cerca de 3 s. Um mecanismo preciso e bem lubrificado: o deslize suave das portas, o zumbido de servos subindo de tom enquanto os braços sobem, e um leve assentar das metades. Tecnológico e caprichado, sem rangido nem pancada |
-| `panel_lock.ogg` | As duas metades se unindo no centro, com a trava (passo 5) | Menos de 0,5 s. Um clique metálico firme e satisfatório, com um bipe curto de confirmação, da família dos bipes do Cubit |
-| `panel_retract.ogg` | A desmontagem do painel, do destravar ao fechar das portas | Cerca de 3,5 s. O destravar curto, o zumbido dos servos descendo de tom, as metades recolhendo e o deslize das portas fechando, terminando num assentar macio |
+| `panel_deploy.ogg` | A montagem do painel, como um robô se transformando: as portas deslizando, os braços saindo e subindo e as lâminas se abrindo em sanfona (passos 1 a 5 da montagem) | Cerca de 4,5 s. Um mecanismo preciso e bem lubrificado: o deslize suave das portas, o zumbido de servos subindo de tom enquanto os braços sobem, e uma sequência de estalos leves e ritmados, um a cada lâmina que abre. Tecnológico e caprichado, sem rangido nem pancada (perguntas 1894 e 1895) |
+| `panel_lock.ogg` | As duas metades se unindo no centro, com a trava (passo 6) | Menos de 0,5 s. Um clique metálico firme e satisfatório, com um bipe curto de confirmação, da família dos bipes do Cubit |
+| `panel_retract.ogg` | A desmontagem do painel, do destravar ao fechar das portas | Cerca de 6 s. O destravar curto, as lâminas se fechando em sanfona com os estalos ao contrário, o zumbido dos servos descendo de tom e o deslize das portas fechando, terminando num assentar macio (perguntas 1894 e 1895) |
 
 ## Patrulheiro Galático
 
@@ -63,6 +63,7 @@ Os arquivos ficam em `src/main/resources/assets/cubit/sounds/general_robot/patro
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 01:17 | Ajusta os sons do painel do Dock à transformação em sanfona de cerca de 6 s (perguntas 1894 e 1895). |
 | Zennd | 2026-11-22 23:45 | Descreve os três sons do painel do Dock (perguntas 1853 e 1861). |
 | Zennd | 2026-11-22 22:00 | Toca o fechamento das asas no fim do tempo em que ficam abertas (pergunta 1807). |
 | Zennd | 2026-11-22 21:46 | Liga os sons da lâmina à distância em que ela acende e ao tempo em que continua acesa (perguntas 1804 e 1805). |

@@ -45,7 +45,7 @@ O Dock sobe de tier com os mesmos Modules do Cubit (perguntas 1373 a 1380). Os n
 | Slots do inventário | 27 | 36 | 45 | 54 |
 | Entrada, por cabos e redstone | 5.000 FE/t | 5.000 FE/t | 5.000 FE/t | 5.000 FE/t |
 | Geração do painel do Dock, de dia, a céu aberto e sem chuva, com o painel montado, em `dock_solar_per_tick` (perguntas 1385 e 1855) | 25 FE/t | 100 FE/t | 500 FE/t | 1.400 FE/t |
-| Faixa, na borda em volta do topo da torre (perguntas 1389 e 1871) | Cinza | Azul | Roxa | Dourada, com o corpo em netherite |
+| Faixa, em volta da torre acima da placa (perguntas 1389 e 1899) | Cinza | Azul | Roxa | Dourada, com o corpo em netherite |
 
 ## Engineering Desk
 
@@ -335,6 +335,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 01:17 | Volta a faixa do Dock para acima da placa (pergunta 1899). |
 | Zennd | 2026-11-22 23:45 | Passa a geração solar a todo Dock e a faixa para a borda do topo (perguntas 1855 e 1871). |
 | Zennd | 2026-11-22 23:10 | Acrescenta os números do XP Cubit e Dock (perguntas 1817 a 1835). |
 | Zennd | 2026-11-22 22:00 | Acrescenta o tempo em que as asas continuam abertas (pergunta 1807). |
