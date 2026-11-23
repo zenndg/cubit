@@ -33,7 +33,9 @@ public final class DockRenderer extends GeoBlockRenderer<InductionDockBlockEntit
         });
     addRenderLayer(
         new DockScreenLayer<>(
-            this, dock -> dock.getBlockState().getValue(InductionDockBlock.STATUS)));
+            this,
+            dock -> dock.getBlockState().getValue(InductionDockBlock.STATUS),
+            DockMoonlight::shines));
     addRenderLayer(new DockPanelGlow(this));
   }
 
