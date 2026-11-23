@@ -17,7 +17,7 @@ public final class DockSection {
   private static final int COMPLETE_HOLD_MAX = 1_200;
   private static final int MIN = 1;
   private static final String SOLAR_DELAY = "dock_solar_deploy_delay_ticks";
-  private static final int SOLAR_DELAY_DEFAULT = 200;
+  private static final int SOLAR_DELAY_DEFAULT = 60;
   private static final int SOLAR_DELAY_MAX = 1_200;
   private static final int NO_DELAY = 0;
 

@@ -23,11 +23,11 @@ public final class DockPanelGameTests {
   private static final String ARENA = "arena";
   private static final int TIMEOUT = 400;
 
-  /** The 10 s of sun in a row of the config, plus some ticks for the first reading of the sky. */
-  private static final int DELAY_TICKS = 210;
+  /** The 3 s of sun in a row of the config, plus some ticks for the first reading of the sky. */
+  private static final int DELAY_TICKS = 70;
 
-  /** The delay and the 4 s of the arms, with room to spare. */
-  private static final int DEPLOYED_TICKS = 320;
+  /** The delay and the 6 s of the arms, with room to spare. */
+  private static final int DEPLOYED_TICKS = 360;
 
   private static final long BASE_SOLAR = 25;
   private static final String NOT_DEPLOYED = "The panel should be on the tower";
