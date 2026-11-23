@@ -39,8 +39,8 @@ final class PortugueseGameTexts {
   private static final String NEED_RECHARGE_NOTICE = "Preciso recarregar";
   private static final String ITEMS_UNLOADED_NOTICE = "Itens descarregados";
   private static final String NO_ROOM_NOTICE = "Sem espaço nos baús marcados";
-  private static final String INTRO_HELP = "Cubit: Estou feliz em lhe ajudar";
-  private static final String INTRO_LINK = "Cubit: Para saber tudo o que posso fazer, acesse: %s";
+  private static final String INTRO_HELP = "%s: Estou feliz em lhe ajudar";
+  private static final String INTRO_LINK = "%s: Para saber tudo o que posso fazer, acesse: %s";
   private static final String HURT_NOTICE = "Isso dói!";
   private static final String OWNER_HURT_NOTICE = "Cuidado!";
 
@@ -63,6 +63,7 @@ final class PortugueseGameTexts {
     add.accept(CubitItems.DAMAGED_GENERAL_ROBOT.get().getDescriptionId(), DAMAGED_ROBOT_NAME);
     add.accept(CubitItems.TOOLBOX.get().getDescriptionId(), TOOLBOX_NAME);
     add.accept(CubitBlocks.INDUCTION_DOCK.get().getDescriptionId(), DOCK_NAME);
+    add.accept(CubitBlocks.INDUCTION_DOCK_TOP.get().getDescriptionId(), DOCK_NAME);
     add.accept(ResetCommand.CLEARED_KEY, RESET_CLEARED);
     add.accept(ResetCommand.NOBODY_KEY, RESET_NOBODY);
     add.accept(RobotNotices.FORMAT_KEY, NOTICE_FORMAT);

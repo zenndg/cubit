@@ -34,7 +34,7 @@ final class PortuguesePatrollerTexts {
   private static final String OTHER_DIMENSION = "%s só escolta na própria dimensão";
   private static final String ESCORTING_YOU = "%s está escoltando você";
   private static final String STOPPED_YOU = "%s parou de escoltar você";
-  private static final String HEADING = "%s está com pouca energia, indo ao Dock";
+  private static final String HEADING = "%s está com pouca energia, indo ao %s";
   private static final String NO_DOCK = "%s está com pouca energia e sem Dock";
 
   private static final String PISTOL_SHOT_SUBTITLE = "Cubit dispara o laser";

@@ -4,6 +4,7 @@ import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
 import io.github.zenndg.cubit.config.CubitConfig;
 import io.github.zenndg.cubit.domain.behavior.RobotExpression;
+import io.github.zenndg.cubit.domain.dock.DockPanelState;
 import io.github.zenndg.cubit.domain.dock.DockStatus;
 import io.github.zenndg.cubit.domain.dock.DockStorageRules;
 import io.github.zenndg.cubit.domain.dock.DockSunState;
@@ -13,6 +14,7 @@ import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.EnergySlotItems;
 import io.github.zenndg.cubit.registry.CubitMenus;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Predicate;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -46,11 +48,13 @@ public final class InductionDockMenu extends AbstractContainerMenu {
   private static final int STORAGE_FIRST = 1;
   private static final int DOCK_SLOTS = STORAGE_FIRST + DockStorageRules.MAX_SLOTS;
   private static final String NO_NAME = "";
+  private static final UUID NO_ID = new UUID(0L, 0L);
 
   private final Predicate<Player> stillValid;
   private final ContainerData values;
   private final Runnable call;
   private final Runnable refresh;
+  private final Predicate<String> rename;
   private final Opening opening;
   private boolean storageShown;
 
@@ -66,6 +70,7 @@ public final class InductionDockMenu extends AbstractContainerMenu {
     this.stillValid = server.stillValid();
     this.call = server.call();
     this.refresh = server.refresh();
+    this.rename = server.rename();
     this.values = values;
     this.opening = opening;
     addSlot(
@@ -97,7 +102,8 @@ public final class InductionDockMenu extends AbstractContainerMenu {
                     && player.canInteractWithBlock(
                         dock.getBlockPos(), Container.DEFAULT_DISTANCE_BUFFER),
             dock::callNearestRobot,
-            values::refresh);
+            values::refresh,
+            typed -> dock.identity().rename(typed));
     return new InductionDockMenu(
         containerId, playerInventory, dock.slot(), dock.storage(), values, server, Opening.NONE);
   }
@@ -212,13 +218,24 @@ public final class InductionDockMenu extends AbstractContainerMenu {
     return opening.storageSlots();
   }
 
-  /** What the panel of a Solar Dock gives now, zero without the sun (answer 1391). */
+  /** What the panel of the Dock gives now, zero without the sun (answers 1391 and 1855). */
   public Energy solar() {
     return DockScreenValues.energy(values, DockScreenValues.SOLAR);
   }
 
-  public boolean isSolar() {
-    return opening.solar();
+  /** Where the panel is: in the cabinet, on its way or on the tower (answer 1865). */
+  public DockPanelState panelState() {
+    return ScreenEnums.of(DockPanelState.values(), values.get(DockScreenValues.PANEL));
+  }
+
+  /** The own id of the Dock, which gives its standard name (answer 1869). */
+  public UUID dockId() {
+    return opening.dockId();
+  }
+
+  /** The name the Dock had when the screen opened (answer 1870). */
+  public String dockName() {
+    return opening.dockName();
   }
 
   public DockSunState sunState() {
@@ -316,9 +333,16 @@ public final class InductionDockMenu extends AbstractContainerMenu {
     return stillValid.test(player);
   }
 
+  /** On the server: the owner names the Dock of the open screen (answer 1868). */
+  public boolean rename(Player player, String typed) {
+    return stillValid(player) && rename.test(typed);
+  }
+
   /** What only the server does: check the player, call a robot and read the dock. */
-  private record Server(Predicate<Player> stillValid, Runnable call, Runnable refresh) {
-    private static final Server NONE = new Server(player -> true, () -> {}, () -> {});
+  private record Server(
+      Predicate<Player> stillValid, Runnable call, Runnable refresh, Predicate<String> rename) {
+    private static final Server NONE =
+        new Server(player -> true, () -> {}, () -> {}, typed -> false);
   }
 
   /** The values that travel when the screen opens. */
@@ -328,10 +352,11 @@ public final class InductionDockMenu extends AbstractContainerMenu {
       int callRadius,
       int storageSlots,
       int tier,
-      boolean solar) {
+      UUID dockId,
+      String dockName) {
     /** Only the client reads it, so the menu on the server keeps nothing. */
     private static final Opening NONE =
-        new Opening(NO_NAME, 0, 0, DockStorageRules.MAX_SLOTS, 0, false);
+        new Opening(NO_NAME, 0, 0, DockStorageRules.MAX_SLOTS, 0, NO_ID, NO_NAME);
 
     /** The button names the radius of the tier Base, the only one in this phase (answer 693). */
     static Opening of(InductionDockBlockEntity dock) {
@@ -344,7 +369,8 @@ public final class InductionDockMenu extends AbstractContainerMenu {
               .callRadiusBlocks(),
           dock.storageSlots(),
           dock.tier().ordinal(),
-          dock.isSolar());
+          dock.identity().id(),
+          dock.identity().name().value());
     }
 
     static Opening read(RegistryFriendlyByteBuf data) {
@@ -354,7 +380,8 @@ public final class InductionDockMenu extends AbstractContainerMenu {
           data.readVarInt(),
           data.readVarInt(),
           data.readVarInt(),
-          data.readBoolean());
+          data.readUUID(),
+          data.readUtf());
     }
 
     void write(RegistryFriendlyByteBuf data) {
@@ -363,7 +390,8 @@ public final class InductionDockMenu extends AbstractContainerMenu {
       data.writeVarInt(callRadius);
       data.writeVarInt(storageSlots);
       data.writeVarInt(tier);
-      data.writeBoolean(solar);
+      data.writeUUID(dockId);
+      data.writeUtf(dockName);
     }
   }
 }

@@ -1,6 +1,5 @@
 package io.github.zenndg.cubit.block;
 
-import com.mojang.logging.LogUtils;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.dock.DockInputMeter;
 import io.github.zenndg.cubit.domain.dock.DockQueue;
@@ -21,6 +20,7 @@ import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -38,16 +38,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
-import org.slf4j.Logger;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 /**
  * The state of a dock: its owner, its energy, its input slot and its storage. The rules live in the
  * domain.
  */
-public final class InductionDockBlockEntity extends BlockEntity {
-  private static final Logger LOGGER = LogUtils.getLogger();
-  private static final String NO_OWNER_MESSAGE = "The dock at {} has no owner.";
-  private static final String OWNER_KEY = "Owner";
+public final class InductionDockBlockEntity extends BlockEntity implements GeoBlockEntity {
   private static final String ENERGY_KEY = "Energy";
   private static final String SLOT_KEY = "Slot";
   private static final int SLOT = 0;
@@ -69,11 +69,11 @@ public final class InductionDockBlockEntity extends BlockEntity {
         }
       };
 
-  /** The Toolbox and the Power Banks, which the stock charges (answers 947 to 959). */
   private final DockTier tier = new DockTier();
-
   private final DockSolarPanel panel = new DockSolarPanel();
+  private final DockIdentity identity = new DockIdentity(this::setChanged);
 
+  /** The Toolbox and the Power Banks, which the stock charges (answers 947 to 959). */
   private final DockStorage storage =
       new DockStorage(this::setChanged, () -> tier.spec().storageSlots());
 
@@ -81,7 +81,8 @@ public final class InductionDockBlockEntity extends BlockEntity {
 
   private final IItemHandler itemHandler = DockItemHandler.of(slot, storage.handler());
 
-  private UUID owner;
+  private final DockOwner owner = new DockOwner();
+  private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
   private UUID occupant;
   private long occupantSeen;
   private boolean robotFull;
@@ -112,13 +113,18 @@ public final class InductionDockBlockEntity extends BlockEntity {
     return tier.spec().rechargePerTick();
   }
 
-  public boolean isSolar() {
-    return getBlockState().getBlock() instanceof InductionDockBlock block && block.isSolar();
-  }
-
   public DockSolarReading solar() {
     return new DockSolarReading(
-        panel.given(), tier.spec().solarPerTick(), panel.state(), panel.sunlit());
+        panel.given(),
+        tier.spec().solarPerTick(),
+        panel.state(),
+        panel.sunlit(),
+        panel.panelState());
+  }
+
+  /** Its own id and the name the owner gave it (answers 1867 to 1870). */
+  public DockIdentity identity() {
+    return identity;
   }
 
   public int storageSlots() {
@@ -149,12 +155,10 @@ public final class InductionDockBlockEntity extends BlockEntity {
     boolean chargesBanks = DockStorageRules.chargesBanks(dock.isOccupied(), dock.robotFull);
     dock.stock =
         dock.storage.charge(dock.stock, chargesBanks, dock.rechargePerTick(), dock::setChanged);
-    if (dock.isSolar()) {
-      Energy rate = dock.tier.spec().solarPerTick();
-      dock.stock = dock.panel.generate(level, pos, dock.stock, rate, dock::setChanged);
-      if (dock.panel.switched()) {
-        level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
-      }
+    Energy rate = dock.tier.spec().solarPerTick();
+    dock.stock = dock.panel.generate(level, pos, dock.stock, rate, dock::setChanged);
+    if (dock.panel.switched()) {
+      level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
     }
     dock.showStatus(level, pos, state);
   }
@@ -201,21 +205,16 @@ public final class InductionDockBlockEntity extends BlockEntity {
         .map(robot -> robot.getCapability(DockCapabilities.DOCKED_ROBOT));
   }
 
-  /**
-   * The name of the owner, online or from the profile cache of the server. The cache may not know
-   * it, and then the screen shows a safe text (AGENTS.md, rule 17).
-   */
   public Optional<String> ownerName() {
-    if (owner == null || level == null || level.getServer() == null) {
-      return Optional.empty();
-    }
-    return OwnerName.of(level.getServer(), owner, worldPosition);
+    return owner.name(level, worldPosition);
   }
 
   /** The click on the dock and the button on its screen call the same way. */
   public void callNearestRobot() {
-    if (level instanceof ServerLevel server && owner != null) {
-      DockFinder.nearestRobot(server, worldPosition, owner)
+    if (level instanceof ServerLevel server) {
+      owner
+          .get()
+          .flatMap(id -> DockFinder.nearestRobot(server, worldPosition, id))
           .ifPresent(robot -> robot.callToDock(worldPosition));
     }
   }
@@ -228,7 +227,7 @@ public final class InductionDockBlockEntity extends BlockEntity {
   }
 
   public Optional<UUID> owner() {
-    return Optional.ofNullable(owner);
+    return owner.get();
   }
 
   public boolean isOwner(Player player) {
@@ -236,7 +235,7 @@ public final class InductionDockBlockEntity extends BlockEntity {
   }
 
   void setOwner(Player player) {
-    owner = player.getUUID();
+    owner.set(player.getUUID());
     setChanged();
     if (level != null) {
       level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
@@ -326,9 +325,7 @@ public final class InductionDockBlockEntity extends BlockEntity {
   @Override
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
     super.saveAdditional(tag, registries);
-    if (owner != null) {
-      tag.putUUID(OWNER_KEY, owner);
-    }
+    owner.save(tag);
     tag.putLong(ENERGY_KEY, energy().amount());
     tier.save(tag);
     ItemStack stack = slot.getItem(SLOT);
@@ -336,17 +333,18 @@ public final class InductionDockBlockEntity extends BlockEntity {
       tag.put(SLOT_KEY, stack.save(registries));
     }
     storage.save(tag, registries);
+    panel.save(tag);
+    identity.save(tag);
   }
 
   @Override
   protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
     super.loadAdditional(tag, registries);
-    owner = tag.hasUUID(OWNER_KEY) ? tag.getUUID(OWNER_KEY) : null;
-    if (owner == null && (level == null || !level.isClientSide())) {
-      LOGGER.warn(NO_OWNER_MESSAGE, worldPosition);
-    }
+    owner.load(tag, level, worldPosition);
     tier.load(tag, worldPosition);
+    panel.load(tag);
     panel.readSun(tag);
+    identity.load(tag);
     stock = DockStock.of(capacity(), SavedEnergy.of(tag.getLong(ENERGY_KEY)));
     slot.setItem(SLOT, DockShapes.savedStack(tag, SLOT_KEY, registries));
     storage.load(tag, registries, worldPosition);
@@ -361,6 +359,8 @@ public final class InductionDockBlockEntity extends BlockEntity {
     storage.apply(
         input.getOrDefault(CubitDataComponents.DOCK_STORAGE.get(), ItemContainerContents.EMPTY),
         worldPosition);
+    identity.apply(
+        input.get(CubitDataComponents.DOCK_ID.get()), input.get(DataComponents.CUSTOM_NAME));
   }
 
   @Override
@@ -369,15 +369,14 @@ public final class InductionDockBlockEntity extends BlockEntity {
     components.set(CubitDataComponents.DOCK_ENERGY.get(), energy().amount());
     tier.collect(components);
     components.set(CubitDataComponents.DOCK_STORAGE.get(), storage.contents());
+    identity.collect(components);
   }
 
-  /** Only the owner travels to the client, because it decides who can break the block. */
+  /** The owner, who decides who can break the block, and the panel travel to the client. */
   @Override
   public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
     CompoundTag tag = new CompoundTag();
-    if (owner != null) {
-      tag.putUUID(OWNER_KEY, owner);
-    }
+    owner.save(tag);
     panel.writeSun(tag);
     return tag;
   }
@@ -385,5 +384,15 @@ public final class InductionDockBlockEntity extends BlockEntity {
   @Override
   public Packet<ClientGamePacketListener> getUpdatePacket() {
     return ClientboundBlockEntityDataPacket.create(this);
+  }
+
+  @Override
+  public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+    DockAnimations.register(controllers, this);
+  }
+
+  @Override
+  public AnimatableInstanceCache getAnimatableInstanceCache() {
+    return animationCache;
   }
 }

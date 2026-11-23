@@ -102,7 +102,7 @@ Fica fixo em todas as abas. `Voltar` fica no canto superior esquerdo, e os botõ
 | Descarregar | Manda o Cubit descarregar nos baús marcados, mesmo sem o inventário cheio, e voltar ao que fazia (pergunta 1089) |
 | Follow | Faz o Cubit escolhido seguir o player, no lugar do que seguia, e, com o item 13, o tira da área (perguntas 1055 e 1072) |
 
-- **Rename:** nomeia e renomeia o Cubit sem gastar etiqueta nem XP, com as regras da etiqueta do jogo. O nome tem até 50 caracteres, e o servidor confere o dono e o tamanho e corta os espaços nas pontas. Um nome vazio tira o nome. Com o Cubit ativo, ele faz a expressão feliz com o bipe, como ao receber a etiqueta (perguntas 1015 a 1017).
+- **Rename:** nomeia e renomeia o Cubit sem gastar etiqueta nem XP, com as regras da etiqueta do jogo. O nome tem até 50 caracteres, e o servidor confere o dono e o tamanho e corta os espaços nas pontas. Um nome vazio volta ao nome padrão, `Cubit` e os 8 primeiros caracteres do UUID dele (pergunta 1878). Com o Cubit ativo, ele faz a expressão feliz com o bipe, como ao receber a etiqueta (perguntas 1015 a 1017).
 - **Rename, a janela:** pequena, no centro, com o campo de até 50 caracteres já preenchido com o nome atual, Confirmar e Cancelar. Enter confirma, e Esc cancela. Um Cubit sem nome abre o campo vazio, para Confirmar não chamá-lo de `Cubit` (pergunta 1035).
 - **Power:** o botão mostra `Switch off` com o Cubit ativo e `Turn on` com ele desligado e com carga. Sem carga, fica desabilitado, com a dica do motivo. Desliga como o botão `Power` da aba Settings, e o clique direito no Cubit também o religa, sem estado salvo novo. Também liga um Cubit desligado com carga, como a exceção da pergunta 80 (pergunta 1033, que muda a 1021).
 - **Parar e seguir:** o `Stop` saiu do Tablet por agora e espera um refinamento, em "Ainda sem fase" no `ROADMAP.md` (pergunta 1036).
@@ -175,10 +175,12 @@ Entra com o item 16 da Fase 4.2 (perguntas 1111 e 1119). As regras do histórico
 | Attachment do player | `cubit:chosen_robot` | O UUID do Cubit escolhido |
 | NBT da entidade | `PreferredDock` | O Dock preferido: `Block`, a posição num `long`, e `Dimension`. Sem a chave, o Cubit não tem Dock preferido |
 | Menu | `cubit:tablet_robot` | A tela do Cubit no Tablet, com a cor, o lugar e a chave geral nos valores do menu |
-| Pacotes do cliente | `cubit:choose_robot`, `cubit:robot_list_request`, `cubit:rename_robot` e `cubit:switch_tablet_app` | Escolher e abrir, voltar para a seleção, renomear e trocar de app, todos conferidos no servidor |
+| Pacotes do cliente | `cubit:choose_robot`, `cubit:robot_list_request`, `cubit:rename_robot`, `cubit:switch_tablet_app`, `cubit:robot_named` e `cubit:rename_dock` | Escolher e abrir, voltar para a seleção, renomear e trocar de app, todos conferidos no servidor |
 | Pacote do servidor | `cubit:unload_chests` | Os baús marcados dos Cubits do player, com o nome do Cubit e os slots, a cada segundo com o Tablet na mão |
 | Pacote do servidor | `cubit:organizer_marks` | As máquinas e os destinos marcados dos Cubits do player, para as setas do app Marcar, a cada segundo com o Tablet na mão (pergunta 1297) |
 | Pacote do servidor | `cubit:patrol_route` | A rota do Patrulheiro escolhido, para as setas numeradas e a linha do app Marcar (pergunta 1612) |
+| Pacote do servidor | `cubit:ask_robot_name` | Abre a janela do nome de um Cubit colocado pela primeira vez, com o nome padrão no campo. A resposta volta por `cubit:robot_named`, aceita uma vez, só de quem o colocou e ao alcance (perguntas 1879 e 1880) |
+| Pacote do cliente | `cubit:rename_dock` | O nome digitado na tela do Dock, aceito só para o Dock da tela aberta, que só o dono abre ao alcance (pergunta 1868) |
 | Pacote do servidor | `cubit:escort_marks` | Os escoltados de cada Patrulheiro do player, para as setas douradas do app Escort (pergunta 1661) |
 | Pacote do servidor | `cubit:area_mark` | O primeiro canto da marcação, com os limites do Cubit, e a área do Cubit escolhido, para a caixa do app Área |
 | Config | `tablet_target_reach_blocks`, em `general` | O alcance da mira do app Alvo, de 1 a 128, com 32 |
@@ -205,6 +207,7 @@ Os textos em inglês e português, como `Cubit Tablet` / `Tablet do Cubit`, `Tab
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 00:00 | Volta ao nome padrão um nome vazio no Rename (pergunta 1878). |
 | Zennd | 2026-11-22 16:59 | Acrescenta a escolta de outra dimensão e o pacote `cubit:escort_marks` (perguntas 1661, 1764 e 1765) |
 | Zennd | 2026-11-22 12:45 | Acrescenta o app Escort, a rota do Patrulheiro no app Marcar e corrige o componente e as cores dos apps (perguntas 1612, 1655 a 1663). |
 | Marcelo Fabiano | 2026-11-21 03:25 | Adiciona o app Portas (perguntas 1364 e 1366). |

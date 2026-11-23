@@ -1,7 +1,6 @@
 package io.github.zenndg.cubit.block;
 
 import com.mojang.serialization.MapCodec;
-import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.dock.DockRemoval;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.ModuleItem;
@@ -12,8 +11,8 @@ import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -25,6 +24,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -55,9 +55,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public final class InductionDockBlock extends BaseEntityBlock {
   private static final String STATUS_NAME = "status";
   private static final String TIER_NAME = "tier";
-  private static final int HALF_TURN_DEGREES = 180;
-  private static final int FULL_TURN_DEGREES = 360;
-  private static final String ULTIMATE_NAME = "ultimate";
   public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
   public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
   public static final EnumProperty<DockStatusProperty> STATUS =
@@ -65,27 +62,13 @@ public final class InductionDockBlock extends BaseEntityBlock {
   public static final EnumProperty<DockTierProperty> TIER =
       EnumProperty.create(TIER_NAME, DockTierProperty.class);
 
-  /** The item picks the netherite body by this, from its tier (answer 1380). */
-  public static final ResourceLocation ULTIMATE_PROPERTY =
-      ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, ULTIMATE_NAME);
-
   private static final MapCodec<InductionDockBlock> CODEC = simpleCodec(InductionDockBlock::new);
-  private static final MapCodec<InductionDockBlock> SOLAR_CODEC =
-      simpleCodec(properties -> new InductionDockBlock(properties, true));
   private static final float CANNOT_BREAK = 0f;
   private static final int OPERATOR_LEVEL = 2;
   private static final int REMOVE_WITHOUT_DROPS = 35;
 
-  private final boolean solar;
-
   public InductionDockBlock(Properties properties) {
-    this(properties, false);
-  }
-
-  /** The Solar Dock is the same dock with a panel on the tower (answer 1384). */
-  public InductionDockBlock(Properties properties, boolean solar) {
     super(properties);
-    this.solar = solar;
     registerDefaultState(
         stateDefinition
             .any()
@@ -97,16 +80,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
 
   @Override
   protected MapCodec<? extends BaseEntityBlock> codec() {
-    return solar ? SOLAR_CODEC : CODEC;
-  }
-
-  public boolean isSolar() {
-    return solar;
-  }
-
-  /** How much the models turn for a facing, as in the block state: the front faces the player. */
-  public static int turnOf(Direction facing) {
-    return ((int) facing.toYRot() + HALF_TURN_DEGREES) % FULL_TURN_DEGREES;
+    return CODEC;
   }
 
   @Override
@@ -129,9 +103,13 @@ public final class InductionDockBlock extends BaseEntityBlock {
     return isLower(state) ? new InductionDockBlockEntity(pos, state) : null;
   }
 
+  /**
+   * GeckoLib draws the whole dock from its lower part, with the panel and its cabinet (answer
+   * 1860), so the upper part draws nothing.
+   */
   @Override
   protected RenderShape getRenderShape(BlockState state) {
-    return RenderShape.MODEL;
+    return isLower(state) ? RenderShape.ENTITYBLOCK_ANIMATED : RenderShape.INVISIBLE;
   }
 
   @Override
@@ -149,16 +127,23 @@ public final class InductionDockBlock extends BaseEntityBlock {
             type, CubitBlockEntities.INDUCTION_DOCK.get(), InductionDockBlockEntity::serverTick);
   }
 
-  /** Without the space above, nothing is placed, and the item stays in the hand. */
+  /**
+   * Without the two blocks of space above, for the tower and the panel, nothing is placed, and the
+   * item stays in the hand (answer 1892).
+   */
   @Override
   public BlockState getStateForPlacement(BlockPlaceContext context) {
     BlockPos above = context.getClickedPos().above();
-    Level level = context.getLevel();
-    if (above.getY() >= level.getMaxBuildHeight()
-        || !level.getBlockState(above).canBeReplaced(context)) {
+    if (!roomAt(context, above) || !roomAt(context, DockTop.of(context.getClickedPos()))) {
       return null;
     }
     return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+  }
+
+  private static boolean roomAt(BlockPlaceContext context, BlockPos pos) {
+    Level level = context.getLevel();
+    return pos.getY() < level.getMaxBuildHeight()
+        && level.getBlockState(pos).canBeReplaced(context);
   }
 
   @Override
@@ -168,6 +153,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
     BlockState placed = state.setValue(TIER, DockTierProperty.of(tier));
     level.setBlock(pos, placed, UPDATE_ALL);
     level.setBlock(pos.above(), placed.setValue(HALF, DoubleBlockHalf.UPPER), UPDATE_ALL);
+    DockTop.place(level, pos);
     if (placer instanceof Player player
         && level.getBlockEntity(pos) instanceof InductionDockBlockEntity dock) {
       dock.setOwner(player);
@@ -214,10 +200,26 @@ public final class InductionDockBlock extends BaseEntityBlock {
       DockUpgrade.apply(dock, player, stack);
       return ItemInteractionResult.CONSUME;
     }
+    if (renamedByTag(dock, player, stack)) {
+      return ItemInteractionResult.CONSUME;
+    }
     if (dock.insert(stack)) {
       return ItemInteractionResult.CONSUME;
     }
     return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+  }
+
+  /** The name tag of the game names the Dock too, and is used up, as on a mob (answer 1868). */
+  private static boolean renamedByTag(
+      InductionDockBlockEntity dock, Player player, ItemStack stack) {
+    Component tagged = stack.get(DataComponents.CUSTOM_NAME);
+    if (!stack.is(Items.NAME_TAG)
+        || tagged == null
+        || !dock.identity().rename(tagged.getString())) {
+      return false;
+    }
+    stack.consume(1, player);
+    return true;
   }
 
   @Override
@@ -258,11 +260,11 @@ public final class InductionDockBlock extends BaseEntityBlock {
         : new SimpleMenuProvider(
             (containerId, inventory, player) ->
                 InductionDockMenu.onServer(containerId, inventory, dock),
-            Component.translatable(getDescriptionId()));
+            Component.literal(dock.identity().name().value()));
   }
 
-  private static boolean canBreak(
-      BlockGetter level, BlockPos pos, BlockState state, Player player) {
+  /** Only the owner, an operator or a player in creative breaks a dock, by any of its parts. */
+  static boolean mayBreak(BlockGetter level, BlockPos pos, BlockState state, Player player) {
     InductionDockBlockEntity dock = dockAt(level, pos, state);
     return DockRemoval.allows(
         player.isCreative(),
@@ -274,7 +276,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
   @Override
   protected float getDestroyProgress(
       BlockState state, Player player, BlockGetter level, BlockPos pos) {
-    return canBreak(level, pos, state, player)
+    return mayBreak(level, pos, state, player)
         ? super.getDestroyProgress(state, player, level, pos)
         : CANNOT_BREAK;
   }
@@ -288,7 +290,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
       Player player,
       boolean willHarvest,
       FluidState fluid) {
-    return canBreak(level, pos, state, player)
+    return mayBreak(level, pos, state, player)
         && super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
   }
 
@@ -299,7 +301,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
     if (!level.isClientSide()
         && player.isCreative()
         && dock != null
-        && canBreak(level, pos, state, player)) {
+        && mayBreak(level, pos, state, player)) {
       ItemStack item = new ItemStack(this);
       item.applyComponents(dock.collectComponents());
       popResource(level, dock.getBlockPos(), item);

@@ -147,12 +147,13 @@ O enum e o nome de contrato `status` não mudam (pergunta 313). Muda só o texto
 
 ### Abas
 
-A tela tem duas abas, à direita da janela, como as da tela do Cubit (perguntas 956, 957 e 960). Cada uma tem um ícone de 16×16, no traço e nas cores das outras abas, feito por prompt (resposta 900).
+A tela tem três abas, à direita da janela, como as da tela do Cubit (perguntas 956, 957, 960 e 1865). Cada uma tem um ícone de 16×16, no traço e nas cores das outras abas, feito por prompt (resposta 900).
 
 | Aba | Ícone | O que mostra |
 |---|---|---|
 | `Dock` / `Dock` | A torre do Dock | As partes abaixo |
 | `Storage` / `Armazenamento` | Uma caixa com uma Power Bank e uma Toolbox | O [inventário do Dock](#aba-storage) |
+| `Solar` / `Solar` | O painel solar do Dock | O painel solar do Dock, em [`energia.md`](energia.md#painel-solar-do-dock): gerando ou parado, o motivo, a geração de agora, a máxima do tier e o estado do painel, Guardado, Montando, Montado ou Guardando, com a luz (pergunta 1865) |
 
 ### Partes
 
@@ -160,7 +161,7 @@ São as partes da aba Dock.
 
 | Parte | O que mostra |
 |---|---|
-| Topo | `Induction Dock`, o estado, a torre com a luz do estado, `Stored energy 64k / 100k FE`, com a barra laranja, a linha de entrada e `Cables or redstone · up to 5,000 FE/t` |
+| Topo | O nome do Dock, como `Dock 3f9a2c1b`, no lugar de `Induction Dock`, com o botão `Rename` ao lado (perguntas 1867 a 1870), o estado, a torre com a luz do estado, `Stored energy 64k / 100k FE`, com a barra laranja, a linha de entrada e `Cables or redstone · up to 5,000 FE/t` |
 | Slot | O slot de entrada, com o rótulo `Redstone`. O slot de carga saiu (pergunta 950), e o espaço dele, de 27 px, sai da aba Dock |
 | Docked Cubit | Com Cubit: o retrato, `Cubit · Battery 165k / 300k FE`, `Health 23 / 25` e a linha de recarga e vida. Sem Cubit: `No Cubit docked` e as frases das imagens |
 | Queue | `Empty`, ou `1 Cubit waiting` |
@@ -252,6 +253,7 @@ Pergunta 691.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:45 | Acrescenta a aba Solar a todo Dock e o nome e o Rename no topo da tela do Dock (perguntas 1865, 1867 e 1870). |
 | Marcelo Fabiano | 2026-11-19 21:45 | Mostra a dica da linha `Speed` só sobre o ícone e o nome (pergunta 1302). |
 | Marcelo Fabiano | 2026-11-19 20:18 | Adiciona a linha `Speed` à aba Settings (perguntas 1269 a 1271). |
 | Marcelo Fabiano | 2026-11-14 20:52 | Acrescenta a aba Work e os estados de trabalho (perguntas 1167 e 1168). |

@@ -34,7 +34,8 @@ final class TabletDockApp {
           robot.docking().preferred().marked().isPresent()
               ? TabletKeys.DOCK_MARKED
               : TabletKeys.DOCK_UNMARKED;
-      say(player, Component.translatable(key, robot.getDisplayName()));
+      Component dockName = Component.literal(dock.get().identity().name().value());
+      say(player, Component.translatable(key, robot.getDisplayName(), dockName));
     }
   }
 

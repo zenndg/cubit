@@ -75,7 +75,7 @@ Escolhidos na aba XP (pergunta 1827):
 - **Capacidade:** por tier, 4 vezes a do Cubit, de 32 a 256 baldes, em [`tiers.md`](../tiers.md#xp) (pergunta 1833).
 - **Passagem:** sempre que o Cubit está no Dock, por qualquer motivo, o XP passa do tanque dele para o do Dock aos poucos, com a velocidade do tier do Dock, na mesma proporção da recarga. A tela mostra a passagem (pergunta 1835).
 - **Canos:** o tanque do Dock aceita e entrega o fluido pela capability de fluido do NeoForge. Entra só o Cubit XP Fluid, e não os fluidos de XP de outros mods, para nenhuma taxa diferente criar ou perder XP. Sai só o Cubit XP Fluid (perguntas 1818 e 1841). O tanque do Cubit não tem cano.
-- **Quebrar:** o item do Dock e do Dock Solar guarda o XP e o modo, como já guarda a energia e o inventário (pergunta 1838).
+- **Quebrar:** o item do Dock guarda o XP e o modo, como já guarda a energia e o inventário (pergunta 1838).
 - **Saves antigos:** um Dock de um mundo de antes do XP vem com o tanque vazio, no modo Armazenar e converter o excesso (pergunta 1832).
 
 ## Modos do Dock
@@ -92,7 +92,7 @@ Escolhidos na aba XP do Dock (pergunta 1831):
 
 - **Conversão:** 2 pontos de XP (40 mB) viram 1 FE na bateria do Dock, na chave `dock_xp_points_per_fe`. A sobra que não fecha 1 FE fica no tanque (pergunta 1834).
 - **Bateria cheia:** nos modos que convertem, com a bateria do Dock cheia, o XP que iria virar energia é apagado. Assim o Dock sempre aceita o XP do Cubit (pergunta 1831).
-- **Equilíbrio:** uma fazenda de mobs de 3.000 pontos por hora rende 1.500 FE por hora, cerca de 2% do painel do Dock Solar Base. O XP é um uso para o que sobra, nunca uma fonte de energia (pergunta 1834).
+- **Equilíbrio:** uma fazenda de mobs de 3.000 pontos por hora rende 1.500 FE por hora, cerca de 2% do painel solar do Dock Base. O XP é um uso para o que sobra, nunca uma fonte de energia (pergunta 1834).
 
 ## Entregar ao player
 
@@ -107,7 +107,7 @@ Um botão na aba XP do Dock (pergunta 1836):
 
 - **Aba XP do Cubit:** nas abas da tela do Cubit, com um ícone de 16×16 feito por prompt (pergunta 900). Mostra o recipiente com marcas de medida e o líquido verde-limão, a linha `6,400 / 8,000 mB · 320 points`, o modo e a chave "Apagar o excesso" (perguntas 1830 e 1847).
 - **Aba XP no Tablet:** a mesma aba na tela do Cubit no Tablet. Com o Cubit descarregado, ela mostra a última foto dele, só para ler (perguntas 1830 e 1849).
-- **Aba XP do Dock:** a terceira aba da tela do Dock e do Dock Solar, depois de Dock e Storage, com o mesmo recipiente, o modo, o botão do player e a energia que o XP gerou (pergunta 1837).
+- **Aba XP do Dock:** a quarta aba da tela do Dock, depois de Dock, Storage e Solar (pergunta 1865), com o mesmo recipiente, o modo, o botão do player e a energia que o XP gerou (pergunta 1837).
 - **Botões:** pedem ao servidor, que confere o dono e decide (regras 19 e 20).
 - **Dica dos itens:** o item do Cubit, o Damaged Cubit e o item do Dock ganham a linha `XP 6,400 / 8,000 mB`, como a da bateria (pergunta 1849).
 - **Jade:** opcional, ganha a linha do tanque no Cubit e no Dock, como a da energia (pergunta 1837).
@@ -147,7 +147,7 @@ Os do jogo, sem `.wav` novos (pergunta 1848):
 | NBT do Cubit | `XpTank`, `XpMode` e `XpDeleteExcess` | O fluido em mB, o modo (`ignore`, `store` ou `return_to_dock`) e a chave do excesso. Sem as chaves, tanque vazio, `store` e desligada (pergunta 1829) |
 | Estado do item do Cubit | Os mesmos três campos | No data component do estado do Cubit, opcionais, com os mesmos padrões, também no Damaged Cubit (regra 8 e pergunta 1838) |
 | NBT do Dock | `XpTank`, `XpMode` e `XpEnergyMade` | O fluido em mB, o modo (`delete_all`, `store_delete_excess`, `store_convert_excess`, `convert_all` ou `store_half_convert_rest`) e a energia que o XP gerou. Sem as chaves, tanque vazio e `store_convert_excess` (pergunta 1832) |
-| Estado do item do Dock | Os mesmos três campos | No item do Dock e do Dock Solar, como a energia (pergunta 1838) |
+| Estado do item do Dock | Os mesmos três campos | No item do Dock, como a energia (pergunta 1838) |
 | Capability do Dock | Fluido do NeoForge | Entrada e saída só de `cubit:xp_fluid` (perguntas 1818 e 1841) |
 | Traduções | O fluido, as abas, os modos, a chave do excesso, o botão, as dicas e os dois avisos | Em inglês e português, com as mesmas chaves (regra 1) |
 
@@ -162,4 +162,5 @@ Uma issue e dois PRs, cada um com o seu teste manual e as provas do [`antes-do-p
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:45 | Tira o Dock Solar, que virou o painel de todo Dock, e põe a aba XP depois da Solar (perguntas 1854 e 1865). |
 | Zennd | 2026-11-22 23:10 | Cria o conceito do XP Cubit e Dock (perguntas 1762, 1787 a 1789 e 1814 a 1850). |

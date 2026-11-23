@@ -4,6 +4,7 @@ import io.github.zenndg.cubit.domain.ownership.Ownership;
 import io.github.zenndg.cubit.domain.robot.RobotListing;
 import io.github.zenndg.cubit.domain.robot.RobotListings;
 import io.github.zenndg.cubit.entity.RobotEntity;
+import io.github.zenndg.cubit.entity.RobotNaming;
 import io.github.zenndg.cubit.entity.RobotSnapshotReader;
 import io.github.zenndg.cubit.entity.RobotTablet;
 import io.github.zenndg.cubit.menu.TabletKeys;
@@ -39,7 +40,8 @@ public final class TabletSelection {
         (player, payload) -> RobotTablet.rename(player, payload.robot(), payload.name()),
         TabletUse::switchApp,
         TabletDeaths::guide,
-        TabletDeaths::delete);
+        TabletDeaths::delete,
+        (player, payload) -> RobotNaming.answered(player, payload.robot(), payload.name()));
   }
 
   public static void open(ServerPlayer player) {

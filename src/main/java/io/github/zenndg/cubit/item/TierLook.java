@@ -44,4 +44,9 @@ public final class TierLook {
   public static RobotTier deskTierOf(ItemStack stack) {
     return stack.getOrDefault(CubitDataComponents.DESK_TIER.get(), RobotTier.BASE);
   }
+
+  /** The tier kept in the item of a dock, Base when it has none (answer 1373). */
+  public static RobotTier dockTierOf(ItemStack stack) {
+    return stack.getOrDefault(CubitDataComponents.DOCK_TIER.get(), RobotTier.BASE);
+  }
 }

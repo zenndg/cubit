@@ -164,5 +164,23 @@
       "cubit:general_robot/tracks"
     ],
     "subtitle": "subtitles.cubit.general_robot.tracks"
+  },
+  "induction_dock.panel_deploy": {
+    "sounds": [
+      "cubit:induction_dock/panel_deploy"
+    ],
+    "subtitle": "subtitles.cubit.induction_dock.panel_deploy"
+  },
+  "induction_dock.panel_lock": {
+    "sounds": [
+      "cubit:induction_dock/panel_lock"
+    ],
+    "subtitle": "subtitles.cubit.induction_dock.panel_lock"
+  },
+  "induction_dock.panel_retract": {
+    "sounds": [
+      "cubit:induction_dock/panel_retract"
+    ],
+    "subtitle": "subtitles.cubit.induction_dock.panel_retract"
   }
 }

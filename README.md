@@ -78,7 +78,7 @@ As receitas usarão só materiais do jogo puro, podendo combinar itens do própr
 2. **Versão mínima (encerrada)**
 3. **Sentidos (encerrada),** com a primeira versão, `0.1.0`
 4. **Upgrades e autonomia (encerrada),** em 4, 4.1 e 4.2: tiers, defesa, ímã, Power Bank, inventário do Dock, tochas, Tablet, modo área, descarga, retorno e local de morte
-5. **Trabalhos (planejada),** num kanban de um card por vez: a base do trabalho, os cards de Aprendizado de Máquina, a personalização, e depois antenas, carregamento de chunks, Servidor e storage
+5. **Trabalhos (planejada),** num kanban de um card por vez: a base do trabalho, os cards de Aprendizado de Máquina, cada um com o seu visual, e depois antenas, carregamento de chunks, Servidor e storage
 
 O que entra em cada fase está no [`ROADMAP.md`](ROADMAP.md).
 

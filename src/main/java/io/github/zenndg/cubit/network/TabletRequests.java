@@ -16,7 +16,8 @@ public record TabletRequests(
     BiConsumer<ServerPlayer, RenameRobotPayload> rename,
     BiConsumer<ServerPlayer, Integer> switchApp,
     BiConsumer<ServerPlayer, DeathGuidePayload> guideDeath,
-    BiConsumer<ServerPlayer, DeleteDeathPayload> deleteDeath) {
+    BiConsumer<ServerPlayer, DeleteDeathPayload> deleteDeath,
+    BiConsumer<ServerPlayer, RobotNamedPayload> named) {
   static final TabletRequests NONE =
       new TabletRequests(
           (player, robot) -> {},
@@ -24,5 +25,6 @@ public record TabletRequests(
           (player, name) -> {},
           (player, direction) -> {},
           (player, guide) -> {},
-          (player, delete) -> {});
+          (player, delete) -> {},
+          (player, named) -> {});
 }

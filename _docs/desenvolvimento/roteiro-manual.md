@@ -720,24 +720,50 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#tiers-do-dock),
 | 11 | Com outro player, clique com um Module num Dock seu | Nada acontece |
 | 12 | Com o jogo em português | `Induction Dock evoluiu para Avançado!` e os outros avisos em português |
 
-## Dock Solar
+## Dock unificado
 
-As regras estão em [`energia.md`](../funcionalidades/energia.md#dock-solar). Use um Induction Dock com algum tier, energia e itens no inventário, e os materiais do painel: vidro, 2 sensores de luz do dia, 1 bloco de redstone e 3 lingotes de ferro.
+As regras estão em [`energia.md`](../funcionalidades/energia.md#painel-solar-do-dock), no [nome do Dock](../funcionalidades/energia.md#nome-do-dock) e no [nome do Cubit](../funcionalidades/personalizacao.md#nome) (issue #246). Os passos 1 a 19 cobrem a entrega 1: a lógica do painel, os nomes e a saída do Dock Solar. Os passos 20 a 38 cobrem o Dock refeito: o modelo GeckoLib com os armários laterais, a transformação de 6 s, as luzes, o brilho, a faixa no topo, o bloco do topo e os sons (perguntas 1891 a 1922). Nos passos 4 a 7, a espera passou de 10 s para 3 s (pergunta 1912). Use um mundo plano no criativo, de dia e sem chuva, um Induction Dock, dois Cubits novos, um Tablet, uma etiqueta com um nome dado na bigorna e um Advanced Module.
 
 | # | Faça | Espere |
 |---|---|---|
-| 1 | Com um Induction Dock no inventário, abra o livro | A receita do `Dock Solar Panel` aparece |
-| 2 | Faça o painel: vidro, vidro, vidro / sensor, bloco de redstone, sensor / ferro, ferro, ferro | Sai o `Dock Solar Panel`, com a textura dele |
-| 3 | Junte o painel e o Dock na grade | Sai o `Solar Induction Dock`, com o painel no ícone, e a energia, o tier e o inventário do Dock |
-| 4 | Coloque-o ao ar livre, de dia e sem chuva | O painel fica num mastro sobre a torre, com o topo na cor do tier, e a face do painel pulsa devagar |
-| 5 | Abra a tela, vá à aba `Solar`, com o ícone do painel, e olhe o Jade | `Status: Generating`, `Now 25 FE/t` e `Tier max 25 FE/t` no Base. A aba principal fica igual à do Dock comum. O Jade mostra `Solar +25 FE/t`, e o estoque sobe sem cabos |
-| 6 | Ponha um bloco de pedra sobre o painel | Na aba `Solar`, `Stopped` e `Why: Sky covered`, o pulso para e o estoque não sobe mais. Com vidro no lugar da pedra, ele volta a gerar |
-| 7 | Use `/time set night`, e depois `/time set day` com `/weather rain` | `Why: Night` e depois `Why: Rain`, sem geração e sem pulso |
-| 8 | Suba o tier com um Module | A geração passa a 100, 500 e 1.400 FE/t |
-| 9 | Ponha um Cubit para carregar nele | Ele carrega como em qualquer Dock |
-| 10 | Quebre o Dock Solar | Volta o `Solar Induction Dock`, com tudo, sem separar o painel |
-| 11 | Olhe um Induction Dock comum | O topo da torre na cor do tier, e a faixa de antes, acima da base, sumiu |
-| 12 | Com o jogo em português | `Induction Dock Solar`, `Painel Solar do Dock` e `Solar: sem sol` |
+| 1 | Procure no inventário criativo, no catálogo da Engineering Desk e no JEI | Só o `Induction Dock`. O `Solar Induction Dock` e o `Dock Solar Panel` não existem mais |
+| 2 | Coloque o Dock ao ar livre e abra a tela, com Shift + clique direito | O título é o nome padrão, como `Dock 3f9a2c1b · Base`, e há três abas: `Dock`, `Storage` e `Solar`, esta com o ícone do painel solar do Cubit |
+| 3 | Vá logo à aba `Solar` | No alto, `Stored` em vermelho; `Status: Generating`, `Panel: Stored` e `Now 0 FE/t` |
+| 4 | Espere uns 10 s | `Deploying` em amarelo por uns 4 s, e depois `Deployed` em verde, com `Now 25 FE/t`. O estoque sobe sem cabos, e o Jade mostra o nome, `Solar +25 FE/t` e `Panel: Deployed` |
+| 5 | Ponha um bloco de pedra logo acima do Dock e espere uns 15 s | `Why: Sky covered`, a geração para, e depois de 10 s o painel passa por `Retracting` até `Stored` |
+| 6 | Troque a pedra por vidro e espere uns 15 s | O painel volta a montar e a gerar |
+| 7 | Use `/time set night` e espere uns 15 s, e depois `/time set day` com `/weather rain` | `Why: Night` e depois `Why: Rain`, sem geração, e o painel volta para `Stored` depois de 10 s |
+| 8 | Com sol, suba o Dock com o Advanced Module | Com o painel montado, `Now 100 FE/t` |
+| 9 | Na aba `Dock`, clique em `Rename`, apague o campo, escreva `Garden` e confirme | A janela `Rename the Dock` abre com o nome atual. O título passa a `Garden · Advanced`, e o Jade mostra `Garden` |
+| 10 | Renomeie de novo com o campo vazio | O nome volta ao padrão, com os mesmos 8 dígitos de antes |
+| 11 | Clique no Dock com a etiqueta nomeada | O Dock ganha o nome da etiqueta, e a etiqueta é gasta fora do criativo |
+| 12 | Quebre o Dock e coloque-o de novo em outro lugar | O item mostra o nome, e o Dock volta com o mesmo nome e o mesmo UUID, com o tier, a energia e o inventário |
+| 13 | No app Dock do Tablet, com um Cubit escolhido, clique no Dock | `Garden is the preferred Dock of Cubit 7c41e0aa`, com os nomes de agora |
+| 14 | Coloque um Cubit novo | Abre a janela `Name your Cubit`, com o nome padrão, como `Cubit 7c41e0aa`, no campo. As frases de apresentação ainda não saem |
+| 15 | Escreva `Rex` e confirme | O nome `Rex` aparece acima do Cubit, e saem `Rex: Happy to help you!` acima da hotbar e `Rex: To learn everything I can do, visit:` com o link no chat |
+| 16 | Coloque o segundo Cubit novo e feche a janela com Esc | Ele fica com o nome padrão, e sai `Cubit 9b2d...: Happy to help you!`. O link não sai, pelo temporizador de 10 minutos |
+| 17 | Recolha o `Rex` e coloque-o de novo | A janela não abre, e ele volta como `Rex` |
+| 18 | No Tablet, renomeie o `Rex` com o campo vazio | Ele volta a um nome padrão, `Cubit` e os 8 primeiros caracteres do UUID dele de agora |
+| 19 | Com o jogo em português | `Renomear o Dock`, `Dê um nome ao seu Cubit`, `Guardado`, `Montando`, `Montado`, `Guardando`, `Painel` e `Rex: Estou feliz em lhe ajudar` |
+| 20 | `/time set night` e coloque um Dock novo ao ar livre | A torre de sempre, 1 px afastada do limite de trás do bloco, com a faixa cinza no topo, a moldura dos armários em cada lateral e as quatro luzes das portas vermelhas, acesas no escuro. As costas lisas, com o quadro do raio |
+| 21 | `/time set day` e olhe de três-quartos pela frente | Uns 3 s depois, a transformação de 6 s, com as luzes amarelas piscando: as folhas abrem para cima e para baixo; os carros deslizam os braços para fora, com a barra da corrediça à vista; os braços desdobram ao lado da torre e sobem os pacotes até as bordas; os pacotes deitam em V, abrem em sanfona, sobem as pontas como asas, fecham no centro na trava e inclinam 15° |
+| 22 | Olhe o Dock montado de todos os lados | O painel fino, do tamanho do bloco, com o topo um pouco abaixo da metade do 3º bloco, sustentado pelos braços pelas bordas. Nada atravessa a torre nem sai do bloco, e as luzes ficam verdes |
+| 23 | Olhe as células do painel montado | Clareiam e escurecem devagar, como as do painel do Cubit, e a aba Solar mostra `Deployed` e a geração só depois dos 6 s |
+| 24 | Gire a câmera de perto, em volta das laterais e da faixa | Nada pisca |
+| 25 | Encaixe um Cubit | Ele encaixa rente à torre, 1 px mais à frente, carrega como antes, e a faixa do topo continua à vista por cima dele |
+| 26 | Suba o Dock até o Ultimate | A faixa fica azul, roxa e dourada, e no Ultimate o corpo fica em netherite |
+| 27 | Ponha pedra logo acima do 3º bloco, a 3 blocos do chão do Dock, e espere uns 5 s | `Why: Sky covered` e a desmontagem ao contrário, até as luzes vermelhas. Troque a pedra por vidro: o painel volta a montar |
+| 28 | Suba no painel montado | Ele segura o player, como uma placa fina. Guardado, o espaço do 3º bloco se atravessa, mas não aceita outro bloco |
+| 29 | Tente colocar um Dock com um bloco 2 blocos acima do chão dele | Nada é colocado, e o item fica na mão |
+| 30 | Com o painel montado, quebre o Dock pelo painel, no criativo e no sobrevivência | O Dock inteiro sai, como item, com o nome, o tier, a energia e o inventário, e o 3º bloco some junto. Outro player não quebra |
+| 31 | Num Dock, use `/setblock` para trocar o 3º bloco por ar e espere uns 5 s | O Dock ganha o 3º bloco de novo, como um Dock de antes |
+| 32 | Troque o 3º bloco por pedra com `/setblock` e espere uns 5 s | `Why: No room for the panel`, o painel fica guardado e a pedra continua lá. Ao tirar a pedra, o Dock ganha o 3º bloco e monta o painel |
+| 33 | Olhe o item na mão, no inventário, no chão e numa moldura | O Dock guardado, com a faixa e o corpo do tier e as luzes vermelhas |
+| 34 | Com o jogo em português | `Sem espaço para o painel` |
+| 35 | Com o som ligado e as legendas do jogo ativas, coloque um Dock ao ar livre de dia | No começo da montagem, o som da transformação (portas, carros, servos subindo e quatro estalos da sanfona), e aos 5,3 s o clique da trava com o bipe, junto do encontro das metades. Legendas `Dock panel deploys` e `Dock panel locks` |
+| 36 | Ponha pedra acima do 3º bloco | No começo da desmontagem, o som de guardar: o giro e o destravar, os estalos ao contrário, os servos descendo e as portas fechando. Legenda `Dock panel retracts` |
+| 37 | Fique a uns 10 blocos do Dock, de costas para ele, e depois a uns 20 | A uns 10 blocos, os sons tocam mesmo sem olhar o Dock; a uns 20, não se ouvem |
+| 38 | Com o jogo em português | Legendas `Painel do Dock monta`, `Painel do Dock trava` e `Painel do Dock guarda` |
 
 ## Recharge Splash
 
@@ -1336,6 +1362,10 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 03:03 | Acrescenta ao Dock unificado os passos dos sons do painel (perguntas 1920 a 1922). |
+| Zennd | 2026-11-23 02:46 | Acrescenta ao Dock unificado os passos do Dock refeito e do bloco do topo (perguntas 1891 a 1918). |
+| Zennd | 2026-11-23 00:10 | Troca o Dock Solar pelo Dock unificado, com o painel, o nome do Dock e o nome do Cubit, na entrega 1 (perguntas 1852 a 1882). |
+| Zennd | 2026-11-22 23:45 | Aponta a seção do Dock Solar para o painel de todo Dock (pergunta 1854). |
 | Zennd | 2026-11-22 22:08 | Deixa os olhos nítidos atrás do visor nos passos do visual do Patrulheiro (pergunta 1811). |
 | Zennd | 2026-11-22 22:05 | Faz o visor descer à frente dos olhos nos passos do visual do Patrulheiro (perguntas 1809 e 1810). |
 | Zennd | 2026-11-22 22:00 | Faz as asas crescerem e fecharem 2 s depois do pouso nos passos do visual e dos sons (perguntas 1806 a 1808). |

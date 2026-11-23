@@ -17,9 +17,12 @@ O dono escolhe a cor da carcaça e o nome de cada Cubit (perguntas 504 a 514).
 
 ## Nome
 
+- **Nome padrão:** todo Cubit tem nome. Na primeira colocação no mundo, ele ganha `Cubit` e os 8 primeiros caracteres do UUID da entidade, como `Cubit 7c41e0aa`, salvo como o nome dele, igual a um nome dado. Por isso o nome vai no item ao recolher e volta igual ao colocar (issue #246, perguntas 1874 e 1876).
+- **Janela do nome:** na primeira colocação de um Cubit novo, para quem o colocou, abre uma janela com o campo já preenchido com o nome padrão, Confirmar e Cancelar, a mesma do Rename do Tablet. Confirmar um nome o dá ao Cubit, com as regras do Rename. Confirmar vazio, cancelar ou fechar com Esc deixa o nome padrão. Recolher e colocar de novo não abre a janela (perguntas 1875 e 1879).
+- **Saves antigos:** um Cubit sem nome, colocado antes, ganha o nome padrão ao carregar, uma vez. Um Cubit com nome não muda (regra 18 e pergunta 1877).
 - **Etiqueta:** só do dono, em qualquer estado, e gasta 1, menos no criativo. Uma etiqueta sem nome não faz nada. A de quem não é dono não faz nada e não é gasta.
 - **Bigorna:** renomeia o Cubit ou o Damaged Cubit como item, e o nome vale ao colocar.
-- **Tablet:** o botão `Rename` da tela do Cubit no [Tablet](tablet.md#cabeçalho) nomeia e renomeia o Cubit, sem gastar etiqueta nem XP, com as regras da etiqueta, e um nome vazio tira o nome (perguntas 1015 a 1017).
+- **Tablet:** o botão `Rename` da tela do Cubit no [Tablet](tablet.md#cabeçalho) nomeia e renomeia o Cubit, sem gastar etiqueta nem XP, com as regras da etiqueta, e um nome vazio volta ao nome padrão, para o Cubit nunca ficar sem nome (perguntas 1015 a 1017 e 1878).
 - **Onde aparece:** sempre visível acima do Cubit, dentro do alcance normal do jogo, na tela do Cubit e no Jade.
 
 ## Reação
@@ -34,6 +37,7 @@ Recolher, morrer, consertar e salvar o mundo mantêm a cor e o nome. Saves antig
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 00:00 | Dá a todo Cubit o nome padrão, com a janela do nome na primeira colocação (perguntas 1874 a 1881). |
 | Marcelo Fabiano | 2026-11-13 16:40 | Adiciona o nome pelo Tablet. |
 | Marcelo Fabiano | 2026-11-11 22:01 | Atualiza o colar no ícone. |
 | Marcelo Fabiano | 2026-11-07 23:42 | Atualiza onde o nome aparece. |

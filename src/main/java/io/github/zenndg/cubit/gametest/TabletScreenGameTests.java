@@ -104,7 +104,8 @@ public final class TabletScreenGameTests {
 
   /** The spaces at the ends are cut, and an empty name removes the name (1015 and 1017). */
   @GameTest(template = ARENA)
-  public static void renameNamesAndAnEmptyNameRemovesIt(GameTestHelper helper) {
+  /** An empty name gives the Cubit its standard name back, never none (answer 1878). */
+  public static void renameNamesAndAnEmptyNameGivesTheStandardBack(GameTestHelper helper) {
     ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
     RobotEntity robot = GameTestRobots.placeNewRobot(helper, owner, FLOOR);
 
@@ -112,7 +113,8 @@ public final class TabletScreenGameTests {
     helper.assertValueEqual(robot.getCustomName().getString(), NAME, WRONG_NAME);
     RobotTablet.rename(owner, robot.getUUID(), NO_NAME);
 
-    helper.assertFalse(robot.hasCustomName(), WRONG_NAME);
+    helper.assertValueEqual(
+        robot.getCustomName().getString(), RobotName.standard(robot.getUUID()).value(), WRONG_NAME);
     helper.succeed();
   }
 

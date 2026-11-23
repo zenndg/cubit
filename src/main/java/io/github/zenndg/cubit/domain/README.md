@@ -112,7 +112,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `FollowCall` | Se o `Follow` do Tablet pode fazer o Cubit escolhido seguir o dono agora, ou por que não: já seguindo, sem carga ou em outra dimensão (perguntas 1073 a 1075) |
 | `TabletWheel` | Para que lado Shift + roda troca o app do Tablet. Sem rolagem vertical, como no mouse do macOS com Shift, vale a rolagem para o lado, com o sinal trocado, como na hotbar do jogo |
 | `IntroLink` | Quando o player viu o link da apresentação pela última vez, em ticks, com `NEVER` para nunca. O link só sai depois do temporizador, e um tempo anterior ao último link, como num outro mundo, o mostra de novo. Também diz se um endereço é seguro: só `https://`, com algo depois e sem espaços (perguntas 1674, 1677 e 1681) |
-| `RobotName` | O nome que o Tablet dá ao Cubit, com as regras da etiqueta: corta os espaços das pontas, aceita até 50 caracteres e, vazio, tira o nome (perguntas 1015 a 1017) |
+| `RobotName` | O nome que o Tablet dá ao Cubit, com as regras da etiqueta: corta os espaços das pontas, aceita até 50 caracteres e, vazio, tira o nome (perguntas 1015 a 1017). Sem nome, o padrão é `Cubit` e os 8 primeiros caracteres do UUID, e um nome vazio volta a ele (perguntas 1874 e 1878) |
 | `PickupSettings` | As chaves da coleta, do ímã e da busca e o filtro, que o item guarda |
 | `OreSignals` | Quais minérios avisam e qual deles o texto cita, a partir da lista dos raros |
 | `ScannerSpec` | Números dos scanners de um tier: raios, intervalos, custos e vagas do filtro |
@@ -163,7 +163,12 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `DockStorageRules` | O inventário do Dock: o que ele guarda, quais slots o tier abre, quando e qual Power Bank ele carrega, e o que a automação tira (perguntas 1361 e 1374) |
 | `DockStoredKind` | O que um item é para o inventário do Dock: Toolbox, Power Bank, Cubit, outro item do mod ou um item de fora |
 | `DockSpec` e `DockCatalog` | Os números do Dock em cada tier: o estoque, a recarga do Cubit e da Power Bank guardada, os slots, em linhas inteiras de 9, e a geração do painel do Dock Solar. O config os serve (perguntas 1374, 1381 e 1385) |
-| `DockSun` | O que o painel do Dock Solar vê: dia, céu aberto, chuva e um mundo com sol. Só gera com tudo a favor, e sem sol é um Dock normal (pergunta 1384) |
+| `DockSun` | O que o painel do Dock vê: dia, céu aberto, chuva, um mundo com sol e o 3º bloco, onde o painel fica. Só gera com tudo a favor, e sem sol é um Dock normal. Um Dock de antes, sem espaço para o 3º bloco, fica sem o painel, e só um mundo sem sol é um motivo mais duradouro (perguntas 1384 e 1897) |
+| `DockPanel` | O painel solar de todo Dock: sai do armário depois de um tempo seguido com sol e volta depois do mesmo tempo sem sol, também à noite; o movimento dos braços vai até o fim, qualquer que seja o céu; só o painel montado por completo gera; e só o destino do movimento é salvo (`Timings`: a espera e o movimento) (perguntas 1856, 1859, 1862 e 1864) |
+| `DockPanelState` | Onde o painel está: guardado, montando, montado ou guardando, para a aba Solar e a luz das portas (perguntas 1863 e 1865) |
+| `DockPanelSound` | O som de cada momento do painel: a montagem quando os braços começam a sair, a trava quando as metades se encontram no centro e a desmontagem quando os braços começam a voltar (perguntas 1861 e 1921) |
+| `DockDoorLight` | A luz na borda das folhas das portas: vermelha com o painel guardado, verde com ele montado e amarela, piscando, durante o movimento (perguntas 1853 e 1863) |
+| `DockName` | O nome de um Dock: o dado pelo dono, com as regras do nome do Cubit, ou o padrão `Dock` e os 8 primeiros dígitos do UUID dele, para o Dock nunca ficar sem nome (perguntas 1867 a 1869) |
 | `RobotClick` | O que o clique direito faz no robô: ignorar, recolher, subir o tier, pintar, escolher o minério, abrir ou ligar |
 | `InventoryFit` | Separa os itens que cabem nos slots do config dos que sobram |
 | `InventoryGrid` | Como o inventário aparece na tela: sempre 3 fileiras, com 9, 12, 15 e 18 colunas do Base ao Ultimate, a coluna e a fileira de cada slot e as colunas a mais, que alargam a tela (pergunta 1101) |

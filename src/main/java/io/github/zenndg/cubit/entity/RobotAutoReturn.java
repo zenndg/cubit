@@ -1,11 +1,13 @@
 package io.github.zenndg.cubit.entity;
 
 import io.github.zenndg.cubit.CubitMod;
+import io.github.zenndg.cubit.block.InductionDockBlockEntity;
 import io.github.zenndg.cubit.domain.behavior.RobotNotice;
 import io.github.zenndg.cubit.domain.dock.AutoReturn;
 import io.github.zenndg.cubit.domain.energy.Percentage;
 import io.github.zenndg.cubit.domain.energy.PowerState;
 import io.github.zenndg.cubit.menu.RobotSwitch;
+import io.github.zenndg.cubit.registry.CubitBlocks;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -81,7 +83,7 @@ public final class RobotAutoReturn implements RobotSwitch {
       guard.leaveForTheDock();
       robot.callToDock(spot);
     });
-    tell(dock.isPresent());
+    tell(dock);
   }
 
   /**
@@ -98,7 +100,8 @@ public final class RobotAutoReturn implements RobotSwitch {
    * The Patroller tells its owner on the action bar, with its name, once, in place of the text of
    * every Cubit, and only with its talk on (answers 1690 and 1699).
    */
-  private void tell(boolean toDock) {
+  private void tell(Optional<BlockPos> dock) {
+    boolean toDock = dock.isPresent();
     if (!robot.workArea().work().patrol().hasCard()) {
       if (toDock) {
         robot.notices().show(RobotNotice.NEED_RECHARGE);
@@ -112,7 +115,17 @@ public final class RobotAutoReturn implements RobotSwitch {
     }
     told = true;
     toldToDock = toDock;
-    owner.displayClientMessage(
-        Component.translatable(toDock ? HEADING_KEY : NO_DOCK_KEY, robot.getName()), true);
+    Component text =
+        toDock
+            ? Component.translatable(HEADING_KEY, robot.getName(), dockName(dock.get()))
+            : Component.translatable(NO_DOCK_KEY, robot.getName());
+    owner.displayClientMessage(text, true);
+  }
+
+  /** The name of the Dock it goes to, or the name of the block when it is not there (1870). */
+  private Component dockName(BlockPos spot) {
+    return robot.level().getBlockEntity(spot) instanceof InductionDockBlockEntity dock
+        ? Component.literal(dock.identity().name().value())
+        : CubitBlocks.INDUCTION_DOCK.get().getName();
   }
 }

@@ -16,11 +16,16 @@ public final class DockSection {
   private static final int COMPLETE_HOLD_DEFAULT = 60;
   private static final int COMPLETE_HOLD_MAX = 1_200;
   private static final int MIN = 1;
+  private static final String SOLAR_DELAY = "dock_solar_deploy_delay_ticks";
+  private static final int SOLAR_DELAY_DEFAULT = 60;
+  private static final int SOLAR_DELAY_MAX = 1_200;
+  private static final int NO_DELAY = 0;
 
   private final ModConfigSpec.IntValue input;
   private final ModConfigSpec.IntValue fullHealTicks;
   private final ModConfigSpec.IntValue stuckTicks;
   private final ModConfigSpec.IntValue completeHoldTicks;
+  private final ModConfigSpec.IntValue solarDelayTicks;
 
   DockSection(ModConfigSpec.Builder builder) {
     input = builder.defineInRange(INPUT, INPUT_DEFAULT, MIN, Integer.MAX_VALUE);
@@ -28,6 +33,13 @@ public final class DockSection {
     stuckTicks = builder.defineInRange(STUCK, STUCK_DEFAULT, MIN, STUCK_MAX);
     completeHoldTicks =
         builder.defineInRange(COMPLETE_HOLD, COMPLETE_HOLD_DEFAULT, MIN, COMPLETE_HOLD_MAX);
+    solarDelayTicks =
+        builder.defineInRange(SOLAR_DELAY, SOLAR_DELAY_DEFAULT, NO_DELAY, SOLAR_DELAY_MAX);
+  }
+
+  /** The sky in a row before the panel leaves or goes back to the cabinet (answer 1856). */
+  public int solarDelayTicks() {
+    return solarDelayTicks.get();
   }
 
   public int inputPerTick() {

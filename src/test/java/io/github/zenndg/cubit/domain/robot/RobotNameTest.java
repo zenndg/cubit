@@ -5,9 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 class RobotNameTest {
+  private static final String STANDARD_ID = "7c41e0aa-0000-4000-8000-000000000000";
+  private static final String STANDARD_NAME = "Cubit 7c41e0aa";
+
   private static final String NAME = "Bolt";
   private static final String PADDED = "  Bolt  ";
   private static final String BLANK = "   ";
@@ -46,5 +50,12 @@ class RobotNameTest {
   void aNameIsAlwaysCut() {
     assertThrows(IllegalArgumentException.class, () -> new RobotName(PADDED));
     assertThrows(IllegalArgumentException.class, () -> new RobotName(null));
+  }
+
+  /** A Cubit is never nameless: Cubit and the first eight characters of its id (1874). */
+  @Test
+  void theStandardNameIsCubitAndTheFirstEightCharacters() {
+    UUID id = UUID.fromString(STANDARD_ID);
+    assertEquals(STANDARD_NAME, RobotName.standard(id).value());
   }
 }

@@ -8,6 +8,7 @@ import io.github.zenndg.cubit.domain.robot.RobotColor;
 import io.github.zenndg.cubit.domain.robot.RobotState;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.entity.RobotEntity;
+import io.github.zenndg.cubit.entity.RobotNaming;
 import io.github.zenndg.cubit.item.RobotStateComponent;
 import io.github.zenndg.cubit.registry.CubitAttachments;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
@@ -23,9 +24,9 @@ import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 /**
- * The introduction of a new Cubit on its first placement (answers 1672 to 1682 and 1750 to 1753).
- * The texts reach only the client, so the tests read what the server keeps: the robot marked as
- * introduced and the tick of the last link of the player.
+ * The introduction of a new Cubit on its first placement, after the window of its name (answers
+ * 1672 to 1682, 1750 to 1753 and 1880). The texts reach only the client, so the tests read what the
+ * server keeps: the robot marked as introduced and the tick of the last link of the player.
  */
 @GameTestHolder(CubitMod.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -45,14 +46,17 @@ public final class IntroGameTests {
   private static final String STILL_NEW = "The robot should not be introduced";
   private static final String NO_LINK = "The link should have been shown now";
   private static final String LINK_SHOWN = "The link should not have been shown";
+  private static final String NO_NAME = "";
 
   private IntroGameTests() {}
 
   @GameTest(template = ARENA)
   public static void aNewCubitIsIntroducedWhenPlaced(GameTestHelper helper) {
-    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    ServerPlayer owner = GameTestRobots.onlinePlayerAt(helper, FLOOR);
     RobotEntity robot = GameTestRobots.placeNewRobot(helper, owner, FLOOR);
     helper.assertTrue(robot.chatter().introduced(), NOT_INTRODUCED);
+    helper.assertTrue(lastLink(owner) == IntroLink.NEVER_SHOWN, LINK_SHOWN);
+    RobotNaming.answered(owner, robot.getUUID(), NO_NAME);
     helper.assertTrue(lastLink(owner) == helper.getLevel().getGameTime(), NO_LINK);
     helper.succeed();
   }
@@ -73,10 +77,11 @@ public final class IntroGameTests {
   /** A link shown a tick ago keeps the next new Cubit to the help alone (answer 1681). */
   @GameTest(template = ARENA)
   public static void theLinkWaitsForTheCooldown(GameTestHelper helper) {
-    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    ServerPlayer owner = GameTestRobots.onlinePlayerAt(helper, FLOOR);
     long aTickAgo = helper.getLevel().getGameTime() - 1;
     owner.setData(CubitAttachments.INTRO_LINK_TIME, IntroLink.NEVER.shownAt(aTickAgo));
     RobotEntity robot = GameTestRobots.placeNewRobot(helper, owner, FLOOR);
+    RobotNaming.answered(owner, robot.getUUID(), NO_NAME);
     helper.assertTrue(robot.chatter().introduced(), NOT_INTRODUCED);
     helper.assertTrue(lastLink(owner) == aTickAgo, LINK_SHOWN);
     helper.succeed();
@@ -110,6 +115,7 @@ public final class IntroGameTests {
     DockScene.placeDock(helper, owner, DockScene.FLOOR, Energy.ZERO);
     DockScene.useOnDock(helper, owner, new ItemStack(CubitItems.GENERAL_ROBOT.get()));
     RobotEntity robot = GameTestRobots.robots(helper).getFirst();
+    RobotNaming.answered(owner, robot.getUUID(), NO_NAME);
     helper.assertTrue(robot.chatter().introduced(), NOT_INTRODUCED);
     helper.assertTrue(lastLink(owner) == helper.getLevel().getGameTime(), NO_LINK);
     helper.succeed();

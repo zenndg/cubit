@@ -1,544 +1,484 @@
 {
   "variants": {
     "facing=east,half=lower,status=charging,tier=advanced": {
-      "model": "cubit:block/induction_dock_charging",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=charging,tier=base": {
-      "model": "cubit:block/induction_dock_charging",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=charging,tier=elite": {
-      "model": "cubit:block/induction_dock_charging",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=charging,tier=ultimate": {
-      "model": "cubit:block/induction_dock_charging_ultimate",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=complete,tier=advanced": {
-      "model": "cubit:block/induction_dock_complete",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=complete,tier=base": {
-      "model": "cubit:block/induction_dock_complete",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=complete,tier=elite": {
-      "model": "cubit:block/induction_dock_complete",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=complete,tier=ultimate": {
-      "model": "cubit:block/induction_dock_complete_ultimate",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=idle,tier=advanced": {
-      "model": "cubit:block/induction_dock_idle",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=idle,tier=base": {
-      "model": "cubit:block/induction_dock_idle",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=idle,tier=elite": {
-      "model": "cubit:block/induction_dock_idle",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=idle,tier=ultimate": {
-      "model": "cubit:block/induction_dock_idle_ultimate",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=no_energy,tier=advanced": {
-      "model": "cubit:block/induction_dock_no_energy",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=no_energy,tier=base": {
-      "model": "cubit:block/induction_dock_no_energy",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=no_energy,tier=elite": {
-      "model": "cubit:block/induction_dock_no_energy",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=no_energy,tier=ultimate": {
-      "model": "cubit:block/induction_dock_no_energy_ultimate",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=off,tier=advanced": {
-      "model": "cubit:block/induction_dock_off",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=off,tier=base": {
-      "model": "cubit:block/induction_dock_off",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=off,tier=elite": {
-      "model": "cubit:block/induction_dock_off",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=lower,status=off,tier=ultimate": {
-      "model": "cubit:block/induction_dock_off_ultimate",
-      "y": 90
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=charging,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=charging,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=charging,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=charging,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=complete,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=complete,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=complete,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=complete,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=idle,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=idle,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=idle,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=idle,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=no_energy,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=no_energy,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=no_energy,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=no_energy,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=off,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=off,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=off,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=east,half=upper,status=off,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=charging,tier=advanced": {
-      "model": "cubit:block/induction_dock_charging"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=charging,tier=base": {
-      "model": "cubit:block/induction_dock_charging"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=charging,tier=elite": {
-      "model": "cubit:block/induction_dock_charging"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=charging,tier=ultimate": {
-      "model": "cubit:block/induction_dock_charging_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=complete,tier=advanced": {
-      "model": "cubit:block/induction_dock_complete"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=complete,tier=base": {
-      "model": "cubit:block/induction_dock_complete"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=complete,tier=elite": {
-      "model": "cubit:block/induction_dock_complete"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=complete,tier=ultimate": {
-      "model": "cubit:block/induction_dock_complete_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=idle,tier=advanced": {
-      "model": "cubit:block/induction_dock_idle"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=idle,tier=base": {
-      "model": "cubit:block/induction_dock_idle"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=idle,tier=elite": {
-      "model": "cubit:block/induction_dock_idle"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=idle,tier=ultimate": {
-      "model": "cubit:block/induction_dock_idle_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=no_energy,tier=advanced": {
-      "model": "cubit:block/induction_dock_no_energy"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=no_energy,tier=base": {
-      "model": "cubit:block/induction_dock_no_energy"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=no_energy,tier=elite": {
-      "model": "cubit:block/induction_dock_no_energy"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=no_energy,tier=ultimate": {
-      "model": "cubit:block/induction_dock_no_energy_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=off,tier=advanced": {
-      "model": "cubit:block/induction_dock_off"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=off,tier=base": {
-      "model": "cubit:block/induction_dock_off"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=off,tier=elite": {
-      "model": "cubit:block/induction_dock_off"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=lower,status=off,tier=ultimate": {
-      "model": "cubit:block/induction_dock_off_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=charging,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=charging,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=charging,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=charging,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=complete,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=complete,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=complete,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=complete,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=idle,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=idle,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=idle,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=idle,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=no_energy,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=no_energy,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=no_energy,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=no_energy,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=off,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=off,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=off,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=north,half=upper,status=off,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=charging,tier=advanced": {
-      "model": "cubit:block/induction_dock_charging",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=charging,tier=base": {
-      "model": "cubit:block/induction_dock_charging",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=charging,tier=elite": {
-      "model": "cubit:block/induction_dock_charging",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=charging,tier=ultimate": {
-      "model": "cubit:block/induction_dock_charging_ultimate",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=complete,tier=advanced": {
-      "model": "cubit:block/induction_dock_complete",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=complete,tier=base": {
-      "model": "cubit:block/induction_dock_complete",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=complete,tier=elite": {
-      "model": "cubit:block/induction_dock_complete",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=complete,tier=ultimate": {
-      "model": "cubit:block/induction_dock_complete_ultimate",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=idle,tier=advanced": {
-      "model": "cubit:block/induction_dock_idle",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=idle,tier=base": {
-      "model": "cubit:block/induction_dock_idle",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=idle,tier=elite": {
-      "model": "cubit:block/induction_dock_idle",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=idle,tier=ultimate": {
-      "model": "cubit:block/induction_dock_idle_ultimate",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=no_energy,tier=advanced": {
-      "model": "cubit:block/induction_dock_no_energy",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=no_energy,tier=base": {
-      "model": "cubit:block/induction_dock_no_energy",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=no_energy,tier=elite": {
-      "model": "cubit:block/induction_dock_no_energy",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=no_energy,tier=ultimate": {
-      "model": "cubit:block/induction_dock_no_energy_ultimate",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=off,tier=advanced": {
-      "model": "cubit:block/induction_dock_off",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=off,tier=base": {
-      "model": "cubit:block/induction_dock_off",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=off,tier=elite": {
-      "model": "cubit:block/induction_dock_off",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=lower,status=off,tier=ultimate": {
-      "model": "cubit:block/induction_dock_off_ultimate",
-      "y": 180
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=charging,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=charging,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=charging,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=charging,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=complete,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=complete,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=complete,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=complete,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=idle,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=idle,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=idle,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=idle,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=no_energy,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=no_energy,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=no_energy,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=no_energy,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=off,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=off,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=off,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=south,half=upper,status=off,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=charging,tier=advanced": {
-      "model": "cubit:block/induction_dock_charging",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=charging,tier=base": {
-      "model": "cubit:block/induction_dock_charging",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=charging,tier=elite": {
-      "model": "cubit:block/induction_dock_charging",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=charging,tier=ultimate": {
-      "model": "cubit:block/induction_dock_charging_ultimate",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=complete,tier=advanced": {
-      "model": "cubit:block/induction_dock_complete",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=complete,tier=base": {
-      "model": "cubit:block/induction_dock_complete",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=complete,tier=elite": {
-      "model": "cubit:block/induction_dock_complete",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=complete,tier=ultimate": {
-      "model": "cubit:block/induction_dock_complete_ultimate",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=idle,tier=advanced": {
-      "model": "cubit:block/induction_dock_idle",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=idle,tier=base": {
-      "model": "cubit:block/induction_dock_idle",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=idle,tier=elite": {
-      "model": "cubit:block/induction_dock_idle",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=idle,tier=ultimate": {
-      "model": "cubit:block/induction_dock_idle_ultimate",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=no_energy,tier=advanced": {
-      "model": "cubit:block/induction_dock_no_energy",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=no_energy,tier=base": {
-      "model": "cubit:block/induction_dock_no_energy",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=no_energy,tier=elite": {
-      "model": "cubit:block/induction_dock_no_energy",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=no_energy,tier=ultimate": {
-      "model": "cubit:block/induction_dock_no_energy_ultimate",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=off,tier=advanced": {
-      "model": "cubit:block/induction_dock_off",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=off,tier=base": {
-      "model": "cubit:block/induction_dock_off",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=off,tier=elite": {
-      "model": "cubit:block/induction_dock_off",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=lower,status=off,tier=ultimate": {
-      "model": "cubit:block/induction_dock_off_ultimate",
-      "y": 270
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=charging,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=charging,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=charging,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=charging,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=complete,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=complete,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=complete,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=complete,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=idle,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=idle,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=idle,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=idle,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=no_energy,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=no_energy,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=no_energy,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=no_energy,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=off,tier=advanced": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=off,tier=base": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=off,tier=elite": {
-      "model": "cubit:block/induction_dock_upper"
+      "model": "cubit:block/induction_dock"
     },
     "facing=west,half=upper,status=off,tier=ultimate": {
-      "model": "cubit:block/induction_dock_upper_ultimate"
+      "model": "cubit:block/induction_dock"
     }
   }
 }

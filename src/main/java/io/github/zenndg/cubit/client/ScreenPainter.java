@@ -32,6 +32,7 @@ final class ScreenPainter {
   static final int STATUS_BLUE = 0xFF2A8FB0;
   static final int STATUS_ORANGE = 0xFFC27A12;
   static final int STATUS_RED = 0xFFC62828;
+  static final int STATUS_YELLOW = 0xFFB8A000;
   static final int STATUS_GRAY = 0xFF757575;
   static final int STATUS_PURPLE = 0xFF7B4FB0;
 

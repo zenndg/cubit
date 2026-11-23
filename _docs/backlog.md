@@ -32,13 +32,7 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
    - **Quando:** numa issue própria, depois do PR 3 do Patrulheiro.
    - **Em aberto:** o teleporte para outra dimensão.
 
-2. **Nome ao colocar o Cubit** (pergunta 1748).
-   - **A ideia:** ao colocar um Cubit no mundo, abre uma janela que pede o nome dele. Sem nome escolhido, ele se chama `Cubit` mais 8 caracteres do seu UUID.
-   - **Em aberto:**
-     - se a janela abre só na primeira colocação ou em toda colocação;
-     - como ela convive com as frases de apresentação da primeira colocação (perguntas 1672 a 1682);
-     - os Cubits que já existem nos mundos, que hoje podem não ter nome (regra 18);
-     - a regra do nome que o Tablet já aplica (`RobotName`).
+2. **Nome ao colocar o Cubit** (pergunta 1748). Entrou no Dock unificado, na issue #246, refinado nas perguntas 1874 a 1881, com o conceito em [`personalizacao.md`](funcionalidades/personalizacao.md#nome).
 
 3. **XP em tanque de líquido** (pergunta 1762). Virou o XP Cubit e Dock, refinado e autorizado nas perguntas 1814 a 1851, na issue #244, com o conceito em [`xp.md`](funcionalidades/xp.md).
 
@@ -54,6 +48,7 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 00:00 | Troca o nome ao colocar o Cubit pelo link do conceito (perguntas 1874 a 1881). |
 | Zennd | 2026-11-22 23:13 | Troca o XP em tanque de líquido pelo link do conceito, refinado nas perguntas 1814 a 1851. |
 | Zennd | 2026-11-22 21:03 | Leva o XP em tanque de líquido ao roadmap, como XP Cubit e Dock (perguntas 1787 a 1789). |
 | Zennd | 2026-11-22 17:00 | Acrescenta a busca no fim da escolta do Patrulheiro (pergunta 1766). |

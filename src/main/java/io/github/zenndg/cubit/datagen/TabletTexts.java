@@ -30,7 +30,7 @@ final class TabletTexts {
   private static final String NOT_A_TARGET = "This cannot be a Focus target";
   private static final String DOCK_ONLY_YOURS = "The Dock app marks one of your Docks";
   private static final String DOCK_NO_CUBIT = "Choose a Cubit within reach first";
-  private static final String DOCK_MARKED = "Preferred Dock of %s";
+  private static final String DOCK_MARKED = "%2$s is the preferred Dock of %1$s";
   private static final String DOCK_UNMARKED = "%s has no preferred Dock";
   private static final String GO_TO_DOCK = "Go to Dock";
   private static final String GO_TO_DOCK_DETAIL = "Sends the Cubit to hibernate at its Dock";

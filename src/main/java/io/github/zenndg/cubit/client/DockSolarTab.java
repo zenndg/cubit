@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.client;
 
 import io.github.zenndg.cubit.client.ScreenPainter.Box;
 import io.github.zenndg.cubit.client.ScreenPainter.Colors;
+import io.github.zenndg.cubit.domain.dock.DockPanelState;
 import io.github.zenndg.cubit.domain.dock.DockSunState;
 import io.github.zenndg.cubit.domain.energy.EnergyFormat;
 import io.github.zenndg.cubit.menu.InductionDockMenu;
@@ -11,8 +12,9 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 
 /**
- * The Solar tab of a Solar Dock: whether the panel generates, why it stops, what it gives now and
- * at most at the tier of the dock (answers 1395 and 1396).
+ * The Solar tab of every Dock: where the panel is, with the color of the light of the doors, what
+ * the sky does, why it stops, what it gives now and at most at the tier of the dock (answers 1395,
+ * 1396, 1863 and 1865).
  */
 final class DockSolarTab {
   private static final int LINE = 9;
@@ -23,7 +25,8 @@ final class DockSolarTab {
   private static final Box REASON = new Box(8, 34, 160, LINE);
   private static final Box NOW = new Box(8, 46, 160, LINE);
   private static final Box MAX = new Box(8, 58, 160, LINE);
-  private static final Box HINT = new Box(8, 74, 160, DETAIL_LINE);
+  private static final Box PANEL = new Box(8, 70, 160, LINE);
+  private static final Box HINT = new Box(8, 86, 160, DETAIL_LINE);
 
   private DockSolarTab() {}
 
@@ -33,9 +36,9 @@ final class DockSolarTab {
     painter.text(graphics, title, TITLE, ScreenPainter.TEXT, ScreenPainter.FULL_SCALE);
     DockSunState state = menu.sunState();
     boolean generating = state == DockSunState.GENERATING;
-    int color = generating ? ScreenPainter.STATUS_GREEN : ScreenPainter.STATUS_ORANGE;
     Component sun = Component.translatable(ScreenKeys.dockSun(state));
-    painter.status(graphics, sun, STATUS, color);
+    Component panel = Component.translatable(ScreenKeys.dockPanel(menu.panelState()));
+    painter.status(graphics, panel, STATUS, lightOf(menu.panelState()));
     painter.pair(
         graphics,
         STATE,
@@ -67,7 +70,22 @@ final class DockSolarTab {
         Component.translatable(ScreenKeys.DOCK_SOLAR_MAX),
         Component.literal(EnergyFormat.rate(menu.solarMax())),
         Colors.TITLE_FIRST);
+    painter.pair(
+        graphics,
+        PANEL,
+        Component.translatable(ScreenKeys.DOCK_SOLAR_PANEL),
+        Component.translatable(ScreenKeys.dockPanel(menu.panelState())),
+        Colors.TITLE_FIRST);
     Component hint = Component.translatable(ScreenKeys.DOCK_SOLAR_HINT);
     painter.text(graphics, hint, HINT, ScreenPainter.DETAIL, ScreenPainter.DETAIL_SCALE);
+  }
+
+  /** The light of the doors: green on the tower, red in the cabinet, yellow on the way (1863). */
+  private static int lightOf(DockPanelState state) {
+    return switch (state) {
+      case DEPLOYED -> ScreenPainter.STATUS_GREEN;
+      case STORED -> ScreenPainter.STATUS_RED;
+      case DEPLOYING, RETRACTING -> ScreenPainter.STATUS_YELLOW;
+    };
   }
 }

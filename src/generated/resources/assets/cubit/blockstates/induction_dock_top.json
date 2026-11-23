@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "deployed=false": {
+      "model": "cubit:block/induction_dock_top"
+    },
+    "deployed=true": {
+      "model": "cubit:block/induction_dock_top"
+    }
+  }
+}

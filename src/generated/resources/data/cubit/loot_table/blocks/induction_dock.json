@@ -21,7 +21,9 @@
               "include": [
                 "cubit:dock_energy",
                 "cubit:dock_storage",
-                "cubit:dock_tier"
+                "cubit:dock_tier",
+                "cubit:dock_id",
+                "minecraft:custom_name"
               ],
               "source": "block_entity"
             }

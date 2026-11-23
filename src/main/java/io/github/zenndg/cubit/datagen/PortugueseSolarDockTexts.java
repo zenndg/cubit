@@ -1,15 +1,13 @@
 package io.github.zenndg.cubit.datagen;
 
+import io.github.zenndg.cubit.domain.dock.DockPanelState;
 import io.github.zenndg.cubit.domain.dock.DockSunState;
 import io.github.zenndg.cubit.menu.ScreenKeys;
-import io.github.zenndg.cubit.registry.CubitBlocks;
-import io.github.zenndg.cubit.registry.CubitItems;
+import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.function.BiConsumer;
 
 /** The Solar Dock and its Solar tab, in Portuguese (answers 1386 and 1396). */
 final class PortugueseSolarDockTexts {
-  private static final String DOCK = "Induction Dock Solar";
-  private static final String PANEL = "Painel Solar do Dock";
   private static final String SOLAR = "Solar +%s";
   private static final String NO_SUN = "Solar: sem sol";
   private static final String TAB = "Solar";
@@ -24,12 +22,19 @@ final class PortugueseSolarDockTexts {
   private static final String RAIN = "Chuva";
   private static final String COVERED = "Céu coberto";
   private static final String NO_SUN_HERE = "Sem sol nesta dimensão";
+  private static final String NO_ROOM = "Sem espaço para o painel";
+  private static final String DEPLOY_SOUND = "Painel do Dock monta";
+  private static final String LOCK_SOUND = "Painel do Dock trava";
+  private static final String RETRACT_SOUND = "Painel do Dock guarda";
+  private static final String PANEL = "Painel";
+  private static final String STORED = "Guardado";
+  private static final String DEPLOYING = "Montando";
+  private static final String DEPLOYED = "Montado";
+  private static final String RETRACTING = "Guardando";
 
   private PortugueseSolarDockTexts() {}
 
   static void addTo(BiConsumer<String, String> add) {
-    add.accept(CubitBlocks.SOLAR_INDUCTION_DOCK.get().getDescriptionId(), DOCK);
-    add.accept(CubitItems.DOCK_SOLAR_PANEL.get().getDescriptionId(), PANEL);
     add.accept(ScreenKeys.DOCK_SOLAR, SOLAR);
     add.accept(ScreenKeys.DOCK_NO_SUN, NO_SUN);
     add.accept(ScreenKeys.DOCK_TAB_SOLAR, TAB);
@@ -39,6 +44,17 @@ final class PortugueseSolarDockTexts {
     add.accept(ScreenKeys.DOCK_SOLAR_MAX, MAX);
     add.accept(ScreenKeys.DOCK_SOLAR_HINT, HINT);
     addStates(add);
+    addPanel(add);
+    addSounds(add);
+  }
+
+  /** The subtitles of the sounds of the panel (answer 1921). */
+  private static void addSounds(BiConsumer<String, String> add) {
+    add.accept(
+        CubitSoundProvider.dockSubtitleKey(CubitSounds.DOCK_PANEL_DEPLOY_NAME), DEPLOY_SOUND);
+    add.accept(CubitSoundProvider.dockSubtitleKey(CubitSounds.DOCK_PANEL_LOCK_NAME), LOCK_SOUND);
+    add.accept(
+        CubitSoundProvider.dockSubtitleKey(CubitSounds.DOCK_PANEL_RETRACT_NAME), RETRACT_SOUND);
   }
 
   private static void addStates(BiConsumer<String, String> add) {
@@ -53,5 +69,15 @@ final class PortugueseSolarDockTexts {
     add.accept(ScreenKeys.dockSunReason(DockSunState.RAIN), RAIN);
     add.accept(ScreenKeys.dockSunReason(DockSunState.COVERED), COVERED);
     add.accept(ScreenKeys.dockSunReason(DockSunState.NO_SUN), NO_SUN_HERE);
+    add.accept(ScreenKeys.dockSunReason(DockSunState.NO_ROOM), NO_ROOM);
+  }
+
+  /** Where the panel of the Dock is, on the Solar tab and in Jade (answer 1865). */
+  private static void addPanel(BiConsumer<String, String> add) {
+    add.accept(ScreenKeys.DOCK_SOLAR_PANEL, PANEL);
+    add.accept(ScreenKeys.dockPanel(DockPanelState.STORED), STORED);
+    add.accept(ScreenKeys.dockPanel(DockPanelState.DEPLOYING), DEPLOYING);
+    add.accept(ScreenKeys.dockPanel(DockPanelState.DEPLOYED), DEPLOYED);
+    add.accept(ScreenKeys.dockPanel(DockPanelState.RETRACTING), RETRACTING);
   }
 }

@@ -51,9 +51,7 @@ final class DeskCatalogOrder {
           CubitItems.ELITE_POWER_CELL,
           CubitItems.ELITE_POWER_BANK,
           CubitItems.ULTIMATE_POWER_CELL,
-          CubitItems.ULTIMATE_POWER_BANK,
-          CubitItems.DOCK_SOLAR_PANEL,
-          CubitItems.SOLAR_INDUCTION_DOCK);
+          CubitItems.ULTIMATE_POWER_BANK);
 
   private static List<String> order;
 

@@ -42,6 +42,8 @@ final class ScreenTexts {
   private static final String QUEUE_ONE = "1 Cubit waiting";
   private static final String QUEUE_MANY = "%s Cubits waiting";
   private static final String OWNER = "Owner";
+  private static final String RENAME_DOCK = "Rename the Dock";
+  private static final String NAME_ROBOT = "Name your Cubit";
   private static final String OWNER_UNKNOWN = "Unknown";
   private static final String CALL = "Call the nearest Cubit (%s blocks)";
 
@@ -252,6 +254,8 @@ final class ScreenTexts {
     add.accept(ScreenKeys.DOCK_QUEUE_ONE, QUEUE_ONE);
     add.accept(ScreenKeys.DOCK_QUEUE_MANY, QUEUE_MANY);
     add.accept(ScreenKeys.DOCK_OWNER, OWNER);
+    add.accept(ScreenKeys.DOCK_RENAME_TITLE, RENAME_DOCK);
+    add.accept(ScreenKeys.ROBOT_NAME_TITLE, NAME_ROBOT);
     add.accept(ScreenKeys.DOCK_OWNER_UNKNOWN, OWNER_UNKNOWN);
     add.accept(ScreenKeys.DOCK_CALL, CALL);
   }

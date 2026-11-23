@@ -52,6 +52,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general` | `dock_full_heal_ticks` | Tempo para recuperar toda a vida na base | 1 a 72000 |
 | `general` | `dock_stuck_ticks` | Tempo sem avançar antes de teleportar ao Dock | 1 a 1200 |
 | `general` | `dock_complete_hold_ticks` | Tempo com a tela completa antes de sair da base | 1 a 1200 |
+| `general` | `dock_solar_deploy_delay_ticks` | Tempo seguido com sol para o Dock montar o painel, e sem sol para guardá-lo (perguntas 1856 e 1912) | 0 a 1200 |
 | `general` | `redstone_dust_energy` | Energia de 1 pó de redstone | 1 a 2147483647 |
 | `general` | `redstone_block_energy` | Energia de 1 bloco de redstone | 1 a 2147483647 |
 | `general` | `recharge_splash_health_percent` | Recharge Splash: vida e energia que dá, a parte da vida | 0 a 100 |
@@ -76,7 +77,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `dock_energy_capacity` | Estoque do Induction Dock desse tier. Troca a chave geral de mesmo nome (pergunta 1381) | 1 a 2147483647 |
 | `general_robot.base` | `dock_recharge_per_tick` | Recarga do Cubit e da Power Bank guardada no Dock desse tier | 1 a 2147483647 |
 | `general_robot.base` | `dock_storage_slots` | Slots do inventário do Dock desse tier | 9 a 54, em múltiplos de 9 |
-| `general_robot.base` | `dock_solar_per_tick` | Geração do painel do Dock Solar desse tier (pergunta 1385) | 0 a 2147483647 |
+| `general_robot.base` | `dock_solar_per_tick` | Geração do painel do Dock desse tier, com o painel montado (perguntas 1385 e 1855) | 0 a 2147483647 |
 | `general_robot.base` | `moving_consumption_per_tick` | Andar | 0 a 2147483647 |
 | `general_robot.base` | `full_inventory_extra_per_tick` | Extra ao andar com o inventário cheio | 0 a 2147483647 |
 | `general_robot.base` | `water_extra_per_tick` | Extra ao andar na água | 0 a 2147483647 |
@@ -244,6 +245,9 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 01:58 | Cita a espera de 3 s do painel do Dock (pergunta 1912). |
+| Zennd | 2026-11-23 00:09 | Acrescenta o tempo para o Dock montar e guardar o painel (pergunta 1856). |
+| Zennd | 2026-11-22 23:45 | Passa a geração solar a todo Dock (pergunta 1855). |
 | Zennd | 2026-11-22 22:00 | Acrescenta o tempo em que as asas continuam abertas (pergunta 1807). |
 | Zennd | 2026-11-22 21:46 | Acrescenta a distância em que a Plasma Blade acende e o tempo em que ela continua acesa (perguntas 1804 e 1805). |
 | Zennd | 2026-11-22 22:10 | Acrescenta a chave da parada da escolta (pergunta 1744). |

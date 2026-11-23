@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.client;
 import io.github.zenndg.cubit.domain.robot.RobotName;
 import io.github.zenndg.cubit.menu.RobotMenu;
 import io.github.zenndg.cubit.menu.ScreenKeys;
+import io.github.zenndg.cubit.menu.TabletKeys;
 import io.github.zenndg.cubit.menu.TabletRobotMenu;
 import io.github.zenndg.cubit.network.CubitNetwork;
 import io.github.zenndg.cubit.registry.CubitEntities;
@@ -82,7 +83,7 @@ final class TabletRobotScreen extends AbstractContainerScreen<TabletRobotMenu> {
     work = new RobotWorkPanel(painter, menu, right);
     supply = new SupplyPanel(painter, menu, right);
     deaths = new TabletDeathsPanel(painter, menu, right, imageHeight - TabletRobotHeader.HEIGHT);
-    dialog = new TabletRenameDialog(font, width, height, this::rename);
+    dialog = new TabletRenameDialog(font, width, height, TabletKeys.RENAME_TITLE, this::rename);
     addButtons();
     showOpenTab();
   }

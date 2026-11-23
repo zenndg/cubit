@@ -30,7 +30,7 @@ final class PortugueseTabletTexts {
   private static final String NOT_A_TARGET = "Isto não pode ser alvo do Focus";
   private static final String DOCK_ONLY_YOURS = "O app Dock marca um Dock seu";
   private static final String DOCK_NO_CUBIT = "Escolha antes um Cubit ao alcance";
-  private static final String DOCK_MARKED = "Dock preferido de %s";
+  private static final String DOCK_MARKED = "%2$s é o Dock preferido de %1$s";
   private static final String DOCK_UNMARKED = "%s está sem Dock preferido";
   private static final String GO_TO_DOCK = "Ir para o Dock";
   private static final String GO_TO_DOCK_DETAIL = "Manda o Cubit hibernar no Dock";

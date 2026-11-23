@@ -45,10 +45,7 @@ final class DeskCategoryData {
               CubitItems.ULTIMATE_POWER_BANK,
               CubitItems.RECHARGE_SPLASH),
           DeskCategory.DOCK,
-          List.of(
-              CubitItems.INDUCTION_DOCK,
-              CubitItems.DOCK_SOLAR_PANEL,
-              CubitItems.SOLAR_INDUCTION_DOCK),
+          List.of(CubitItems.INDUCTION_DOCK),
           DeskCategory.MODULES,
           List.of(CubitItems.ADVANCED_MODULE, CubitItems.ELITE_MODULE, CubitItems.ULTIMATE_MODULE),
           DeskCategory.CARDS,

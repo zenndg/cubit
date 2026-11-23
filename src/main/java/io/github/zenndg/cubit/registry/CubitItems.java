@@ -6,6 +6,7 @@ import io.github.zenndg.cubit.domain.robot.RobotJob;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.DamagedRobotItem;
 import io.github.zenndg.cubit.item.EngineeringDeskItem;
+import io.github.zenndg.cubit.item.InductionDockItem;
 import io.github.zenndg.cubit.item.JobCardItem;
 import io.github.zenndg.cubit.item.ModuleItem;
 import io.github.zenndg.cubit.item.PowerBankItem;
@@ -14,7 +15,6 @@ import io.github.zenndg.cubit.item.RobotItem;
 import io.github.zenndg.cubit.item.TabletItem;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -44,7 +44,6 @@ public final class CubitItems {
   private static final String TREADS_SUFFIX = "_treads";
   private static final String CORE_SUFFIX = "_core";
   private static final String POWER_BANK_CASING_ID = "power_bank_casing";
-  private static final String DOCK_SOLAR_PANEL_ID = "dock_solar_panel";
   private static final String POWER_CELL_SUFFIX = "_power_cell";
   private static final int PART_STACK_SIZE = 64;
 
@@ -105,7 +104,7 @@ public final class CubitItems {
       ITEMS.register(
           CubitBlocks.INDUCTION_DOCK_ID,
           () ->
-              new BlockItem(
+              new InductionDockItem(
                   CubitBlocks.INDUCTION_DOCK.get(),
                   new Item.Properties().stacksTo(DOCK_STACK_SIZE)));
 
@@ -117,18 +116,6 @@ public final class CubitItems {
               new EngineeringDeskItem(
                   CubitBlocks.ENGINEERING_DESK.get(),
                   new Item.Properties().stacksTo(DOCK_STACK_SIZE)));
-
-  /** The dock with the solar panel, from the panel and a dock (answers 1384 and 1386). */
-  public static final Supplier<Item> SOLAR_INDUCTION_DOCK =
-      ITEMS.register(
-          CubitBlocks.SOLAR_INDUCTION_DOCK_ID,
-          () ->
-              new BlockItem(
-                  CubitBlocks.SOLAR_INDUCTION_DOCK.get(),
-                  new Item.Properties().stacksTo(DOCK_STACK_SIZE)));
-
-  /** The panel that goes on a dock, only for the crafting grid (answer 1386). */
-  public static final Supplier<Item> DOCK_SOLAR_PANEL = part(DOCK_SOLAR_PANEL_ID);
 
   public static final Supplier<Item> RECHARGE_SPLASH =
       ITEMS.register(

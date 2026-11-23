@@ -170,10 +170,10 @@ Duas frases que todo Cubit fala na primeira vez que é colocado no mundo: uma de
 
 | Frase | Onde | Inglês, no jogo | Português |
 |---|---|---|---|
-| Ajuda | Barra de ação, acima da hotbar | `Cubit: Happy to help you!` | `Cubit: Estou feliz em lhe ajudar` |
-| Link | Chat, com o link sublinhado que abre o navegador ao clicar | `Cubit: To learn everything I can do, visit:` e o link | `Cubit: Para saber tudo o que posso fazer, acesse:` e o link |
+| Ajuda | Barra de ação, acima da hotbar | `Rex: Happy to help you!`, com o nome do Cubit | `Rex: Estou feliz em lhe ajudar` |
+| Link | Chat, com o link sublinhado que abre o navegador ao clicar | `Rex: To learn everything I can do, visit:` e o link, com o nome do Cubit | `Rex: Para saber tudo o que posso fazer, acesse:` e o link |
 
-- **Quando:** na primeira vez que cada Cubit é colocado no mundo, para quem o colocou. As duas respeitam a chave `Chatter` (perguntas 1673, 1675 e 1680).
+- **Quando:** na primeira vez que cada Cubit é colocado no mundo, para quem o colocou, depois que o player confirma ou fecha a [janela do nome](../funcionalidades/personalizacao.md#nome), já com o nome escolhido, ou o padrão, no prefixo. As duas respeitam a chave `Chatter` (perguntas 1673, 1675, 1680 e 1880).
 - **Link:** o repositório no GitHub, `https://github.com/zenndg/cubit`, no config, em `intro_link_url`, que aceita só `https://` (perguntas 1674 e 1754).
 - **Temporizador:** só para a frase do link. Depois de um link, os Cubits novos que o mesmo player colocar nos 10 minutos seguintes só dizem a frase de ajuda. O tempo fica no config, em `intro_link_cooldown_ticks` (perguntas 1677, 1681 e 1754).
 - **No Dock:** colocar o Cubit direto num Induction Dock também é a primeira colocação, com as duas frases (pergunta 1752).
@@ -275,6 +275,7 @@ Numa equipe de Patrulheiros no mesmo combate, só um deles fala a frase de entra
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 00:00 | Passa as frases de apresentação para depois da janela do nome, com o nome do Cubit no prefixo (pergunta 1880). |
 | Zennd | 2026-11-22 16:59 | Cita os nomes salvos e as chaves de config da apresentação (perguntas 1750, 1754 e 1765) |
 | Zennd | 2026-11-22 15:40 | Acrescenta a apresentação no Dock e com as falas desligadas (perguntas 1752 e 1753). |
 | Zennd | 2026-11-22 14:05 | Acrescenta as frases de apresentação do Cubit (perguntas 1672 a 1682). |

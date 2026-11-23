@@ -38,14 +38,17 @@ final class TabletRenameDialog {
   private final FlatButton cancelButton;
   private final int left;
   private final int top;
+  private final String titleKey;
   private boolean open;
 
-  TabletRenameDialog(Font font, int screenWidth, int screenHeight, Consumer<String> confirm) {
+  TabletRenameDialog(
+      Font font, int screenWidth, int screenHeight, String titleKey, Consumer<String> confirm) {
     this.font = font;
     this.confirm = confirm;
+    this.titleKey = titleKey;
     left = (screenWidth - WIDTH) / 2;
     top = (screenHeight - HEIGHT) / 2;
-    Component title = Component.translatable(TabletKeys.RENAME_TITLE);
+    Component title = Component.translatable(titleKey);
     field =
         new EditBox(font, left + MARGIN, top + FIELD_Y, WIDTH - 2 * MARGIN, FIELD_HEIGHT, title);
     field.setMaxLength(RobotName.MAX_LENGTH);
@@ -95,8 +98,7 @@ final class TabletRenameDialog {
     graphics.pose().translate(0, 0, ABOVE_ITEMS);
     graphics.fill(0, 0, width, height, SHADOW);
     ScreenPainter.window(graphics, left, top, WIDTH, HEIGHT);
-    Component title =
-        Component.translatable(TabletKeys.RENAME_TITLE).withStyle(ChatFormatting.BOLD);
+    Component title = Component.translatable(titleKey).withStyle(ChatFormatting.BOLD);
     graphics.drawString(font, title, left + MARGIN, top + TITLE_Y, ScreenPainter.TEXT, false);
     for (AbstractWidget widget : List.of(field, confirmButton, cancelButton)) {
       widget.render(graphics, mouseX, mouseY, tick);
