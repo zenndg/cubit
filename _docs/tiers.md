@@ -45,7 +45,7 @@ O Dock sobe de tier com os mesmos Modules do Cubit (perguntas 1373 a 1380). Os n
 | Slots do inventário | 27 | 36 | 45 | 54 |
 | Entrada, por cabos e redstone | 5.000 FE/t | 5.000 FE/t | 5.000 FE/t | 5.000 FE/t |
 | Geração do painel do Dock, de dia, a céu aberto e sem chuva, com o painel montado, em `dock_solar_per_tick` (perguntas 1385 e 1855) | 25 FE/t | 100 FE/t | 500 FE/t | 1.400 FE/t |
-| Faixa, em volta da torre acima da placa (perguntas 1389 e 1899) | Cinza | Azul | Roxa | Dourada, com o corpo em netherite |
+| Faixa, em volta do topo da torre (perguntas 1389 e 1918) | Cinza | Azul | Roxa | Dourada, com o corpo em netherite |
 
 ## Engineering Desk
 
@@ -188,7 +188,7 @@ Valem para todos os tiers e ficam no config. Os marcados como planejados entram 
 | Intervalo do ímã | 10 ticks (resposta 887) |
 | Custo de abrir uma porta marcada, `door_open_cost` | 50 FE (pergunta 1368) |
 | Portas marcadas por dono, `door_marks_limit` | 64 (pergunta 1369) |
-| Dock: tempo seguido com sol para montar o painel, e sem sol para guardá-lo, `dock_solar_deploy_delay_ticks` (pergunta 1856) | 10 s (200 ticks) |
+| Dock: tempo seguido com sol para montar o painel, e sem sol para guardá-lo, `dock_solar_deploy_delay_ticks` (perguntas 1856 e 1912) | 3 s (60 ticks) |
 
 ## Coleta e inventário
 
@@ -335,6 +335,8 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 02:30 | Volta a faixa do Dock para o topo da torre (pergunta 1918). |
+| Zennd | 2026-11-23 01:58 | Baixa a espera do painel do Dock para 3 s (pergunta 1912). |
 | Zennd | 2026-11-23 01:17 | Volta a faixa do Dock para acima da placa (pergunta 1899). |
 | Zennd | 2026-11-22 23:45 | Passa a geração solar a todo Dock e a faixa para a borda do topo (perguntas 1855 e 1871). |
 | Zennd | 2026-11-22 23:10 | Acrescenta os números do XP Cubit e Dock (perguntas 1817 a 1835). |

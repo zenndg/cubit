@@ -101,7 +101,7 @@ O Induction Dock sobe de tier com os mesmos Modules do Cubit (issue #225, pergun
 - **O que muda com o tier:** o estoque, os slots do inventário e a recarga do Cubit e da Power Bank guardada. A entrada, por cabos e redstone, fica em 5.000 FE/t em todos (pergunta 1374).
 - **Slots novos:** ao subir, os slots a mais aparecem vazios, e os itens continuam onde estavam.
 - **Recolher:** o item do Dock guarda o tier, com a energia e o inventário, e o Dock volta no mesmo tier ao ser colocado (pergunta 1373).
-- **Faixa:** uma faixa em volta da torre, logo acima da placa, como o colar do Cubit, fica na cor do tier, para ser fácil de ver: cinza, azul, roxo e dourado. A borda em volta do topo, da pergunta 1871, saiu quando o painel foi para o 3º bloco (perguntas 1379, 1389 e 1899).
+- **Faixa:** uma faixa fina em volta da torre, logo abaixo da borda de cima, nas quatro laterais, fica na cor do tier, para ser fácil de ver: cinza, azul, roxo e dourado. No topo, o Cubit encaixado não a tampa (perguntas 1379, 1389, 1871 e 1918).
 - **Ultimate:** o corpo do Dock fica em netherite, como a Ultimate Power Bank e o Ultimate Module (pergunta 1380).
 - **Tela e Jade:** a tela do Dock e o Jade mostram o tier, na cor dele.
 - **Saves antigos:** um Dock sem o tier, colocado antes, vale como Base, e o estoque dele passa a caber 300 mil FE.
@@ -114,25 +114,25 @@ Todo Induction Dock tem um painel solar embutido, que ele monta e guarda sozinho
 - **Três blocos:** o Dock ocupa sempre 3 blocos de altura: a base e a torre nos 2 de baixo, como antes, e um bloco próprio e invisível no 3º, `cubit:induction_dock_top`, onde o painel monta. Para colocar o Dock, os 3 blocos precisam estar livres, e quebrar qualquer parte quebra o Dock inteiro, que sai como item. O estado de bloco das duas partes de baixo não muda (perguntas 1892 e 1896).
 - **Colisão do topo:** só com o painel montado, uma placa fina no alto, que segura quem subir nela. Com o painel guardado, o 3º bloco fica vazio e se atravessa, mas continua reservado ao Dock, sem aceitar outro bloco (pergunta 1898).
 - **Sol:** a leitura do céu é a de antes, um bloco mais alta, acima do 3º bloco. Dentro de casa, com um bloco opaco acima do painel, com chuva ou tempestade, à noite, no Nether e no End, não há sol. O vidro e os outros blocos translúcidos acima do painel deixam passar a luz (perguntas 1398, 1853 e 1901).
-- **Montar:** depois de 10 s seguidos com sol, o Dock monta o painel. **Guardar:** depois de 10 s seguidos sem sol, inclusive ao anoitecer, ele o guarda no armário. A espera evita abrir e fechar a cada nuvem de chuva (perguntas 1856 e 1862).
-- **Torre:** as mesmas medidas de antes, 9 px de largura, 4 px de fundo e 1,75 bloco de altura, com o mesmo encaixe e a mesma colisão do Cubit na placa (perguntas 1887 e 1902).
-- **Armário:** fica no centro da parte de trás da torre e guarda as duas partes do painel, cada uma um pacote de lâminas dobradas em sanfona, em pé, uma atrás da outra, com dois braços articulados. As duas portas deslizam para os lados e somem por inteiro dentro da parede, como portas de elevador, e abrem mesmo com um bloco encostado atrás do Dock (perguntas 1852, 1858, 1889 e 1894).
-- **Painel montado:** uma placa fina, como um painel solar de verdade, e não um bloco, com 16×16 px, o bloco inteiro, centrada sobre o Dock, no 3º bloco. Fica inclinada uns 15° para a frente, com o lado mais alto nas costas e o topo nos 3 blocos exatos. Os dois braços ficam à vista por baixo, saindo do armário, passando sobre a torre e segurando o painel pelas bordas (perguntas 1891, 1893, 1903 e 1904).
+- **Montar:** depois de 3 s seguidos com sol, o Dock monta o painel. **Guardar:** depois de 3 s seguidos sem sol, inclusive ao anoitecer, ele o guarda no armário. A espera evita abrir e fechar a cada troca rápida, e o pack pode mudá-la no config (perguntas 1856, 1862 e 1912).
+- **Torre:** as mesmas medidas de antes, 9 px de largura, 4 px de fundo e 1,75 bloco de altura, mas 1 px à frente do limite de trás do bloco. A colisão e o Cubit encaixado andam junto, e o Cubit sobra 1 px para fora da frente da placa (perguntas 1887, 1902 e 1914).
+- **Armários:** um em cada lateral da torre, embutido 1,5 px nela, com uma moldura de 0,5 px em relevo em volta da abertura. Cada um guarda um braço articulado e um pacote de 4 lâminas dobradas em sanfona, em pé. A porta de cada armário tem duas folhas, que deslizam uma para cima e outra para baixo, para dentro da torre. As costas ficam lisas, com o quadro do raio e o arco do cabo (perguntas 1894, 1913, 1915 e 1916).
+- **Painel montado:** uma placa fina, como um painel solar de verdade, e não um bloco, com 16×16 px, o bloco inteiro, centrada sobre o Dock, no 3º bloco. Fica inclinada uns 15° para a frente, com o lado mais alto nas costas e o topo a 38 px, um pouco abaixo da metade do 3º bloco. Os dois braços, de 7,5 px por segmento, sobem rentes às laterais, por fora da torre, com os cotovelos dobrados para a frente, para ficarem dentro do bloco, e seguram o painel pelas bordas. Nada passa por dentro da torre nem por cima do topo (perguntas 1891, 1893, 1903, 1904, 1907, 1909 e 1915).
 - **Montagem,** como um robô se transformando, em cerca de 6 s, e a desmontagem na ordem contrária (perguntas 1891, 1894 e 1895):
-  1. A luz das portas pisca em amarelo, e as portas deslizam.
-  2. Os dois braços saem com os pacotes de lâminas em pé.
-  3. Os braços sobem por cima da torre até o 3º bloco.
-  4. Giram os pacotes para a horizontal, um para cada lado.
-  5. As lâminas se abrem em sanfona, uma a uma, e as dobradiças e as células vão aparecendo.
-  6. As duas metades se encontram no centro, com o clique da trava.
+  1. A luz das portas pisca em amarelo, e as folhas das portas deslizam, uma para cima e outra para baixo.
+  2. Um carro desliza cada braço para fora do armário, com o pacote, e o braço se desdobra ao lado da torre.
+  3. Os braços sobem os pacotes, em pé, até o 3º bloco, cada um até a borda do seu lado.
+  4. Giram os pacotes para a horizontal, com as pontas de dentro um pouco abaixadas, em V.
+  5. As lâminas se abrem em sanfona: primeiro as do meio, depois as das pontas, com as pontas de dentro subindo como asas. As dobradiças e as células vão aparecendo, e nenhuma lâmina atravessa outra (pergunta 1911).
+  6. As duas metades descem juntas e se encontram no centro, com o clique da trava.
   7. O painel inclina uns 15°, a luz fica verde, e as células começam a refletir e pulsar. As portas ficam abertas, e os braços continuam segurando o painel.
-- **Luz:** um pequeno ponto na borda de cada porta, verde com o painel montado, vermelho com as portas fechadas e o painel guardado, e piscando em amarelo durante o movimento. O painel não troca de cor (perguntas 1853 e 1863).
+- **Luz:** um pequeno ponto na borda de cada folha das portas, quatro ao todo, aceso no escuro: verde com o painel montado, vermelho com as portas fechadas e o painel guardado, e piscando em amarelo durante o movimento. O painel não troca de cor (perguntas 1853, 1863 e 1916).
 - **Sinal:** com o painel montado e gerando, a face dele reflete a luz e clareia e escurece devagar, com o mesmo efeito do painel do Cubit (perguntas 1853 e 1891).
 - **No meio do movimento:** o servidor decide e salva só se o painel está montado ou guardado, e o cliente toca a animação. Ao carregar o mundo ou o chunk no meio de um movimento, o Dock aparece direto no destino. Quebrado, o painel some com o Dock, que sai como item, como hoje (pergunta 1864).
 - **Sons:** três sons próprios, descritos em [`sons.md`](../conceito/sons.md#induction-dock): a abertura e a montagem, a desmontagem e o fechamento, e a trava (pergunta 1861).
 - **Aba Solar:** em todo Dock, com o que mostrava no Dock Solar (gerando ou parado, o motivo, a geração de agora e a máxima do tier) e o estado do painel: Guardado, Montando, Montado ou Guardando, com a luz (pergunta 1865). Num Dock sem espaço para o 3º bloco, ela mostra que falta espaço para o painel (pergunta 1897).
 - **Jade:** mostra a geração, como `Solar +25 FE/t`, ou `Solar: no sun`, e o estado do painel (pergunta 1865).
-- **Prancha conceito:** uma prancha nova em três imagens, por prompt, com a arte do desenvolvedor: as vistas, a transformação passo a passo e os detalhes da sanfona, dos braços e da trava. Aceita a prancha, e antes do teste no jogo, o agente mostra prévias do modelo renderizadas por script, de vários lados. A prancha da pergunta 1884 deixa de valer, porque mostrava o painel pequeno, rente ao topo (perguntas 1891 e 1900). A prancha nova foi aceita como referência, com os ajustes aplicados direto no modelo e na textura (pergunta 1906): os braços saem do armário das costas e passam sobre a torre, nunca da lateral ou da frente; o cotovelo fica dentro da área de 1 bloco; a torre continua arredondada, com a placa em U; cada metade tem 4 lâminas; as portas deslizam no passo 1; e os pontos laranja ficam visíveis nos cantos do painel.
+- **Prancha conceito:** uma prancha nova em três imagens, por prompt, com a arte do desenvolvedor: as vistas, a transformação passo a passo e os detalhes da sanfona, dos braços e da trava. Aceita a prancha, e antes do teste no jogo, o agente mostra prévias do modelo renderizadas por script, de vários lados. A prancha da pergunta 1884 deixa de valer, porque mostrava o painel pequeno, rente ao topo (perguntas 1891 e 1900). A prancha nova foi aceita como referência, com os ajustes aplicados direto no modelo e na textura (pergunta 1906): os braços saem do armário e nunca atravessam a torre, e depois os armários foram para as laterais (pergunta 1915); o cotovelo fica dentro da área de 1 bloco; a torre continua arredondada, com a placa em U; cada metade tem 4 lâminas; as portas deslizam no passo 1; e os pontos laranja ficam visíveis nos cantos do painel.
 
   ![As vistas do Dock, com o painel guardado e montado](../imagens/conceito/induction-dock-transforma-vistas.png)
 
@@ -238,6 +238,10 @@ Entra com o item 15 da Fase 4.2, antes do modo área (perguntas 1065 a 1069).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 02:30 | Volta a faixa do tier para o topo da torre (pergunta 1918). |
+| Zennd | 2026-11-23 02:18 | Passa os armários para as laterais, com as folhas das portas e as quatro luzes, e a torre 1 px à frente (perguntas 1911 a 1916). |
+| Zennd | 2026-11-23 01:58 | Baixa a espera do painel para 3 s (pergunta 1912). |
+| Zennd | 2026-11-23 01:47 | Baixa o painel do Dock para 38 px e encurta os braços (perguntas 1907 a 1909). |
 | Zennd | 2026-11-23 01:28 | Acrescenta a prancha nova do painel do Dock, com os ajustes do modelo (pergunta 1906). |
 | Zennd | 2026-11-23 01:17 | Refaz o painel do Dock: 3 blocos, o painel fino suspenso pelos braços no 3º bloco, a transformação em sanfona, a faixa acima da placa e a prancha nova (perguntas 1891 a 1905). |
 | Zennd | 2026-11-23 00:51 | Acrescenta o armário estreito, as medidas e a tela do modelo GeckoLib do Dock (perguntas 1886, 1887 e 1889). |
