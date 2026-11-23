@@ -1185,30 +1185,43 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 20 | Complete os materiais de 2 e dê energia | Tudo verde. Com 1 pronto, a conta é de 1, e continua verde |
 | 21 | Aperte − e + | As cores são refeitas a cada clique |
 
-### Fabricação em cascata, PR 1
+### Fabricação em cascata
 
-As regras estão em [`cascata-da-mesa.md`](../funcionalidades/cascata-da-mesa.md) (issue #253). A tela ainda é simples, em texto: as cores dos slots, a tabela e o ícone entram no PR 2. Use um mundo novo, no criativo, uma mesa Ultimate com energia e os materiais. Para ter todas as receitas, use `/recipe give @s *`, e para a trava, um player sem elas.
+As regras estão em [`cascata-da-mesa.md`](../funcionalidades/cascata-da-mesa.md) (issue #253). Use um mundo novo, no criativo, uma mesa Ultimate com energia e os materiais. Para ter todas as receitas, use `/recipe give @s *`, e para a trava, um player sem elas.
 
 | # | Faça | Espere |
 |---|---|---|
-| 1 | Numa mesa Elite, passe o mouse e clique na terceira aba | `Unlocks at Ultimate`, e a aba não abre |
-| 2 | Numa Ultimate, abra a aba `Cascade` e escolha o Cubit | A lista dos 6 materiais de 1 Cubit, em vermelho, e `Start` apagado, com `Missing materials in the input` |
-| 3 | Use + e Shift + | A lista muda com a quantidade |
-| 4 | Vá à aba Estoque, ponha parte dos materiais e volte | A escolha continua, e os materiais ficam amarelos e verdes |
-| 5 | Ponha os materiais de 2 Cubits (14 ferros, 6 obsidianas, 4 tochas de redstone, 6 diamantes, 4 pistões e 8 redstones) e peça 2 | Tudo verde, e `Start` aceso |
-| 6 | `Start` e depois `No` | Volta à lista, e nada saiu da entrada |
-| 7 | `Start` e depois `Yes` | A tabela com 5 linhas, a entrada vazia, e as abas Projeto e Estoque não abrem |
-| 8 | Feche e abra a mesa, também com outro player | Abre na aba `Cascade`, só para ver |
-| 9 | Tire a energia da mesa, e depois ponha redstone no slot | Pausa e volta sozinha |
-| 10 | Ligue um sinal de redstone na mesa | Pausa, e volta sem o sinal |
-| 11 | Espere terminar | 2 Cubits na saída, as abas abrem, e a tabela mostra tudo pronto com `New plan` |
-| 12 | Deixe 1 Cubit Casing na entrada e 1 Visor na saída e planeje 1 Cubit | O plano os aproveita: menos materiais e menos linhas |
-| 13 | No meio de um plano, quebre a mesa e coloque de novo | O plano continua de onde parou |
-| 14 | No meio de um plano, saia e entre no mundo | Continua |
-| 15 | Encha a saída e faça um Cubit | O plano termina, e o Cubit entra na saída quando há espaço |
-| 16 | Num mundo novo, antes do `/recipe give`, abra a aba `Cascade` com a mesa vazia. Depois use `/recipe give @s *` | Antes: o Cubit, as peças e a Toolbox normais, sem cinza, e o Tablet com cadeado, `Locked: Cubit Tablet` e sem ser escolhido. Depois: nenhum item cinza nem com cadeado |
-| 17 | Com um funil na entrada e outro na saída, durante um plano | Os funis trabalham, e o plano não muda |
-| 18 | Com o jogo em português | `Cascata`, `Iniciar`, `Não dá para cancelar.` e os motivos |
+| 1 | Numa mesa Elite, passe o mouse e clique na terceira aba | O ícone escuro com cadeado, `Unlocks at Ultimate`, e a aba não abre |
+| 2 | Numa Ultimate, abra a aba `Cascade` sem escolher nada | O ícone da cascata, `Pick an item in the catalog` e `View plan` apagado |
+| 3 | Escolha o Cubit | `Materials for 1× Cubit`, 6 slots vermelhos com a quantidade, e a dica do `View plan` com `Missing materials in the input` |
+| 4 | Use + e Shift + | As quantidades mudam, e o número cabe entre os botões |
+| 5 | Vá à aba Estoque, ponha parte dos materiais e volte | A escolha continua, e há slots verdes, amarelos e vermelhos, fáceis de distinguir |
+| 6 | Passe o mouse num slot | O nome e `In the input: 6 / 15` |
+| 7 | Ponha os materiais de 2 Cubits (14 ferros, 6 obsidianas, 4 tochas de redstone, 6 diamantes, 4 pistões e 8 redstones) e peça 2 | Tudo verde, e `View plan` aceso |
+| 8 | `View plan` | A tabela na largura toda, sem o catálogo nem a busca: 5 linhas, a última com `1, 2, 3, 4`, `25,000 FE · 15 s`, `Start` e `Cancel` |
+| 9 | Passe o mouse em `Reserved` e em `Item` | A lista dos materiais da tarefa, e o nome do item com a quantidade |
+| 10 | `Cancel` | Volta ao passo 1, com a escolha e a quantidade |
+| 11 | Com o passo 2 aberto, outro player tira e devolve um material | A tabela fica, `Start` apaga com o motivo na dica e acende de novo |
+| 12 | `Start` | O aviso sobre a tela escura, com `2× Cubit · 15 s` e `It cannot be canceled.` |
+| 13 | Com o aviso aberto, clique nas abas, nos slots e fora da janela, com um item no cursor, e aperte Esc | Nada se move nem cai, e o Esc responde `No` |
+| 14 | `Start` e `No` | Volta ao passo 2, e nada saiu da entrada |
+| 15 | `Start` e `Yes` | A entrada vazia, a linha atual clara com `Crafting 1/2` e a barra, o visto nas prontas, e os cadeados em `Start`, `Cancel`, Projeto e Estoque, com a dica `A plan is running` |
+| 16 | Feche e abra a mesa, também com outro player | Abre na aba `Cascade`, com a tabela igual e só para ver |
+| 17 | Olhe a mesa com o Jade | O item da tarefa, e `Cascade: Cubit · 3/10`, sem o pedido da aba Projeto |
+| 18 | Tire a energia da mesa, e depois ponha redstone no slot | Pausa e volta sozinha |
+| 19 | Ligue um sinal de redstone na mesa | Pausa, e volta sem o sinal |
+| 20 | Espere terminar | 2 Cubits na saída, as abas abrem, e a tabela mostra `Done` em tudo, com `New plan` |
+| 21 | `New plan` | O passo 1, com o catálogo |
+| 22 | Deixe 1 Cubit Casing na entrada e 1 Visor na saída e planeje 1 Cubit | `Using: 1× Cubit Casing, 1× Cubit Visor`, menos materiais e menos linhas |
+| 23 | Escolha a Ultimate Power Bank e peça 256 | 11 slots, com números de 4 dígitos que cabem, e, com os materiais, 6 linhas sem rolagem |
+| 24 | No meio de um plano, quebre a mesa, veja a dica do item e coloque de novo | `Cascade: Cubit · 3/10` e os itens guardados na dica, e o plano continua de onde parou |
+| 25 | No meio de um plano, saia e entre no mundo | Continua |
+| 26 | Encha a saída e faça um Cubit | O plano termina, e o Cubit entra na saída quando há espaço. Antes disso, um plano novo abre, mas `Start` fica apagado com `The last plan still has items` |
+| 27 | Com um pedido ativo na aba Projeto e os materiais de um plano | `View plan` aceso, e `Start` apagado com `An order is active` |
+| 28 | Num mundo novo, antes do `/recipe give`, abra a aba `Cascade` com a mesa vazia. Depois use `/recipe give @s *` | Antes: o Cubit, as peças e a Toolbox normais, sem cinza, e o Tablet com cadeado, `Locked: Cubit Tablet` e sem ser escolhido. Depois: nenhum item cinza nem com cadeado |
+| 29 | Com um funil na entrada e outro na saída, durante um plano | Os funis trabalham, e o plano não muda |
+| 30 | Com o jogo em português | `Cascata`, `Ver plano`, `Reserva`, `Depende`, `Aguardando`, `Processando`, `Concluído`, `Não dá para cancelar.` e os motivos, sem texto sobreposto |
+| 31 | Na aba Projeto, marque a grade, peça, use a busca e o + do JEI | Tudo como antes |
 
 ## Patrulheiro Galático
 
@@ -1438,6 +1451,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 16:20 | Refaz o roteiro da fabricação em cascata com a tela do PR 2 (pergunta 2044). |
 | Zennd | 2026-11-23 14:52 | Acrescenta o alinhamento do pedido na mesa (perguntas 2039 e 2040). |
 | Zennd | 2026-11-23 14:22 | Acrescenta o roteiro da fabricação em cascata, PR 1 (issue #253). |
 | Zennd | 2026-11-23 12:31 | Acrescenta as cores da grade ao roteiro (perguntas 1996 a 2001). |

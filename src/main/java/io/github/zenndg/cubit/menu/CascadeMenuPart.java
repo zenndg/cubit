@@ -5,8 +5,11 @@ import io.github.zenndg.cubit.block.CascadeLaunch;
 import io.github.zenndg.cubit.block.CascadeState;
 import io.github.zenndg.cubit.block.DeskRecipes;
 import io.github.zenndg.cubit.block.EngineeringDeskBlockEntity;
+import io.github.zenndg.cubit.domain.desk.CascadeCost;
 import io.github.zenndg.cubit.domain.desk.CascadeRun;
 import io.github.zenndg.cubit.domain.desk.DeskOrder;
+import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.EnergyHalves;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.resources.ResourceLocation;
@@ -37,8 +40,9 @@ public final class CascadeMenuPart {
   private static final int ALLOWED = 4;
   private static final int CRAFT_TICKS = 5;
   private static final int CRAFT_ENERGY = 6;
-  private static final int HOLDS = 7;
-  private static final int FIRST_STEP = 8;
+  private static final int CRAFT_ENERGY_HIGH = 7;
+  private static final int HOLDS = 8;
+  private static final int FIRST_STEP = 9;
   private static final int STEP_SIZE = 3;
   private static final int COUNT = FIRST_STEP + MAX_STEPS * STEP_SIZE;
   private static final int NONE = -1;
@@ -143,8 +147,9 @@ public final class CascadeMenuPart {
     data.set(STATE, stateOf(cascade).ordinal());
     data.set(ALLOWED, desk.spec().cascade() ? 1 : 0);
     data.set(CRAFT_TICKS, Math.min(desk.spec().craftTicks(), Short.MAX_VALUE));
-    long cost = CubitMod.CONFIG.engineeringDesk().craftEnergy().amount();
-    data.set(CRAFT_ENERGY, (int) Math.min(cost, Short.MAX_VALUE));
+    Energy cost = CubitMod.CONFIG.engineeringDesk().craftEnergy();
+    data.set(CRAFT_ENERGY, EnergyHalves.low(cost));
+    data.set(CRAFT_ENERGY_HIGH, EnergyHalves.high(cost));
     data.set(HOLDS, cascade.holdsItems() ? 1 : 0);
     CascadeRun run = cascade.run().orElse(null);
     if (run != shownRun) {
@@ -200,12 +205,10 @@ public final class CascadeMenuPart {
     return data.get(HOLDS) != 0;
   }
 
-  public int craftTicks() {
-    return data.get(CRAFT_TICKS);
-  }
-
-  public int craftEnergy() {
-    return data.get(CRAFT_ENERGY);
+  /** The energy and the time of as many crafts. Energy takes two values of 16 bits. */
+  public CascadeCost cost(int crafts) {
+    Energy craft = EnergyHalves.join(data.get(CRAFT_ENERGY), data.get(CRAFT_ENERGY_HIGH));
+    return new CascadeCost(crafts, Math.max(0, data.get(CRAFT_TICKS)), craft);
   }
 
   public List<StepView> steps() {

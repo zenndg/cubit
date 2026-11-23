@@ -38,8 +38,6 @@ final class DeskCatalog {
   private static final int CHOSEN = 0xFF4FC3F7;
   private static final int BAR_GAP = 1;
   private static final int BAR_WIDTH = 3;
-  private static final int LOCK_SIZE = 5;
-  private static final int LOCK_BODY = 3;
 
   private final DeskCategoryBar categories = new DeskCategoryBar(X, ICONS_Y);
   private DeskCategory chosenCategory = DeskCategory.ROBOT;
@@ -134,7 +132,8 @@ final class DeskCatalog {
     }
     renderDark(graphics, resultOf(recipe), x, y);
     if (look == DeskCatalogRules.Look.LOCKED) {
-      renderPadlock(graphics, x, y);
+      int corner = ICON_SIZE - BlueprintPainter.LOCK_SIZE;
+      BlueprintPainter.padlock(graphics, x + corner, y + corner, BlueprintPainter.LINE);
     }
   }
 
@@ -144,19 +143,6 @@ final class DeskCatalog {
     graphics.flush();
     RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
     graphics.fill(x, y, x + ICON_SIZE, y + ICON_SIZE, LOCKED_VEIL);
-  }
-
-  private static void renderPadlock(GuiGraphics graphics, int x, int y) {
-    int lockX = x + ICON_SIZE - LOCK_SIZE;
-    int lockY = y + ICON_SIZE - LOCK_SIZE;
-    graphics.renderOutline(
-        lockX + 1, lockY, LOCK_BODY, LOCK_SIZE - LOCK_BODY + 1, BlueprintPainter.LINE);
-    graphics.fill(
-        lockX,
-        lockY + LOCK_SIZE - LOCK_BODY,
-        lockX + LOCK_SIZE,
-        lockY + LOCK_SIZE,
-        BlueprintPainter.LINE);
   }
 
   private void renderScrollBar(GuiGraphics graphics, int left, int top, int shown) {
