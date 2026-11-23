@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.datagen;
 
 import io.github.zenndg.cubit.domain.desk.CascadeStart;
 import io.github.zenndg.cubit.domain.desk.CascadeTaskStatus;
+import io.github.zenndg.cubit.item.EngineeringDeskItem;
 import io.github.zenndg.cubit.menu.DeskScreenKeys;
 import java.util.function.BiConsumer;
 
@@ -33,6 +34,7 @@ final class PortugueseCascadeTexts {
   private static final String WAITING = "Aguardando";
   private static final String CRAFTING = "Processando %s/%s";
   private static final String DONE = "Concluído";
+  private static final String TOOLTIP = "Cascata: %s · %s/%s";
   private static final String REASON_READY = "Pronto";
   private static final String REASON_TIER = "Liberada no Ultimate";
   private static final String REASON_NO_PLAN = "Sem plano para este item";
@@ -62,6 +64,7 @@ final class PortugueseCascadeTexts {
     add.accept(DeskScreenKeys.CASCADE_AMOUNT, AMOUNT);
     add.accept(DeskScreenKeys.CASCADE_COST, COST);
     add.accept(DeskScreenKeys.CASCADE_NO_CANCEL, NO_CANCEL);
+    add.accept(EngineeringDeskItem.CASCADE_KEY, TOOLTIP);
     addTable(add);
     addReasons(add);
   }

@@ -32,6 +32,7 @@ final class PortugueseJadeTexts {
   private static final String DOCK_OPTION = "Base de Indução";
   private static final String OWNER = "Dono: %s";
   private static final String DESK_ORDER = "Pedido: %s / %s";
+  private static final String DESK_CASCADE = "Cascata: %s · %s/%s";
   private static final String DESK_PAUSED = "Pausada: %s";
   private static final String DESK_OPTION = "Mesa de Engenharia";
 
@@ -60,6 +61,7 @@ final class PortugueseJadeTexts {
     add.accept(JadeKeys.config(JadeKeys.DESK_UID), DESK_OPTION);
     add.accept(JadeKeys.OWNER, OWNER);
     add.accept(JadeKeys.DESK_ORDER, DESK_ORDER);
+    add.accept(JadeKeys.DESK_CASCADE, DESK_CASCADE);
     add.accept(JadeKeys.DESK_PAUSED, DESK_PAUSED);
   }
 }

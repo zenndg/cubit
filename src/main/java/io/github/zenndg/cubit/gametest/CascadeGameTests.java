@@ -4,6 +4,7 @@ import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.CascadeLaunch;
 import io.github.zenndg.cubit.block.DeskRecipes;
 import io.github.zenndg.cubit.block.EngineeringDeskBlockEntity;
+import io.github.zenndg.cubit.block.SavedCascade;
 import io.github.zenndg.cubit.domain.desk.CascadeStart;
 import io.github.zenndg.cubit.domain.desk.DeskStatus;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
@@ -55,6 +56,9 @@ public final class CascadeGameTests {
   private static final String RUNNING = "The plan should have ended";
   private static final String NOT_PAUSED = "Without energy the plan should pause";
   private static final String LOST = "Items were lost";
+  private static final int BASE_ITEMS = 21;
+  private static final String WRONG_ITEM = "The desk should show the item of the task";
+  private static final String WRONG_PLAN = "The item should tell the plan it keeps";
   private static final String HOLDS = "The desk should keep no items of the plan";
 
   private CascadeGameTests() {}
@@ -253,6 +257,34 @@ public final class CascadeGameTests {
               count(placed.output(), CubitItems.GENERAL_ROBOT.get()), 1, NOT_MADE);
           helper.succeed();
         });
+  }
+
+  /** In Jade and in the hologram, the item of the task, not of the Project tab (answer 2022). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void aRunningPlanShowsItsTask(GameTestHelper helper) {
+    EngineeringDeskBlockEntity desk = place(helper, RobotTier.ULTIMATE, 0);
+    fillRobot(desk);
+    helper.assertTrue(desk.shownResult().isEmpty(), WRONG_ITEM);
+
+    startRobot(helper, desk);
+
+    helper.assertTrue(desk.shownResult().is(CubitItems.GENERAL_ROBOT_CASING.get()), WRONG_ITEM);
+    helper.succeed();
+  }
+
+  /** What the tooltip of the item reads: the progress and the items it keeps (answer 2010). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void theItemTellsItsPlan(GameTestHelper helper) {
+    EngineeringDeskBlockEntity desk = place(helper, RobotTier.ULTIMATE, 0);
+    fillRobot(desk);
+    startRobot(helper, desk);
+
+    SavedCascade saved = desk.collectComponents().get(CubitDataComponents.DESK_CASCADE.get());
+
+    helper.assertTrue(saved != null && saved.running().isPresent(), WRONG_PLAN);
+    helper.assertTrue(saved.item() == CubitItems.GENERAL_ROBOT.get(), WRONG_PLAN);
+    helper.assertValueEqual(saved.itemCount(), BASE_ITEMS, WRONG_PLAN);
+    helper.succeed();
   }
 
   /** A recipe a pack took away ends the plan and gives everything back (answer 2010). */

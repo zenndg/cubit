@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit.item;
 
+import io.github.zenndg.cubit.block.SavedCascade;
 import io.github.zenndg.cubit.block.SavedDeskOrder;
 import io.github.zenndg.cubit.domain.desk.DeskOrder;
 import io.github.zenndg.cubit.domain.energy.Energy;
@@ -12,8 +13,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * The tooltip of a collected desk: its tier, its energy, its order and how many items it keeps
- * (answer 1476).
+ * The tooltip of a collected desk: its tier, its energy, its order, its plan and how many items it
+ * keeps (answers 1476 and 2010).
  */
 final class EngineeringDeskTooltip {
   private EngineeringDeskTooltip() {}
@@ -33,13 +34,31 @@ final class EngineeringDeskTooltip {
           Component.translatable(EngineeringDeskItem.ORDER_KEY, order.done(), order.total())
               .withStyle(ChatFormatting.GRAY));
     }
+    SavedCascade cascade = stack.get(CubitDataComponents.DESK_CASCADE.get());
+    if (cascade != null) {
+      appendPlan(cascade, lines);
+    }
     int kept =
         EngineeringDeskItem.count(stack.get(CubitDataComponents.DESK_INPUT.get()))
-            + EngineeringDeskItem.count(stack.get(CubitDataComponents.DESK_OUTPUT.get()));
+            + EngineeringDeskItem.count(stack.get(CubitDataComponents.DESK_OUTPUT.get()))
+            + (cascade == null ? 0 : cascade.itemCount());
     if (kept > 0) {
       lines.add(
           Component.translatable(EngineeringDeskItem.ITEMS_KEY, kept)
               .withStyle(ChatFormatting.GRAY));
     }
+  }
+
+  private static void appendPlan(SavedCascade cascade, List<Component> lines) {
+    cascade
+        .running()
+        .ifPresent(run ->
+            lines.add(
+                Component.translatable(
+                        EngineeringDeskItem.CASCADE_KEY,
+                        cascade.item().getDescription(),
+                        run.doneCrafts(),
+                        run.totalCrafts())
+                    .withStyle(ChatFormatting.GRAY)));
   }
 }

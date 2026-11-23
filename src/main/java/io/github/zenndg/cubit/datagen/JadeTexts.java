@@ -32,6 +32,7 @@ final class JadeTexts {
   private static final String DOCK_OPTION = "Induction Dock";
   private static final String OWNER = "Owner: %s";
   private static final String DESK_ORDER = "Order: %s / %s";
+  private static final String DESK_CASCADE = "Cascade: %s · %s/%s";
   private static final String DESK_PAUSED = "Paused: %s";
   private static final String DESK_OPTION = "Engineering Desk";
 
@@ -60,6 +61,7 @@ final class JadeTexts {
     add.accept(JadeKeys.config(JadeKeys.DESK_UID), DESK_OPTION);
     add.accept(JadeKeys.OWNER, OWNER);
     add.accept(JadeKeys.DESK_ORDER, DESK_ORDER);
+    add.accept(JadeKeys.DESK_CASCADE, DESK_CASCADE);
     add.accept(JadeKeys.DESK_PAUSED, DESK_PAUSED);
   }
 }

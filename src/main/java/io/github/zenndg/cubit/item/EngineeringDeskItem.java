@@ -22,6 +22,7 @@ public final class EngineeringDeskItem extends BlockItem implements GeoItem {
   public static final String TIER_KEY = "tooltip.cubit.engineering_desk.tier";
   public static final String ENERGY_KEY = "tooltip.cubit.engineering_desk.energy";
   public static final String ORDER_KEY = "tooltip.cubit.engineering_desk.order";
+  public static final String CASCADE_KEY = "tooltip.cubit.engineering_desk.cascade";
   public static final String ITEMS_KEY = "tooltip.cubit.engineering_desk.items";
 
   private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
