@@ -132,7 +132,14 @@ Todo Induction Dock tem um painel solar embutido, que ele monta e guarda sozinho
 - **Sons:** três sons próprios, descritos em [`sons.md`](../conceito/sons.md#induction-dock): a abertura e a montagem, a desmontagem e o fechamento, e a trava (pergunta 1861).
 - **Aba Solar:** em todo Dock, com o que mostrava no Dock Solar (gerando ou parado, o motivo, a geração de agora e a máxima do tier) e o estado do painel: Guardado, Montando, Montado ou Guardando, com a luz (pergunta 1865). Num Dock sem espaço para o 3º bloco, ela mostra que falta espaço para o painel (pergunta 1897).
 - **Jade:** mostra a geração, como `Solar +25 FE/t`, ou `Solar: no sun`, e o estado do painel (pergunta 1865).
-- **Prancha conceito:** uma prancha nova em três imagens, por prompt, com a arte do desenvolvedor: as vistas, a transformação passo a passo e os detalhes da sanfona, dos braços e da trava. Aceita a prancha, e antes do teste no jogo, o agente mostra prévias do modelo renderizadas por script, de vários lados. A prancha da pergunta 1884 deixa de valer, porque mostrava o painel pequeno, rente ao topo (perguntas 1891 e 1900).
+- **Prancha conceito:** uma prancha nova em três imagens, por prompt, com a arte do desenvolvedor: as vistas, a transformação passo a passo e os detalhes da sanfona, dos braços e da trava. Aceita a prancha, e antes do teste no jogo, o agente mostra prévias do modelo renderizadas por script, de vários lados. A prancha da pergunta 1884 deixa de valer, porque mostrava o painel pequeno, rente ao topo (perguntas 1891 e 1900). A prancha nova foi aceita como referência, com os ajustes aplicados direto no modelo e na textura (pergunta 1906): os braços saem do armário das costas e passam sobre a torre, nunca da lateral ou da frente; o cotovelo fica dentro da área de 1 bloco; a torre continua arredondada, com a placa em U; cada metade tem 4 lâminas; as portas deslizam no passo 1; e os pontos laranja ficam visíveis nos cantos do painel.
+
+  ![As vistas do Dock, com o painel guardado e montado](../imagens/conceito/induction-dock-transforma-vistas.png)
+
+  ![A transformação do painel em sete passos](../imagens/conceito/induction-dock-transforma-passos.png)
+
+  ![A sanfona, o braço, a trava com as luzes e o Dock com o Cubit encaixado](../imagens/conceito/induction-dock-transforma-detalhes.png)
+
 - **Modelo:** o Dock usa o GeckoLib, como a Engineering Desk, no mundo e no inventário, com o modelo e o prompt da textura com o gabarito UV (pergunta 1860). A tela, a linha abaixo dela e a faixa da placa mostram as mesmas cinco imagens de status de antes, desenhadas por uma camada própria e acesas no escuro (pergunta 1886).
 - **O resto:** tudo o que o Dock faz continua igual: recebe o Cubit, hiberna, fila, inventário, cabos e os tiers pelos Modules.
 - **Saves antigos:** um Dock de antes vem com o painel guardado. Ao carregar, se o espaço acima dele estiver vazio, ele ganha o 3º bloco sozinho e monta o painel quando houver sol. Se o espaço estiver ocupado, ele continua funcionando sem o painel, até o espaço ficar livre. Nada é quebrado nem perdido (pergunta 1897).
@@ -231,6 +238,7 @@ Entra com o item 15 da Fase 4.2, antes do modo área (perguntas 1065 a 1069).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 01:28 | Acrescenta a prancha nova do painel do Dock, com os ajustes do modelo (pergunta 1906). |
 | Zennd | 2026-11-23 01:17 | Refaz o painel do Dock: 3 blocos, o painel fino suspenso pelos braços no 3º bloco, a transformação em sanfona, a faixa acima da placa e a prancha nova (perguntas 1891 a 1905). |
 | Zennd | 2026-11-23 00:51 | Acrescenta o armário estreito, as medidas e a tela do modelo GeckoLib do Dock (perguntas 1886, 1887 e 1889). |
 | Zennd | 2026-11-23 00:33 | Acrescenta a prancha conceito do painel do Dock e a subida inclinando no passo 3 (perguntas 1883 a 1885). |
