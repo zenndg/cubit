@@ -863,11 +863,13 @@ Não há perguntas pendentes nesta fase.
 | 1916 | O conceito com os armários nas laterais do Dock, um por braço, em relevo, com uma folha da porta subindo e outra descendo e quatro luzes, os braços subindo por fora da torre, as costas lisas e a torre 1 px à frente, pode ir aos documentos e ao modelo? | O desenvolvedor escolheu "Autorizado" (regra 54): o modelo e a transformação são refeitos com os armários laterais, e as prévias vêm antes do teste no jogo |
 | 1917 | Pedido do desenvolvedor: o que ajustar depois do teste com os armários laterais? | Dois pontos: o ombro parece não existir, e os braços ficam flutuando, sem nada ligando à torre; e a textura da lateral pisca, como duas texturas se misturando. O carro passa a ter uma barra de corrediça, como a de uma gaveta, escondida na torre com o braço guardado e ligando o ombro ao armário quando sai. O piscar era o z-fighting de faces no mesmo plano, porque o GeckoLib desenha os dois lados de cada face: as folhas recolhidas ficavam no plano da lateral, e a moldura encostava nela. As folhas recuam uma fração de pixel, e a moldura embute de leve na parede. Detalha a 1915 |
 | 1918 | Pedido do desenvolvedor: a faixa do tier, acima da placa, fica tampada pelo Cubit encaixado. Onde ela fica? | No topo da torre, como uma faixa fina em volta dela, logo abaixo da borda de cima, nas quatro laterais, visível de qualquer lado, acima do Cubit e dos armários. A recomendação foi aceita. Muda a 1899 e volta à forma da 1871 |
+| 1919 | Pedido do desenvolvedor: o que entra no PR do Dock unificado, e quando rodam as GameTests? | Os sons do Dock entram neste PR, presentes e funcionando como esperado. E as GameTests só rodam antes da abertura do PR, como manda o `antes-do-pr.md`, e não no meio do trabalho. Confirma a 1711 e a 1866 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 02:55 | Registra a resposta 1919. |
 | Zennd | 2026-11-23 02:28 | Registra a resposta 1918. |
 | Zennd | 2026-11-23 02:23 | Registra a resposta 1917. |
 | Zennd | 2026-11-23 02:10 | Registra a resposta 1916. |
