@@ -864,11 +864,15 @@ Não há perguntas pendentes nesta fase.
 | 1917 | Pedido do desenvolvedor: o que ajustar depois do teste com os armários laterais? | Dois pontos: o ombro parece não existir, e os braços ficam flutuando, sem nada ligando à torre; e a textura da lateral pisca, como duas texturas se misturando. O carro passa a ter uma barra de corrediça, como a de uma gaveta, escondida na torre com o braço guardado e ligando o ombro ao armário quando sai. O piscar era o z-fighting de faces no mesmo plano, porque o GeckoLib desenha os dois lados de cada face: as folhas recolhidas ficavam no plano da lateral, e a moldura encostava nela. As folhas recuam uma fração de pixel, e a moldura embute de leve na parede. Detalha a 1915 |
 | 1918 | Pedido do desenvolvedor: a faixa do tier, acima da placa, fica tampada pelo Cubit encaixado. Onde ela fica? | No topo da torre, como uma faixa fina em volta dela, logo abaixo da borda de cima, nas quatro laterais, visível de qualquer lado, acima do Cubit e dos armários. A recomendação foi aceita. Muda a 1899 e volta à forma da 1871 |
 | 1919 | Pedido do desenvolvedor: o que entra no PR do Dock unificado, e quando rodam as GameTests? | Os sons do Dock entram neste PR, presentes e funcionando como esperado. E as GameTests só rodam antes da abertura do PR, como manda o `antes-do-pr.md`, e não no meio do trabalho. Confirma a 1711 e a 1866 |
+| 1920 | Qual versão dos sons do Dock entra no mod? | A principal, os três arquivos da raiz de `tmp/wav/dock/`, e não as variantes `brilhante` e `suave`. A recomendação foi aceita. Detalha a 1861 |
+| 1921 | Como os sons do Dock tocam? | Pelo servidor: quando o painel começa a montar ou a guardar, e a trava aos 5,3 s da montagem, para todos a até 16 blocos, mesmo sem olhar o Dock, como os sons do Patrulheiro (1792). A recomendação foi aceita. Detalha a 1861 |
+| 1922 | No começo do `panel_retract`, o destravar vem antes do giro, ao contrário da animação. O que fazer? | O agente troca a ordem dos dois trechos no próprio arquivo, com o ffmpeg, para o giro vir primeiro e o destravar aos 0,7 s, sem gerar o som de novo. A recomendação foi aceita. Detalha a 1895 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 03:01 | Registra as respostas 1920 a 1922. |
 | Zennd | 2026-11-23 02:55 | Registra a resposta 1919. |
 | Zennd | 2026-11-23 02:28 | Registra a resposta 1918. |
 | Zennd | 2026-11-23 02:23 | Registra a resposta 1917. |
