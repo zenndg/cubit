@@ -817,11 +817,26 @@ Não há perguntas pendentes nesta fase.
 | 1870 | Onde o nome do Dock aparece? | No título da tela do Dock, no lugar de Induction Dock; no Jade; no app Dock do Tablet e no Dock preferido; no nome do item do Dock quebrado; e nos avisos que citam um Dock, como os do retorno automático e do XP. A recomendação foi aceita |
 | 1871 | O topo da torre tem a faixa na cor do tier, que o painel montado rente ao topo cobriria. Como resolver? | A faixa passa a ser uma borda na cor do tier em volta do topo da torre, nas quatro laterais. O painel montado deita por cima, por dentro dessa borda, e a faixa continua visível de qualquer lado, montado ou guardado. A recomendação foi aceita. Muda a 1379 e a 1389 na forma da faixa |
 | 1872 | O conceito do Dock unificado, nos documentos da issue #246 (respostas 1852 a 1871), pode ir ao código? | O desenvolvedor disse "sim, conceito autorizado, pode seguir com os commits" (regra 54): seguem os commits dos documentos e a entrega 1 |
+| 1873 | Há algo a acrescentar à entrega 1 do Dock unificado, a lógica, o nome e a saída do Dock Solar no modelo de hoje? E o prompt da prancha conceito sai já, para a arte ser feita enquanto a entrega 1 é codificada? | Nada a acrescentar, e o prompt da prancha sai já, em `tmp/arte/dock/prompt.md` (regra 56) |
+| 1874 | Pedido do desenvolvedor: o Cubit também recebe um nome? | Sim: ao ser colocado pela primeira vez no mundo, o Cubit recebe o nome "Cubit" seguido dos 8 primeiros caracteres de um UUID, e o dono pode renomeá-lo pelo Tablet. Detalha a 1867 |
+| 1875 | A janela que pede o nome ao colocar o Cubit, do backlog (1748), entra junto do nome padrão? | Entra: além do nome padrão, uma janela pede o nome na primeira colocação. A recomendação, só o nome padrão, foi recusada. Detalha a 1748 e a 1874 |
+| 1876 | De onde vêm os 8 caracteres do nome padrão do Cubit, e o nome fica com ele ao ser recolhido e colocado de novo? | Do UUID da entidade, na primeira colocação, como "Cubit 7c41e0aa", salvo como o nome do Cubit, igual a um nome dado pelo Rename. Por isso vai no item ao recolher e volta igual ao colocar. A recomendação foi aceita |
+| 1877 | E os Cubits que já existem nos mundos, sem nome? | Ganham o nome padrão ao carregar, uma vez. Um Cubit que já tem nome não muda (regra 18). A recomendação foi aceita |
+| 1878 | Com o nome padrão, o que um nome vazio faz no Rename do Tablet? | Volta ao nome padrão, como no Dock (1868): o Cubit nunca fica sem nome. A recomendação foi aceita. Muda a 1016 nesse ponto |
+| 1879 | Quando a janela do nome do Cubit abre, e o que acontece ao fechar sem nome? | Só na primeira colocação de um Cubit novo, a mesma das frases de apresentação (1673), com o nome padrão já escrito no campo. Confirmar vazio, cancelar ou fechar com Esc deixa o nome padrão, e recolher e colocar de novo não abre a janela. A recomendação foi aceita. Detalha a 1875 |
+| 1880 | Como a janela do nome convive com as frases de apresentação da primeira colocação? | A janela abre primeiro, e as duas frases saem quando o player confirma ou fecha a janela, já com o nome escolhido no prefixo, como "Rex: Happy to help you!". A recomendação foi aceita. Detalha a 1680 |
+| 1881 | O nome do Cubit e a janela entram em qual issue e PR? | Na #246, na entrega 1 do Dock unificado, junto do nome do Dock, com as mesmas regras. A issue e o conceito passam a citar o nome do Cubit, e o item 2 do backlog vira um link para o conceito. A recomendação foi aceita |
+| 1882 | O conceito do nome do Cubit, com o nome padrão, a janela na primeira colocação, as frases depois dela, o nome dos saves antigos e o nome vazio voltando ao padrão (respostas 1874 a 1881), pode ir ao código, na entrega 1 da #246? | O desenvolvedor disse "sim, conceito autorizado, pode seguir com a entrega 1" (regra 54) |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 00:01 | Registra a resposta 1882. |
+| Zennd | 2026-11-22 23:59 | Registra as respostas 1879 a 1881. |
+| Zennd | 2026-11-22 23:57 | Registra as respostas 1875 a 1878. |
+| Zennd | 2026-11-22 23:54 | Registra a resposta 1874. |
+| Zennd | 2026-11-22 23:46 | Registra a resposta 1873. |
 | Zennd | 2026-11-22 23:46 | Registra a resposta 1872. |
 | Zennd | 2026-11-22 23:44 | Registra a resposta 1871. |
 | Zennd | 2026-11-22 23:41 | Registra as respostas 1868 a 1870. |
