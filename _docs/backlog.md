@@ -40,17 +40,7 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
      - os Cubits que já existem nos mundos, que hoje podem não ter nome (regra 18);
      - a regra do nome que o Tablet já aplica (`RobotName`).
 
-3. **XP em tanque de líquido** (pergunta 1762). Virou o item "XP Cubit e Dock" do roadmap, logo depois do Patrulheiro, e vai ao refinamento quando começar (perguntas 1787 a 1789). O que está em aberto abaixo é o ponto de partida dele.
-   - **A ideia:** um inventário novo, de líquido: o XP dentro do Cubit vira um tanque de XP líquido, com as conversões iguais às do mod Industrial Foregoing. O tanque enche quando o Cubit faz algo que gera XP, como um player. Quando ele vai ao Dock, passa o XP para um tanque próprio do Dock, e o player, interagindo com o Dock, puxa o XP para si.
-   - **Em aberto:**
-     - a taxa de conversão entre ponto de XP e líquido, conferida no Industrial Foregoing, e como ela fica no config (regra 3);
-     - o mod funcionar sem o Industrial Foregoing (regra 50) e se o líquido conversa com os tanques de outros mods, pela capability de fluido do NeoForge;
-     - o que gera XP para o Cubit, além do abate do Patrulheiro;
-     - a convivência com o XP como energia do Patrulheiro (perguntas 1728 a 1730 e 1759);
-     - o tamanho do tanque por tier, no Cubit e no Dock;
-     - como o player puxa o XP do Dock: tudo de uma vez, por nível ou por quantidade;
-     - o tanque no item do Cubit e do Dock, nos saves (regra 18);
-     - o visual na tela do Cubit e do Dock.
+3. **XP em tanque de líquido** (pergunta 1762). Virou o XP Cubit e Dock, refinado e autorizado nas perguntas 1814 a 1851, na issue #244, com o conceito em [`xp.md`](funcionalidades/xp.md).
 
 ## Profissões
 
@@ -64,6 +54,7 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:13 | Troca o XP em tanque de líquido pelo link do conceito, refinado nas perguntas 1814 a 1851. |
 | Zennd | 2026-11-22 21:03 | Leva o XP em tanque de líquido ao roadmap, como XP Cubit e Dock (perguntas 1787 a 1789). |
 | Zennd | 2026-11-22 17:00 | Acrescenta a busca no fim da escolta do Patrulheiro (pergunta 1766). |
 | Zennd | 2026-11-22 16:34 | Acrescenta o XP em tanque de líquido, no Cubit e no Dock (pergunta 1762). |

@@ -233,6 +233,24 @@ O raio dos dois scanners é o de uma esfera em volta do Cubit: só conta o que e
 | Altura máxima da área (perguntas 1050 e 1601) | — | 8 blocos | 24 blocos | 32 blocos |
 | Local de morte, `death_point`, com `locked`, `mark` ou `guide` (perguntas 1117, 1118 e 1129), com o histórico em todos os tiers | Bloqueado | Marca a coordenada, com o texto ao renascer | Marca e guia até lá, no Overworld | Marca e guia até lá, no Overworld |
 
+## XP
+
+O XP como fluido, no Cubit e no Induction Dock, descrito em [`xp.md`](funcionalidades/xp.md) (perguntas 1815 a 1850).
+
+| Recurso | Base | Avançado | Elite | Ultimate |
+|---|---|---|---|---|
+| Tanque de XP do Cubit, `xp_tank_capacity` (pergunta 1826) | 8 baldes (8.000 mB, 400 pontos) | 16 baldes (800 pontos) | 32 baldes (1.600 pontos) | 64 baldes (3.200 pontos) |
+| Tanque de XP do Dock, `dock_xp_tank_capacity` (pergunta 1833) | 32 baldes (1.600 pontos) | 64 baldes (3.200 pontos) | 128 baldes (6.400 pontos) | 256 baldes (12.800 pontos) |
+| Passagem do Cubit ao Dock, `dock_xp_transfer_per_tick` (pergunta 1835) | 50 mB/t | 100 mB/t | 250 mB/t | 500 mB/t |
+
+| Valor geral | Padrão |
+|---|---|
+| Fluido por ponto de XP, `xp_fluid_per_point` (pergunta 1817) | 20 mB |
+| Trabalhos que recebem XP, `xp_jobs` (pergunta 1820) | `patroller`, `fisher`, `cook` e `farmer` |
+| Fazendeiro: chance de 1 ponto por colheita, `farmer_xp_chance` (pergunta 1823) | 20% |
+| Dock: pontos de XP para 1 FE, `dock_xp_points_per_fe` (pergunta 1834) | 2 pontos |
+| Dock: parte do tanque guardada no modo Guardar metade e converter o resto, `dock_xp_storage_percent` (pergunta 1831) | 50% |
+
 ## Slots exclusivos
 
 | Recurso | Base | Avançado | Elite | Ultimate |
@@ -316,6 +334,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 23:10 | Acrescenta os números do XP Cubit e Dock (perguntas 1817 a 1835). |
 | Zennd | 2026-11-22 22:00 | Acrescenta o tempo em que as asas continuam abertas (pergunta 1807). |
 | Zennd | 2026-11-22 21:46 | Acrescenta a distância em que a Plasma Blade acende e o tempo em que ela continua acesa (perguntas 1804 e 1805). |
 | Zennd | 2026-11-22 22:10 | Acrescenta a parada da escolta marcada (pergunta 1744). |
