@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.registry;
 
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.ContinuousSound;
+import io.github.zenndg.cubit.domain.behavior.PatrolSound;
 import io.github.zenndg.cubit.domain.behavior.PowerSound;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
@@ -26,7 +27,19 @@ public final class CubitSounds {
   public static final String DESK_CRAFTING_NAME = "crafting";
   public static final String DESK_DONE_NAME = "done";
   public static final String DESK_STARTUP_NAME = "startup";
+  public static final String PATROL_PISTOL_SHOT_NAME = "pistol_shot";
+  public static final String PATROL_ORB_BURST_NAME = "orb_burst";
+  public static final String PATROL_BLADE_IGNITE_NAME = "blade_ignite";
+  public static final String PATROL_BLADE_SWING_NAME = "blade_swing";
+  public static final String PATROL_BLADE_HIT_NAME = "blade_hit";
+  public static final String PATROL_BLADE_OFF_NAME = "blade_off";
+  public static final String PATROL_WINGS_OPEN_NAME = "wings_open";
+  public static final String PATROL_WINGS_CLOSE_NAME = "wings_close";
+  public static final String PATROL_JUMP_NAME = "jump";
+  public static final String PATROL_VISOR_DOWN_NAME = "visor_down";
+  public static final String PATROL_VISOR_UP_NAME = "visor_up";
   private static final String GENERAL_ROBOT_PREFIX = "general_robot.";
+  private static final String PATROLLER_PREFIX = "patroller.";
   private static final String DESK_PREFIX = "engineering_desk.";
   private static final DeferredRegister<SoundEvent> SOUNDS =
       DeferredRegister.create(Registries.SOUND_EVENT, CubitMod.MOD_ID);
@@ -49,6 +62,21 @@ public final class CubitSounds {
   public static final Supplier<SoundEvent> DESK_DONE = desk(DESK_DONE_NAME);
   public static final Supplier<SoundEvent> DESK_STARTUP = desk(DESK_STARTUP_NAME);
 
+  /** The sounds of the Galactic Patroller, in a folder of their own (answers 1575 and 1791). */
+  public static final Supplier<SoundEvent> PATROL_PISTOL_SHOT = patroller(PATROL_PISTOL_SHOT_NAME);
+
+  public static final Supplier<SoundEvent> PATROL_ORB_BURST = patroller(PATROL_ORB_BURST_NAME);
+  public static final Supplier<SoundEvent> PATROL_BLADE_IGNITE =
+      patroller(PATROL_BLADE_IGNITE_NAME);
+  public static final Supplier<SoundEvent> PATROL_BLADE_SWING = patroller(PATROL_BLADE_SWING_NAME);
+  public static final Supplier<SoundEvent> PATROL_BLADE_HIT = patroller(PATROL_BLADE_HIT_NAME);
+  public static final Supplier<SoundEvent> PATROL_BLADE_OFF = patroller(PATROL_BLADE_OFF_NAME);
+  public static final Supplier<SoundEvent> PATROL_WINGS_OPEN = patroller(PATROL_WINGS_OPEN_NAME);
+  public static final Supplier<SoundEvent> PATROL_WINGS_CLOSE = patroller(PATROL_WINGS_CLOSE_NAME);
+  public static final Supplier<SoundEvent> PATROL_JUMP = patroller(PATROL_JUMP_NAME);
+  public static final Supplier<SoundEvent> PATROL_VISOR_DOWN = patroller(PATROL_VISOR_DOWN_NAME);
+  public static final Supplier<SoundEvent> PATROL_VISOR_UP = patroller(PATROL_VISOR_UP_NAME);
+
   private CubitSounds() {}
 
   public static void register(IEventBus modBus) {
@@ -70,8 +98,23 @@ public final class CubitSounds {
     };
   }
 
+  public static SoundEvent of(PatrolSound sound) {
+    return switch (sound) {
+      case VISOR_DOWN -> PATROL_VISOR_DOWN.get();
+      case VISOR_UP -> PATROL_VISOR_UP.get();
+      case BLADE_IGNITE -> PATROL_BLADE_IGNITE.get();
+      case BLADE_OFF -> PATROL_BLADE_OFF.get();
+      case WINGS_OPEN -> PATROL_WINGS_OPEN.get();
+      case WINGS_CLOSE -> PATROL_WINGS_CLOSE.get();
+    };
+  }
+
   private static Supplier<SoundEvent> generalRobot(String name) {
     return sound(GENERAL_ROBOT_PREFIX + name);
+  }
+
+  private static Supplier<SoundEvent> patroller(String name) {
+    return generalRobot(PATROLLER_PREFIX + name);
   }
 
   private static Supplier<SoundEvent> desk(String name) {

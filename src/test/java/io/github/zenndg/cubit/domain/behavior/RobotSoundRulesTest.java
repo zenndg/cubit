@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.PowerState;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,9 @@ import org.junit.jupiter.api.Test;
 class RobotSoundRulesTest {
   private static final Energy LOW = new Energy(10);
   private static final Energy HIGH = new Energy(20);
+  private static final PatrolGear STOWED = new PatrolGear(false, false, false);
+  private static final PatrolGear VISOR_ONLY = new PatrolGear(true, false, false);
+  private static final PatrolGear ALL_ON = new PatrolGear(true, true, true);
 
   @Test
   void anInactiveRobotThatBecomesActivePlaysPowerOn() {
@@ -109,5 +113,35 @@ class RobotSoundRulesTest {
     assertEquals(
         Optional.of(PowerSound.POWER_ON),
         RobotSoundRules.powerSound(PowerState.HIBERNATING_AWAY, PowerState.ACTIVE));
+  }
+
+  @Test
+  void theVisorPlaysWhenItGoesDownAndUp() {
+    assertEquals(List.of(PatrolSound.VISOR_DOWN), RobotSoundRules.patrolSounds(STOWED, VISOR_ONLY));
+    assertEquals(List.of(PatrolSound.VISOR_UP), RobotSoundRules.patrolSounds(VISOR_ONLY, STOWED));
+  }
+
+  @Test
+  void theBladeAndTheWingsPlayWhenTheyChange() {
+    assertEquals(
+        List.of(PatrolSound.BLADE_IGNITE, PatrolSound.WINGS_OPEN),
+        RobotSoundRules.patrolSounds(VISOR_ONLY, ALL_ON));
+    assertEquals(
+        List.of(PatrolSound.BLADE_OFF, PatrolSound.WINGS_CLOSE),
+        RobotSoundRules.patrolSounds(ALL_ON, VISOR_ONLY));
+  }
+
+  /** Losing the card puts everything away, with the same sounds as any change (answer 1799). */
+  @Test
+  void puttingEverythingAwayPlaysEveryOffSound() {
+    assertEquals(
+        List.of(PatrolSound.VISOR_UP, PatrolSound.BLADE_OFF, PatrolSound.WINGS_CLOSE),
+        RobotSoundRules.patrolSounds(ALL_ON, STOWED));
+  }
+
+  @Test
+  void anUnchangedGearPlaysNothing() {
+    assertEquals(List.of(), RobotSoundRules.patrolSounds(ALL_ON, ALL_ON));
+    assertEquals(List.of(), RobotSoundRules.patrolSounds(STOWED, STOWED));
   }
 }

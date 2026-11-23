@@ -35,6 +35,88 @@
     ],
     "subtitle": "subtitles.cubit.general_robot.hostile_mob_alert"
   },
+  "general_robot.patroller.blade_hit": {
+    "sounds": [
+      "cubit:general_robot/patroller/blade_hit"
+    ],
+    "subtitle": "subtitles.cubit.general_robot.patroller.blade_hit"
+  },
+  "general_robot.patroller.blade_ignite": {
+    "sounds": [
+      "cubit:general_robot/patroller/blade_ignite"
+    ],
+    "subtitle": "subtitles.cubit.general_robot.patroller.blade_ignite"
+  },
+  "general_robot.patroller.blade_off": {
+    "sounds": [
+      "cubit:general_robot/patroller/blade_off"
+    ],
+    "subtitle": "subtitles.cubit.general_robot.patroller.blade_off"
+  },
+  "general_robot.patroller.blade_swing": {
+    "sounds": [
+      {
+        "name": "cubit:general_robot/patroller/blade_swing",
+        "pitch": 0.9
+      },
+      "cubit:general_robot/patroller/blade_swing",
+      {
+        "name": "cubit:general_robot/patroller/blade_swing",
+        "pitch": 1.1
+      }
+    ],
+    "subtitle": "subtitles.cubit.general_robot.patroller.blade_swing"
+  },
+  "general_robot.patroller.jump": {
+    "sounds": [
+      "cubit:general_robot/patroller/jump"
+    ],
+    "subtitle": "subtitles.cubit.general_robot.patroller.jump"
+  },
+  "general_robot.patroller.orb_burst": {
+    "sounds": [
+      "cubit:general_robot/patroller/orb_burst"
+    ],
+    "subtitle": "subtitles.cubit.general_robot.patroller.orb_burst"
+  },
+  "general_robot.patroller.pistol_shot": {
+    "sounds": [
+      {
+        "name": "cubit:general_robot/patroller/pistol_shot",
+        "pitch": 0.9
+      },
+      "cubit:general_robot/patroller/pistol_shot",
+      {
+        "name": "cubit:general_robot/patroller/pistol_shot",
+        "pitch": 1.1
+      }
+    ],
+    "subtitle": "subtitles.cubit.general_robot.patroller.pistol_shot"
+  },
+  "general_robot.patroller.visor_down": {
+    "sounds": [
+      "cubit:general_robot/patroller/visor_down"
+    ],
+    "subtitle": "subtitles.cubit.general_robot.patroller.visor_down"
+  },
+  "general_robot.patroller.visor_up": {
+    "sounds": [
+      "cubit:general_robot/patroller/visor_up"
+    ],
+    "subtitle": "subtitles.cubit.general_robot.patroller.visor_up"
+  },
+  "general_robot.patroller.wings_close": {
+    "sounds": [
+      "cubit:general_robot/patroller/wings_close"
+    ],
+    "subtitle": "subtitles.cubit.general_robot.patroller.wings_close"
+  },
+  "general_robot.patroller.wings_open": {
+    "sounds": [
+      "cubit:general_robot/patroller/wings_open"
+    ],
+    "subtitle": "subtitles.cubit.general_robot.patroller.wings_open"
+  },
   "general_robot.placed": {
     "sounds": [
       "cubit:general_robot/placed"

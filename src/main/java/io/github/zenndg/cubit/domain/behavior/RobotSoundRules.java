@@ -2,7 +2,9 @@ package io.github.zenndg.cubit.domain.behavior;
 
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.PowerState;
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -35,6 +37,28 @@ public final class RobotSoundRules {
       sounds.add(ContinuousSound.RECHARGING);
     }
     return sounds;
+  }
+
+  /**
+   * Each part of the Patroller that changed plays its sound, in the order visor, blade and wings,
+   * also when the card leaves and everything goes away (answers 1792, 1797 and 1799).
+   */
+  public static List<PatrolSound> patrolSounds(PatrolGear from, PatrolGear to) {
+    List<PatrolSound> sounds = new ArrayList<>();
+    change(sounds, from.visorDown(), to.visorDown(), PatrolSound.VISOR_DOWN, PatrolSound.VISOR_UP);
+    change(sounds, from.bladeLit(), to.bladeLit(), PatrolSound.BLADE_IGNITE, PatrolSound.BLADE_OFF);
+    change(
+        sounds, from.wingsOpen(), to.wingsOpen(), PatrolSound.WINGS_OPEN, PatrolSound.WINGS_CLOSE);
+    return sounds;
+  }
+
+  private static void change(
+      List<PatrolSound> sounds, boolean before, boolean after, PatrolSound on, PatrolSound off) {
+    if (!before && after) {
+      sounds.add(on);
+    } else if (before && !after) {
+      sounds.add(off);
+    }
   }
 
   /** A full battery or an empty dock change nothing, so they play no recharge sound. */

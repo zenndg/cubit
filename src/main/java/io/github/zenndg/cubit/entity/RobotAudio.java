@@ -1,6 +1,8 @@
 package io.github.zenndg.cubit.entity;
 
 import io.github.zenndg.cubit.domain.behavior.ContinuousSound;
+import io.github.zenndg.cubit.domain.behavior.PatrolGear;
+import io.github.zenndg.cubit.domain.behavior.PatrolSound;
 import io.github.zenndg.cubit.domain.behavior.RobotSoundRules;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.PowerState;
@@ -38,6 +40,13 @@ public final class RobotAudio {
 
   static void onStateChange(RobotEntity robot, PowerState from, PowerState to) {
     RobotSoundRules.powerSound(from, to).ifPresent(sound -> robot.playSound(CubitSounds.of(sound)));
+  }
+
+  /** On the server, when the visor, the blade or the wings change (answers 1792 and 1797). */
+  static void onPatrolGear(RobotEntity robot, PatrolGear from, PatrolGear to) {
+    for (PatrolSound sound : RobotSoundRules.patrolSounds(from, to)) {
+      robot.playSound(CubitSounds.of(sound));
+    }
   }
 
   static void onPlaced(RobotEntity robot) {

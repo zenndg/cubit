@@ -21,6 +21,7 @@ final class RobotSyncedData {
   private static final byte NOTHING_PLAYING = 0;
   private static final byte NO_LIGHT = 0;
   static final byte NO_JOB = 0;
+  static final byte NO_GEAR = 0;
 
   static final EntityDataAccessor<Byte> PLAYING_SOUNDS =
       SynchedEntityData.defineId(RobotEntity.class, EntityDataSerializers.BYTE);
@@ -67,6 +68,10 @@ final class RobotSyncedData {
   static final EntityDataAccessor<Boolean> VISOR_DOWN =
       SynchedEntityData.defineId(RobotEntity.class, EntityDataSerializers.BOOLEAN);
 
+  /** The gear of the Galactic Patroller in use, as bits, only for the looks (answer 1780). */
+  static final EntityDataAccessor<Byte> PATROL_GEAR =
+      SynchedEntityData.defineId(RobotEntity.class, EntityDataSerializers.BYTE);
+
   private RobotSyncedData() {}
 
   /** Called while the class loads, only to make sure it runs before any robot exists. */
@@ -89,5 +94,6 @@ final class RobotSyncedData {
     builder.define(TOOL_IN_CLAW, false);
     builder.define(PATROL_PHASE, (byte) PatrolWatch.Phase.ROUND.ordinal());
     builder.define(VISOR_DOWN, false);
+    builder.define(PATROL_GEAR, NO_GEAR);
   }
 }

@@ -1,9 +1,11 @@
 package io.github.zenndg.cubit.entity;
 
 import io.github.zenndg.cubit.CubitMod;
+import io.github.zenndg.cubit.domain.behavior.Linger;
 import io.github.zenndg.cubit.domain.behavior.WingHop;
 import io.github.zenndg.cubit.domain.robot.WorkArea;
 import io.github.zenndg.cubit.domain.tier.PatrollerSpec;
+import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -26,11 +28,13 @@ final class RobotWings {
   private static final int MAX_FLIGHT_TICKS = 60;
   private static final double HALF = 0.5;
   private static final float QUARTER_TURN = 90f;
+  private static final double AIRBORNE_SPEED = 0.15;
 
   private final RobotEntity robot;
   private Vec3 landing;
   private double apex;
   private int flightTicks;
+  private Linger open = Linger.OFF;
 
   RobotWings(RobotEntity robot) {
     this.robot = robot;
@@ -45,6 +49,27 @@ final class RobotWings {
    * Walks to a place, or hops when the way on foot does not reach or is too long. Out of a chase,
    * it never lands out of its area (answer 1650).
    */
+  /**
+   * In use in the air, the wings stay open and big a while after the landing or the end of the
+   * flight (answers 1553, 1806 and 1807). Without the card, they close at once (answer 1799).
+   */
+  void updateOpen(boolean armed, long now) {
+    if (!armed) {
+      open = Linger.OFF;
+      return;
+    }
+    open = open.tick(flying() || inTheAir(), now, CubitMod.CONFIG.patrol().wingsLingerTicks());
+  }
+
+  boolean open(long now) {
+    return open.on(now);
+  }
+
+  /** Off the ground and moving up or down, so a step on a block does not open the wings. */
+  private boolean inTheAir() {
+    return !robot.onGround() && Math.abs(robot.getDeltaMovement().y) > AIRBORNE_SPEED;
+  }
+
   void moveTo(Vec3 target, double speed, boolean chasing) {
     if (flying()) {
       return;
@@ -93,6 +118,7 @@ final class RobotWings {
   private void takeOff(Vec3 spot) {
     PatrollerSpec spec = robot.workArea().work().patrolCombat().spec();
     robot.setBattery(spec.payForJump(robot.battery()));
+    robot.playSound(CubitSounds.PATROL_JUMP.get());
     robot.getNavigation().stop();
     landing = spot;
     flightTicks = 0;

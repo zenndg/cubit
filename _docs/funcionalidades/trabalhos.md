@@ -163,19 +163,19 @@ A Fase 5 é entregue como um kanban, no GitHub Project "Cubit · Fase 5", um car
 5. Organizador (#196)
 6. Cozinheiro (#197)
 7. Patrulheiro Galático, no lugar do Defensor (#198)
-8. Lenhador, uma profissão nova, ainda sem issue
-9. Pecuarista (#201)
-10. Personalização visual por card (#202)
-11. Mecânico (#203)
-12. Explorador, uma profissão nova, ainda sem issue ([`explorador.md`](trabalhos/explorador.md))
-13. Alquimista (#204)
-14. Minerador (#199)
-15. Construtor (#200)
-16. Antena e carregamento de chunks (#205)
-17. Robot Server, log e viagem até o Dock (#206)
+8. XP Cubit e Dock, o XP em tanque de líquido no Cubit e no Dock, ainda sem issue ([`backlog.md`](../backlog.md))
+9. Servidor e Antenas, energia sem fio e carregamento de chunks (#205 e #206)
+10. Lenhador, uma profissão nova, ainda sem issue
+11. Pecuarista (#201)
+12. Personalização visual por card (#202)
+13. Mecânico (#203)
+14. Explorador, uma profissão nova, ainda sem issue ([`explorador.md`](trabalhos/explorador.md))
+15. Alquimista (#204)
+16. Minerador (#199)
+17. Construtor (#200)
 18. Storage wireless (#207)
 
-A ordem segue a pergunta 251, mudada na 1666: depois do Patrulheiro, o Lenhador, o Pecuarista, a personalização visual por card, o Mecânico, o Explorador e o Alquimista, e só então o Minerador e o Construtor (perguntas 1666 e 1669).
+A ordem segue a pergunta 251, mudada na 1666, na 1777 e na 1788: depois do Patrulheiro, o XP Cubit e Dock, que vai ao refinamento quando começar (perguntas 1787 a 1789), o Servidor e as Antenas, com a energia sem fio, que ainda vai ao refinamento, e o carregamento de chunks (perguntas 1777 a 1779), e então o Lenhador, o Pecuarista, a personalização visual por card, o Mecânico, o Explorador e o Alquimista, e só então o Minerador e o Construtor (perguntas 1666 e 1669).
 
 ## Pendente
 
@@ -187,6 +187,8 @@ A ordem segue a pergunta 251, mudada na 1666: depois do Patrulheiro, o Lenhador,
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 21:03 | Põe o XP Cubit e Dock depois do Patrulheiro, antes do Servidor e das Antenas (perguntas 1787 a 1789). |
+| Zennd | 2026-11-22 17:59 | Põe o Servidor e as Antenas, com a energia sem fio e o carregamento de chunks, logo depois do Patrulheiro (perguntas 1777 a 1779). |
 | Zennd | 2026-11-22 16:59 | Troca o Defensor pelo Patrulheiro e acrescenta a exceção do inventário cheio, a equipe e a personalização na ordem (perguntas 1639, 1643 e 1765) |
 | Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-22 13:30 | Acrescenta o Explorador à ordem de entrega (perguntas 1668 a 1670). |

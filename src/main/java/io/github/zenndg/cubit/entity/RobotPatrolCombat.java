@@ -10,6 +10,7 @@ import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
 import io.github.zenndg.cubit.domain.behavior.WeaponChoice;
 import io.github.zenndg.cubit.domain.energy.PowerState;
 import io.github.zenndg.cubit.domain.tier.PatrollerSpec;
+import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.LargeFireball;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -137,7 +139,9 @@ public final class RobotPatrolCombat {
    */
   void tick() {
     step();
-    RobotJobLook.showWatch(robot, watch);
+    weapons.updateBlade(this, robot.level().getGameTime());
+    wings.updateOpen(armed(), robot.level().getGameTime());
+    RobotJobLook.showPatrol(robot, this);
   }
 
   private void step() {
@@ -370,6 +374,7 @@ public final class RobotPatrolCombat {
             robot.onGround());
     if (PatrolRules.jumps(check)) {
       robot.setBattery(spec().payForJump(robot.battery()));
+      robot.playSound(CubitSounds.PATROL_JUMP.get());
       double speed = Math.sqrt(2 * JUMP_GRAVITY * height) + JUMP_GRAVITY;
       Vec3 toward = target.position().subtract(robot.position()).multiply(1, 0, 1).normalize();
       robot.setDeltaMovement(toward.x * JUMP_GRAVITY, speed, toward.z * JUMP_GRAVITY);
@@ -382,11 +387,11 @@ public final class RobotPatrolCombat {
   }
 
   private static double floorBelow(LivingEntity mob) {
-    return mob.level()
-        .getHeight(
-            net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING,
-            mob.getBlockX(),
-            mob.getBlockZ());
+    return mob.level().getHeight(Heightmap.Types.MOTION_BLOCKING, mob.getBlockX(), mob.getBlockZ());
+  }
+
+  RobotPatrolWeapons weapons() {
+    return weapons;
   }
 
   void drop() {

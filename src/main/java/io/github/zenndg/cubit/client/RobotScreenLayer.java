@@ -7,9 +7,11 @@ import io.github.zenndg.cubit.domain.behavior.BlinkCycle;
 import io.github.zenndg.cubit.domain.behavior.BlinkFrame;
 import io.github.zenndg.cubit.domain.behavior.GazeDirection;
 import io.github.zenndg.cubit.domain.behavior.RobotExpression;
+import io.github.zenndg.cubit.domain.robot.RobotJob;
 import io.github.zenndg.cubit.domain.robot.RobotType;
 import io.github.zenndg.cubit.entity.RobotEntity;
 import io.github.zenndg.cubit.entity.RobotFace;
+import io.github.zenndg.cubit.entity.RobotJobLook;
 import io.github.zenndg.cubit.entity.RobotLamp;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -32,6 +34,7 @@ final class RobotScreenLayer extends GeoRenderLayer<RobotEntity> {
   private static final String SCREEN_PATH = "textures/entity/%s_screen/%s.png";
   private static final String GLOW_PATH = "textures/entity/%s_screen_glow/%s.png";
   private static final String EYES_NAME = "normal_%s_%s";
+  private static final String PATROL_SCREEN = "patroller";
 
   /** Spreads the robots over the cycle, so they do not all blink at the same moment. */
   private static final int BLINK_SPREAD_TICKS = 37;
@@ -43,6 +46,7 @@ final class RobotScreenLayer extends GeoRenderLayer<RobotEntity> {
   private final Map<GazeDirection, Map<BlinkFrame, ResourceLocation>> eyes =
       new EnumMap<>(GazeDirection.class);
   private final Map<ResourceLocation, ResourceLocation> glows = new HashMap<>();
+  private final ResourceLocation patrolScreen;
 
   RobotScreenLayer(GeoRenderer<RobotEntity> renderer, RobotType robotType) {
     super(renderer);
@@ -57,6 +61,7 @@ final class RobotScreenLayer extends GeoRenderLayer<RobotEntity> {
       eyes.put(gaze, frames);
     }
     eyes.get(GazeDirection.LEVEL).put(BlinkFrame.OPEN, textures.get(RobotExpression.NORMAL));
+    patrolScreen = screen(robotType, PATROL_SCREEN);
   }
 
   private ResourceLocation screen(RobotType robotType, String name) {
@@ -72,6 +77,16 @@ final class RobotScreenLayer extends GeoRenderLayer<RobotEntity> {
 
   private static String lower(Enum<?> value) {
     return value.name().toLowerCase(Locale.ROOT);
+  }
+
+  /**
+   * With the visor down, the calm face of the Galactic Patroller turns determined, with the aiming
+   * marks in the corners (answers 1629 and 1781). A feeling, as a hurt, still shows.
+   */
+  private static boolean determined(RobotEntity robot, RobotExpression expression) {
+    boolean calm = expression == RobotExpression.NORMAL || expression == RobotExpression.ALERT;
+    boolean patroller = RobotJobLook.job(robot).filter(RobotJob.PATROLLER::equals).isPresent();
+    return calm && patroller && RobotJobLook.visorDown(robot);
   }
 
   /** Only the normal expression blinks and looks around. */
@@ -95,8 +110,9 @@ final class RobotScreenLayer extends GeoRenderLayer<RobotEntity> {
       int packedLight,
       int packedOverlay) {
     RobotExpression expression = RobotFace.expression(robot);
-    ResourceLocation texture = textureOf(robot, expression);
-    boolean glows = expression.glows();
+    boolean determined = determined(robot, expression);
+    ResourceLocation texture = determined ? patrolScreen : textureOf(robot, expression);
+    boolean glows = determined || expression.glows();
     RenderType type =
         glows
             ? RenderType.entityTranslucentEmissive(texture)

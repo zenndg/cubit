@@ -4,6 +4,7 @@ import io.github.zenndg.cubit.domain.behavior.PatrolSettings;
 import io.github.zenndg.cubit.domain.energy.Percentage;
 import io.github.zenndg.cubit.registry.CubitDamageTypes;
 import io.github.zenndg.cubit.registry.CubitEntities;
+import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.Optional;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -169,6 +170,7 @@ public final class LaserOrb extends Projectile {
     if (!(level() instanceof ServerLevel server)) {
       return;
     }
+    playSound(CubitSounds.PATROL_ORB_BURST.get());
     server.sendParticles(
         new DustParticleOptions(BLUE, BURST_SIZE),
         getX(),

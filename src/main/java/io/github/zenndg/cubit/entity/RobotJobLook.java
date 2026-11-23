@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit.entity;
 
+import io.github.zenndg.cubit.domain.behavior.PatrolGear;
 import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
 import io.github.zenndg.cubit.domain.robot.RobotJob;
 import java.util.Optional;
@@ -10,6 +11,10 @@ import java.util.Optional;
  * 1199, 1229 and 1756). The rules stay on the server.
  */
 public final class RobotJobLook {
+  private static final int BLADE_LIT = 1;
+  private static final int WINGS_OPEN = 2;
+  private static final int ON_GUARD = 4;
+
   private RobotJobLook() {}
 
   public static Optional<RobotJob> job(RobotEntity robot) {
@@ -49,10 +54,49 @@ public final class RobotJobLook {
     return robot.getEntityData().get(RobotSyncedData.VISOR_DOWN);
   }
 
-  /** Set on the server on every tick of the watch. The game sends only a value that changed. */
-  static void showWatch(RobotEntity robot, PatrolWatch watch) {
+  /** The blade is lit from a target on the way in and a while after (answers 1804 and 1805). */
+  public static boolean bladeLit(RobotEntity robot) {
+    return gear(robot, BLADE_LIT);
+  }
+
+  /** The wings are open in the air and a while after: a hop, a jump, a gap, a fall or a glide. */
+  public static boolean wingsOpen(RobotEntity robot) {
+    return gear(robot, WINGS_OPEN);
+  }
+
+  /** It stands on guard at a stop of its round, with the pistol up (answer 1627). */
+  public static boolean onGuard(RobotEntity robot) {
+    return gear(robot, ON_GUARD);
+  }
+
+  private static boolean gear(RobotEntity robot, int bit) {
+    return (robot.getEntityData().get(RobotSyncedData.PATROL_GEAR) & bit) != 0;
+  }
+
+  /**
+   * Set on the server after every tick of the Patroller. The game sends only a value that changed.
+   */
+  static void showPatrol(RobotEntity robot, RobotPatrolCombat combat) {
+    PatrolGear before = patrolGear(robot);
+    PatrolWatch watch = combat.watch();
     robot.getEntityData().set(RobotSyncedData.PATROL_PHASE, (byte) watch.phase().ordinal());
     robot.getEntityData().set(RobotSyncedData.VISOR_DOWN, watch.visorDown());
+    int gear = RobotSyncedData.NO_GEAR;
+    if (combat.weapons().bladeLit(robot.level().getGameTime())) {
+      gear |= BLADE_LIT;
+    }
+    if (combat.wings().open(robot.level().getGameTime())) {
+      gear |= WINGS_OPEN;
+    }
+    if (combat.armed() && !combat.fighting() && robot.workArea().work().patrol().pausing()) {
+      gear |= ON_GUARD;
+    }
+    robot.getEntityData().set(RobotSyncedData.PATROL_GEAR, (byte) gear);
+    RobotAudio.onPatrolGear(robot, before, patrolGear(robot));
+  }
+
+  private static PatrolGear patrolGear(RobotEntity robot) {
+    return new PatrolGear(visorDown(robot), bladeLit(robot), wingsOpen(robot));
   }
 
   /** Set on the server: the tool of the job goes to the claw while the Cubit works. */

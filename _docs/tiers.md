@@ -110,6 +110,9 @@ Valem para todos os tiers e ficam no config. Os marcados como planejados entram 
 | Patrulheiro: distância até o protegido a quem a bola de fogo se dirige, `patroller_intercept_guard_distance` (pergunta 1735) | 32 blocos |
 | Patrulheiro: maior queda que o caminho planeja, descendo planando, `patroller_glide_drop_blocks` (pergunta 1739) | 16 blocos |
 | Patrulheiro: tempo do escoltado parado até a parada da escolta, `patroller_escort_still_ticks` (pergunta 1744) | 1 s (20 ticks) |
+| Patrulheiro: distância do alvo em que a Plasma Blade acende, mesmo enquanto ele atira, `patroller_blade_ignite_distance` (pergunta 1804) | 8 blocos |
+| Patrulheiro: tempo em que as asas continuam abertas e grandes depois do pouso ou do fim do voo, `patroller_wings_linger_ticks` (pergunta 1807) | 2 s (40 ticks) |
+| Patrulheiro: tempo em que a Plasma Blade continua acesa depois do último momento em que devia estar acesa, `patroller_blade_linger_ticks` (pergunta 1805) | 2 s (40 ticks) |
 | Patrulheiro: raio da explosão do creeper, de onde ele recua, `patroller_creeper_blast` (perguntas 1567 e 1642) | 4 blocos |
 | Patrulheiro: distância que mantém do creeper sem carga, `patroller_keep_away` (perguntas 1595 e 1642) | 6 blocos |
 | Patrulheiro: intervalo da procura de alvos, `patroller_search_interval_ticks` (pergunta 1642 e regra 21) | 0,5 s (10 ticks) |
@@ -313,6 +316,8 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 22:00 | Acrescenta o tempo em que as asas continuam abertas (pergunta 1807). |
+| Zennd | 2026-11-22 21:46 | Acrescenta a distância em que a Plasma Blade acende e o tempo em que ela continua acesa (perguntas 1804 e 1805). |
 | Zennd | 2026-11-22 22:10 | Acrescenta a parada da escolta marcada (pergunta 1744). |
 | Zennd | 2026-11-22 21:25 | Acrescenta a descida planando do Patrulheiro (pergunta 1739). |
 | Zennd | 2026-11-22 20:45 | Acrescenta a interceptação da bola de fogo (pergunta 1735). |
