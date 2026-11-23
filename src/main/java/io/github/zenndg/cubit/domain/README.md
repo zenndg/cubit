@@ -139,7 +139,9 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `SolarPulse` | A força do brilho da célula em cada momento |
 | `PowerSound` | Som tocado uma vez, ao ligar ou desligar |
 | `ContinuousSound` | Som em loop enquanto a condição valer: esteira, curto elétrico e recarga |
-| `RobotSoundRules` | Diz qual som cada situação toca |
+| `PatrolSound` | Som do Patrulheiro Galático tocado uma vez, quando uma peça muda: o visor descendo e subindo, a lâmina acendendo e apagando e as asas abrindo e fechando |
+| `PatrolGear` | As peças do Patrulheiro que mudam com o uso: o visor baixado, a lâmina acesa e as asas abertas |
+| `RobotSoundRules` | Diz qual som cada situação toca, inclusive os de cada peça do Patrulheiro que mudou |
 | `SlotRecharge` | Reserva de FE do slot de energia e sua passagem para a bateria |
 | `EnergyTransfer` | Energia movida de uma bateria para outra num passo: o que a taxa, a origem e o espaço permitem, sem criar nem perder FE |
 | `RechargeSplashSpec` | Os números da Recharge Splash, iguais em todos os tiers: a parte da vida e da bateria que ela dá, o raio a partir do impacto e os ticks em que ela age. Calcula a dose do tier, com a energia arredondada para baixo |
@@ -250,6 +252,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 - **Números das animações em constantes:** são só visuais, como os da piscada (pergunta 398).
 - **Olhar sem tremer:** a direção fica um tempo depois do movimento, porque um degrau dura poucos ticks (perguntas 375 e 376).
 - **Sons:** entrar na base não toca o som de desligar, porque a recarga já toca, e a recarga só vale com a carga subindo de fato, para não tocar com a bateria cheia nem com o Dock sem energia (perguntas 358 e 359).
+- **Sons do Patrulheiro:** cada peça que muda toca o seu som, na ordem visor, lâmina e asas, sem caso especial: ao tirar o card, tudo se recolhe e os sons de apagar tocam, como em qualquer troca (perguntas 1792, 1797 e 1799). O disparo, o golpe, o acerto, o estouro e o impulso não dependem de um estado e tocam onde a ação acontece.
 - **Barra sem falso zero:** `level` só devolve 0 com a bateria vazia. Com qualquer carga, devolve ao menos 1, para o player não achar que o robô ativo está sem energia (pergunta 269).
 - **Indicador crítico em todos os níveis:** o limite crítico vem do config e pode cobrir mais de um nível, então o vermelho não pode reduzir o preenchimento. O vazio vence o crítico, porque só vale com 0 FE (perguntas 415 e 416).
 - **Brilho junto da tela:** a tela e o indicador brilham pela mesma regra, `RobotExpression.glows`, para nunca discordarem (pergunta 417).
