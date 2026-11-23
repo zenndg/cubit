@@ -5,7 +5,6 @@ import io.github.zenndg.cubit.block.DeskRecipes;
 import io.github.zenndg.cubit.domain.desk.CatalogSearch;
 import io.github.zenndg.cubit.domain.desk.DeskCategory;
 import io.github.zenndg.cubit.item.DeskCategoryCodecs;
-import io.github.zenndg.cubit.menu.EngineeringDeskMenu;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -46,6 +45,11 @@ final class DeskCatalog {
   private DeskCategory chosenCategory = DeskCategory.ROBOT;
   private CatalogSearch search = CatalogSearch.of(null);
   private int firstRow;
+  private final DeskCatalogRules rules;
+
+  DeskCatalog(DeskCatalogRules rules) {
+    this.rules = rules;
+  }
 
   List<RecipeHolder<CraftingRecipe>> recipes() {
     Minecraft minecraft = Minecraft.getInstance();
@@ -76,7 +80,8 @@ final class DeskCatalog {
     for (int index = 0; index < all.size(); index++) {
       RecipeHolder<CraftingRecipe> recipe = all.get(index);
       String name = resultOf(recipe).getHoverName().getString();
-      if (search.shows(DeskCategoryCodecs.of(recipe.value()), name, chosenCategory)) {
+      if (rules.shows(recipe)
+          && search.shows(DeskCategoryCodecs.of(recipe.value()), name, chosenCategory)) {
         shown.add(index);
       }
     }
@@ -99,7 +104,7 @@ final class DeskCatalog {
     }
   }
 
-  void render(GuiGraphics graphics, int left, int top, EngineeringDeskMenu menu) {
+  void render(GuiGraphics graphics, int left, int top) {
     categories.render(graphics, left, top, chosenCategory, !search.isEmpty());
     List<RecipeHolder<CraftingRecipe>> all = recipes();
     List<Integer> shown = view();
@@ -112,28 +117,23 @@ final class DeskCatalog {
         continue;
       }
       int index = shown.get(place);
-      if (index == menu.recipeIndex()) {
+      if (index == rules.chosen()) {
         graphics.renderOutline(x, y, CELL, CELL, CHOSEN);
       }
-      renderItem(graphics, all.get(index), menu, x + ICON_INSET, y + ICON_INSET);
+      renderItem(graphics, all.get(index), x + ICON_INSET, y + ICON_INSET);
     }
     renderScrollBar(graphics, left, top, shown.size());
   }
 
-  /** A locked recipe shows its item dark with a padlock, and one without materials only dark. */
-  private static void renderItem(
-      GuiGraphics graphics,
-      RecipeHolder<CraftingRecipe> recipe,
-      EngineeringDeskMenu menu,
-      int x,
-      int y) {
-    boolean locked = !unlocked(recipe);
-    if (!locked && menu.shortage(recipe).isEmpty()) {
+  /** A locked recipe shows its item dark with a padlock, by the rule of the tab. */
+  private void renderItem(GuiGraphics graphics, RecipeHolder<CraftingRecipe> recipe, int x, int y) {
+    DeskCatalogRules.Look look = rules.look(recipe);
+    if (look == DeskCatalogRules.Look.READY) {
       graphics.renderFakeItem(resultOf(recipe), x, y);
       return;
     }
     renderDark(graphics, resultOf(recipe), x, y);
-    if (locked) {
+    if (look == DeskCatalogRules.Look.LOCKED) {
       renderPadlock(graphics, x, y);
     }
   }
@@ -207,18 +207,10 @@ final class DeskCatalog {
   }
 
   /** The name of the item and, when locked, what releases it (answer 1970). */
-  void tooltip(
-      GuiGraphics graphics,
-      Font font,
-      int index,
-      EngineeringDeskMenu menu,
-      int mouseX,
-      int mouseY) {
+  void tooltip(GuiGraphics graphics, Font font, int index, int mouseX, int mouseY) {
     RecipeHolder<CraftingRecipe> recipe = recipes().get(index);
     List<Component> lines = new ArrayList<>(List.of(resultOf(recipe).getHoverName()));
-    if (!unlocked(recipe)) {
-      lines.addAll(DeskOrderView.locked(menu, recipe));
-    }
+    lines.addAll(rules.hints(recipe));
     graphics.renderComponentTooltip(font, lines, mouseX, mouseY);
   }
 

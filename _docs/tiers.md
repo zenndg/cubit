@@ -56,6 +56,7 @@ A mesa sobe de tier com os mesmos Modules do Cubit e do Dock (perguntas 1433 a 1
 |---|---|---|---|---|
 | Tempo por craft | 5 s | 4 s | 2,5 s | 1,5 s |
 | Maior pedido | 8 | 32 | 64 | 256 |
+| Fabricação em cascata, `engineering_desk_cascade` (pergunta 2020) | — | — | — | ✔ |
 | Bateria | 100 mil FE | 400 mil FE | 2 mi FE | 8 mi FE |
 | Slots do inventário de entrada e do de saída, cada um (pergunta 1505) | 12 | 18 | 27 | 36 |
 | Custo por craft | 2.500 FE | 2.500 FE | 2.500 FE | 2.500 FE |
@@ -336,6 +337,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 14:22 | Acrescenta a fabricação em cascata (pergunta 2020). |
 | Zennd | 2026-11-23 10:52 | Baixa a geração da noite para 25% do dia, 350 FE/t (pergunta 1955). |
 | Zennd | 2026-11-23 10:40 | Acrescenta a geração do painel do Dock à noite (perguntas 1943 e 1944). |
 | Zennd | 2026-11-23 02:30 | Volta a faixa do Dock para o topo da torre (pergunta 1918). |

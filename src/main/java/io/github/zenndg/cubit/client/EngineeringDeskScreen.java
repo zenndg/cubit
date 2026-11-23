@@ -1,12 +1,10 @@
 package io.github.zenndg.cubit.client;
 
 import io.github.zenndg.cubit.block.DeskGrid;
-import io.github.zenndg.cubit.domain.energy.EnergyFormat;
+import io.github.zenndg.cubit.menu.CascadeMenuPart;
 import io.github.zenndg.cubit.menu.DeskControl;
 import io.github.zenndg.cubit.menu.DeskScreenKeys;
 import io.github.zenndg.cubit.menu.EngineeringDeskMenu;
-import io.github.zenndg.cubit.menu.ScreenKeys;
-import io.github.zenndg.cubit.registry.CubitItems;
 import java.util.List;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
@@ -14,7 +12,6 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.lwjgl.glfw.GLFW;
 
@@ -26,10 +23,6 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
   private static final int HEIGHT = 258;
   private static final int MARGIN = 8;
   private static final int LABEL_Y = 20;
-  private static final int PROJECT_Y = 9;
-  private static final int STORAGE_Y = 37;
-  private static final int[] TAB_TOPS = {PROJECT_Y, STORAGE_Y};
-  private static final int ITEM_SHIFT = -2;
   private static final int GRID_FRAME = 3;
   private static final int ARROW_X = 156;
   private static final int ARROW_Y = 50;
@@ -41,15 +34,18 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
   private static final int CANCEL_Y = 108;
   private static final int BUTTON_HEIGHT = 12;
   private static final int SMALL_BUTTON = 14;
-  private static final int MINUS_X = 96;
-  private static final int PLUS_X = 136;
-  private static final int CANCEL_X = 96;
-  private static final int CANCEL_WIDTH = 54;
-  private static final int ORDER_TEXT_X = 123;
-  private static final int ENERGY_LABEL_Y = 128;
-  private static final int BAR_Y = 139;
-  private static final int BAR_WIDTH = 204;
-  private static final int BAR_HEIGHT = 8;
+  private static final int ORDER_GAP = 2;
+
+  /** The dashed frame of the grid, which the row of the order follows (answer 2040). */
+  private static final int FRAME_X = DeskGridView.X - GRID_FRAME;
+
+  private static final int FRAME_WIDTH = DeskGrid.SIDE * ScreenPainter.SLOT_SIZE + GRID_FRAME * 2;
+  private static final int MINUS_X = FRAME_X;
+  private static final int PLUS_X = FRAME_X + FRAME_WIDTH - SMALL_BUTTON;
+  private static final int CANCEL_X = FRAME_X;
+  private static final int CANCEL_WIDTH = FRAME_WIDTH;
+  private static final int ORDER_TEXT_X = FRAME_X + FRAME_WIDTH / 2;
+  private static final int ORDER_ROOM = FRAME_WIDTH - SMALL_BUTTON * 2 - ORDER_GAP * 2;
   private static final int INVENTORY_LABEL_Y = 164;
   private static final int SEARCH_HEIGHT = 12;
   private static final int SEARCH_INSET = 2;
@@ -58,10 +54,12 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
   private static final String MINUS_LABEL = "-";
   private static final String PLUS_LABEL = "+";
 
-  private final DeskCatalog catalog = new DeskCatalog();
+  private final DeskCatalog catalog;
+  private final DeskCatalog cascadeCatalog;
+  private final CascadeTab cascade;
   private final DeskGridView grid = new DeskGridView();
   private final DeskOrderView orderView;
-  private boolean storageOpen;
+  private DeskTab tab = DeskTab.PROJECT;
   private EditBox search;
   private BlueprintButton minus;
   private BlueprintButton plus;
@@ -69,7 +67,11 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
 
   EngineeringDeskScreen(EngineeringDeskMenu menu, Inventory playerInventory, Component title) {
     super(menu, playerInventory, title);
+    CascadeCatalogRules rules = new CascadeCatalogRules(menu);
+    catalog = new DeskCatalog(new ProjectCatalogRules(menu));
+    cascadeCatalog = new DeskCatalog(rules);
     orderView = new DeskOrderView(menu, catalog);
+    cascade = new CascadeTab(menu, cascadeCatalog, rules, this::send);
     imageWidth = EngineeringDeskMenu.WIDTH;
     imageHeight = HEIGHT;
     inventoryLabelX = MARGIN;
@@ -92,6 +94,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
                 Component.translatable(DeskScreenKeys.CANCEL),
                 BlueprintPainter.CANCEL,
                 () -> send(DeskControl.CANCEL)));
+    cascade.init(leftPos, topPos, this::addRenderableWidget);
     search = searchBox();
     catalog.showCategoryOf(menu.recipeIndex());
     showTab();
@@ -118,7 +121,10 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     box.setTextColor(BlueprintPainter.TEXT);
     box.setHint(
         Component.translatable(DeskScreenKeys.SEARCH).withColor(BlueprintPainter.TEXT_SOFT));
-    box.setResponder(catalog::search);
+    box.setResponder(typed -> {
+      catalog.search(typed);
+      cascadeCatalog.search(typed);
+    });
     return addRenderableWidget(box);
   }
 
@@ -134,13 +140,22 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     minecraft.gameMode.handleInventoryButtonClick(menu.containerId, id);
   }
 
+  private boolean storageOpen() {
+    return tab == DeskTab.STORAGE;
+  }
+
+  private DeskCatalog openCatalog() {
+    return tab == DeskTab.CASCADE ? cascadeCatalog : catalog;
+  }
+
   private void showTab() {
-    menu.showStorage(storageOpen);
-    minus.visible = !storageOpen;
-    plus.visible = !storageOpen;
-    cancel.visible = !storageOpen;
-    search.visible = !storageOpen;
-    if (storageOpen) {
+    menu.showStorage(storageOpen());
+    minus.visible = tab == DeskTab.PROJECT;
+    plus.visible = tab == DeskTab.PROJECT;
+    cancel.visible = tab == DeskTab.PROJECT;
+    cascade.show(tab == DeskTab.CASCADE);
+    search.visible = !storageOpen();
+    if (storageOpen()) {
       search.setFocused(false);
     }
   }
@@ -150,13 +165,19 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     plus.active = orderView.mayRaise();
     super.render(graphics, mouseX, mouseY, partialTick);
     renderTooltip(graphics, mouseX, mouseY);
-    if (!storageOpen) {
-      catalog
-          .at(mouseX, mouseY, leftPos, topPos)
-          .ifPresent(index -> catalog.tooltip(graphics, font, index, menu, mouseX, mouseY));
-      catalog.categoryTooltip(graphics, font, leftPos, topPos, mouseX, mouseY);
+    if (!storageOpen()) {
+      DeskCatalog open = openCatalog();
+      open.at(mouseX, mouseY, leftPos, topPos)
+          .ifPresent(index -> open.tooltip(graphics, font, index, mouseX, mouseY));
+      open.categoryTooltip(graphics, font, leftPos, topPos, mouseX, mouseY);
+    }
+    if (tab == DeskTab.PROJECT) {
       recipeTooltip(graphics, mouseX, mouseY);
       plusTooltip(graphics, mouseX, mouseY);
+    }
+    cascade.tooltips(graphics, font, mouseX, mouseY);
+    if (overCascadeTab(mouseX, mouseY)) {
+      graphics.renderTooltip(font, cascade.name(), mouseX, mouseY);
     }
   }
 
@@ -197,13 +218,13 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
   @Override
   protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
     int tabsLeft = leftPos + imageWidth - ScreenTabStrip.INSET;
-    int openTop = storageOpen ? STORAGE_Y : PROJECT_Y;
-    ScreenTabStrip.renderBehind(graphics, tabsLeft, topPos, TAB_TOPS, openTop);
+    int openTop = tab.top();
+    ScreenTabStrip.renderBehind(graphics, tabsLeft, topPos, DeskTab.TOPS, openTop);
     BlueprintPainter.sheet(graphics, leftPos, topPos, imageWidth, imageHeight);
     ScreenTabStrip.renderOpen(graphics, tabsLeft, topPos, openTop);
-    renderTabIcons(graphics, tabsLeft);
+    DeskTab.renderIcons(graphics, tabsLeft, topPos);
     DeskScreenFrames.player(graphics, leftPos, topPos);
-    if (storageOpen) {
+    if (storageOpen()) {
       DeskScreenFrames.storage(graphics, leftPos, topPos, menu.slots());
       DeskScreenFrames.storageArrow(graphics, leftPos, topPos);
     } else {
@@ -211,18 +232,13 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     }
   }
 
-  private void renderTabIcons(GuiGraphics graphics, int tabsLeft) {
-    int x = tabsLeft + ScreenTabStrip.ICON_X + ITEM_SHIFT;
-    int y = topPos + ScreenTabStrip.ICON_Y + ITEM_SHIFT;
-    graphics.renderItem(new ItemStack(CubitItems.ENGINEERING_DESK.get()), x, y + PROJECT_Y);
-    graphics.renderItem(new ItemStack(Items.CHEST), x, y + STORAGE_Y);
-  }
-
   private void renderProject(GuiGraphics graphics) {
     renderSearchFrame(graphics);
-    catalog.render(graphics, leftPos, topPos, menu);
-    renderGrid(graphics);
-    renderEnergy(graphics);
+    openCatalog().render(graphics, leftPos, topPos);
+    if (tab == DeskTab.PROJECT) {
+      renderGrid(graphics);
+    }
+    DeskEnergyBar.render(graphics, menu, leftPos, topPos);
   }
 
   private void renderSearchFrame(GuiGraphics graphics) {
@@ -234,13 +250,12 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
 
   /** The grid of marks in a dashed frame, the arrow of the progress and the item it makes. */
   private void renderGrid(GuiGraphics graphics) {
-    int gridSide = DeskGrid.SIDE * ScreenPainter.SLOT_SIZE + GRID_FRAME * 2;
     BlueprintPainter.dashed(
         graphics,
-        leftPos + DeskGridView.X - GRID_FRAME,
+        leftPos + FRAME_X,
         topPos + DeskGridView.Y - GRID_FRAME,
-        gridSide,
-        gridSide);
+        FRAME_WIDTH,
+        FRAME_WIDTH);
     grid.render(
         graphics,
         leftPos,
@@ -257,19 +272,6 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
         BlueprintPainter.CRAFTING);
     BlueprintPainter.slot(graphics, leftPos + RESULT_X, topPos + RESULT_Y);
     graphics.renderFakeItem(chosenResult(), leftPos + RESULT_X + 1, topPos + RESULT_Y + 1);
-  }
-
-  private void renderEnergy(GuiGraphics graphics) {
-    BlueprintPainter.bar(
-        graphics,
-        new ScreenPainter.Box(leftPos + MARGIN, topPos + BAR_Y, BAR_WIDTH, BAR_HEIGHT),
-        menu.stock().amount(),
-        Math.max(1, menu.capacity().amount()),
-        BlueprintPainter.ENERGY);
-    BlueprintPainter.slot(
-        graphics,
-        leftPos + EngineeringDeskMenu.ENERGY_SLOT_X - 1,
-        topPos + EngineeringDeskMenu.ENERGY_SLOT_Y - 1);
   }
 
   private List<Ingredient> chosenMarks() {
@@ -291,25 +293,22 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     DeskScreenHeader.render(graphics, font, title, menu.tier(), menu.status(), imageWidth);
     graphics.drawString(
         font, playerInventoryTitle, inventoryLabelX, inventoryLabelY, BlueprintPainter.TEXT, false);
-    if (storageOpen) {
+    if (storageOpen()) {
       DeskScreenFrames.storageLabels(graphics, font, LABEL_Y);
+      return;
+    }
+    DeskEnergyBar.renderLabels(graphics, font, menu);
+    if (tab == DeskTab.PROJECT) {
+      renderOrderLabel(graphics);
     } else {
-      renderProjectLabels(graphics);
+      cascade.renderLabels(graphics, font);
     }
   }
 
-  private void renderProjectLabels(GuiGraphics graphics) {
+  private void renderOrderLabel(GuiGraphics graphics) {
     Component order = Component.translatable(DeskScreenKeys.ORDER, menu.done(), menu.total());
-    graphics.drawCenteredString(font, order, ORDER_TEXT_X, ORDER_Y + 2, BlueprintPainter.TEXT);
-    Component label = Component.translatable(DeskScreenKeys.STORED_ENERGY);
-    graphics.drawString(font, label, MARGIN, ENERGY_LABEL_Y, BlueprintPainter.TEXT, false);
-    Component amount =
-        Component.translatable(
-            ScreenKeys.ENERGY_AMOUNT,
-            EnergyFormat.compact(menu.stock()),
-            EnergyFormat.compact(menu.capacity()));
-    int amountX = MARGIN + BAR_WIDTH - font.width(amount);
-    graphics.drawString(font, amount, amountX, ENERGY_LABEL_Y, BlueprintPainter.TEXT_SOFT, false);
+    BlueprintPainter.fitted(
+        graphics, font, order, ORDER_TEXT_X, ORDER_Y + 2, ORDER_ROOM, BlueprintPainter.TEXT);
   }
 
   /** While the search box has the focus, the keys write in it, and only Esc closes the screen. */
@@ -326,26 +325,53 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
   public boolean mouseClicked(double mouseX, double mouseY, int button) {
     double tabX = mouseX - (leftPos + imageWidth - ScreenTabStrip.INSET);
     double tabY = mouseY - topPos;
-    if (ScreenTabStrip.contains(tabX, tabY, PROJECT_Y)
-        || ScreenTabStrip.contains(tabX, tabY, STORAGE_Y)) {
-      storageOpen = ScreenTabStrip.contains(tabX, tabY, STORAGE_Y);
-      showTab();
+    DeskTab clicked = DeskTab.at(tabX, tabY);
+    if (clicked != null) {
+      open(clicked);
       return true;
     }
-    if (!storageOpen && clickedProject(mouseX, mouseY)) {
+    if (!storageOpen() && clickedProject(mouseX, mouseY)) {
       return true;
     }
     return super.mouseClicked(mouseX, mouseY, button);
   }
 
+  private boolean overCascadeTab(int mouseX, int mouseY) {
+    return DeskTab.at(mouseX - (leftPos + imageWidth - ScreenTabStrip.INSET), mouseY - topPos)
+        == DeskTab.CASCADE;
+  }
+
+  /** A plan on its way keeps the Cascade tab open, and a tier without it never opens it. */
+  private void open(DeskTab wanted) {
+    if (menu.cascade().locks()) {
+      tab = DeskTab.CASCADE;
+    } else if (wanted != DeskTab.CASCADE || menu.cascade().allowed()) {
+      tab = wanted;
+    }
+    showTab();
+  }
+
+  @Override
+  protected void containerTick() {
+    super.containerTick();
+    if (menu.cascade().locks() && tab != DeskTab.CASCADE) {
+      open(DeskTab.CASCADE);
+    }
+    cascade.tick();
+  }
+
   private boolean clickedProject(double mouseX, double mouseY) {
-    if (catalog.clickCategory(mouseX, mouseY, leftPos, topPos)) {
+    if (openCatalog().clickCategory(mouseX, mouseY, leftPos, topPos)) {
       return true;
     }
-    var recipe = catalog.at(mouseX, mouseY, leftPos, topPos);
+    var recipe = openCatalog().at(mouseX, mouseY, leftPos, topPos);
     if (recipe.isPresent()) {
-      send(DeskControl.choose(recipe.get()));
+      boolean inCascade = tab == DeskTab.CASCADE;
+      send(inCascade ? CascadeMenuPart.choose(recipe.get()) : DeskControl.choose(recipe.get()));
       return true;
+    }
+    if (tab == DeskTab.CASCADE) {
+      return false;
     }
     var cell = grid.at(mouseX, mouseY, leftPos, topPos);
     if (cell.isPresent()) {
@@ -358,8 +384,8 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
 
   @Override
   public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-    if (!storageOpen && catalog.isOver(mouseX, mouseY, leftPos, topPos)) {
-      catalog.scroll(scrollY);
+    if (!storageOpen() && openCatalog().isOver(mouseX, mouseY, leftPos, topPos)) {
+      openCatalog().scroll(scrollY);
       return true;
     }
     return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);

@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit.menu;
 
+import io.github.zenndg.cubit.block.CascadeRecipes;
 import io.github.zenndg.cubit.block.DeskGrid;
 import io.github.zenndg.cubit.block.DeskMaterialFilter;
 import io.github.zenndg.cubit.block.DeskShortage;
@@ -67,6 +68,7 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
       NonNullList.withSize(DeskGrid.CELLS, ItemStack.EMPTY);
   private final Containers containers;
   private final DeskUnlocks unlocks;
+  private final CascadeMenuPart cascade;
   private Map<ResourceLocation, List<Item>> openers = Map.of();
   private int ticks;
   private boolean storageShown;
@@ -82,6 +84,7 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
     this.values = values;
     this.containers = containers;
     this.unlocks = DeskUnlocks.of(playerInventory.player);
+    this.cascade = desk == null ? CascadeMenuPart.onClient() : CascadeMenuPart.onServer(desk);
     this.stillValid =
         desk == null
             ? player -> true
@@ -94,6 +97,7 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
     addStorage(containers.input(), INPUT_X, true, playerInventory.player);
     addStorage(containers.output(), OUTPUT_X, false, playerInventory.player);
     addDataSlots(values);
+    addDataSlots(cascade.data());
     addPlayerSlots(playerInventory);
   }
 
@@ -169,6 +173,7 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
   @Override
   public void broadcastChanges() {
     refresh.run();
+    cascade.refresh();
     if (++ticks % UNLOCK_TICKS == 0) {
       checkUnlocks();
     }
@@ -180,7 +185,11 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
     if (desk == null || !(player instanceof ServerPlayer server) || !stillValid(player)) {
       return false;
     }
-    return DeskControl.click(desk, server, marks, id);
+    if (id >= CascadeMenuPart.MINUS && id <= CascadeMenuPart.NEW_PLAN
+        || id >= CascadeMenuPart.CHOOSE_FIRST) {
+      return !cascade.locks() && cascade.click(server, id);
+    }
+    return !cascade.locks() && DeskControl.click(desk, server, marks, id);
   }
 
   @Override
@@ -231,6 +240,19 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
     return openers.getOrDefault(recipe, List.of());
   }
 
+  public CascadeMenuPart cascade() {
+    return cascade;
+  }
+
+  /** What the input and the output have, for the plan the client shows (answer 2021). */
+  public Map<String, Integer> inputCounts() {
+    return CascadeRecipes.counts(containers.input());
+  }
+
+  public Map<String, Integer> readyCounts() {
+    return CascadeRecipes.ready(containers.input(), containers.output());
+  }
+
   public Energy stock() {
     return DeskScreenValues.energy(values, DeskScreenValues.STOCK);
   }
@@ -275,7 +297,7 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
   @Override
   public ItemStack quickMoveStack(Player player, int index) {
     Slot slot = slots.get(index);
-    if (!slot.hasItem()) {
+    if (!slot.hasItem() || !slot.mayPickup(player)) {
       return ItemStack.EMPTY;
     }
     ItemStack stack = slot.getItem();
@@ -294,7 +316,7 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
   /** Materials go to the input, and redstone that is not a material goes to the energy slot. */
   private boolean moveIntoDesk(ItemStack stack) {
     int activeEnd = INPUT_FIRST + Math.max(slots(), 0);
-    return moveItemStackTo(stack, INPUT_FIRST, activeEnd, false)
+    return !cascade.locks() && moveItemStackTo(stack, INPUT_FIRST, activeEnd, false)
         || moveItemStackTo(stack, 0, INPUT_FIRST, false);
   }
 
@@ -326,7 +348,15 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-      return input && DeskMaterialFilter.accepts(player.level().getRecipeManager(), stack);
+      return input
+          && !cascade.locks()
+          && DeskMaterialFilter.accepts(player.level().getRecipeManager(), stack);
+    }
+
+    /** A plan on its way locks the storage, and only the energy slot stays open (2013, 2015). */
+    @Override
+    public boolean mayPickup(Player taker) {
+      return !cascade.locks() && super.mayPickup(taker);
     }
 
     @Override

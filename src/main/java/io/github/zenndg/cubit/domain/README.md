@@ -187,6 +187,11 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `DeskSpec` | Os números da Engineering Desk num tier: bateria, ticks de um craft, slots de cada inventário e maior pedido |
 | `DeskCatalog` | Interface que dá o `DeskSpec` de um tier, servida pelo config |
 | `DeskOrder` | O pedido da mesa: quantos itens foram pedidos e quantos estão prontos, com o sinal do comparador |
+| `CascadeRecipe` e `CascadeBook` | Uma receita como a cascata a vê, e a receita de cada item, a primeira na ordem do catálogo (perguntas 2009 e 2032) |
+| `CascadePlanner`, `CascadePlan` e `CascadeTask` | O plano de um item: as tarefas em série, com as peças antes, os materiais de base e as peças aproveitadas. Um ciclo não tem plano (perguntas 2006, 2008, 2012 e 2034) |
+| `CascadeRun` e `CascadeTaskStatus` | O plano em andamento, uma tarefa por vez, que nunca volta, com o status de cada uma e o sinal do comparador |
+| `CascadeCheck` e `CascadeStart` | O que a mesa encontrou para iniciar um plano, e se ele pode começar ou o primeiro motivo (perguntas 2009, 2015 e 2028) |
+| `MaterialLevel` e `CascadeChoice` | Quanto a entrada tem de um material, e o item escolhido numa marca com vários (perguntas 2006 e 2033) |
 | `DeskOrderGate` | O que um pedido precisa para sair de zero: a receita liberada pela progressão e os materiais de um item. Só o começo é travado (perguntas 1984, 1985 e 1991) |
 | `DeskProgress` | Os ticks do craft em andamento, mantidos na pausa |
 | `DeskCheck` | O que a mesa encontrou no tick: pedido, sinal de redstone, materiais, receita aceita, energia e espaço na saída |

@@ -124,6 +124,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `engineering_desk_craft_ticks` | Engineering Desk: tempo de cada craft | 1 a 72000 |
 | `general_robot.base` | `engineering_desk_storage_slots` | Engineering Desk: slots da entrada | 1 a 36 |
 | `general_robot.base` | `engineering_desk_max_order` | Engineering Desk: maior pedido | 1 a 4096 |
+| `general_robot.base` | `engineering_desk_cascade` | Engineering Desk: se a mesa desse tier fabrica em cascata (pergunta 2020) | `true` ou `false` |
 | `general_robot.base` | `allowed_jobs` | Cards de Aprendizado de Máquina que o tier aceita: `fisher`, `farmer`, `rancher`, `organizer`, `cook`, `patroller`, `miner`, `builder`, `mechanic` e `alchemist`. Um nome inválido é ignorado e vai para o log | Lista com esses nomes |
 | `general_robot.base` | `fisher_lure_level` | Pescador: Isca | 0 a 3 |
 | `general_robot.base` | `fisher_luck_level` | Pescador: Sorte do Mar | 0 a 3 |
@@ -246,6 +247,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 14:22 | Acrescenta a chave da fabricação em cascata (pergunta 2020). |
 | Zennd | 2026-11-23 10:40 | Acrescenta a geração do painel do Dock à noite (pergunta 1944). |
 | Zennd | 2026-11-23 01:58 | Cita a espera de 3 s do painel do Dock (pergunta 1912). |
 | Zennd | 2026-11-23 00:09 | Acrescenta o tempo para o Dock montar e guardar o painel (pergunta 1856). |

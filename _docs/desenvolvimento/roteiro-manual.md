@@ -1155,6 +1155,7 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 24 | Faça as 4 peças do Cubit, deixe-as na saída, ponha o Casing na entrada e escolha o Cubit | A mesa puxa o Visor, o Treads e o Neural Core da saída para a entrada e começa o Cubit |
 | 25 | Peça 2 Cubits, com as peças de só um na saída | Ela faz um Cubit, puxa as peças e pausa em `Missing materials` até as peças do segundo chegarem |
 | 26 | Com o jogo em português | `Mesa de Engenharia`, `Projeto`, `Estoque` e os estados em português |
+| 27 | Na aba Projeto, compare `0 / 0` com o maior pedido, `256 / 256` no Ultimate | O −, o + e o `Cancel` alinhados às bordas do quadro dos slots, com um vão pequeno ao lado dos números, que encolhem quando não cabem |
 
 ### Pedir só com o que é preciso
 
@@ -1183,6 +1184,31 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 19 | Com 2 no pedido, ponha mais 5 ferros | 6 espaços de ferro verdes e 1 vermelho, com a redstone e a obsidiana vermelhas |
 | 20 | Complete os materiais de 2 e dê energia | Tudo verde. Com 1 pronto, a conta é de 1, e continua verde |
 | 21 | Aperte − e + | As cores são refeitas a cada clique |
+
+### Fabricação em cascata, PR 1
+
+As regras estão em [`cascata-da-mesa.md`](../funcionalidades/cascata-da-mesa.md) (issue #253). A tela ainda é simples, em texto: as cores dos slots, a tabela e o ícone entram no PR 2. Use um mundo novo, no criativo, uma mesa Ultimate com energia e os materiais. Para ter todas as receitas, use `/recipe give @s *`, e para a trava, um player sem elas.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Numa mesa Elite, passe o mouse e clique na terceira aba | `Unlocks at Ultimate`, e a aba não abre |
+| 2 | Numa Ultimate, abra a aba `Cascade` e escolha o Cubit | A lista dos 6 materiais de 1 Cubit, em vermelho, e `Start` apagado, com `Missing materials in the input` |
+| 3 | Use + e Shift + | A lista muda com a quantidade |
+| 4 | Vá à aba Estoque, ponha parte dos materiais e volte | A escolha continua, e os materiais ficam amarelos e verdes |
+| 5 | Ponha os materiais de 2 Cubits (14 ferros, 6 obsidianas, 4 tochas de redstone, 6 diamantes, 4 pistões e 8 redstones) e peça 2 | Tudo verde, e `Start` aceso |
+| 6 | `Start` e depois `No` | Volta à lista, e nada saiu da entrada |
+| 7 | `Start` e depois `Yes` | A tabela com 5 linhas, a entrada vazia, e as abas Projeto e Estoque não abrem |
+| 8 | Feche e abra a mesa, também com outro player | Abre na aba `Cascade`, só para ver |
+| 9 | Tire a energia da mesa, e depois ponha redstone no slot | Pausa e volta sozinha |
+| 10 | Ligue um sinal de redstone na mesa | Pausa, e volta sem o sinal |
+| 11 | Espere terminar | 2 Cubits na saída, as abas abrem, e a tabela mostra tudo pronto com `New plan` |
+| 12 | Deixe 1 Cubit Casing na entrada e 1 Visor na saída e planeje 1 Cubit | O plano os aproveita: menos materiais e menos linhas |
+| 13 | No meio de um plano, quebre a mesa e coloque de novo | O plano continua de onde parou |
+| 14 | No meio de um plano, saia e entre no mundo | Continua |
+| 15 | Encha a saída e faça um Cubit | O plano termina, e o Cubit entra na saída quando há espaço |
+| 16 | Num mundo novo, antes do `/recipe give`, abra a aba `Cascade` com a mesa vazia. Depois use `/recipe give @s *` | Antes: o Cubit, as peças e a Toolbox normais, sem cinza, e o Tablet com cadeado, `Locked: Cubit Tablet` e sem ser escolhido. Depois: nenhum item cinza nem com cadeado |
+| 17 | Com um funil na entrada e outro na saída, durante um plano | Os funis trabalham, e o plano não muda |
+| 18 | Com o jogo em português | `Cascata`, `Iniciar`, `Não dá para cancelar.` e os motivos |
 
 ## Patrulheiro Galático
 
@@ -1412,6 +1438,8 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 14:52 | Acrescenta o alinhamento do pedido na mesa (perguntas 2039 e 2040). |
+| Zennd | 2026-11-23 14:22 | Acrescenta o roteiro da fabricação em cascata, PR 1 (issue #253). |
 | Zennd | 2026-11-23 12:31 | Acrescenta as cores da grade ao roteiro (perguntas 1996 a 2001). |
 | Zennd | 2026-11-23 12:17 | Acrescenta o roteiro do pedido com a progressão e o material (issue #250). |
 | Zennd | 2026-11-23 11:03 | Corrige a espera e a montagem do painel do Dock (perguntas 1895, 1912 e 1963). |

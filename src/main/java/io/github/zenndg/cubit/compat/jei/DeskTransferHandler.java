@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.compat.jei;
 
 import io.github.zenndg.cubit.block.DeskRecipes;
 import io.github.zenndg.cubit.menu.DeskControl;
+import io.github.zenndg.cubit.menu.DeskScreenKeys;
 import io.github.zenndg.cubit.menu.EngineeringDeskMenu;
 import io.github.zenndg.cubit.registry.CubitMenus;
 import java.util.List;
@@ -12,6 +13,7 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.crafting.CraftingRecipe;
@@ -64,6 +66,10 @@ final class DeskTransferHandler
     Optional<Integer> index = indexOf(minecraft, recipe);
     if (index.isEmpty()) {
       return helper.createInternalError();
+    }
+    if (menu.cascade().locks()) {
+      return helper.createUserErrorWithTooltip(
+          Component.translatable(DeskScreenKeys.CASCADE_LOCKS));
     }
     if (doTransfer && minecraft.gameMode != null) {
       minecraft.gameMode.handleInventoryButtonClick(

@@ -25,7 +25,7 @@ public final class DeskClientView {
   private long readyAt = NEVER;
 
   void receive(CompoundTag tag, long gameTime) {
-    progress = new DeskProgress(Math.max(0, tag.getInt(EngineeringDeskBlockEntity.PROGRESS_KEY)));
+    progress = new DeskProgress(Math.max(0, tag.getInt(DeskJob.PROGRESS_KEY)));
     receivedAt = gameTime;
     viewers = Math.max(0, tag.getInt(VIEWERS_KEY));
     int now = tag.getInt(CRAFTS_KEY);
