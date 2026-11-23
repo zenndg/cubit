@@ -13,7 +13,7 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 /**
  * Why a test that hurts a bee needs one without alerts: the common one makes the calm bee of
  * another test chase someone, and a Patroller attacks it then (answer 1702). In a batch of its own,
- * because it alerts on purpose.
+ * because it alerts on purpose. A bee hurt on its first tick alerts no one, so it lives a little.
  */
 @GameTestHolder(CubitMod.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -39,15 +39,17 @@ public final class BeeAlertGameTests {
   public static void onlyTheCommonBeeAlertsTheOthers(GameTestHelper helper) {
     Husk husk = helper.spawnWithNoFreeWill(EntityType.HUSK, HUSK);
     Mob calm = helper.spawnWithNoFreeWill(EntityType.BEE, CALM);
-    hurt(GameTestRobots.spawnWithoutAlerts(helper, EntityType.BEE, HURT), husk);
+    Mob quiet = GameTestRobots.spawnWithoutAlerts(helper, EntityType.BEE, HURT);
+    Mob common = helper.spawnWithNoFreeWill(EntityType.BEE, HURT);
 
     helper
         .startSequence()
+        .thenExecuteAfter(SOME_TICKS, () -> hurt(quiet, husk))
         .thenExecuteAfter(
             SOME_TICKS,
             () -> {
               helper.assertTrue(calm.getTarget() == null, ALERTED);
-              hurt(helper.spawnWithNoFreeWill(EntityType.BEE, HURT), husk);
+              hurt(common, husk);
             })
         .thenExecuteAfter(
             SOME_TICKS, () -> helper.assertTrue(calm.getTarget() == husk, NOT_ALERTED))
