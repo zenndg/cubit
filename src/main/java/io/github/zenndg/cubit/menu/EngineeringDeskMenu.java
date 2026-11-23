@@ -2,6 +2,8 @@ package io.github.zenndg.cubit.menu;
 
 import io.github.zenndg.cubit.block.DeskGrid;
 import io.github.zenndg.cubit.block.DeskMaterialFilter;
+import io.github.zenndg.cubit.block.DeskShortage;
+import io.github.zenndg.cubit.block.DeskUnlocks;
 import io.github.zenndg.cubit.block.EngineeringDeskBlockEntity;
 import io.github.zenndg.cubit.domain.desk.DeskSpec;
 import io.github.zenndg.cubit.domain.desk.DeskStatus;
@@ -9,9 +11,12 @@ import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.EnergySlotItems;
 import io.github.zenndg.cubit.registry.CubitMenus;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -21,7 +26,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 /**
  * The screen of the Engineering Desk, with the Project and Storage tabs (answer 1473). Anyone may
@@ -43,6 +51,10 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
   private static final int PLAYER_ROWS = 3;
   private static final int SLOTS_PER_ROW = 9;
   private static final int INPUT_FIRST = 1;
+
+  /** How often the items of the open desk count again for the release (rule 21, answer 1969). */
+  private static final int UNLOCK_TICKS = 10;
+
   private static final int OUTPUT_FIRST = INPUT_FIRST + DeskSpec.MAX_SLOTS;
   private static final int DESK_SLOTS = OUTPUT_FIRST + DeskSpec.MAX_SLOTS;
 
@@ -52,6 +64,10 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
   private final EngineeringDeskBlockEntity desk;
   private final NonNullList<ItemStack> marks =
       NonNullList.withSize(DeskGrid.CELLS, ItemStack.EMPTY);
+  private final Containers containers;
+  private final DeskUnlocks unlocks;
+  private Map<ResourceLocation, List<Item>> openers = Map.of();
+  private int ticks;
   private boolean storageShown;
 
   private EngineeringDeskMenu(
@@ -63,6 +79,8 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
     super(CubitMenus.ENGINEERING_DESK.get(), containerId);
     this.desk = desk;
     this.values = values;
+    this.containers = containers;
+    this.unlocks = DeskUnlocks.of(playerInventory.player);
     this.stillValid =
         desk == null
             ? player -> true
@@ -85,31 +103,44 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
     DeskScreenValues values = new DeskScreenValues(desk);
     values.refresh();
     desk.show().viewerJoined();
-    return new EngineeringDeskMenu(
-        containerId,
-        playerInventory,
-        new Containers(desk.energySlot(), desk.input(), desk.output()),
-        values,
-        desk);
+    EngineeringDeskMenu menu =
+        new EngineeringDeskMenu(
+            containerId,
+            playerInventory,
+            new Containers(desk.energySlot(), desk.input(), desk.output()),
+            values,
+            desk);
+    menu.checkUnlocks();
+    return menu;
   }
 
   /** On the client. The real items and the numbers come from the server. */
   public static EngineeringDeskMenu onClient(
       int containerId, Inventory playerInventory, RegistryFriendlyByteBuf data) {
     data.readBlockPos();
-    return new EngineeringDeskMenu(
-        containerId,
-        playerInventory,
-        new Containers(
-            new SimpleContainer(1),
-            new SimpleContainer(DeskSpec.MAX_SLOTS),
-            new SimpleContainer(DeskSpec.MAX_SLOTS)),
-        new SimpleContainerData(DeskScreenValues.COUNT),
-        null);
+    EngineeringDeskMenu menu =
+        new EngineeringDeskMenu(
+            containerId,
+            playerInventory,
+            new Containers(
+                new SimpleContainer(1),
+                new SimpleContainer(DeskSpec.MAX_SLOTS),
+                new SimpleContainer(DeskSpec.MAX_SLOTS)),
+            new SimpleContainerData(DeskScreenValues.COUNT),
+            null);
+    menu.openers = DeskOpeners.read(data);
+    return menu;
   }
 
-  public static void writeOpening(RegistryFriendlyByteBuf data, EngineeringDeskBlockEntity desk) {
+  /** The client does not know the hidden advancements, so it gets what releases each recipe. */
+  public static void writeOpening(
+      RegistryFriendlyByteBuf data, EngineeringDeskBlockEntity desk, Player player) {
     data.writeBlockPos(desk.getBlockPos());
+    DeskOpeners.write(data, DeskUnlocks.of(player).openers());
+  }
+
+  private void checkUnlocks() {
+    unlocks.check(containers.input(), containers.output());
   }
 
   private void addStorage(Container items, int left, boolean input, Player player) {
@@ -137,6 +168,9 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
   @Override
   public void broadcastChanges() {
     refresh.run();
+    if (++ticks % UNLOCK_TICKS == 0) {
+      checkUnlocks();
+    }
     super.broadcastChanges();
   }
 
@@ -174,6 +208,21 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
   /** The marks put by hand, kept only while the screen is open (answer 1426). */
   public NonNullList<ItemStack> marks() {
     return marks;
+  }
+
+  /** What the desk has no item for, to make one of the recipe (answer 1984). */
+  public DeskShortage shortage(RecipeHolder<CraftingRecipe> recipe) {
+    return DeskShortage.of(
+        DeskGrid.of(recipe.value()), containers.input(), containers.output(), activeSlots());
+  }
+
+  private int activeSlots() {
+    return Math.clamp(slots(), 0, DeskSpec.MAX_SLOTS);
+  }
+
+  /** The items that release a locked recipe, empty when the server told none (answer 1970). */
+  public List<Item> openersOf(ResourceLocation recipe) {
+    return openers.getOrDefault(recipe, List.of());
   }
 
   public Energy stock() {

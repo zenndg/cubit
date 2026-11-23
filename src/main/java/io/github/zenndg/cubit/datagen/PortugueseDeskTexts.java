@@ -31,6 +31,8 @@ final class PortugueseDeskTexts {
   private static final String ORDER = "%s / %s";
   private static final String CANCEL = "Cancelar";
   private static final String LOCKED = "Bloqueada";
+  private static final String UNLOCKS_WITH = "Liberada com: %s";
+  private static final String MISSING = "Falta: %s %s";
   private static final String CATALOG = "Catálogo";
   private static final String SEARCH = "Buscar...";
   private static final String STORAGE_ARROW = "Mesa";
@@ -96,6 +98,8 @@ final class PortugueseDeskTexts {
     add.accept(DeskScreenKeys.ORDER, ORDER);
     add.accept(DeskScreenKeys.CANCEL, CANCEL);
     add.accept(DeskScreenKeys.LOCKED, LOCKED);
+    add.accept(DeskScreenKeys.UNLOCKS_WITH, UNLOCKS_WITH);
+    add.accept(DeskScreenKeys.MISSING, MISSING);
     add.accept(DeskScreenKeys.CATALOG, CATALOG);
     add.accept(DeskScreenKeys.SEARCH, SEARCH);
     add.accept(DeskScreenKeys.STORAGE_ARROW, STORAGE_ARROW);

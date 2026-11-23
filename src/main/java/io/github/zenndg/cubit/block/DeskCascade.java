@@ -20,28 +20,12 @@ final class DeskCascade {
       if (mark.isEmpty()) {
         continue;
       }
-      int slot = serving(mark, input, slots, fromInput);
-      if (slot >= 0) {
-        fromInput[slot]++;
-        continue;
-      }
-      int other = serving(mark, output, slots, fromOutput);
-      if (other < 0) {
+      if (!DeskMaterials.take(mark, input, fromInput)
+          && !DeskMaterials.take(mark, output, fromOutput)) {
         return;
       }
-      fromOutput[other]++;
     }
     move(output, input, slots, fromOutput);
-  }
-
-  private static int serving(Ingredient mark, Container items, int slots, int[] taken) {
-    for (int slot = 0; slot < slots; slot++) {
-      ItemStack stack = items.getItem(slot);
-      if (stack.getCount() > taken[slot] && mark.test(stack)) {
-        return slot;
-      }
-    }
-    return -1;
   }
 
   /** Each item leaves the output only after the input took it. */

@@ -2,7 +2,6 @@ package io.github.zenndg.cubit.compat.jei;
 
 import io.github.zenndg.cubit.block.DeskRecipes;
 import io.github.zenndg.cubit.menu.DeskControl;
-import io.github.zenndg.cubit.menu.DeskScreenKeys;
 import io.github.zenndg.cubit.menu.EngineeringDeskMenu;
 import io.github.zenndg.cubit.registry.CubitMenus;
 import java.util.List;
@@ -13,7 +12,6 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.crafting.CraftingRecipe;
@@ -22,7 +20,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 /**
  * The plus button of JEI on the screen of the desk: it picks the recipe in the catalog with the
  * same request as a click there, which the server checks, with the order at zero. No item moves,
- * and a locked recipe is refused with its reason (answers 1506 and 1533).
+ * and a locked recipe opens too, with its order held (answers 1506, 1533 and 1991).
  */
 final class DeskTransferHandler
     implements IRecipeTransferHandler<EngineeringDeskMenu, RecipeHolder<CraftingRecipe>> {
@@ -66,9 +64,6 @@ final class DeskTransferHandler
     Optional<Integer> index = indexOf(minecraft, recipe);
     if (index.isEmpty()) {
       return helper.createInternalError();
-    }
-    if (minecraft.player == null || !minecraft.player.getRecipeBook().contains(recipe)) {
-      return helper.createUserErrorWithTooltip(Component.translatable(DeskScreenKeys.LOCKED));
     }
     if (doTransfer && minecraft.gameMode != null) {
       minecraft.gameMode.handleInventoryButtonClick(

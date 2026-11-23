@@ -60,6 +60,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
 
   private final DeskCatalog catalog = new DeskCatalog();
   private final DeskGridView grid = new DeskGridView();
+  private final DeskOrderView orderView;
   private boolean storageOpen;
   private EditBox search;
   private BlueprintButton minus;
@@ -68,6 +69,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
 
   EngineeringDeskScreen(EngineeringDeskMenu menu, Inventory playerInventory, Component title) {
     super(menu, playerInventory, title);
+    orderView = new DeskOrderView(menu, catalog);
     imageWidth = EngineeringDeskMenu.WIDTH;
     imageHeight = HEIGHT;
     inventoryLabelX = MARGIN;
@@ -145,14 +147,16 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
 
   @Override
   public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    plus.active = orderView.mayRaise();
     super.render(graphics, mouseX, mouseY, partialTick);
     renderTooltip(graphics, mouseX, mouseY);
     if (!storageOpen) {
       catalog
           .at(mouseX, mouseY, leftPos, topPos)
-          .ifPresent(index -> catalog.tooltip(graphics, font, index, mouseX, mouseY));
+          .ifPresent(index -> catalog.tooltip(graphics, font, index, menu, mouseX, mouseY));
       catalog.categoryTooltip(graphics, font, leftPos, topPos, mouseX, mouseY);
       recipeTooltip(graphics, mouseX, mouseY);
+      plusTooltip(graphics, mouseX, mouseY);
     }
   }
 
@@ -166,6 +170,14 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
             .orElseGet(() -> overResult(mouseX, mouseY) ? chosenResult() : ItemStack.EMPTY);
     if (!item.isEmpty()) {
       graphics.renderTooltip(font, item, mouseX, mouseY);
+    }
+  }
+
+  /** Why the plus is off, one reason a line (answer 1988). */
+  private void plusTooltip(GuiGraphics graphics, int mouseX, int mouseY) {
+    List<Component> reasons = plus.isHovered() && !plus.active ? orderView.reasons() : List.of();
+    if (!reasons.isEmpty()) {
+      graphics.renderComponentTooltip(font, reasons, mouseX, mouseY);
     }
   }
 
@@ -208,7 +220,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
 
   private void renderProject(GuiGraphics graphics) {
     renderSearchFrame(graphics);
-    catalog.render(graphics, leftPos, topPos, menu.recipeIndex());
+    catalog.render(graphics, leftPos, topPos, menu);
     renderGrid(graphics);
     renderEnergy(graphics);
   }
@@ -229,7 +241,14 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
         topPos + DeskGridView.Y - GRID_FRAME,
         gridSide,
         gridSide);
-    grid.render(graphics, leftPos, topPos, chosenMarks(), menu.marks(), playerTicks());
+    grid.render(
+        graphics,
+        leftPos,
+        topPos,
+        chosenMarks(),
+        menu.marks(),
+        orderView.shortage(),
+        playerTicks());
     BlueprintPainter.bar(
         graphics,
         new ScreenPainter.Box(leftPos + ARROW_X, topPos + ARROW_Y, ARROW_WIDTH, ARROW_HEIGHT),
@@ -325,9 +344,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     }
     var recipe = catalog.at(mouseX, mouseY, leftPos, topPos);
     if (recipe.isPresent()) {
-      if (DeskCatalog.unlocked(catalog.recipes().get(recipe.get()))) {
-        send(DeskControl.choose(recipe.get()));
-      }
+      send(DeskControl.choose(recipe.get()));
       return true;
     }
     var cell = grid.at(mouseX, mouseY, leftPos, topPos);

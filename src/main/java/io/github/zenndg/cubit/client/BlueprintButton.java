@@ -6,9 +6,10 @@ import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 
-/** A button drawn on the board: a filled box with a white frame (answer 1524). */
+/** A button drawn on the board: a filled box with a white frame, gray when off (1524, 1988). */
 final class BlueprintButton extends AbstractButton {
   private static final int HOVER = 0x30FFFFFF;
+  private static final int OFF_VEIL = 0xA0506080;
   private static final int TEXT_OFFSET = 2;
 
   private final Runnable action;
@@ -29,7 +30,9 @@ final class BlueprintButton extends AbstractButton {
   @Override
   protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
     graphics.fill(getX(), getY(), getX() + width, getY() + height, fill);
-    if (isHoveredOrFocused()) {
+    if (!active) {
+      graphics.fill(getX(), getY(), getX() + width, getY() + height, OFF_VEIL);
+    } else if (isHoveredOrFocused()) {
       graphics.fill(getX(), getY(), getX() + width, getY() + height, HOVER);
     }
     graphics.renderOutline(getX(), getY(), width, height, BlueprintPainter.LINE);
@@ -38,7 +41,7 @@ final class BlueprintButton extends AbstractButton {
         getMessage(),
         getX() + width / 2,
         getY() + TEXT_OFFSET,
-        BlueprintPainter.TEXT);
+        active ? BlueprintPainter.TEXT : BlueprintPainter.IDLE);
   }
 
   @Override

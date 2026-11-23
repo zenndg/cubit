@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.client;
 
 import io.github.zenndg.cubit.block.DeskGrid;
+import io.github.zenndg.cubit.block.DeskShortage;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.client.gui.GuiGraphics;
@@ -10,7 +11,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 /**
  * The 3x3 grid of the desk. It shows the marks of the chosen recipe, or the ones the player puts by
- * hand, never real items (answer 1426).
+ * hand, never real items (answer 1426). The marks the desk misses show in red (answer 1988).
  */
 final class DeskGridView {
   static final int X = 96;
@@ -18,6 +19,7 @@ final class DeskGridView {
   private static final int CELL = ScreenPainter.SLOT_SIZE;
   private static final int ICON_INSET = 1;
   private static final int MARK_VEIL = 0x60C6C6C6;
+  private static final int MISSING_VEIL = 0x90C62828;
   private static final int CYCLE_TICKS = 20;
 
   void render(
@@ -26,6 +28,7 @@ final class DeskGridView {
       int top,
       List<Ingredient> recipe,
       NonNullList<ItemStack> hand,
+      DeskShortage shortage,
       long tick) {
     for (int cell = 0; cell < DeskGrid.CELLS; cell++) {
       int x = left + X + (cell % DeskGrid.SIDE) * CELL;
@@ -34,7 +37,8 @@ final class DeskGridView {
       ItemStack mark = markAt(cell, recipe, hand, tick);
       if (!mark.isEmpty()) {
         graphics.renderFakeItem(mark, x + ICON_INSET, y + ICON_INSET);
-        graphics.fill(x + ICON_INSET, y + ICON_INSET, x + CELL - 1, y + CELL - 1, MARK_VEIL);
+        int veil = shortage.cells().contains(cell) ? MISSING_VEIL : MARK_VEIL;
+        graphics.fill(x + ICON_INSET, y + ICON_INSET, x + CELL - 1, y + CELL - 1, veil);
       }
     }
   }
