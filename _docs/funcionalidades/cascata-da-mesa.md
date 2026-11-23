@@ -20,7 +20,8 @@ A prancha é a referência de posição e estilo (pergunta 2030). Duas coisas mu
 
 ### Passo 1: escolher
 
-- **Catálogo:** os 28 itens de receita fixa da mesa, sem o upgrade de Power Bank, o religar e o conserto. A Power Bank sai pela carcaça com a célula. Só pode ser escolhido o item com ele e **toda a cadeia dele** liberados para o player, e o resto aparece com cadeado e a dica do que falta liberar (perguntas 1991 e 2009).
+- **Catálogo:** os 28 itens de receita fixa da mesa, sem o upgrade de Power Bank, o religar e o conserto. A Power Bank sai pela carcaça com a célula. Só pode ser escolhido o item com ele e **toda a cadeia dele** liberados para o player, e o resto aparece com cadeado e a dica do que falta liberar. Um item liberado aparece normal, também sem materiais, porque a mesa faz as peças (perguntas 1991, 2009 e 2038).
+- **Packs:** com duas receitas para o mesmo item, vale a primeira na ordem do catálogo, sem as com estado. Com material alternativo, como uma tag, o plano pede o que houver mais na entrada e, sem nenhum, o primeiro da lista. Um item com receitas em ciclo aparece com cadeado e a dica do motivo, e nunca trava o jogo (perguntas 2032 a 2034).
 - **Quantidade:** − e +, com Shift de 8 em 8, de 1 ao maior pedido do tier, 256 (pergunta 2011).
 - **Materiais:** um slot por item vanilla de base da cascata, com a quantidade e um véu fraco e transparente (pergunta 2006):
   - **verde bem claro:** a entrada tem o bastante;
@@ -83,8 +84,8 @@ Não foram perguntados e foram autorizados junto do conceito (pergunta 2031):
 | Onde | Nome | Conteúdo |
 |---|---|---|
 | Config, por tier | `engineering_desk_cascade` | Desligada no Base, no Avançado e no Elite, e ligada no Ultimate |
-| NBT da mesa | `Cascade` | O item, a quantidade, as tarefas e o estoque do plano, só com um plano em andamento ou com sobra. Sem a chave, nenhum plano |
-| Item da mesa | O mesmo conteúdo | No estado salvo da mesa, opcional |
+| NBT da mesa | `Cascade` | O item, a quantidade, as tarefas e o estoque do plano, com um plano em andamento, com o resultado do último à vista ou com sobra. Sem a chave, nenhum plano |
+| Item da mesa | `cubit:engineering_desk_cascade` | O mesmo conteúdo, num data component opcional |
 | Traduções | A aba, os botões, a tabela, os status, as dicas, o aviso e o Jade | Em inglês e português, com as mesmas chaves (regra 1) |
 
 Nenhum save antigo muda: uma mesa sem a chave não tem plano (regra 18).
@@ -93,7 +94,7 @@ Nenhum save antigo muda: uma mesa sem a chave não tem plano (regra 18).
 
 Uma issue e dois PRs (pergunta 2026):
 
-1. **PR 1:** o cálculo do plano em `domain/`, o estoque, o andamento, as pausas, o fim, os saves, o config e os testes, com uma tela simples.
+1. **PR 1:** o cálculo do plano em `domain/`, o estoque, o andamento, as pausas, o fim, os saves, o config e os testes, com uma tela simples: a aba com o catálogo, a quantidade, o Iniciar com a confirmação e a tabela em texto, já travando a mesa (pergunta 2035).
 2. **PR 2:** a tela dos dois passos, com as cores, a tabela, o aviso e o ícone, o Jade, o JEI e o guia do player.
 
 ## Fora do escopo
@@ -105,5 +106,7 @@ Uma issue e dois PRs (pergunta 2026):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 14:22 | Nomeia o data component do plano no contrato. |
+| Zennd | 2026-11-23 14:10 | Acrescenta as regras dos packs e a tela simples do PR 1 (perguntas 2032 a 2035). |
 | Zennd | 2026-11-23 13:57 | Registra a autorização e a prancha da tela (perguntas 2030 e 2031). |
 | Zennd | 2026-11-23 13:44 | Cria o conceito da fabricação em cascata (perguntas 2006 a 2029). |

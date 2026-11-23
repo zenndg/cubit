@@ -976,11 +976,27 @@ Não há perguntas pendentes nesta fase.
 | 2029 | Fabricação em cascata: quais prompts de imagem vêm antes do código (2027)? | O ícone de 16×16 da aba e uma prancha da tela, com os dois passos, a tela travada e o aviso, no azul de prancheta. A tela é desenhada em código a partir da prancha, sem textura nova. A recomendação foi aceita |
 | 2030 | As imagens da fabricação em cascata, o ícone da aba e a prancha da tela, estão aceitas? | Sim: o ícone com a seta corrigida por script, e a prancha como referência, com o inventário do player na parte de baixo e cores mais fortes, e prévias da tela real antes do PR 2 (1853). A recomendação foi aceita |
 | 2031 | O conceito da fabricação em cascata, em `cascata-da-mesa.md`, com os 5 detalhes completados pelo agente (respostas 2006 a 2030), pode ir ao código? | O desenvolvedor disse "autorizo o conceito" (regra 54): os 5 detalhes valem, e seguem a issue, a branch e o PR 1 |
+| 2032 | Fabricação em cascata: com duas receitas para o mesmo item, num pack, qual o plano usa? | A primeira na ordem do catálogo, sem as receitas com estado. O desenvolvedor disse "podemos seguir como indicou". A recomendação foi aceita. Detalha a 2009 |
+| 2033 | Fabricação em cascata: numa receita com material alternativo, como uma tag num pack, qual item o plano pede? | O que houver mais na entrada e, sem nenhum, o primeiro da lista. A recomendação foi aceita |
+| 2034 | Fabricação em cascata: e receitas em ciclo, num pack? | O item aparece com cadeado e a dica do motivo, e nunca trava o jogo (regra 17). A recomendação foi aceita |
+| 2035 | Fabricação em cascata: o que a tela simples do PR 1 tem (2026)? | A aba com o catálogo, a quantidade, o Iniciar com a confirmação e a tabela em texto, já travando a mesa, sem as cores, o ícone e o visual da prancha, que são do PR 2. A recomendação foi aceita |
+| 2036 | Quando começa o código da fabricação em cascata? | Na próxima sessão, pelo PR 1. O desenvolvedor disse "podemos seguir como indicou". A recomendação foi aceita |
+| 2037 | O código da fabricação em cascata começa agora ou na próxima sessão (2036)? | Agora: o desenvolvedor disse "começa agora". Muda a 2036 |
+| 2038 | Teste manual do PR 1 da cascata: o que o desenvolvedor achou? | "no catalogo da nova tela o cubit estava cinza como faltando itens acho que reaproveitou o catalogo de outras telas mas a regra desta tela nova é diferente. Ele tava cinza mas quando o selecionei e mantei fazer o crafting em cascata deu certo". Pelo conceito (2009), o catálogo desta aba não escurece por material: fica normal com a cadeia liberada e com cadeado sem ela, e só o liberado pode ser escolhido. A regra é corrigida no PR 1 |
+| 2039 | Pedido do desenvolvedor, no teste do PR 1 da cascata: ajuste na aba Projeto da mesa | "ok mas temos um ajuste para melhorar na primeira tela desta mesa temos o botao de + e - junto do texto "- 0 / 0 +" o estado do caracter "0" do bota "-" e outro "+" estao grudados poderia ter um espacamento". Entra neste PR, num commit próprio, com espaço para o maior pedido dos dois lados. O "ok" aprova a correção do catálogo (2038) |
+| 2040 | O espaço novo entre o pedido e os botões − e + (2039) ficou bom? | Não: o desenvolvedor disse "o espaco foi muito grande pode ser coisa de 2px e quadro de slots de crafting deve ficar alinhados fica mais armonico". O vão fica de uns 2 a 3 px, o conjunto e o Cancel se alinham ao quadro dos slots, e um número maior encolhe para caber. Detalha a 2039 |
+| 2041 | O `AGENTS.md` pode citar as classes novas da cascata e da mesa, e o "Estado atual" a #253? | Sim: o desenvolvedor disse "tudo testado e aprovado, autorizo os commits e o AGENTS.md" |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 14:52 | Registra a resposta 2041. |
+| Zennd | 2026-11-23 14:49 | Registra a resposta 2040. |
+| Zennd | 2026-11-23 14:45 | Registra a resposta 2039. |
+| Zennd | 2026-11-23 14:37 | Registra a resposta 2038. |
+| Zennd | 2026-11-23 14:11 | Registra a resposta 2037. |
+| Zennd | 2026-11-23 14:10 | Registra as respostas 2032 a 2036. |
 | Zennd | 2026-11-23 13:57 | Registra as respostas 2030 a 2031. |
 | Zennd | 2026-11-23 13:44 | Registra as respostas 2028 a 2029. |
 | Zennd | 2026-11-23 13:40 | Registra a resposta 2027. |
