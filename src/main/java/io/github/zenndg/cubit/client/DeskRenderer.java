@@ -60,7 +60,7 @@ public final class DeskRenderer extends GeoBlockRenderer<EngineeringDeskBlockEnt
             bone,
             desk.look(),
             ticks(desk, partialTick),
-            DeskBand.colour(bone, desk.shownTier(), colour)));
+            TierBand.colour(bone, desk.shownTier(), colour)));
   }
 
   private static float ticks(EngineeringDeskBlockEntity desk, float partialTick) {

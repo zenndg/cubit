@@ -70,7 +70,7 @@ public final class DeskItemRenderer extends GeoItemRenderer<EngineeringDeskItem>
         partialTick,
         packedLight,
         packedOverlay,
-        DeskGlow.parked(bone, DeskBand.colour(bone, tier(), colour)));
+        DeskGlow.parked(bone, TierBand.colour(bone, tier(), colour)));
   }
 
   private static final class ItemModel extends DeskGeoModel<EngineeringDeskItem> {

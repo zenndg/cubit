@@ -6,12 +6,13 @@ import net.minecraft.util.FastColor;
 import software.bernie.geckolib.cache.object.GeoBone;
 
 /**
- * The band on the edge of the desk takes the color of the tier: grey, blue, purple, gold (1439).
+ * The band in the color of the tier, grey, blue, purple or gold: on the edge of the desk (1439) and
+ * around the top of the dock (1871).
  */
-final class DeskBand {
+final class TierBand {
   static final String BONE = "tier_band";
 
-  private DeskBand() {}
+  private TierBand() {}
 
   static int colour(GeoBone bone, RobotTier tier, int colour) {
     return BONE.equals(bone.getName())
