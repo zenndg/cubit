@@ -908,11 +908,33 @@ Não há perguntas pendentes nesta fase.
 | 1961 | O conceito da lua na tela do Dock (respostas 1956 a 1960) pode ir ao código? | O desenvolvedor escolheu "Autorizo o conceito" (regra 54): segue na mesma branch e no mesmo PR da luz da lua, #248. Enquanto a lua aparece, um Dock sem energia com Cubit não mostra esse aviso na torre, só na tela e no Jade |
 | 1962 | A estrutura de pacotes do `AGENTS.md` pode citar o `DockSolarView`, em `menu/`, e o `DockMoonlight`, em `client/`? | Sim, no último commit da luz da lua. A recomendação foi aceita |
 | 1963 | Os passos 4, 5 e 7 do painel do Dock no roteiro manual ainda falam em 10 s e 4 s, e o `ROADMAP.md` e o `trabalhos.md` ainda dizem que o XP vai ao refinamento. Corrigir? | O roteiro agora, com os 3 s da 1912 e os 6 s da 1895, e os do XP quando ele voltar. A recomendação foi aceita |
+| 1964 | Pedido do desenvolvedor: um recurso exclusivo da Engineering Desk no último tier | "anote para antes do XP depois que a proxima tarefa. Vamos ter um recurso para a mesa de crafting do mod quando estiver no ultimo tier funcionadade exclusiva do tier". Entra depois da auditoria dos crafts (1951) e antes do XP Cubit e Dock (#244). O que é o recurso ainda não foi dito e vai ao refinamento quando começar |
+| 1965 | Há algo a acrescentar ao alinhamento da auditoria dos crafts (1951), com a árvore num `.md`, a auditoria desde um mundo novo, os testes que reprovem uma receita inalcançável e a correção do que aparecer (regra 51)? | O desenvolvedor disse "no final desta task critica com testes ok quero um prompt onde vamos colocar neste arquivo .md o prompt vai gerar uma imagem onde quero um quadro com o icone, nome do item e um numero de legenda, os que ele libera apos o crafting dele com quadro, icone e nomes e numero legenda os quadros ficam interligado por linhas com seta mostrando o sentido da liberacao de forma que fique claro a arvore de progresso do mod. Uma piramide. Podemos iniciar como recomendou". O escopo proposto segue, e o prompt da imagem da árvore entra no fim, com os testes aprovados |
+| 1966 | O `checklist.md` ganha um item já marcado do Dock unificado, com o PR #247, e outro da luz da lua, com o #249? | Sim: "podemos iniciar como recomendou". A recomendação foi aceita |
+| 1967 | Que bloqueio o desenvolvedor viu (1951)? | Nem as peças do Cubit liberaram: num mundo, o Cubit, as peças ou a Toolbox apareceram `Locked`. A causa ainda precisa ser achada |
+| 1968 | Uma receita pode ficar `Locked` para sempre se um pack criar uma receita com ID novo, se um mod tirar as conquistas de receita, ou se a receita sumir e voltar. Como o mod se protege? | O desenvolvedor disse "todo item do mod é uma conquista quando criado pela primeira vez deve ser ganha". A recomendação, conferir ao abrir a mesa, não foi escolhida. O que isso muda na liberação vai à próxima rodada |
+| 1969 | Os itens dentro da Engineering Desk contam para liberar o próximo? | Contam ao abrir a mesa: quem a abre libera também pelo que está na entrada e na saída, e, com a mesa aberta, ela confere de novo quando um item fica pronto. A recomendação foi aceita. Detalha a 1498 |
+| 1970 | A dica da receita `Locked` mostra o que a libera? | Sim: por exemplo `Locked` e `Unlocks with: Cubit`. Os materiais continuam escondidos. A recomendação foi aceita. Detalha a 1441 |
+| 1971 | Em que situação o Cubit, as peças ou a Toolbox apareceram `Locked` (1967)? | Só com o mod, num mundo novo. O bug está no mod ou no fluxo, e é reproduzido num mundo novo, com o teste primeiro (pilar 5). A hipótese do pack deixa de ser a principal |
+| 1972 | Como as conquistas do mod, uma por item criado pela primeira vez (1968), aparecem para o player? | Numa aba própria, Cubit, na tela de conquistas do jogo, em árvore, com um quadro por item, o aviso no canto ao ganhar e a mesma ordem da liberação, em datapack JSON, que o pack pode mudar. A recomendação foi aceita |
+| 1973 | O que conta como item criado pela primeira vez (1968)? | Ter o item pela primeira vez, no inventário ou dentro de uma mesa que o player abre (1969): cobre a mesa automatizada, o item dado por outro player e o do criativo, sem guardar quem pediu o craft. A recomendação foi aceita |
+| 1974 | Com as conquistas próprias, o que libera a receita na Engineering Desk? | As conquistas, e o livro só acompanha: o servidor libera pela conquista do item anterior, confere ao abrir a mesa e repara o livro. As receitas iniciais e as de um pack, sem conquista que as bloqueie, ficam sempre liberadas. A recomendação foi aceita. Responde a 1968 e muda a 1441 e a 1498 na forma de liberar |
+| 1975 | Como segue a auditoria, com o bloqueio do mundo novo (1967 e 1971) ainda sem reprodução? | O desenvolvedor disse "vamos avancar depois aprofundamos pode ser falso positivo. Crie os documentos e o prompt da imagem. Este documento é para o nosso usuário final o player entao deve ser em uma linguagem que ele entenda para tirar suas duvidas": o bloqueio fica como possível falso positivo, a aprofundar depois, e agora entram o documento da árvore de crafts, na linguagem do player, e o prompt da imagem. Muda a 1965 no momento do prompt |
+| 1976 | A imagem da árvore de crafts, `tmp/arte/arvore-de-crafts/arvore.png`, está aceita? | Sim, com o fundo estendido por script embaixo, porque a legenda encosta na borda. Vai a `_docs/imagens/arvore-de-crafts.png` e à seção "O mapa" do guia. A recomendação foi aceita |
+| 1977 | Os cards aparecem na imagem com o nome abreviado, como "Fisher Card", em vez de "Machine Learning: Fisher". Manter? | Sim, porque o guia mostra o nome completo. A recomendação foi aceita |
+| 1978 | Como é entregue a parte de documentos da #250? | O desenvolvedor disse "pode fazer tudo unico pr": o registro e o guia vão num PR só, com `Refs #250`, para a issue continuar aberta até a auditoria e o código. A escolha entre escrever o conceito das conquistas ou reproduzir antes o bloqueio não foi respondida |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 11:58 | Registra a resposta 1978. |
+| Zennd | 2026-11-23 11:56 | Registra as respostas 1976 a 1977. |
+| Zennd | 2026-11-23 11:35 | Registra a resposta 1975. |
+| Zennd | 2026-11-23 11:27 | Registra as respostas 1971 a 1974. |
+| Zennd | 2026-11-23 11:25 | Registra as respostas 1967 a 1970. |
+| Zennd | 2026-11-23 11:21 | Registra as respostas 1965 a 1966. |
+| Zennd | 2026-11-23 11:15 | Registra a resposta 1964. |
 | Zennd | 2026-11-23 11:03 | Registra as respostas 1962 a 1963. |
 | Zennd | 2026-11-23 10:56 | Registra a resposta 1961. |
 | Zennd | 2026-11-23 10:56 | Registra as respostas 1957 a 1960. |
