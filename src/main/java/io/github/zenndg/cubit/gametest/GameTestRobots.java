@@ -10,6 +10,8 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
@@ -61,6 +63,18 @@ final class GameTestRobots {
     Vec3 standing = helper.absoluteVec(Vec3.atBottomCenterOf(floor.above()));
     player.moveTo(standing.x, standing.y, standing.z);
     return player;
+  }
+
+  /**
+   * A mob without free will that also never alerts the others when hurt. The game only takes the
+   * goals of movement away, and a hurt bee makes every bee within 48 blocks chase who hurt it, also
+   * in the arena of another test.
+   */
+  static <T extends Mob> T spawnWithoutAlerts(
+      GameTestHelper helper, EntityType<T> type, BlockPos pos) {
+    T mob = helper.spawnWithNoFreeWill(type, pos);
+    mob.targetSelector.removeAllGoals(goal -> true);
+    return mob;
   }
 
   /** The owner picks the robot up with an empty hand, and the item lands in the first slot. */

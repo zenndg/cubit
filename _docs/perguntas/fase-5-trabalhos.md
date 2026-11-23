@@ -947,11 +947,13 @@ Não há perguntas pendentes nesta fase.
 | 2000 | Onde entra a melhoria das cores (1996)? | Na mesma branch, antes do PR: um commit novo, um teste manual só, cobrindo tudo, e as GameTests de novo no fim. A recomendação foi aceita |
 | 2001 | O conceito das cores da grade pela quantidade do pedido (respostas 1996 a 2000) pode ir ao código? | O desenvolvedor disse "1 autorizo o conceito" (regra 54): segue na mesma branch, antes do PR |
 | 2002 | O teste do pedido travado e das cores foi num mundo novo, e o bloqueio da 1967 apareceu? | O desenvolvedor disse "teste aprovado em mundo novo". O save do mundo novo, lido depois do teste, tem as receitas do início no livro e nenhuma conquista concluída sem a receita: o bloqueio não se repetiu, e fica como falso positivo neste cenário. Responde à 1979 e detalha a 1975 |
+| 2003 | A GameTest `aCalmBeeIsLeftAlone` reprovou 1 vez na rodada de antes do PR, sem que a entrega mude o Patrulheiro. O que fazer? | O desenvolvedor disse "faca os ajustes necessarios para garantir que nos proximos testes nao falhe": a causa é investigada e corrigida antes do PR. As recomendações, rodar de novo e anotar na #213, não foram escolhidas |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 12:50 | Registra a resposta 2003. |
 | Zennd | 2026-11-23 12:38 | Registra a resposta 2002. |
 | Zennd | 2026-11-23 12:31 | Registra a resposta 2001. |
 | Zennd | 2026-11-23 12:29 | Registra as respostas 1997 a 2000. |
