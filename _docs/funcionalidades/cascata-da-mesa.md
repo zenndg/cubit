@@ -14,7 +14,7 @@ Hoje, para fazer 5 Cubits, o player pede cada peça, uma por uma. No Ultimate, e
 - **Outros tiers:** no Base, no Avançado e no Elite aparece apagada, com `Unlocks at Ultimate`. A liberação é a chave por tier `engineering_desk_cascade`, ligada só no Ultimate, para o pack poder mudar (regra 39 e pergunta 2020).
 - **Dois passos,** na mesma aba, no azul de prancheta da mesa (pergunta 2017).
 
-A prancha é a referência de posição e estilo (pergunta 2030). Duas coisas mudam nela: o inventário do player aparece embaixo, como nas outras abas, e o verde, o amarelo e o vermelho ficam mais fortes, porque sobre o fundo azul o amarelo virava cinza. Os materiais do painel 1 são só ilustrativos. Antes do PR 2 há prévias da tela real (pergunta 1853).
+As prévias da tela real, aprovadas na pergunta 2044, são a referência do código: o cabeçalho das outras abas, os botões acima da barra de energia, a tabela na largura toda, sem o catálogo, e um ícone em cada linha. A prancha ficou como referência de estilo (pergunta 2030). Duas coisas mudam nela: o inventário do player aparece embaixo, como nas outras abas, e o verde, o amarelo e o vermelho ficam mais fortes, porque sobre o fundo azul o amarelo virava cinza. Os materiais do painel 1 são só ilustrativos.
 
 ![O passo 1, o passo 2, a tela travada e o aviso do Iniciar da aba Cascade](../imagens/conceito/tela-cascata-da-mesa.png)
 
@@ -23,10 +23,10 @@ A prancha é a referência de posição e estilo (pergunta 2030). Duas coisas mu
 - **Catálogo:** os 28 itens de receita fixa da mesa, sem o upgrade de Power Bank, o religar e o conserto. A Power Bank sai pela carcaça com a célula. Só pode ser escolhido o item com ele e **toda a cadeia dele** liberados para o player, e o resto aparece com cadeado e a dica do que falta liberar. Um item liberado aparece normal, também sem materiais, porque a mesa faz as peças (perguntas 1991, 2009 e 2038).
 - **Packs:** com duas receitas para o mesmo item, vale a primeira na ordem do catálogo, sem as com estado. Com material alternativo, como uma tag, o plano pede o que houver mais na entrada e, sem nenhum, o primeiro da lista. Um item com receitas em ciclo aparece com cadeado e a dica do motivo, e nunca trava o jogo (perguntas 2032 a 2034).
 - **Quantidade:** − e +, com Shift de 8 em 8, de 1 ao maior pedido do tier, 256 (pergunta 2011).
-- **Materiais:** um slot por item vanilla de base da cascata, com a quantidade e um véu fraco e transparente (pergunta 2006):
-  - **verde bem claro:** a entrada tem o bastante;
-  - **amarelo bem claro:** a entrada tem, mas não o bastante;
-  - **vermelho bem claro:** a entrada não tem.
+- **Materiais:** um slot por item vanilla de base da cascata, com a quantidade e um véu transparente, forte o bastante para as três cores se distinguirem sobre o azul (perguntas 2006 e 2045):
+  - **verde:** a entrada tem o bastante;
+  - **amarelo:** a entrada tem, mas não o bastante;
+  - **vermelho:** a entrada não tem.
 - **Dica do slot:** o nome do item e quanto há na entrada.
 - **Peças prontas:** as do mod que já estão na entrada ou na saída são aproveitadas, e os materiais vanilla, o FE e as tarefas diminuem (pergunta 2008).
 - **Recalcula** a cada mudança de item, de quantidade ou da entrada. O player pode ir à aba Estoque, pôr o que falta e voltar, com a escolha mantida. Ela vale só enquanto a tela está aberta, uma por player, e nada é salvo antes do Iniciar (pergunta 2021).
@@ -47,6 +47,7 @@ A prancha é a referência de posição e estilo (pergunta 2030). Duas coisas mu
   Para 5 Cubits: 1 a 4, as peças, sem dependência, e 5, os Cubits, que dependem de 1, 2, 3 e 4.
 
 - **Energia e tempo:** o FE total e o tempo estimado do plano. Não são exigidos para iniciar (pergunta 2013).
+- **Sem material:** se os materiais saírem da entrada com o passo 2 aberto, ele fica à vista, com o Iniciar apagado e o motivo na dica, e o Iniciar acende de novo se eles voltarem (pergunta 2046).
 - **Cancelar:** volta ao passo 1. Só existe antes do Iniciar.
 - **Iniciar:** pede uma confirmação, Sim e Não, com o item, a quantidade, o tempo e o aviso de que não dá para cancelar (pergunta 2023). Só inicia sem pedido ativo na aba Projeto (pergunta 2015). O servidor confere tudo de novo (regra 19).
 
@@ -54,7 +55,7 @@ A prancha é a referência de posição e estilo (pergunta 2030). Duas coisas mu
 
 - **Reserva:** ao Iniciar, os materiais e as peças aproveitadas saem de uma vez da entrada e da saída para o **estoque próprio do plano**, que funis, canos e players não alcançam. As peças intermediárias também ficam nele, e só o item final vai à saída. Nada some nem duplica (regra 13 e pergunta 2007).
 - **Em série:** uma tarefa por vez, uma unidade por craft, com o tempo e o FE de hoje do tier. 5 Cubits são 25 crafts, 62.500 FE e 37,5 s.
-- **Não cancela:** os botões travam, e a mesa abre sempre nessa aba, só para ver, para todos os players. As abas Projeto e Estoque travam, e o + do JEI é recusado (perguntas 2006 e 2015).
+- **Não cancela:** os botões e as outras abas travam, com um cadeado dourado (pergunta 2044), e a mesa abre sempre nessa aba, só para ver, para todos os players. As abas Projeto e Estoque travam, e o + do JEI é recusado (perguntas 2006 e 2015).
 - **Slot e barra de energia:** ficam nesta aba, usáveis também travada (pergunta 2013).
 - **Pausa** sem FE ou com sinal de redstone, e volta sozinha (pergunta 2010).
 - **Saída cheia não pausa:** os itens finais que não couberem, como Cubits, que não empilham, esperam no estoque do plano até haver espaço (pergunta 2028).
@@ -67,7 +68,7 @@ A prancha é a referência de posição e estilo (pergunta 2030). Duas coisas mu
 - **Concluído:** as abas destravam na hora. A aba Cascade mostra o plano concluído, com o botão Novo plano, que volta ao passo 1 (pergunta 2019).
 - **Sobra no estoque:** os itens finais que não couberam continuam saindo para a saída conforme abre espaço. Um plano novo só inicia com o estoque vazio.
 - **Impossível:** se uma receita do plano sumir ou mudar num pack, o plano encerra, e tudo o que está reservado volta à entrada ou à saída. O que não couber espera no estoque do plano, como a sobra (pergunta 2010).
-- **Quebrar a mesa:** o item guarda o plano, com o estoque, e ele continua ao ser colocada. Com o estoque do plano cheio de itens, vale a regra de não aninhar (perguntas 1481 e 2010).
+- **Quebrar a mesa:** o item guarda o plano, com o estoque, e ele continua ao ser colocada. A dica do item mostra o plano, como `Cascade: Cubit · 12/25`, e conta os itens do estoque. Com o estoque do plano cheio de itens, vale a regra de não aninhar (perguntas 1481 e 2010).
 
 ## Detalhes completados pelo agente
 
@@ -106,6 +107,7 @@ Uma issue e dois PRs (pergunta 2026):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 16:20 | Detalha a tela do PR 2, a dica do item e o passo 2 sem material (perguntas 2042 a 2046). |
 | Zennd | 2026-11-23 14:22 | Nomeia o data component do plano no contrato. |
 | Zennd | 2026-11-23 14:10 | Acrescenta as regras dos packs e a tela simples do PR 1 (perguntas 2032 a 2035). |
 | Zennd | 2026-11-23 13:57 | Registra a autorização e a prancha da tela (perguntas 2030 e 2031). |

@@ -986,11 +986,21 @@ Não há perguntas pendentes nesta fase.
 | 2039 | Pedido do desenvolvedor, no teste do PR 1 da cascata: ajuste na aba Projeto da mesa | "ok mas temos um ajuste para melhorar na primeira tela desta mesa temos o botao de + e - junto do texto "- 0 / 0 +" o estado do caracter "0" do bota "-" e outro "+" estao grudados poderia ter um espacamento". Entra neste PR, num commit próprio, com espaço para o maior pedido dos dois lados. O "ok" aprova a correção do catálogo (2038) |
 | 2040 | O espaço novo entre o pedido e os botões − e + (2039) ficou bom? | Não: o desenvolvedor disse "o espaco foi muito grande pode ser coisa de 2px e quadro de slots de crafting deve ficar alinhados fica mais armonico". O vão fica de uns 2 a 3 px, o conjunto e o Cancel se alinham ao quadro dos slots, e um número maior encolhe para caber. Detalha a 2039 |
 | 2041 | O `AGENTS.md` pode citar as classes novas da cascata e da mesa, e o "Estado atual" a #253? | Sim: o desenvolvedor disse "tudo testado e aprovado, autorizo os commits e o AGENTS.md" |
+| 2042 | Alinhamento do PR 2 da cascata (regra 51): a tela dos dois passos, o aviso, o ícone, o Jade, a dica do item, a correção do custo mostrado e o guia do player, com a tabela na largura toda da tela, como na prancha (2030), e o `Cancel` que volta ao passo 1 (2006 e 2017). Há algo a acrescentar? | Não: o desenvolvedor disse "sem acréscimos" e "siga com as prévias" |
+| 2043 | Os documentos desatualizados podem ser corrigidos no PR 2 da cascata: `mesa-de-engenharia.md` e `glossario.md`, que não citam a fabricação em cascata e chamam de "Cascata" o abastecimento de todos os tiers (1500 a 1503), e `funcionalidades-entregues.md`, sem seção da Engineering Desk? | Sim: o desenvolvedor disse "autorizo os documentos" |
+| 2044 | As prévias da aba Cascade podem virar a referência do código? Elas mantêm o cabeçalho das outras abas, põem os botões acima da energia, um ícone em cada linha da tabela, as colunas `Reserva` e `Depende` em português e o cadeado dourado da prancha. | Sim, como estão. A recomendação foi aceita. Atende a 2030 |
+| 2045 | Fabricação em cascata: qual véu usar nos slots dos materiais do passo 1? | O A, forte: as três cores se distinguem bem sobre o azul, como pediu a 2030. A recomendação foi aceita. Detalha a 2006 |
+| 2046 | Fabricação em cascata: com o passo 2 aberto e antes do Iniciar, outro player tira materiais da entrada. O que a tela faz? | Fica no passo 2, com o Iniciar apagado e o motivo na dica, e ele acende de novo se os materiais voltarem. A recomendação foi aceita |
+| 2047 | O `AGENTS.md` pode citar as classes novas da tela da cascata, no lugar da `CascadePanel`, e o "Estado atual" o PR 1 no #254 e o PR 2? | Sim: o desenvolvedor disse "testado e aprovado, autorizo os commits, o AGENTS.md e a issue" |
+| 2048 | Pelo código, clicar numa aba da Engineering Desk com um item no cursor o joga no chão, porque a tela não tem a proteção das telas do Cubit e do Dock. Como tratar? | Numa issue própria, fora do PR 2 da cascata. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 16:35 | Registra as respostas 2047 a 2048. |
+| Zennd | 2026-11-23 16:12 | Registra as respostas 2044 a 2046. |
+| Zennd | 2026-11-23 16:06 | Registra as respostas 2042 a 2043. |
 | Zennd | 2026-11-23 14:52 | Registra a resposta 2041. |
 | Zennd | 2026-11-23 14:49 | Registra a resposta 2040. |
 | Zennd | 2026-11-23 14:45 | Registra a resposta 2039. |
