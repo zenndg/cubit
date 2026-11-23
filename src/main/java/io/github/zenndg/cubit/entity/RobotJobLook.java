@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit.entity;
 
+import io.github.zenndg.cubit.domain.behavior.PatrolGear;
 import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
 import io.github.zenndg.cubit.domain.behavior.WeaponChoice;
 import io.github.zenndg.cubit.domain.robot.RobotJob;
@@ -78,6 +79,7 @@ public final class RobotJobLook {
    * Set on the server after every tick of the Patroller. The game sends only a value that changed.
    */
   static void showPatrol(RobotEntity robot, RobotPatrolCombat combat) {
+    PatrolGear before = patrolGear(robot);
     PatrolWatch watch = combat.watch();
     robot.getEntityData().set(RobotSyncedData.PATROL_PHASE, (byte) watch.phase().ordinal());
     robot.getEntityData().set(RobotSyncedData.VISOR_DOWN, watch.visorDown());
@@ -92,6 +94,11 @@ public final class RobotJobLook {
       gear |= ON_GUARD;
     }
     robot.getEntityData().set(RobotSyncedData.PATROL_GEAR, (byte) gear);
+    RobotAudio.onPatrolGear(robot, before, patrolGear(robot));
+  }
+
+  private static PatrolGear patrolGear(RobotEntity robot) {
+    return new PatrolGear(visorDown(robot), bladeLit(robot), wingsOpen(robot));
   }
 
   /** Off the ground and moving up or down, so a step on a block does not open the wings. */

@@ -10,6 +10,7 @@ import io.github.zenndg.cubit.domain.behavior.PatrolWatch;
 import io.github.zenndg.cubit.domain.behavior.WeaponChoice;
 import io.github.zenndg.cubit.domain.energy.PowerState;
 import io.github.zenndg.cubit.domain.tier.PatrollerSpec;
+import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
@@ -370,6 +371,7 @@ public final class RobotPatrolCombat {
             robot.onGround());
     if (PatrolRules.jumps(check)) {
       robot.setBattery(spec().payForJump(robot.battery()));
+      robot.playSound(CubitSounds.PATROL_JUMP.get());
       double speed = Math.sqrt(2 * JUMP_GRAVITY * height) + JUMP_GRAVITY;
       Vec3 toward = target.position().subtract(robot.position()).multiply(1, 0, 1).normalize();
       robot.setDeltaMovement(toward.x * JUMP_GRAVITY, speed, toward.z * JUMP_GRAVITY);

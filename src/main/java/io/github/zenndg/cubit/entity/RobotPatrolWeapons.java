@@ -3,26 +3,23 @@ package io.github.zenndg.cubit.entity;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.tier.PatrollerSpec;
 import io.github.zenndg.cubit.registry.CubitDamageTypes;
+import io.github.zenndg.cubit.registry.CubitSounds;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
 /**
  * The pistol and the blade of the Galactic Patroller: each waits its interval, the shot pays its
- * energy, and the blade pushes the target back (answers 1551, 1571 and 1577). The sounds of the
- * game stand in until the own sounds come (answer 1578).
+ * energy, and the blade pushes the target back (answers 1551, 1571 and 1577), each with its own
+ * sound (answers 1791 and 1795).
  */
 final class RobotPatrolWeapons {
   private static final int SPARKS = 6;
   private static final double SPARK_SPREAD = 0.2;
   private static final double SPARK_SPEED = 0.1;
-  private static final float VOLUME = 0.6f;
   private static final double MIDDLE = 0.5;
-  private static final float SHOT_PITCH = 1.8f;
-  private static final float SWING_PITCH = 1.4f;
 
   private final RobotEntity robot;
   private long nextShot;
@@ -44,7 +41,7 @@ final class RobotPatrolWeapons {
         spec.weapons().pistolDamage(),
         spec.weapons().slownessLevel(),
         RobotPatrolCombat.settings());
-    robot.playSound(SoundEvents.ILLUSIONER_CAST_SPELL, VOLUME, SHOT_PITCH);
+    robot.playSound(CubitSounds.PATROL_PISTOL_SHOT.get());
   }
 
   void swing(LivingEntity target, PatrollerSpec spec, long now) {
@@ -60,9 +57,10 @@ final class RobotPatrolWeapons {
       double strength =
           CubitMod.CONFIG.patrol().knockback().strength(spec.weapons().bladeKnockback());
       target.knockback(strength, robot.getX() - target.getX(), robot.getZ() - target.getZ());
+      robot.playSound(CubitSounds.PATROL_BLADE_HIT.get());
     }
     robot.swing(net.minecraft.world.InteractionHand.MAIN_HAND);
-    robot.playSound(SoundEvents.PLAYER_ATTACK_SWEEP, VOLUME, SWING_PITCH);
+    robot.playSound(CubitSounds.PATROL_BLADE_SWING.get());
     sparks(target);
   }
 

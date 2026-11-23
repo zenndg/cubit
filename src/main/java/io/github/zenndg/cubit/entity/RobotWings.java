@@ -4,6 +4,7 @@ import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.WingHop;
 import io.github.zenndg.cubit.domain.robot.WorkArea;
 import io.github.zenndg.cubit.domain.tier.PatrollerSpec;
+import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -93,6 +94,7 @@ final class RobotWings {
   private void takeOff(Vec3 spot) {
     PatrollerSpec spec = robot.workArea().work().patrolCombat().spec();
     robot.setBattery(spec.payForJump(robot.battery()));
+    robot.playSound(CubitSounds.PATROL_JUMP.get());
     robot.getNavigation().stop();
     landing = spot;
     flightTicks = 0;
