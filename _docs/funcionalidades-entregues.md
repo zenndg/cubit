@@ -1,6 +1,6 @@
 # Funcionalidades entregues
 
-O que o Cubit já faz, do primeiro commit até o merge do PR #126. As regras completas ficam nas páginas de [`funcionalidades/`](funcionalidades/), e as respostas em [`perguntas/`](perguntas/README.md) prevalecem. Os números são os padrões do tier Base, o único no config até a Fase 4, e ficam em [`tiers.md`](tiers.md).
+O que o Cubit já faz, do primeiro commit até o merge do PR #126, com a Engineering Desk, que entrou depois. As regras completas ficam nas páginas de [`funcionalidades/`](funcionalidades/), e as respostas em [`perguntas/`](perguntas/README.md) prevalecem. Os números são os padrões do tier Base, o único no config até a Fase 4, e ficam em [`tiers.md`](tiers.md).
 
 ## Visão geral
 
@@ -14,6 +14,7 @@ O que o Cubit já faz, do primeiro commit até o merge do PR #126. As regras com
 | Inventário | 27 slots, tela própria, barras de bateria e vida |
 | Energia | Bateria, consumo por situação, slot de energia, painel solar |
 | Induction Dock | Base de recarga, hibernação, fila, chamada |
+| Engineering Desk | Mesa de criação com pedido, catálogo, tiers, automação e fabricação em cascata |
 | Personalidade | Sons, expressões, animações, textos curtos, falas |
 | Visual | Modelo, colar do tier, indicador de bateria, cor da carcaça, nome |
 | Lanterna | Luz dinâmica, halo nas antenas, brilho nos olhos |
@@ -86,6 +87,19 @@ O que o Cubit já faz, do primeiro commit até o merge do PR #126. As regras com
 - **Fila:** cada Dock recebe um Cubit por vez, e os outros esperam na ordem de chegada ou vão a outro Dock livre.
 - **Preso:** sem avançar por 5 s, teleporta ao Dock.
 - **Tela do Dock:** desligada, ociosa, carregando, completa ou sem energia, com LEDs que acendem no escuro.
+
+## Engineering Desk
+
+As regras estão em [`mesa-de-engenharia.md`](funcionalidades/mesa-de-engenharia.md) e em [`cascata-da-mesa.md`](funcionalidades/cascata-da-mesa.md).
+
+- **Mesa de criação:** todos os itens do mod saem dela, com FE ou redstone, a partir de um pedido.
+- **Tela:** abas Projeto, Estoque e Cascata, com o catálogo por categorias, a busca, a grade com as cores do que há e do que falta e a barra de energia.
+- **Automação:** a entrada, a saída e a energia por faces, o comparador e a pausa por sinal de redstone.
+- **Tiers:** sobe com os mesmos Modules do Cubit, sem perder nada.
+- **Cascata:** passa sozinha as peças prontas da saída para a entrada, em todos os tiers.
+- **Fabricação em cascata:** no Ultimate, faz sozinha todas as peças até o item escolhido, com os materiais reservados e a tabela do plano.
+- **Estado no item:** recolhida, guarda o tier, a energia, os itens, o pedido e o plano.
+- **Integrações:** Jade e JEI, opcionais.
 
 ## Sons
 
@@ -187,6 +201,7 @@ No estilo das imagens de conceito, sem a textura do baú do jogo.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 16:20 | Acrescenta a Engineering Desk (pergunta 2043). |
 | Marcelo Fabiano | 2026-11-21 01:05 | Troca o craft do Cubit pelas peças de montagem. |
 | Marcelo Fabiano | 2026-11-20 23:50 | Troca as receitas do Cubit e do Dock (perguntas 1331 e 1332). |
 | Marcelo Fabiano | 2026-11-13 16:40 | Troca o Cubit Remote pelo Tablet. |
