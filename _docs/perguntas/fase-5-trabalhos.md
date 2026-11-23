@@ -869,11 +869,15 @@ Não há perguntas pendentes nesta fase.
 | 1922 | No começo do `panel_retract`, o destravar vem antes do giro, ao contrário da animação. O que fazer? | O agente troca a ordem dos dois trechos no próprio arquivo, com o ffmpeg, para o giro vir primeiro e o destravar aos 0,7 s, sem gerar o som de novo. A recomendação foi aceita. Detalha a 1895 |
 | 1923 | A textura final do Dock, com a arte das peças novas sobre o gabarito UV, entra neste PR ou num próximo? | Neste PR: o agente escreve o prompt da textura com o gabarito UV do modelo atual, o desenvolvedor gera a arte, o agente a aplica, gera a do Ultimate em netherite por script, mostra as prévias, e o desenvolvedor testa. Só então o PR fecha, com o Dock completo. A recomendação foi aceita. Detalha a 1860 |
 | 1924 | A textura nova do Dock encaixa no gabarito e detalha as peças novas, mas traz o contorno preto em todas as faces, com riscos de emenda na torre e na placa. Como seguir? | A textura nova entra, com os detalhes das peças novas. Nas faces da torre, da placa e da faixa, que vêm da arte antiga, o agente troca o contorno preto pelos pixels de antes, por script, sem tocar no resto, e depois gera a do Ultimate e o brilho e mostra as prévias. A recomendação foi aceita. Detalha a 1923 |
+| 1925 | O `AGENTS.md` pode mudar no fechamento da #246, com o "Estado atual" e a estrutura de pacotes atualizados? | O desenvolvedor disse "sim, autorizo a mudança no AGENTS.md": o PR 4 do Patrulheiro entra como entregue (#243), o Dock unificado (#246) à frente do XP (1852), o XP só em documentos (#245), e a estrutura de pacotes cita as classes novas do Dock e do nome do Cubit, com a `DeskBand` virando `TierBand` |
+| 1926 | Pedido do desenvolvedor: como o `AGENTS.md` cita o Dock unificado? | Como entregue, e não em fechamento: o desenvolvedor disse "o dock unificado também podemos considerar entregue". Detalha a 1925 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 03:17 | Registra a resposta 1926. |
+| Zennd | 2026-11-23 03:17 | Registra a resposta 1925. |
 | Zennd | 2026-11-23 03:12 | Registra a resposta 1924. |
 | Zennd | 2026-11-23 03:06 | Registra a resposta 1923. |
 | Zennd | 2026-11-23 03:01 | Registra as respostas 1920 a 1922. |
