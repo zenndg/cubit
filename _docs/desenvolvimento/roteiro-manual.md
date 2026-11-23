@@ -722,7 +722,7 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#tiers-do-dock),
 
 ## Dock unificado
 
-As regras estão em [`energia.md`](../funcionalidades/energia.md#painel-solar-do-dock), no [nome do Dock](../funcionalidades/energia.md#nome-do-dock) e no [nome do Cubit](../funcionalidades/personalizacao.md#nome) (issue #246). Os passos 1 a 19 cobrem a entrega 1: a lógica do painel, os nomes e a saída do Dock Solar. Os passos 20 a 34 cobrem o Dock refeito: o modelo GeckoLib com os armários laterais, a transformação de 6 s, as luzes, o brilho, a faixa no topo e o bloco do topo (perguntas 1891 a 1918). Nos passos 4 a 7, a espera passou de 10 s para 3 s (pergunta 1912). Use um mundo plano no criativo, de dia e sem chuva, um Induction Dock, dois Cubits novos, um Tablet, uma etiqueta com um nome dado na bigorna e um Advanced Module.
+As regras estão em [`energia.md`](../funcionalidades/energia.md#painel-solar-do-dock), no [nome do Dock](../funcionalidades/energia.md#nome-do-dock) e no [nome do Cubit](../funcionalidades/personalizacao.md#nome) (issue #246). Os passos 1 a 19 cobrem a entrega 1: a lógica do painel, os nomes e a saída do Dock Solar. Os passos 20 a 38 cobrem o Dock refeito: o modelo GeckoLib com os armários laterais, a transformação de 6 s, as luzes, o brilho, a faixa no topo, o bloco do topo e os sons (perguntas 1891 a 1922). Nos passos 4 a 7, a espera passou de 10 s para 3 s (pergunta 1912). Use um mundo plano no criativo, de dia e sem chuva, um Induction Dock, dois Cubits novos, um Tablet, uma etiqueta com um nome dado na bigorna e um Advanced Module.
 
 | # | Faça | Espere |
 |---|---|---|
@@ -760,6 +760,10 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#painel-solar-do
 | 32 | Troque o 3º bloco por pedra com `/setblock` e espere uns 5 s | `Why: No room for the panel`, o painel fica guardado e a pedra continua lá. Ao tirar a pedra, o Dock ganha o 3º bloco e monta o painel |
 | 33 | Olhe o item na mão, no inventário, no chão e numa moldura | O Dock guardado, com a faixa e o corpo do tier e as luzes vermelhas |
 | 34 | Com o jogo em português | `Sem espaço para o painel` |
+| 35 | Com o som ligado e as legendas do jogo ativas, coloque um Dock ao ar livre de dia | No começo da montagem, o som da transformação (portas, carros, servos subindo e quatro estalos da sanfona), e aos 5,3 s o clique da trava com o bipe, junto do encontro das metades. Legendas `Dock panel deploys` e `Dock panel locks` |
+| 36 | Ponha pedra acima do 3º bloco | No começo da desmontagem, o som de guardar: o giro e o destravar, os estalos ao contrário, os servos descendo e as portas fechando. Legenda `Dock panel retracts` |
+| 37 | Fique a uns 10 blocos do Dock, de costas para ele, e depois a uns 20 | A uns 10 blocos, os sons tocam mesmo sem olhar o Dock; a uns 20, não se ouvem |
+| 38 | Com o jogo em português | Legendas `Painel do Dock monta`, `Painel do Dock trava` e `Painel do Dock guarda` |
 
 ## Recharge Splash
 
@@ -1358,6 +1362,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 03:03 | Acrescenta ao Dock unificado os passos dos sons do painel (perguntas 1920 a 1922). |
 | Zennd | 2026-11-23 02:46 | Acrescenta ao Dock unificado os passos do Dock refeito e do bloco do topo (perguntas 1891 a 1918). |
 | Zennd | 2026-11-23 00:10 | Troca o Dock Solar pelo Dock unificado, com o painel, o nome do Dock e o nome do Cubit, na entrega 1 (perguntas 1852 a 1882). |
 | Zennd | 2026-11-22 23:45 | Aponta a seção do Dock Solar para o painel de todo Dock (pergunta 1854). |

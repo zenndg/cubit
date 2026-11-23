@@ -28,13 +28,13 @@ Os arquivos ficam em `src/main/resources/assets/cubit/sounds/engineering_desk/`,
 
 ## Induction Dock
 
-Os arquivos ficam em `src/main/resources/assets/cubit/sounds/induction_dock/`, a partir dos `.wav` fornecidos pelo desenvolvedor, convertidos para Ogg, mono e 48 kHz, com os originais em `tmp/wav/dock/` (perguntas 1490, 1491 e 1861). Os IDs são `cubit:induction_dock.{nome}`, com as legendas em inglês e português, ouvidos até 16 blocos, como os outros sons do mod. O Dock é um dos itens mais importantes do mod, e os sons seguem o cuidado do visual (pergunta 1853).
+Os arquivos ficam em `src/main/resources/assets/cubit/sounds/induction_dock/`, a partir dos `.wav` fornecidos pelo desenvolvedor, convertidos para Ogg, mono e 48 kHz, com os originais em `tmp/wav/dock/` (perguntas 1490, 1491 e 1861). Os IDs são `cubit:induction_dock.{nome}`, com as legendas em inglês e português, ouvidos até 16 blocos, como os outros sons do mod. O Dock é um dos itens mais importantes do mod, e os sons seguem o cuidado do visual (pergunta 1853). O servidor os toca, para todos por perto ouvirem mesmo sem olhar o Dock, como os do Patrulheiro (perguntas 1920 e 1921).
 
 | Arquivo | Para que é usado | Duração e clima |
 |---|---|---|
-| `panel_deploy.ogg` | A montagem do painel, como um robô se transformando: as portas deslizando, os braços saindo e subindo e as lâminas se abrindo em sanfona (passos 1 a 5 da montagem) | Cerca de 4,5 s. Um mecanismo preciso e bem lubrificado: o deslize suave das portas, o zumbido de servos subindo de tom enquanto os braços sobem, e uma sequência de estalos leves e ritmados, um a cada lâmina que abre. Tecnológico e caprichado, sem rangido nem pancada (perguntas 1894 e 1895) |
-| `panel_lock.ogg` | As duas metades se unindo no centro, com a trava (passo 6) | Menos de 0,5 s. Um clique metálico firme e satisfatório, com um bipe curto de confirmação, da família dos bipes do Cubit |
-| `panel_retract.ogg` | A desmontagem do painel, do destravar ao fechar das portas | Cerca de 6 s. O destravar curto, as lâminas se fechando em sanfona com os estalos ao contrário, o zumbido dos servos descendo de tom e o deslize das portas fechando, terminando num assentar macio (perguntas 1894 e 1895) |
+| `panel_deploy.ogg` | A montagem do painel, como um robô se transformando: as portas deslizando, os carros saindo, os braços subindo, os pacotes girando e as lâminas se abrindo em sanfona (passos 1 a 5 da montagem). Toca quando o painel começa a montar | Cerca de 5,2 s. Um mecanismo preciso e bem lubrificado: o deslize suave das portas, o zumbido de servos subindo de tom enquanto os braços sobem, e uma sequência de estalos leves e ritmados, um a cada lâmina que abre. Tecnológico e caprichado, sem rangido nem pancada (perguntas 1894 e 1895) |
+| `panel_lock.ogg` | As duas metades se unindo no centro, com a trava (passo 6). Toca aos 5,3 s da montagem | Menos de 0,5 s. Um clique metálico firme e satisfatório, com um bipe curto de confirmação, da família dos bipes do Cubit |
+| `panel_retract.ogg` | A desmontagem do painel, do destravar ao fechar das portas. Toca quando o painel começa a guardar | Cerca de 6 s. O giro do painel deixando de inclinar e o destravar curto (pergunta 1922), as lâminas se fechando em sanfona com os estalos ao contrário, o zumbido dos servos descendo de tom e o deslize das portas fechando, terminando num assentar macio (perguntas 1894 e 1895) |
 
 ## Patrulheiro Galático
 
@@ -63,6 +63,7 @@ Os arquivos ficam em `src/main/resources/assets/cubit/sounds/general_robot/patro
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 03:03 | Ajusta os sons do painel do Dock à animação e diz quando tocam (perguntas 1920 a 1922). |
 | Zennd | 2026-11-23 01:17 | Ajusta os sons do painel do Dock à transformação em sanfona de cerca de 6 s (perguntas 1894 e 1895). |
 | Zennd | 2026-11-22 23:45 | Descreve os três sons do painel do Dock (perguntas 1853 e 1861). |
 | Zennd | 2026-11-22 22:00 | Toca o fechamento das asas no fim do tempo em que ficam abertas (pergunta 1807). |
