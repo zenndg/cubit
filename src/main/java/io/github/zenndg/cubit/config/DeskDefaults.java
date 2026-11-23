@@ -6,7 +6,7 @@ import io.github.zenndg.cubit.domain.tier.RobotTier;
 
 /**
  * The default numbers of the Engineering Desk at each tier, from _docs/tiers.md (answers 1433 and
- * 1434): 5, 4, 2.5 and 1.5 seconds per craft.
+ * 1434): 5, 4, 2.5 and 1.5 seconds per craft, and the cascade only at Ultimate (answer 2020).
  */
 final class DeskDefaults {
   private static final long BASE_CAPACITY = 100_000;
@@ -26,12 +26,14 @@ final class DeskDefaults {
   private static final int ELITE_ORDER = 64;
   private static final int ULTIMATE_ORDER = 256;
 
-  private static final DeskSpec BASE = spec(BASE_CAPACITY, BASE_TICKS, BASE_SLOTS, BASE_ORDER);
+  private static final DeskSpec BASE =
+      spec(BASE_CAPACITY, BASE_TICKS, BASE_SLOTS, BASE_ORDER, false);
   private static final DeskSpec ADVANCED =
-      spec(ADVANCED_CAPACITY, ADVANCED_TICKS, ADVANCED_SLOTS, ADVANCED_ORDER);
-  private static final DeskSpec ELITE = spec(ELITE_CAPACITY, ELITE_TICKS, ELITE_SLOTS, ELITE_ORDER);
+      spec(ADVANCED_CAPACITY, ADVANCED_TICKS, ADVANCED_SLOTS, ADVANCED_ORDER, false);
+  private static final DeskSpec ELITE =
+      spec(ELITE_CAPACITY, ELITE_TICKS, ELITE_SLOTS, ELITE_ORDER, false);
   private static final DeskSpec ULTIMATE =
-      spec(ULTIMATE_CAPACITY, ULTIMATE_TICKS, ULTIMATE_SLOTS, ULTIMATE_ORDER);
+      spec(ULTIMATE_CAPACITY, ULTIMATE_TICKS, ULTIMATE_SLOTS, ULTIMATE_ORDER, true);
 
   private DeskDefaults() {}
 
@@ -44,7 +46,7 @@ final class DeskDefaults {
     };
   }
 
-  private static DeskSpec spec(long capacity, int ticks, int slots, int order) {
-    return new DeskSpec(new Energy(capacity), ticks, slots, order);
+  private static DeskSpec spec(long capacity, int ticks, int slots, int order, boolean cascade) {
+    return new DeskSpec(new Energy(capacity), ticks, slots, order, cascade);
   }
 }

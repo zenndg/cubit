@@ -4,7 +4,6 @@ import com.mojang.logging.LogUtils;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.desk.DeskLook;
 import io.github.zenndg.cubit.domain.desk.DeskOrder;
-import io.github.zenndg.cubit.domain.desk.DeskProgress;
 import io.github.zenndg.cubit.domain.desk.DeskSpec;
 import io.github.zenndg.cubit.domain.desk.DeskStatus;
 import io.github.zenndg.cubit.domain.desk.DeskStock;
@@ -26,7 +25,6 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
@@ -49,18 +47,11 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   private static final Logger LOGGER = LogUtils.getLogger();
   private static final String OWNER_KEY = "Owner";
   private static final String ENERGY_KEY = "Energy";
-  private static final String SLOT_KEY = "Slot";
-  private static final String INPUT_KEY = "Input";
-  private static final String OUTPUT_KEY = "Output";
-  private static final String ORDER_KEY = "Order";
-  static final String PROGRESS_KEY = "Progress";
   private static final String GONE_RECIPE = "The desk at {} had the recipe {}, which is gone.";
   private static final int ENERGY_SLOT = 0;
 
   private final DeskTier tier = new DeskTier();
-  private final SimpleContainer input = container(DeskSpec.MAX_SLOTS);
-  private final SimpleContainer output = container(DeskSpec.MAX_SLOTS);
-  private final SimpleContainer energySlot = container(1);
+  private final DeskInventories items = new DeskInventories(this::setChanged);
   private final DeskEnergyStorage energyStorage = new DeskEnergyStorage(this);
   private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
   private final DeskShow show = new DeskShow();
@@ -68,9 +59,8 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
 
   private UUID owner;
   private DeskStock stock = DeskStock.of(spec().capacity(), Energy.ZERO);
-  private ResourceLocation recipe;
-  private DeskOrder order = DeskOrder.NONE;
-  private DeskProgress progress = DeskProgress.NONE;
+  private final DeskJob job = new DeskJob();
+  private final CascadeState cascade = new CascadeState();
   private DeskStatus status = DeskStatus.IDLE;
   private Energy inputLeft = Energy.ZERO;
   private int signal;
@@ -79,27 +69,23 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     super(CubitBlockEntities.ENGINEERING_DESK.get(), pos, state);
   }
 
-  private SimpleContainer container(int size) {
-    return new SimpleContainer(size) {
-      @Override
-      public void setChanged() {
-        EngineeringDeskBlockEntity.this.setChanged();
-      }
-    };
-  }
-
   static void serverTick(
       Level level, BlockPos pos, BlockState state, EngineeringDeskBlockEntity desk) {
     desk.inputLeft = CubitMod.CONFIG.engineeringDesk().inputPerTick();
     desk.useEnergySlot();
     desk.show.beforeWork(desk, level.getGameTime());
-    desk.status = DeskWork.tick(desk, level, EngineeringDeskBlock.hasSignal(level, pos, state));
+    boolean redstone = EngineeringDeskBlock.hasSignal(level, pos, state);
+    desk.status =
+        desk.cascade.isRunning()
+            ? CascadeWork.tick(desk, level, redstone)
+            : DeskWork.tick(desk, level, redstone);
+    CascadeWork.unload(desk, level);
     desk.showWork(level, pos, state);
     desk.show.afterWork(desk, level, pos, state, DeskLook.of(desk.status));
   }
 
   private void showWork(Level level, BlockPos pos, BlockState state) {
-    int now = order.comparatorSignal();
+    int now = signal();
     if (now != signal) {
       signal = now;
       level.updateNeighbourForOutputSignal(pos, state.getBlock());
@@ -108,7 +94,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
 
   /** Redstone becomes energy whole, from the slot or from below (answers 1425 and 1447). */
   private void useEnergySlot() {
-    ItemStack stack = energySlot.getItem(ENERGY_SLOT);
+    ItemStack stack = items.energySlot().getItem(ENERGY_SLOT);
     Energy itemEnergy = EnergySlotItems.energyOf(stack);
     if (stock.canTake(itemEnergy)) {
       stack.shrink(1);
@@ -135,15 +121,15 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   }
 
   public Container input() {
-    return input;
+    return items.input();
   }
 
   public Container output() {
-    return output;
+    return items.output();
   }
 
   public Container energySlot() {
-    return energySlot;
+    return items.energySlot();
   }
 
   DeskEnergyStorage energyStorage() {
@@ -158,8 +144,18 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     return stock.capacity();
   }
 
+  public CascadeState cascade() {
+    return cascade;
+  }
+
+  /** A plan started or ended, and the craft begins again from zero. */
+  void cascadeChanged() {
+    job.restart();
+    tellClients();
+  }
+
   public DeskOrder order() {
-    return order;
+    return job.order();
   }
 
   public DeskStatus status() {
@@ -181,26 +177,27 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
 
   /** The item the hologram shows. Special recipes, as the repair, have none (answer 1509). */
   public ItemStack shownResult() {
-    return level == null ? ItemStack.EMPTY : DeskRecipes.result(level, recipe);
+    return level == null ? ItemStack.EMPTY : DeskRecipes.result(level, job.recipe().orElse(null));
   }
 
   public int progressPercent() {
-    return progress.percent(spec().craftTicks());
+    return job.progress().percent(spec().craftTicks());
   }
 
   public Optional<ResourceLocation> recipeId() {
-    return Optional.ofNullable(recipe);
+    return job.recipe();
   }
 
   /** The chosen recipe, while it exists. One a pack removed ends the order (rule 17). */
   Optional<RecipeHolder<CraftingRecipe>> recipe() {
-    if (recipe == null || level == null) {
+    if (job.recipe().isEmpty() || level == null) {
       return Optional.empty();
     }
+    ResourceLocation chosen = job.recipe().get();
     Optional<RecipeHolder<CraftingRecipe>> found =
-        DeskRecipes.find(level.getRecipeManager(), recipe);
+        DeskRecipes.find(level.getRecipeManager(), chosen);
     if (found.isEmpty()) {
-      LOGGER.warn(GONE_RECIPE, worldPosition, recipe);
+      LOGGER.warn(GONE_RECIPE, worldPosition, chosen);
       choose(null);
     }
     return found;
@@ -212,15 +209,24 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
 
   /** One tick of the craft. True when it is ready to end. */
   boolean advance() {
-    progress = progress.advance();
     setChanged();
-    return progress.isReady(spec().craftTicks());
+    return job.advance(spec().craftTicks());
   }
 
   void crafted() {
     stock = stock.pay(CubitMod.CONFIG.engineeringDesk().craftEnergy());
-    order = order.crafted();
-    progress = DeskProgress.NONE;
+    job.crafted();
+    showCrafted();
+  }
+
+  void craftedInCascade() {
+    stock = stock.pay(CubitMod.CONFIG.engineeringDesk().craftEnergy());
+    job.restart();
+    cascade.crafted();
+    showCrafted();
+  }
+
+  private void showCrafted() {
     setChanged();
     if (level != null) {
       show.crafted(this, level, worldPosition, getBlockState());
@@ -232,39 +238,32 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
    * before anything is made, so nothing is crafted by accident (answer 1506).
    */
   public void choose(ResourceLocation chosen) {
-    recipe = chosen;
-    order = DeskOrder.NONE;
-    progress = DeskProgress.NONE;
-    show.tellClients();
-    setChanged();
+    job.choose(chosen);
+    tellClients();
   }
 
   /** The minus and plus buttons. Without an order, plus starts one for the chosen recipe. */
   public void adjustOrder(int delta) {
-    if (recipe == null || (!order.isActive() && delta <= 0)) {
-      return;
+    if (job.adjust(delta, spec().maxOrder())) {
+      tellClients();
     }
-    order = order.adjust(delta, spec().maxOrder());
-    if (!order.isActive()) {
-      progress = DeskProgress.NONE;
-    }
+  }
+
+  private void tellClients() {
     show.tellClients();
     setChanged();
   }
 
   public void cancelOrder() {
-    order = DeskOrder.NONE;
-    progress = DeskProgress.NONE;
-    show.tellClients();
-    setChanged();
+    job.cancel();
+    tellClients();
   }
 
   void upgradeTo(RobotTier next) {
     tier.set(next);
     stock = stock.withCapacity(spec().capacity());
-    order = order.limitedTo(spec().maxOrder());
-    show.tellClients();
-    setChanged();
+    job.limitTo(spec().maxOrder());
+    tellClients();
     if (level != null) {
       EngineeringDeskBlock.showTier(level, worldPosition, getBlockState(), next);
     }
@@ -297,7 +296,9 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   }
 
   public int signal() {
-    return order.comparatorSignal();
+    return cascade.isRunning()
+        ? cascade.run().orElseThrow().comparatorSignal()
+        : job.order().comparatorSignal();
   }
 
   @Override
@@ -308,11 +309,9 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     }
     tag.putLong(ENERGY_KEY, energy().amount());
     tier.save(tag);
-    DeskSaves.saveItems(tag, INPUT_KEY, input, registries);
-    DeskSaves.saveItems(tag, OUTPUT_KEY, output, registries);
-    DeskSaves.saveItems(tag, SLOT_KEY, energySlot, registries);
-    DeskSaves.saveOrder(tag, ORDER_KEY, savedOrder());
-    tag.putInt(PROGRESS_KEY, progress.ticks());
+    items.save(tag, registries);
+    job.save(tag, job.saved());
+    DeskSaves.saveCascade(tag, cascade.saved(), registries);
   }
 
   @Override
@@ -321,23 +320,12 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     owner = tag.hasUUID(OWNER_KEY) ? tag.getUUID(OWNER_KEY) : null;
     tier.load(tag, worldPosition);
     stock = DeskStock.of(spec().capacity(), SavedEnergy.of(tag.getLong(ENERGY_KEY)));
-    DeskSaves.loadItems(tag, INPUT_KEY, input, registries);
-    DeskSaves.loadItems(tag, OUTPUT_KEY, output, registries);
-    DeskSaves.loadItems(tag, SLOT_KEY, energySlot, registries);
-    useOrder(DeskSaves.loadOrder(tag, ORDER_KEY, worldPosition));
-    progress = new DeskProgress(Math.max(0, tag.getInt(PROGRESS_KEY)));
+    items.load(tag, registries);
+    job.load(tag, worldPosition, spec().maxOrder());
+    cascade.load(DeskSaves.loadCascade(tag, registries, worldPosition));
     if (level != null && level.isClientSide()) {
       clientView.receive(tag, level.getGameTime());
     }
-  }
-
-  private Optional<SavedDeskOrder> savedOrder() {
-    return recipeId().map(id -> new SavedDeskOrder(id, order.total(), order.done()));
-  }
-
-  private void useOrder(Optional<SavedDeskOrder> saved) {
-    recipe = saved.map(SavedDeskOrder::recipe).orElse(null);
-    order = saved.map(SavedDeskOrder::order).orElse(DeskOrder.NONE).limitedTo(spec().maxOrder());
   }
 
   @Override
@@ -346,9 +334,13 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     tier.set(components.getOrDefault(CubitDataComponents.DESK_TIER.get(), RobotTier.BASE));
     long saved = components.getOrDefault(CubitDataComponents.DESK_ENERGY.get(), 0L);
     stock = DeskStock.of(spec().capacity(), SavedEnergy.of(saved));
-    DeskSaves.apply(components.get(CubitDataComponents.DESK_INPUT.get()), input);
-    DeskSaves.apply(components.get(CubitDataComponents.DESK_OUTPUT.get()), output);
-    useOrder(Optional.ofNullable(components.get(CubitDataComponents.DESK_ORDER.get())));
+    items.apply(
+        components.get(CubitDataComponents.DESK_INPUT.get()),
+        components.get(CubitDataComponents.DESK_OUTPUT.get()));
+    job.use(
+        Optional.ofNullable(components.get(CubitDataComponents.DESK_ORDER.get())),
+        spec().maxOrder());
+    cascade.load(Optional.ofNullable(components.get(CubitDataComponents.DESK_CASCADE.get())));
   }
 
   @Override
@@ -356,9 +348,11 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     super.collectImplicitComponents(components);
     components.set(CubitDataComponents.DESK_TIER.get(), tier());
     components.set(CubitDataComponents.DESK_ENERGY.get(), energy().amount());
-    components.set(CubitDataComponents.DESK_INPUT.get(), DeskSaves.contents(input));
-    components.set(CubitDataComponents.DESK_OUTPUT.get(), DeskSaves.contents(output));
-    savedOrder().ifPresent(saved -> components.set(CubitDataComponents.DESK_ORDER.get(), saved));
+    items.collect(components);
+    job.saved().ifPresent(saved -> components.set(CubitDataComponents.DESK_ORDER.get(), saved));
+    cascade
+        .saved()
+        .ifPresent(saved -> components.set(CubitDataComponents.DESK_CASCADE.get(), saved));
   }
 
   /**
@@ -373,8 +367,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
       tag.putUUID(OWNER_KEY, owner);
     }
     tier.save(tag);
-    DeskSaves.saveOrder(tag, ORDER_KEY, savedOrder());
-    tag.putInt(PROGRESS_KEY, progress.ticks());
+    job.save(tag, cascade.shownOrder().or(job::saved));
     show.write(tag);
     return tag;
   }

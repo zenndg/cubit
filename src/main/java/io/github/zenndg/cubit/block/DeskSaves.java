@@ -19,6 +19,9 @@ import org.slf4j.Logger;
  */
 final class DeskSaves {
   private static final Logger LOGGER = LogUtils.getLogger();
+  private static final String CASCADE_KEY = "Cascade";
+  private static final String BAD_CASCADE = "The desk at {} has an invalid plan: {}";
+  private static final String UNSAVED_CASCADE = "The plan of a desk could not be saved: {}";
   private static final String BAD_ORDER = "The desk at {} has an invalid order: {}";
 
   private DeskSaves() {}
@@ -53,6 +56,25 @@ final class DeskSaves {
     return SavedDeskOrder.CODEC
         .parse(NbtOps.INSTANCE, tag.get(key))
         .resultOrPartial(error -> LOGGER.warn(BAD_ORDER, pos, error));
+  }
+
+  static void saveCascade(
+      CompoundTag tag, Optional<SavedCascade> cascade, HolderLookup.Provider registries) {
+    cascade.ifPresent(saved ->
+        SavedCascade.CODEC
+            .encodeStart(registries.createSerializationContext(NbtOps.INSTANCE), saved)
+            .ifSuccess(encoded -> tag.put(CASCADE_KEY, encoded))
+            .ifError(error -> LOGGER.error(UNSAVED_CASCADE, error.message())));
+  }
+
+  static Optional<SavedCascade> loadCascade(
+      CompoundTag tag, HolderLookup.Provider registries, BlockPos pos) {
+    if (!tag.contains(CASCADE_KEY)) {
+      return Optional.empty();
+    }
+    return SavedCascade.CODEC
+        .parse(registries.createSerializationContext(NbtOps.INSTANCE), tag.get(CASCADE_KEY))
+        .resultOrPartial(error -> LOGGER.warn(BAD_CASCADE, pos, error));
   }
 
   static ItemContainerContents contents(SimpleContainer items) {

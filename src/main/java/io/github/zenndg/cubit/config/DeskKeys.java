@@ -13,6 +13,7 @@ final class DeskKeys {
   private static final String CRAFT_TICKS = "engineering_desk_craft_ticks";
   private static final String SLOTS = "engineering_desk_storage_slots";
   private static final String MAX_ORDER = "engineering_desk_max_order";
+  private static final String CASCADE = "engineering_desk_cascade";
   private static final int MIN_POSITIVE = 1;
   private static final int MAX_ENERGY = Integer.MAX_VALUE;
   private static final int MAX_CRAFT_TICKS = 72_000;
@@ -22,6 +23,7 @@ final class DeskKeys {
   private final ModConfigSpec.IntValue craftTicks;
   private final ModConfigSpec.IntValue slots;
   private final ModConfigSpec.IntValue maxOrder;
+  private final ModConfigSpec.BooleanValue cascade;
 
   DeskKeys(ModConfigSpec.Builder builder, DeskSpec defaults) {
     capacity =
@@ -31,9 +33,11 @@ final class DeskKeys {
         builder.defineInRange(CRAFT_TICKS, defaults.craftTicks(), MIN_POSITIVE, MAX_CRAFT_TICKS);
     slots = builder.defineInRange(SLOTS, defaults.storageSlots(), MIN_POSITIVE, DeskSpec.MAX_SLOTS);
     maxOrder = builder.defineInRange(MAX_ORDER, defaults.maxOrder(), MIN_POSITIVE, MAX_ORDER_LIMIT);
+    cascade = builder.define(CASCADE, defaults.cascade());
   }
 
   DeskSpec read() {
-    return new DeskSpec(new Energy(capacity.get()), craftTicks.get(), slots.get(), maxOrder.get());
+    return new DeskSpec(
+        new Energy(capacity.get()), craftTicks.get(), slots.get(), maxOrder.get(), cascade.get());
   }
 }

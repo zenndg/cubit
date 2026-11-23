@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit.item;
 
+import io.github.zenndg.cubit.block.SavedCascade;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
 import java.util.List;
 import net.minecraft.network.chat.Component;
@@ -42,7 +43,13 @@ public final class EngineeringDeskItem extends BlockItem implements GeoItem {
   /** Empty, it goes anywhere. With items inside, it never nests (answer 1481). */
   public static boolean holdsItems(ItemStack stack) {
     return count(stack.get(CubitDataComponents.DESK_INPUT.get())) > 0
-        || count(stack.get(CubitDataComponents.DESK_OUTPUT.get())) > 0;
+        || count(stack.get(CubitDataComponents.DESK_OUTPUT.get())) > 0
+        || holdsPlan(stack);
+  }
+
+  private static boolean holdsPlan(ItemStack stack) {
+    SavedCascade cascade = stack.get(CubitDataComponents.DESK_CASCADE.get());
+    return cascade != null && cascade.holdsItems();
   }
 
   @Override

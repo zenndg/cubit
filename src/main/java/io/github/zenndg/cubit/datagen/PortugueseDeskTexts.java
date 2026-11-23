@@ -88,6 +88,7 @@ final class PortugueseDeskTexts {
     add.accept(EngineeringDeskItem.ORDER_KEY, TOOLTIP_ORDER);
     add.accept(EngineeringDeskItem.ITEMS_KEY, TOOLTIP_ITEMS);
     addScreen(add);
+    PortugueseCascadeTexts.addTo(add);
   }
 
   /** The screen of the desk, with the categories of the catalog (answer 1474). */

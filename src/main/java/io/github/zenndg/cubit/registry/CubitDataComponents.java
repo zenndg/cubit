@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.registry;
 
 import com.mojang.serialization.Codec;
 import io.github.zenndg.cubit.CubitMod;
+import io.github.zenndg.cubit.block.SavedCascade;
 import io.github.zenndg.cubit.block.SavedDeskOrder;
 import io.github.zenndg.cubit.domain.robot.RobotState;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
@@ -36,6 +37,7 @@ public final class CubitDataComponents {
   private static final String DESK_ENERGY_ID = "engineering_desk_energy";
   private static final String DESK_INPUT_ID = "engineering_desk_input";
   private static final String DESK_OUTPUT_ID = "engineering_desk_output";
+  private static final String DESK_CASCADE_ID = "engineering_desk_cascade";
   private static final String DESK_ORDER_ID = "engineering_desk_order";
   private static final String POWER_BANK_ENERGY_ID = "power_bank_energy";
   private static final String TABLET_APP_ID = "tablet_app";
@@ -174,6 +176,14 @@ public final class CubitDataComponents {
               builder
                   .persistent(SavedDeskOrder.CODEC)
                   .networkSynchronized(SavedDeskOrder.STREAM_CODEC));
+
+  public static final Supplier<DataComponentType<SavedCascade>> DESK_CASCADE =
+      COMPONENTS.registerComponentType(
+          DESK_CASCADE_ID,
+          builder ->
+              builder
+                  .persistent(SavedCascade.CODEC)
+                  .networkSynchronized(SavedCascade.STREAM_CODEC));
 
   /** The charge of a Power Bank, a contract with the saves (answer 903). */
   /** The active app of the Tablet, by its key, a contract with the saves (answer 1026). */
