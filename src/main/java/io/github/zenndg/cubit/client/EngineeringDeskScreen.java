@@ -34,12 +34,18 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
   private static final int CANCEL_Y = 108;
   private static final int BUTTON_HEIGHT = 12;
   private static final int SMALL_BUTTON = 14;
+  private static final int ORDER_GAP = 2;
 
-  private static final int MINUS_X = 96;
-  private static final int PLUS_X = 136;
-  private static final int CANCEL_X = 96;
-  private static final int CANCEL_WIDTH = 54;
-  private static final int ORDER_TEXT_X = 123;
+  /** The dashed frame of the grid, which the row of the order follows (answer 2040). */
+  private static final int FRAME_X = DeskGridView.X - GRID_FRAME;
+
+  private static final int FRAME_WIDTH = DeskGrid.SIDE * ScreenPainter.SLOT_SIZE + GRID_FRAME * 2;
+  private static final int MINUS_X = FRAME_X;
+  private static final int PLUS_X = FRAME_X + FRAME_WIDTH - SMALL_BUTTON;
+  private static final int CANCEL_X = FRAME_X;
+  private static final int CANCEL_WIDTH = FRAME_WIDTH;
+  private static final int ORDER_TEXT_X = FRAME_X + FRAME_WIDTH / 2;
+  private static final int ORDER_ROOM = FRAME_WIDTH - SMALL_BUTTON * 2 - ORDER_GAP * 2;
   private static final int INVENTORY_LABEL_Y = 164;
   private static final int SEARCH_HEIGHT = 12;
   private static final int SEARCH_INSET = 2;
@@ -244,13 +250,12 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
 
   /** The grid of marks in a dashed frame, the arrow of the progress and the item it makes. */
   private void renderGrid(GuiGraphics graphics) {
-    int gridSide = DeskGrid.SIDE * ScreenPainter.SLOT_SIZE + GRID_FRAME * 2;
     BlueprintPainter.dashed(
         graphics,
-        leftPos + DeskGridView.X - GRID_FRAME,
+        leftPos + FRAME_X,
         topPos + DeskGridView.Y - GRID_FRAME,
-        gridSide,
-        gridSide);
+        FRAME_WIDTH,
+        FRAME_WIDTH);
     grid.render(
         graphics,
         leftPos,
@@ -302,7 +307,8 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
 
   private void renderOrderLabel(GuiGraphics graphics) {
     Component order = Component.translatable(DeskScreenKeys.ORDER, menu.done(), menu.total());
-    graphics.drawCenteredString(font, order, ORDER_TEXT_X, ORDER_Y + 2, BlueprintPainter.TEXT);
+    BlueprintPainter.fitted(
+        graphics, font, order, ORDER_TEXT_X, ORDER_Y + 2, ORDER_ROOM, BlueprintPainter.TEXT);
   }
 
   /** While the search box has the focus, the keys write in it, and only Esc closes the screen. */

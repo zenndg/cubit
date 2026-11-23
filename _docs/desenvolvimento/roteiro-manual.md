@@ -1155,6 +1155,7 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 24 | Faça as 4 peças do Cubit, deixe-as na saída, ponha o Casing na entrada e escolha o Cubit | A mesa puxa o Visor, o Treads e o Neural Core da saída para a entrada e começa o Cubit |
 | 25 | Peça 2 Cubits, com as peças de só um na saída | Ela faz um Cubit, puxa as peças e pausa em `Missing materials` até as peças do segundo chegarem |
 | 26 | Com o jogo em português | `Mesa de Engenharia`, `Projeto`, `Estoque` e os estados em português |
+| 27 | Na aba Projeto, compare `0 / 0` com o maior pedido, `256 / 256` no Ultimate | O −, o + e o `Cancel` alinhados às bordas do quadro dos slots, com um vão pequeno ao lado dos números, que encolhem quando não cabem |
 
 ### Pedir só com o que é preciso
 
@@ -1437,6 +1438,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 14:52 | Acrescenta o alinhamento do pedido na mesa (perguntas 2039 e 2040). |
 | Zennd | 2026-11-23 14:22 | Acrescenta o roteiro da fabricação em cascata, PR 1 (issue #253). |
 | Zennd | 2026-11-23 12:31 | Acrescenta as cores da grade ao roteiro (perguntas 1996 a 2001). |
 | Zennd | 2026-11-23 12:17 | Acrescenta o roteiro do pedido com a progressão e o material (issue #250). |

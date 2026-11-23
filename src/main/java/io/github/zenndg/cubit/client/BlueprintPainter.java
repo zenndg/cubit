@@ -1,6 +1,8 @@
 package io.github.zenndg.cubit.client;
 
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
 
 /**
  * The look of a designer's board for the screen of the Engineering Desk: a blue sheet with a light
@@ -83,5 +85,17 @@ final class BlueprintPainter {
     for (int side = 0; side <= DASH; side++) {
       graphics.fill(tip - side - 1, y - side, tip - side, y + side + 1, LINE_SOFT);
     }
+  }
+
+  /** A centered text that shrinks to the room it has, as a large order (answer 2040). */
+  static void fitted(
+      GuiGraphics graphics, Font font, Component text, int x, int y, int room, int color) {
+    int width = font.width(text);
+    float scale = Math.min(1f, (float) room / Math.max(1, width));
+    graphics.pose().pushPose();
+    graphics.pose().translate(x, y + font.lineHeight * (1 - scale) / 2, 0);
+    graphics.pose().scale(scale, scale, 1);
+    graphics.drawCenteredString(font, text, 0, 0, color);
+    graphics.pose().popPose();
   }
 }
