@@ -40,7 +40,7 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
      - os Cubits que já existem nos mundos, que hoje podem não ter nome (regra 18);
      - a regra do nome que o Tablet já aplica (`RobotName`).
 
-3. **XP em tanque de líquido** (pergunta 1762).
+3. **XP em tanque de líquido** (pergunta 1762). Virou o item "XP Cubit e Dock" do roadmap, logo depois do Patrulheiro, e vai ao refinamento quando começar (perguntas 1787 a 1789). O que está em aberto abaixo é o ponto de partida dele.
    - **A ideia:** um inventário novo, de líquido: o XP dentro do Cubit vira um tanque de XP líquido, com as conversões iguais às do mod Industrial Foregoing. O tanque enche quando o Cubit faz algo que gera XP, como um player. Quando ele vai ao Dock, passa o XP para um tanque próprio do Dock, e o player, interagindo com o Dock, puxa o XP para si.
    - **Em aberto:**
      - a taxa de conversão entre ponto de XP e líquido, conferida no Industrial Foregoing, e como ela fica no config (regra 3);
@@ -64,6 +64,7 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 21:03 | Leva o XP em tanque de líquido ao roadmap, como XP Cubit e Dock (perguntas 1787 a 1789). |
 | Zennd | 2026-11-22 17:00 | Acrescenta a busca no fim da escolta do Patrulheiro (pergunta 1766). |
 | Zennd | 2026-11-22 16:34 | Acrescenta o XP em tanque de líquido, no Cubit e no Dock (pergunta 1762). |
 | Zennd | 2026-11-22 23:00 | Acrescenta o nome pedido ao colocar o Cubit (pergunta 1748). |

@@ -122,6 +122,7 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 - **Correções da auditoria do PR 3 (perguntas 1763 a 1766):** com a bateria do retorno, o Patrulheiro vai ao Dock sem conferir o dono nem investigar, também na escolta, e o aviso "indo ao Dock" sai mesmo depois do "sem Dock". O app Escort recusa quem está em outra dimensão, com um aviso, e a escolta de um player que mudou de dimensão termina. Os documentos desatualizados que a auditoria achou são corrigidos no PR 3, e a busca no fim da escolta fica no backlog, para medir antes de otimizar.
 - **Ordem das próximas profissões (perguntas 1666 e 1667):** depois do Patrulheiro, o Lenhador, uma profissão nova, o Pecuarista, o Mecânico e o Alquimista, e depois o Minerador e o Construtor. O conceito do Lenhador é criado quando o card começar.
 - **Servidor e Antenas depois do Patrulheiro (perguntas 1777 a 1779):** logo depois do Patrulheiro, antes das outras profissões, entra um item só, "Servidor e Antenas, energia sem fio e carregamento de chunks", com as issues #205 e #206, o log e a viagem até o Dock. A energia sem fio está só anotada, para o refinamento do item, e a ordem em relação à issue do teleporte longo fica para depois.
+- **XP Cubit e Dock depois do Patrulheiro (perguntas 1787 a 1789):** a ideia do XP em tanque de líquido (1762) sai do backlog e vira um item do roadmap, logo depois do Patrulheiro e antes do Servidor e das Antenas, só com o nome. Vai ao refinamento quando começar.
 - **Explorador (perguntas 1668 a 1671):** uma profissão nova anotada, sem nada decidido: um app do Tablet que lista os biomas da dimensão e guia o player até o escolhido, com marcações nomeadas e coloridas, filtro, avisos e mapas do jogo gerados no caminho, sem sobrepor, com os mapas em branco do inventário. Entra depois do Mecânico, e a ideia está em [`explorador.md`](funcionalidades/trabalhos/explorador.md).
 - **Scanner de minérios só no Minerador (pergunta 1741):** quando o Minerador começar, o scanner sai de todo Cubit e passa a ser só dele, melhorado. A chave, o filtro e os saves de hoje são decididos no refinamento do Minerador.
 - **Backlog (perguntas 1746 a 1748):** as ideias do futuro, sem decisão, ficam em [`backlog.md`](backlog.md): o Cubit que se perde num teleporte longo do dono, para uma issue própria depois do PR 3; a lista de todos os Cubits no Tablet, puxar o Cubit para o inventário e o Tablet com tiers; e o nome pedido ao colocar o Cubit.
@@ -221,6 +222,7 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-22 21:03 | Resume o XP Cubit e Dock depois do Patrulheiro (perguntas 1787 a 1789). |
 | Zennd | 2026-11-22 17:59 | Resume o Servidor e as Antenas depois do Patrulheiro (perguntas 1777 a 1779). |
 | Zennd | 2026-11-22 17:00 | Resume as correções da auditoria do PR 3 (perguntas 1763 a 1766). |
 | Zennd | 2026-11-22 16:59 | Aponta a entrega em três PRs para a 1749 (perguntas 1758 e 1765) |
