@@ -722,7 +722,7 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#tiers-do-dock),
 
 ## Dock unificado
 
-As regras estão em [`energia.md`](../funcionalidades/energia.md#painel-solar-do-dock), no [nome do Dock](../funcionalidades/energia.md#nome-do-dock) e no [nome do Cubit](../funcionalidades/personalizacao.md#nome) (issue #246). Esta parte cobre a entrega 1: a lógica do painel, os nomes e a saída do Dock Solar, ainda com o modelo de hoje, sem o armário nem o painel à vista. Use um mundo plano no criativo, de dia e sem chuva, um Induction Dock, dois Cubits novos, um Tablet, uma etiqueta com um nome dado na bigorna e um Advanced Module.
+As regras estão em [`energia.md`](../funcionalidades/energia.md#painel-solar-do-dock), no [nome do Dock](../funcionalidades/energia.md#nome-do-dock) e no [nome do Cubit](../funcionalidades/personalizacao.md#nome) (issue #246). Os passos 1 a 19 cobrem a entrega 1: a lógica do painel, os nomes e a saída do Dock Solar. Os passos 20 a 34 cobrem o Dock refeito: o modelo GeckoLib com os armários laterais, a transformação de 6 s, as luzes, o brilho, a faixa no topo e o bloco do topo (perguntas 1891 a 1918). Nos passos 4 a 7, a espera passou de 10 s para 3 s (pergunta 1912). Use um mundo plano no criativo, de dia e sem chuva, um Induction Dock, dois Cubits novos, um Tablet, uma etiqueta com um nome dado na bigorna e um Advanced Module.
 
 | # | Faça | Espere |
 |---|---|---|
@@ -745,6 +745,21 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#painel-solar-do
 | 17 | Recolha o `Rex` e coloque-o de novo | A janela não abre, e ele volta como `Rex` |
 | 18 | No Tablet, renomeie o `Rex` com o campo vazio | Ele volta a um nome padrão, `Cubit` e os 8 primeiros caracteres do UUID dele de agora |
 | 19 | Com o jogo em português | `Renomear o Dock`, `Dê um nome ao seu Cubit`, `Guardado`, `Montando`, `Montado`, `Guardando`, `Painel` e `Rex: Estou feliz em lhe ajudar` |
+| 20 | `/time set night` e coloque um Dock novo ao ar livre | A torre de sempre, 1 px afastada do limite de trás do bloco, com a faixa cinza no topo, a moldura dos armários em cada lateral e as quatro luzes das portas vermelhas, acesas no escuro. As costas lisas, com o quadro do raio |
+| 21 | `/time set day` e olhe de três-quartos pela frente | Uns 3 s depois, a transformação de 6 s, com as luzes amarelas piscando: as folhas abrem para cima e para baixo; os carros deslizam os braços para fora, com a barra da corrediça à vista; os braços desdobram ao lado da torre e sobem os pacotes até as bordas; os pacotes deitam em V, abrem em sanfona, sobem as pontas como asas, fecham no centro na trava e inclinam 15° |
+| 22 | Olhe o Dock montado de todos os lados | O painel fino, do tamanho do bloco, com o topo um pouco abaixo da metade do 3º bloco, sustentado pelos braços pelas bordas. Nada atravessa a torre nem sai do bloco, e as luzes ficam verdes |
+| 23 | Olhe as células do painel montado | Clareiam e escurecem devagar, como as do painel do Cubit, e a aba Solar mostra `Deployed` e a geração só depois dos 6 s |
+| 24 | Gire a câmera de perto, em volta das laterais e da faixa | Nada pisca |
+| 25 | Encaixe um Cubit | Ele encaixa rente à torre, 1 px mais à frente, carrega como antes, e a faixa do topo continua à vista por cima dele |
+| 26 | Suba o Dock até o Ultimate | A faixa fica azul, roxa e dourada, e no Ultimate o corpo fica em netherite |
+| 27 | Ponha pedra logo acima do 3º bloco, a 3 blocos do chão do Dock, e espere uns 5 s | `Why: Sky covered` e a desmontagem ao contrário, até as luzes vermelhas. Troque a pedra por vidro: o painel volta a montar |
+| 28 | Suba no painel montado | Ele segura o player, como uma placa fina. Guardado, o espaço do 3º bloco se atravessa, mas não aceita outro bloco |
+| 29 | Tente colocar um Dock com um bloco 2 blocos acima do chão dele | Nada é colocado, e o item fica na mão |
+| 30 | Com o painel montado, quebre o Dock pelo painel, no criativo e no sobrevivência | O Dock inteiro sai, como item, com o nome, o tier, a energia e o inventário, e o 3º bloco some junto. Outro player não quebra |
+| 31 | Num Dock, use `/setblock` para trocar o 3º bloco por ar e espere uns 5 s | O Dock ganha o 3º bloco de novo, como um Dock de antes |
+| 32 | Troque o 3º bloco por pedra com `/setblock` e espere uns 5 s | `Why: No room for the panel`, o painel fica guardado e a pedra continua lá. Ao tirar a pedra, o Dock ganha o 3º bloco e monta o painel |
+| 33 | Olhe o item na mão, no inventário, no chão e numa moldura | O Dock guardado, com a faixa e o corpo do tier e as luzes vermelhas |
+| 34 | Com o jogo em português | `Sem espaço para o painel` |
 
 ## Recharge Splash
 
@@ -1343,6 +1358,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 02:46 | Acrescenta ao Dock unificado os passos do Dock refeito e do bloco do topo (perguntas 1891 a 1918). |
 | Zennd | 2026-11-23 00:10 | Troca o Dock Solar pelo Dock unificado, com o painel, o nome do Dock e o nome do Cubit, na entrega 1 (perguntas 1852 a 1882). |
 | Zennd | 2026-11-22 23:45 | Aponta a seção do Dock Solar para o painel de todo Dock (pergunta 1854). |
 | Zennd | 2026-11-22 22:08 | Deixa os olhos nítidos atrás do visor nos passos do visual do Patrulheiro (pergunta 1811). |

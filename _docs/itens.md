@@ -277,7 +277,7 @@ Estes nomes não mudam sem migração (regra 18 do `AGENTS.md`).
 | NBT do bloco do Dock | `DockId`, `CustomName` e `SolarPanel` | O UUID próprio do Dock, sorteado ao carregar se faltar; o nome dado pelo Rename ou pela etiqueta, que sem a chave é o padrão `Dock` e os 8 primeiros dígitos do UUID; e o painel, `stored` ou `deployed`, que sem a chave vale `stored` (perguntas 1864, 1868 e 1869) |
 | Nome do item do Dock | O componente `minecraft:custom_name` do jogo | O nome dado ao Dock, que volta com ele ao ser colocado (pergunta 1870) |
 | Estado do bloco do Dock | `facing`, `half`, `status` e `tier` | Direção, parte de baixo ou de cima e estado da tela: `off`, `idle`, `charging`, `complete` ou `no_energy`. O `tier` escolhe a faixa, em volta do topo da torre, e o corpo: `base`, `advanced`, `elite` ou `ultimate` (perguntas 1379 e 1918) |
-| Bloco do topo do Dock | `cubit:induction_dock_top` | O 3º bloco do Dock, invisível, onde o painel monta, com o `facing` do Dock. Sem item e sem drop próprio: quebrá-lo quebra o Dock inteiro. Um Dock de antes, sem ele, o ganha ao carregar se o espaço acima estiver vazio (perguntas 1892, 1896 e 1897) |
+| Bloco do topo do Dock | `cubit:induction_dock_top`, com o estado `deployed` | O 3º bloco do Dock, invisível, onde o painel monta. O `deployed` é verdadeiro só com o painel montado, quando o bloco tem a colisão de uma placa fina. Sem item e sem drop próprio: quebrá-lo quebra o Dock inteiro. Um Dock de antes, sem ele, o ganha ao carregar se o espaço acima estiver vazio (perguntas 1892 e 1896 a 1898) |
 | NBT da entidade na base | `DockPosition` | Posição do Dock em que hiberna |
 | NBT da entidade | `PreferredDock` | O Dock preferido, escolhido pelo app Dock do Tablet, com a posição e a dimensão (perguntas 1026 e 1036) |
 | NBT da entidade | `LampEnabled` | Chave da lanterna. Sem a chave no save, vale ligada |
@@ -335,6 +335,7 @@ O estado salvo é validado ao entrar no jogo, sem derrubá-lo (regra 17 do `AGEN
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 02:46 | Troca o `facing` do bloco do topo pelo `deployed`, que liga a colisão do painel (pergunta 1898). |
 | Zennd | 2026-11-23 02:30 | Volta a faixa do Dock para o topo da torre (pergunta 1918). |
 | Zennd | 2026-11-23 01:17 | Acrescenta o bloco do topo do Dock e volta a faixa para acima da placa (perguntas 1892, 1896, 1897 e 1899). |
 | Zennd | 2026-11-22 23:45 | Tira o Dock Solar Panel e o Solar Induction Dock e acrescenta o UUID, o nome e o painel do Dock (perguntas 1854 e 1864 a 1871). |
