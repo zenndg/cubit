@@ -729,10 +729,10 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#painel-solar-do
 | 1 | Procure no inventário criativo, no catálogo da Engineering Desk e no JEI | Só o `Induction Dock`. O `Solar Induction Dock` e o `Dock Solar Panel` não existem mais |
 | 2 | Coloque o Dock ao ar livre e abra a tela, com Shift + clique direito | O título é o nome padrão, como `Dock 3f9a2c1b · Base`, e há três abas: `Dock`, `Storage` e `Solar`, esta com o ícone do painel solar do Cubit |
 | 3 | Vá logo à aba `Solar` | No alto, `Stored` em vermelho; `Status: Generating`, `Panel: Stored` e `Now 0 FE/t` |
-| 4 | Espere uns 10 s | `Deploying` em amarelo por uns 4 s, e depois `Deployed` em verde, com `Now 25 FE/t`. O estoque sobe sem cabos, e o Jade mostra o nome, `Solar +25 FE/t` e `Panel: Deployed` |
-| 5 | Ponha um bloco de pedra logo acima do Dock e espere uns 15 s | `Why: Sky covered`, a geração para, e depois de 10 s o painel passa por `Retracting` até `Stored` |
+| 4 | Espere uns 12 s | `Deploying` em amarelo por uns 6 s, e depois `Deployed` em verde, com `Now 25 FE/t`. O estoque sobe sem cabos, e o Jade mostra o nome, `Solar +25 FE/t` e `Panel: Deployed` |
+| 5 | Ponha um bloco de pedra logo acima do Dock e espere uns 15 s | `Why: Sky covered`, a geração para, e depois de 3 s o painel passa por `Retracting` até `Stored` |
 | 6 | Troque a pedra por vidro e espere uns 15 s | O painel volta a montar e a gerar |
-| 7 | Use `/time set night` e espere uns 15 s, e depois `/time set day` com `/weather rain` | `Why: Night` e depois `Why: Rain`, sem geração, e o painel volta para `Stored` depois de 10 s |
+| 7 | Use `/time set night` e espere uns 15 s, e depois `/time set day` com `/weather rain` | `Why: Night` e depois `Why: Rain`, sem geração, e o painel volta para `Stored` depois de 3 s |
 | 8 | Com sol, suba o Dock com o Advanced Module | Com o painel montado, `Now 100 FE/t` |
 | 9 | Na aba `Dock`, clique em `Rename`, apague o campo, escreva `Garden` e confirme | A janela `Rename the Dock` abre com o nome atual. O título passa a `Garden · Advanced`, e o Jade mostra `Garden` |
 | 10 | Renomeie de novo com o campo vazio | O nome volta ao padrão, com os mesmos 8 dígitos de antes |
@@ -1362,6 +1362,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 11:03 | Corrige a espera e a montagem do painel do Dock (perguntas 1895, 1912 e 1963). |
 | Zennd | 2026-11-23 03:03 | Acrescenta ao Dock unificado os passos dos sons do painel (perguntas 1920 a 1922). |
 | Zennd | 2026-11-23 02:46 | Acrescenta ao Dock unificado os passos do Dock refeito e do bloco do topo (perguntas 1891 a 1918). |
 | Zennd | 2026-11-23 00:10 | Troca o Dock Solar pelo Dock unificado, com o painel, o nome do Dock e o nome do Cubit, na entrega 1 (perguntas 1852 a 1882). |
