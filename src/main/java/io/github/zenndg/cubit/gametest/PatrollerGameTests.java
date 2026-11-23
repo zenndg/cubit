@@ -215,7 +215,7 @@ public final class PatrollerGameTests {
   public static void aBeeChasingTheOwnerIsAttacked(GameTestHelper helper) {
     ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
     patroller(helper, owner);
-    Mob bee = helper.spawnWithNoFreeWill(EntityType.BEE, FAR);
+    Mob bee = GameTestRobots.spawnWithoutAlerts(helper, EntityType.BEE, FAR);
     bee.setTarget(owner);
     helper.runAfterDelay(FIGHT_TICKS, () -> assertHurt(helper, bee, true));
   }

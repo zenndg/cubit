@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
 
 /**
  * The recipes of the Engineering Desk. A recipe is unlocked as in the recipe book of the game
- * (answers 1437 and 1441), and the server checks it for the player who chooses it.
+ * (answers 1437 and 1974), and the server checks it for the player who orders it.
  */
 public final class DeskRecipes {
   private DeskRecipes() {}
@@ -24,10 +24,6 @@ public final class DeskRecipes {
     return recipes.byKey(id).flatMap(DeskRecipes::asDesk);
   }
 
-  /**
-   * Every recipe of the desk, in the order they unlock, the same on the server and the client, so
-   * the catalog and the chosen recipe always match (answer 1499).
-   */
   /** What a recipe gives, or nothing for one that is gone or has no fixed result. */
   public static ItemStack result(Level level, ResourceLocation id) {
     if (id == null) {
@@ -38,6 +34,10 @@ public final class DeskRecipes {
         .orElse(ItemStack.EMPTY);
   }
 
+  /**
+   * Every recipe of the desk, in the order they unlock, the same on the server and the client, so
+   * the catalog and the chosen recipe always match (answer 1499).
+   */
   public static List<RecipeHolder<CraftingRecipe>> all(RecipeManager recipes) {
     return recipes.getAllRecipesFor(CubitRecipes.ENGINEERING_TYPE.get()).stream()
         .sorted(

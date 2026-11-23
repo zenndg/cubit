@@ -187,6 +187,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `DeskSpec` | Os números da Engineering Desk num tier: bateria, ticks de um craft, slots de cada inventário e maior pedido |
 | `DeskCatalog` | Interface que dá o `DeskSpec` de um tier, servida pelo config |
 | `DeskOrder` | O pedido da mesa: quantos itens foram pedidos e quantos estão prontos, com o sinal do comparador |
+| `DeskOrderGate` | O que um pedido precisa para sair de zero: a receita liberada pela progressão e os materiais de um item. Só o começo é travado (perguntas 1984, 1985 e 1991) |
 | `DeskProgress` | Os ticks do craft em andamento, mantidos na pausa |
 | `DeskCheck` | O que a mesa encontrou no tick: pedido, sinal de redstone, materiais, receita aceita, energia e espaço na saída |
 | `DeskStatus` | O que a mesa está fazendo: parada, criando ou pausada, com o motivo |

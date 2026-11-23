@@ -2,8 +2,10 @@ package io.github.zenndg.cubit.menu;
 
 import io.github.zenndg.cubit.block.DeskGrid;
 import io.github.zenndg.cubit.block.DeskRecipes;
+import io.github.zenndg.cubit.block.DeskShortage;
 import io.github.zenndg.cubit.block.EngineeringDeskBlockEntity;
 import io.github.zenndg.cubit.domain.desk.DeskOrder;
+import io.github.zenndg.cubit.domain.desk.DeskOrderGate;
 import io.github.zenndg.cubit.registry.CubitRecipes;
 import java.util.List;
 import net.minecraft.core.NonNullList;
@@ -16,8 +18,9 @@ import net.minecraft.world.item.crafting.RecipeManager;
 
 /**
  * The buttons of the desk screen, read on the server (rules 19 and 20): the order, the recipe of
- * the catalog, and the marks the player puts by hand in the grid (answers 1426 and 1444). A locked
- * recipe is never chosen (answer 1441).
+ * the catalog, and the marks the player puts by hand in the grid (answers 1426 and 1444). Any
+ * recipe can be chosen, and an order only starts with it released and with its materials (answer
+ * 1991).
  */
 public final class DeskControl {
   public static final int MINUS = 0;
@@ -42,15 +45,34 @@ public final class DeskControl {
       EngineeringDeskBlockEntity desk, ServerPlayer player, NonNullList<ItemStack> marks, int id) {
     switch (id) {
       case MINUS -> desk.adjustOrder(-DeskOrder.STEP);
-      case PLUS -> desk.adjustOrder(DeskOrder.STEP);
+      case PLUS -> raise(desk, player, DeskOrder.STEP);
       case MINUS_SHIFT -> desk.adjustOrder(-DeskOrder.SHIFT_STEP);
-      case PLUS_SHIFT -> desk.adjustOrder(DeskOrder.SHIFT_STEP);
+      case PLUS_SHIFT -> raise(desk, player, DeskOrder.SHIFT_STEP);
       case CANCEL -> desk.cancelOrder();
       default -> {
         return chooseOrMark(desk, player, marks, id);
       }
     }
     return true;
+  }
+
+  private static void raise(EngineeringDeskBlockEntity desk, ServerPlayer player, int step) {
+    boolean allowed =
+        desk.recipeId()
+            .flatMap(id -> DeskRecipes.find(player.serverLevel().getRecipeManager(), id))
+            .map(recipe -> gate(desk, player, recipe).allows(desk.order().isActive()))
+            .orElse(false);
+    if (allowed) {
+      desk.adjustOrder(step);
+    }
+  }
+
+  private static DeskOrderGate gate(
+      EngineeringDeskBlockEntity desk, ServerPlayer player, RecipeHolder<CraftingRecipe> recipe) {
+    DeskShortage shortage =
+        DeskShortage.of(
+            DeskGrid.of(recipe.value()), desk.input(), desk.output(), desk.slots(), DeskOrder.STEP);
+    return new DeskOrderGate(DeskRecipes.unlocked(player, recipe), shortage.isEmpty());
   }
 
   private static boolean chooseOrMark(
@@ -66,10 +88,11 @@ public final class DeskControl {
     if (index < 0 || index >= all.size()) {
       return false;
     }
-    return pick(desk, player, all.get(index));
+    pick(desk, all.get(index));
+    return true;
   }
 
-  /** Marks that make an unlocked recipe choose it, as the crafting table would (answer 1426). */
+  /** Marks that make a recipe choose it, as the crafting table would (answer 1426). */
   private static void recognize(
       EngineeringDeskBlockEntity desk,
       ServerPlayer player,
@@ -78,17 +101,12 @@ public final class DeskControl {
     CraftingInput input = CraftingInput.of(DeskGrid.SIDE, DeskGrid.SIDE, marks);
     recipes
         .getRecipeFor(CubitRecipes.ENGINEERING_TYPE.get(), input, player.serverLevel())
-        .ifPresent(found -> pick(desk, player, found));
+        .ifPresent(found -> pick(desk, found));
   }
 
-  private static boolean pick(
-      EngineeringDeskBlockEntity desk, ServerPlayer player, RecipeHolder<CraftingRecipe> found) {
-    if (!DeskRecipes.unlocked(player, found)) {
-      return false;
-    }
+  private static void pick(EngineeringDeskBlockEntity desk, RecipeHolder<CraftingRecipe> found) {
     if (!desk.recipeId().map(found.id()::equals).orElse(false)) {
       desk.choose(found.id());
     }
-    return true;
   }
 }

@@ -1135,9 +1135,9 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 4 | Coloque uma segunda mesa | O texto não aparece de novo |
 | 5 | Tente colocar com um bloco à direita | Nada é colocado, e o item continua na mão |
 | 6 | Tente fazer a `Toolbox` na mesa de craft do jogo | Nenhuma receita do mod aparece nem sai na mesa de craft |
-| 7 | Abra a mesa | Abas Projeto e Estoque, catálogo com todas as receitas do mod: o Cubit, as 4 peças e a Toolbox liberados; as outras escurecidas e acinzentadas, com `Locked` e sem os materiais no tooltip |
+| 7 | Abra a mesa | Abas Projeto e Estoque, e o catálogo com todas as receitas do mod, que podem ser abertas, como em [Pedir só com o que é preciso](#pedir-só-com-o-que-é-preciso) |
 | 8 | Clique na `Toolbox` no catálogo | A grade mostra as marcações, o pedido fica `0 / 0` e nada é fabricado |
-| 9 | Use + e, com Shift, + de novo | O pedido sobe para `0 / 1` e depois de 8 em 8, até 8 no Base, e só então a mesa começa |
+| 9 | Ponha na entrada os materiais de uma Toolbox, do passo 10, e use + e, com Shift, + de novo | O pedido sobe para `0 / 1` e depois de 8 em 8, até 8 no Base, e só então a mesa começa |
 | 10 | Na aba Estoque, ponha 7 ferros, 1 redstone e 1 obsidiana na entrada; ponha terra | Os materiais entram, e a terra não |
 | 11 | Sem energia | `No energy`, e nada sai da entrada |
 | 12 | Ponha redstone no slot de energia | A barra sobe 5k por pó, e começa `Crafting` |
@@ -1155,6 +1155,34 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 24 | Faça as 4 peças do Cubit, deixe-as na saída, ponha o Casing na entrada e escolha o Cubit | A mesa puxa o Visor, o Treads e o Neural Core da saída para a entrada e começa o Cubit |
 | 25 | Peça 2 Cubits, com as peças de só um na saída | Ela faz um Cubit, puxa as peças e pausa em `Missing materials` até as peças do segundo chegarem |
 | 26 | Com o jogo em português | `Mesa de Engenharia`, `Projeto`, `Estoque` e os estados em português |
+
+### Pedir só com o que é preciso
+
+As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenharia.md#ver-a-receita-e-pedir-só-com-o-que-é-preciso) (issue #250). Use um mundo **novo**, em sobrevivência com comandos, uma mesa e `/give` para os materiais. Não use `/recipe` nem `/advancement`.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Abra a mesa vazia | O Cubit, as 4 peças e a Toolbox escurecidos, **sem** cadeado. As outras, escurecidas **com** cadeado. A ordem é a de sempre, sem bloqueadas no fim |
+| 2 | Passe o mouse sobre o Tablet | `Locked` e `Unlocks with: Cubit` |
+| 3 | Clique no Tablet | A receita abre e mostra os materiais na grade, em vermelho. O + fica cinza |
+| 4 | Passe o mouse sobre o + | `Locked`, `Unlocks with: Cubit` e uma linha `Missing` para cada material |
+| 5 | Ponha os materiais do Tablet na entrada | Os vermelhos somem um a um. O + continua cinza, só com `Locked` e `Unlocks with: Cubit` |
+| 6 | Escolha a Toolbox, com 6 ferros, 1 redstone e 1 obsidiana | O + cinza, com `Missing: 1 Iron Ingot`, e um ferro em vermelho |
+| 7 | Ponha mais 1 ferro | A Toolbox normal no catálogo e o + aceso. Com o +, o pedido vai a `0 / 1` |
+| 8 | Com o pedido ativo e sem material, aperte + e Shift + | O total sobe, e a mesa pausa com `Missing materials`. Ao pôr o material, volta sozinha |
+| 9 | Faça as 4 peças e deixe-as na saída. Escolha o Cubit | O + aceso, sem tirar as peças da saída, e o Cubit sai |
+| 10 | Deixe o Cubit na saída e espere 1 s com a mesa aberta | O Tablet, o Dock e os outros da etapa 2 perdem o cadeado, sem tirar o Cubit |
+| 11 | Faça a Base Power Cell e deixe-a na saída | A Base Power Bank perde o cadeado |
+| 12 | Com o JEI, use o + do JEI numa receita bloqueada | A receita abre na mesa, com o + cinza |
+| 13 | Marque uma receita bloqueada à mão na grade | A mesa a reconhece e abre, com o + cinza |
+| 14 | Saia e entre no mundo | As receitas liberadas continuam liberadas |
+| 15 | Com o jogo em português | `Bloqueada`, `Liberada com: Cubit` e `Falta: 2 Diamante` |
+| 16 | Escolha a Toolbox com os materiais de 1 na entrada, e o pedido em 0 | Os 9 espaços em verde fraco e transparente, com os itens à vista |
+| 17 | Tire 1 ferro | Um espaço de ferro em vermelho fraco, e os outros em verde |
+| 18 | Devolva o ferro, aperte + até 1 e depois até 2, sem energia na mesa | Com 1, tudo verde. Com 2, 3 espaços de ferro verdes e 4 vermelhos, com a redstone e a obsidiana vermelhas, e o + continua aceso |
+| 19 | Com 2 no pedido, ponha mais 5 ferros | 6 espaços de ferro verdes e 1 vermelho, com a redstone e a obsidiana vermelhas |
+| 20 | Complete os materiais de 2 e dê energia | Tudo verde. Com 1 pronto, a conta é de 1, e continua verde |
+| 21 | Aperte − e + | As cores são refeitas a cada clique |
 
 ## Patrulheiro Galático
 
@@ -1384,6 +1412,8 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 12:31 | Acrescenta as cores da grade ao roteiro (perguntas 1996 a 2001). |
+| Zennd | 2026-11-23 12:17 | Acrescenta o roteiro do pedido com a progressão e o material (issue #250). |
 | Zennd | 2026-11-23 11:03 | Corrige a espera e a montagem do painel do Dock (perguntas 1895, 1912 e 1963). |
 | Zennd | 2026-11-23 10:57 | Acrescenta a lua na tela do Dock ao roteiro (perguntas 1956 a 1961). |
 | Zennd | 2026-11-23 10:52 | Baixa a geração da noite para 25% do dia, 350 FE/t (pergunta 1955). |

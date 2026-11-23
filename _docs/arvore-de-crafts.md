@@ -9,7 +9,7 @@ Este é o guia do player: o que fabricar primeiro, o que cada item libera e o qu
 3. **Dê energia:** ponha pó ou bloco de redstone no slot de energia da mesa. Um pó de redstone paga 2 crafts.
 4. **Ponha os materiais** na entrada da mesa, escolha a receita no catálogo e aperte **+** para pedir a quantidade. A mesa só fabrica depois do +.
 5. **Faça as quatro peças** e, com elas, o **Cubit**.
-6. **Pegue o Cubit no seu inventário.** É isso que libera a próxima etapa.
+6. **Pegue o Cubit.** Tê-lo libera a próxima etapa.
 
 Para o primeiro Cubit, as quatro peças pedem, ao todo, 3 diamantes, 3 obsidianas, 7 lingotes de ferro, 2 pistões, 2 tochas de redstone e 4 pós de redstone. Guarde mais 3 pós de redstone para a energia da mesa. Nada disso vem do Nether.
 
@@ -23,8 +23,9 @@ Para o primeiro Cubit, as quatro peças pedem, ao todo, 3 diamantes, 3 obsidiana
 
 ## Como um item é liberado
 
-- **Regra:** uma receita é liberada quando você **tem no seu inventário** o item que a libera. Basta tê-lo uma vez. Depois, a receita fica liberada para sempre, mesmo que você gaste o item.
-- **Na mesa não conta:** um item pronto, parado na saída da mesa, ainda não libera nada. Tire-o de lá.
+- **Regra:** uma receita é liberada quando você **tem** o item que a libera, no seu inventário ou numa mesa que você abre. Basta tê-lo uma vez. Depois, a receita fica liberada para sempre, mesmo que você gaste o item.
+- **Na mesa também conta:** ao abrir a mesa, os itens que estão na entrada e na saída dela também liberam as receitas para você.
+- **Ver não é fabricar:** você pode abrir qualquer receita para ver os materiais. O que trava é o botão **+**.
 - **Vale de qualquer jeito:** o item pode ter sido feito por você, achado ou dado por um amigo.
 - **Cada player libera o seu:** num servidor, o que um amigo liberou não vale para você.
 
@@ -139,16 +140,22 @@ Não são itens novos, então não têm número no mapa.
 ## Dúvidas comuns
 
 **Uma receita aparece escura, com um cadeado e `Locked` (Bloqueada). Por quê?**
-Você ainda não teve no inventário o item que a libera. Procure o item na legenda e veja a coluna "Liberado por".
+Você ainda não teve o item que a libera. Passe o mouse sobre ela: a dica diz qual é, como `Liberada com: Cubit`. Você também pode procurá-la na legenda, na coluna "Liberado por".
+
+**Uma receita aparece escura, mas sem cadeado.**
+Ela já está liberada, e faltam materiais na mesa.
+
+**O botão + está cinza.**
+Passe o mouse sobre ele. A dica diz o que falta: o item que libera a receita ou os materiais, como `Falta: 2 Diamante`. Na grade, o que você tem fica verde e o que falta fica vermelho, conforme a quantidade pedida. Basta ter os de uma unidade, na entrada ou na saída da mesa. Depois que o pedido começa, o + fica livre.
 
 **Fiz o item, e o seguinte continua bloqueado.**
-Veja se ele não ficou na saída da mesa. Tire-o de lá e deixe-o no seu inventário.
+Feche e abra a mesa. Se continuar, avise a equipe do mod.
 
 **Num mundo novo, até o Cubit e as peças aparecem bloqueados.**
 Isso não é o esperado: elas já vêm liberadas. Avise a equipe do mod e diga se há outros mods no jogo. Enquanto isso, quem pode usar comandos libera a receita com `/recipe give @s cubit:general_robot`, ou todas com `/recipe give @s *`.
 
 **A mesa não começa a fabricar.**
-Confira, nesta ordem: se você apertou **+** para pedir a quantidade, se há energia, se os materiais estão na entrada, se há espaço na saída e se a mesa não recebe sinal de redstone, que a pausa. A tela mostra o motivo.
+Confira, nesta ordem: se você apertou **+** para pedir a quantidade, se há energia, se os materiais acabaram no meio do pedido, se há espaço na saída e se a mesa não recebe sinal de redstone, que a pausa. A tela mostra o motivo.
 
 **Em que dimensão consigo os materiais?**
 O primeiro Cubit, a Base de Indução e o Módulo Avançado só usam materiais do Overworld. O Tablet, as peças das Power Banks e a peça dos cards pedem quartzo, e a netherita e a vara de blaze, do tier Ultimate, vêm do Nether.
@@ -169,5 +176,7 @@ O JEI mostra todas as receitas, também as bloqueadas. Quem decide é a mesa.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 12:39 | Explica as cores da grade pela quantidade (pergunta 1996). |
+| Zennd | 2026-11-23 12:17 | Explica o +, a dica do que falta e os itens dentro da mesa (perguntas 1969 a 1992). |
 | Zennd | 2026-11-23 11:57 | Acrescenta a imagem da árvore (pergunta 1976). |
 | Zennd | 2026-11-23 11:36 | Cria o guia da árvore de crafts para o player (perguntas 1951, 1965 e 1975). |

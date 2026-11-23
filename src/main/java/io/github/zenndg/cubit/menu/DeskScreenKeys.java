@@ -14,6 +14,8 @@ public final class DeskScreenKeys {
   public static final String ORDER = PREFIX + "order";
   public static final String CANCEL = PREFIX + "cancel";
   public static final String LOCKED = PREFIX + "locked";
+  public static final String UNLOCKS_WITH = PREFIX + "unlocks_with";
+  public static final String MISSING = PREFIX + "missing";
   public static final String CATALOG = PREFIX + "catalog";
   public static final String SEARCH = PREFIX + "search";
   public static final String STORAGE_ARROW = PREFIX + "storage_arrow";
