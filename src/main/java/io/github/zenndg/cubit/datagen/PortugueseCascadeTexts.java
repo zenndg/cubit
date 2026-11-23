@@ -15,7 +15,7 @@ final class PortugueseCascadeTexts {
   private static final String PICK = "Escolha um item no catálogo";
   private static final String MATERIALS = "Materiais de %s× %s";
   private static final String HAS = "Na entrada: %s / %s";
-  private static final String USING = "Aproveitando: %s";
+  private static final String READY_PART = "Já pronta: usa %s";
   private static final String VIEW = "Ver plano";
   private static final String START = "Iniciar";
   private static final String NEW = "Novo plano";
@@ -54,7 +54,7 @@ final class PortugueseCascadeTexts {
     add.accept(DeskScreenKeys.CASCADE_PICK, PICK);
     add.accept(DeskScreenKeys.CASCADE_MATERIALS, MATERIALS);
     add.accept(DeskScreenKeys.CASCADE_HAS, HAS);
-    add.accept(DeskScreenKeys.CASCADE_USING, USING);
+    add.accept(DeskScreenKeys.CASCADE_READY_PART, READY_PART);
     add.accept(DeskScreenKeys.CASCADE_VIEW, VIEW);
     add.accept(DeskScreenKeys.CASCADE_START, START);
     add.accept(DeskScreenKeys.CASCADE_NEW, NEW);

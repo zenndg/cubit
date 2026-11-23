@@ -25,7 +25,7 @@ public final class DeskScreenKeys {
   public static final String CASCADE_PICK = PREFIX + "cascade_pick";
   public static final String CASCADE_MATERIALS = PREFIX + "cascade_materials";
   public static final String CASCADE_HAS = PREFIX + "cascade_has";
-  public static final String CASCADE_USING = PREFIX + "cascade_using";
+  public static final String CASCADE_READY_PART = PREFIX + "cascade_ready_part";
   public static final String CASCADE_VIEW = PREFIX + "cascade_view";
   public static final String CASCADE_START = PREFIX + "cascade_start";
   public static final String CASCADE_NEW = PREFIX + "cascade_new";
