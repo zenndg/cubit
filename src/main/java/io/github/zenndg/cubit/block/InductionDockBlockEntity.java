@@ -1,6 +1,5 @@
 package io.github.zenndg.cubit.block;
 
-import com.mojang.logging.LogUtils;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.dock.DockInputMeter;
 import io.github.zenndg.cubit.domain.dock.DockQueue;
@@ -39,16 +38,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
-import org.slf4j.Logger;
 
 /**
  * The state of a dock: its owner, its energy, its input slot and its storage. The rules live in the
  * domain.
  */
 public final class InductionDockBlockEntity extends BlockEntity {
-  private static final Logger LOGGER = LogUtils.getLogger();
-  private static final String NO_OWNER_MESSAGE = "The dock at {} has no owner.";
-  private static final String OWNER_KEY = "Owner";
   private static final String ENERGY_KEY = "Energy";
   private static final String SLOT_KEY = "Slot";
   private static final int SLOT = 0;
@@ -82,7 +77,7 @@ public final class InductionDockBlockEntity extends BlockEntity {
 
   private final IItemHandler itemHandler = DockItemHandler.of(slot, storage.handler());
 
-  private UUID owner;
+  private final DockOwner owner = new DockOwner();
   private UUID occupant;
   private long occupantSeen;
   private boolean robotFull;
@@ -205,21 +200,16 @@ public final class InductionDockBlockEntity extends BlockEntity {
         .map(robot -> robot.getCapability(DockCapabilities.DOCKED_ROBOT));
   }
 
-  /**
-   * The name of the owner, online or from the profile cache of the server. The cache may not know
-   * it, and then the screen shows a safe text (AGENTS.md, rule 17).
-   */
   public Optional<String> ownerName() {
-    if (owner == null || level == null || level.getServer() == null) {
-      return Optional.empty();
-    }
-    return OwnerName.of(level.getServer(), owner, worldPosition);
+    return owner.name(level, worldPosition);
   }
 
   /** The click on the dock and the button on its screen call the same way. */
   public void callNearestRobot() {
-    if (level instanceof ServerLevel server && owner != null) {
-      DockFinder.nearestRobot(server, worldPosition, owner)
+    if (level instanceof ServerLevel server) {
+      owner
+          .get()
+          .flatMap(id -> DockFinder.nearestRobot(server, worldPosition, id))
           .ifPresent(robot -> robot.callToDock(worldPosition));
     }
   }
@@ -232,7 +222,7 @@ public final class InductionDockBlockEntity extends BlockEntity {
   }
 
   public Optional<UUID> owner() {
-    return Optional.ofNullable(owner);
+    return owner.get();
   }
 
   public boolean isOwner(Player player) {
@@ -240,7 +230,7 @@ public final class InductionDockBlockEntity extends BlockEntity {
   }
 
   void setOwner(Player player) {
-    owner = player.getUUID();
+    owner.set(player.getUUID());
     setChanged();
     if (level != null) {
       level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
@@ -330,9 +320,7 @@ public final class InductionDockBlockEntity extends BlockEntity {
   @Override
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
     super.saveAdditional(tag, registries);
-    if (owner != null) {
-      tag.putUUID(OWNER_KEY, owner);
-    }
+    owner.save(tag);
     tag.putLong(ENERGY_KEY, energy().amount());
     tier.save(tag);
     ItemStack stack = slot.getItem(SLOT);
@@ -347,10 +335,7 @@ public final class InductionDockBlockEntity extends BlockEntity {
   @Override
   protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
     super.loadAdditional(tag, registries);
-    owner = tag.hasUUID(OWNER_KEY) ? tag.getUUID(OWNER_KEY) : null;
-    if (owner == null && (level == null || !level.isClientSide())) {
-      LOGGER.warn(NO_OWNER_MESSAGE, worldPosition);
-    }
+    owner.load(tag, level, worldPosition);
     tier.load(tag, worldPosition);
     panel.load(tag);
     panel.readSun(tag);
@@ -386,9 +371,7 @@ public final class InductionDockBlockEntity extends BlockEntity {
   @Override
   public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
     CompoundTag tag = new CompoundTag();
-    if (owner != null) {
-      tag.putUUID(OWNER_KEY, owner);
-    }
+    owner.save(tag);
     panel.writeSun(tag);
     return tag;
   }
