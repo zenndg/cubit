@@ -1193,8 +1193,8 @@ As regras estão em [`cascata-da-mesa.md`](../funcionalidades/cascata-da-mesa.md
 |---|---|---|
 | 1 | Numa mesa Elite, passe o mouse e clique na terceira aba | O ícone escuro com cadeado, `Unlocks at Ultimate`, e a aba não abre |
 | 2 | Numa Ultimate, abra a aba `Cascade` sem escolher nada | O ícone da cascata, `Pick an item in the catalog` e `View plan` apagado |
-| 3 | Escolha o Cubit | `Materials for 1× Cubit`, 6 slots vermelhos com a quantidade, e a dica do `View plan` com `Missing materials in the input` |
-| 4 | Use + e Shift + | As quantidades mudam, e o número cabe entre os botões |
+| 3 | Escolha o Cubit e, depois, use + | Em 0: `Cubit`, `Press + to set the amount`, nenhum slot e `View plan` apagado com esse motivo. Em 1: `Materials for 1× Cubit`, 6 slots vermelhos e a dica do `View plan` com `Missing materials in the input` |
+| 4 | Use +, Shift + e − até o fim | As quantidades mudam, o número cabe entre os botões, e o − para em 0, sem slots |
 | 5 | Vá à aba Estoque, ponha parte dos materiais e volte | A escolha continua, e há slots verdes, amarelos e vermelhos, fáceis de distinguir |
 | 6 | Passe o mouse num slot | O nome e `In the input: 6 / 15` |
 | 7 | Ponha os materiais de 2 Cubits (14 ferros, 6 obsidianas, 4 tochas de redstone, 6 diamantes, 4 pistões e 8 redstones) e peça 2 | Tudo verde, e `View plan` aceso |
@@ -1212,7 +1212,7 @@ As regras estão em [`cascata-da-mesa.md`](../funcionalidades/cascata-da-mesa.md
 | 19 | Ligue um sinal de redstone na mesa | Pausa, e volta sem o sinal |
 | 20 | Espere terminar | 2 Cubits na saída, as abas abrem, e a tabela mostra `Done` em tudo, com `New plan` |
 | 21 | `New plan` | O passo 1, com o catálogo |
-| 22 | Deixe 1 Cubit Casing na entrada e 1 Visor na saída e planeje 1 Cubit | `Using: 1× Cubit Casing, 1× Cubit Visor`, menos materiais e menos linhas |
+| 22 | Deixe 1 Cubit Casing na entrada e 1 Visor na saída e planeje 1 Cubit | As duas em slots azul-claros, depois dos materiais, com `Already made: uses 1`, menos materiais e menos linhas. Com as quatro peças prontas, só os 4 slots azuis, `View plan` aceso e o plano de 1 linha faz 1 Cubit |
 | 23 | Escolha a Ultimate Power Bank e peça 256 | 11 slots, com números de 4 dígitos que cabem, e, com os materiais, 6 linhas sem rolagem |
 | 24 | No meio de um plano, quebre a mesa, veja a dica do item e coloque de novo | `Cascade: Cubit · 3/10` e os itens guardados na dica, e o plano continua de onde parou |
 | 25 | No meio de um plano, saia e entre no mundo | Continua |
@@ -1451,6 +1451,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 16:54 | Ajusta o roteiro da fabricação em cascata à quantidade em 0 (perguntas 2052 e 2053). |
 | Zennd | 2026-11-23 16:20 | Refaz o roteiro da fabricação em cascata com a tela do PR 2 (pergunta 2044). |
 | Zennd | 2026-11-23 14:52 | Acrescenta o alinhamento do pedido na mesa (perguntas 2039 e 2040). |
 | Zennd | 2026-11-23 14:22 | Acrescenta o roteiro da fabricação em cascata, PR 1 (issue #253). |

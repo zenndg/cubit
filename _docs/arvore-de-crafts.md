@@ -133,14 +133,14 @@ A mesa monta a receita sozinha, então você só precisa dos materiais, sem deco
 Com a Mesa de Engenharia no tier **Ultimate**, você não precisa mais pedir peça por peça. Escolha o item final, e a mesa faz todas as peças na ordem certa. Nos outros tiers, a aba aparece apagada.
 
 1. **Abra a aba Cascata (Cascade)** e escolha um item no catálogo. Ele e todas as peças dele precisam estar liberados para você.
-2. **Escolha a quantidade** com − e +. Com Shift, muda de 8 em 8.
+2. **Escolha a quantidade** com − e +. Ela começa em 0, e os materiais aparecem a partir de 1. Com Shift, muda de 8 em 8.
 3. **Veja os materiais:** verde, a entrada tem o bastante; amarelo, tem só uma parte; vermelho, não tem. Passe o mouse para ver quanto há. O que falta, ponha na aba Estoque e volte: a escolha continua.
 4. **Aperte Ver plano (View plan),** que acende com tudo verde. A tabela mostra cada tarefa, quantos materiais ela usa, de quais tarefas depende, a energia e o tempo.
 5. **Aperte Iniciar (Start)** e confirme. **Não dá para cancelar depois.**
 
 Enquanto o plano roda, a mesa fica travada nessa aba, para todos. Só o slot de energia continua livre, e os funis continuam trabalhando. Sem energia ou com sinal de redstone, o plano pausa e volta sozinho.
 
-- **Peças prontas:** as que já estão na entrada ou na saída são aproveitadas, e você gasta menos.
+- **Peças prontas:** as que já estão na entrada ou na saída aparecem em azul e são aproveitadas, e você gasta menos.
 - **Saída cheia:** o plano termina assim mesmo, e o que não couber sai quando houver espaço.
 - **Mesa quebrada no meio:** o item da mesa guarda o plano e os materiais, e ele continua quando você a coloca de novo.
 
@@ -174,7 +174,7 @@ Isso não é o esperado: elas já vêm liberadas. Avise a equipe do mod e diga s
 Confira, nesta ordem: se você apertou **+** para pedir a quantidade, se há energia, se os materiais acabaram no meio do pedido, se há espaço na saída e se a mesa não recebe sinal de redstone, que a pausa. A tela mostra o motivo.
 
 **O Ver plano ou o Iniciar está apagado.**
-Passe o mouse sobre ele. O motivo pode ser material que falta na entrada, um pedido ativo na aba Projeto ou itens do último plano que ainda não saíram.
+Passe o mouse sobre ele. O motivo pode ser a quantidade em 0, material que falta na entrada, um pedido ativo na aba Projeto ou itens do último plano que ainda não saíram.
 
 **As abas Projeto e Estoque estão com um cadeado.**
 Há uma fabricação em cascata em andamento. Elas abrem quando ela terminar.
@@ -198,6 +198,7 @@ O JEI mostra todas as receitas, também as bloqueadas. Quem decide é a mesa.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 16:54 | Explica a quantidade em 0 e as peças prontas (perguntas 2052 e 2053). |
 | Zennd | 2026-11-23 16:20 | Explica a fabricação em cascata (pergunta 2006). |
 | Zennd | 2026-11-23 12:39 | Explica as cores da grade pela quantidade (pergunta 1996). |
 | Zennd | 2026-11-23 12:17 | Explica o +, a dica do que falta e os itens dentro da mesa (perguntas 1969 a 1992). |

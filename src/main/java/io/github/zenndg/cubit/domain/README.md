@@ -192,6 +192,8 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `CascadeRun` e `CascadeTaskStatus` | O plano em andamento, uma tarefa por vez, que nunca volta, com o status de cada uma e o sinal do comparador |
 | `CascadeCheck` e `CascadeStart` | O que a mesa encontrou para iniciar um plano, e se ele pode começar ou o primeiro motivo (perguntas 2009, 2015 e 2028) |
 | `CascadeTable` e `CascadeLine` | A tabela de um plano, igual antes e depois do início: a ordem, o item, o que a tarefa consome, de quais depende e o progresso. Em andamento, o resto sai das receitas (pergunta 2024) |
+| `CascadeAmount` | Quantos itens um plano pede, de 0, como um item escolhido começa, ao maior pedido do tier (perguntas 2011 e 2053) |
+| `CascadeNeed` | O que um plano usa de um item: um material de base ou uma peça pronta (perguntas 2006 e 2052) |
 | `CascadeCost` | A energia e o tempo de um plano, que a tela mostra e não exige (pergunta 2013) |
 | `MaterialLevel` e `CascadeChoice` | Quanto a entrada tem de um material, e o item escolhido numa marca com vários (perguntas 2006 e 2033) |
 | `DeskOrderGate` | O que um pedido precisa para sair de zero: a receita liberada pela progressão e os materiais de um item. Só o começo é travado (perguntas 1984, 1985 e 1991) |

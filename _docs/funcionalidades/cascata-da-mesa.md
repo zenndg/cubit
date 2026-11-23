@@ -22,13 +22,13 @@ As prévias da tela real, aprovadas na pergunta 2044, são a referência do cód
 
 - **Catálogo:** os 28 itens de receita fixa da mesa, sem o upgrade de Power Bank, o religar e o conserto. A Power Bank sai pela carcaça com a célula. Só pode ser escolhido o item com ele e **toda a cadeia dele** liberados para o player, e o resto aparece com cadeado e a dica do que falta liberar. Um item liberado aparece normal, também sem materiais, porque a mesa faz as peças (perguntas 1991, 2009 e 2038).
 - **Packs:** com duas receitas para o mesmo item, vale a primeira na ordem do catálogo, sem as com estado. Com material alternativo, como uma tag, o plano pede o que houver mais na entrada e, sem nenhum, o primeiro da lista. Um item com receitas em ciclo aparece com cadeado e a dica do motivo, e nunca trava o jogo (perguntas 2032 a 2034).
-- **Quantidade:** − e +, com Shift de 8 em 8, de 1 ao maior pedido do tier, 256 (pergunta 2011).
+- **Quantidade:** − e +, com Shift de 8 em 8, de 0 ao maior pedido do tier, 256 (pergunta 2011). Ao escolher o item, começa em 0, sem slots, com `Press + to set the amount`, e o + leva a 1 e mostra os slots (perguntas 2053 e 2054).
 - **Materiais:** um slot por item vanilla de base da cascata, com a quantidade e um véu transparente, forte o bastante para as três cores se distinguirem sobre o azul (perguntas 2006 e 2045):
   - **verde:** a entrada tem o bastante;
   - **amarelo:** a entrada tem, mas não o bastante;
   - **vermelho:** a entrada não tem.
 - **Dica do slot:** o nome do item e quanto há na entrada.
-- **Peças prontas:** as do mod que já estão na entrada ou na saída são aproveitadas, e os materiais vanilla, o FE e as tarefas diminuem (pergunta 2008).
+- **Peças prontas:** as do mod que já estão na entrada ou na saída são aproveitadas, em slots azul-claros depois dos materiais (pergunta 2052), e os materiais vanilla, o FE e as tarefas diminuem (pergunta 2008).
 - **Recalcula** a cada mudança de item, de quantidade ou da entrada. O player pode ir à aba Estoque, pôr o que falta e voltar, com a escolha mantida. Ela vale só enquanto a tela está aberta, uma por player, e nada é salvo antes do Iniciar (pergunta 2021).
 - **Ver plano:** acende com todos os materiais verdes. Apagado, a dica diz o motivo.
 
@@ -74,7 +74,7 @@ As prévias da tela real, aprovadas na pergunta 2044, são a referência do cód
 
 Não foram perguntados e foram autorizados junto do conceito (pergunta 2031):
 
-1. A dica do passo 1 mostra também as peças aproveitadas, como `Using: 2× Cubit Casing` / `Aproveitando: 2× Carcaça do Cubit`.
+1. O passo 1 mostra também as peças aproveitadas. Eram uma linha de texto e passaram a slots, com a dica `Already made: uses 1` / `Já pronta: usa 1` (pergunta 2052).
 2. A ordem das tarefas é a da árvore: primeiro as que não dependem de nada, e uma peça usada por várias, como a Card Casing, vira uma tarefa só.
 3. Um plano em andamento termina mesmo se a chave `engineering_desk_cascade` for desligada depois.
 4. A tabela rola quando passa do tamanho da tela. A maior cadeia hoje é a da Ultimate Power Bank, com 6 crafts por unidade.
@@ -107,6 +107,7 @@ Uma issue e dois PRs (pergunta 2026):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 16:54 | Começa a quantidade em 0 e mostra as peças prontas em slots (perguntas 2049 a 2054). |
 | Zennd | 2026-11-23 16:20 | Detalha a tela do PR 2, a dica do item e o passo 2 sem material (perguntas 2042 a 2046). |
 | Zennd | 2026-11-23 14:22 | Nomeia o data component do plano no contrato. |
 | Zennd | 2026-11-23 14:10 | Acrescenta as regras dos packs e a tela simples do PR 1 (perguntas 2032 a 2035). |

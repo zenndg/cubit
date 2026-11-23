@@ -993,11 +993,21 @@ Não há perguntas pendentes nesta fase.
 | 2046 | Fabricação em cascata: com o passo 2 aberto e antes do Iniciar, outro player tira materiais da entrada. O que a tela faz? | Fica no passo 2, com o Iniciar apagado e o motivo na dica, e ele acende de novo se os materiais voltarem. A recomendação foi aceita |
 | 2047 | O `AGENTS.md` pode citar as classes novas da tela da cascata, no lugar da `CascadePanel`, e o "Estado atual" o PR 1 no #254 e o PR 2? | Sim: o desenvolvedor disse "testado e aprovado, autorizo os commits, o AGENTS.md e a issue" |
 | 2048 | Pelo código, clicar numa aba da Engineering Desk com um item no cursor o joga no chão, porque a tela não tem a proteção das telas do Cubit e do Dock. Como tratar? | Numa issue própria, fora do PR 2 da cascata. A recomendação foi aceita |
+| 2049 | Teste manual do PR 2 da cascata: o que o desenvolvedor achou, depois da aprovação? | "achei um bug nos testes da mesa na tela nova. Quando seleciono o cubit no catalogo a quantidade aparece como um na visualizacao mas acredito que esta em zero. Quando clico + ele aumenta para 2 ele faz o 2 itens porem o 1 nao faz nada" |
+| 2050 | Na aba Cascade, com o Cubit escolhido e a quantidade em 1, o que exatamente não funcionou (2049)? | Sem slots de material: o lado direito ficou sem slots, só com o título ou a linha Using, e por isso pareceu zero. O plano nem chegou a ser iniciado |
+| 2051 | Quando o problema apareceu (2049), a mesa já tinha as quatro peças prontas do Cubit? | O desenvolvedor não lembra. O plano salvo no mundo `testes01` mostra que havia, ao iniciar o plano de 2 Cubits, peças prontas para 1 |
+| 2052 | Com todas as peças já prontas na mesa, o passo 1 da aba Cascade fica sem nenhum slot e parece que a quantidade é zero (2049 e 2050). Como mostrar o que o plano vai usar? | Peças prontas em slots: as aproveitadas viram slots na mesma grade, depois dos materiais, com véu azul-claro, a quantidade e a dica `Already made`, no lugar da linha Using, com prévia antes do código. A recomendação foi aceita. Muda o detalhe 1 do conceito (2031) |
+| 2053 | Pedido do desenvolvedor, depois do teste da cascata (2049): com que quantidade a aba começa? | "o valor de quantidade ao iniciar deveria ser 0 ao selecionar o item e ao clicar no + sobre para 1 e apresenta os slots dos itens". A quantidade vai de 0 ao maior pedido do tier, e, em 0, não há slots. Muda a 2011. As peças prontas em slots (2052) continuam |
+| 2054 | As prévias da quantidade em 0 e das peças prontas em slots (2052 e 2053) podem ir ao código? | Sim, como estão. Em 0: o nome do item, `Press + to set the amount` / `Use + para escolher a quantidade`, nenhum slot e o View plan apagado com esse motivo. De 1 em diante: os materiais e as peças prontas em slots azul-claros, com a dica `Already made: uses 1` / `Já pronta: usa 1`, sem a linha Using, e o − desce até 0. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 16:53 | Registra a resposta 2054. |
+| Zennd | 2026-11-23 16:52 | Registra a resposta 2053. |
+| Zennd | 2026-11-23 16:52 | Registra a resposta 2052. |
+| Zennd | 2026-11-23 16:50 | Registra as respostas 2049 a 2051. |
 | Zennd | 2026-11-23 16:35 | Registra as respostas 2047 a 2048. |
 | Zennd | 2026-11-23 16:12 | Registra as respostas 2044 a 2046. |
 | Zennd | 2026-11-23 16:06 | Registra as respostas 2042 a 2043. |
