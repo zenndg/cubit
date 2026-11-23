@@ -923,11 +923,36 @@ Não há perguntas pendentes nesta fase.
 | 1976 | A imagem da árvore de crafts, `tmp/arte/arvore-de-crafts/arvore.png`, está aceita? | Sim, com o fundo estendido por script embaixo, porque a legenda encosta na borda. Vai a `_docs/imagens/arvore-de-crafts.png` e à seção "O mapa" do guia. A recomendação foi aceita |
 | 1977 | Os cards aparecem na imagem com o nome abreviado, como "Fisher Card", em vez de "Machine Learning: Fisher". Manter? | Sim, porque o guia mostra o nome completo. A recomendação foi aceita |
 | 1978 | Como é entregue a parte de documentos da #250? | O desenvolvedor disse "pode fazer tudo unico pr": o registro e o guia vão num PR só, com `Refs #250`, para a issue continuar aberta até a auditoria e o código. A escolha entre escrever o conceito das conquistas ou reproduzir antes o bloqueio não foi respondida |
+| 1979 | Qual é a ordem dentro da #250, e o roteiro precisa de ajuste? | Reproduzir primeiro o bloqueio do mundo novo e depois escrever o conceito das conquistas. O roteiro segue como está: a #250, o recurso da mesa no último tier (1964), o XP (#244), o Servidor e as Antenas, e as profissões. O desenvolvedor disse "1 e 2 concordo com a recomendação". A recomendação foi aceita. Responde à parte em aberto da 1978 |
+| 1980 | Em testes anteriores, o desenvolvedor usou `/recipe take` ou `/advancement revoke`, que poderiam travar as receitas? | "não usei": essa hipótese sai da lista de causas do bloqueio (1967) |
+| 1981 | Como segue a #250, com o bloqueio ainda sem reprodução? | O desenvolvedor disse "vamos encerrar esta tarefa por hoje vamos para proxima": a #250 para por hoje e continua aberta, com a reprodução do bloqueio (1979) e o conceito das conquistas (1968 a 1974) pendentes. Segue o próximo item do roteiro, o recurso exclusivo da Engineering Desk no último tier (1964) |
+| 1982 | Pedido do desenvolvedor, no alinhamento do recurso da mesa no último tier (1964): como a mesa trata a receita `Locked`? | "vamos fazer assim na messa quando o item esta locked por falta de itens no input o player pode ver a receita somente fica bloqueado para ele o botao + aumentar quantidade 0 para 1". Vai à rodada, porque conflita com a 1441, a 1495, a 1970 e a 1974, em que `Locked` é a progressão, e não a falta de material, e não responde qual é o recurso do último tier |
+| 1983 | O que passa a bloquear uma receita na Engineering Desk (1982)? | Só a falta de itens na mesa: acaba a trava de progressão, toda receita aparece e pode ser aberta, e só o + depende dos materiais. A recomendação foi aceita. Muda a 1437, a 1441, a 1495 a 1498 na trava e a 1974, e deixa sem efeito a 1969 e a 1970 |
+| 1984 | O que conta como ter os itens para o pedido sair de 0 para 1? | Os materiais de 1 unidade, somando a entrada e a saída, como na cascata (1502). Depois do 1, o + continua livre até o maior pedido do tier, e a mesa pausa se faltar. A recomendação foi aceita |
+| 1985 | E o pedido já ativo, quando o material acaba no meio? | Pausa e volta sozinho, como na 1443: a trava vale só para começar, de 0 para 1. A recomendação foi aceita |
+| 1986 | A regra da receita visível com o + travado é o recurso exclusivo do último tier (1964)? | Não: vale para todos os tiers, e o recurso exclusivo do Ultimate continua a definir, numa rodada própria. A recomendação foi aceita |
+| 1987 | Sem a trava de progressão, como aparece no catálogo a receita que falta material? | Escurecida enquanto faltar material, sem cadeado, e normal quando dá para fazer, na ordem de sempre, para os itens não pularem de lugar. A recomendação foi aceita. Muda a 1474, a 1495 e a 1523 nas bloqueadas no fim |
+| 1988 | Como o player entende por que o + está travado? | O + fica cinza, a dica dele lista o que falta, como `Missing: 2 Diamond`, e os itens que faltam aparecem em vermelho na grade. A recomendação foi aceita |
+| 1989 | As conquistas do mod (1968, 1972 e 1973) continuam, sem a liberação (1974)? | Sim, como prêmio e guia: a aba Cubit em árvore, com o aviso na primeira vez que o player tem cada item, sem liberar nada. Entra depois, na #250. A recomendação foi aceita |
+| 1990 | Onde entra a receita visível com o + travado (1982 a 1988)? | Na #250, num PR com `Refs #250`, com o guia do player corrigido na mesma entrega. A recomendação foi aceita |
+| 1991 | Sem a trava de progressão (1983), 13 itens ficariam possíveis desde o início, e o guia e a imagem da árvore ficariam errados. Fica a alternativa A, a receita visível com o + travado por material e por progressão, ou a B, só por material? | A: o desenvolvedor disse "1 A, concordo com a recomendação, ajuste o documento". A progressão, o guia e a imagem continuam valendo, e o player vê a receita e o que falta. A recomendação foi aceita. Muda a 1983, volta a valer a 1969, a 1970, menos os materiais escondidos, e a 1974, e muda a 1989 na liberação, que as conquistas voltam a dar |
+| 1992 | O conceito ajustado da receita visível com o + travado (alternativa A, 1991) pode ir ao código? | O desenvolvedor disse "autorizo o conceito" (regra 54): segue a branch e o código, na #250 |
+| 1993 | As conquistas visíveis (1968, 1972 e 1973) entram nesta entrega ou depois? | Esta entrega primeiro, com a proteção sobre as conquistas escondidas de hoje, e a aba Cubit depois, noutro PR da #250. A recomendação foi aceita |
+| 1994 | Quando se define o recurso exclusivo do Ultimate (1964)? | Depois desta entrega. A recomendação foi aceita |
+| 1995 | O `AGENTS.md` pode citar `DeskOrderGate`, `DeskShortage`, `DeskUnlocks`, `DeskOpeners` e `DeskOrderView` na estrutura de pacotes e a entrega no "Estado atual"? | Sim, no último commit da entrega. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 12:18 | Registra a resposta 1995. |
+| Zennd | 2026-11-23 12:11 | Registra as respostas 1992 a 1994. |
+| Zennd | 2026-11-23 12:09 | Registra a resposta 1991. |
+| Zennd | 2026-11-23 12:07 | Registra as respostas 1987 a 1990. |
+| Zennd | 2026-11-23 12:06 | Registra as respostas 1983 a 1986. |
+| Zennd | 2026-11-23 12:04 | Registra a resposta 1982. |
+| Zennd | 2026-11-23 12:03 | Registra a resposta 1981. |
+| Zennd | 2026-11-23 12:01 | Registra as respostas 1979 a 1980. |
 | Zennd | 2026-11-23 11:58 | Registra a resposta 1978. |
 | Zennd | 2026-11-23 11:56 | Registra as respostas 1976 a 1977. |
 | Zennd | 2026-11-23 11:35 | Registra a resposta 1975. |
