@@ -999,11 +999,14 @@ Não há perguntas pendentes nesta fase.
 | 2052 | Com todas as peças já prontas na mesa, o passo 1 da aba Cascade fica sem nenhum slot e parece que a quantidade é zero (2049 e 2050). Como mostrar o que o plano vai usar? | Peças prontas em slots: as aproveitadas viram slots na mesma grade, depois dos materiais, com véu azul-claro, a quantidade e a dica `Already made`, no lugar da linha Using, com prévia antes do código. A recomendação foi aceita. Muda o detalhe 1 do conceito (2031) |
 | 2053 | Pedido do desenvolvedor, depois do teste da cascata (2049): com que quantidade a aba começa? | "o valor de quantidade ao iniciar deveria ser 0 ao selecionar o item e ao clicar no + sobre para 1 e apresenta os slots dos itens". A quantidade vai de 0 ao maior pedido do tier, e, em 0, não há slots. Muda a 2011. As peças prontas em slots (2052) continuam |
 | 2054 | As prévias da quantidade em 0 e das peças prontas em slots (2052 e 2053) podem ir ao código? | Sim, como estão. Em 0: o nome do item, `Press + to set the amount` / `Use + para escolher a quantidade`, nenhum slot e o View plan apagado com esse motivo. De 1 em diante: os materiais e as peças prontas em slots azul-claros, com a dica `Already made: uses 1` / `Já pronta: usa 1`, sem a linha Using, e o − desce até 0. A recomendação foi aceita |
+| 2055 | O `AGENTS.md` pode citar `CascadeAmount` e `CascadeNeed` na estrutura de pacotes, e o "Estado atual" as respostas 2006 a 2054? | Sim, autorizado. A recomendação foi aceita |
+| 2056 | A correção da quantidade em 0 e das peças prontas em slots (2052 a 2054) foi testada no jogo e está aprovada? | Testado e aprovado |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 20:23 | Registra as respostas 2055 a 2056. |
 | Zennd | 2026-11-23 16:53 | Registra a resposta 2054. |
 | Zennd | 2026-11-23 16:52 | Registra a resposta 2053. |
 | Zennd | 2026-11-23 16:52 | Registra a resposta 2052. |
