@@ -12,6 +12,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 /**
@@ -50,11 +51,7 @@ final class CascadeMaterials {
   void render(GuiGraphics graphics, Font font) {
     Optional<CascadePlan> plan = reading.plan();
     if (plan.isEmpty()) {
-      Component hint =
-          reading.chosen().isPresent()
-              ? reading.reason()
-              : Component.translatable(DeskScreenKeys.CASCADE_PICK);
-      text(graphics, font, hint, TITLE_Y, look(BlueprintPainter.TEXT_SOFT, 1f));
+      renderHint(graphics, font);
       return;
     }
     renderTitle(graphics, font);
@@ -67,6 +64,19 @@ final class CascadeMaterials {
       renderSlot(graphics, font, needs.get(place), x, y);
     }
     renderUsing(graphics, font, plan.get());
+  }
+
+  /** Nothing chosen, or a chosen item still at zero (answer 2053). */
+  private void renderHint(GuiGraphics graphics, Font font) {
+    Optional<Item> chosen = reading.chosen();
+    BlueprintPainter.Look soft = look(BlueprintPainter.TEXT_SOFT, 1f);
+    if (chosen.isEmpty()) {
+      text(graphics, font, Component.translatable(DeskScreenKeys.CASCADE_PICK), TITLE_Y, soft);
+      return;
+    }
+    Component name = chosen.get().getDescription();
+    text(graphics, font, name, TITLE_Y, look(BlueprintPainter.TEXT, 1f));
+    text(graphics, font, reading.reason(), Y, soft);
   }
 
   private void renderTitle(GuiGraphics graphics, Font font) {

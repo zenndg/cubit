@@ -38,6 +38,7 @@ public final class CascadeLaunch {
         CascadeStart.decide(
             new CascadeCheck(
                 desk.spec().cascade(),
+                asked > 0,
                 plan.isPresent(),
                 released(player, book, item),
                 plan.map(found -> hasBase(found, input)).orElse(false),

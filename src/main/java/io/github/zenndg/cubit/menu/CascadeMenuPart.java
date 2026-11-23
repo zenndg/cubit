@@ -5,6 +5,7 @@ import io.github.zenndg.cubit.block.CascadeLaunch;
 import io.github.zenndg.cubit.block.CascadeState;
 import io.github.zenndg.cubit.block.DeskRecipes;
 import io.github.zenndg.cubit.block.EngineeringDeskBlockEntity;
+import io.github.zenndg.cubit.domain.desk.CascadeAmount;
 import io.github.zenndg.cubit.domain.desk.CascadeCost;
 import io.github.zenndg.cubit.domain.desk.CascadeRun;
 import io.github.zenndg.cubit.domain.desk.DeskOrder;
@@ -50,7 +51,7 @@ public final class CascadeMenuPart {
   private final EngineeringDeskBlockEntity desk;
   private final ContainerData data;
   private int recipe = NONE;
-  private int quantity = DeskOrder.STEP;
+  private CascadeAmount amount = CascadeAmount.NONE;
   private CascadeRun shownRun;
 
   /** What the tab shows of the plan. */
@@ -111,7 +112,7 @@ public final class CascadeMenuPart {
   }
 
   private void change(int delta) {
-    quantity = Math.clamp(quantity + (long) delta, DeskOrder.STEP, desk.spec().maxOrder());
+    amount = amount.adjust(delta, desk.spec().maxOrder());
   }
 
   private boolean pick(ServerPlayer player, int index) {
@@ -120,7 +121,7 @@ public final class CascadeMenuPart {
       return false;
     }
     recipe = index;
-    quantity = DeskOrder.STEP;
+    amount = CascadeAmount.NONE;
     return true;
   }
 
@@ -130,7 +131,7 @@ public final class CascadeMenuPart {
       return;
     }
     Item item = all.get(recipe).value().getResultItem(player.registryAccess()).getItem();
-    CascadeLaunch.start(desk, player, item, quantity);
+    CascadeLaunch.start(desk, player, item, amount.value());
   }
 
   private static List<RecipeHolder<CraftingRecipe>> all(ServerPlayer player) {
@@ -143,7 +144,7 @@ public final class CascadeMenuPart {
     }
     CascadeState cascade = desk.cascade();
     data.set(RECIPE, recipe);
-    data.set(QUANTITY, quantity);
+    data.set(QUANTITY, amount.value());
     data.set(STATE, stateOf(cascade).ordinal());
     data.set(ALLOWED, desk.spec().cascade() ? 1 : 0);
     data.set(CRAFT_TICKS, Math.min(desk.spec().craftTicks(), Short.MAX_VALUE));
@@ -188,7 +189,7 @@ public final class CascadeMenuPart {
   }
 
   public int quantity() {
-    return Math.max(DeskOrder.STEP, data.get(QUANTITY));
+    return Math.max(0, data.get(QUANTITY));
   }
 
   public State state() {

@@ -37,6 +37,7 @@ final class PortugueseCascadeTexts {
   private static final String TOOLTIP = "Cascata: %s · %s/%s";
   private static final String REASON_READY = "Pronto";
   private static final String REASON_TIER = "Liberada no Ultimate";
+  private static final String REASON_NO_AMOUNT = "Use + para escolher a quantidade";
   private static final String REASON_NO_PLAN = "Sem plano para este item";
   private static final String REASON_LOCKED = "Uma peça dele está bloqueada";
   private static final String REASON_MISSING = "Faltam materiais na entrada";
@@ -83,6 +84,7 @@ final class PortugueseCascadeTexts {
   private static void addReasons(BiConsumer<String, String> add) {
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.READY), REASON_READY);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.TIER), REASON_TIER);
+    add.accept(DeskScreenKeys.cascadeStart(CascadeStart.NO_AMOUNT), REASON_NO_AMOUNT);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.NO_PLAN), REASON_NO_PLAN);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.LOCKED), REASON_LOCKED);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.MISSING), REASON_MISSING);

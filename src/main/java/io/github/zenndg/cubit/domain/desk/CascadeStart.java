@@ -4,6 +4,7 @@ package io.github.zenndg.cubit.domain.desk;
 public enum CascadeStart {
   READY,
   TIER,
+  NO_AMOUNT,
   NO_PLAN,
   LOCKED,
   MISSING,
@@ -18,6 +19,9 @@ public enum CascadeStart {
   public static CascadeStart decide(CascadeCheck check) {
     if (!check.tier()) {
       return TIER;
+    }
+    if (!check.amount()) {
+      return NO_AMOUNT;
     }
     if (!check.plan()) {
       return NO_PLAN;

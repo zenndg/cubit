@@ -66,12 +66,13 @@ final class CascadeReading {
       return;
     }
     String id = CascadeRecipes.idOf(item.get());
-    plan = CascadePlanner.plan(book, id, menu.cascade().quantity(), menu.readyCounts());
+    plan = CascadePlanner.plan(book, id, quantity(), menu.readyCounts());
     table = plan.map(CascadeTable::of).orElse(CascadeTable.EMPTY);
     start =
         CascadeStart.decide(
             new CascadeCheck(
                 menu.cascade().allowed(),
+                quantity() > 0,
                 plan.isPresent(),
                 released(book, id),
                 plan.map(found -> CascadeLaunch.hasBase(found, input)).orElse(false),

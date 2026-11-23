@@ -100,6 +100,7 @@
   "gui.cubit.engineering_desk.cascade_pick": "Escolha um item no catálogo",
   "gui.cubit.engineering_desk.cascade_reason.locked": "Uma peça dele está bloqueada",
   "gui.cubit.engineering_desk.cascade_reason.missing": "Faltam materiais na entrada",
+  "gui.cubit.engineering_desk.cascade_reason.no_amount": "Use + para escolher a quantidade",
   "gui.cubit.engineering_desk.cascade_reason.no_plan": "Sem plano para este item",
   "gui.cubit.engineering_desk.cascade_reason.order_active": "Há um pedido ativo",
   "gui.cubit.engineering_desk.cascade_reason.ready": "Pronto",

@@ -8,6 +8,8 @@ import io.github.zenndg.cubit.block.SavedCascade;
 import io.github.zenndg.cubit.domain.desk.CascadeStart;
 import io.github.zenndg.cubit.domain.desk.DeskStatus;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
+import io.github.zenndg.cubit.menu.CascadeMenuPart;
+import io.github.zenndg.cubit.menu.EngineeringDeskMenu;
 import io.github.zenndg.cubit.registry.CubitBlocks;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
 import io.github.zenndg.cubit.registry.CubitItems;
@@ -23,6 +25,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -284,6 +287,31 @@ public final class CascadeGameTests {
     helper.assertTrue(saved != null && saved.running().isPresent(), WRONG_PLAN);
     helper.assertTrue(saved.item() == CubitItems.GENERAL_ROBOT.get(), WRONG_PLAN);
     helper.assertValueEqual(saved.itemCount(), BASE_ITEMS, WRONG_PLAN);
+    helper.succeed();
+  }
+
+  /** By the buttons of the screen: zero does nothing, and one makes one (answer 2053). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void theButtonsStartAtZero(GameTestHelper helper) {
+    EngineeringDeskBlockEntity desk = place(helper, RobotTier.ULTIMATE, ENERGY);
+    fillRobot(desk);
+    ServerPlayer player = player(helper);
+    EngineeringDeskMenu menu = EngineeringDeskMenu.onServer(1, player.getInventory(), desk);
+    List<ResourceLocation> catalog =
+        DeskRecipes.all(helper.getLevel().getRecipeManager()).stream()
+            .map(RecipeHolder::id)
+            .toList();
+    menu.clickMenuButton(player, CascadeMenuPart.choose(catalog.indexOf(id(ROBOT))));
+    menu.clickMenuButton(player, CascadeMenuPart.START);
+    helper.assertFalse(desk.cascade().isRunning(), RUNNING);
+    helper.assertValueEqual(count(desk.input(), Items.DIAMOND), THREE, MOVED);
+
+    menu.clickMenuButton(player, CascadeMenuPart.MINUS);
+    menu.clickMenuButton(player, CascadeMenuPart.PLUS);
+    menu.clickMenuButton(player, CascadeMenuPart.START);
+
+    helper.assertTrue(desk.cascade().isRunning(), NOT_RUNNING);
+    helper.assertValueEqual(desk.cascade().quantity(), 1, WRONG_START);
     helper.succeed();
   }
 

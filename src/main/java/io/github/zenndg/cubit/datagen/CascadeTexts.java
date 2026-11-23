@@ -37,6 +37,7 @@ final class CascadeTexts {
   private static final String TOOLTIP = "Cascade: %s · %s/%s";
   private static final String REASON_READY = "Ready";
   private static final String REASON_TIER = "Unlocks at Ultimate";
+  private static final String REASON_NO_AMOUNT = "Press + to set the amount";
   private static final String REASON_NO_PLAN = "No plan for this item";
   private static final String REASON_LOCKED = "A part of it is locked";
   private static final String REASON_MISSING = "Missing materials in the input";
@@ -83,6 +84,7 @@ final class CascadeTexts {
   private static void addReasons(BiConsumer<String, String> add) {
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.READY), REASON_READY);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.TIER), REASON_TIER);
+    add.accept(DeskScreenKeys.cascadeStart(CascadeStart.NO_AMOUNT), REASON_NO_AMOUNT);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.NO_PLAN), REASON_NO_PLAN);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.LOCKED), REASON_LOCKED);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.MISSING), REASON_MISSING);
