@@ -867,11 +867,15 @@ Não há perguntas pendentes nesta fase.
 | 1920 | Qual versão dos sons do Dock entra no mod? | A principal, os três arquivos da raiz de `tmp/wav/dock/`, e não as variantes `brilhante` e `suave`. A recomendação foi aceita. Detalha a 1861 |
 | 1921 | Como os sons do Dock tocam? | Pelo servidor: quando o painel começa a montar ou a guardar, e a trava aos 5,3 s da montagem, para todos a até 16 blocos, mesmo sem olhar o Dock, como os sons do Patrulheiro (1792). A recomendação foi aceita. Detalha a 1861 |
 | 1922 | No começo do `panel_retract`, o destravar vem antes do giro, ao contrário da animação. O que fazer? | O agente troca a ordem dos dois trechos no próprio arquivo, com o ffmpeg, para o giro vir primeiro e o destravar aos 0,7 s, sem gerar o som de novo. A recomendação foi aceita. Detalha a 1895 |
+| 1923 | A textura final do Dock, com a arte das peças novas sobre o gabarito UV, entra neste PR ou num próximo? | Neste PR: o agente escreve o prompt da textura com o gabarito UV do modelo atual, o desenvolvedor gera a arte, o agente a aplica, gera a do Ultimate em netherite por script, mostra as prévias, e o desenvolvedor testa. Só então o PR fecha, com o Dock completo. A recomendação foi aceita. Detalha a 1860 |
+| 1924 | A textura nova do Dock encaixa no gabarito e detalha as peças novas, mas traz o contorno preto em todas as faces, com riscos de emenda na torre e na placa. Como seguir? | A textura nova entra, com os detalhes das peças novas. Nas faces da torre, da placa e da faixa, que vêm da arte antiga, o agente troca o contorno preto pelos pixels de antes, por script, sem tocar no resto, e depois gera a do Ultimate e o brilho e mostra as prévias. A recomendação foi aceita. Detalha a 1923 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 03:12 | Registra a resposta 1924. |
+| Zennd | 2026-11-23 03:06 | Registra a resposta 1923. |
 | Zennd | 2026-11-23 03:01 | Registra as respostas 1920 a 1922. |
 | Zennd | 2026-11-23 02:55 | Registra a resposta 1919. |
 | Zennd | 2026-11-23 02:28 | Registra a resposta 1918. |
