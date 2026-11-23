@@ -118,7 +118,7 @@ Todo Induction Dock tem um painel solar embutido, que ele monta e guarda sozinho
 - **Montagem,** em seis passos, cerca de 4 s, e a desmontagem na ordem contrária (pergunta 1859):
   1. A luz das portas pisca em amarelo, e as portas deslizam (0,6 s).
   2. Os dois braços saem com as metades do painel em pé (0,8 s).
-  3. Os braços sobem as metades até o topo da torre (1 s).
+  3. Os braços sobem as metades até o topo da torre, já inclinando para trás, e cada metade chega ao topo deitando pela borda de trás, sem nunca passar da altura do Dock, nem durante o movimento (1 s, pergunta 1885).
   4. Deitam cada metade de um lado (0,6 s).
   5. Encostam as duas no centro, com o clique da trava (0,5 s).
   6. Os braços recolhem, a luz fica verde e o painel começa a pulsar (0,5 s). As portas ficam abertas.
@@ -128,6 +128,14 @@ Todo Induction Dock tem um painel solar embutido, que ele monta e guarda sozinho
 - **Sons:** três sons próprios, descritos em [`sons.md`](../conceito/sons.md#induction-dock): a abertura e a montagem, a desmontagem e o fechamento, e a trava (pergunta 1861).
 - **Aba Solar:** em todo Dock, com o que mostrava no Dock Solar (gerando ou parado, o motivo, a geração de agora e a máxima do tier) e o estado do painel: Guardado, Montando, Montado ou Guardando, com a luz (pergunta 1865).
 - **Jade:** mostra a geração, como `Solar +25 FE/t`, ou `Solar: no sun`, e o estado do painel (pergunta 1865).
+- **Prancha conceito:** aceita como referência em três imagens, com os ajustes aplicados direto no modelo e na textura (perguntas 1883 e 1884): o painel montado fica rente ao topo, por dentro da faixa, como na vista de cima e no passo 6, e não acima da torre, como na vista em três-quartos; a torre continua arredondada e a placa da base em U, como no Dock de hoje; e os pontos laranja ficam visíveis nos cantos do painel. A subida em pé acima do topo, no passo 3, dá lugar à subida inclinando (pergunta 1885).
+
+  ![As vistas do Dock, com o painel guardado e montado](../imagens/conceito/induction-dock-painel-vistas.png)
+
+  ![A montagem do painel em seis passos](../imagens/conceito/induction-dock-painel-montagem.png)
+
+  ![A luz das portas, o braço e o Dock com o Cubit encaixado](../imagens/conceito/induction-dock-painel-detalhes.png)
+
 - **Modelo:** o Dock passa a usar o GeckoLib, como a Engineering Desk, no mundo e no inventário. Primeiro vem uma prancha conceito com o armário, os braços e o painel, por prompt, com a arte do desenvolvedor. Depois, o modelo e o prompt da textura com o gabarito UV (pergunta 1860).
 - **O resto:** tudo o que o Dock faz continua igual: recebe o Cubit, hiberna, fila, inventário, cabos e os tiers pelos Modules.
 - **Saves antigos:** um Dock de antes vem com o painel guardado e o monta sozinho quando houver sol.
@@ -226,6 +234,7 @@ Entra com o item 15 da Fase 4.2, antes do modo área (perguntas 1065 a 1069).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 00:33 | Acrescenta a prancha conceito do painel do Dock e a subida inclinando no passo 3 (perguntas 1883 a 1885). |
 | Zennd | 2026-11-22 23:44 | Troca o Dock Solar pelo painel embutido em todo Dock, com o armário animado, e acrescenta o nome do Dock (perguntas 1852 a 1871). |
 | Zennd | 2026-11-22 14:50 | Acrescenta o retorno do Patrulheiro (perguntas 1688 a 1690 e 1699). |
 | Zennd | 2026-11-21 12:50 | Passa a recarga do item para a Engineering Desk (pergunta 1427). |
