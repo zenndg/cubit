@@ -15,7 +15,7 @@ import net.minecraft.world.item.crafting.Ingredient;
  * green (1996).
  */
 final class DeskGridView {
-  static final int X = 96;
+  static final int X = 106;
   static final int Y = 30;
   private static final int CELL = ScreenPainter.SLOT_SIZE;
   private static final int ICON_INSET = 1;

@@ -18,6 +18,10 @@ import net.minecraft.world.item.ItemStack;
  */
 final class DeskCategoryBar {
   static final int ICON_CELL = 12;
+
+  /** The cells do not touch (answer 2177). */
+  private static final int STEP = ICON_CELL + 1;
+
   private static final float ICON_SCALE = 0.75f;
   private static final int CHOSEN_FILL = 0x50DCE6FF;
   private static final Map<DeskCategory, Supplier<Item>> ICONS =
@@ -41,7 +45,7 @@ final class DeskCategoryBar {
   /** The chosen icon is lit, unless a search shows every category. */
   void render(GuiGraphics graphics, int left, int top, DeskCategory chosen, boolean searching) {
     for (DeskCategory category : DeskCategory.values()) {
-      int cellX = left + x + category.ordinal() * ICON_CELL;
+      int cellX = left + x + category.ordinal() * STEP;
       int cellY = top + y;
       if (category == chosen && !searching) {
         graphics.fill(cellX, cellY, cellX + ICON_CELL, cellY + ICON_CELL, CHOSEN_FILL);
@@ -56,9 +60,10 @@ final class DeskCategoryBar {
   }
 
   Optional<DeskCategory> at(double mouseX, double mouseY, int left, int top) {
-    int column = (int) Math.floor((mouseX - left - x) / ICON_CELL);
+    int column = (int) Math.floor((mouseX - left - x) / STEP);
+    boolean inCell = mouseX - left - x - column * STEP < ICON_CELL;
     boolean inRow = mouseY >= top + y && mouseY < top + y + ICON_CELL;
-    if (!inRow || column < 0 || column >= DeskCategory.values().length) {
+    if (!inRow || !inCell || column < 0 || column >= DeskCategory.values().length) {
       return Optional.empty();
     }
     return Optional.of(DeskCategory.values()[column]);
