@@ -107,7 +107,7 @@ Fica fixo em todas as abas. `Voltar` fica no canto superior esquerdo, e os botõ
 - **Power:** o botão mostra `Switch off` com o Cubit ativo e `Turn on` com ele desligado e com carga. Sem carga, fica desabilitado, com a dica do motivo. Desliga como o botão `Power` da aba Settings, e o clique direito no Cubit também o religa, sem estado salvo novo. Também liga um Cubit desligado com carga, como a exceção da pergunta 80 (pergunta 1033, que muda a 1021).
 - **Parar e seguir:** o `Stop` saiu do Tablet por agora e espera um refinamento, em "Ainda sem fase" no `ROADMAP.md` (pergunta 1036).
 - **Follow:** fica na fileira de botões, depois do `Ir para o Dock`. A fileira começa na margem, sob o retrato, para os quatro botões caberem, e um texto que não cabe no botão encolhe. Faz o Cubit escolhido seguir o player, desligado com carga, hibernando no Dock, que ele deixa na hora, ou numa área, que se apaga com o item 13. O que seguia antes desliga onde está, como no `Turn on`. Vale de qualquer distância, na mesma dimensão, e o Cubit segue pela regra de hoje, andando ou teleportando. Já seguindo, sem carga, em outra dimensão ou com o chunk descarregado, fica desabilitado, com a dica do motivo (perguntas 1055 e 1072 a 1075).
-- **Ir para o Dock:** vai para o Dock preferido, se ele estiver na mesma dimensão, carregado e no raio de chamada do tier. Senão, vai para o Dock livre mais próximo nesse raio, como o clique no Dock (pergunta 1041). Com o preferido ocupado, vai até ele e espera na fila, procurando outro livre enquanto espera. Um preferido destruído é apagado ao ser lido (pergunta 1042). Sem Dock ao alcance, desligado, hibernando ou com o chunk descarregado, o botão fica desabilitado, com a dica do motivo. Ao sair do Dock, o Cubit volta ao que fazia.
+- **Ir para o Dock:** vai para o Dock preferido, se ele estiver na mesma dimensão, carregado e no raio de chamada do tier. Senão, vai para o Dock livre mais próximo nesse raio, como o Shift + clique no Dock (perguntas 1041 e 2122). Com o preferido ocupado, vai até ele e espera na fila, procurando outro livre enquanto espera. Um preferido destruído é apagado ao ser lido (pergunta 1042). Sem Dock ao alcance, desligado, hibernando ou com o chunk descarregado, o botão fica desabilitado, com a dica do motivo. Ao sair do Dock, o Cubit volta ao que fazia.
 
 ### Abas
 
@@ -119,6 +119,7 @@ Fica fixo em todas as abas. `Voltar` fica no canto superior esquerdo, e os botõ
 | Inventário | Baú | O inventário do Cubit, só para consulta |
 | Mortes | Ícone feito por prompt (pergunta 1125) | O histórico de mortes do player, com os botões de guiar e excluir (perguntas 1111 e 1119) |
 | Trabalho | O ícone do card, feito por prompt (pergunta 1169) | O card, o trabalho, o estado e o botão `Retomar`, como na tela do Cubit, descrita em [`trabalhos.md`](trabalhos.md#aba-trabalho) (pergunta 1167) |
+| XP | O tanque, o mesmo da aba XP do Cubit | O tanque, o `Unload XP` / `Descarregar XP`, os modos e a chave do excesso, sem a troca de XP, como descreve [`xp.md`](xp.md#telas) (perguntas 2075, 2079 e 2115) |
 | Abastecer | O card do Organizador (pergunta 1305) | Só com o card do Organizador: os pedidos de abastecer, com o inventário do player embaixo, como na tela do Cubit, descrita em [`organizador.md`](trabalhos/organizador.md#modo-abastecer) (pergunta 1303) |
 
 - **Aba Recursos:** um painel próprio, com as chaves numa lista só, cada uma com a descrição na linha, entre o nome e a chave, e a largura da janela, também no Ultimate (pergunta 1103), que usam os mesmos controles do servidor da tela do Cubit (pergunta 1037). Uma linha bloqueada pelo tier fica apagada, com a chave desativada e o tier que libera, como `Unlocks at Advanced`. Entram os recursos que já existem:
@@ -155,7 +156,7 @@ Entra com o item 16 da Fase 4.2 (perguntas 1111 e 1119). As regras do histórico
 
 ## Distância
 
-- **Cubit descarregado:** a tela abre só com o cabeçalho da foto, sem abas, e um aviso como `Out of reach · seen 5 min ago`. Os botões ficam desabilitados com a dica do motivo, e `Voltar` continua funcionando (pergunta 1034).
+- **Cubit descarregado:** a tela abre só com o cabeçalho da foto, sem abas, e um aviso como `Out of reach · seen 5 min ago`. Os botões ficam desabilitados com a dica do motivo, e `Voltar` continua funcionando (pergunta 1034). Abaixo da bateria, o cabeçalho mostra o XP da foto, como `XP 6,400 / 8,000 mB` (perguntas 2106 e 2116).
 
 - **Chunk carregado:** o Tablet lê e muda tudo, a qualquer distância e em qualquer dimensão (pergunta 1018, que muda a 94).
 - **Chunk descarregado:** o Tablet só lê a última foto, com a hora. As chaves, os botões e o `Rename` ficam desabilitados, com a dica do motivo.
@@ -194,7 +195,7 @@ Entra com o item 16 da Fase 4.2 (perguntas 1111 e 1119). As regras do histórico
 | Config | `allowed_jobs`, por tier | Os trabalhos que o tier aceita, com o padrão da pergunta 1145. Um nome inválido é ignorado e vai para o log (perguntas 1163 e 1172) |
 | Config | `death_point`, por tier | `locked`, `mark` ou `guide`, com `locked` para um valor inválido (pergunta 1129) |
 | Config | `death_log_size`, `death_guide_arrival_blocks`, `death_guide_lead_blocks` e `death_guide_stuck_seconds`, em `general` | O tamanho do histórico, de 1 a 50, com 10, a chegada, de 1 a 16, com 3, quanto o Cubit anda à frente, de 2 a 16, com 8, e o tempo sem avançar, de 1 a 60 s, com 10 (perguntas 1115 e 1126) |
-| Dados do mundo | `cubit_robot_snapshots` | A foto de cada Cubit por dono: posição, dimensão, estado, bateria, vida, tier, cor, nome e a hora, e, opcionais, o trabalho, em `Job`, e o motivo da hibernação, em `Reason`, para a lista mostrar `Working · Fisher` e `Hibernating · Inventory full`. Sem eles, a foto antiga lê como nenhum (pergunta 1168) |
+| Dados do mundo | `cubit_robot_snapshots` | A foto de cada Cubit por dono: posição, dimensão, estado, bateria, vida, tier, cor, nome e a hora, e, opcionais, o trabalho, em `Job`, e o motivo da hibernação, em `Reason`, para a lista mostrar `Working · Fisher` e `Hibernating · Inventory full`. Sem eles, a foto antiga lê como nenhum (pergunta 1168). Também opcionais, `XpTank` e `XpCapacity`, o XP e a capacidade, em mB (pergunta 2106) |
 
 Os textos em inglês e português, como `Cubit Tablet` / `Tablet do Cubit`, `Tablet · Open` / `Tablet · Abrir`, `Go to Dock` / `Ir para o Dock` e `Rename` / `Renomear`, ficam no datagen (pergunta 1026).
 
@@ -207,6 +208,8 @@ Os textos em inglês e português, como `Cubit Tablet` / `Tablet do Cubit`, `Tab
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 10:06 | Cita o Shift + clique que chama o Cubit (pergunta 2122). |
+| Zennd | 2026-11-24 09:56 | Acrescenta a aba XP, o Descarregar XP e o XP da foto (perguntas 2075 a 2116). |
 | Zennd | 2026-11-23 00:00 | Volta ao nome padrão um nome vazio no Rename (pergunta 1878). |
 | Zennd | 2026-11-22 16:59 | Acrescenta a escolta de outra dimensão e o pacote `cubit:escort_marks` (perguntas 1661, 1764 e 1765) |
 | Zennd | 2026-11-22 12:45 | Acrescenta o app Escort, a rota do Patrulheiro no app Marcar e corrige o componente e as cores dos apps (perguntas 1612, 1655 a 1663). |

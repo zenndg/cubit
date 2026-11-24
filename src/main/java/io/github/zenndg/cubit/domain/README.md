@@ -224,9 +224,15 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `XpState` | O que o Cubit guarda do XP no mundo e no item (pergunta 1838) |
 | `XpIntake` | O que o Cubit faz com o XP do trabalho e com as bolinhas, por modo: guarda, deixa, derruba ou apaga. O XP que o player envia nunca passa por aqui (perguntas 1819, 2064, 2065 e 2080) |
 | `PlayerXp` | O XP do player em pontos inteiros, pelas contas do jogo: o que falta para subir um nível e o que se entrega para descer um (pergunta 2076) |
-| `XpFlow` | A passagem do Cubit ao Dock, em pontos inteiros e no ritmo do tier (pergunta 1835) |
-| `XpReturn` | Quando o Cubit cheio vai ao Dock, sem ir e voltar em vão (perguntas 1934 e 2063) |
-| `XpNotice` | O aviso do tanque cheio, uma vez por enchida (pergunta 1840) |
+| `XpFlow` | O ritmo do XP no tier do Dock, em pontos inteiros: a passagem do Cubit e a conversão em energia (perguntas 1835 e 1939) |
+| `XpReturn` | Quando o Cubit cheio vai ao Dock (pergunta 1934) |
+| `XpConversion` | Quanta energia vale 1 ponto de XP, sem caminho de volta, e quantos pontos inteiros têm espaço para a energia deles (perguntas 1942 e 2111) |
+| `XpEnergyTotal` | A energia que o XP de um Dock gerou, só para ler, que para no maior número (pergunta 2109) |
+| `DockXpMode` | O que o Dock faz com o XP: apaga tudo, guarda e apaga o excesso, guarda e converte o excesso ou converte tudo (perguntas 1831 e 2100) |
+| `DockXpRules` | O XP que o Dock recebe, sempre inteiro, guardado, convertido ou apagado, e o guardado, que só o Converter tudo gasta (perguntas 1831, 2061 e 2101) |
+| `DockXpNotice` | O aviso do tanque do Dock cheio, que só volta abaixo de 90% (pergunta 2105) |
+| `XpUnloadCall` | Se o Descarregar XP do Tablet manda o Cubit ao Dock, ou por que não (perguntas 2079 e 2107) |
+| `XpNotice` | O aviso do tanque do Cubit cheio, uma vez por enchida (pergunta 1840) |
 | `WingHop` | O pulo de asa do Patrulheiro: quando vale pular (o caminho do jogo não chega ou passa do fator da linha reta), a altura do voo curto sobre o que está no caminho, dentro do salto do tier, e o movimento de cada tick, que sobe, avança e plana até o pouso (perguntas 1647, 1648, 1651 e 1738) |
 | `PatrolWatch` | O que o Patrulheiro faz como vigia: a ronda, o alerta ao avistar um hostil, pulado quando ele já fere alguém, o combate, a conferida no dono depois do último abate e a investigação do último lugar onde viu um hostil que sumiu, com o visor, que baixa no alerta e só sobe depois da calma ou da investigação (`Timings`: os tempos, a distância do dono e o tempo até o alvo sumir de vista) |
 | `PatrolStops` | As paradas da ronda: os blocos andados desde a última, o trecho sorteado até a próxima, a parada em curso e para onde a cabeça olha, duas vezes para cada lado e depois à frente |
@@ -354,6 +360,9 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 - **A primeira causa é a mostrada:** a mesa olha o pedido, o sinal de redstone, os materiais, a receita, a energia e a saída, nessa ordem, e mostra a primeira que falta. A pausa guarda o progresso, e a mesa volta sozinha (perguntas 1443 e 1448).
 - **Pedido de zero ao maior do tier:** escolher uma receita só a marca, com o pedido em zero, para nada ser feito por acidente, e − e + andam de 1 em 1, ou de 8 em 8 com Shift. Baixar até o que já está pronto encerra o pedido, e um tier ou um config menor corta o total (perguntas 1429, 1444 e 1506).
 - **Comparador arredonda para cima:** o sinal vai de 15 no início do pedido a 0 no fim, e o último item ainda acende 1 (pergunta 1453).
+- **XP que vira FE não volta:** o `XpConversion` só vai de pontos a energia, para nenhum modo, tela ou bloco fazer XP de energia (pergunta 2111).
+- **Ponto inteiro na conversão:** um ponto só sai do tanque quando a energia dele cabe inteira na bateria, para nem XP nem FE se perderem (regra 13).
+- **XP do player e do cano fora dos modos:** os dois entram direto no tanque e não passam pelo `DockXpRules`, para nenhum modo apagar o que veio de propósito (perguntas 1936 e 2072).
 
 ## Estados
 

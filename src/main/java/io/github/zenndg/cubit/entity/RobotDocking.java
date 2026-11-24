@@ -78,7 +78,7 @@ public final class RobotDocking {
     return reach;
   }
 
-  boolean hasTrip() {
+  public boolean hasTrip() {
     return trip != null;
   }
 
@@ -215,7 +215,7 @@ public final class RobotDocking {
     robot.heal(DockStay.healthPerTick(spec.maxHealth(), CubitMod.CONFIG.dock().fullHealTicks()));
     xpReturn.pass(dock);
     boolean healthFull = robot.getHealth() >= robot.getMaxHealth();
-    boolean complete = DockStay.complete(battery, healthFull) && xpReturn.done(dock);
+    boolean complete = DockStay.complete(battery, healthFull) && xpReturn.done();
     ticksFull = complete ? ticksFull + 1 : 0;
     dock.reportRobot(robot.getUUID(), battery.isFull());
     boolean done =

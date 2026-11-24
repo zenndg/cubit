@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.network;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.HibernationReason;
 import io.github.zenndg.cubit.domain.robot.RobotJob;
+import io.github.zenndg.cubit.domain.xp.XpTank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +42,8 @@ public record RobotListPayload(List<Entry> entries) implements CustomPacketPaylo
       int batteryPercent,
       BlockPos pos,
       String dimension,
-      Where where) {}
+      Where where,
+      Optional<XpTank> xp) {}
 
   /** The job and the reason the state shows, each by its order plus one, with zero for none. */
   public record Work(int job, int reason) {
@@ -87,7 +89,20 @@ public record RobotListPayload(List<Entry> entries) implements CustomPacketPaylo
       buffer.writeBoolean(entry.where().following());
       buffer.writeDouble(entry.where().distance());
       buffer.writeVarLong(entry.where().ageTicks());
+      writeXp(buffer, entry.xp());
     }
+  }
+
+  /** Without a capacity there is no tank to show, as in a snapshot from before the XP. */
+  private static void writeXp(RegistryFriendlyByteBuf buffer, Optional<XpTank> xp) {
+    buffer.writeVarInt(xp.map(XpTank::capacity).orElse(0));
+    buffer.writeVarInt(xp.map(XpTank::fluid).orElse(0));
+  }
+
+  private static Optional<XpTank> readXp(RegistryFriendlyByteBuf buffer) {
+    int capacity = buffer.readVarInt();
+    int fluid = buffer.readVarInt();
+    return capacity > 0 && fluid >= 0 ? Optional.of(new XpTank(fluid, capacity)) : Optional.empty();
   }
 
   /** A list longer than any player would have is cut, so a bad packet never fills the memory. */
@@ -109,7 +124,9 @@ public record RobotListPayload(List<Entry> entries) implements CustomPacketPaylo
               buffer.readBoolean(),
               buffer.readDouble(),
               buffer.readVarLong());
-      entries.add(new Entry(robot, name, look, status, work, battery, pos, dimension, where));
+      entries.add(
+          new Entry(
+              robot, name, look, status, work, battery, pos, dimension, where, readXp(buffer)));
     }
     return new RobotListPayload(entries);
   }

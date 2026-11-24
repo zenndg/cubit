@@ -14,11 +14,7 @@ import net.minecraft.world.inventory.InventoryMenu;
 
 /** The glass with the fluid, its marks and the line with the amount (answer 1830). */
 final class XpTankView {
-  private static final int X = 12;
-  private static final int Y = 33;
-  private static final int WIDTH = 92;
-  private static final int HEIGHT = 60;
-  private static final int LINE_Y = 98;
+  private static final int LINE_GAP = 5;
   private static final int LINE_HEIGHT = 9;
   private static final int MARKS = 4;
   private static final int LONG_MARK = 5;
@@ -34,46 +30,48 @@ final class XpTankView {
   private static final String GROUPED = "%,d";
 
   private final ScreenPainter painter;
+  private final Box glass;
   private final int right;
 
-  XpTankView(ScreenPainter painter, int right) {
+  XpTankView(ScreenPainter painter, Box glass, int right) {
     this.painter = painter;
+    this.glass = glass;
     this.right = right;
   }
 
   void render(GuiGraphics graphics, XpTank tank, XpRate rate) {
-    ScreenPainter.sunken(graphics, X, Y, WIDTH, HEIGHT, GLASS);
+    ScreenPainter.sunken(graphics, glass.x(), glass.y(), glass.width(), glass.height(), GLASS);
     renderFluid(graphics, tank);
     renderMarks(graphics, tank.capacity());
     painter.text(
         graphics,
         amount(tank, rate).copy().withStyle(ChatFormatting.BOLD),
-        new Box(X, LINE_Y, right - X, LINE_HEIGHT),
+        new Box(glass.x(), glass.bottom() + LINE_GAP, right - glass.x(), LINE_HEIGHT),
         ScreenPainter.TEXT,
         ScreenPainter.FULL_SCALE);
   }
 
   /** At least a pixel while anything is left, as the bars, and never over the glass. */
-  private static void renderFluid(GuiGraphics graphics, XpTank tank) {
-    int inner = HEIGHT - 2;
+  private void renderFluid(GuiGraphics graphics, XpTank tank) {
+    int inner = glass.height() - 2;
     if (tank.fluid() == 0 || tank.capacity() == 0) {
       return;
     }
     long wanted = ((long) tank.fluid() * inner + tank.capacity() - 1) / tank.capacity();
     int filled = (int) Math.min(inner, wanted);
-    int left = X + 1;
-    int bottom = Y + HEIGHT - 1;
+    int left = glass.x() + 1;
+    int bottom = glass.bottom() - 1;
     TextureAtlasSprite sprite =
         Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(XpFluidLook.STILL);
     graphics.flush();
-    ScissorBox.run(
-        graphics, left, bottom - filled, left + WIDTH - 2, bottom, () -> tile(graphics, sprite));
-    graphics.fill(left, bottom - filled, left + WIDTH - 2, bottom - filled + 1, SURFACE);
+    int end = glass.right() - 1;
+    ScissorBox.run(graphics, left, bottom - filled, end, bottom, () -> tile(graphics, sprite));
+    graphics.fill(left, bottom - filled, end, bottom - filled + 1, SURFACE);
   }
 
-  private static void tile(GuiGraphics graphics, TextureAtlasSprite sprite) {
-    for (int y = Y + HEIGHT - 1 - TILE; y > Y - TILE; y -= TILE) {
-      for (int x = X + 1; x < X + WIDTH; x += TILE) {
+  private void tile(GuiGraphics graphics, TextureAtlasSprite sprite) {
+    for (int y = glass.bottom() - 1 - TILE; y > glass.y() - TILE; y -= TILE) {
+      for (int x = glass.x() + 1; x < glass.right(); x += TILE) {
         graphics.blit(x, y, 0, TILE, TILE, sprite);
       }
     }
@@ -81,15 +79,16 @@ final class XpTankView {
 
   private void renderMarks(GuiGraphics graphics, int capacity) {
     for (int mark = 0; mark <= MARKS; mark++) {
-      int y = Y + 1 + Math.round((HEIGHT - SHORT_MARK) * (float) mark / MARKS);
+      int y = glass.y() + 1 + Math.round((glass.height() - SHORT_MARK) * (float) mark / MARKS);
       int inside = mark * 2 == MARKS ? LONG_MARK : SHORT_MARK;
-      graphics.fill(X + WIDTH, y, X + WIDTH + OUT_MARK, y + 1, ScreenPainter.SHADE);
+      int end = glass.right();
+      graphics.fill(end, y, end + OUT_MARK, y + 1, ScreenPainter.SHADE);
       if (mark > 0 && mark < MARKS) {
-        graphics.fill(X + 1, y, X + 1 + inside, y + 1, MARK);
-        graphics.fill(X + WIDTH - 1 - inside, y, X + WIDTH - 1, y + 1, MARK);
+        graphics.fill(glass.x() + 1, y, glass.x() + 1 + inside, y + 1, MARK);
+        graphics.fill(end - 1 - inside, y, end - 1, y + 1, MARK);
       }
       int shown = (int) ((long) capacity * (MARKS - mark) / MARKS);
-      int labelX = X + WIDTH + LABEL_GAP;
+      int labelX = end + LABEL_GAP;
       painter.text(
           graphics,
           Component.translatable(XpKeys.MARK, grouped(shown)),

@@ -1,4 +1,4 @@
-package io.github.zenndg.cubit.entity;
+package io.github.zenndg.cubit.player;
 
 import io.github.zenndg.cubit.domain.xp.PlayerXp;
 import io.github.zenndg.cubit.domain.xp.XpRate;
@@ -12,14 +12,14 @@ import net.minecraft.world.entity.player.Player;
  * A level between a player and a tank, counted before and after, so when another mod cancels or
  * changes the trade, only what the player really won or lost moves (detail 9 and rule 13).
  */
-final class PlayerXpTrade {
+public final class PlayerXpTrade {
   private static final float VOLUME = 0.2f;
   private static final float PITCH = 1;
 
   private PlayerXpTrade() {}
 
   /** The tank after the player sent it a level. */
-  static XpTank send(Player player, XpTank tank, XpRate rate) {
+  public static XpTank send(Player player, XpTank tank, XpRate rate) {
     PlayerXp before = read(player);
     int points = Math.min(before.toLevelDown(), tank.room(rate));
     if (points == 0) {
@@ -31,7 +31,7 @@ final class PlayerXpTrade {
   }
 
   /** The tank after the player took a level from it. */
-  static XpTank receive(Player player, XpTank tank, XpRate rate) {
+  public static XpTank receive(Player player, XpTank tank, XpRate rate) {
     PlayerXp before = read(player);
     int points = Math.min(before.toNextLevel(), tank.points(rate));
     if (points == 0) {

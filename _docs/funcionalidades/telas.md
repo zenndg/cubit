@@ -151,13 +151,14 @@ O enum e o nome de contrato `status` não mudam (pergunta 313). Muda só o texto
 
 ### Abas
 
-A tela tem três abas, à direita da janela, como as da tela do Cubit (perguntas 956, 957, 960 e 1865). Cada uma tem um ícone de 16×16, no traço e nas cores das outras abas, feito por prompt (resposta 900).
+A tela tem quatro abas, à direita da janela, como as da tela do Cubit (perguntas 956, 957, 960, 1837 e 1865). Cada uma tem um ícone de 16×16, no traço e nas cores das outras abas, feito por prompt (resposta 900).
 
 | Aba | Ícone | O que mostra |
 |---|---|---|
 | `Dock` / `Dock` | A torre do Dock | As partes abaixo |
 | `Storage` / `Armazenamento` | Uma caixa com uma Power Bank e uma Toolbox | O [inventário do Dock](#aba-storage) |
 | `Solar` / `Solar` | O painel solar do Dock | O painel solar do Dock, em [`energia.md`](energia.md#painel-solar-do-dock): gerando ou parado, o motivo, a geração de agora, a máxima do tier e o estado do painel, Guardado, Montando, Montado ou Guardando, com a luz (pergunta 1865). À noite, no tier que gera, o Status é `Moonlight` / `Luz da lua`, com a máxima da noite e uma dica própria (perguntas 1946 e 1949) |
+| `XP` / `XP` | O tanque, o mesmo da aba XP do Cubit | A energia que o XP gerou, no topo, o tanque, a troca de XP com o dono e os quatro modos, como descreve [`xp.md`](xp.md#telas) (perguntas 1837, 2109 e 2114) |
 
 ### Partes
 
@@ -247,7 +248,7 @@ Pergunta 691.
 - **JUnit, no domínio:** a escolha do estado do topo, o formato dos números e a divisão dos valores acima de 16 bits.
 - **GameTests:**
   - só o dono abre;
-  - Shift + clique no Dock;
+  - clique direito no Dock;
   - a tela fecha com o Cubit desligado;
   - o botão de chamar e as chaves;
   - nenhum item duplica.
@@ -257,6 +258,8 @@ Pergunta 691.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 10:06 | Troca o clique que abre a tela do Dock (pergunta 2122). |
+| Zennd | 2026-11-24 09:56 | Acrescenta a aba XP do Dock (perguntas 1837 e 2114). |
 | Zennd | 2026-11-24 08:16 | Acrescenta a aba XP do Cubit (perguntas 1830 e 2082). |
 | Zennd | 2026-11-23 10:40 | Acrescenta a luz da lua na aba Solar (perguntas 1946 e 1949). |
 | Zennd | 2026-11-22 23:45 | Acrescenta a aba Solar a todo Dock e o nome e o Rename no topo da tela do Dock (perguntas 1865, 1867 e 1870). |

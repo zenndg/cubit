@@ -15,10 +15,14 @@ public record DockStock(Battery energy) {
     return new Received(new DockStock(charged.battery()), charged.accepted());
   }
 
+  /** How much more energy fits. */
+  public Energy room() {
+    return energy.capacity().minus(energy.charge());
+  }
+
   /** A whole item only leaves the slot when its energy fits, so nothing is wasted. */
   public boolean canTake(Energy itemEnergy) {
-    return !itemEnergy.isZero()
-        && itemEnergy.amount() <= energy.capacity().minus(energy.charge()).amount();
+    return !itemEnergy.isZero() && itemEnergy.amount() <= room().amount();
   }
 
   public DockStock take(Energy itemEnergy) {

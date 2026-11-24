@@ -2,21 +2,24 @@ package io.github.zenndg.cubit.client;
 
 import io.github.zenndg.cubit.menu.RobotMenu;
 import io.github.zenndg.cubit.menu.ScreenKeys;
+import io.github.zenndg.cubit.menu.XpKeys;
 import java.util.Arrays;
 import java.util.Optional;
 import net.minecraft.client.gui.GuiGraphics;
 
 /**
- * The Dock, Storage and Solar tabs on the right of the dock screen, like the ones of the robot
- * screen, the Solar one with the icon of the solar panel of the Cubit, now in every Dock (answers
- * 956, 957, 960, 1395 and 1865). The open tab is only a choice of the client.
+ * The Dock, Storage, Solar and XP tabs on the right of the dock screen, like the ones of the robot
+ * screen, the Solar one with the icon of the solar panel of the Cubit and the XP one with the icon
+ * of its tank (answers 956, 957, 960, 1395, 1837 and 1865). The open tab is only a choice of the
+ * client.
  */
 final class DockScreenTabs {
   private static final int DOCK_Y = 9;
   private static final int STORAGE_Y = 37;
   private static final int SOLAR_Y = 65;
+  private static final int XP_Y = 93;
 
-  private static final int[] TOPS = {DOCK_Y, STORAGE_Y, SOLAR_Y};
+  private static final int[] TOPS = {DOCK_Y, STORAGE_Y, SOLAR_Y, XP_Y};
 
   private Tab open = Tab.DOCK;
 
@@ -24,7 +27,8 @@ final class DockScreenTabs {
   enum Tab {
     DOCK(DOCK_Y, ScreenKeys.DOCK_TAB_DOCK),
     STORAGE(STORAGE_Y, ScreenKeys.DOCK_TAB_STORAGE),
-    SOLAR(SOLAR_Y, ScreenKeys.DOCK_TAB_SOLAR);
+    SOLAR(SOLAR_Y, ScreenKeys.DOCK_TAB_SOLAR),
+    XP(XP_Y, XpKeys.TAB);
 
     private final int y;
     private final String name;
@@ -58,6 +62,7 @@ final class DockScreenTabs {
     ScreenSprites.storageTab(graphics, iconX, top + STORAGE_Y + ScreenTabStrip.ICON_Y);
     ScreenSprites.function(
         graphics, iconX, top + SOLAR_Y + ScreenTabStrip.ICON_Y, RobotMenu.SOLAR_BUTTON);
+    ScreenSprites.xpTab(graphics, iconX, top + XP_Y + ScreenTabStrip.ICON_Y);
   }
 
   /** The tab under a point given from the left of the tabs and the top of the window. */

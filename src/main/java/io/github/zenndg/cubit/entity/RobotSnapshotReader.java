@@ -42,7 +42,8 @@ public final class RobotSnapshotReader {
             percentOf(battery),
             robot.blockPosition(),
             robot.level().dimension(),
-            robot.level().getGameTime()));
+            robot.level().getGameTime(),
+            Optional.of(robot.pickup().xp().tank())));
   }
 
   /** Whether the robot follows its owner now, which only a loaded robot can tell. */

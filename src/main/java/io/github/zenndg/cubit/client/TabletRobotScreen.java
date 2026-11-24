@@ -16,9 +16,9 @@ import net.minecraft.world.entity.player.Inventory;
 
 /**
  * The screen of a Cubit on the Tablet: a big window with the header fixed on top and the tabs
- * Features, Defense, Filters, Inventory and Deaths below (answers 1022, 1035, 1037 and 1119). Each
- * tab shows a part of the screen of the Cubit, so the slots of the menu line up with it under the
- * header.
+ * Features, Defense, Filters, Inventory, Deaths, Work and XP below (answers 1022, 1035, 1037, 1119
+ * and 2115). Each tab shows a part of the screen of the Cubit, so the slots of the menu line up
+ * with it under the header.
  */
 final class TabletRobotScreen extends AbstractContainerScreen<TabletRobotMenu> {
   private static final int WIDTH = TabletRobotHeader.WIDTH;
@@ -50,6 +50,7 @@ final class TabletRobotScreen extends AbstractContainerScreen<TabletRobotMenu> {
   private RobotBehaviorPanel behavior;
   private TabletDeathsPanel deaths;
   private RobotWorkPanel work;
+  private TabletXpPanel xp;
   private TabletRenameDialog dialog;
   private Component shownName;
   private int windowLeft;
@@ -81,6 +82,7 @@ final class TabletRobotScreen extends AbstractContainerScreen<TabletRobotMenu> {
     defense = new RobotDefensePanel(painter, menu, right);
     behavior = new RobotBehaviorPanel(painter, menu, right);
     work = new RobotWorkPanel(painter, menu, right);
+    xp = new TabletXpPanel(painter, menu, right);
     supply = new SupplyPanel(painter, menu, right);
     deaths = new TabletDeathsPanel(painter, menu, right, imageHeight - TabletRobotHeader.HEIGHT);
     dialog = new TabletRenameDialog(font, width, height, TabletKeys.RENAME_TITLE, this::rename);
@@ -168,6 +170,7 @@ final class TabletRobotScreen extends AbstractContainerScreen<TabletRobotMenu> {
     return switch (tabs.open()) {
       case RESOURCES -> resources.renderDetail(graphics, font, mouseX, mouseY, leftPos, topPos);
       case WORK -> work.renderDetail(graphics, font, mouseX, mouseY, leftPos, topPos);
+      case XP -> xp.renderDetail(graphics, font, mouseX, mouseY, leftPos, topPos);
       case DEATHS -> deaths.renderDetail(graphics, font, mouseX, mouseY, leftPos, topPos);
       case SUPPLY -> supply.renderDetail(graphics, font, mouseX, mouseY, leftPos, topPos);
       default -> false;
@@ -224,6 +227,7 @@ final class TabletRobotScreen extends AbstractContainerScreen<TabletRobotMenu> {
       case INVENTORY -> renderInventoryLabels(graphics);
       case DEATHS -> deaths.render(graphics, mouseX - leftPos, mouseY - topPos);
       case WORK -> work.render(graphics, mouseX - leftPos, mouseY - topPos);
+      case XP -> xp.render(graphics, mouseX - leftPos, mouseY - topPos);
       case SUPPLY -> {
         supply.render(graphics, mouseX - leftPos, mouseY - topPos);
         label(graphics, playerInventoryTitle, menu.playerInventoryY() - PLAYER_LABEL_GAP);
@@ -276,6 +280,7 @@ final class TabletRobotScreen extends AbstractContainerScreen<TabletRobotMenu> {
       case DEFENSE -> defense.modeAt(x, y);
       case FILTERS -> behavior.modeAt(x, y);
       case WORK -> work.buttonAt(x, y);
+      case XP -> xp.buttonAt(x, y);
       case SUPPLY -> supply.buttonAt(x, y, hasShiftDown());
       case INVENTORY, DEATHS -> OptionalInt.empty();
     };

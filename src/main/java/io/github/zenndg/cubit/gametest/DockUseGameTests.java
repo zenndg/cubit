@@ -210,7 +210,7 @@ public final class DockUseGameTests {
     helper.runAfterDelay(
         SETTLE_TICKS,
         () -> {
-          DockScene.click(helper, owner, DOCK);
+          DockScene.sneakClick(helper, owner, DOCK);
           helper.assertValueEqual(robot.powerState(), PowerState.ACTIVE, WRONG_POWER);
           helper.assertFalse(robot.position().equals(onPlate), NOT_MOVED);
           helper.succeed();
@@ -228,7 +228,7 @@ public final class DockUseGameTests {
     helper.runAfterDelay(
         SETTLE_TICKS,
         () -> {
-          DockScene.click(helper, owner, DOCK);
+          DockScene.sneakClick(helper, owner, DOCK);
           helper.assertValueEqual(
               docked.powerState(), PowerState.INACTIVE_SWITCHED_OFF, WRONG_POWER);
           helper.succeed();

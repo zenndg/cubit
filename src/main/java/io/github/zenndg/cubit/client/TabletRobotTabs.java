@@ -5,6 +5,7 @@ import io.github.zenndg.cubit.menu.DefenseKeys;
 import io.github.zenndg.cubit.menu.ScreenKeys;
 import io.github.zenndg.cubit.menu.TabletKeys;
 import io.github.zenndg.cubit.menu.WorkKeys;
+import io.github.zenndg.cubit.menu.XpKeys;
 import io.github.zenndg.cubit.registry.CubitItems;
 import java.util.Arrays;
 import java.util.Optional;
@@ -14,8 +15,8 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * The tabs of the screen of a Cubit on the Tablet, on the right of the window, from the top, with
- * the icons of the tabs of the screen of the Cubit and the Deaths tab (answers 1022, 1037 and
- * 1119). Each tab says where its part of the screen of the Cubit starts, so the slots of the menu
+ * the icons of the tabs of the screen of the Cubit and the Deaths tab (answers 1022, 1037, 1119 and
+ * 2115). Each tab says where its part of the screen of the Cubit starts, so the slots of the menu
  * line up under the header.
  */
 final class TabletRobotTabs {
@@ -26,7 +27,8 @@ final class TabletRobotTabs {
   private static final int INVENTORY_Y = 93;
   private static final int DEATHS_Y = 121;
   private static final int WORK_Y = 149;
-  private static final int SUPPLY_Y = 177;
+  private static final int XP_Y = 177;
+  private static final int SUPPLY_Y = 205;
   private static final int SUPPLY_TOP = 44;
   private static final int CHEST_X = 6;
   private static final int CHEST_Y = 6;
@@ -34,10 +36,10 @@ final class TabletRobotTabs {
   private static final int FILTERS_TOP = RobotBehaviorPanel.filterHeadingY() - 4;
   private static final int INVENTORY_TOP = 26;
   private static final int[] TOPS = {
-    RESOURCES_Y, DEFENSE_Y, FILTERS_Y, INVENTORY_Y, DEATHS_Y, WORK_Y
+    RESOURCES_Y, DEFENSE_Y, FILTERS_Y, INVENTORY_Y, DEATHS_Y, WORK_Y, XP_Y
   };
   private static final int[] TOPS_WITH_SUPPLY = {
-    RESOURCES_Y, DEFENSE_Y, FILTERS_Y, INVENTORY_Y, DEATHS_Y, WORK_Y, SUPPLY_Y
+    RESOURCES_Y, DEFENSE_Y, FILTERS_Y, INVENTORY_Y, DEATHS_Y, WORK_Y, XP_Y, SUPPLY_Y
   };
 
   private final BooleanSupplier supplyShown;
@@ -56,6 +58,7 @@ final class TabletRobotTabs {
     INVENTORY(INVENTORY_Y, ScreenKeys.TAB_INVENTORY, INVENTORY_TOP),
     DEATHS(DEATHS_Y, DeathKeys.TAB_TITLE, 0),
     WORK(WORK_Y, WorkKeys.TAB, 0),
+    XP(XP_Y, XpKeys.TAB, TabletXpPanel.TOP),
     SUPPLY(SUPPLY_Y, WorkKeys.SUPPLY_TAB, SUPPLY_TOP);
 
     private final int y;
@@ -100,6 +103,7 @@ final class TabletRobotTabs {
     ScreenSprites.chest(graphics, left + CHEST_X, top + INVENTORY_Y + CHEST_Y);
     ScreenSprites.deathsTab(graphics, iconX, top + DEATHS_Y + ScreenTabStrip.ICON_Y);
     ScreenSprites.workTab(graphics, iconX, top + WORK_Y + ScreenTabStrip.ICON_Y);
+    ScreenSprites.xpTab(graphics, iconX, top + XP_Y + ScreenTabStrip.ICON_Y);
     if (supplyShown.getAsBoolean()) {
       graphics.renderItem(
           new ItemStack(CubitItems.ORGANIZER_CARD.get()),
