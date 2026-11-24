@@ -175,9 +175,10 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     return show;
   }
 
-  /** The item the hologram shows. Special recipes, as the repair, have none (answer 1509). */
+  /** The item being made, of the plan or the order. Special recipes have none (1509, 2022). */
   public ItemStack shownResult() {
-    return level == null ? ItemStack.EMPTY : DeskRecipes.result(level, job.recipe().orElse(null));
+    ResourceLocation shown = cascade.currentRecipe().or(job::recipe).orElse(null);
+    return level == null ? ItemStack.EMPTY : DeskRecipes.result(level, shown);
   }
 
   public int progressPercent() {

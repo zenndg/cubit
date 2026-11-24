@@ -16,4 +16,8 @@ public record CascadeBook(Map<String, CascadeRecipe> byResult) {
   public Optional<CascadeRecipe> recipeOf(String item) {
     return Optional.ofNullable(byResult.get(item));
   }
+
+  public Optional<CascadeRecipe> recipeWithId(String id) {
+    return byResult.values().stream().filter(recipe -> recipe.id().equals(id)).findFirst();
+  }
 }

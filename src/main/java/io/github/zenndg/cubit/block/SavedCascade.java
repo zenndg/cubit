@@ -11,6 +11,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
 
 /**
@@ -102,6 +103,26 @@ public record SavedCascade(
     return valid
         ? Optional.of(new CascadeRun(steps.stream().map(SavedStep::step).toList()))
         : Optional.empty();
+  }
+
+  /** What was asked and how far it is, while the plan is on its way (answer 2022). */
+  public Optional<CascadeRun> running() {
+    return run().filter(found -> !found.isDone());
+  }
+
+  /** How many items the plan keeps, reserved or waiting for room. */
+  public int itemCount() {
+    return count(reserved) + count(waiting);
+  }
+
+  private static int count(List<ItemContainerContents> parts) {
+    int total = 0;
+    for (ItemContainerContents part : parts) {
+      for (ItemStack stack : part.nonEmptyItems()) {
+        total += stack.getCount();
+      }
+    }
+    return total;
   }
 
   /** Whether the desk has items of a plan, so its item never nests (answer 1481). */

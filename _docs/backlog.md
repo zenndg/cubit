@@ -36,6 +36,17 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 3. **XP em tanque de líquido** (pergunta 1762). Virou o XP Cubit e Dock, refinado e autorizado nas perguntas 1814 a 1851, na issue #244, com o conceito em [`xp.md`](funcionalidades/xp.md).
 
+4. **Tier acima do Ultimate** (pergunta 2057).
+   - **A ideia:** um quinto tier, acima do Ultimate, feito com a estrela do Nether, que o Wither solta, e outros dos itens mais raros do Minecraft. Os números são o dobro dos do Ultimate, e ele só pode ser aplicado no Cubit, não no Dock nem na Engineering Desk.
+   - **Em aberto:**
+     - o nome, a cor do colar e o visual do tier;
+     - os outros itens raros da receita, só do jogo puro, e o que libera a receita;
+     - o que dobra: nem tudo comporta o dobro, como a velocidade, que iria a 3,5×, o inventário, que iria a 108 slots, e a lanterna, que já está na luz 15, o máximo do jogo;
+     - os recursos por tier que não são números, como os modos de defesa e os trabalhos;
+     - a Power Bank, que tem uma por tier, com 70% da bateria, e a recarga de um Cubit desse tier num Dock Ultimate;
+     - o Module desse tier usado no Dock e na mesa, que hoje aceitam todos;
+     - os saves, que guardam o tier, e o config, que tem chaves por tier (regra 18).
+
 ## Profissões
 
 1. **Scanner de minérios só no Minerador** (pergunta 1741). Quando o Minerador começar, o scanner de minérios sai de todo Cubit e passa a ser só do Minerador, melhorado. Está anotado em [`trabalhos/minerador.md`](funcionalidades/trabalhos/minerador.md).
@@ -48,6 +59,7 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 20:27 | Acrescenta o tier acima do Ultimate (pergunta 2057). |
 | Zennd | 2026-11-23 00:00 | Troca o nome ao colocar o Cubit pelo link do conceito (perguntas 1874 a 1881). |
 | Zennd | 2026-11-22 23:13 | Troca o XP em tanque de líquido pelo link do conceito, refinado nas perguntas 1814 a 1851. |
 | Zennd | 2026-11-22 21:03 | Leva o XP em tanque de líquido ao roadmap, como XP Cubit e Dock (perguntas 1787 a 1789). |

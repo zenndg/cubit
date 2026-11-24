@@ -98,7 +98,7 @@ Toda receita pode ser vista, e o que trava é o pedido: o + não sai de 0 para 1
 
 ### Cascata
 
-Uma receita feita de itens que a própria mesa fabrica, como o Cubit, feito das quatro peças, continua sozinha (perguntas 1500 a 1503), em todos os tiers:
+Uma receita feita de itens que a própria mesa fabrica, como o Cubit, feito das quatro peças, continua sozinha (perguntas 1500 a 1503), em todos os tiers. Ela só move o que já está pronto da saída para a entrada. Fazer também as peças é a [fabricação em cascata](cascata-da-mesa.md), do último tier:
 
 - **Quando:** ao escolher a receita no catálogo e, durante o pedido, sempre que faltar material na entrada.
 - **Condição:** a entrada e a saída juntas têm os materiais de uma unidade. A mesa puxa da saída só o que falta na entrada.
@@ -170,11 +170,12 @@ Uma prancheta de projetista: fundo azul quadriculado, como o forro, a grade de m
 
 - **Aba Projeto:** o catálogo, a grade com a quantidade, os botões − e + e o de cancelar, a seta de progresso, o slot de saída da receita, a barra de energia, o slot de redstone e o tier na cor dele (pergunta 1473). Ao passar o mouse sobre um item da receita, na grade ou no resultado, aparece o tooltip dele (pergunta 1548).
 - **Aba Estoque:** os dois inventários lado a lado, a entrada à esquerda e a saída à direita, como na mesa.
-- **As duas abas** mostram o inventário do player.
+- **Aba Cascata:** a fabricação em cascata, liberada no último tier e descrita em [`cascata-da-mesa.md`](cascata-da-mesa.md).
+- **As três abas** mostram o inventário do player.
 
 ## Jade
 
-O gráfico do progresso do craft, o item que será entregue, quanto falta do pedido, como `3/8`, a energia, o tier na cor dele, o dono e, na pausa, o motivo (perguntas 1468 e 1472).
+O gráfico do progresso do craft, o item que será entregue, quanto falta do pedido, como `3/8`, ou do plano da fabricação em cascata, como `Cascade: Cubit · 12/25` (pergunta 2022), a energia, o tier na cor dele, o dono e, na pausa, o motivo (perguntas 1468 e 1472).
 
 ## JEI
 
@@ -219,6 +220,7 @@ Uma issue mãe e quatro PRs, em ordem, cada um testável no jogo (pergunta 1478)
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 16:20 | Distingue a cascata da fabricação em cascata e cita o plano no Jade (pergunta 2043). |
 | Zennd | 2026-11-23 12:29 | Acrescenta as cores da grade pela quantidade do pedido (perguntas 1996 a 2000). |
 | Zennd | 2026-11-23 12:17 | Marca o pedido com a progressão e o material como autorizado (pergunta 1992). |
 | Zennd | 2026-11-23 12:09 | Ajusta o conceito do pedido à alternativa A, com a progressão e o material (pergunta 1991). |

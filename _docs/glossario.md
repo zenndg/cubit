@@ -13,6 +13,7 @@ O inglês é o idioma base do mod, e o jogo também tem a tradução para o port
 | Cubit danificado | Damaged Cubit |
 | Caixa de ferramentas | Toolbox |
 | Mesa de Engenharia | Engineering Desk |
+| Fabricação em cascata, da Mesa de Engenharia | Cascade |
 | Base, Dock ou estação de carga | Induction Dock |
 | Tiers: Base, Avançado, Elite e Ultimate | Base, Advanced, Elite e Ultimate |
 | Upgrades | Advanced, Elite e Ultimate Module |
@@ -64,6 +65,9 @@ Os IDs estão em [`itens.md`](itens.md).
 - **Power Bank:** bateria portátil de um tier, que recebe energia só no slot do Induction Dock e entrega só ao Cubit, pelo slot de energia ou pela receita de religar na grade.
 - **Recharge Splash:** mistura de arremesso que recupera, aos poucos, parte da vida e da energia dos Cubits do dono que a arremessou.
 - **Pedido:** a receita e a quantidade que a Engineering Desk fabrica sozinha, uma unidade por vez.
+- **Cascata:** em todos os tiers, a Engineering Desk passa sozinha as peças prontas da saída para a entrada, para continuar o pedido.
+- **Fabricação em cascata:** no último tier, a Engineering Desk faz sozinha todas as peças até o item escolhido.
+- **Plano:** as tarefas em série de uma fabricação em cascata, com os materiais reservados num estoque próprio.
 - **Marcação:** a marca de um item na grade da Engineering Desk, que mostra a receita sem ser um item real.
 - **Slot fantasma:** slot do filtro que guarda uma cópia do item, sem consumi-lo.
 - **Bloco que fere:** bloco que o jogo classifica como perigoso na rota, como magma e cacto.
@@ -79,6 +83,7 @@ Os IDs estão em [`itens.md`](itens.md).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-23 16:20 | Acrescenta a cascata, a fabricação em cascata e o plano (pergunta 2043). |
 | Zennd | 2026-11-22 23:12 | Acrescenta o Cubit XP Fluid, o tanque de XP e o mB (pergunta 1850). |
 | Zennd | 2026-11-22 13:00 | Acrescenta os apps do Tablet, as armas e a escolta marcada do Patrulheiro (perguntas 1554, 1655 e 1665). |
 | Zennd | 2026-11-21 23:02 | Troca o Defensor pelo Patrulheiro Galático (perguntas 1550 a 1582). |

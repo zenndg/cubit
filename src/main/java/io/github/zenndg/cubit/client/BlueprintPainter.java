@@ -20,6 +20,15 @@ final class BlueprintPainter {
   static final int IDLE = 0xFF9AA7C7;
   static final int ENERGY = 0xFFF2A14A;
   static final int CANCEL = 0xFF8B2635;
+  static final int PRIMARY = 0xFF3F6BD0;
+  static final int DONE = 0xFF8BE9A0;
+  static final int WARNING = 0xFFFF8A80;
+  static final int LOCK_SIZE = 5;
+  static final int OVER_ITEMS = 300;
+  static final float SMALL_SCALE = 0.75f;
+  private static final int GOLD = 0xFFFFCA28;
+  private static final int LOCK_PATCH = 0xB0101830;
+  private static final int LOCK_BODY = 3;
   private static final int MINOR_LINE = 0xFF24469C;
   private static final int MAJOR_LINE = 0xFF2C52AA;
   private static final int MINOR_STEP = 8;
@@ -86,6 +95,37 @@ final class BlueprintPainter {
       graphics.fill(tip - side - 1, y - side, tip - side, y + side + 1, LINE_SOFT);
     }
   }
+
+  /** A padlock over an item, small enough for its corner. */
+  static void padlock(GuiGraphics graphics, int x, int y, int color) {
+    graphics.pose().pushPose();
+    graphics.pose().translate(0, 0, OVER_ITEMS);
+    graphics.renderOutline(x + 1, y, LOCK_BODY, LOCK_SIZE - LOCK_BODY + 1, color);
+    graphics.fill(x, y + LOCK_SIZE - LOCK_BODY, x + LOCK_SIZE, y + LOCK_SIZE, color);
+    graphics.pose().popPose();
+  }
+
+  /** A golden padlock on a dark patch, for what a running plan locks (answer 2044). */
+  static void lockBadge(GuiGraphics graphics, int x, int y) {
+    graphics.pose().pushPose();
+    graphics.pose().translate(0, 0, OVER_ITEMS);
+    graphics.fill(x - 1, y - 1, x + LOCK_SIZE + 1, y + LOCK_SIZE + 1, LOCK_PATCH);
+    graphics.pose().popPose();
+    padlock(graphics, x, y, GOLD);
+  }
+
+  /** A text from the left, which shrinks to the room it has. */
+  static void fromLeft(GuiGraphics graphics, Font font, Component text, int x, int y, Look look) {
+    float scale = Math.min(look.scale(), (float) look.room() / Math.max(1, font.width(text)));
+    graphics.pose().pushPose();
+    graphics.pose().translate(x, y + font.lineHeight * (look.scale() - scale) / 2, 0);
+    graphics.pose().scale(scale, scale, 1);
+    graphics.drawString(font, text, 0, 0, look.color(), false);
+    graphics.pose().popPose();
+  }
+
+  /** The color of a text, the width it may use and its scale when it fits. */
+  record Look(int color, int room, float scale) {}
 
   /** A centered text that shrinks to the room it has, as a large order (answer 2040). */
   static void fitted(

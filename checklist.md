@@ -111,7 +111,7 @@ Dividida em três partes, na ordem em que dependem uma da outra (perguntas 722 a
 15. [x] Retorno automático, com a chave dele e a linha na aba Recursos do Tablet, e o `Follow` do Tablet (issue #181, PR #182, perguntas 1065 a 1078)
 16. [x] Local de morte, com a chave dele e a linha na aba Recursos do Tablet, a aba Mortes e a guia do Cubit (issue #188, PR #189, perguntas 1108 a 1132)
 
-## Fase 5: Trabalhos (planejada)
+## Fase 5: Trabalhos (em andamento)
 
 Um card por vez, na ordem do board "Cubit · Fase 5" (perguntas 1137, 1141 e 1156). Os números "A definir" e o teste com 20 a 30 robôs ficam dentro de cada card (pergunta 1144).
 
@@ -141,8 +141,8 @@ Um card por vez, na ordem do board "Cubit · Fase 5" (perguntas 1137, 1141 e 115
 19. [x] Patrulheiro Galático, no lugar do Defensor (#198, PRs #238, #239, #242 e #243, perguntas 1424, 1550 a 1786 e 1790 a 1812)
 20. [x] Dock unificado, com o painel solar em todo Dock e os nomes do Dock e do Cubit (issue #246, PR #247, perguntas 1852 a 1925)
 21. [x] Luz da lua no Dock Ultimate (issue #248, PR #249, perguntas 1941 a 1963)
-22. [ ] **CRÍTICO:** árvore de crafts e auditoria do progresso do player, do início ao fim, com a avaliação dos itens bloqueados na Engineering Desk que impediriam o player de começar, logo depois da luz da lua no Dock (#250, perguntas 1951 e 1965 a 1977)
-23. [ ] Engineering Desk: a fabricação em cascata no último tier, com o conceito em `_docs/funcionalidades/cascata-da-mesa.md`, (#253, perguntas 1964 e 2006 a 2031)
+22. [ ] **CRÍTICO:** árvore de crafts e auditoria do progresso do player, do início ao fim, com a avaliação dos itens bloqueados na Engineering Desk que impediriam o player de começar, logo depois da luz da lua no Dock (#250, perguntas 1951 e 1965 a 1977). Já entraram o guia do player com a árvore de crafts (PR #251) e o pedido na mesa, com a liberação protegida e o teste da árvore alcançável (PR #252, perguntas 1982 a 1995). Faltam as conquistas visíveis, que ficaram para outro dia (pergunta 2005). O bloqueio visto num mundo novo não se repetiu e ficou como falso positivo naquele cenário (pergunta 2002)
+23. [x] Engineering Desk: a fabricação em cascata no último tier, com o conceito em `_docs/funcionalidades/cascata-da-mesa.md`, em dois PRs (issue #253, PR #254 e o PR que fecha a issue, perguntas 1964 e 2006 a 2056)
 24. [ ] XP Cubit e Dock, o XP como fluido no tanque do Cubit e do Dock (#244, perguntas 1762, 1787 a 1789 e 1814 a 1851)
 25. [ ] Servidor e Antenas, energia sem fio e carregamento de chunks, com o log e a viagem até o Dock (#205 e #206, perguntas 1777 a 1779 e 1788)
 26. [ ] Lenhador, uma profissão nova, ainda sem issue (perguntas 1594, 1666 e 1667)

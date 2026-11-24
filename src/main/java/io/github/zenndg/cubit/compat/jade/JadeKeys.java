@@ -16,6 +16,7 @@ public final class JadeKeys {
   public static final String DOCK_ENERGY = "jade.cubit.dock_energy";
   public static final String OWNER = "jade.cubit.owner";
   public static final String DESK_ORDER = "jade.cubit.desk_order";
+  public static final String DESK_CASCADE = "jade.cubit.desk_cascade";
   public static final String DESK_PAUSED = "jade.cubit.desk_paused";
   private static final String TIER_NAME = "jade.cubit.tier.%s";
   private static final String STATE = "jade.cubit.state.%s";

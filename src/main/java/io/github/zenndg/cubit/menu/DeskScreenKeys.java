@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.menu;
 
 import io.github.zenndg.cubit.domain.desk.CascadeStart;
+import io.github.zenndg.cubit.domain.desk.CascadeTaskStatus;
 import io.github.zenndg.cubit.domain.desk.DeskCategory;
 import io.github.zenndg.cubit.domain.desk.DeskStatus;
 import java.util.Locale;
@@ -22,16 +23,25 @@ public final class DeskScreenKeys {
   public static final String CASCADE_LOCKS = PREFIX + "cascade_locks";
   public static final String CASCADE_PART_LOCKED = PREFIX + "cascade_part_locked";
   public static final String CASCADE_PICK = PREFIX + "cascade_pick";
-  public static final String CASCADE_MATERIAL = PREFIX + "cascade_material";
+  public static final String CASCADE_MATERIALS = PREFIX + "cascade_materials";
+  public static final String CASCADE_HAS = PREFIX + "cascade_has";
+  public static final String CASCADE_READY_PART = PREFIX + "cascade_ready_part";
+  public static final String CASCADE_VIEW = PREFIX + "cascade_view";
   public static final String CASCADE_START = PREFIX + "cascade_start";
   public static final String CASCADE_NEW = PREFIX + "cascade_new";
   public static final String CASCADE_YES = PREFIX + "cascade_yes";
   public static final String CASCADE_NO = PREFIX + "cascade_no";
   public static final String CASCADE_ASK = PREFIX + "cascade_ask";
   public static final String CASCADE_ASKED = PREFIX + "cascade_asked";
+  public static final String CASCADE_AMOUNT = PREFIX + "cascade_amount";
   public static final String CASCADE_COST = PREFIX + "cascade_cost";
   public static final String CASCADE_NO_CANCEL = PREFIX + "cascade_no_cancel";
-  public static final String CASCADE_STEP = PREFIX + "cascade_step";
+  public static final String CASCADE_ORDER_COLUMN = PREFIX + "cascade_column.order";
+  public static final String CASCADE_ITEM_COLUMN = PREFIX + "cascade_column.item";
+  public static final String CASCADE_RESERVED_COLUMN = PREFIX + "cascade_column.reserved";
+  public static final String CASCADE_NEEDS_COLUMN = PREFIX + "cascade_column.needs";
+  public static final String CASCADE_STATUS_COLUMN = PREFIX + "cascade_column.status";
+  private static final String CASCADE_STATUS = PREFIX + "cascade_status.";
   private static final String CASCADE_REASON = PREFIX + "cascade_reason.";
   public static final String CATALOG = PREFIX + "catalog";
   public static final String SEARCH = PREFIX + "search";
@@ -48,6 +58,11 @@ public final class DeskScreenKeys {
 
   public static String status(DeskStatus status) {
     return STATUS_PREFIX + status.name().toLowerCase(Locale.ROOT);
+  }
+
+  /** What a task of the plan is doing (answer 2012). */
+  public static String cascadeStatus(CascadeTaskStatus status) {
+    return CASCADE_STATUS + status.name().toLowerCase(Locale.ROOT);
   }
 
   /** Why a plan may or may not start. */

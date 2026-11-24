@@ -36,6 +36,14 @@ final class ScreenTabStrip {
     graphics.fill(left, y + 1, left + WIDTH - 1, y + HEIGHT - 1, ScreenPainter.WINDOW);
   }
 
+  /** Darkens the part of the tabs out of the window, as a question over the screen does. */
+  static void dim(GuiGraphics graphics, int windowRight, int top, int[] tabTops, int color) {
+    for (int tabTop : tabTops) {
+      int y = top + tabTop;
+      graphics.fill(windowRight, y, windowRight + WIDTH - INSET, y + HEIGHT, color);
+    }
+  }
+
   /** A point given from the left of the tabs and the top of the window. */
   static boolean contains(double x, double y, int tabTop) {
     return x >= 0 && x < WIDTH && y >= tabTop && y < tabTop + HEIGHT;

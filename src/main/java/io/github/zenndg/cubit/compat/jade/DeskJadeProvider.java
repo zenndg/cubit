@@ -1,5 +1,7 @@
 package io.github.zenndg.cubit.compat.jade;
 
+import io.github.zenndg.cubit.block.CascadeRecipes;
+import io.github.zenndg.cubit.block.CascadeState;
 import io.github.zenndg.cubit.block.EngineeringDeskBlock;
 import io.github.zenndg.cubit.block.EngineeringDeskBlockEntity;
 import io.github.zenndg.cubit.block.OwnerName;
@@ -22,9 +24,9 @@ import snownee.jade.api.config.IPluginConfig;
 import snownee.jade.api.ui.IElementHelper;
 
 /**
- * The Engineering Desk in Jade: the progress of the craft with the item it delivers, the order, the
- * energy, the tier, the owner and, in a pause, its cause (answers 1468 and 1472). All but the tier
- * live on the server, and the tier is in the block state the client already has.
+ * The Engineering Desk in Jade: the progress of the craft with the item it delivers, the order or
+ * the plan, the energy, the tier, the owner and, in a pause, its cause (1468, 1472 and 2022). All
+ * but the tier live on the server, and the tier is in the block state the client already has.
  */
 enum DeskJadeProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
   INSTANCE;
@@ -33,6 +35,9 @@ enum DeskJadeProvider implements IBlockComponentProvider, IServerDataProvider<Bl
   private static final String RESULT = "Result";
   private static final String DONE = "Done";
   private static final String TOTAL = "Total";
+  private static final String PLAN = "Plan";
+  private static final String PLAN_DONE = "PlanDone";
+  private static final String PLAN_TOTAL = "PlanTotal";
   private static final String STOCK = "Stock";
   private static final String CAPACITY = "Capacity";
   private static final String OWNER = "Owner";
@@ -53,8 +58,12 @@ enum DeskJadeProvider implements IBlockComponentProvider, IServerDataProvider<Bl
     if (!result.isEmpty()) {
       data.put(RESULT, result.save(registries));
     }
-    data.putInt(DONE, desk.order().done());
-    data.putInt(TOTAL, desk.order().total());
+    if (desk.cascade().isRunning()) {
+      putPlan(data, desk.cascade());
+    } else {
+      data.putInt(DONE, desk.order().done());
+      data.putInt(TOTAL, desk.order().total());
+    }
     data.putLong(STOCK, desk.energy().amount());
     data.putLong(CAPACITY, desk.capacity().amount());
     data.putString(STATUS, desk.status().name());
@@ -63,14 +72,22 @@ enum DeskJadeProvider implements IBlockComponentProvider, IServerDataProvider<Bl
         .ifPresent(name -> data.putString(OWNER, name));
   }
 
+  /** The item asked and how far the whole plan is, in place of the order (answer 2022). */
+  private static void putPlan(CompoundTag data, CascadeState cascade) {
+    cascade.item().ifPresent(item -> data.putString(PLAN, CascadeRecipes.idOf(item)));
+    cascade
+        .run()
+        .ifPresent(run -> {
+          data.putInt(PLAN_DONE, run.doneCrafts());
+          data.putInt(PLAN_TOTAL, run.totalCrafts());
+        });
+  }
+
   @Override
   public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
     CompoundTag data = accessor.getServerData();
     appendProgress(tooltip, accessor, data);
-    if (data.getInt(TOTAL) > 0) {
-      tooltip.add(
-          Component.translatable(JadeKeys.DESK_ORDER, data.getInt(DONE), data.getInt(TOTAL)));
-    }
+    appendWork(tooltip, data);
     if (data.contains(STOCK) && data.contains(CAPACITY)) {
       tooltip.add(
           JadeEnergyText.stock(EnergyReading.capped(data.getLong(STOCK), data.getLong(CAPACITY))));
@@ -88,6 +105,22 @@ enum DeskJadeProvider implements IBlockComponentProvider, IServerDataProvider<Bl
             tooltip.add(
                 Component.translatable(
                     JadeKeys.DESK_PAUSED, Component.translatable(DeskScreenKeys.status(status)))));
+  }
+
+  /** The plan on its way or the order. */
+  private static void appendWork(ITooltip tooltip, CompoundTag data) {
+    if (data.contains(PLAN)) {
+      tooltip.add(
+          Component.translatable(
+              JadeKeys.DESK_CASCADE,
+              CascadeRecipes.itemOf(data.getString(PLAN)).getDescription(),
+              data.getInt(PLAN_DONE),
+              data.getInt(PLAN_TOTAL)));
+    }
+    if (data.getInt(TOTAL) > 0) {
+      tooltip.add(
+          Component.translatable(JadeKeys.DESK_ORDER, data.getInt(DONE), data.getInt(TOTAL)));
+    }
   }
 
   /** The arrow of the progress and the item that comes out, as Jade shows a furnace. */

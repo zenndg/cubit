@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.domain.desk;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -41,6 +42,22 @@ class CascadePlannerTest {
 
   private static CascadePlan plan(String item, int quantity, Map<String, Integer> ready) {
     return CascadePlanner.plan(BOOK, item, quantity, ready).orElseThrow();
+  }
+
+  /** With every part ready the plan still shows what it uses (answer 2052). */
+  @Test
+  void theReadyPartsComeAfterTheMaterials() {
+    assertEquals(
+        List.of(new CascadeNeed(CASING, 1, true), new CascadeNeed(VISOR, 1, true)),
+        plan(ROBOT, 1, Map.of(CASING, 1, VISOR, 1)).needs());
+    assertEquals(
+        List.of(new CascadeNeed(DIAMOND, 2, false), new CascadeNeed(CASING, 1, true)),
+        plan(ROBOT, 1, Map.of(CASING, 1)).needs());
+  }
+
+  @Test
+  void anEmptyNeedIsRejected() {
+    assertThrows(IllegalArgumentException.class, () -> new CascadeNeed(CASING, 0, true));
   }
 
   private static List<String> items(CascadePlan plan) {

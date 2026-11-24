@@ -4,9 +4,12 @@ import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.CascadeLaunch;
 import io.github.zenndg.cubit.block.DeskRecipes;
 import io.github.zenndg.cubit.block.EngineeringDeskBlockEntity;
+import io.github.zenndg.cubit.block.SavedCascade;
 import io.github.zenndg.cubit.domain.desk.CascadeStart;
 import io.github.zenndg.cubit.domain.desk.DeskStatus;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
+import io.github.zenndg.cubit.menu.CascadeMenuPart;
+import io.github.zenndg.cubit.menu.EngineeringDeskMenu;
 import io.github.zenndg.cubit.registry.CubitBlocks;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
 import io.github.zenndg.cubit.registry.CubitItems;
@@ -22,6 +25,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -36,6 +40,7 @@ public final class CascadeGameTests {
   private static final int FIVE_CRAFTS = 200;
   private static final int SOME_TICKS = 20;
   private static final int MANY = 64;
+  private static final int BESIDE = 2;
   private static final int IRON = 7;
   private static final int THREE = 3;
   private static final int FOUR = 4;
@@ -52,9 +57,13 @@ public final class CascadeGameTests {
   private static final String MOVED = "Nothing should leave the input";
   private static final String WRONG_ENERGY = "Wrong energy after the plan";
   private static final String NOT_RUNNING = "The plan should be running";
+  private static final String REFUSED = "The menu should take the click";
   private static final String RUNNING = "The plan should have ended";
   private static final String NOT_PAUSED = "Without energy the plan should pause";
   private static final String LOST = "Items were lost";
+  private static final int BASE_ITEMS = 21;
+  private static final String WRONG_ITEM = "The desk should show the item of the task";
+  private static final String WRONG_PLAN = "The item should tell the plan it keeps";
   private static final String HOLDS = "The desk should keep no items of the plan";
 
   private CascadeGameTests() {}
@@ -253,6 +262,62 @@ public final class CascadeGameTests {
               count(placed.output(), CubitItems.GENERAL_ROBOT.get()), 1, NOT_MADE);
           helper.succeed();
         });
+  }
+
+  /** In Jade and in the hologram, the item of the task, not of the Project tab (answer 2022). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void aRunningPlanShowsItsTask(GameTestHelper helper) {
+    EngineeringDeskBlockEntity desk = place(helper, RobotTier.ULTIMATE, 0);
+    fillRobot(desk);
+    helper.assertTrue(desk.shownResult().isEmpty(), WRONG_ITEM);
+
+    startRobot(helper, desk);
+
+    helper.assertTrue(desk.shownResult().is(CubitItems.GENERAL_ROBOT_CASING.get()), WRONG_ITEM);
+    helper.succeed();
+  }
+
+  /** What the tooltip of the item reads: the progress and the items it keeps (answer 2010). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void theItemTellsItsPlan(GameTestHelper helper) {
+    EngineeringDeskBlockEntity desk = place(helper, RobotTier.ULTIMATE, 0);
+    fillRobot(desk);
+    startRobot(helper, desk);
+
+    SavedCascade saved = desk.collectComponents().get(CubitDataComponents.DESK_CASCADE.get());
+
+    helper.assertTrue(saved != null && saved.running().isPresent(), WRONG_PLAN);
+    helper.assertTrue(saved.item() == CubitItems.GENERAL_ROBOT.get(), WRONG_PLAN);
+    helper.assertValueEqual(saved.itemCount(), BASE_ITEMS, WRONG_PLAN);
+    helper.succeed();
+  }
+
+  /** By the buttons of the screen: zero does nothing, and one makes one (answer 2053). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void theButtonsStartAtZero(GameTestHelper helper) {
+    EngineeringDeskBlockEntity desk = place(helper, RobotTier.ULTIMATE, ENERGY);
+    fillRobot(desk);
+    ServerPlayer player = player(helper);
+    player.moveTo(
+        helper.absolutePos(EngineeringDeskGameTests.DESK).south(BESIDE).getBottomCenter());
+    EngineeringDeskMenu menu = EngineeringDeskMenu.onServer(1, player.getInventory(), desk);
+    List<ResourceLocation> catalog =
+        DeskRecipes.all(helper.getLevel().getRecipeManager()).stream()
+            .map(RecipeHolder::id)
+            .toList();
+    helper.assertTrue(
+        menu.clickMenuButton(player, CascadeMenuPart.choose(catalog.indexOf(id(ROBOT)))), REFUSED);
+    helper.assertTrue(menu.clickMenuButton(player, CascadeMenuPart.START), REFUSED);
+    helper.assertFalse(desk.cascade().isRunning(), RUNNING);
+    helper.assertValueEqual(count(desk.input(), Items.DIAMOND), THREE, MOVED);
+
+    menu.clickMenuButton(player, CascadeMenuPart.MINUS);
+    menu.clickMenuButton(player, CascadeMenuPart.PLUS);
+    menu.clickMenuButton(player, CascadeMenuPart.START);
+
+    helper.assertTrue(desk.cascade().isRunning(), NOT_RUNNING);
+    helper.assertValueEqual(desk.cascade().quantity(), 1, WRONG_START);
+    helper.succeed();
   }
 
   /** A recipe a pack took away ends the plan and gives everything back (answer 2010). */

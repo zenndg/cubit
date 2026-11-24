@@ -1,6 +1,8 @@
 package io.github.zenndg.cubit.datagen;
 
 import io.github.zenndg.cubit.domain.desk.CascadeStart;
+import io.github.zenndg.cubit.domain.desk.CascadeTaskStatus;
+import io.github.zenndg.cubit.item.EngineeringDeskItem;
 import io.github.zenndg.cubit.menu.DeskScreenKeys;
 import java.util.function.BiConsumer;
 
@@ -11,18 +13,31 @@ final class PortugueseCascadeTexts {
   private static final String LOCKS = "Há um plano em andamento";
   private static final String PART_LOCKED = "Bloqueada: %s";
   private static final String PICK = "Escolha um item no catálogo";
-  private static final String MATERIAL = "%s / %s %s";
+  private static final String MATERIALS = "Materiais de %s× %s";
+  private static final String HAS = "Na entrada: %s / %s";
+  private static final String READY_PART = "Já pronta: usa %s";
+  private static final String VIEW = "Ver plano";
   private static final String START = "Iniciar";
   private static final String NEW = "Novo plano";
   private static final String YES = "Sim";
   private static final String NO = "Não";
   private static final String ASK = "Iniciar este plano?";
-  private static final String ASKED = "%s× %s";
+  private static final String ASKED = "%s× %s · %s s";
+  private static final String AMOUNT = "%s× %s";
   private static final String COST = "%s FE · %s s";
   private static final String NO_CANCEL = "Não dá para cancelar.";
-  private static final String STEP = "%s. %s× %s  %s/%s";
+  private static final String ORDER_COLUMN = "#";
+  private static final String ITEM_COLUMN = "Item";
+  private static final String RESERVED_COLUMN = "Reserva";
+  private static final String NEEDS_COLUMN = "Depende";
+  private static final String STATUS_COLUMN = "Status";
+  private static final String WAITING = "Aguardando";
+  private static final String CRAFTING = "Processando %s/%s";
+  private static final String DONE = "Concluído";
+  private static final String TOOLTIP = "Cascata: %s · %s/%s";
   private static final String REASON_READY = "Pronto";
   private static final String REASON_TIER = "Liberada no Ultimate";
+  private static final String REASON_NO_AMOUNT = "Use + para escolher a quantidade";
   private static final String REASON_NO_PLAN = "Sem plano para este item";
   private static final String REASON_LOCKED = "Uma peça dele está bloqueada";
   private static final String REASON_MISSING = "Faltam materiais na entrada";
@@ -37,22 +52,39 @@ final class PortugueseCascadeTexts {
     add.accept(DeskScreenKeys.CASCADE_LOCKS, LOCKS);
     add.accept(DeskScreenKeys.CASCADE_PART_LOCKED, PART_LOCKED);
     add.accept(DeskScreenKeys.CASCADE_PICK, PICK);
-    add.accept(DeskScreenKeys.CASCADE_MATERIAL, MATERIAL);
+    add.accept(DeskScreenKeys.CASCADE_MATERIALS, MATERIALS);
+    add.accept(DeskScreenKeys.CASCADE_HAS, HAS);
+    add.accept(DeskScreenKeys.CASCADE_READY_PART, READY_PART);
+    add.accept(DeskScreenKeys.CASCADE_VIEW, VIEW);
     add.accept(DeskScreenKeys.CASCADE_START, START);
     add.accept(DeskScreenKeys.CASCADE_NEW, NEW);
     add.accept(DeskScreenKeys.CASCADE_YES, YES);
     add.accept(DeskScreenKeys.CASCADE_NO, NO);
     add.accept(DeskScreenKeys.CASCADE_ASK, ASK);
     add.accept(DeskScreenKeys.CASCADE_ASKED, ASKED);
+    add.accept(DeskScreenKeys.CASCADE_AMOUNT, AMOUNT);
     add.accept(DeskScreenKeys.CASCADE_COST, COST);
     add.accept(DeskScreenKeys.CASCADE_NO_CANCEL, NO_CANCEL);
-    add.accept(DeskScreenKeys.CASCADE_STEP, STEP);
+    add.accept(EngineeringDeskItem.CASCADE_KEY, TOOLTIP);
+    addTable(add);
     addReasons(add);
+  }
+
+  private static void addTable(BiConsumer<String, String> add) {
+    add.accept(DeskScreenKeys.CASCADE_ORDER_COLUMN, ORDER_COLUMN);
+    add.accept(DeskScreenKeys.CASCADE_ITEM_COLUMN, ITEM_COLUMN);
+    add.accept(DeskScreenKeys.CASCADE_RESERVED_COLUMN, RESERVED_COLUMN);
+    add.accept(DeskScreenKeys.CASCADE_NEEDS_COLUMN, NEEDS_COLUMN);
+    add.accept(DeskScreenKeys.CASCADE_STATUS_COLUMN, STATUS_COLUMN);
+    add.accept(DeskScreenKeys.cascadeStatus(CascadeTaskStatus.WAITING), WAITING);
+    add.accept(DeskScreenKeys.cascadeStatus(CascadeTaskStatus.CRAFTING), CRAFTING);
+    add.accept(DeskScreenKeys.cascadeStatus(CascadeTaskStatus.DONE), DONE);
   }
 
   private static void addReasons(BiConsumer<String, String> add) {
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.READY), REASON_READY);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.TIER), REASON_TIER);
+    add.accept(DeskScreenKeys.cascadeStart(CascadeStart.NO_AMOUNT), REASON_NO_AMOUNT);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.NO_PLAN), REASON_NO_PLAN);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.LOCKED), REASON_LOCKED);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.MISSING), REASON_MISSING);

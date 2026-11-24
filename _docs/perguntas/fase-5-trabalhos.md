@@ -986,11 +986,40 @@ Não há perguntas pendentes nesta fase.
 | 2039 | Pedido do desenvolvedor, no teste do PR 1 da cascata: ajuste na aba Projeto da mesa | "ok mas temos um ajuste para melhorar na primeira tela desta mesa temos o botao de + e - junto do texto "- 0 / 0 +" o estado do caracter "0" do bota "-" e outro "+" estao grudados poderia ter um espacamento". Entra neste PR, num commit próprio, com espaço para o maior pedido dos dois lados. O "ok" aprova a correção do catálogo (2038) |
 | 2040 | O espaço novo entre o pedido e os botões − e + (2039) ficou bom? | Não: o desenvolvedor disse "o espaco foi muito grande pode ser coisa de 2px e quadro de slots de crafting deve ficar alinhados fica mais armonico". O vão fica de uns 2 a 3 px, o conjunto e o Cancel se alinham ao quadro dos slots, e um número maior encolhe para caber. Detalha a 2039 |
 | 2041 | O `AGENTS.md` pode citar as classes novas da cascata e da mesa, e o "Estado atual" a #253? | Sim: o desenvolvedor disse "tudo testado e aprovado, autorizo os commits e o AGENTS.md" |
+| 2042 | Alinhamento do PR 2 da cascata (regra 51): a tela dos dois passos, o aviso, o ícone, o Jade, a dica do item, a correção do custo mostrado e o guia do player, com a tabela na largura toda da tela, como na prancha (2030), e o `Cancel` que volta ao passo 1 (2006 e 2017). Há algo a acrescentar? | Não: o desenvolvedor disse "sem acréscimos" e "siga com as prévias" |
+| 2043 | Os documentos desatualizados podem ser corrigidos no PR 2 da cascata: `mesa-de-engenharia.md` e `glossario.md`, que não citam a fabricação em cascata e chamam de "Cascata" o abastecimento de todos os tiers (1500 a 1503), e `funcionalidades-entregues.md`, sem seção da Engineering Desk? | Sim: o desenvolvedor disse "autorizo os documentos" |
+| 2044 | As prévias da aba Cascade podem virar a referência do código? Elas mantêm o cabeçalho das outras abas, põem os botões acima da energia, um ícone em cada linha da tabela, as colunas `Reserva` e `Depende` em português e o cadeado dourado da prancha. | Sim, como estão. A recomendação foi aceita. Atende a 2030 |
+| 2045 | Fabricação em cascata: qual véu usar nos slots dos materiais do passo 1? | O A, forte: as três cores se distinguem bem sobre o azul, como pediu a 2030. A recomendação foi aceita. Detalha a 2006 |
+| 2046 | Fabricação em cascata: com o passo 2 aberto e antes do Iniciar, outro player tira materiais da entrada. O que a tela faz? | Fica no passo 2, com o Iniciar apagado e o motivo na dica, e ele acende de novo se os materiais voltarem. A recomendação foi aceita |
+| 2047 | O `AGENTS.md` pode citar as classes novas da tela da cascata, no lugar da `CascadePanel`, e o "Estado atual" o PR 1 no #254 e o PR 2? | Sim: o desenvolvedor disse "testado e aprovado, autorizo os commits, o AGENTS.md e a issue" |
+| 2048 | Pelo código, clicar numa aba da Engineering Desk com um item no cursor o joga no chão, porque a tela não tem a proteção das telas do Cubit e do Dock. Como tratar? | Numa issue própria, fora do PR 2 da cascata. A recomendação foi aceita |
+| 2049 | Teste manual do PR 2 da cascata: o que o desenvolvedor achou, depois da aprovação? | "achei um bug nos testes da mesa na tela nova. Quando seleciono o cubit no catalogo a quantidade aparece como um na visualizacao mas acredito que esta em zero. Quando clico + ele aumenta para 2 ele faz o 2 itens porem o 1 nao faz nada" |
+| 2050 | Na aba Cascade, com o Cubit escolhido e a quantidade em 1, o que exatamente não funcionou (2049)? | Sem slots de material: o lado direito ficou sem slots, só com o título ou a linha Using, e por isso pareceu zero. O plano nem chegou a ser iniciado |
+| 2051 | Quando o problema apareceu (2049), a mesa já tinha as quatro peças prontas do Cubit? | O desenvolvedor não lembra. O plano salvo no mundo `testes01` mostra que havia, ao iniciar o plano de 2 Cubits, peças prontas para 1 |
+| 2052 | Com todas as peças já prontas na mesa, o passo 1 da aba Cascade fica sem nenhum slot e parece que a quantidade é zero (2049 e 2050). Como mostrar o que o plano vai usar? | Peças prontas em slots: as aproveitadas viram slots na mesma grade, depois dos materiais, com véu azul-claro, a quantidade e a dica `Already made`, no lugar da linha Using, com prévia antes do código. A recomendação foi aceita. Muda o detalhe 1 do conceito (2031) |
+| 2053 | Pedido do desenvolvedor, depois do teste da cascata (2049): com que quantidade a aba começa? | "o valor de quantidade ao iniciar deveria ser 0 ao selecionar o item e ao clicar no + sobre para 1 e apresenta os slots dos itens". A quantidade vai de 0 ao maior pedido do tier, e, em 0, não há slots. Muda a 2011. As peças prontas em slots (2052) continuam |
+| 2054 | As prévias da quantidade em 0 e das peças prontas em slots (2052 e 2053) podem ir ao código? | Sim, como estão. Em 0: o nome do item, `Press + to set the amount` / `Use + para escolher a quantidade`, nenhum slot e o View plan apagado com esse motivo. De 1 em diante: os materiais e as peças prontas em slots azul-claros, com a dica `Already made: uses 1` / `Já pronta: usa 1`, sem a linha Using, e o − desce até 0. A recomendação foi aceita |
+| 2055 | O `AGENTS.md` pode citar `CascadeAmount` e `CascadeNeed` na estrutura de pacotes, e o "Estado atual" as respostas 2006 a 2054? | Sim, autorizado. A recomendação foi aceita |
+| 2056 | A correção da quantidade em 0 e das peças prontas em slots (2052 a 2054) foi testada no jogo e está aprovada? | Testado e aprovado |
+| 2057 | Ideia do desenvolvedor: "um novo tier acima do ultimate usando estrela do whiter e outros itens mais raros do minecraft o status é dobro do tier anterior e pode ser aplicado somente para cubit". Onde fica? | Anotada em `_docs/backlog.md`, na seção Todo Cubit, sem nada decidido |
+| 2058 | Pedido do desenvolvedor: "atualize o checklist.md ROADMAP.md AGENTS.md com o status atual do projeto sobre o que ja foi entregue" e "pode marcar a cascata de crafting da mesa tambem como concluida". Isso e o `README.md`, que ainda dava a Fase 5 como planejada, entram no PR 2 da cascata? | Sim, num commit de documentos neste PR, com a cascata marcada antes do merge, como exceção à marcação no PR seguinte. A recomendação foi aceita |
+| 2059 | O `AGENTS.md`, o `checklist.md` e o `ROADMAP.md` ainda dão como pendente o bloqueio visto num mundo novo (1967 e 1975), que a 2002 deu como falso positivo naquele cenário. Corrigir no PR 2 da cascata? | Sim, agora: na #250 faltam as conquistas visíveis. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 07:19 | Registra a resposta 2059. |
+| Zennd | 2026-11-24 07:08 | Registra a resposta 2058. |
+| Zennd | 2026-11-23 20:27 | Registra a resposta 2057. |
+| Zennd | 2026-11-23 20:23 | Registra as respostas 2055 a 2056. |
+| Zennd | 2026-11-23 16:53 | Registra a resposta 2054. |
+| Zennd | 2026-11-23 16:52 | Registra a resposta 2053. |
+| Zennd | 2026-11-23 16:52 | Registra a resposta 2052. |
+| Zennd | 2026-11-23 16:50 | Registra as respostas 2049 a 2051. |
+| Zennd | 2026-11-23 16:35 | Registra as respostas 2047 a 2048. |
+| Zennd | 2026-11-23 16:12 | Registra as respostas 2044 a 2046. |
+| Zennd | 2026-11-23 16:06 | Registra as respostas 2042 a 2043. |
 | Zennd | 2026-11-23 14:52 | Registra a resposta 2041. |
 | Zennd | 2026-11-23 14:49 | Registra a resposta 2040. |
 | Zennd | 2026-11-23 14:45 | Registra a resposta 2039. |
