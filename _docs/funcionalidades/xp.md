@@ -2,7 +2,7 @@
 
 O XP passa a ser um fluido do mod, o **Cubit XP Fluid**, guardado num tanque do Cubit e num tanque do Induction Dock. O Cubit enche o tanque com o XP do trabalho e com as bolinhas do chão, e o Dock recebe esse XP, guarda, converte em energia ou entrega ao player. O conceito inicial é do desenvolvedor (perguntas 1762, 1787 a 1789 e 1814) e foi refinado nas perguntas 1815 a 1850. Os números ficam em [`tiers.md`](../tiers.md#xp).
 
-**Situação:** autorizado (pergunta 1851), ajustado pelas perguntas 1931 a 1942 e 2060 a 2068 e autorizado de novo (pergunta 2069). O PR 1 traz o Cubit, e o PR 2, o Dock.
+**Situação:** autorizado (pergunta 1851), ajustado pelas perguntas 1931 a 1942 e 2060 a 2068 e autorizado de novo (pergunta 2069). A troca de XP com o player (perguntas 2070 a 2082) foi autorizada na 2083. O PR 1 traz o Cubit, e o PR 2, o Dock.
 
 ## Por quê
 
@@ -14,7 +14,7 @@ O Cubit já gera XP no trabalho, mas ele se perde, ou vira energia, no caso do P
 - **Onde existe:** é um fluido registrado do NeoForge, verde-limão, que vive só dentro dos tanques do Cubit e do Dock e passa por canos de outros mods. Não tem balde nem bloco no mundo (pergunta 1815).
 - **Taxa:** 1 ponto de XP do jogo vale 20 mB, a taxa do Industrial Foregoing e da maioria dos mods de XP líquido. Um balde, de 1.000 mB, guarda 50 pontos. A taxa fica no config (pergunta 1817).
 - **Tag:** o fluido entra na tag comum `c:experience`, para os mods que a usam o reconhecerem como XP (pergunta 1818).
-- **Texturas:** parado e correndo, animadas, num verde-limão com brilho suave e pequenas bolhas, com desenho próprio (regra 9), geradas por script e aprovadas pelo desenvolvedor antes de entrarem (pergunta 1845).
+- **Texturas:** parado e correndo, animadas, num verde-limão com brilho suave e pequenas bolhas, com desenho próprio (regra 9), geradas por script e aprovadas pelo desenvolvedor (perguntas 1845 e 2081).
 - **Independência:** o Industrial Foregoing é só a referência da taxa. Nada depende de outro mod, e tudo funciona pela tela (regra 50).
 
 ## O tanque do Cubit
@@ -100,20 +100,24 @@ Escolhidos na aba XP do Dock (pergunta 1831):
 - **Bateria cheia:** nos modos que convertem, o XP novo entra no tanque enquanto couber e espera, como o já guardado. Só é apagado com a bateria e o tanque cheios, e assim o Dock sempre aceita o XP do Cubit (perguntas 1831, 1939 e 2061).
 - **Equilíbrio:** uma fazenda de mobs de 3.000 pontos por hora rende 27.000 FE por hora, 3% dos 900 mil FE que o painel do Dock Base gera em 1 hora, com dia e noite. O XP é um uso para o que sobra, nunca uma fonte de energia (perguntas 1940 e 1942).
 
-## Entregar ao player
+## Trocar XP com o player
 
-Um botão na aba XP do Dock (pergunta 1836):
+O player envia o seu XP ao tanque e o recebe dele, só pela interface, na aba XP do Cubit e na do Dock (perguntas 1836, 2070, 2072 e 2078):
 
-- **Clique:** entrega os pontos que faltam para o player subir 1 nível, pela conta do jogo, ou o que houver no tanque, se for menos.
-- **Shift + clique:** entrega tudo.
-- **Como:** os pontos entram direto no player, sem bolinhas, e só pontos inteiros saem. O que não fecha 1 ponto fica no tanque.
+- **`+`:** envia do player ao tanque a parte do nível atual e, com a barra zerada, o nível anterior inteiro (pergunta 2076).
+- **`−`:** tira do tanque para o player os pontos que faltam para ele subir 1 nível, pela conta do jogo (pergunta 2076).
+- **Um nível por clique,** sempre, sem Shift, nas duas telas. Se faltar XP ou espaço, passa o que houver ou couber, e o resto fica com quem o tinha (perguntas 2071 e 2078).
+- **Como:** os pontos entram e saem direto do player, sem bolinhas, e só pontos inteiros. O que não fecha 1 ponto fica no tanque.
+- **No Cubit:** só com ele ativo. Desligado ou hibernando, os dois botões ficam apagados, com o motivo na dica (perguntas 2073 e 2077). No modo Ignorar, o XP enviado também é guardado (pergunta 2080).
+- **No Dock:** só entra o que couber no tanque e, guardado, o XP segue o modo do Dock, que pode convertê-lo em energia (pergunta 2072).
+- **No Tablet:** não há troca (pergunta 2075).
 - **Quem:** só o dono, com o servidor conferindo o dono e a distância (regra 20).
 
 ## Telas
 
-- **Aba XP do Cubit:** nas abas da tela do Cubit, com um ícone de 16×16 feito por prompt (pergunta 900). Mostra o recipiente com marcas de medida e o líquido verde-limão, a linha `6,400 / 8,000 mB · 320 points`, o modo e a chave "Apagar o excesso" (perguntas 1830 e 1847).
-- **Aba XP no Tablet:** a mesma aba na tela do Cubit no Tablet. Com o Cubit descarregado, ela mostra a última foto dele, só para ler (perguntas 1830 e 1849).
-- **Aba XP do Dock:** a quarta aba da tela do Dock, depois de Dock, Storage e Solar (pergunta 1865), com o mesmo recipiente, o modo, o botão do player e a energia que o XP gerou (pergunta 1837).
+- **Aba XP do Cubit:** nas abas da tela do Cubit, com um ícone de 16×16 feito por prompt (pergunta 900). Mostra o recipiente com marcas de medida e o líquido verde-limão, a linha `6,400 / 8,000 mB · 320 points`, a linha `Your level: 27 [−] Tank [+]`, o modo e a chave "Apagar o excesso", que só acende no Armazenar (perguntas 1830, 1847 e 2082).
+- **Aba XP no Tablet:** a mesma aba na tela do Cubit no Tablet. Com o Cubit descarregado, ela mostra a última foto dele, só para ler (perguntas 1830 e 1849). Sem a troca de XP com o player, muda o modo e a chave e tem o botão `Unload XP` / `Descarregar XP`, com a mesma ida, as mesmas regras e os mesmos motivos do Ir para o Dock (perguntas 2075 e 2079).
+- **Aba XP do Dock:** a quarta aba da tela do Dock, depois de Dock, Storage e Solar (pergunta 1865), com o mesmo recipiente, o modo, o − e o + do player e a energia que o XP gerou (perguntas 1837 e 2072).
 - **Botões:** pedem ao servidor, que confere o dono e decide (regras 19 e 20).
 - **Dica dos itens:** o item do Cubit, o Damaged Cubit e o item do Dock ganham a linha `XP 6,400 / 8,000 mB`, como a da bateria (pergunta 1849).
 - **Jade:** opcional, ganha a linha do tanque no Cubit e no Dock, como a da energia (pergunta 1837).
@@ -131,7 +135,7 @@ Um texto curto, uma vez por enchida, que só volta depois que o tanque esvaziar 
 Os do jogo, sem `.wav` novos (pergunta 1848):
 
 - **Recolher bolinha:** o som de pegar XP do jogo, um pouco mais grave, no Cubit.
-- **Entregar ao player:** o mesmo som, no player.
+- **Receber do tanque ou enviar a ele:** o mesmo som, no player.
 - **Passagem ao Dock:** em silêncio, porque a recarga já toca.
 
 ## Fora do escopo
@@ -153,6 +157,11 @@ Não foram perguntados e foram autorizados junto do conceito ajustado (pergunta 
 7. Um trabalho desconhecido em `xp_jobs` é ignorado e registrado no log (regra 17).
 8. A aba XP do Cubit fica depois da aba Trabalho, e a Supply do Organizador desce uma posição, com prévia antes do código (pergunta 1853).
 
+A troca de XP com o player acrescenta dois, autorizados com ela (pergunta 2083):
+
+9. O XP do player é contado em pontos inteiros, pelo nível e pela barra, e conferido antes e depois: se outro mod cancelar ou mudar a troca, só se move o que o player de fato ganhou ou perdeu, para nada se perder nem duplicar (regra 13).
+10. Um + que enche o tanque no modo Voltar ao Dock vale como qualquer enchida: o Cubit vai ao Dock.
+
 ## Contrato
 
 | Onde | Nome | Conteúdo |
@@ -169,19 +178,21 @@ Não foram perguntados e foram autorizados junto do conceito ajustado (pergunta 
 | Estado do item do Dock | Os mesmos três campos | No item do Dock, como a energia (pergunta 1838) |
 | Capability do Dock | Fluido do NeoForge | Entrada e saída só de `cubit:xp_fluid` (perguntas 1818 e 1841) |
 | Build | `META-INF/accesstransformer.cfg` | Abre só `recipesUsed`, da fornalha, e `followingPlayer` e `count`, da bolinha de XP, com um documento em `_docs/desenvolvimento/` (pergunta 2068) |
-| Traduções | O fluido, as abas, os modos, a chave do excesso, o botão, as dicas e os dois avisos | Em inglês e português, com as mesmas chaves (regra 1) |
+| Traduções | O fluido, as abas, os modos, a chave do excesso, os botões, as dicas e os dois avisos | Em inglês e português, com as mesmas chaves (regra 1) |
 
 ## Entrega
 
 Uma issue e dois PRs, cada um com o seu teste manual e as provas do [`antes-do-pr.md`](../desenvolvimento/antes-do-pr.md) (perguntas 1846 e 1847):
 
-1. **PR 1, o Cubit:** o fluido e as texturas, o tanque do Cubit, as fontes de XP, os três modos, a saída do XP como energia do Patrulheiro, a passagem para um tanque do Dock ainda sem tela e sem modos, que só guarda, com o Cubit ficando com o que não couber, a aba XP da tela do Cubit, com o ícone, a dica do item, o aviso do Cubit cheio e os sons.
-2. **PR 2, o Dock:** os cinco modos do Dock, a conversão em energia, o botão do player, os canos, a aba XP do Tablet e do Dock, a dica do item do Dock, os avisos do Dock e o Jade.
+1. **PR 1, o Cubit:** o fluido e as texturas, o tanque do Cubit, as fontes de XP, os três modos, a saída do XP como energia do Patrulheiro, a passagem para um tanque do Dock ainda sem tela e sem modos, que só guarda, com o Cubit ficando com o que não couber, a aba XP da tela do Cubit, com o ícone e a troca de XP com o player, a dica do item, o aviso do Cubit cheio e os sons.
+2. **PR 2, o Dock:** os cinco modos do Dock, a conversão em energia, a troca de XP com o player, os canos, a aba XP do Tablet e do Dock, a dica do item do Dock, os avisos do Dock e o Jade.
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 07:53 | Registra a autorização da troca de XP com o player (pergunta 2083). |
+| Zennd | 2026-11-24 07:51 | Acrescenta a troca de XP com o player e o Descarregar XP do Tablet, e aprova o fluido, a aba e o ícone (perguntas 2070 a 2082). |
 | Zennd | 2026-11-24 07:33 | Registra a autorização do conceito ajustado (pergunta 2069). |
 | Zennd | 2026-11-24 07:32 | Fecha a bateria cheia, o dono offline, a ida sem esvaziar, a saída do Dock, o lixo da pesca, a bolinha grande e o Access Transformer (perguntas 2061 a 2068). |
 | Zennd | 2026-11-24 07:26 | Leva ao conceito a taxa de 9 FE por ponto, os outros players, o retorno, a troca de modo, os canos e a capacidade reduzida (perguntas 1931 a 1942). |

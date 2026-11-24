@@ -1014,11 +1014,30 @@ Não há perguntas pendentes nesta fase.
 | 2067 | O Cubit que foi ao Dock por outro motivo, como a bateria, e ainda tem XP no tanque, sai quando? | Todo Cubit espera esvaziar: só sai sozinho com a bateria e a vida cheias e o tanque de XP vazio. Se o Dock não aceitar mais, no PR 1, ele sai, e o clique no Dock continua liberando antes. A recomendação foi aceita. Muda a 963 e a 1842 |
 | 2068 | O XP guardado na fornalha (`recipesUsed`), o player que a bolinha segue (`followingPlayer`) e quantas ela junta (`count`) são campos privados do jogo. Como acessar? | Com o Access Transformer do NeoForge, um `accesstransformer.cfg` que abre só esses campos, sem dependência nova, com um documento em `_docs/desenvolvimento/` (regra 38). A recomendação foi aceita |
 | 2069 | O conceito ajustado do XP Cubit e Dock, em `xp.md`, com as respostas 1931 a 1942 e 2060 a 2068 e os 8 detalhes completados pelo agente, pode ir ao código? | O desenvolvedor disse "autorizo os itens 1 a 4, pode seguir" (regra 54): os 8 detalhes valem, e seguem a branch, o PR 1 e as prévias. A recomendação foi aceita |
+| 2070 | Pedido do desenvolvedor, com as prévias da aba XP prontas: o player trocar XP com o tanque do Cubit | "pensei em colocar tambem a possibilidade do player descarregar o seu XP para o tank do cubit ou puxar para o player. Envio e recebimento". Vai à rodada, porque a 1836 só entrega XP ao player e só no Dock, e muda a aba XP do PR 1 |
+| 2071 | Trocar XP com o tanque do Cubit: quanto passa por clique? | O desenvolvedor disse "somente nivel a nivel remover ou enviar": sempre 1 nível por clique, sem passar tudo de uma vez. A recomendação, com Shift para tudo, não foi aceita |
+| 2072 | O player também envia o XP dele ao tanque do Dock, no PR 2? | Sim, os dois sentidos: o Dock ganha o mesmo par do Cubit, no PR 2. Só envia o que couber e, guardado, o XP segue o modo do Dock. A recomendação foi aceita. Muda a 1836 |
+| 2073 | Em que estado do Cubit a troca de XP com o player funciona? | O desenvolvedor disse "o player deve acessar o cubit ligado e temos uma nova aba e tela no cubit que mostra tudo sobre XP e nesta tela tera o (- / +) o tablet nao tem esta opcao somente para visualizacao": só com o Cubit ligado, pelos botões − e + da aba XP da tela dele, e o Tablet só mostra. A recomendação, em todos os estados, não foi aceita |
+| 2074 | A troca de XP com o player funciona pelo Tablet? | Escolheu "Só perto do Cubit", a recomendação, o que contradiz a 2073, em que o Tablet só mostra. Vai a confirmar |
+| 2075 | Aba XP no Tablet: o que ela permite (2073 e 2074)? | O desenvolvedor disse "player no tablet nao pode receber e enviar xp pode alterar as configuracoes visualizar informacoes e pedir o cubit para descarregar no dock": sem − e +, com o modo e a chave do excesso, as informações e um pedido para o Cubit descarregar o XP no Dock. Muda a 2074 e detalha a 1830. O pedido vai à rodada |
+| 2076 | Botões − e + da aba XP do Cubit: o que cada um faz, e o que é 1 nível com a barra do player pela metade? | O − tira do tanque para o player, e o + envia do player ao tanque. No −, o player completa a barra até subir 1 nível. No +, entrega a parte do nível atual e, com a barra zerada, o nível anterior inteiro. Se faltar XP ou espaço, passa o que houver ou couber. A recomendação foi aceita. Detalha a 2071 |
+| 2077 | O Cubit ligado da 2073 inclui o que está hibernando? | Não, só o ativo: desligado ou hibernando, o − e o + ficam apagados, com o motivo na dica, e no Dock o player usa a tela do Dock (2072). A recomendação foi aceita. Detalha a 2073 |
+| 2078 | Como fica o Shift + clique do Dock (1836), com o nível a nível da 2071? | O desenvolvedor disse "nao vamos ter esta opcao shift + cloque o xp so é motivo no dock ou cubit pela interface": sem Shift, e o XP só se move pela tela do Dock ou do Cubit, 1 nível por clique. Muda a 1836 |
+| 2079 | O pedido do Tablet para o Cubit descarregar o XP no Dock (2075) precisa de um botão novo? | Sim, `Unload XP` / `Descarregar XP` na aba XP do Tablet, no PR 2, com a mesma ida do Ir para o Dock, as mesmas regras e os mesmos motivos. A recomendação foi aceita. Detalha a 2075 |
+| 2080 | No modo Ignorar, o que acontece com o XP que o player envia ao tanque pelo +? | Guarda no tanque: o modo só vale para o trabalho e o chão, e o XP que o player envia de propósito nunca é apagado pelo Cubit (pilar Segurança). A recomendação foi aceita. Detalha a 1827 e a 2076 |
+| 2081 | As texturas do fluido, parado e correndo, podem entrar no jogo? | Sim, como estão nas prévias: verde-limão opaco com bolhas, em 16 quadros. A recomendação foi aceita. Fecha a 1845 |
+| 2082 | A aba XP do Cubit, com o ícone gerado, o tanque com marcas, a linha do nível com − e +, os três modos e a chave, pode ir ao código? | Sim, a aba e o ícone, reduzido a 16×16. A recomendação foi aceita |
+| 2083 | A troca de XP com o player, com os detalhes 9 e 10 (respostas 2070 a 2082), pode ir ao código? | O desenvolvedor disse "autorizo os itens 1 a 4, pode seguir" (regra 54): a troca e os dois detalhes valem, e o código do PR 1 começa. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 07:53 | Registra a resposta 2083. |
+| Zennd | 2026-11-24 07:51 | Registra as respostas 2079 a 2082. |
+| Zennd | 2026-11-24 07:47 | Registra as respostas 2075 a 2078. |
+| Zennd | 2026-11-24 07:43 | Registra as respostas 2071 a 2074. |
+| Zennd | 2026-11-24 07:40 | Registra a resposta 2070. |
 | Zennd | 2026-11-24 07:33 | Registra a resposta 2069. |
 | Zennd | 2026-11-24 07:32 | Registra as respostas 2065 a 2068. |
 | Zennd | 2026-11-24 07:29 | Registra as respostas 2061 a 2064. |
