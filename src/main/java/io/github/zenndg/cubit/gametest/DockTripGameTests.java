@@ -10,6 +10,8 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.PipeBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -126,10 +128,7 @@ public final class DockTripGameTests {
   public static void aRobotNeverEntersThroughABlock(GameTestHelper helper) {
     ServerPlayer owner = DockScene.ownerBeside(helper);
     DockScene.placeDock(helper, owner, FLOOR, STOCK);
-    for (Direction side : Direction.Plane.HORIZONTAL) {
-      helper.setBlock(DOCK.relative(side), Blocks.IRON_BARS);
-      helper.setBlock(DOCK.relative(side).above(), Blocks.IRON_BARS);
-    }
+    closeRing(helper);
     RobotEntity robot = DockScene.placeRobot(helper, owner, ROBOT_FLOOR, PLENTY);
 
     robot.callToDock(helper.absolutePos(DOCK));
@@ -140,6 +139,19 @@ public final class DockTripGameTests {
           helper.assertValueEqual(robot.powerState(), PowerState.ACTIVE, WRONG_POWER);
           helper.succeed();
         });
+  }
+
+  /** Bars all around the dock, joined, so there is no gap between them nor at the corners. */
+  private static void closeRing(GameTestHelper helper) {
+    BlockState bars = Blocks.IRON_BARS.defaultBlockState();
+    for (Direction side : Direction.Plane.HORIZONTAL) {
+      bars = bars.setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(side), true);
+    }
+    for (BlockPos pos : BlockPos.betweenClosed(DOCK.offset(-1, 0, -1), DOCK.offset(1, 2, 1))) {
+      if (pos.getX() != DOCK.getX() || pos.getZ() != DOCK.getZ()) {
+        helper.setBlock(pos, bars);
+      }
+    }
   }
 
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
