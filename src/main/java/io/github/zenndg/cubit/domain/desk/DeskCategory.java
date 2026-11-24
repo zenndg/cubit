@@ -10,6 +10,7 @@ import java.util.Optional;
  */
 public enum DeskCategory {
   ROBOT,
+  PARTS,
   ENERGY,
   DOCK,
   MODULES,

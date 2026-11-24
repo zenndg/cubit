@@ -2,24 +2,28 @@
   "type": "cubit:engineering",
   "category": "misc",
   "desk_category": "dock",
-  "key": {
-    "C": {
-      "item": "minecraft:chest"
+  "ingredients": [
+    {
+      "item": "cubit:hard_drive"
     },
-    "D": {
-      "item": "minecraft:diamond"
+    {
+      "item": "cubit:xp_tank"
     },
-    "I": {
-      "item": "minecraft:iron_ingot"
+    {
+      "item": "cubit:base_power_cell"
     },
-    "R": {
-      "item": "minecraft:redstone"
+    {
+      "item": "cubit:induction_coil"
+    },
+    {
+      "item": "cubit:display_panel"
+    },
+    {
+      "item": "cubit:servo_motor"
+    },
+    {
+      "item": "cubit:solar_panel"
     }
-  },
-  "pattern": [
-    "D  ",
-    "C  ",
-    "IRI"
   ],
   "result": {
     "count": 1,

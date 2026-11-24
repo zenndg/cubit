@@ -4,7 +4,7 @@
   "desk_category": "modules",
   "key": {
     "C": {
-      "item": "cubit:general_robot_core"
+      "item": "cubit:neural_core"
     },
     "E": {
       "item": "minecraft:lapis_lazuli"

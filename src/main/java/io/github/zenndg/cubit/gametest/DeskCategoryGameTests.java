@@ -39,11 +39,13 @@ public final class DeskCategoryGameTests {
   private static final String MODULE = "elite_module";
   private static final String CARD = "ml_cook";
   private static final String TABLET = "tablet";
+  private static final String PART = "servo_motor";
 
   /** One recipe of each type that runs in the desk, with the category of answer 1525. */
   private static final Map<String, DeskCategory> EXPECTED =
       Map.of(
           ROBOT, DeskCategory.ROBOT,
+          PART, DeskCategory.PARTS,
           REPAIR, DeskCategory.ROBOT,
           RECHARGE, DeskCategory.ENERGY,
           POWER_BANK, DeskCategory.ENERGY,

@@ -28,19 +28,13 @@ final class CubitRecipeProvider extends RecipeProvider {
   private static final String TOOLBOX_TOP_ROW = "III";
   private static final String TOOLBOX_MIDDLE_ROW = "IRI";
   private static final String TOOLBOX_BOTTOM_ROW = "IOI";
-  private static final String DOCK_TOP_ROW = "D  ";
-  private static final String TABLET_TOP_ROW = "GRG";
-  private static final String TABLET_MIDDLE_ROW = "QDQ";
-  private static final String TABLET_BOTTOM_ROW = "QOQ";
-  private static final char GLASS = 'G';
+  private static final String TABLET_TOP_ROW = "QRQ";
+  private static final String TABLET_BOTTOM_ROW = "QDQ";
   private static final char QUARTZ = 'Q';
-  private static final String DOCK_MIDDLE_ROW = "C  ";
-  private static final String DOCK_BOTTOM_ROW = "IRI";
   private static final char IRON = 'I';
   private static final char REDSTONE = 'R';
   private static final char OBSIDIAN = 'O';
-  private static final char DIAMOND = 'D';
-  private static final char CHEST = 'C';
+  private static final char DISPLAY = 'D';
   private static final String FROM_CASING_SUFFIX = "_from_casing";
   private static final String HAS_ROBOT = "has_robot";
   private static final String HAS_PREFIX = "has_";
@@ -62,6 +56,7 @@ final class CubitRecipeProvider extends RecipeProvider {
     DeskRecipeData.desk(output);
     RecipeOutput desk = new EngineeringRecipeOutput(output);
     toolbox(desk);
+    SharedPartRecipes.save(desk);
     CubitPartRecipes.save(desk);
     robot(desk);
     dock(desk);
@@ -86,13 +81,16 @@ final class CubitRecipeProvider extends RecipeProvider {
         .save(output);
   }
 
-  /** The four parts, without a shape, open from the start (answers 1346 and 1496). */
+  /** Its four parts and three shared ones, without a shape, open from the start (1496, 2146). */
   private void robot(RecipeOutput output) {
     ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, CubitItems.GENERAL_ROBOT.get())
         .requires(CubitItems.GENERAL_ROBOT_CASING.get())
         .requires(CubitItems.GENERAL_ROBOT_VISOR.get())
         .requires(CubitItems.GENERAL_ROBOT_TREADS.get())
-        .requires(CubitItems.GENERAL_ROBOT_CORE.get())
+        .requires(CubitItems.NEURAL_CORE.get())
+        .requires(CubitItems.XP_TANK.get())
+        .requires(CubitItems.HARD_DRIVE.get())
+        .requires(CubitItems.SOLAR_PANEL.get())
         .unlockedBy(DeskRecipeData.FROM_START, DeskRecipeData.fromStart())
         .save(output);
   }
@@ -106,7 +104,7 @@ final class CubitRecipeProvider extends RecipeProvider {
             CubitItems.ADVANCED_MODULE.get(),
             Items.LAPIS_LAZULI,
             Items.GOLD_INGOT,
-            CubitItems.GENERAL_ROBOT_CORE.get())
+            CubitItems.NEURAL_CORE.get())
         .save(output);
     module(
             CubitItems.ELITE_MODULE.get(),
@@ -129,7 +127,7 @@ final class CubitRecipeProvider extends RecipeProvider {
   private static ShapedRecipeBuilder module(
       ItemLike result, ItemLike edge, ItemLike side, ItemLike center) {
     ItemLike unlock =
-        center == CubitItems.GENERAL_ROBOT_CORE.get() ? CubitItems.GENERAL_ROBOT.get() : center;
+        center == CubitItems.NEURAL_CORE.get() ? CubitItems.GENERAL_ROBOT.get() : center;
     String criterion = HAS_PREFIX + BuiltInRegistries.ITEM.getKey(unlock.asItem()).getPath();
     return CubitPartRecipes.cross(
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result), edge, side, center)
@@ -222,33 +220,28 @@ final class CubitRecipeProvider extends RecipeProvider {
     };
   }
 
+  /** Only shared parts and the Base cell, without a shape, because it starts Base (2144, 2147). */
   private void dock(RecipeOutput output) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, CubitItems.INDUCTION_DOCK.get())
-        .pattern(DOCK_TOP_ROW)
-        .pattern(DOCK_MIDDLE_ROW)
-        .pattern(DOCK_BOTTOM_ROW)
-        .define(DIAMOND, Items.DIAMOND)
-        .define(CHEST, Items.CHEST)
-        .define(IRON, Items.IRON_INGOT)
-        .define(REDSTONE, Items.REDSTONE)
+    ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, CubitItems.INDUCTION_DOCK.get())
+        .requires(CubitItems.HARD_DRIVE.get())
+        .requires(CubitItems.XP_TANK.get())
+        .requires(CubitItems.BASE_POWER_CELL.get())
+        .requires(CubitItems.INDUCTION_COIL.get())
+        .requires(CubitItems.DISPLAY_PANEL.get())
+        .requires(CubitItems.SERVO_MOTOR.get())
+        .requires(CubitItems.SOLAR_PANEL.get())
         .unlockedBy(HAS_ROBOT, has(CubitItems.GENERAL_ROBOT.get()))
         .save(output);
   }
 
-  /**
-   * Glass and redstone on top, quartz on the sides, a diamond in the middle and obsidian below
-   * (answer 1331).
-   */
+  /** A display in a frame of quartz, with redstone on top (answer 2145). */
   private void tablet(RecipeOutput output) {
     ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, CubitItems.TABLET.get())
         .pattern(TABLET_TOP_ROW)
-        .pattern(TABLET_MIDDLE_ROW)
         .pattern(TABLET_BOTTOM_ROW)
-        .define(GLASS, Items.GLASS_PANE)
         .define(QUARTZ, Items.QUARTZ)
         .define(REDSTONE, Items.REDSTONE)
-        .define(DIAMOND, Items.DIAMOND)
-        .define(OBSIDIAN, Items.OBSIDIAN)
+        .define(DISPLAY, CubitItems.DISPLAY_PANEL.get())
         .unlockedBy(HAS_ROBOT, has(CubitItems.GENERAL_ROBOT.get()))
         .save(output);
   }

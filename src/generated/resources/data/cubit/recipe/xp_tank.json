@@ -1,0 +1,25 @@
+{
+  "type": "cubit:engineering",
+  "category": "misc",
+  "desk_category": "parts",
+  "key": {
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "GIG",
+    "GBG",
+    " I "
+  ],
+  "result": {
+    "count": 1,
+    "id": "cubit:xp_tank"
+  }
+}

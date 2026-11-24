@@ -22,9 +22,9 @@ import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 /**
- * The cards made as a USB stick: the casing and the board in the category of the cards, and a card
- * made in the desk from them and the item of the job, also from the output, in a cascade (answers
- * 1540 to 1545).
+ * The cards made as a USB stick: the casing in the category of the cards, and a card made in the
+ * desk from it, the board, the core and the item of the job, also from the output, in a cascade
+ * (answers 1540 to 1545 and 2164).
  */
 @GameTestHolder(CubitMod.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -32,9 +32,10 @@ public final class CardRecipeGameTests {
   private static final String ARENA = "arena";
   private static final int TIMEOUT = 400;
   private static final int ONE_CRAFT = 130;
+  private static final int CORE_SLOT = 3;
   private static final long ENERGY = 50_000;
   private static final String CASING = "ml_card_casing";
-  private static final String BOARD = "ml_circuit_board";
+  private static final String BOARD = "circuit_board";
   private static final String FISHER = "ml_fisher";
   private static final String FARMER = "ml_farmer";
   private static final String ORGANIZER = "ml_organizer";
@@ -43,13 +44,12 @@ public final class CardRecipeGameTests {
   private static final String WRONG_UNLOCK = "Wrong Module to open ";
   private static final String NOT_A_CARD = "Not in the category of the cards: ";
   private static final String NO_CARD = "The desk made no card";
-  private static final String PARTS_LEFT = "The desk did not use the casing and the board";
+  private static final String PARTS_LEFT = "The desk did not use the parts";
 
-  /** The Module that opens each recipe: the tier of the job, and the parts with the Advanced. */
+  /** The Module that opens each recipe: the tier of the job, and the casing with the Advanced. */
   private static final Map<String, Supplier<Item>> UNLOCKS =
       Map.of(
           CASING, CubitItems.ADVANCED_MODULE,
-          BOARD, CubitItems.ADVANCED_MODULE,
           FISHER, CubitItems.ADVANCED_MODULE,
           FARMER, CubitItems.ADVANCED_MODULE,
           ORGANIZER, CubitItems.ELITE_MODULE,
@@ -62,8 +62,8 @@ public final class CardRecipeGameTests {
   }
 
   @GameTest(template = ARENA)
-  public static void theBasePartsAreInTheCategoryOfTheCards(GameTestHelper helper) {
-    for (String path : List.of(CASING, BOARD, FISHER)) {
+  public static void theCasingIsInTheCategoryOfTheCards(GameTestHelper helper) {
+    for (String path : List.of(CASING, FISHER)) {
       RecipeHolder<?> recipe = helper.getLevel().getRecipeManager().byKey(id(path)).orElseThrow();
       helper.assertTrue(
           DeskCategoryCodecs.of(recipe.value()) == DeskCategory.CARDS, NOT_A_CARD + path);
@@ -86,6 +86,17 @@ public final class CardRecipeGameTests {
     helper.succeed();
   }
 
+  /** The board also goes in the Power Bank Casing, so it opens with a Cubit (answer 2165). */
+  @GameTest(template = ARENA)
+  public static void theBoardOpensWithACubit(GameTestHelper helper) {
+    AdvancementHolder unlock =
+        helper.getLevel().getServer().getAdvancements().get(id(ADVANCEMENT_PREFIX + BOARD));
+    helper.assertTrue(
+        unlock != null && opensWith(unlock, new ItemStack(CubitItems.GENERAL_ROBOT.get())),
+        WRONG_UNLOCK + BOARD);
+    helper.succeed();
+  }
+
   private static boolean opensWith(AdvancementHolder unlock, ItemStack stack) {
     return unlock.value().criteria().values().stream()
         .map(Criterion::triggerInstance)
@@ -96,21 +107,23 @@ public final class CardRecipeGameTests {
   }
 
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
-  public static void theDeskMakesACardFromTheCasingTheBoardAndTheRod(GameTestHelper helper) {
+  public static void theDeskMakesACardFromItsPartsAndTheRod(GameTestHelper helper) {
     EngineeringDeskBlockEntity desk = EngineeringDeskGameTests.place(helper, ENERGY);
     desk.input().setItem(0, new ItemStack(CubitItems.CARD_CASING.get()));
     desk.input().setItem(1, new ItemStack(CubitItems.CIRCUIT_BOARD.get()));
     desk.input().setItem(2, new ItemStack(Items.FISHING_ROD));
+    desk.input().setItem(CORE_SLOT, new ItemStack(CubitItems.NEURAL_CORE.get()));
     order(desk);
     helper.runAfterDelay(ONE_CRAFT, () -> assertCard(helper, desk));
   }
 
-  /** The casing and the board made before wait in the output, and the desk pulls them (1500). */
+  /** The parts made before wait in the output, and the desk pulls them (answer 1500). */
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
-  public static void theDeskPullsTheCasingAndTheBoardFromTheOutput(GameTestHelper helper) {
+  public static void theDeskPullsThePartsFromTheOutput(GameTestHelper helper) {
     EngineeringDeskBlockEntity desk = EngineeringDeskGameTests.place(helper, ENERGY);
     desk.output().setItem(0, new ItemStack(CubitItems.CARD_CASING.get()));
     desk.output().setItem(1, new ItemStack(CubitItems.CIRCUIT_BOARD.get()));
+    desk.output().setItem(2, new ItemStack(CubitItems.NEURAL_CORE.get()));
     desk.input().setItem(0, new ItemStack(Items.FISHING_ROD));
     order(desk);
     helper.runAfterDelay(ONE_CRAFT, () -> assertCard(helper, desk));
@@ -126,6 +139,7 @@ public final class CardRecipeGameTests {
     helper.assertTrue(
         desk.output().countItem(CubitItems.CARD_CASING.get()) == 0
             && desk.output().countItem(CubitItems.CIRCUIT_BOARD.get()) == 0
+            && desk.output().countItem(CubitItems.NEURAL_CORE.get()) == 0
             && desk.input().isEmpty(),
         PARTS_LEFT);
     helper.succeed();

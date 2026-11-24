@@ -24,6 +24,10 @@ final class CascadeMaterials {
   private static final int Y = 36;
   private static final int WIDTH = 152;
   private static final int TITLE_Y = 23;
+
+  /** The title starts past the bar of the categories (answer 2177). */
+  private static final int TITLE_SHIFT = 10;
+
   private static final int COLUMNS = 8;
   private static final int ROWS = 3;
   private static final int PITCH = 19;
@@ -69,10 +73,10 @@ final class CascadeMaterials {
     Optional<Item> chosen = reading.chosen();
     if (chosen.isEmpty()) {
       Component pick = Component.translatable(DeskScreenKeys.CASCADE_PICK);
-      text(graphics, font, pick, TITLE_Y, BlueprintPainter.TEXT_SOFT);
+      title(graphics, font, pick, BlueprintPainter.TEXT_SOFT);
       return;
     }
-    text(graphics, font, chosen.get().getDescription(), TITLE_Y, BlueprintPainter.TEXT);
+    title(graphics, font, chosen.get().getDescription(), BlueprintPainter.TEXT);
     text(graphics, font, reading.reason(), Y, BlueprintPainter.TEXT_SOFT);
   }
 
@@ -80,13 +84,17 @@ final class CascadeMaterials {
     reading
         .chosen()
         .ifPresent(item ->
-            text(
+            title(
                 graphics,
                 font,
                 Component.translatable(
                     DeskScreenKeys.CASCADE_MATERIALS, reading.quantity(), item.getDescription()),
-                TITLE_Y,
                 BlueprintPainter.TEXT));
+  }
+
+  private static void title(GuiGraphics graphics, Font font, Component text, int color) {
+    BlueprintPainter.Look look = new BlueprintPainter.Look(color, WIDTH - TITLE_SHIFT, 1f);
+    BlueprintPainter.fromLeft(graphics, font, text, X + TITLE_SHIFT, TITLE_Y, look);
   }
 
   private static void text(GuiGraphics graphics, Font font, Component text, int y, int color) {

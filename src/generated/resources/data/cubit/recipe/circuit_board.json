@@ -1,25 +1,24 @@
 {
   "type": "cubit:engineering",
   "category": "misc",
-  "desk_category": "cards",
+  "desk_category": "parts",
   "key": {
-    "C": {
-      "item": "minecraft:comparator"
+    "A": {
+      "item": "minecraft:gold_ingot"
     },
     "E": {
       "item": "minecraft:emerald"
     },
-    "O": {
-      "item": "minecraft:gold_ingot"
+    "K": {
+      "item": "minecraft:comparator"
     }
   },
   "pattern": [
-    "EEE",
-    "ECE",
-    "OOO"
+    "EKE",
+    "AAA"
   ],
   "result": {
     "count": 1,
-    "id": "cubit:ml_circuit_board"
+    "id": "cubit:circuit_board"
   }
 }

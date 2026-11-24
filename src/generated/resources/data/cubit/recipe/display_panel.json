@@ -1,0 +1,34 @@
+{
+  "type": "cubit:engineering",
+  "category": "misc",
+  "desk_category": "parts",
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "P": {
+      "item": "minecraft:glass_pane"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "U": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "IDI",
+    "ROU"
+  ],
+  "result": {
+    "count": 1,
+    "id": "cubit:display_panel"
+  }
+}

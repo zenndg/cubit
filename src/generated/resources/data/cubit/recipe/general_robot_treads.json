@@ -6,13 +6,13 @@
     "I": {
       "item": "minecraft:iron_ingot"
     },
-    "P": {
-      "item": "minecraft:piston"
+    "M": {
+      "item": "cubit:servo_motor"
     }
   },
   "pattern": [
     "III",
-    "P P"
+    "M M"
   ],
   "result": {
     "count": 1,

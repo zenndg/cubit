@@ -1,0 +1,28 @@
+{
+  "type": "cubit:engineering",
+  "category": "misc",
+  "desk_category": "parts",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "minecraft:piston"
+    },
+    "U": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "pattern": [
+    " U ",
+    "ISI",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "cubit:servo_motor"
+  }
+}

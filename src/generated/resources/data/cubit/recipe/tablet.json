@@ -4,13 +4,7 @@
   "desk_category": "tools",
   "key": {
     "D": {
-      "item": "minecraft:diamond"
-    },
-    "G": {
-      "item": "minecraft:glass_pane"
-    },
-    "O": {
-      "item": "minecraft:obsidian"
+      "item": "cubit:display_panel"
     },
     "Q": {
       "item": "minecraft:quartz"
@@ -20,9 +14,8 @@
     }
   },
   "pattern": [
-    "GRG",
-    "QDQ",
-    "QOQ"
+    "QRQ",
+    "QDQ"
   ],
   "result": {
     "count": 1,

@@ -9,11 +9,19 @@ import org.junit.jupiter.api.Test;
 
 class DeskCategoryTest {
   private static final String ENERGY = "energy";
+  private static final String PARTS = "parts";
   private static final String UNKNOWN = "furniture";
 
   @Test
   void theIdsAreTheNamesInTheJson() {
     assertEquals(ENERGY, DeskCategory.ENERGY.id());
+  }
+
+  /** The parts many items share, right after the Cubit and its own ones (2141 and 2155). */
+  @Test
+  void theSharedPartsComeAfterTheCubit() {
+    assertEquals(Optional.of(DeskCategory.PARTS), DeskCategory.byId(PARTS));
+    assertEquals(DeskCategory.ROBOT.ordinal() + 1, DeskCategory.PARTS.ordinal());
   }
 
   @Test

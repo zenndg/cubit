@@ -12,30 +12,23 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
 /**
- * The cards of Machine Learning, made as a USB stick: a plastic casing and a circuit board, which
- * every card shares, and the item of the job, in a cascade of the desk (answers 1540 to 1545). The
- * Advanced Module opens the two parts, and each card opens with the Module of the lowest tier that
+ * The cards of Machine Learning, made as a USB stick: a plastic casing, the circuit board, the
+ * neural core and the item of the job, in a cascade of the desk (answers 1540 to 1545 and 2164).
+ * The Advanced Module opens the casing, and each card opens with the Module of the lowest tier that
  * takes its job (answers 1145 and 1546).
  */
 final class CubitCardRecipes {
   private static final String CASING_TOP_ROW = "QLQ";
   private static final String CASING_MIDDLE_ROW = "Q Q";
   private static final String CASING_BOTTOM_ROW = " L ";
-  private static final String BOARD_TOP_ROW = "EEE";
-  private static final String BOARD_MIDDLE_ROW = "ECE";
-  private static final String BOARD_BOTTOM_ROW = "OOO";
   private static final char QUARTZ = 'Q';
   private static final char LAPIS = 'L';
-  private static final char EMERALD = 'E';
-  private static final char COMPARATOR = 'C';
-  private static final char GOLD = 'O';
   private static final String HAS_PREFIX = "has_";
 
   private CubitCardRecipes() {}
 
   static void save(RecipeOutput output) {
     casing(output);
-    board(output);
     card(output, CubitItems.FISHER_CARD.get(), Items.FISHING_ROD, CubitItems.ADVANCED_MODULE.get());
     card(output, CubitItems.FARMER_CARD.get(), Items.IRON_HOE, CubitItems.ADVANCED_MODULE.get());
     card(output, CubitItems.ORGANIZER_CARD.get(), Items.HOPPER, CubitItems.ELITE_MODULE.get());
@@ -59,26 +52,12 @@ final class CubitCardRecipes {
         .save(output);
   }
 
-  /**
-   * The green board: emerald for the board, the comparator as the chip and gold contacts (1547).
-   */
-  private static void board(RecipeOutput output) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, CubitItems.CIRCUIT_BOARD.get())
-        .pattern(BOARD_TOP_ROW)
-        .pattern(BOARD_MIDDLE_ROW)
-        .pattern(BOARD_BOTTOM_ROW)
-        .define(EMERALD, Items.EMERALD)
-        .define(COMPARATOR, Items.COMPARATOR)
-        .define(GOLD, Items.GOLD_INGOT)
-        .unlockedBy(criterion(advanced()), has(advanced()))
-        .save(output);
-  }
-
-  /** The casing, the board and the item of the job, in any place of the grid (answer 1544). */
+  /** The casing, the board, the core and the item of the job, without a shape (answer 2164). */
   private static void card(RecipeOutput output, ItemLike card, ItemLike job, ItemLike module) {
     ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, card)
         .requires(CubitItems.CARD_CASING.get())
         .requires(CubitItems.CIRCUIT_BOARD.get())
+        .requires(CubitItems.NEURAL_CORE.get())
         .requires(job)
         .unlockedBy(criterion(module), has(module))
         .save(output);

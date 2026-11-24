@@ -7,7 +7,10 @@
       "item": "cubit:ml_card_casing"
     },
     {
-      "item": "cubit:ml_circuit_board"
+      "item": "cubit:circuit_board"
+    },
+    {
+      "item": "cubit:neural_core"
     },
     {
       "item": "minecraft:smoker"

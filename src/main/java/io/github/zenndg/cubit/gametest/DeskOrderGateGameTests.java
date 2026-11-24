@@ -77,11 +77,9 @@ public final class DeskOrderGateGameTests {
   private static void fillTablet(EngineeringDeskBlockEntity desk) {
     List<ItemStack> materials =
         List.of(
-            new ItemStack(Items.GLASS_PANE, PLENTY),
+            new ItemStack(CubitItems.DISPLAY_PANEL.get(), PLENTY),
             new ItemStack(Items.REDSTONE, PLENTY),
-            new ItemStack(Items.QUARTZ, PLENTY),
-            new ItemStack(Items.DIAMOND, PLENTY),
-            new ItemStack(Items.OBSIDIAN, PLENTY));
+            new ItemStack(Items.QUARTZ, PLENTY));
     for (int slot = 0; slot < materials.size(); slot++) {
       desk.input().setItem(slot, materials.get(slot));
     }
@@ -133,11 +131,13 @@ public final class DeskOrderGateGameTests {
     desk.choose(id(ROBOT));
     desk.input().setItem(0, new ItemStack(CubitItems.GENERAL_ROBOT_CASING.get()));
     desk.input().setItem(1, new ItemStack(CubitItems.GENERAL_ROBOT_VISOR.get()));
+    desk.input().setItem(2, new ItemStack(CubitItems.XP_TANK.get()));
+    EngineeringDeskGameTests.addDriveAndPanel(desk);
     desk.output().setItem(0, new ItemStack(CubitItems.GENERAL_ROBOT_TREADS.get()));
     menu.clickMenuButton(player, DeskControl.PLUS);
     helper.assertFalse(desk.order().isActive(), STARTED);
 
-    desk.output().setItem(1, new ItemStack(CubitItems.GENERAL_ROBOT_CORE.get()));
+    desk.output().setItem(1, new ItemStack(CubitItems.NEURAL_CORE.get()));
     menu.clickMenuButton(player, DeskControl.PLUS);
     helper.assertTrue(desk.order().isActive(), NOT_STARTED);
     helper.succeed();

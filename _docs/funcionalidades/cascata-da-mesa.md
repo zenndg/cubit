@@ -44,7 +44,7 @@ As prévias da tela real, aprovadas na pergunta 2044, são a referência do cód
 | Depende de | Os números das tarefas que precisam terminar antes |
 | Status | Aguardando, processando, com o progresso, como `2/5`, ou concluído |
 
-  Para 5 Cubits: 1 a 4, as peças, sem dependência, e 5, os Cubits, que dependem de 1, 2, 3 e 4.
+  Para 5 Cubits: as peças sem dependência primeiro, depois o Visor e as Esteiras, que dependem da Tela e do Servomotor, e por último os Cubits, que dependem das outras peças.
 
 - **Energia e tempo:** o FE total e o tempo estimado do plano. Não são exigidos para iniciar (pergunta 2013).
 - **Sem material:** se os materiais saírem da entrada com o passo 2 aberto, ele fica à vista, com o Iniciar apagado e o motivo na dica, e o Iniciar acende de novo se eles voltarem (pergunta 2046).
@@ -54,7 +54,7 @@ As prévias da tela real, aprovadas na pergunta 2044, são a referência do cód
 ## O plano em andamento
 
 - **Reserva:** ao Iniciar, os materiais e as peças aproveitadas saem de uma vez da entrada e da saída para o **estoque próprio do plano**, que funis, canos e players não alcançam. As peças intermediárias também ficam nele, e só o item final vai à saída. Nada some nem duplica (regra 13 e pergunta 2007).
-- **Em série:** uma tarefa por vez, uma unidade por craft, com o tempo e o FE de hoje do tier. 5 Cubits são 25 crafts, 62.500 FE e 37,5 s.
+- **Em série:** uma tarefa por vez, uma unidade por craft, com o tempo e o FE de hoje do tier. 5 Cubits são 55 crafts, 137.500 FE e 82,5 s.
 - **Não cancela:** os botões e as outras abas travam, com um cadeado dourado (pergunta 2044), e a mesa abre sempre nessa aba, só para ver, para todos os players. As abas Projeto e Estoque travam, e o + do JEI é recusado (perguntas 2006 e 2015).
 - **Slot e barra de energia:** ficam nesta aba, usáveis também travada (pergunta 2013).
 - **Pausa** sem FE ou com sinal de redstone, e volta sozinha (pergunta 2010).
@@ -77,7 +77,7 @@ Não foram perguntados e foram autorizados junto do conceito (pergunta 2031):
 1. O passo 1 mostra também as peças aproveitadas. Eram uma linha de texto e passaram a slots, com a dica `Already made: uses 1` / `Já pronta: usa 1` (pergunta 2052).
 2. A ordem das tarefas é a da árvore: primeiro as que não dependem de nada, e uma peça usada por várias, como a Card Casing, vira uma tarefa só.
 3. Um plano em andamento termina mesmo se a chave `engineering_desk_cascade` for desligada depois.
-4. A tabela rola quando passa do tamanho da tela. A maior cadeia hoje é a da Ultimate Power Bank, com 6 crafts por unidade.
+4. A tabela rola quando passa do tamanho da tela. A maior cadeia hoje é a do Cubit, com 11 crafts por unidade em 10 tarefas (pergunta 2146).
 5. O plano guarda as tarefas pelo ID da receita, com a quantidade feita, e o estoque, no save e no item da mesa.
 
 ## Contrato
@@ -107,6 +107,7 @@ Uma issue e dois PRs (pergunta 2026):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 11:10 | Atualiza os exemplos com as peças compartilhadas (pergunta 2146). |
 | Zennd | 2026-11-23 16:54 | Começa a quantidade em 0 e mostra as peças prontas em slots (perguntas 2049 a 2054). |
 | Zennd | 2026-11-23 16:20 | Detalha a tela do PR 2, a dica do item e o passo 2 sem material (perguntas 2042 a 2046). |
 | Zennd | 2026-11-23 14:22 | Nomeia o data component do plano no contrato. |

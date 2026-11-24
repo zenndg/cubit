@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "cubit:item/ml_circuit_board"
+    "layer0": "cubit:item/solar_panel"
   }
 }

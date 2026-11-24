@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "from_start": {
+      "trigger": "minecraft:tick"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "cubit:neural_core"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "from_start"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "cubit:neural_core"
+    ]
+  }
+}

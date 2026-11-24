@@ -1,0 +1,30 @@
+{
+  "type": "cubit:engineering",
+  "category": "misc",
+  "desk_category": "parts",
+  "key": {
+    "A": {
+      "item": "minecraft:gold_ingot"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "U": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "pattern": [
+    "ICI",
+    "RAU"
+  ],
+  "result": {
+    "count": 1,
+    "id": "cubit:hard_drive"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "cubit:engineering",
+  "category": "misc",
+  "desk_category": "parts",
+  "key": {
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "P": {
+      "item": "minecraft:glass_pane"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "U": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "LLL",
+    "URU"
+  ],
+  "result": {
+    "count": 1,
+    "id": "cubit:solar_panel"
+  }
+}

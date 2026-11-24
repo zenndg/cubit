@@ -14,7 +14,8 @@
 | Advanced Power Bank | Bateria portátil com a capacidade do tier Advanced |
 | Elite Power Bank | Bateria portátil com a capacidade do tier Elite |
 | Ultimate Power Bank | Bateria portátil com a capacidade do tier Ultimate |
-| Cubit Casing, Cubit Visor, Cubit Treads e Cubit Neural Core | As peças que montam o Cubit ([`pecas.md`](funcionalidades/pecas.md)) |
+| Cubit Casing, Cubit Visor e Cubit Treads | As peças só do Cubit ([`pecas.md`](funcionalidades/pecas.md)) |
+| XP Tank, Hard Drive, Solar Panel, Display Panel, Servo Motor, Induction Coil, Neural Core e Circuit Board | As peças compartilhadas, que montam vários itens do mod ([`pecas.md`](funcionalidades/pecas.md#peças-compartilhadas)) |
 | Power Bank Casing | A carcaça das Power Banks |
 | Base, Advanced, Elite e Ultimate Power Cell | A célula de cada tier, que vai dentro da Power Bank |
 | Recharge Splash | Mistura de arremesso que recupera parte da vida e da energia dos Cubits do dono ([`energia.md`](funcionalidades/energia.md#recharge-splash)) |
@@ -39,14 +40,20 @@
 | Cubit Casing | `cubit:general_robot_casing` | [Abaixo](#peças-de-montagem) |
 | Cubit Visor | `cubit:general_robot_visor` | [Abaixo](#peças-de-montagem) |
 | Cubit Treads | `cubit:general_robot_treads` | [Abaixo](#peças-de-montagem) |
-| Cubit Neural Core | `cubit:general_robot_core` | [Abaixo](#peças-de-montagem) |
 | Power Bank Casing | `cubit:power_bank_casing` | [Abaixo](#peças-de-montagem) |
 | Base Power Cell | `cubit:base_power_cell` | [Abaixo](#peças-de-montagem) |
 | Advanced Power Cell | `cubit:advanced_power_cell` | [Abaixo](#peças-de-montagem) |
 | Elite Power Cell | `cubit:elite_power_cell` | [Abaixo](#peças-de-montagem) |
 | Ultimate Power Cell | `cubit:ultimate_power_cell` | [Abaixo](#peças-de-montagem) |
+| XP Tank | `cubit:xp_tank` | [Abaixo](#peças-compartilhadas) |
+| Hard Drive | `cubit:hard_drive` | [Abaixo](#peças-compartilhadas) |
+| Solar Panel | `cubit:solar_panel` | [Abaixo](#peças-compartilhadas) |
+| Display Panel | `cubit:display_panel` | [Abaixo](#peças-compartilhadas) |
+| Servo Motor | `cubit:servo_motor` | [Abaixo](#peças-compartilhadas) |
+| Induction Coil | `cubit:induction_coil` | [Abaixo](#peças-compartilhadas) |
+| Neural Core | `cubit:neural_core` | [Abaixo](#peças-compartilhadas) |
+| Circuit Board | `cubit:circuit_board` | [Abaixo](#peças-compartilhadas) |
 | Card Casing | `cubit:ml_card_casing` | [Abaixo](#cards-de-trabalho) |
-| Circuit Board | `cubit:ml_circuit_board` | [Abaixo](#cards-de-trabalho) |
 | Recharge Splash | `cubit:recharge_splash` | [Abaixo](#recharge-splash) |
 | Engineering Desk | `cubit:engineering_desk` | [Abaixo](#engineering-desk) |
 
@@ -56,9 +63,9 @@ Só com recursos do jogo puro. Todas as receitas do mod saem da [Engineering Des
 
 | Etapa | Quando libera | Receitas |
 |---|---|---|
-| 1 | Desde o início | Cubit, Cubit Casing, Cubit Visor, Cubit Treads, Cubit Neural Core e Toolbox |
-| 2 | Ao ter um Cubit | Induction Dock, Cubit Tablet, Power Bank Casing, Base Power Cell, Advanced Module e a Recharge Splash |
-| 3 | Ao ter o Module do tier | Com o Advanced, a Card Casing, a Circuit Board, os cards do Avançado e o Elite Module; com o Elite, os cards do Elite e o Ultimate Module. Nenhum card espera o Ultimate (perguntas 1546 e 1598) |
+| 1 | Desde o início | XP Tank, Hard Drive, Solar Panel, Display Panel, Servo Motor, Neural Core, Cubit, Cubit Casing, Cubit Visor, Cubit Treads e Toolbox |
+| 2 | Ao ter um Cubit | Induction Coil, Circuit Board, Induction Dock, Cubit Tablet, Power Bank Casing, Base Power Cell, Advanced Module e a Recharge Splash |
+| 3 | Ao ter o Module do tier | Com o Advanced, a Card Casing, os cards do Avançado e o Elite Module; com o Elite, os cards do Elite e o Ultimate Module. Nenhum card espera o Ultimate (perguntas 1546 e 1598) |
 | 4 | Ao ter o item anterior da cadeia | Base Power Bank, com a Base Power Cell; cada célula e cada Power Bank seguinte, com a Power Bank anterior; as Power Banks do zero, com a célula do tier |
 | 5 | Ao precisar | Religar o Cubit, com uma Power Bank; o conserto, com um Damaged Cubit ou uma Toolbox |
 
@@ -83,27 +90,20 @@ Os materiais que marcam cada tier, nas células das Power Banks e nos Modules (p
 
 ### Cubit
 
-Na Engineering Desk, sem forma: Cubit Casing, Cubit Visor, Cubit Treads e Cubit Neural Core, em qualquer posição (perguntas 1343 e 1346). Só com materiais do Overworld, nas [peças de montagem](#peças-de-montagem). A receita fica liberada desde o início (pergunta 1496).
+Na Engineering Desk, sem forma: Cubit Casing, Cubit Visor, Cubit Treads, Neural Core, XP Tank, Hard Drive e Solar Panel, em qualquer posição (perguntas 1343 e 2146). Só com materiais do Overworld, nas [peças de montagem](#peças-de-montagem) e nas [peças compartilhadas](#peças-compartilhadas). A receita fica liberada desde o início (pergunta 1496).
 
 ### Induction Dock
 
-Na Engineering Desk, em forma de L (perguntas 336, 1331 e 1332). O desenho espelhado também vale, e a receita aparece no livro ao ter um Cubit.
-
-| | Coluna 1 | Coluna 2 | Coluna 3 |
-|---|---|---|---|
-| Linha 1 | Diamante | Vazio | Vazio |
-| Linha 2 | Baú | Vazio | Vazio |
-| Linha 3 | Lingote de ferro | Redstone | Lingote de ferro |
+Na Engineering Desk, sem forma: Hard Drive, XP Tank, Base Power Cell, Induction Coil, Display Panel, Servo Motor e Solar Panel, em qualquer posição (perguntas 2138, 2144 e 2147). A célula é sempre a Base, porque o Dock sai Base e sobe com os Modules. A receita aparece ao ter um Cubit.
 
 ### Cubit Tablet
 
-Na Engineering Desk, com forma (perguntas 1025, 1030 e 1331): 2 painéis de vidro e 1 redstone na linha de cima, 4 quartzos nas laterais das duas linhas de baixo, 1 diamante no centro e 1 obsidiana embaixo, no meio. Aparece no livro de receitas quando o player tem um Cubit. Não empilha.
+Na Engineering Desk, com forma (perguntas 1025, 1030 e 2145): uma Display Panel numa moldura de 4 quartzos, com 1 redstone em cima. Aparece no livro de receitas quando o player tem um Cubit. Não empilha.
 
 | | Coluna 1 | Coluna 2 | Coluna 3 |
 |---|---|---|---|
-| Linha 1 | Painel de vidro | Redstone | Painel de vidro |
-| Linha 2 | Quartzo | Diamante | Quartzo |
-| Linha 3 | Quartzo | Obsidiana | Quartzo |
+| Linha 1 | Quartzo | Redstone | Quartzo |
+| Linha 2 | Quartzo | Display Panel | Quartzo |
 
 ### Recharge Splash
 
@@ -126,32 +126,45 @@ Na Engineering Desk, a partir das [peças de montagem](#peças-de-montagem) (per
 
 ### Peças de montagem
 
-As regras estão em [`pecas.md`](funcionalidades/pecas.md). As quatro peças do Cubit ficam liberadas desde o início (pergunta 1496). A Power Bank Casing e a Base Power Cell aparecem com um Cubit, e cada célula seguinte, com a Power Bank anterior (pergunta 1350).
+As regras estão em [`pecas.md`](funcionalidades/pecas.md). As três peças só do Cubit ficam liberadas desde o início (pergunta 1496). A Power Bank Casing e a Base Power Cell aparecem com um Cubit, e cada célula seguinte, com a Power Bank anterior (pergunta 1350).
 
 | Peça | Linha 1 | Linha 2 | Linha 3 |
 |---|---|---|---|
 | Cubit Casing | Tocha de redstone, ferro, tocha de redstone | Ferro, vazio, ferro | Obsidiana, ferro, obsidiana |
-| Cubit Visor | Diamante, obsidiana, diamante | — | — |
-| Cubit Treads | Ferro, ferro, ferro | Pistão, vazio, pistão | — |
-| Cubit Neural Core | Vazio, redstone, vazio | Redstone, diamante, redstone | Vazio, redstone, vazio |
-| Power Bank Casing | Quartzo, lingote de ouro, quartzo | Quartzo, vazio, quartzo | Quartzo, obsidiana, quartzo |
+| Cubit Visor | Sem forma: Display Panel e diamante | — | — |
+| Cubit Treads | Ferro, ferro, ferro | Servo Motor, vazio, Servo Motor | — |
+| Power Bank Casing | Quartzo, Circuit Board, quartzo | Quartzo, vazio, quartzo | Quartzo, Induction Coil, quartzo |
 | Base Power Cell | Vazio, lingote de cobre, vazio | Redstone, bloco de redstone, redstone | Vazio, lingote de cobre, vazio |
 | Advanced Power Cell | Vazio, lápis-lazúli, vazio | Lingote de ouro, Base Power Cell, lingote de ouro | Vazio, lápis-lazúli, vazio |
 | Elite Power Cell | Vazio, corante roxo, vazio | Diamante, Advanced Power Cell, diamante | Vazio, corante roxo, vazio |
 | Ultimate Power Cell | Vazio, lingote de netherite, vazio | Vara de blaze, Elite Power Cell, vara de blaze | Vazio, lingote de netherite, vazio |
 
-O Visor ocupa uma linha só, em qualquer linha da grade, e as Esteiras, duas (perguntas 1353 e 1356). As tochas da Carcaça são as antenas. As células são encadeadas, numa cruz com a anterior no centro (pergunta 1354).
+O Visor é sem forma, e as Esteiras ocupam duas linhas (perguntas 2142, 2143 e 2150). As tochas da Carcaça são as antenas. As células são encadeadas, numa cruz com a anterior no centro (pergunta 1354).
+
+### Peças compartilhadas
+
+As regras estão em [`pecas.md`](funcionalidades/pecas.md#peças-compartilhadas). A Induction Coil e a Circuit Board aparecem com um Cubit, e as outras ficam liberadas desde o início, só com materiais do Overworld (perguntas 2136, 2150 e 2165). O Neural Core era o Cubit Neural Core, `cubit:general_robot_core`, e a Circuit Board, `cubit:ml_circuit_board`, sem migração, porque só os mundos de teste os tinham (pergunta 2166).
+
+| Peça | Linha 1 | Linha 2 | Linha 3 |
+|---|---|---|---|
+| XP Tank | Vidro, ferro, vidro | Vidro, balde, vidro | Vazio, ferro, vazio |
+| Hard Drive | Ferro, baú, ferro | Redstone, lingote de ouro, lingote de cobre | — |
+| Solar Panel | Painel de vidro, painel de vidro, painel de vidro | Lápis-lazúli, lápis-lazúli, lápis-lazúli | Lingote de cobre, redstone, lingote de cobre |
+| Display Panel | Painel de vidro, painel de vidro, painel de vidro | Ferro, diamante, ferro | Redstone, obsidiana, lingote de cobre |
+| Servo Motor | Vazio, lingote de cobre, vazio | Ferro, pistão, ferro | Vazio, redstone, vazio |
+| Induction Coil | Pistão, lingote de cobre, pistão | Ferro, redstone, ferro | — |
+| Neural Core | Vazio, redstone, vazio | Redstone, diamante, redstone | Vazio, redstone, vazio |
+| Circuit Board | Esmeralda, comparador, esmeralda | Lingote de ouro, lingote de ouro, lingote de ouro | — |
 
 ### Cards de trabalho
 
-Todo card de Aprendizado de Máquina é feito como um pendrive: a carcaça plástica, a placa de circuito e o item que simboliza o trabalho, numa cascata na Engineering Desk, que puxa a carcaça e a placa da saída sozinha (perguntas 1540 a 1545). Os três ficam na categoria Cards do catálogo. O Advanced Module libera a carcaça, a placa e os cards do Avançado, e cada Module seguinte, os cards do seu tier, pelo tier mínimo de cada trabalho (perguntas 1145 e 1546).
+Todo card de Aprendizado de Máquina é feito como um pendrive: a carcaça plástica, a placa de circuito, o Neural Core e o item que simboliza o trabalho, numa cascata na Engineering Desk, que puxa as peças da saída sozinha (perguntas 1540 a 1545 e 2164). A carcaça e os cards ficam na categoria Cards do catálogo. O Advanced Module libera a carcaça e os cards do Avançado, e cada Module seguinte, os cards do seu tier, pelo tier mínimo de cada trabalho (perguntas 1145 e 1546).
 
 | Peça | Linha 1 | Linha 2 | Linha 3 | Rende |
 |---|---|---|---|---|
 | Card Casing | Quartzo, lápis-lazúli, quartzo | Quartzo, vazio, quartzo | Vazio, lápis-lazúli, vazio | 1 |
-| Circuit Board | Esmeralda, esmeralda, esmeralda | Esmeralda, comparador, esmeralda | Lingote de ouro, lingote de ouro, lingote de ouro | 1 |
 
-Cada card é sem forma, rendendo 1: Card Casing, Circuit Board e o item do trabalho, em qualquer posição da grade.
+Cada card é sem forma, rendendo 1: Card Casing, Circuit Board, Neural Core e o item do trabalho, em qualquer posição da grade.
 
 | Card | Item do trabalho |
 |---|---|
@@ -202,14 +215,14 @@ Levam o Cubit ao tier seguinte, sem pular etapas. As regras estão em [`upgrade-
 
 - **Empilha** até 64, e o nome aparece na cor do colar do tier (pergunta 804).
 - **Criativo:** os três ficam na aba `cubit:main`.
-- **Receitas:** na Engineering Desk, encadeadas como as células, numa cruz: um material em cima e embaixo, outro nas laterais e, no centro, o Module anterior. O Advanced tem o Cubit Neural Core no centro (perguntas 1357 e 1358, que mudam a 799 e a 1331). O Advanced aparece ao ter um Cubit, e cada seguinte, ao ter o Module anterior (pergunta 1498).
+- **Receitas:** na Engineering Desk, encadeadas como as células, numa cruz: um material em cima e embaixo, outro nas laterais e, no centro, o Module anterior. O Advanced tem o Neural Core no centro (perguntas 1357 e 1358, que mudam a 799 e a 1331). O Advanced aparece ao ter um Cubit, e cada seguinte, ao ter o Module anterior (pergunta 1498).
 
 ### Advanced Module
 
 | | Coluna 1 | Coluna 2 | Coluna 3 |
 |---|---|---|---|
 | Linha 1 | Vazio | Lápis-lazúli | Vazio |
-| Linha 2 | Lingote de ouro | Cubit Neural Core | Lingote de ouro |
+| Linha 2 | Lingote de ouro | Neural Core | Lingote de ouro |
 | Linha 3 | Vazio | Lápis-lazúli | Vazio |
 
 ### Elite Module
@@ -293,9 +306,10 @@ Estes nomes não mudam sem migração (regra 18 do `AGENTS.md`).
 | Componente do jogo no item | `minecraft:custom_name` | Nome do Cubit, inclusive no item danificado |
 | NBT do jogo na entidade | `CustomName` | Nome do Cubit |
 | Dados do player | `cubit:following_robot` | `robot`: o UUID do robô que segue, ou nada |
-| Item | `cubit:general_robot_casing`, `cubit:general_robot_visor`, `cubit:general_robot_treads`, `cubit:general_robot_core`, `cubit:power_bank_casing` e `cubit:{tier}_power_cell` | As peças de montagem, sem data components (pergunta 1349) |
-| Item | `cubit:ml_card_casing` e `cubit:ml_circuit_board` | As duas peças de todo card, sem data components (perguntas 1541 a 1543) |
-| Receita | `cubit:ml_card_casing` e `cubit:ml_circuit_board` | As receitas das peças dos cards, em [Cards de trabalho](#cards-de-trabalho) (perguntas 1542 e 1547) |
+| Item | `cubit:general_robot_casing`, `cubit:general_robot_visor`, `cubit:general_robot_treads`, `cubit:power_bank_casing` e `cubit:{tier}_power_cell` | As peças de montagem, sem data components (pergunta 1349) |
+| Item | `cubit:xp_tank`, `cubit:hard_drive`, `cubit:solar_panel`, `cubit:display_panel`, `cubit:servo_motor`, `cubit:induction_coil`, `cubit:neural_core` e `cubit:circuit_board` | As peças compartilhadas, sem data components, com a receita de mesmo ID (perguntas 2149 e 2166) |
+| Item | `cubit:ml_card_casing` | A carcaça de todo card, sem data components (perguntas 1541 e 1542) |
+| Receita | `cubit:ml_card_casing` | A receita da carcaça dos cards, em [Cards de trabalho](#cards-de-trabalho) (pergunta 1542) |
 | Item | `cubit:ml_fisher` | O card do Pescador. Na base, só por `/give`, sem receita (perguntas 1161 e 1172). A receita entra no card do Pescador (pergunta 1192) |
 | Item | `cubit:ml_farmer` | O card do Fazendeiro, na tag `cubit:ml_cards` (pergunta 1228) |
 | Receita | `cubit:ml_farmer` | A receita do card do Fazendeiro, em [Cards de trabalho](#cards-de-trabalho) (perguntas 1228 e 1544) |
@@ -335,6 +349,8 @@ O estado salvo é validado ao entrar no jogo, sem derrubá-lo (regra 17 do `AGEN
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 11:44 | Muda o Neural Core, a Circuit Board, os cards e a Power Bank Casing (perguntas 2162 a 2169). |
+| Zennd | 2026-11-24 11:10 | Acrescenta as peças compartilhadas e as receitas que mudam com elas (perguntas 2136 a 2150). |
 | Zennd | 2026-11-23 02:46 | Troca o `facing` do bloco do topo pelo `deployed`, que liga a colisão do painel (pergunta 1898). |
 | Zennd | 2026-11-23 02:30 | Volta a faixa do Dock para o topo da torre (pergunta 1918). |
 | Zennd | 2026-11-23 01:17 | Acrescenta o bloco do topo do Dock e volta a faixa para acima da placa (perguntas 1892, 1896, 1897 e 1899). |

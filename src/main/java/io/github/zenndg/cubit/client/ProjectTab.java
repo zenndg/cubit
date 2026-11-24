@@ -19,11 +19,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 /** The right side of the Project tab: the grid of marks, the item it makes and the order (1473). */
 final class ProjectTab {
   private static final int GRID_FRAME = 3;
-  private static final int ARROW_X = 156;
+  private static final int ARROW_X = 166;
   private static final int ARROW_Y = 50;
   private static final int ARROW_WIDTH = 22;
   private static final int ARROW_HEIGHT = 6;
-  private static final int RESULT_X = 184;
+  private static final int RESULT_X = 194;
   private static final int RESULT_Y = 44;
   private static final int ORDER_Y = 92;
   private static final int CANCEL_Y = 108;

@@ -13,7 +13,16 @@
       "item": "cubit:general_robot_treads"
     },
     {
-      "item": "cubit:general_robot_core"
+      "item": "cubit:neural_core"
+    },
+    {
+      "item": "cubit:xp_tank"
+    },
+    {
+      "item": "cubit:hard_drive"
+    },
+    {
+      "item": "cubit:solar_panel"
     }
   ],
   "result": {

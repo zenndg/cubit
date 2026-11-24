@@ -2,16 +2,13 @@
   "type": "cubit:engineering",
   "category": "misc",
   "desk_category": "robot",
-  "key": {
-    "D": {
-      "item": "minecraft:diamond"
+  "ingredients": [
+    {
+      "item": "cubit:display_panel"
     },
-    "O": {
-      "item": "minecraft:obsidian"
+    {
+      "item": "minecraft:diamond"
     }
-  },
-  "pattern": [
-    "DOD"
   ],
   "result": {
     "count": 1,

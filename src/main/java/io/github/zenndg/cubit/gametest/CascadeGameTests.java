@@ -34,16 +34,18 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 @PrefixGameTestTemplate(false)
 public final class CascadeGameTests {
   private static final String ARENA = "arena";
-  private static final int TIMEOUT = 400;
+  private static final int TIMEOUT = 600;
   private static final long ENERGY = 1_000_000;
-  private static final long COST_OF_FIVE = 12_500;
-  private static final int FIVE_CRAFTS = 200;
+  private static final long COST_OF_THE_CHAIN = 27_500;
+  private static final int CHAIN_TICKS = 400;
   private static final int SOME_TICKS = 20;
   private static final int MANY = 64;
   private static final int BESIDE = 2;
-  private static final int IRON = 7;
+  private static final int IRON = 17;
   private static final int THREE = 3;
   private static final int FOUR = 4;
+  private static final int SIX = 6;
+  private static final int NINE = 9;
   private static final String CASCADE = "Cascade";
   private static final String STEPS = "steps";
   private static final String RECIPE = "recipe";
@@ -61,7 +63,7 @@ public final class CascadeGameTests {
   private static final String RUNNING = "The plan should have ended";
   private static final String NOT_PAUSED = "Without energy the plan should pause";
   private static final String LOST = "Items were lost";
-  private static final int BASE_ITEMS = 21;
+  private static final int BASE_ITEMS = 58;
   private static final String WRONG_ITEM = "The desk should show the item of the task";
   private static final String WRONG_PLAN = "The item should tell the plan it keeps";
   private static final String HOLDS = "The desk should keep no items of the plan";
@@ -85,7 +87,7 @@ public final class CascadeGameTests {
     return player;
   }
 
-  /** The base materials of one robot: 7 iron, 3 obsidian, 2 torches, 3 diamonds and so on. */
+  /** The base materials of one robot, with the ones of its shared parts (answer 2146). */
   private static void fillRobot(EngineeringDeskBlockEntity desk) {
     List<ItemStack> materials =
         List.of(
@@ -94,7 +96,14 @@ public final class CascadeGameTests {
             new ItemStack(Items.REDSTONE_TORCH, 2),
             new ItemStack(Items.DIAMOND, THREE),
             new ItemStack(Items.PISTON, 2),
-            new ItemStack(Items.REDSTONE, FOUR));
+            new ItemStack(Items.REDSTONE, NINE),
+            new ItemStack(Items.COPPER_INGOT, SIX),
+            new ItemStack(Items.GLASS_PANE, SIX),
+            new ItemStack(Items.GLASS, FOUR),
+            new ItemStack(Items.LAPIS_LAZULI, THREE),
+            new ItemStack(Items.GOLD_INGOT),
+            new ItemStack(Items.CHEST),
+            new ItemStack(Items.BUCKET));
     for (int slot = 0; slot < materials.size(); slot++) {
       desk.input().setItem(slot, materials.get(slot).copy());
     }
@@ -117,13 +126,13 @@ public final class CascadeGameTests {
     helper.assertTrue(desk.cascade().isRunning(), NOT_RUNNING);
 
     helper.runAfterDelay(
-        FIVE_CRAFTS,
+        CHAIN_TICKS,
         () -> {
           helper.assertValueEqual(
               count(desk.output(), CubitItems.GENERAL_ROBOT.get()), 1, NOT_MADE);
           helper.assertFalse(desk.cascade().isRunning(), RUNNING);
           helper.assertFalse(desk.cascade().holdsItems(), HOLDS);
-          helper.assertValueEqual(desk.energy().amount(), ENERGY - COST_OF_FIVE, WRONG_ENERGY);
+          helper.assertValueEqual(desk.energy().amount(), ENERGY - COST_OF_THE_CHAIN, WRONG_ENERGY);
           helper.succeed();
         });
   }
@@ -186,9 +195,12 @@ public final class CascadeGameTests {
   public static void readyPartsAreReserved(GameTestHelper helper) {
     EngineeringDeskBlockEntity desk = place(helper, RobotTier.ULTIMATE, ENERGY);
     desk.input().setItem(0, new ItemStack(CubitItems.GENERAL_ROBOT_CASING.get()));
+    desk.input().setItem(1, new ItemStack(CubitItems.XP_TANK.get()));
+    desk.input().setItem(2, new ItemStack(CubitItems.HARD_DRIVE.get()));
+    desk.input().setItem(THREE, new ItemStack(CubitItems.SOLAR_PANEL.get()));
     desk.output().setItem(0, new ItemStack(CubitItems.GENERAL_ROBOT_VISOR.get()));
     desk.output().setItem(1, new ItemStack(CubitItems.GENERAL_ROBOT_TREADS.get()));
-    desk.output().setItem(2, new ItemStack(CubitItems.GENERAL_ROBOT_CORE.get()));
+    desk.output().setItem(2, new ItemStack(CubitItems.NEURAL_CORE.get()));
 
     helper.assertValueEqual(startRobot(helper, desk), CascadeStart.READY, WRONG_START);
     helper.assertTrue(desk.input().isEmpty() && desk.output().isEmpty(), NOT_RESERVED);
@@ -224,7 +236,7 @@ public final class CascadeGameTests {
     helper
         .startSequence()
         .thenExecuteAfter(
-            FIVE_CRAFTS,
+            CHAIN_TICKS,
             () -> {
               helper.assertFalse(desk.cascade().isRunning(), RUNNING);
               helper.assertTrue(desk.cascade().holdsItems(), LOST);
@@ -256,7 +268,7 @@ public final class CascadeGameTests {
     EngineeringDeskBlockEntity placed = helper.getBlockEntity(EngineeringDeskGameTests.DESK);
     helper.assertTrue(placed.cascade().isRunning(), NOT_RUNNING);
     helper.runAfterDelay(
-        FIVE_CRAFTS,
+        CHAIN_TICKS,
         () -> {
           helper.assertValueEqual(
               count(placed.output(), CubitItems.GENERAL_ROBOT.get()), 1, NOT_MADE);

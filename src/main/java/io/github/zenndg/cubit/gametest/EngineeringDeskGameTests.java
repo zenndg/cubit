@@ -69,6 +69,8 @@ public final class EngineeringDeskGameTests {
   private static final String NESTS = "A desk with items fits in a container";
   private static final String EMPTY_REFUSED = "An empty desk does not fit in a container";
 
+  private static final int DRIVE_SLOT = 3;
+
   private EngineeringDeskGameTests() {}
 
   static EngineeringDeskBlockEntity place(GameTestHelper helper, long energy) {
@@ -83,6 +85,12 @@ public final class EngineeringDeskGameTests {
     desk.input().setItem(0, new ItemStack(Items.IRON_INGOT, IRON_FOR_ONE * times));
     desk.input().setItem(1, new ItemStack(Items.REDSTONE, times));
     desk.input().setItem(2, new ItemStack(Items.OBSIDIAN, times));
+  }
+
+  /** Two of the shared parts of a Cubit, in slots the tests leave free (answer 2146). */
+  static void addDriveAndPanel(EngineeringDeskBlockEntity desk) {
+    desk.input().setItem(DRIVE_SLOT, new ItemStack(CubitItems.HARD_DRIVE.get()));
+    desk.input().setItem(DRIVE_SLOT + 1, new ItemStack(CubitItems.SOLAR_PANEL.get()));
   }
 
   static BlockPos rightHalf(GameTestHelper helper) {
@@ -252,23 +260,24 @@ public final class EngineeringDeskGameTests {
   }
 
   /**
-   * The parts of a Cubit, one in the input and three in the output, make a Cubit (1500 to 1502).
+   * The parts of a Cubit, four in the input and three in the output, make a Cubit (1500 to 1502).
    */
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
   public static void aCascadePullsTheMissingPartsFromTheOutput(GameTestHelper helper) {
     EngineeringDeskBlockEntity desk = place(helper, ENERGY);
     desk.input().setItem(0, new ItemStack(CubitItems.GENERAL_ROBOT_CASING.get()));
+    desk.input().setItem(1, new ItemStack(CubitItems.XP_TANK.get()));
+    addDriveAndPanel(desk);
     desk.output().setItem(0, new ItemStack(CubitItems.GENERAL_ROBOT_VISOR.get()));
     desk.output().setItem(1, new ItemStack(CubitItems.GENERAL_ROBOT_TREADS.get()));
-    desk.output().setItem(2, new ItemStack(CubitItems.GENERAL_ROBOT_CORE.get()));
+    desk.output().setItem(2, new ItemStack(CubitItems.NEURAL_CORE.get()));
     desk.choose(ROBOT);
     desk.adjustOrder(1);
     helper.runAfterDelay(
         NEXT_TICK,
         () -> {
           helper.assertTrue(desk.status() == DeskStatus.CRAFTING, WRONG_STATUS);
-          helper.assertTrue(
-              desk.input().countItem(CubitItems.GENERAL_ROBOT_CORE.get()) == 1, NOT_PULLED);
+          helper.assertTrue(desk.input().countItem(CubitItems.NEURAL_CORE.get()) == 1, NOT_PULLED);
           helper.assertTrue(
               desk.output().countItem(CubitItems.GENERAL_ROBOT_VISOR.get()) == 0, NOT_PULLED);
           helper.succeed();
