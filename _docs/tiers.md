@@ -251,7 +251,7 @@ O XP como fluido, no Cubit e no Induction Dock, descrito em [`xp.md`](funcionali
 | Fluido por ponto de XP, `xp_fluid_per_point` (pergunta 1817) | 20 mB |
 | Trabalhos que recebem XP, `xp_jobs` (pergunta 1820) | `patroller`, `fisher`, `cook` e `farmer` |
 | Fazendeiro: chance de 1 ponto por colheita, `farmer_xp_chance` (pergunta 1823) | 20% |
-| Dock: pontos de XP para 1 FE, `dock_xp_points_per_fe` (pergunta 1834) | 2 pontos |
+| Dock: energia de 1 ponto de XP, `dock_fe_per_xp_point` (pergunta 1942) | 9 FE |
 | Dock: parte do tanque guardada no modo Guardar metade e converter o resto, `dock_xp_storage_percent` (pergunta 1831) | 50% |
 
 ## Slots exclusivos
@@ -337,6 +337,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 07:26 | Troca a taxa do XP em energia para 9 FE por ponto (pergunta 1942). |
 | Zennd | 2026-11-23 14:22 | Acrescenta a fabricação em cascata (pergunta 2020). |
 | Zennd | 2026-11-23 10:52 | Baixa a geração da noite para 25% do dia, 350 FE/t (pergunta 1955). |
 | Zennd | 2026-11-23 10:40 | Acrescenta a geração do painel do Dock à noite (perguntas 1943 e 1944). |

@@ -2,7 +2,7 @@
 
 O XP passa a ser um fluido do mod, o **Cubit XP Fluid**, guardado num tanque do Cubit e num tanque do Induction Dock. O Cubit enche o tanque com o XP do trabalho e com as bolinhas do chão, e o Dock recebe esse XP, guarda, converte em energia ou entrega ao player. O conceito inicial é do desenvolvedor (perguntas 1762, 1787 a 1789 e 1814) e foi refinado nas perguntas 1815 a 1850. Os números ficam em [`tiers.md`](../tiers.md#xp).
 
-**Situação:** autorizado (pergunta 1851). O PR 1 traz o Cubit, e o PR 2, o Dock.
+**Situação:** autorizado (pergunta 1851), ajustado pelas perguntas 1931 a 1942 e 2060 a 2068 e autorizado de novo (pergunta 2069). O PR 1 traz o Cubit, e o PR 2, o Dock.
 
 ## Por quê
 
@@ -32,8 +32,8 @@ O XP que o trabalho gera vai **direto para o tanque**, sem bolinha no mundo (per
 
 | Trabalho | XP | Pergunta |
 |---|---|---|
-| Patrulheiro Galático | O XP que o mob abatido daria, perto ou longe do dono. O dono deixa de receber o XP dos abates e o pega no Dock | 1821 |
-| Pescador | De 1 a 6 pontos por pesca, como a vara do jogo dá ao player | 1820 |
+| Patrulheiro Galático | O XP que o mob abatido daria, perto ou longe do dono. O dono deixa de receber o XP dos abates e o pega no Dock. Com o dono offline, não há XP, como no jogo | 1821 e 2062 |
+| Pescador | De 1 a 6 pontos por pesca, como a vara do jogo dá ao player, também na do lixo descartado pelo Keep junk | 1820 e 2066 |
 | Cozinheiro | O XP guardado na fornalha, ao tirar os itens prontos, com o arredondamento sorteado do jogo. A fornalha o zera, para o XP não sair duas vezes | 1824 |
 | Fazendeiro | 20% de chance de 1 ponto por planta madura colhida, no config, porque o jogo puro não dá XP por colheita | 1823 |
 
@@ -45,8 +45,10 @@ As bolinhas de XP de qualquer origem entram no tanque como os itens, com as chav
 
 - **Toque:** desde o Base, o Cubit pega a bolinha que encosta nele, com a mesma caixa da coleta de itens.
 - **Ímã:** do Advanced em diante, puxa as bolinhas no raio do tier, com o mesmo custo por bolinha que tem por item.
+- **Bolinha maior que o espaço:** pega a parte que cabe e deixa o resto na bolinha (pergunta 2065).
 - **Coleta desligada:** nenhuma bolinha é recolhida, em nenhum modo.
-- **Disputa com o player:** o Cubit pega todas as bolinhas ao alcance, mesmo a que voa para o player. O player perto do Cubit perde parte do XP para o tanque e o pega depois no Dock (pergunta 1843).
+- **Disputa com o dono:** o Cubit pega as bolinhas ao alcance, mesmo a que voa para o dono. O dono perto do Cubit perde parte do XP para o tanque e o pega depois no Dock (pergunta 1843).
+- **Outros players:** a bolinha que o jogo já leva a outro player fica para ele, em todos os modos, para o Cubit não tirar nem apagar o XP de quem não é o dono (pergunta 1933).
 
 ### Patrulheiro
 
@@ -64,17 +66,19 @@ Escolhidos na aba XP (pergunta 1827):
 
 ### Voltar ao Dock
 
-- **Quando:** com o tanque 100% cheio.
+- **Quando:** com o tanque 100% cheio, para o Cubit que segue, trabalha na área ou escolta. O Patrulheiro espera o fim do combate. Não depende da chave `Auto return`, porque o modo já é a escolha do player (pergunta 1934).
 - **Qual Dock:** o Dock preferido do Tablet ou o mais perto, como o retorno automático da bateria (pergunta 1828).
+- **A caminho,** ou no fim de um combate, com o tanque cheio, age como Armazenar, sem apagar o excesso (pergunta 2064).
 - **Sem Dock alcançável:** avisa o dono uma vez e age como Armazenar, sem apagar o excesso, até o tanque ter espaço (pergunta 1828).
-- **Saída:** sai do Dock com o tanque vazio e, como hoje, com a bateria e a vida cheias, e volta ao trabalho. Uma parada resolve as duas coisas (pergunta 1842).
-- **Dock cheio:** pela pergunta 1831, o Dock sempre aceita o XP, porque apaga ou converte o excesso, então o Cubit nunca fica com XP por falta de espaço no Dock.
+- **Saída:** todo Cubit só sai sozinho do Dock com o tanque vazio e, como hoje, com a bateria e a vida cheias, e volta ao trabalho. Uma parada resolve tudo, e o clique no Dock continua liberando antes (perguntas 963, 1842 e 2067).
+- **Dock cheio:** o Dock sempre aceita o XP do Cubit, porque apaga ou converte o excesso (pergunta 1831). Só no intervalo do PR 1, em que o Dock ainda não tem modos, o Cubit entrega o que couber, fica com o resto, avisa e volta ao trabalho (perguntas 1828 e 1938). Depois de uma ida sem esvaziar, age como Armazenar, sem apagar o excesso, e só tenta de novo quando o Dock tiver espaço ou o tanque dele baixar e encher outra vez (pergunta 2063).
 
 ## O tanque do Dock
 
 - **Capacidade:** por tier, 4 vezes a do Cubit, de 32 a 256 baldes, em [`tiers.md`](../tiers.md#xp) (pergunta 1833).
 - **Passagem:** sempre que o Cubit está no Dock, por qualquer motivo, o XP passa do tanque dele para o do Dock aos poucos, com a velocidade do tier do Dock, na mesma proporção da recarga. A tela mostra a passagem (pergunta 1835).
-- **Canos:** o tanque do Dock aceita e entrega o fluido pela capability de fluido do NeoForge. Entra só o Cubit XP Fluid, e não os fluidos de XP de outros mods, para nenhuma taxa diferente criar ou perder XP. Sai só o Cubit XP Fluid (perguntas 1818 e 1841). O tanque do Cubit não tem cano.
+- **Canos:** o tanque do Dock aceita e entrega o fluido pela capability de fluido do NeoForge. Entra só o Cubit XP Fluid, e não os fluidos de XP de outros mods, para nenhuma taxa diferente criar ou perder XP. Sai só o Cubit XP Fluid (perguntas 1818 e 1841). O cano só enche o espaço livre, em qualquer modo, e com o tanque cheio é recusado: o fluido do cano nunca é apagado ao chegar, mas, guardado, segue os modos que convertem (pergunta 1936). O tanque do Cubit não tem cano.
+- **Capacidade reduzida no config:** nada se perde. O XP acima do novo limite fica guardado, o tanque mostra cheio e não aceita mais até baixar do limite. Vale para o Cubit e o Dock, no mundo e no item (pergunta 1937).
 - **Quebrar:** o item do Dock guarda o XP e o modo, como já guarda a energia e o inventário (pergunta 1838).
 - **Saves antigos:** um Dock de um mundo de antes do XP vem com o tanque vazio, no modo Armazenar e converter o excesso (pergunta 1832).
 
@@ -90,9 +94,11 @@ Escolhidos na aba XP do Dock (pergunta 1831):
 | Converter tudo | Converte em energia |
 | Guardar metade e converter o resto | Guarda até 50% do tanque, no config, e converte o que passar |
 
-- **Conversão:** 2 pontos de XP (40 mB) viram 1 FE na bateria do Dock, na chave `dock_xp_points_per_fe`. A sobra que não fecha 1 FE fica no tanque (pergunta 1834).
-- **Bateria cheia:** nos modos que convertem, com a bateria do Dock cheia, o XP que iria virar energia é apagado. Assim o Dock sempre aceita o XP do Cubit (pergunta 1831).
-- **Equilíbrio:** uma fazenda de mobs de 3.000 pontos por hora rende 1.500 FE por hora, cerca de 2% do painel solar do Dock Base. O XP é um uso para o que sobra, nunca uma fonte de energia (pergunta 1834).
+- **Conversão:** 1 ponto de XP (20 mB) vira 9 FE na bateria do Dock, na chave `dock_fe_per_xp_point`. A sobra que não fecha 1 ponto fica no tanque (perguntas 1834 e 1942).
+- **Trocar o modo:** o XP já guardado nunca é apagado. Os modos que convertem também convertem o guardado, e o Apagar tudo só vale para o XP novo (pergunta 1935).
+- **Ritmo:** o XP guardado vira energia aos poucos, na velocidade da passagem do tier, de 50 a 500 mB/t, sem chave nova (pergunta 1939).
+- **Bateria cheia:** nos modos que convertem, o XP novo entra no tanque enquanto couber e espera, como o já guardado. Só é apagado com a bateria e o tanque cheios, e assim o Dock sempre aceita o XP do Cubit (perguntas 1831, 1939 e 2061).
+- **Equilíbrio:** uma fazenda de mobs de 3.000 pontos por hora rende 27.000 FE por hora, 3% dos 900 mil FE que o painel do Dock Base gera em 1 hora, com dia e noite. O XP é um uso para o que sobra, nunca uma fonte de energia (perguntas 1940 e 1942).
 
 ## Entregar ao player
 
@@ -134,6 +140,19 @@ Os do jogo, sem `.wav` novos (pergunta 1848):
 - **XP de outros mods:** o Dock não aceita os fluidos de XP de outros mods (pergunta 1841).
 - **Organizador:** não gera XP (pergunta 1820).
 
+## Detalhes completados pelo agente
+
+Não foram perguntados e foram autorizados junto do conceito ajustado (pergunta 2069):
+
+1. No modo Ignorar, o XP que já estava no tanque fica guardado e passa ao Dock normalmente.
+2. O filtro de coleta e a busca dos itens do chão não valem para as bolinhas: só o toque e o ímã.
+3. Cheio é quando não cabe mais 1 ponto. O Cubit passa ao Dock só pontos inteiros, e a conversão também.
+4. A passagem ao Dock não gasta energia e acontece também com o Dock sem energia.
+5. Um Cubit guardado como item no inventário do Dock não passa XP.
+6. Um Dock sem dono não entrega XP nem troca de modo, porque só o dono o usa.
+7. Um trabalho desconhecido em `xp_jobs` é ignorado e registrado no log (regra 17).
+8. A aba XP do Cubit fica depois da aba Trabalho, e a Supply do Organizador desce uma posição, com prévia antes do código (pergunta 1853).
+
 ## Contrato
 
 | Onde | Nome | Conteúdo |
@@ -141,7 +160,7 @@ Os do jogo, sem `.wav` novos (pergunta 1848):
 | Fluido | `cubit:xp_fluid` | O Cubit XP Fluid, sem balde e sem bloco (perguntas 1815 e 1816) |
 | Tag de fluido | `c:experience` | Recebe `cubit:xp_fluid` (pergunta 1818) |
 | Texturas | `textures/block/xp_fluid_still.png` e `xp_fluid_flow.png` | O fluido parado e correndo, animados (pergunta 1845) |
-| Config, geral | `xp_fluid_per_point`, `xp_jobs`, `farmer_xp_chance`, `dock_xp_points_per_fe` e `dock_xp_storage_percent` | 20 mB, `patroller`, `fisher`, `cook` e `farmer`, 20%, 2 pontos e 50% (perguntas 1817, 1820, 1823, 1831 e 1834) |
+| Config, geral | `xp_fluid_per_point`, `xp_jobs`, `farmer_xp_chance`, `dock_fe_per_xp_point` e `dock_xp_storage_percent` | 20 mB, `patroller`, `fisher`, `cook` e `farmer`, 20%, 9 FE e 50% (perguntas 1817, 1820, 1823, 1831 e 1942) |
 | Config, por tier | `xp_tank_capacity`, `dock_xp_tank_capacity` e `dock_xp_transfer_per_tick` | Os números de [`tiers.md`](../tiers.md#xp) (perguntas 1826, 1833 e 1835) |
 | Config, removidas | `patroller_xp_energy` e `patroller_xp_owner_distance` | Saem sem migração, porque nunca foram publicadas (pergunta 1825) |
 | NBT do Cubit | `XpTank`, `XpMode` e `XpDeleteExcess` | O fluido em mB, o modo (`ignore`, `store` ou `return_to_dock`) e a chave do excesso. Sem as chaves, tanque vazio, `store` e desligada (pergunta 1829) |
@@ -149,6 +168,7 @@ Os do jogo, sem `.wav` novos (pergunta 1848):
 | NBT do Dock | `XpTank`, `XpMode` e `XpEnergyMade` | O fluido em mB, o modo (`delete_all`, `store_delete_excess`, `store_convert_excess`, `convert_all` ou `store_half_convert_rest`) e a energia que o XP gerou. Sem as chaves, tanque vazio e `store_convert_excess` (pergunta 1832) |
 | Estado do item do Dock | Os mesmos três campos | No item do Dock, como a energia (pergunta 1838) |
 | Capability do Dock | Fluido do NeoForge | Entrada e saída só de `cubit:xp_fluid` (perguntas 1818 e 1841) |
+| Build | `META-INF/accesstransformer.cfg` | Abre só `recipesUsed`, da fornalha, e `followingPlayer` e `count`, da bolinha de XP, com um documento em `_docs/desenvolvimento/` (pergunta 2068) |
 | Traduções | O fluido, as abas, os modos, a chave do excesso, o botão, as dicas e os dois avisos | Em inglês e português, com as mesmas chaves (regra 1) |
 
 ## Entrega
@@ -162,5 +182,8 @@ Uma issue e dois PRs, cada um com o seu teste manual e as provas do [`antes-do-p
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 07:33 | Registra a autorização do conceito ajustado (pergunta 2069). |
+| Zennd | 2026-11-24 07:32 | Fecha a bateria cheia, o dono offline, a ida sem esvaziar, a saída do Dock, o lixo da pesca, a bolinha grande e o Access Transformer (perguntas 2061 a 2068). |
+| Zennd | 2026-11-24 07:26 | Leva ao conceito a taxa de 9 FE por ponto, os outros players, o retorno, a troca de modo, os canos e a capacidade reduzida (perguntas 1931 a 1942). |
 | Zennd | 2026-11-22 23:45 | Tira o Dock Solar, que virou o painel de todo Dock, e põe a aba XP depois da Solar (perguntas 1854 e 1865). |
 | Zennd | 2026-11-22 23:10 | Cria o conceito do XP Cubit e Dock (perguntas 1762, 1787 a 1789 e 1814 a 1850). |

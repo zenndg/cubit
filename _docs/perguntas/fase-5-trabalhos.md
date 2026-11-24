@@ -1004,11 +1004,25 @@ Não há perguntas pendentes nesta fase.
 | 2057 | Ideia do desenvolvedor: "um novo tier acima do ultimate usando estrela do whiter e outros itens mais raros do minecraft o status é dobro do tier anterior e pode ser aplicado somente para cubit". Onde fica? | Anotada em `_docs/backlog.md`, na seção Todo Cubit, sem nada decidido |
 | 2058 | Pedido do desenvolvedor: "atualize o checklist.md ROADMAP.md AGENTS.md com o status atual do projeto sobre o que ja foi entregue" e "pode marcar a cascata de crafting da mesa tambem como concluida". Isso e o `README.md`, que ainda dava a Fase 5 como planejada, entram no PR 2 da cascata? | Sim, num commit de documentos neste PR, com a cascata marcada antes do merge, como exceção à marcação no PR seguinte. A recomendação foi aceita |
 | 2059 | O `AGENTS.md`, o `checklist.md` e o `ROADMAP.md` ainda dão como pendente o bloqueio visto num mundo novo (1967 e 1975), que a 2002 deu como falso positivo naquele cenário. Corrigir no PR 2 da cascata? | Sim, agora: na #250 faltam as conquistas visíveis. A recomendação foi aceita |
+| 2060 | Depois do merge do #256, algum ajuste no roteiro, e algo a acrescentar ao conceito do XP Cubit e Dock (regras 51 e 53)? | O desenvolvedor disse "nada a acrescentar, mantenha a ordem e ajuste o xp.md vamos revisar se temos algo para rodada de perguntas": a ordem segue, o XP (#244) é o próximo, o `xp.md` recebe os ajustes das respostas 1931 a 1942, e o conceito é revisado antes da autorização |
+| 2061 | XP no Dock, nos modos que convertem, com a bateria do Dock cheia: a 1831 apaga o XP que chega do Cubit, e a 1939 faz o guardado esperar. O que vale? | Guardar, depois apagar: com a bateria cheia, o XP novo entra no tanque enquanto couber e espera, como o guardado, e só é apagado com a bateria e o tanque cheios. O Dock continua sempre aceitando o XP do Cubit. A recomendação foi aceita. Muda a 1831 nesse ponto |
+| 2062 | Com o dono offline, o jogo não derruba XP do mob (1733), e a 1821 manda o XP dos abates do Patrulheiro sempre para o tanque. O que ele ganha? | Nada, como no jogo: sem o dono online, não há XP. A recomendação foi aceita. Detalha a 1821 e mantém a 1733 |
+| 2063 | Voltar ao Dock, só no intervalo do PR 1, com o tanque do Dock cheio: como evitar que o Cubit 100% cheio vá e volte sem parar (1828 e 1938)? | Esperar ter espaço: depois de uma ida sem esvaziar, age como Armazenar sem apagar o excesso e só tenta de novo quando o Dock tiver espaço ou o tanque dele baixar e encher outra vez. Some no PR 2. A recomendação foi aceita. Detalha a 1938 |
+| 2064 | Voltar ao Dock, com o tanque cheio e o Cubit ainda a caminho ou no fim de um combate: o que acontece com o XP que continua chegando? | Como Armazenar sem apagar o excesso: ele para de recolher bolinhas, e o XP do trabalho que não cabe cai como bolinha ao lado dele, sem perder nada. A recomendação foi aceita. Detalha a 1827 e a 1828 |
+| 2065 | Uma bolinha de XP maior que o espaço livre do tanque do Cubit, no Armazenar sem apagar ou no Voltar ao Dock: o que ele faz? | Pega a parte que cabe, enche até 100% e deixa o resto na bolinha, como uma pilha de itens, sem perder nada. A recomendação foi aceita. Detalha a 1822 e a 1827 |
+| 2066 | O Pescador com o Keep junk desligado descarta o lixo. A pesca do lixo dá XP (1820)? | Sim, toda pesca dá XP, como a vara do jogo, e o Keep junk só decide o item. A recomendação foi aceita. Detalha a 1820 |
+| 2067 | O Cubit que foi ao Dock por outro motivo, como a bateria, e ainda tem XP no tanque, sai quando? | Todo Cubit espera esvaziar: só sai sozinho com a bateria e a vida cheias e o tanque de XP vazio. Se o Dock não aceitar mais, no PR 1, ele sai, e o clique no Dock continua liberando antes. A recomendação foi aceita. Muda a 963 e a 1842 |
+| 2068 | O XP guardado na fornalha (`recipesUsed`), o player que a bolinha segue (`followingPlayer`) e quantas ela junta (`count`) são campos privados do jogo. Como acessar? | Com o Access Transformer do NeoForge, um `accesstransformer.cfg` que abre só esses campos, sem dependência nova, com um documento em `_docs/desenvolvimento/` (regra 38). A recomendação foi aceita |
+| 2069 | O conceito ajustado do XP Cubit e Dock, em `xp.md`, com as respostas 1931 a 1942 e 2060 a 2068 e os 8 detalhes completados pelo agente, pode ir ao código? | O desenvolvedor disse "autorizo os itens 1 a 4, pode seguir" (regra 54): os 8 detalhes valem, e seguem a branch, o PR 1 e as prévias. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 07:33 | Registra a resposta 2069. |
+| Zennd | 2026-11-24 07:32 | Registra as respostas 2065 a 2068. |
+| Zennd | 2026-11-24 07:29 | Registra as respostas 2061 a 2064. |
+| Zennd | 2026-11-24 07:26 | Registra a resposta 2060. |
 | Zennd | 2026-11-24 07:19 | Registra a resposta 2059. |
 | Zennd | 2026-11-24 07:08 | Registra a resposta 2058. |
 | Zennd | 2026-11-23 20:27 | Registra a resposta 2057. |
