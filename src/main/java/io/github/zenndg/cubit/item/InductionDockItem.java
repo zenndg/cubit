@@ -1,6 +1,10 @@
 package io.github.zenndg.cubit.item;
 
+import java.util.List;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Block;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -13,6 +17,13 @@ public final class InductionDockItem extends BlockItem implements GeoItem {
 
   public InductionDockItem(Block block, Properties properties) {
     super(block, properties);
+  }
+
+  @Override
+  public void appendHoverText(
+      ItemStack stack, TooltipContext context, List<Component> lines, TooltipFlag flag) {
+    super.appendHoverText(stack, context, lines, flag);
+    XpTooltip.addDock(stack, lines);
   }
 
   @Override
