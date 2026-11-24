@@ -50,6 +50,16 @@ final class CubitItemModelProvider extends ItemModelProvider {
     basicItem(CubitItems.ADVANCED_POWER_CELL.get());
     basicItem(CubitItems.ELITE_POWER_CELL.get());
     basicItem(CubitItems.ULTIMATE_POWER_CELL.get());
+    sharedParts();
+  }
+
+  private void sharedParts() {
+    basicItem(CubitItems.XP_TANK.get());
+    basicItem(CubitItems.HARD_DRIVE.get());
+    basicItem(CubitItems.SOLAR_PANEL.get());
+    basicItem(CubitItems.DISPLAY_PANEL.get());
+    basicItem(CubitItems.SERVO_MOTOR.get());
+    basicItem(CubitItems.INDUCTION_COIL.get());
   }
 
   private void cards() {

@@ -32,6 +32,14 @@ final class DeskCategoryData {
               CubitItems.GENERAL_ROBOT_TREADS,
               CubitItems.GENERAL_ROBOT_CORE,
               CubitItems.GENERAL_ROBOT),
+          DeskCategory.PARTS,
+          List.of(
+              CubitItems.XP_TANK,
+              CubitItems.HARD_DRIVE,
+              CubitItems.SOLAR_PANEL,
+              CubitItems.DISPLAY_PANEL,
+              CubitItems.SERVO_MOTOR,
+              CubitItems.INDUCTION_COIL),
           DeskCategory.ENERGY,
           List.of(
               CubitItems.POWER_BANK_CASING,

@@ -23,6 +23,7 @@ final class DeskCategoryBar {
   private static final Map<DeskCategory, Supplier<Item>> ICONS =
       Map.of(
           DeskCategory.ROBOT, CubitItems.GENERAL_ROBOT,
+          DeskCategory.PARTS, CubitItems.SERVO_MOTOR,
           DeskCategory.ENERGY, CubitItems.BASE_POWER_CELL,
           DeskCategory.DOCK, CubitItems.INDUCTION_DOCK,
           DeskCategory.MODULES, CubitItems.ADVANCED_MODULE,

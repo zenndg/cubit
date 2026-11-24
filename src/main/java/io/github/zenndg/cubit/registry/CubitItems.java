@@ -45,6 +45,12 @@ public final class CubitItems {
   private static final String CORE_SUFFIX = "_core";
   private static final String POWER_BANK_CASING_ID = "power_bank_casing";
   private static final String POWER_CELL_SUFFIX = "_power_cell";
+  private static final String XP_TANK_ID = "xp_tank";
+  private static final String HARD_DRIVE_ID = "hard_drive";
+  private static final String SOLAR_PANEL_ID = "solar_panel";
+  private static final String DISPLAY_PANEL_ID = "display_panel";
+  private static final String SERVO_MOTOR_ID = "servo_motor";
+  private static final String INDUCTION_COIL_ID = "induction_coil";
   private static final int PART_STACK_SIZE = 64;
 
   /** The item and the thrown flask share the ID (answer 1400). */
@@ -154,6 +160,15 @@ public final class CubitItems {
   public static final Supplier<Item> CARD_CASING = part(CARD_CASING_ID);
 
   public static final Supplier<Item> CIRCUIT_BOARD = part(CIRCUIT_BOARD_ID);
+
+  /** The parts many items share, each one a function they have in common (2133 and 2149). */
+  public static final Supplier<Item> XP_TANK = part(XP_TANK_ID);
+
+  public static final Supplier<Item> HARD_DRIVE = part(HARD_DRIVE_ID);
+  public static final Supplier<Item> SOLAR_PANEL = part(SOLAR_PANEL_ID);
+  public static final Supplier<Item> DISPLAY_PANEL = part(DISPLAY_PANEL_ID);
+  public static final Supplier<Item> SERVO_MOTOR = part(SERVO_MOTOR_ID);
+  public static final Supplier<Item> INDUCTION_COIL = part(INDUCTION_COIL_ID);
 
   private CubitItems() {}
 

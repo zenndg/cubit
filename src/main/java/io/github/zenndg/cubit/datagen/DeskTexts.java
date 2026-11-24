@@ -46,6 +46,7 @@ final class DeskTexts {
   private static final String STATUS_NO_ENERGY = "No energy";
   private static final String STATUS_OUTPUT_FULL = "Output full";
   private static final String ROBOT_CATEGORY = "Cubit and parts";
+  private static final String PARTS_CATEGORY = "Shared parts";
   private static final String ENERGY_CATEGORY = "Energy";
   private static final String DOCK_CATEGORY = "Dock";
   private static final String MODULES_CATEGORY = "Modules";
@@ -55,6 +56,7 @@ final class DeskTexts {
   private static final Map<DeskCategory, String> CATEGORIES =
       Map.of(
           DeskCategory.ROBOT, ROBOT_CATEGORY,
+          DeskCategory.PARTS, PARTS_CATEGORY,
           DeskCategory.ENERGY, ENERGY_CATEGORY,
           DeskCategory.DOCK, DOCK_CATEGORY,
           DeskCategory.MODULES, MODULES_CATEGORY,

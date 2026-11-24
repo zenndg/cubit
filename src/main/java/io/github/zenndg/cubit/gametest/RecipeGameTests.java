@@ -69,9 +69,10 @@ public final class RecipeGameTests {
     helper.succeed();
   }
 
+  /** Without a shape, in any place of the grid (answer 2144). */
   @GameTest(template = EMPTY_TEMPLATE)
-  public static void theMirroredDockRecipeAlsoMakesADock(GameTestHelper helper) {
-    ItemStack result = craft(helper, mirroredDockGrid());
+  public static void theDockRecipeHasNoShape(GameTestHelper helper) {
+    ItemStack result = craft(helper, dockGrid().reversed());
 
     helper.assertTrue(result.is(CubitItems.INDUCTION_DOCK.get()), WRONG_RESULT);
     helper.succeed();
@@ -205,17 +206,18 @@ public final class RecipeGameTests {
         Items.AIR);
   }
 
+  /** A display in a frame of quartz, with redstone on top (answer 2145). */
   private static List<ItemStack> tabletGrid() {
     return stacks(
-        Items.GLASS_PANE,
+        Items.QUARTZ,
         Items.REDSTONE,
-        Items.GLASS_PANE,
-        Items.QUARTZ,
-        Items.DIAMOND,
         Items.QUARTZ,
         Items.QUARTZ,
-        Items.OBSIDIAN,
-        Items.QUARTZ);
+        CubitItems.DISPLAY_PANEL.get(),
+        Items.QUARTZ,
+        Items.AIR,
+        Items.AIR,
+        Items.AIR);
   }
 
   /** The casing and the Base cell, without a shape (answers 1347 and 1355). */
@@ -242,44 +244,32 @@ public final class RecipeGameTests {
     return cross(topAndBottom, sides, previous);
   }
 
-  /** The four parts, without a shape, in scattered slots (answer 1346). */
+  /** Its four parts and three shared ones, without a shape (answer 2146). */
   private static List<ItemStack> robotGrid() {
     return stacks(
         CubitItems.GENERAL_ROBOT_TREADS.get(),
+        CubitItems.XP_TANK.get(),
         Items.AIR,
-        Items.AIR,
-        Items.AIR,
+        CubitItems.HARD_DRIVE.get(),
         CubitItems.GENERAL_ROBOT_CORE.get(),
-        Items.AIR,
+        CubitItems.SOLAR_PANEL.get(),
         CubitItems.GENERAL_ROBOT_VISOR.get(),
         Items.AIR,
         CubitItems.GENERAL_ROBOT_CASING.get());
   }
 
+  /** Only shared parts and the Base cell (answers 2138 and 2144). */
   private static List<ItemStack> dockGrid() {
     return stacks(
-        Items.DIAMOND,
+        CubitItems.HARD_DRIVE.get(),
+        CubitItems.XP_TANK.get(),
+        CubitItems.BASE_POWER_CELL.get(),
+        CubitItems.INDUCTION_COIL.get(),
+        CubitItems.DISPLAY_PANEL.get(),
+        CubitItems.SERVO_MOTOR.get(),
+        CubitItems.SOLAR_PANEL.get(),
         Items.AIR,
-        Items.AIR,
-        Items.CHEST,
-        Items.AIR,
-        Items.AIR,
-        Items.IRON_INGOT,
-        Items.REDSTONE,
-        Items.IRON_INGOT);
-  }
-
-  private static List<ItemStack> mirroredDockGrid() {
-    return stacks(
-        Items.AIR,
-        Items.AIR,
-        Items.DIAMOND,
-        Items.AIR,
-        Items.AIR,
-        Items.CHEST,
-        Items.IRON_INGOT,
-        Items.REDSTONE,
-        Items.IRON_INGOT);
+        Items.AIR);
   }
 
   private static List<ItemStack> stacks(Item... items) {

@@ -16,6 +16,12 @@ final class PartTexts {
   private static final String ULTIMATE_CELL = "Ultimate Power Cell";
   private static final String CARD_CASING = "Card Casing";
   private static final String CIRCUIT_BOARD = "Circuit Board";
+  private static final String XP_TANK = "XP Tank";
+  private static final String HARD_DRIVE = "Hard Drive";
+  private static final String SOLAR_PANEL = "Solar Panel";
+  private static final String DISPLAY_PANEL = "Display Panel";
+  private static final String SERVO_MOTOR = "Servo Motor";
+  private static final String INDUCTION_COIL = "Induction Coil";
 
   private PartTexts() {}
 
@@ -31,5 +37,15 @@ final class PartTexts {
     add.accept(CubitItems.ULTIMATE_POWER_CELL.get().getDescriptionId(), ULTIMATE_CELL);
     add.accept(CubitItems.CARD_CASING.get().getDescriptionId(), CARD_CASING);
     add.accept(CubitItems.CIRCUIT_BOARD.get().getDescriptionId(), CIRCUIT_BOARD);
+    addShared(add);
+  }
+
+  private static void addShared(BiConsumer<String, String> add) {
+    add.accept(CubitItems.XP_TANK.get().getDescriptionId(), XP_TANK);
+    add.accept(CubitItems.HARD_DRIVE.get().getDescriptionId(), HARD_DRIVE);
+    add.accept(CubitItems.SOLAR_PANEL.get().getDescriptionId(), SOLAR_PANEL);
+    add.accept(CubitItems.DISPLAY_PANEL.get().getDescriptionId(), DISPLAY_PANEL);
+    add.accept(CubitItems.SERVO_MOTOR.get().getDescriptionId(), SERVO_MOTOR);
+    add.accept(CubitItems.INDUCTION_COIL.get().getDescriptionId(), INDUCTION_COIL);
   }
 }

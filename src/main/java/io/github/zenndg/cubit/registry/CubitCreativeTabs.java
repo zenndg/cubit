@@ -54,6 +54,12 @@ public final class CubitCreativeTabs {
                     output.accept(CubitItems.ULTIMATE_POWER_CELL.get());
                     output.accept(CubitItems.CARD_CASING.get());
                     output.accept(CubitItems.CIRCUIT_BOARD.get());
+                    output.accept(CubitItems.XP_TANK.get());
+                    output.accept(CubitItems.HARD_DRIVE.get());
+                    output.accept(CubitItems.SOLAR_PANEL.get());
+                    output.accept(CubitItems.DISPLAY_PANEL.get());
+                    output.accept(CubitItems.SERVO_MOTOR.get());
+                    output.accept(CubitItems.INDUCTION_COIL.get());
                   })
                   .build());
 

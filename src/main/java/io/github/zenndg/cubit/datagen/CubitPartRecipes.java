@@ -7,6 +7,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
@@ -18,9 +19,8 @@ final class CubitPartRecipes {
   private static final String CASING_TOP_ROW = "TIT";
   private static final String CASING_MIDDLE_ROW = "I I";
   private static final String CASING_BOTTOM_ROW = "OIO";
-  private static final String VISOR_ROW = "DOD";
   private static final String TREADS_TOP_ROW = "III";
-  private static final String TREADS_BOTTOM_ROW = "P P";
+  private static final String TREADS_BOTTOM_ROW = "M M";
   private static final String CORE_TOP_ROW = " R ";
   private static final String CORE_MIDDLE_ROW = "RDR";
   private static final String CORE_BOTTOM_ROW = " R ";
@@ -32,7 +32,7 @@ final class CubitPartRecipes {
   private static final char IRON = 'I';
   private static final char OBSIDIAN = 'O';
   private static final char TORCH = 'T';
-  private static final char PISTON = 'P';
+  private static final char MOTOR = 'M';
   private static final char REDSTONE = 'R';
   private static final char DIAMOND = 'D';
   private static final char QUARTZ = 'Q';
@@ -40,7 +40,7 @@ final class CubitPartRecipes {
   private static final char EDGE = 'E';
   private static final char SIDE = 'S';
   private static final char CENTER = 'C';
-  private static final String HAS_ROBOT = "has_robot";
+  static final String HAS_ROBOT = "has_robot";
   private static final String HAS_PREFIX = "has_";
 
   private CubitPartRecipes() {}
@@ -60,16 +60,12 @@ final class CubitPartRecipes {
         .define(IRON, Items.IRON_INGOT)
         .define(OBSIDIAN, Items.OBSIDIAN)
         .save(output);
-    fromStart(CubitItems.GENERAL_ROBOT_VISOR.get())
-        .pattern(VISOR_ROW)
-        .define(DIAMOND, Items.DIAMOND)
-        .define(OBSIDIAN, Items.OBSIDIAN)
-        .save(output);
+    visor(output);
     fromStart(CubitItems.GENERAL_ROBOT_TREADS.get())
         .pattern(TREADS_TOP_ROW)
         .pattern(TREADS_BOTTOM_ROW)
         .define(IRON, Items.IRON_INGOT)
-        .define(PISTON, Items.PISTON)
+        .define(MOTOR, CubitItems.SERVO_MOTOR.get())
         .save(output);
     fromStart(CubitItems.GENERAL_ROBOT_CORE.get())
         .pattern(CORE_TOP_ROW)
@@ -77,6 +73,15 @@ final class CubitPartRecipes {
         .pattern(CORE_BOTTOM_ROW)
         .define(REDSTONE, Items.REDSTONE)
         .define(DIAMOND, Items.DIAMOND)
+        .save(output);
+  }
+
+  /** The display and a diamond, without a shape (answer 2142). */
+  private static void visor(RecipeOutput output) {
+    ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, CubitItems.GENERAL_ROBOT_VISOR.get())
+        .requires(CubitItems.DISPLAY_PANEL.get())
+        .requires(Items.DIAMOND)
+        .unlockedBy(DeskRecipeData.FROM_START, DeskRecipeData.fromStart())
         .save(output);
   }
 
@@ -147,12 +152,12 @@ final class CubitPartRecipes {
         .define(CENTER, center);
   }
 
-  private static ShapedRecipeBuilder fromStart(ItemLike result) {
+  static ShapedRecipeBuilder fromStart(ItemLike result) {
     return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result)
         .unlockedBy(DeskRecipeData.FROM_START, DeskRecipeData.fromStart());
   }
 
-  private static ShapedRecipeBuilder shaped(ItemLike result, String criterion, ItemLike unlock) {
+  static ShapedRecipeBuilder shaped(ItemLike result, String criterion, ItemLike unlock) {
     return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result)
         .unlockedBy(criterion, has(unlock));
   }
