@@ -11,7 +11,7 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 - **Licença:** MIT, para todos os recursos presentes no repositório, inclusive os sons. A exceção é o Gradle Wrapper, de terceiros, que não vai no jar.
 - **Ícone do mod:** o mesmo do item do Cubit.
 - **Primeira versão:** `0.1.0`, publicada só ao terminar todos os itens da Fase 3, com a `1.0.0` só com o mod completo.
-- **Publicação:** no Modrinth e no CurseForge, com a mesma versão nos dois (pergunta 714). A `0.1.0` sai como release, e o jar é enviado à mão, pelo site, sem plugin do Gradle (perguntas 743 e 744). Ela saiu no Modrinth, e o CurseForge fica para depois (perguntas 785 e 787).
+- **Publicação:** no Modrinth e no CurseForge, com a mesma versão nos dois (pergunta 714). A `0.1.0` sai como release, e o jar é enviado à mão, pelo site, sem plugin do Gradle (perguntas 743 e 744). A `0.1.0` e a `0.1.1` saíram só no GitHub, com tag e release, e o envio aos dois sites está pendente (perguntas 2171, 2186 e 2188, que corrigem a 785).
 - **Aviso de IA:** no Modrinth, o aviso `Contains AI-generated content` fica marcado para os assets, por causa dos sons (pergunta 746).
 - **Páginas nas plataformas:** slug `cubit`, com `cubit-robot` nas duas se o CurseForge recusar. O ícone é o do item, e a galeria só tem capturas do jogo. O desenvolvedor cria as contas e os projetos, e o agente prepara os textos (perguntas 747, 748 e 750).
 - **Changelog por versão:** atualizado ao criar a `release/X.Y.Z` (pergunta 749).
@@ -58,6 +58,7 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 - **Listas numeradas (pergunta 1281):** ao apresentar opções, pendências, passos ou achados, o agente prefere listas ordenadas numericamente, para o desenvolvedor citar cada item pelo número (regra 55).
 - **Depois do merge:** o agente pede autorização para apagar a branch local e a remota, apresenta o próximo trabalho e pergunta se há ajuste no roteiro (regra 53).
 - **Checklist das fases:** fica em [`checklist.md`](../checklist.md). É avaliado ao encerrar cada PR, e a marcação entra num novo commit, no PR seguinte.
+- **Saves são contrato a partir da `1.0.0` (perguntas 2189 e 2190):** até lá, IDs, data components, NBT, chaves de config e tags podem mudar sem migração, com a decisão do desenvolvedor em cada caso (regra 18).
 - **Contratos:** comandos e chaves de tradução entram como quinto contrato, e os nomes só mudam com aviso, sem exigir migração.
 - **Números no roteiro manual:** ele pode citar os valores padrão como resultado esperado, e `tiers.md` prevalece.
 - **Auditoria de qualidade (perguntas 522 a 528):** antes dos scanners, entram o checksum do wrapper, a regra única de dono, os testes de permissão do Dock, as regras de decisão no domínio, a validação dos cinco records de estado, novas regras de ArchUnit e o gate de ramos. O CI fica para depois.
@@ -241,6 +242,8 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 12:32 | Registra o contrato dos saves a partir da `1.0.0` (perguntas 2189 e 2190). |
+| Zennd | 2026-11-24 12:34 | Corrige o envio da `0.1.0` e da `0.1.1` (perguntas 2171, 2186 e 2188). |
 | Zennd | 2026-11-24 11:32 | Resume o ajuste do Neural Core, dos cards e da Power Bank (perguntas 2162 a 2169). |
 | Zennd | 2026-11-24 10:46 | Resume as peças compartilhadas (perguntas 2118 e 2131 a 2152). |
 | Zennd | 2026-11-24 10:03 | Resume a troca do clique do Dock (perguntas 2122 a 2125). |

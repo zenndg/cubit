@@ -35,12 +35,12 @@ Nenhuma. A pendente 425 foi para a Fase 4 (pergunta 721).
 | 793 | O desenvolvedor fez o merge do PR #141? | Sim. O agente conferiu o merge (`3b8c9db`) e a issue #137 fechada e, com a autorização, apagou a branch local e a remota |
 | 792 | O jogo está fechado antes do push da #137? | Sim |
 | 791 | O `README.md` ganha o link da página do Cubit no Modrinth? | Não, por enquanto. Os links das plataformas entram juntos, quando o CurseForge entrar (resposta 787) |
-| 790 | O `ROADMAP.md` é atualizado no encerramento da Fase 3? | Sim: a Fase 3 passa a encerrada, a lista "Falta a reta final do lançamento" sai, e a seção da `0.1.0` diz que ela saiu no Modrinth, com o CurseForge depois (resposta 787). Amplia a 789 |
+| 790 | O `ROADMAP.md` é atualizado no encerramento da Fase 3? | Sim: a Fase 3 passa a encerrada, a lista "Falta a reta final do lançamento" sai, e a seção da `0.1.0` diz que ela saiu no Modrinth, com o CurseForge depois (resposta 787). Amplia a 789. A pergunta [2171](fase-5-trabalhos.md) corrige a parte do Modrinth, para onde nada foi enviado |
 | 789 | O que o encerramento da Fase 3 atualiza? | O `checklist.md`, com o item 9 da `0.1.0` e a Fase 3 encerrada; o roadmap do `README.md`, de onde o desenvolvedor já tinha tirado o status (`96ed561`); o "Estado atual" do `AGENTS.md`, com a autorização do desenvolvedor; e estas respostas, com o resumo em `decisoes.md` |
 | 788 | Por qual issue entra o encerramento da Fase 3? | Pela #137, ainda aberta, na branch `feature/137-close-phase-3`, e o PR fecha a issue |
 | 787 | Como fica o CurseForge, que a pergunta 714 previa junto do Modrinth? | Fica para depois, com a mesma versão, sem bloquear o encerramento. Muda a 714 só nesse ponto |
 | 786 | A publicação da `0.1.0` e a Fase 3 estão encerradas? | Sim: "esta parte de publicacao e fase 3 podemos definir como encerrado" |
-| 785 | O envio da `0.1.0` aos sites foi feito? | Ao Modrinth, sim, pelo desenvolvedor. Antes, o agente conferiu os merges do PR #139, da `release/0.1.0` para a `main` (`1480b53`), e do #140, de volta para a `develop` (`a75ca09`), a tag `v0.1.0` no remote, a release no GitHub com o `cubit-0.1.0.jar` e o repositório público |
+| 785 | O envio da `0.1.0` aos sites foi feito? | Ao Modrinth, sim, pelo desenvolvedor. Antes, o agente conferiu os merges do PR #139, da `release/0.1.0` para a `main` (`1480b53`), e do #140, de volta para a `develop` (`a75ca09`), a tag `v0.1.0` no remote, a release no GitHub com o `cubit-0.1.0.jar` e o repositório público. A pergunta [2171](fase-5-trabalhos.md) corrige: nada foi enviado a nenhum site |
 | 784 | O jogo está fechado antes do push da `release/0.1.0`? | Sim |
 | 783 | O desenvolvedor fez o merge do PR #138, da `develop` para a `homolog`? | Sim. O agente conferiu o merge (`7a0bd90`) e criou a `release/0.1.0` a partir da `homolog`. As respostas 780 a 782 tinham sumido do disco às 01:46, durante o `pre-push` da remoção da branch remota da #135, sem causa achada nos hooks, e foram registradas de novo |
 | 782 | Como a publicação da `0.1.0` entra no fluxo de issues? | Por uma issue "Publicação da 0.1.0" (#137), no milestone da Fase 3. Os PRs da `develop` para a `homolog`, da `release/0.1.0` para a `main` e de volta para a `develop` citam a issue, que fecha no fim |
@@ -470,6 +470,7 @@ Nenhuma. A pendente 425 foi para a Fase 4 (pergunta 721).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 12:32 | Aponta a 785 e a 790 para a 2171 (pergunta 2187). |
 | Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Marcelo Fabiano | 2026-11-14 20:28 | Aponta a nova ordem da Fase 5 nas respostas 722 e 725. |
 | Marcelo Fabiano | 2026-11-10 10:17 | Registra as respostas 792 e 793 e os ponteiros nas 722, 723, 724 e 726. |

@@ -76,7 +76,8 @@ Sai só ao terminar todos os itens da Fase 3 (pergunta 337).
 6. [x] Outro player: o passo 9 do Dock, o 6 do `/cubit reset` e o 13 da cor e do nome ficam cobertos pelas GameTests, sem teste no jogo (perguntas 770 a 772)
 7. [x] Confirmações no jogo: saíram da `0.1.0` e ficam para depois dela, com a instância só com o mod: quando as receitas aparecem no livro, a receita do Dock em L espelhado (pergunta 351), o `/cubit reset` com chunk descarregado e o padrão da opção de luz de entidades do LambDynamicLights (perguntas 461, 719 e 776)
 8. [x] Conferir os termos das ferramentas de IA usadas nos sons antes de publicar (perguntas 338, 719 e 777)
-9. [x] Publicar: `homolog`, `release/0.1.0`, `main`, tag, release no GitHub e envio ao Modrinth. O envio ao CurseForge fica para depois da `0.1.0` (perguntas 744, 778, 785 e 787)
+9. [x] Publicar no GitHub: `homolog`, `release/0.1.0`, `main`, tag e release (perguntas 744 e 778)
+10. [ ] Enviar ao Modrinth e ao CurseForge, sem data e com uma issue nova quando o desenvolvedor decidir publicar. Vale também para a `0.1.1` (perguntas 2171, 2186 e 2188)
 
 ## Fase 4: Upgrades e autonomia
 
@@ -144,7 +145,7 @@ Um card por vez, na ordem do board "Cubit · Fase 5" (perguntas 1137, 1141 e 115
 22. [ ] **CRÍTICO:** árvore de crafts e auditoria do progresso do player, do início ao fim, com a avaliação dos itens bloqueados na Engineering Desk que impediriam o player de começar, logo depois da luz da lua no Dock (#250, perguntas 1951 e 1965 a 1977). Já entraram o guia do player com a árvore de crafts (PR #251) e o pedido na mesa, com a liberação protegida e o teste da árvore alcançável (PR #252, perguntas 1982 a 1995). Faltam as conquistas visíveis, que ficaram para outro dia (pergunta 2005). O bloqueio visto num mundo novo não se repetiu e ficou como falso positivo naquele cenário (pergunta 2002)
 23. [x] Engineering Desk: a fabricação em cascata no último tier, com o conceito em `_docs/funcionalidades/cascata-da-mesa.md`, em dois PRs (issue #253, PR #254 e o PR que fecha a issue, perguntas 1964 e 2006 a 2056)
 24. [x] XP Cubit e Dock, o XP como fluido no tanque do Cubit e do Dock, em dois PRs (issue #244, PR #257 e o PR que fecha a issue, perguntas 1762, 1787 a 1789, 1814 a 1851, 2060 a 2130)
-25. [ ] Peças e crafting, com os itens do mod montados com peças, ainda sem issue e a refinar (pergunta 2118)
+25. [x] Peças e crafting, com os itens do mod montados com peças compartilhadas (issue #259, PR #260, perguntas 2118 e 2131 a 2180)
 26. [ ] Servidor e Antenas, energia sem fio e carregamento de chunks, com o log e a viagem até o Dock (#205 e #206, perguntas 1777 a 1779 e 1788)
 27. [ ] Lenhador, uma profissão nova, ainda sem issue (perguntas 1594, 1666 e 1667)
 28. [ ] Pecuarista (#201)

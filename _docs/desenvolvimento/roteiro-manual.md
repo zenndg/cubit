@@ -181,14 +181,14 @@ Use `/data get entity @e[type=cubit:general_robot,limit=1,sort=nearest] PowerSta
 
 ## Receitas
 
-Rode num mundo novo, em modo sobrevivência, com `/gamemode survival` e `/give @s minecraft:crafting_table`. Antes do passo 1, confira que as receitas do Cubit, do Dock e dos Modules não aparecem no livro.
+Rode num mundo novo, em modo sobrevivência, com `/gamemode survival`, e uma Engineering Desk com energia. Para ver se uma receita está liberada, escolha-a no catálogo da mesa e pare o mouse no `+`: a dica de uma receita bloqueada começa com `Locked` e diz o que a libera.
 
 | # | Faça | Espere |
 |---|---|---|
-| 1 | Pegue um diamante, com `/give @s minecraft:diamond` | As receitas do `Cubit Casing`, do `Cubit Visor`, das `Cubit Treads` e do `Cubit Neural Core` aparecem no livro. A do `Cubit` e a do `Induction Dock` ainda não |
-| 2 | Numa Engineering Desk com energia, ponha os materiais da [árvore de crafts](../arvore-de-crafts.md#comece-por-aqui) na entrada | Os itens chegam |
+| 1 | Sem nenhum Cubit, escolha na mesa o `Cubit`, as peças dele, o `Induction Dock` e os três Modules | O `Cubit`, o `Cubit Casing`, o `Cubit Visor`, as `Cubit Treads`, o `Neural Core` e as outras peças dele já vêm liberados, só com os materiais em falta. O `Induction Dock` e o `Advanced Module` estão bloqueados e se liberam com o `Cubit`, e o `Elite Module` e o `Ultimate Module`, com o Module anterior |
+| 2 | Ponha os materiais da [árvore de crafts](../arvore-de-crafts.md#comece-por-aqui) na entrada da mesa | Os itens chegam |
 | 3 | Faça as cinco peças compartilhadas, com 2 Servomotores, as quatro do Cubit e o `Cubit` | Saem as peças e um `Cubit`. As grades estão em [`itens.md`](../itens.md#peças-compartilhadas) |
-| 4 | Olhe o livro, com o `Cubit` no inventário | As receitas do `Induction Dock` e dos três Modules aparecem |
+| 4 | Com o `Cubit` no inventário, escolha na mesa o `Induction Dock` e os três Modules | O `Induction Dock` e o `Advanced Module` estão liberados. O `Elite Module` e o `Ultimate Module` continuam bloqueados |
 | 5 | Coloque o `Cubit` | Ele segue você, com a barra de 25% na tela |
 | 6 | Na mesa, faça a Induction Coil e a Base Power Cell e, com as outras cinco peças compartilhadas, o `Induction Dock` | Sai um `Induction Dock` |
 | 7 | Na mesa, faça o `Cubit Tablet` com a Tela, 4 quartzos e 1 redstone | Sai um `Cubit Tablet` |
@@ -668,8 +668,8 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#power-bank) e a
 
 | # | Faça | Espere |
 |---|---|---|
-| 1 | Pegue um Cubit e abra o livro de receitas | As receitas da `Power Bank Casing`, da `Base Power Cell` e da Base Power Bank aparecem |
-| 2 | Faça a carcaça (quartzo, ouro, quartzo / quartzo, vazio, quartzo / quartzo, obsidiana, quartzo), a célula Base (vazio, cobre, vazio / redstone, bloco de redstone, redstone / vazio, cobre, vazio) e junte as duas em qualquer posição | Sai a Base Power Bank vazia, não empilha, com o nome cinza, a barra verde vazia e a dica `0 / 210k FE` e `Charges at the Induction Dock` |
+| 1 | Com um Cubit no inventário, escolha na Engineering Desk a `Power Bank Casing`, a `Base Power Cell` e a Base Power Bank e pare o mouse no `+` | A `Power Bank Casing` e a `Base Power Cell` estão liberadas. A Base Power Bank está bloqueada e se libera com a `Base Power Cell` |
+| 2 | Faça a carcaça (quartzo, Circuit Board, quartzo / quartzo, vazio, quartzo / quartzo, Induction Coil, quartzo), a célula Base (vazio, cobre, vazio / redstone, bloco de redstone, redstone / vazio, cobre, vazio) e junte as duas em qualquer posição | Sai a Base Power Bank vazia, não empilha, com o nome cinza, a barra verde vazia e a dica `0 / 210k FE` e `Charges at the Induction Dock` |
 | 3 | Coloque-a na aba `Storage` de um Induction Dock com energia e sem Cubit | A carga da Power Bank sobe e o estoque do Dock desce na mesma quantidade |
 | 3a | Ponha uma Power Bank carregada no slot `Redstone` de um Dock com pouco estoque | A Power Bank descarrega no estoque, a linha mostra `Input +X FE/t`, e vazia ela fica no slot |
 | 3b | Tente pôr redstone na aba `Storage` | Não entra |
@@ -677,7 +677,7 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#power-bank) e a
 | 5 | Tente carregar a Power Bank num carregador de FE de outro mod, se houver | Não carrega (pergunta 905) |
 | 6 | Ponha a Power Bank carregada no slot de energia de um Cubit com pouca bateria | A bateria sobe na recarga do tier, a linha mostra `Slot +500 FE/t` no Base, e a Power Bank desce o mesmo tanto |
 | 7 | Deixe-a esvaziar | Ela continua no slot, e a linha mostra `Not charging` |
-| 8 | Com a Base Power Bank no inventário, abra o livro | As receitas da `Advanced Power Cell` e da Advanced Power Bank aparecem |
+| 8 | Com a Base Power Bank no inventário, escolha na mesa a `Advanced Power Cell` e a Advanced Power Bank | A `Advanced Power Cell` e a Advanced Power Bank feita da Base estão liberadas |
 | 9 | Monte lápis-lazúli em cima e embaixo, ouro nas laterais e uma Base carregada no centro | A nova sai com a mesma carga, o nome azul e 2 LEDs no ícone |
 | 10 | Recolha um Cubit sem bateria e combine-o com uma Power Bank na grade | Sai o Cubit com a carga de religar, e a Power Bank fica na grade com o resto |
 | 11 | Tente com uma Power Bank quase vazia, ou com um Damaged Cubit | A receita não aparece |
@@ -1573,6 +1573,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 12:32 | Corrige as seções Receitas e Power Bank, que falavam do livro de receitas e da carcaça antiga (perguntas 2184, 2193 e 2195). |
 | Zennd | 2026-11-24 11:57 | Atualiza a barra de categorias da mesa (perguntas 2176 a 2178). |
 | Zennd | 2026-11-24 11:10 | Acrescenta o roteiro das peças compartilhadas e atualiza as receitas e a cascata (perguntas 2136 a 2160). |
 | Zennd | 2026-11-24 10:06 | Troca os cliques do Dock e acrescenta o roteiro deles (perguntas 2122, 2124 e 2129). |

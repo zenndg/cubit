@@ -1,6 +1,6 @@
 # Config
 
-O config do Cubit é um contrato com o pack (pilar Contrato externo): as chaves abaixo não mudam sem migração (regra 18 do `AGENTS.md`).
+O config do Cubit é um contrato com o pack (pilar Contrato externo): a partir da `1.0.0`, as chaves abaixo não mudam sem migração (regra 18 do `AGENTS.md`).
 
 - **Arquivo:** `config/cubit-common.toml`, do tipo `COMMON`, para o packwiz poder distribuí-lo.
 - **Valores padrão:** são os de [`tiers.md`](../tiers.md), a única página com os números de balanceamento.
@@ -254,6 +254,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 12:32 | Atualiza o contrato das chaves, que vale a partir da `1.0.0` (perguntas 2189 e 2190). |
 | Zennd | 2026-11-24 09:56 | Acrescenta as chaves do XP do Dock (perguntas 1942 e 2103). |
 | Zennd | 2026-11-24 08:37 | Acrescenta o dock_unreachable_ticks (perguntas 2091 e 2095). |
 | Zennd | 2026-11-24 08:16 | Acrescenta as chaves do XP e tira as do XP como energia (perguntas 1817 a 1835). |
