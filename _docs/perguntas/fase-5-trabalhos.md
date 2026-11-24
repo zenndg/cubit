@@ -1003,11 +1003,13 @@ Não há perguntas pendentes nesta fase.
 | 2056 | A correção da quantidade em 0 e das peças prontas em slots (2052 a 2054) foi testada no jogo e está aprovada? | Testado e aprovado |
 | 2057 | Ideia do desenvolvedor: "um novo tier acima do ultimate usando estrela do whiter e outros itens mais raros do minecraft o status é dobro do tier anterior e pode ser aplicado somente para cubit". Onde fica? | Anotada em `_docs/backlog.md`, na seção Todo Cubit, sem nada decidido |
 | 2058 | Pedido do desenvolvedor: "atualize o checklist.md ROADMAP.md AGENTS.md com o status atual do projeto sobre o que ja foi entregue" e "pode marcar a cascata de crafting da mesa tambem como concluida". Isso e o `README.md`, que ainda dava a Fase 5 como planejada, entram no PR 2 da cascata? | Sim, num commit de documentos neste PR, com a cascata marcada antes do merge, como exceção à marcação no PR seguinte. A recomendação foi aceita |
+| 2059 | O `AGENTS.md`, o `checklist.md` e o `ROADMAP.md` ainda dão como pendente o bloqueio visto num mundo novo (1967 e 1975), que a 2002 deu como falso positivo naquele cenário. Corrigir no PR 2 da cascata? | Sim, agora: na #250 faltam as conquistas visíveis. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 07:19 | Registra a resposta 2059. |
 | Zennd | 2026-11-24 07:08 | Registra a resposta 2058. |
 | Zennd | 2026-11-23 20:27 | Registra a resposta 2057. |
 | Zennd | 2026-11-23 20:23 | Registra as respostas 2055 a 2056. |
