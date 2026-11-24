@@ -58,6 +58,7 @@ public final class FisherGameTests {
   private static final boolean KEEP = true;
   private static final boolean DROP = false;
   private static final String NOTHING_CAUGHT = "The Fisher caught nothing";
+  private static final String NO_XP = "A catch should give XP";
   private static final String NOT_ASLEEP = "The Fisher should hibernate with no water";
   private static final String WRONG_REASON = "Wrong reason to hibernate";
   private static final String TREASURE = "Closed water gave treasure";
@@ -73,6 +74,15 @@ public final class FisherGameTests {
     RobotEntity robot = fisher(helper, FIRST_CORNER, SECOND_CORNER);
 
     helper.succeedWhen(() -> helper.assertTrue(caught(robot.inventory()), NOTHING_CAUGHT));
+  }
+
+  /** Every catch gives XP to the tank, as the rod of the game (answers 1820 and 2066). */
+  @GameTest(template = ARENA, timeoutTicks = FISHING_TIMEOUT)
+  public static void aCatchGivesXp(GameTestHelper helper) {
+    pond(helper);
+    RobotEntity robot = fisher(helper, FIRST_CORNER, SECOND_CORNER);
+
+    helper.succeedWhen(() -> helper.assertTrue(robot.pickup().xp().tank().fluid() > 0, NO_XP));
   }
 
   /** With no water in its area, it hibernates for that reason (answer 1188). */

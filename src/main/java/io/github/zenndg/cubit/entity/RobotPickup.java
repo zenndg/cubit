@@ -42,12 +42,14 @@ public final class RobotPickup implements PickupControl {
   private final RobotEntity robot;
   private final Map<UUID, ItemEntity> pulled = new HashMap<>();
   private final RobotXp xp;
+  private final RobotXpOrbs orbs;
   private PickupSettings settings = PickupSettings.INITIAL;
   private FetchMemory fetchMemory = FetchMemory.EMPTY;
 
   RobotPickup(RobotEntity robot) {
     this.robot = robot;
     this.xp = new RobotXp(robot);
+    this.orbs = new RobotXpOrbs(robot, xp);
   }
 
   /** The XP comes with the pickup, which also takes its orbs (answer 1822). */
@@ -138,6 +140,7 @@ public final class RobotPickup implements PickupControl {
   void tick() {
     if (!PickupRules.collects(robot.powerState(), settings.pickupOn())) {
       pulled.clear();
+      orbs.forget();
       return;
     }
     steerPulled();
@@ -147,6 +150,8 @@ public final class RobotPickup implements PickupControl {
     if (ScanRules.isDue(robot.tickCount, CubitMod.CONFIG.magnetCheckTicks())) {
       pullInRadius(robot.spec().pickup());
     }
+    AABB magnet = robot.getBoundingBox().inflate(spec().magnetRadiusBlocks());
+    orbs.tick(reach(), magnet, () -> payForPull(spec()));
   }
 
   private void collectTouching() {

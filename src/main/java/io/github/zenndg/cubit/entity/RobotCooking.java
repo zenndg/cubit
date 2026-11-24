@@ -83,6 +83,7 @@ public final class RobotCooking implements JobErrands {
     if (perform(done) > 0) {
       robot.setBattery(spec().payForAction(robot.battery()));
       if (done.kind() == CookTask.Kind.TAKE) {
+        robot.pickup().xp().onServed(done.pos());
         robot.workArea().work().talk().onWork(JobTalkTopic.COOK_SERVE);
       }
     }

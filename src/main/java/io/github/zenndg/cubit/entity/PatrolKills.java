@@ -2,8 +2,8 @@ package io.github.zenndg.cubit.entity;
 
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.JobTalkTopic;
-import io.github.zenndg.cubit.domain.behavior.PatrolXp;
 import io.github.zenndg.cubit.domain.energy.Percentage;
+import io.github.zenndg.cubit.domain.robot.RobotJob;
 import io.github.zenndg.cubit.menu.RobotStorage;
 import io.github.zenndg.cubit.registry.CubitDamageTypes;
 import java.util.Map;
@@ -12,7 +12,6 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -24,8 +23,8 @@ import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
 
 /**
  * What a kill of the Galactic Patroller gives: a phrase, its drops and, with the blade, a chance of
- * the head of a mob the game has a head for, all into its inventory while they fit, and far from
- * its owner the experience as energy (answers 1559, 1587, 1635 and 1728 to 1730).
+ * the head of a mob the game has a head for, all into its inventory while they fit, and the
+ * experience into its tank (answers 1559, 1587, 1635 and 1821).
  */
 @EventBusSubscriber(modid = CubitMod.MOD_ID)
 public final class PatrolKills {
@@ -71,29 +70,21 @@ public final class PatrolKills {
   }
 
   /**
-   * Far from its owner, the Patroller takes the experience of its kill as energy, the points that
-   * fit in its battery, and the rest falls for the owner as usual (answers 1728 to 1730). The game
-   * stores the last damage only after it drops the experience, so the kill is known by the last one
-   * that hurt the mob, stored before the death. An armed Patroller never uses the shock, so a hurt
-   * from it is always one of its weapons (answer 1759).
+   * The experience of its kill goes to its tank, near or far from its owner, who gets it at the
+   * Dock (answer 1821). Without the owner online the game drops none (answer 2062). The game stores
+   * the last damage only after it drops the experience, so the kill is known by the last one that
+   * hurt the mob, stored before the death. An armed Patroller never uses the shock, so a hurt from
+   * it is always one of its weapons (answer 1759).
    */
   @SubscribeEvent
   public static void onExperience(LivingExperienceDropEvent event) {
     if (event.getEntity().getLastHurtByMob() instanceof RobotEntity robot
         && !robot.level().isClientSide()
-        && robot.workArea().work().patrolCombat().armed()) {
-      absorb(robot, event);
+        && robot.workArea().work().patrolCombat().armed()
+        && robot.pickup().xp().takesFrom(RobotJob.PATROLLER)) {
+      robot.pickup().xp().onWork(event.getDroppedExperience());
+      event.setDroppedExperience(0);
     }
-  }
-
-  private static void absorb(RobotEntity robot, LivingExperienceDropEvent event) {
-    PatrolXp xp = CubitMod.CONFIG.patrol().xp();
-    Player owner = RobotInteractions.onlineOwner(robot);
-    boolean ownerNear =
-        owner != null && owner.level() == robot.level() && xp.ownerNear(owner.distanceTo(robot));
-    PatrolXp.Absorbed taken = xp.absorb(event.getDroppedExperience(), robot.battery(), ownerNear);
-    robot.setBattery(taken.battery());
-    event.setDroppedExperience(event.getDroppedExperience() - taken.points());
   }
 
   /** The Patroller that killed with its weapons, on the server. */

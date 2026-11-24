@@ -117,6 +117,9 @@ public final class RobotFarming {
       case FRUIT -> FarmWork.pick(robot, done.pos(), spec());
       default -> FarmWork.till(robot, done.pos());
     }
+    if (done.action() != FarmAction.TILL) {
+      robot.pickup().xp().onHarvest();
+    }
   }
 
   /** Planting needs a seed, so empty farmland waits while it has none (answer 1234). */
