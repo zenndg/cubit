@@ -95,6 +95,7 @@ public final class RobotScreenReadout {
         robot.workArea().work(),
         robot.speed(),
         robot.workArea().work().organizing(),
+        robot.pickup().xp(),
         stillValid);
   }
 

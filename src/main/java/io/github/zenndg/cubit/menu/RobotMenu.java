@@ -142,6 +142,7 @@ public class RobotMenu extends RobotMenuReading {
     addDataSlots(pickup.values());
     organizer.addSlots(this::addSlot, slots.size());
     addDataSlots(organizer.values());
+    addDataSlots(parts.xp().values());
   }
 
   /** On the client. The real items and numbers come from the server. */
@@ -263,6 +264,11 @@ public class RobotMenu extends RobotMenuReading {
   /** The Organizer, for the line Mode and the Supply tab of the screens. */
   public OrganizerMenuPart organizer() {
     return organizer;
+  }
+
+  /** The XP tab of the screens (answer 1830). */
+  public XpMenuPart xp() {
+    return parts.xp();
   }
 
   public ContainerData pickupValues() {

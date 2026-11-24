@@ -192,6 +192,9 @@ public final class TabletRobotMenu extends RobotMenu {
   /** The Power of the header switches an active Cubit off and a switched-off one on. */
   @Override
   public boolean clickMenuButton(Player player, int button) {
+    if (XpMenuPart.trades(button)) {
+      return false;
+    }
     if (button == GO_TO_DOCK_BUTTON) {
       return stillValid(player) && dock.go(player);
     }
@@ -201,12 +204,12 @@ public final class TabletRobotMenu extends RobotMenu {
     if (button == UNLOAD_NOW_BUTTON) {
       return stillValid(player) && unload.unload(player);
     }
-    if (button != POWER_TOGGLE_BUTTON) {
-      return super.clickMenuButton(player, button);
-    }
-    if (!stillValid(player)) {
-      return false;
-    }
+    return button == POWER_TOGGLE_BUTTON
+        ? stillValid(player) && togglePower(player)
+        : super.clickMenuButton(player, button);
+  }
+
+  private boolean togglePower(Player player) {
     return power().available() ? power().switchOff(player) : power().turnOn(player);
   }
 
