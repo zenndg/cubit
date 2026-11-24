@@ -216,6 +216,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `PatrolProgress` | Para qual ponto da rota o Cubit vai, em laço |
 | `PatrolSiege` | O cerco da equipe num alvo: o lado de cada Patrulheiro, em ângulos iguais a partir do primeiro, que mantém o seu, e a distância de cada arma, a da lâmina perto e a da pistola entre a troca de arma e o alcance |
 | `PatrolSpread` | A ronda de vários Patrulheiros na mesma rota ou nas mesmas bordas: quando dois vão ao mesmo ponto, o que chegou depois segue para o ponto do laço mais longe dos colegas, e o empate se decide pelo id |
+| `FollowStuck` | Quem segue e fica sem caminho até o dono: sem avançar por um tempo, aparece perto, uma vez até ter caminho de novo (pergunta 2092) |
 | `XpRate` | Quanto fluido vale 1 ponto de XP (pergunta 1817) |
 | `XpTank` | O tanque de XP, em mB, do Cubit e do Dock. Só move pontos inteiros e diz quantos moveu. Com a capacidade reduzida, guarda o que passa e não aceita mais (pergunta 1937) |
 | `XpSpec` e `DockXpSpec` | O tanque do Cubit e, do Dock, o tanque e a passagem, em cada tier (perguntas 1826, 1833 e 1835) |
@@ -326,7 +327,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 - **Luz junto da tela:** `RobotLight` dá zero com a tela apagada, pela mesma regra do brilho, `RobotExpression.glows` (perguntas 378 e 465).
 - **Lanterna na hibernação:** apagada e sem consumo, porque o robô está imóvel e carregando. A tela continua dando a claridade (perguntas 465 e 466).
 - **Subida em FE inteiro:** o extra é arredondado, porque energia é inteira (regra 13). Descer não devolve nada, porque criaria FE.
-- **Preso a caminho do Dock:** um movimento pequeno não conta como avanço, para um robô contra uma parede desistir. Preso com o Dock ocupado, ele aguarda onde está, porque teleportar não o deixaria entrar. Perto do Dock, o tempo não conta, porque ele pode estar esperando a vez (perguntas 84 e 301).
+- **Preso a caminho do Dock:** um movimento pequeno não conta como avanço, para um robô contra uma parede desistir. Preso com o Dock livre, ele desiste, e nunca se teleporta nem entra através de um bloco (pergunta 2091). Preso com o Dock ocupado, ele aguarda onde está. Perto do Dock, o tempo não conta, porque ele pode estar esperando a vez (perguntas 84 e 301).
 - **Ordem do clique:** o Shift sempre recolhe, inclusive com corante ou Module na mão. O Module e o corante vêm antes de abrir o inventário, para agir em qualquer estado (perguntas 510, 516 e 800).
 - **Estado interno também valida:** os records que só guardam tempo ou ângulo rejeitam valor inválido, como os demais value objects (pergunta 526).
 - **Fila sem remoção:** um robô se informa a cada tick, então o que saiu do mundo perde o lugar sem ninguém precisar tirá-lo (perguntas 85 e 86).

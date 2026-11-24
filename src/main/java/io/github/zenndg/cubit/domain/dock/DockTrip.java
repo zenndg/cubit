@@ -18,19 +18,23 @@ public record DockTrip(double bestDistance, int stuckTicks) {
     }
   }
 
+  /** What the dock ahead is like now: busy, and with a clear way from the robot to its plate. */
+  public record Entrance(boolean occupied, boolean clear) {}
+
   /**
-   * Stuck on the way to a busy dock, the robot waits where it is, because teleporting would not let
-   * it in. Near the dock, time does not count, because it may be waiting for its turn.
+   * Stuck on the way to a free dock, the robot gives up, and never enters through a block (answer
+   * 2091). Stuck on the way to a busy one, it waits where it is. Near the dock, time does not
+   * count, because it may be waiting for its turn.
    */
-  public Step advance(double distance, int stuckLimit, boolean dockOccupied) {
-    if (distance <= ENTER_DISTANCE) {
+  public Step advance(double distance, int stuckLimit, Entrance entrance) {
+    if (distance <= ENTER_DISTANCE && entrance.clear()) {
       return new Step(this, Action.ARRIVE);
     }
     DockTrip next = after(distance);
     if (next.stuckTicks <= stuckLimit) {
       return new Step(next, Action.WALK);
     }
-    return new Step(next, dockOccupied ? Action.ARRIVE : Action.TELEPORT);
+    return new Step(next, entrance.occupied() ? Action.ARRIVE : Action.GIVE_UP);
   }
 
   /**
@@ -51,7 +55,7 @@ public record DockTrip(double bestDistance, int stuckTicks) {
   public enum Action {
     WALK,
     ARRIVE,
-    TELEPORT
+    GIVE_UP
   }
 
   /** The trip after this tick and what the robot does. */

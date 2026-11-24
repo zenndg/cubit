@@ -22,12 +22,14 @@ final class FishingGoal extends Goal {
   private static final double PROGRESS_BLOCKS = 0.5;
 
   private final RobotEntity robot;
+  private final AreaReturn back;
   private int repathCountdown;
   private double nearest;
   private int stuckTicks;
 
   FishingGoal(RobotEntity robot) {
     this.robot = robot;
+    this.back = new AreaReturn(robot);
     setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
   }
 
@@ -68,6 +70,7 @@ final class FishingGoal extends Goal {
     Optional<FishingSpot> spot = fishing().spot();
     if (spot.isEmpty()) {
       fishing().search(area.get());
+      back.walkBack(area.get());
       return;
     }
     Vec3 stand = Vec3.atBottomCenterOf(BlockPos.of(spot.get().stand()));
@@ -77,7 +80,7 @@ final class FishingGoal extends Goal {
       return;
     }
     fishing().setFishing(false);
-    walkTo(stand, distance);
+    walkTo(stand, distance, area.get());
   }
 
   private void fishAt(FishingSpot spot) {
@@ -87,9 +90,10 @@ final class FishingGoal extends Goal {
     fishing().fish();
   }
 
-  private void walkTo(Vec3 stand, double distance) {
+  private void walkTo(Vec3 stand, double distance, WorkArea area) {
     if (stuck(distance)) {
       fishing().giveUp();
+      back.onStuck(area);
       resetProgress();
       return;
     }

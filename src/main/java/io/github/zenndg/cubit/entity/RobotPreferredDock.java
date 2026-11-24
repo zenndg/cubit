@@ -83,11 +83,12 @@ public final class RobotPreferredDock implements DockGoalControl {
     if (owner.isEmpty() || !(robot.level() instanceof ServerLevel level)) {
       return Optional.empty();
     }
-    Optional<BlockPos> preferred = preferredInReach(level);
+    Optional<BlockPos> preferred = preferredInReach(level).filter(robot.docking().reach()::mayTry);
     if (preferred.isPresent()) {
       return preferred;
     }
-    return DockFinder.nearestFreeDock(level, robot.blockPosition(), radius(), owner.get())
+    return DockFinder.nearestFreeDock(
+            level, robot.blockPosition(), radius(), owner.get(), robot.docking().reach()::mayTry)
         .map(InductionDockBlockEntity::getBlockPos);
   }
 

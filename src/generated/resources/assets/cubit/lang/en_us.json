@@ -648,6 +648,7 @@
   "notice.cubit.desk_upgraded": "Engineering Desk upgraded to %s!",
   "notice.cubit.dock_already_tier": "The Induction Dock is already %s",
   "notice.cubit.dock_needs_tier": "The Induction Dock needs to be %s first",
+  "notice.cubit.dock_unreachable": "%s: I cannot reach the Dock",
   "notice.cubit.dock_upgraded": "Induction Dock upgraded to %s!",
   "notice.cubit.enemy": "Careful, %s!",
   "notice.cubit.engineering_desk_first": "Pick a recipe in the catalog and power the desk from below.",

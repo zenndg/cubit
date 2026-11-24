@@ -5,6 +5,7 @@ import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.PowerState;
 import io.github.zenndg.cubit.entity.RobotEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,6 +23,7 @@ public final class DockTripGameTests {
   private static final int LONG_TIMEOUT = 600;
   private static final int WALK_TICKS = 120;
   private static final int STUCK_TICKS = 180;
+  private static final int THROUGH_TICKS = 300;
   private static final int CHARGE_TICKS = 20;
   private static final int ROBOT_X = 5;
   private static final int OTHER_DOCK_X = 18;
@@ -100,19 +102,42 @@ public final class DockTripGameTests {
         });
   }
 
+  /** With no way on foot it gives up, and goes back to what it did (answer 2091). */
   @GameTest(template = ARENA, timeoutTicks = LONG_TIMEOUT)
-  public static void aRobotWithoutARouteTeleportsToTheDock(GameTestHelper helper) {
+  public static void aRobotWithoutARouteGivesUpTheDock(GameTestHelper helper) {
     ServerPlayer owner = DockScene.ownerBeside(helper);
     DockScene.placeDock(helper, owner, FLOOR, STOCK);
     RobotEntity robot = DockScene.placeRobot(helper, owner, ROBOT_FLOOR, PLENTY);
     DockScene.buildWallAt(helper, ROBOT_X + 2);
 
-    DockScene.click(helper, owner, DOCK);
+    robot.callToDock(helper.absolutePos(DOCK));
 
     helper.runAfterDelay(
         STUCK_TICKS,
         () -> {
-          helper.assertValueEqual(robot.powerState(), PowerState.HIBERNATING, WRONG_POWER);
+          helper.assertValueEqual(robot.powerState(), PowerState.ACTIVE, WRONG_POWER);
+          helper.assertTrue(robot.answersDockCall(), WRONG_POWER);
+          helper.succeed();
+        });
+  }
+
+  /** Beside the dock but with a pane between, it never goes through (answer 2091). */
+  @GameTest(template = ARENA, timeoutTicks = LONG_TIMEOUT)
+  public static void aRobotNeverEntersThroughABlock(GameTestHelper helper) {
+    ServerPlayer owner = DockScene.ownerBeside(helper);
+    DockScene.placeDock(helper, owner, FLOOR, STOCK);
+    for (Direction side : Direction.Plane.HORIZONTAL) {
+      helper.setBlock(DOCK.relative(side), Blocks.IRON_BARS);
+      helper.setBlock(DOCK.relative(side).above(), Blocks.IRON_BARS);
+    }
+    RobotEntity robot = DockScene.placeRobot(helper, owner, ROBOT_FLOOR, PLENTY);
+
+    robot.callToDock(helper.absolutePos(DOCK));
+
+    helper.runAfterDelay(
+        THROUGH_TICKS,
+        () -> {
+          helper.assertValueEqual(robot.powerState(), PowerState.ACTIVE, WRONG_POWER);
           helper.succeed();
         });
   }
