@@ -1028,11 +1028,31 @@ Não há perguntas pendentes nesta fase.
 | 2081 | As texturas do fluido, parado e correndo, podem entrar no jogo? | Sim, como estão nas prévias: verde-limão opaco com bolhas, em 16 quadros. A recomendação foi aceita. Fecha a 1845 |
 | 2082 | A aba XP do Cubit, com o ícone gerado, o tanque com marcas, a linha do nível com − e +, os três modos e a chave, pode ir ao código? | Sim, a aba e o ícone, reduzido a 16×16. A recomendação foi aceita |
 | 2083 | A troca de XP com o player, com os detalhes 9 e 10 (respostas 2070 a 2082), pode ir ao código? | O desenvolvedor disse "autorizo os itens 1 a 4, pode seguir" (regra 54): a troca e os dois detalhes valem, e o código do PR 1 começa. A recomendação foi aceita |
+| 2084 | Onde ficam as regras do XP em `domain/`, já que a estrutura aprovada no `AGENTS.md` não tem um pacote de XP? | Num pacote novo, `domain/xp/`, como o `domain/desk/` da mesa: o Cubit e o Dock dependem dele, e ele de nenhum dos dois. Entra na estrutura do `AGENTS.md` no fim do PR, com autorização. A recomendação foi aceita |
+| 2085 | Pedido do desenvolvedor: uma regra no `AGENTS.md` sobre as GameTests | "Crie uma regra no AGENTS.md somente é executado o GameTests antes de envio PR se apresentar PR deve ser ajustado e somente apos é aberto a PR. O GameTests nao é executado fora deste objetivo somente por autorizacao explicita do desenvolvedor. Nao deve ser um motivo para parar o fluxo de trabalho": virou a regra 57, lida como "se apresentar erro". Confirma a 1711, a 1919 e a 2004 |
+| 2086 | O PR 1 do XP, com a aba, as fontes, as bolinhas, a troca e a passagem ao Dock, foi testado no jogo e está aprovado? | Testado e aprovado, com um comportamento errado à parte, a ida ao Dock através da parede (2090) |
+| 2087 | Cortar cana e cacto e colher abóbora e melancia contam como colheita no XP do Fazendeiro (1823)? | Sim, uma vez por ação. A recomendação foi aceita. Detalha a 1823 |
+| 2088 | O `AGENTS.md` pode incluir as classes do XP na estrutura de pacotes e tirar o `PatrolXp`? | Sim, autorizado. A recomendação foi aceita |
+| 2089 | Se uma GameTest reprovar antes do PR (regra 57), a autorização dos commits da entrega vale também para o commit de ajuste? | Sim. A recomendação foi aceita. Detalha a 2085 |
+| 2090 | Relato do desenvolvedor, no teste do PR 1 do XP | "porem vi um comportamento errado do cubit. Coloquei um cubit me seguindo e outro atuando em uma area ambos dentro de um quadrado de blocos 2 de altura e 10x10 o dock estava do lado de fora encontrado nos blocos da parece o cubit tava encontado na parece entao entre o dock e o cubit tenha bloco o cubit ambos atravessaram o bloco para entrar no dock fazendo assim comportamento errado e ainda nao conseguindo voltar para sua area apos" |
+| 2091 | O que o Cubit faz sem caminho a pé até o Dock (2090)? | Não ir, e avisar: desiste do Dock, avisa o dono uma vez, como sem Dock alcançável, continua o que fazia e procura outro com rota. Nunca atravessa parede. A recomendação foi aceita. Muda a 301 |
+| 2092 | Como o Cubit volta do Dock sem caminho: com card na área, ele nunca se teleporta para dentro, e quem segue só se teleporta a 20 blocos? | Todos voltam: com ou sem card, o Cubit fora da área e sem caminho aparece dentro dela depois de 5 s, como na 1058, e quem segue e fica preso sem rota por 5 s aparece perto do dono, mesmo a menos de 20 blocos. A recomendação foi aceita. Detalha a 1058 |
+| 2093 | O Cubit da área, no teste da 2090, tinha um card de trabalho? | O desenvolvedor disse "tive as 2 situacoes um patrulheiro em uma area e outro me seguindo mandei para o dock" |
+| 2094 | Onde entra a correção da ida ao Dock (2090)? | Dentro do PR 1 do XP, com um teste manual novo. A recomendação, issue e PR próprios logo após, não foi aceita |
+| 2095 | O conceito da correção da ida e da volta do Dock (2091 e 2092), com os detalhes a até f, pode ir ao código? | O desenvolvedor disse "autorizo os itens 1 e 2, pode seguir" (regra 54): os detalhes valem, com o teste antes do código e um roteiro manual curto. A recomendação foi aceita |
+| 2096 | Ideia do desenvolvedor: acessórios para o Cubit. Onde fica? | "coloque em backlog a ideia de termos acessos para os cubits onde podemos adicionar ou remover do cubit. Exemplo Gancho de rapel puxa o cubit para pular buratos, propursor para ele pular alturas de 2 ou mais blocos": anotada em `_docs/backlog.md`, na seção Todo Cubit, como acessórios, sem nada decidido |
+| 2097 | A correção da ida e da volta do Dock sem caminho (2090 a 2095) foi testada no jogo e está aprovada? | Testado e aprovado |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 08:39 | Registra a resposta 2097. |
+| Zennd | 2026-11-24 08:35 | Registra as respostas 2095 a 2096. |
+| Zennd | 2026-11-24 08:32 | Registra as respostas 2091 a 2094. |
+| Zennd | 2026-11-24 08:26 | Registra as respostas 2086 a 2090. |
+| Zennd | 2026-11-24 08:11 | Registra a resposta 2085. |
+| Zennd | 2026-11-24 07:55 | Registra a resposta 2084. |
 | Zennd | 2026-11-24 07:53 | Registra a resposta 2083. |
 | Zennd | 2026-11-24 07:51 | Registra as respostas 2079 a 2082. |
 | Zennd | 2026-11-24 07:47 | Registra as respostas 2075 a 2078. |

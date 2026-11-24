@@ -47,6 +47,16 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
      - o Module desse tier usado no Dock e na mesa, que hoje aceitam todos;
      - os saves, que guardam o tier, e o config, que tem chaves por tier (regra 18).
 
+5. **Acessórios do Cubit** (pergunta 2096).
+   - **A ideia:** peças que o player adiciona ao Cubit ou remove dele. Exemplos: um gancho de rapel, que puxa o Cubit para passar por buracos, e um propulsor, para ele pular alturas de 2 ou mais blocos.
+   - **Em aberto:**
+     - onde os acessórios ficam, se em slots próprios, quantos e a partir de qual tier;
+     - as receitas, só com materiais do jogo puro, o consumo e o que libera cada um;
+     - o visual e a animação de cada um, com o chapéu e a mochila das profissões;
+     - o que muda no caminho que o Cubit calcula, e o que acontece sem bateria no meio do uso;
+     - como convivem com as asas do Patrulheiro, que já fazem voos curtos;
+     - o estado no save e no item (regra 18).
+
 ## Profissões
 
 1. **Scanner de minérios só no Minerador** (pergunta 1741). Quando o Minerador começar, o scanner de minérios sai de todo Cubit e passa a ser só do Minerador, melhorado. Está anotado em [`trabalhos/minerador.md`](funcionalidades/trabalhos/minerador.md).
@@ -59,6 +69,7 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 08:35 | Acrescenta os acessórios do Cubit (pergunta 2096). |
 | Zennd | 2026-11-23 20:27 | Acrescenta o tier acima do Ultimate (pergunta 2057). |
 | Zennd | 2026-11-23 00:00 | Troca o nome ao colocar o Cubit pelo link do conceito (perguntas 1874 a 1881). |
 | Zennd | 2026-11-22 23:13 | Troca o XP em tanque de líquido pelo link do conceito, refinado nas perguntas 1814 a 1851. |

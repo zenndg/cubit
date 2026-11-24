@@ -26,6 +26,10 @@ As telas próprias do Cubit e do Induction Dock, item 19 da Fase 3. Elas substit
 
 Cinco abas, à direita da janela: **Inventory**, com o ícone do baú, **Settings**, com a engrenagem, **Defense**, com o escudo (perguntas 824 e 828), **Behavior**, com o funil (perguntas 878 e 888), e **Work**, com o ícone do card, descrita em [`trabalhos.md`](trabalhos.md#aba-trabalho) (pergunta 1167). A aba é estado só do cliente. Fora da Inventory, os slots ficam desligados e não podem ser usados, exceto os do player na Behavior (pergunta 893).
 
+### Aba XP
+
+O tanque de XP, a troca de XP com o dono, os três modos e a chave do excesso, depois da aba Work, como descreve [`xp.md`](xp.md#telas). Com o card do Organizador, a aba Supply desce uma posição (perguntas 1830, 2076, 2082 e 2083).
+
 ### Aba Inventory
 
 | Parte | O que mostra |
@@ -253,6 +257,7 @@ Pergunta 691.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 08:16 | Acrescenta a aba XP do Cubit (perguntas 1830 e 2082). |
 | Zennd | 2026-11-23 10:40 | Acrescenta a luz da lua na aba Solar (perguntas 1946 e 1949). |
 | Zennd | 2026-11-22 23:45 | Acrescenta a aba Solar a todo Dock e o nome e o Rename no topo da tela do Dock (perguntas 1865, 1867 e 1870). |
 | Marcelo Fabiano | 2026-11-19 21:45 | Mostra a dica da linha `Speed` só sobre o ícone e o nome (pergunta 1302). |

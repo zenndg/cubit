@@ -35,7 +35,7 @@ O XP que o trabalho gera vai **direto para o tanque**, sem bolinha no mundo (per
 | Patrulheiro Galático | O XP que o mob abatido daria, perto ou longe do dono. O dono deixa de receber o XP dos abates e o pega no Dock. Com o dono offline, não há XP, como no jogo | 1821 e 2062 |
 | Pescador | De 1 a 6 pontos por pesca, como a vara do jogo dá ao player, também na do lixo descartado pelo Keep junk | 1820 e 2066 |
 | Cozinheiro | O XP guardado na fornalha, ao tirar os itens prontos, com o arredondamento sorteado do jogo. A fornalha o zera, para o XP não sair duas vezes | 1824 |
-| Fazendeiro | 20% de chance de 1 ponto por planta madura colhida, no config, porque o jogo puro não dá XP por colheita | 1823 |
+| Fazendeiro | 20% de chance de 1 ponto por planta madura colhida, no config, porque o jogo puro não dá XP por colheita. Cortar cana e cacto e colher um fruto também contam, uma vez por ação | 1823 e 2087 |
 
 O Organizador não gera XP. Um trabalho fora da lista age como antes do XP Cubit: o abate do Patrulheiro solta as bolinhas normais do jogo, o XP da fornalha fica nela para o player, e o Pescador e o Fazendeiro não geram XP (pergunta 1839).
 
@@ -175,7 +175,9 @@ A troca de XP com o player acrescenta dois, autorizados com ela (pergunta 2083):
 | NBT do Cubit | `XpTank`, `XpMode` e `XpDeleteExcess` | O fluido em mB, o modo (`ignore`, `store` ou `return_to_dock`) e a chave do excesso. Sem as chaves, tanque vazio, `store` e desligada (pergunta 1829) |
 | Estado do item do Cubit | Os mesmos três campos | No data component do estado do Cubit, opcionais, com os mesmos padrões, também no Damaged Cubit (regra 8 e pergunta 1838) |
 | NBT do Dock | `XpTank`, `XpMode` e `XpEnergyMade` | O fluido em mB, o modo (`delete_all`, `store_delete_excess`, `store_convert_excess`, `convert_all` ou `store_half_convert_rest`) e a energia que o XP gerou. Sem as chaves, tanque vazio e `store_convert_excess` (pergunta 1832) |
-| Estado do item do Dock | Os mesmos três campos | No item do Dock, como a energia (pergunta 1838) |
+| Estado do item do Cubit, nomes | `xp_tank`, `xp_mode` e `xp_delete_excess` | Os nomes dos três campos no data component (pergunta 1838) |
+| Estado do item do Dock | `cubit:dock_xp` | Num data component opcional, com os mesmos três campos. O PR 1 traz só o `xp_tank` (pergunta 1838) |
+| Aviso | `notice.cubit.xp_tank_full` | O texto do Cubit cheio (pergunta 1840) |
 | Capability do Dock | Fluido do NeoForge | Entrada e saída só de `cubit:xp_fluid` (perguntas 1818 e 1841) |
 | Build | `META-INF/accesstransformer.cfg` | Abre só `recipesUsed`, da fornalha, e `followingPlayer` e `count`, da bolinha de XP, com um documento em `_docs/desenvolvimento/` (pergunta 2068) |
 | Traduções | O fluido, as abas, os modos, a chave do excesso, os botões, as dicas e os dois avisos | Em inglês e português, com as mesmas chaves (regra 1) |
@@ -191,6 +193,8 @@ Uma issue e dois PRs, cada um com o seu teste manual e as provas do [`antes-do-p
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 08:32 | Detalha a colheita do Fazendeiro (pergunta 2087). |
+| Zennd | 2026-11-24 08:16 | Nomeia o data component do Dock, os campos do item e o aviso. |
 | Zennd | 2026-11-24 07:53 | Registra a autorização da troca de XP com o player (pergunta 2083). |
 | Zennd | 2026-11-24 07:51 | Acrescenta a troca de XP com o player e o Descarregar XP do Tablet, e aprova o fluido, a aba e o ícone (perguntas 2070 a 2082). |
 | Zennd | 2026-11-24 07:33 | Registra a autorização do conceito ajustado (pergunta 2069). |
