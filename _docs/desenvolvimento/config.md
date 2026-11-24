@@ -69,6 +69,8 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general` | `xp_fluid_per_point` | Fluido, em mB, de 1 ponto de XP (pergunta 1817) | 1 a 1000 |
 | `general` | `xp_jobs` | Trabalhos que dão XP ao tanque. Um nome desconhecido é ignorado, com um aviso no log (pergunta 1820) | Nomes dos trabalhos |
 | `general` | `farmer_xp_chance` | Fazendeiro: chance de 1 ponto por colheita (pergunta 1823) | 0 a 100 |
+| `general` | `dock_fe_per_xp_point` | Dock: energia, em FE, de 1 ponto de XP, sem volta (perguntas 1942 e 2111) | 1 a 1000 |
+| `general` | `dock_xp_notice_blocks` | Dock: distância até o dono do aviso de tanque de XP cheio (pergunta 2103) | 0 a 128 |
 | `general` | `pickup_check_ticks` | Intervalo da coleta por contato | 1 a 1200 |
 | `general` | `magnet_check_ticks` | Intervalo do ímã | 1 a 1200 |
 | `general` | `torch_check_ticks` | Intervalo da análise das tochas | 1 a 1200 |
@@ -252,6 +254,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 09:56 | Acrescenta as chaves do XP do Dock (perguntas 1942 e 2103). |
 | Zennd | 2026-11-24 08:37 | Acrescenta o dock_unreachable_ticks (perguntas 2091 e 2095). |
 | Zennd | 2026-11-24 08:16 | Acrescenta as chaves do XP e tira as do XP como energia (perguntas 1817 a 1835). |
 | Zennd | 2026-11-23 14:22 | Acrescenta a chave da fabricação em cascata (pergunta 2020). |

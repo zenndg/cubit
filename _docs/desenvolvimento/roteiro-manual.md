@@ -1379,7 +1379,7 @@ Esta parte cobre o PR 4: o visual e os sons, em cinco entregas (pergunta 1771). 
 
 ## XP Cubit e Dock
 
-As regras estão em [`xp.md`](../funcionalidades/xp.md) (issue #244). Este é o roteiro do PR 1, o Cubit. Nas contas, 1 ponto vale 20 mB.
+As regras estão em [`xp.md`](../funcionalidades/xp.md) (issue #244). Os passos 1 a 24 são do PR 1, o Cubit, e os da seção seguinte, do PR 2, o Dock. Nas contas, 1 ponto vale 20 mB.
 
 | # | Faça | Espere |
 |---|---|---|
@@ -1402,11 +1402,42 @@ As regras estão em [`xp.md`](../funcionalidades/xp.md) (issue #244). Este é o 
 | 17 | Com um Fazendeiro, deixe-o colher umas 20 plantas | O tanque sobe cerca de 1 ponto a cada 5 colheitas |
 | 18 | Recolha o Cubit, veja a dica do item, coloque de novo e suba o tier com um Module | `XP 6,400 / 8,000 mB` na dica, e o XP, o modo e a chave continuam. No novo tier, a capacidade maior |
 | 19 | Mate o Cubit e veja a dica do Damaged Cubit | O XP está lá, e continua depois do conserto |
-| 20 | Quebre um Dock que recebeu XP e coloque de novo | O XP continua nele. A tela do Dock ainda não o mostra |
+| 20 | Quebre um Dock que recebeu XP e coloque de novo | O XP continua nele, na aba XP do Dock |
 | 21 | Com outro player, use a aba | Ele não abre a tela do seu Cubit, e a bolinha que voa para ele não vai ao seu tanque |
 | 22 | Abra um mundo de antes do XP | Os Cubits vêm com o tanque vazio, no `Store`, e nada mais muda |
 | 23 | Em português | `Tanque`, `Seu nível`, os modos e as dicas em português, sem sobreposição |
 | 24 | Com um Organizador, abra as abas | A `Supply` fica depois da XP, inteira dentro da janela |
+
+### XP no Dock
+
+Use um Dock Base seu, um Cubit Base com o tanque cheio e alguns níveis (`/xp set @s 30 levels`). Um Cubit Base cheio tem 400 pontos, ou 3.600 FE.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Abra o Dock e veja as abas | A quarta aba é a XP, com o ícone do tanque, `Energy made: 0 FE`, `0 / 32,000 mB · 0 points`, a linha do nível e o modo `Store and convert the excess` marcado |
+| 2 | Ponha o Cubit cheio no Dock | O tanque do Dock sobe e o do Cubit desce, e ele sai com o tanque vazio |
+| 3 | Aperte − e + na aba XP | O seu nível sobe e desce um por clique, e o tanque acompanha. Sem XP, sem espaço ou sem níveis, o botão fica cinza, com o motivo |
+| 4 | Escolha `Delete all` e ponha um Cubit cheio | O tanque do Dock não muda, e o Cubit sai vazio |
+| 5 | No `Delete all`, aperte + | O XP enviado fica no tanque |
+| 6 | Escolha `Convert all`, com XP guardado | O tanque desce aos poucos, e a energia do Dock e o `Energy made` sobem 9 FE por ponto |
+| 7 | No `Convert all`, pare o mouse no + | `Sends a level of yours to the tank` e, em cinza, `Here the XP becomes FE, with no way back` |
+| 8 | Volte a um modo que guarda | A energia gerada não volta a ser XP, e o total continua |
+| 9 | Com o tanque do Dock cheio no `Store and convert the excess`, ponha um Cubit cheio, com você a menos de 16 blocos | Uma vez, `{nome do Dock}: the XP tank is full`. O tanque fica cheio, e o `Energy made` sobe |
+| 10 | Repita no `Store and delete the excess` | O `Energy made` não muda, e o Cubit sai vazio |
+| 11 | Tire menos de 10% com o − e encha de novo. Depois, tire mais de 10% e encha de novo | O aviso só volta na segunda vez |
+| 12 | Com a bateria do Dock cheia e o tanque cheio, no `Convert all`, ponha um Cubit cheio | O XP que não cabe é apagado, e o Cubit sai vazio |
+| 13 | Com outro player, abra o Dock | Ele não abre a tela |
+| 14 | Quebre o Dock com XP, modo e energia gerada, veja a dica e coloque de novo | `XP 6,400 / 32,000 mB` na dica, e os três continuam |
+| 15 | Suba o tier do Dock com um Module | A capacidade cresce, e o XP continua |
+| 16 | No Tablet, abra a aba XP de um Cubit | O tanque, o `Unload XP`, os modos e a chave, sem − e +. Mudar o modo vale no Cubit |
+| 17 | Com o Cubit cheio e ativo, aperte `Unload XP` | Ele vai ao Dock, esvazia e volta |
+| 18 | Com o tanque do Cubit vazio, desligado e longe de um Dock, pare o mouse no `Unload XP` | Cinza, com o motivo de cada caso |
+| 19 | Com o Organizador, abra as abas do Tablet | A `Supply` depois da XP, inteira na janela, também no Base e no Ultimate |
+| 20 | Afaste-se até o Cubit descarregar e abra-o no Tablet | `XP 6,400 / 8,000 mB` abaixo da bateria |
+| 21 | No Iron Meridian, ligue um cano de fluido ao Dock, com um tanque | O fluido entra e sai, e outro fluido é recusado |
+| 22 | Com o Jade, olhe o Cubit e o Dock | No Cubit, a linha `XP 6,400 / 8,000 mB`. No Dock, só a barra do próprio Jade |
+| 23 | Abra um mundo do PR 1 com XP num Dock | O XP continua, no `Store and convert the excess`, com 0 FE gerados |
+| 24 | Em português | Os modos, as dicas e o aviso em português, sem sobreposição |
 
 ### Ida e volta do Dock sem caminho
 
@@ -1499,6 +1530,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 09:56 | Acrescenta o roteiro do XP no Dock (perguntas 2099 a 2117). |
 | Zennd | 2026-11-24 08:37 | Acrescenta o roteiro da ida e da volta do Dock sem caminho (perguntas 2090 a 2095). |
 | Zennd | 2026-11-24 08:16 | Acrescenta o roteiro do XP, PR 1 (issue #244). |
 | Zennd | 2026-11-23 16:54 | Ajusta o roteiro da fabricação em cascata à quantidade em 0 (perguntas 2052 e 2053). |

@@ -69,6 +69,7 @@ Funciona como um carregador solar real.
 - **Slot de entrada:** aceita redstone, que vira estoque, ou uma Power Bank, que descarrega no estoque pelo mesmo limite de entrada dos cabos e aparece em `Input +X FE/t`. Vazia, ela fica parada no slot (perguntas 919, 920 e 923). O slot de carga saiu, e o inventário assumiu o papel dele (pergunta 950).
 - **Clique:** o clique direito com redstone na mão a põe no slot de entrada. Com uma Power Bank, uma Toolbox ou um Damaged Cubit na mão, o item vai para o inventário, juntando nas pilhas e nos slots livres, e o que não couber fica na mão. Com o item do Cubit, o robô vai para a base, como sempre. Só o dono (perguntas 959 e 968, que mudam a 924).
 - **Inventário:** guarda os itens do mod e carrega as Power Banks. Veja [Inventário do Dock](#inventário-do-dock).
+- **XP:** o Dock recebe o XP do Cubit e, no modo escolhido, converte-o em energia, que entra no estoque depois da do sol e fora do limite dos cabos. O XP que vira FE nunca volta a ser XP. As regras estão em [`xp.md`](xp.md#modos-do-dock) (perguntas 1831, 1942 e 2111).
 - **Recarga do Cubit:** na taxa do tier do Dock, de 500 a 5.000 FE/t, sem contar o tier do Cubit (pergunta 1375). Veja [Tiers do Dock](#tiers-do-dock).
 - **Vida:** recupera a vida do Cubit durante a hibernação, sem gastar FE, mesmo com o estoque zerado.
 - **Retorno automático:** serve de base para ele, na Fase 4.
@@ -256,6 +257,7 @@ Entra com o item 15 da Fase 4.2, antes do modo área (perguntas 1065 a 1069).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 09:56 | Cita a conversão do XP em energia no Dock (perguntas 1831 e 2111). |
 | Zennd | 2026-11-24 08:32 | Descreve a ida e a volta do Dock sem caminho (perguntas 2090 a 2095). |
 | Zennd | 2026-11-24 08:16 | Acrescenta o tanque de XP vazio à saída do Dock (pergunta 2067). |
 | Zennd | 2026-11-23 10:56 | Acrescenta a lua na tela do Dock (perguntas 1956 a 1960). |
