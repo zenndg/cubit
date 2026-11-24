@@ -189,6 +189,10 @@ O Cubit é o único robô do mod. O que muda entre um Cubit e outro é o tier e 
 
 57. **GameTests só antes do PR:** as GameTests rodam só antes do envio de um PR, sobre o último commit da branch. Se alguma reprovar, o erro é ajustado, as GameTests rodam de novo, e o PR só abre depois que todas passarem. Fora desse momento, elas só rodam com autorização explícita do desenvolvedor. Rodá-las, ou ajustar o que elas mostrarem, não é motivo para parar o fluxo de trabalho (resposta 2085).
 
+### XP
+
+58. **XP que vira FE não volta:** o XP que se torna FE nunca volta a ser XP. Vale para tudo que trabalha com XP no mod, hoje e no que vier, como o Servidor e as profissões: nada no mod transforma FE em XP (resposta 2111).
+
 ## Git
 
 - **Autorização:** nunca faça commit, push, tag, release ou PR sem autorização explícita para aquela ação. Antes, mostre os arquivos, o resumo e a mensagem proposta.
