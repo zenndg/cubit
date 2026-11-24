@@ -40,6 +40,7 @@ public final class CascadeGameTests {
   private static final int FIVE_CRAFTS = 200;
   private static final int SOME_TICKS = 20;
   private static final int MANY = 64;
+  private static final int BESIDE = 2;
   private static final int IRON = 7;
   private static final int THREE = 3;
   private static final int FOUR = 4;
@@ -56,6 +57,7 @@ public final class CascadeGameTests {
   private static final String MOVED = "Nothing should leave the input";
   private static final String WRONG_ENERGY = "Wrong energy after the plan";
   private static final String NOT_RUNNING = "The plan should be running";
+  private static final String REFUSED = "The menu should take the click";
   private static final String RUNNING = "The plan should have ended";
   private static final String NOT_PAUSED = "Without energy the plan should pause";
   private static final String LOST = "Items were lost";
@@ -296,13 +298,16 @@ public final class CascadeGameTests {
     EngineeringDeskBlockEntity desk = place(helper, RobotTier.ULTIMATE, ENERGY);
     fillRobot(desk);
     ServerPlayer player = player(helper);
+    player.moveTo(
+        helper.absolutePos(EngineeringDeskGameTests.DESK).south(BESIDE).getBottomCenter());
     EngineeringDeskMenu menu = EngineeringDeskMenu.onServer(1, player.getInventory(), desk);
     List<ResourceLocation> catalog =
         DeskRecipes.all(helper.getLevel().getRecipeManager()).stream()
             .map(RecipeHolder::id)
             .toList();
-    menu.clickMenuButton(player, CascadeMenuPart.choose(catalog.indexOf(id(ROBOT))));
-    menu.clickMenuButton(player, CascadeMenuPart.START);
+    helper.assertTrue(
+        menu.clickMenuButton(player, CascadeMenuPart.choose(catalog.indexOf(id(ROBOT)))), REFUSED);
+    helper.assertTrue(menu.clickMenuButton(player, CascadeMenuPart.START), REFUSED);
     helper.assertFalse(desk.cascade().isRunning(), RUNNING);
     helper.assertValueEqual(count(desk.input(), Items.DIAMOND), THREE, MOVED);
 
