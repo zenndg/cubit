@@ -19,7 +19,7 @@ As regras numeradas citadas aqui são as do [`AGENTS.md`](../../AGENTS.md).
 | Dados recebidos do cliente | O cliente só pede ações, e o servidor decide (regra 19) |
 | Cadeia de dependências | Dependência nova é decisão bloqueante. As versões são fixas, e o wrapper tem o checksum conferido |
 | Segredos | Nada de segredo no repositório, e o `gitleaks` roda em todo commit |
-| Integridade do save | IDs, data components, NBT e chaves de config não mudam sem migração (regra 18) |
+| Integridade do save | A partir da `1.0.0`, IDs, data components, NBT e chaves de config não mudam sem migração. Até lá, cada mudança é decidida pelo desenvolvedor, com o que se perde dito antes (regra 18) |
 | Perda de itens | Recolher, morrer e colocar nunca apagam o inventário nem duplicam itens |
 | Condições excepcionais | Dado inválido não derruba o jogo (regra 17) |
 
@@ -28,7 +28,7 @@ As regras numeradas citadas aqui são as do [`AGENTS.md`](../../AGENTS.md).
 - [ ] A ação confere o dono do robô no servidor?
 - [ ] O pacote recebido do cliente é validado?
 - [ ] Nenhuma operação duplica nem apaga itens ou energia?
-- [ ] A mudança preserva os saves existentes?
+- [ ] A mudança preserva os saves existentes ou, até a `1.0.0`, foi decidida pelo desenvolvedor (regra 18)?
 
 ## 2. Defesa
 
@@ -70,8 +70,8 @@ As regras numeradas citadas aqui são as do [`AGENTS.md`](../../AGENTS.md).
 
 | Contrato | Quem consome | Regra |
 |---|---|---|
-| Saves | Mundos já criados | IDs, data components e NBT mudam só com migração |
-| Config | O pack, pelo packwiz | Chaves não mudam sem migração |
+| Saves | Mundos já criados | A partir da `1.0.0`, IDs, data components e NBT mudam só com migração (regra 18) |
+| Config | O pack, pelo packwiz | A partir da `1.0.0`, chaves não mudam sem migração (regra 18) |
 | Receitas e tags | KubeJS e outros mods | IDs e tags são estáveis, e as receitas são JSON |
 | Energia | Mods de FE, quando houver | Capabilities padrão do NeoForge |
 | Comandos e traduções | Scripts de pack e quem traduz o mod | Os nomes só mudam com aviso, sem exigir migração, porque não ficam nos saves |
@@ -82,7 +82,7 @@ As regras numeradas citadas aqui são as do [`AGENTS.md`](../../AGENTS.md).
 ### Checklist
 
 - [ ] O contrato está documentado antes do código?
-- [ ] A mudança é compatível ou tem migração?
+- [ ] A mudança é compatível, tem migração ou, até a `1.0.0`, foi decidida pelo desenvolvedor (regra 18)?
 
 ## 5. Comportamento testado
 
@@ -147,7 +147,7 @@ As regras numeradas citadas aqui são as do [`AGENTS.md`](../../AGENTS.md).
 
 **A solução mais simples que atende o requisito atual é a correta.**
 
-- A abstração precisa de um motivo real. As fronteiras das regras 39 a 42 são a exceção decidida, porque mudá-las depois exigiria migração.
+- A abstração precisa de um motivo real. As fronteiras das regras 39 a 42 são a exceção decidida, porque, a partir da `1.0.0`, mudá-las exigiria migração.
 - Prefira a biblioteca padrão e a API do NeoForge a uma dependência nova.
 - Cache e otimização precisam de um problema medido.
 
@@ -216,13 +216,14 @@ Isso não autoriza refatorar um arquivo inteiro nem mudar o comportamento de out
 | Confiar na distância informada pelo cliente simplificaria o código | Segurança vence Simplicidade | O servidor calcula a distância |
 | Assumir que o robô salvo ainda existe deixaria o método mais curto | Defesa vence Clareza | O código trata a entidade ausente |
 | Colocar a regra de bateria na entidade evitaria uma classe | Fronteira vence Simplicidade | A regra fica em `domain/` |
-| Renomear uma chave de config deixaria o nome melhor | Contrato vence Clareza | O nome só muda com migração |
+| Renomear uma chave de config deixaria o nome melhor | Contrato vence Clareza | A partir da `1.0.0`, o nome só muda com migração. Até lá, só com a decisão do desenvolvedor (regra 18) |
 | Um teste quebrou em outra área depois da sua mudança | Comportamento testado e Escoteiro | Você corrige antes do PR |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 12:32 | Atualiza o contrato dos saves e do config, que vale a partir da `1.0.0` (perguntas 2189 e 2190). |
 | Marcelo Fabiano | 2026-11-06 11:10 | Troca o novo tipo de robô por novo trabalho. |
 | Marcelo Fabiano | 2026-11-06 11:10 | Troca 'especialidade' por 'trabalho' e 'card de especialidade' por 'card de Aprendizado de Máquina'. |
 | Marcelo Fabiano | 2026-11-05 21:36 | Adiciona o contrato de comandos e traduções. |

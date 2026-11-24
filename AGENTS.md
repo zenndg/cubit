@@ -95,7 +95,7 @@ O significado de cada pilar, os checklists e a matriz de decisão estão em [`_d
 ### Minecraft
 
 17. **O mod não derruba o jogo por dado inválido:** usa um valor seguro e registra no log. Só falha ao iniciar, em caso de erro de programação.
-18. **Saves são contrato:** IDs, data components, NBT, chaves de config e tags não mudam sem migração.
+18. **Saves são contrato a partir da `1.0.0`:** a partir dela, IDs, data components, NBT, chaves de config e tags não mudam sem migração. Até lá, podem mudar sem migração, com a decisão do desenvolvedor em cada caso e o que se perde nos mundos e no config dito antes (resposta 2189).
 19. **Autoridade do servidor:** toda regra roda no servidor. O cliente só exibe e pede ações.
 20. **Dono do robô:** toda ação confere o dono. O servidor valida dono e distância de todo pacote recebido do cliente.
 21. **Orçamento de tick:** nada pesado a cada tick. Varreduras rodam em intervalos e sem alocação desnecessária.
@@ -132,7 +132,7 @@ O Cubit é o único robô do mod. O que muda entre um Cubit e outro é o tier e 
 
 39. **Números por dado:** regras, números e capacidades vêm do tier e do trabalho, nunca de um `if` ou de uma constante fixa.
 40. **Capacidades por composição:** ímã, choque, scanner, inventário e os trabalhos são peças que o Cubit combina, sem herança.
-41. **Config, IDs e dados:** chaves de config, IDs e data components seguem o padrão atual, com `general_robot`, porque mudá-los depois exige migração (regra 18).
+41. **Config, IDs e dados:** chaves de config, IDs e data components seguem o padrão atual, com `general_robot`, porque, a partir da `1.0.0`, mudá-los exige migração (regra 18).
 42. **Itens compartilhados:** Induction Dock, Cubit Tablet e Power Bank reconhecem o robô por tag ou interface, nunca por uma classe concreta.
 43. **Sem antecipar trabalhos:** nada de implementar trabalhos, telas ou capacidades que ainda não entraram (regra 15).
 
@@ -155,7 +155,7 @@ O Cubit é o único robô do mod. O que muda entre um Cubit e outro é o tier e 
 
 ### Mudança no que está documentado
 
-49. **O documentado pode mudar:** se um impedimento técnico aparecer ao avançar, a decisão pode ser alterada ou desfeita. O impedimento é mostrado com evidência, o desenvolvedor decide, e a nova resposta aponta para a antiga. O que já foi publicado continua seguindo a regra 18.
+49. **O documentado pode mudar:** se um impedimento técnico aparecer ao avançar, a decisão pode ser alterada ou desfeita. O impedimento é mostrado com evidência, o desenvolvedor decide, e a nova resposta aponta para a antiga. A partir da `1.0.0`, os saves e o config seguem a regra 18.
 
 ### Independência
 

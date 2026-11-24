@@ -264,7 +264,7 @@ Nomes aprovados nas perguntas 256, 1146 e 1147. Viram contrato só quando implem
 
 ## Contratos de save
 
-Estes nomes não mudam sem migração (regra 18 do `AGENTS.md`).
+A partir da `1.0.0`, estes nomes não mudam sem migração (regra 18 do `AGENTS.md`).
 
 | Onde | Nome | Conteúdo |
 |---|---|---|
@@ -349,6 +349,7 @@ O estado salvo é validado ao entrar no jogo, sem derrubá-lo (regra 17 do `AGEN
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 12:32 | Atualiza o contrato dos saves, que vale a partir da `1.0.0` (perguntas 2189 e 2190). |
 | Zennd | 2026-11-24 11:44 | Muda o Neural Core, a Circuit Board, os cards e a Power Bank Casing (perguntas 2162 a 2169). |
 | Zennd | 2026-11-24 11:10 | Acrescenta as peças compartilhadas e as receitas que mudam com elas (perguntas 2136 a 2150). |
 | Zennd | 2026-11-23 02:46 | Troca o `facing` do bloco do topo pelo `deployed`, que liga a colisão do painel (pergunta 1898). |

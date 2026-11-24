@@ -58,6 +58,7 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 - **Listas numeradas (pergunta 1281):** ao apresentar opções, pendências, passos ou achados, o agente prefere listas ordenadas numericamente, para o desenvolvedor citar cada item pelo número (regra 55).
 - **Depois do merge:** o agente pede autorização para apagar a branch local e a remota, apresenta o próximo trabalho e pergunta se há ajuste no roteiro (regra 53).
 - **Checklist das fases:** fica em [`checklist.md`](../checklist.md). É avaliado ao encerrar cada PR, e a marcação entra num novo commit, no PR seguinte.
+- **Saves são contrato a partir da `1.0.0` (perguntas 2189 e 2190):** até lá, IDs, data components, NBT, chaves de config e tags podem mudar sem migração, com a decisão do desenvolvedor em cada caso (regra 18).
 - **Contratos:** comandos e chaves de tradução entram como quinto contrato, e os nomes só mudam com aviso, sem exigir migração.
 - **Números no roteiro manual:** ele pode citar os valores padrão como resultado esperado, e `tiers.md` prevalece.
 - **Auditoria de qualidade (perguntas 522 a 528):** antes dos scanners, entram o checksum do wrapper, a regra única de dono, os testes de permissão do Dock, as regras de decisão no domínio, a validação dos cinco records de estado, novas regras de ArchUnit e o gate de ramos. O CI fica para depois.
@@ -241,6 +242,7 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 12:32 | Registra o contrato dos saves a partir da `1.0.0` (perguntas 2189 e 2190). |
 | Zennd | 2026-11-24 12:34 | Corrige o envio da `0.1.0` e da `0.1.1` (perguntas 2171, 2186 e 2188). |
 | Zennd | 2026-11-24 11:32 | Resume o ajuste do Neural Core, dos cards e da Power Bank (perguntas 2162 a 2169). |
 | Zennd | 2026-11-24 10:46 | Resume as peças compartilhadas (perguntas 2118 e 2131 a 2152). |
