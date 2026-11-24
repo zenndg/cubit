@@ -14,6 +14,7 @@ import io.github.zenndg.cubit.domain.robot.WorkSettings;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.SavedEnergy;
 import io.github.zenndg.cubit.item.SavedOreFilter;
+import io.github.zenndg.cubit.item.SavedXp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -86,18 +87,23 @@ final class SavedRobotValues {
         .forEach(ore -> filter.add(StringTag.valueOf(ore)));
     tag.put(ORE_FILTER_KEY, filter);
     tag.putString(DEFENSE_KEY, robot.state().defenseMode().key());
-    tag.putBoolean(SOLAR_KEY, robot.state().solarOn());
-    tag.putBoolean(TORCHES_KEY, robot.state().torchesOn());
-    tag.putBoolean(AUTO_RETURN_KEY, robot.state().autoReturnOn());
-    tag.putBoolean(UNLOAD_KEY, robot.state().unloadOn());
-    tag.putBoolean(DEATH_POINT_KEY, robot.state().deathPointOn());
+    writeSwitches(tag, robot.state());
     writeWorkSettings(tag, robot.state().workSettings());
     tag.putInt(SPEED_KEY, robot.state().speed().percent());
     tag.putBoolean(INTRODUCED_KEY, robot.state().introduced());
     SavedPickup.write(tag, robot.state().pickup());
+    SavedXp.write(tag, robot.state().xp());
     robot
         .lastSafePosition()
         .ifPresent(position -> tag.putLong(LAST_SAFE_POSITION_KEY, position.asLong()));
+  }
+
+  private static void writeSwitches(CompoundTag tag, RobotState state) {
+    tag.putBoolean(SOLAR_KEY, state.solarOn());
+    tag.putBoolean(TORCHES_KEY, state.torchesOn());
+    tag.putBoolean(AUTO_RETURN_KEY, state.autoReturnOn());
+    tag.putBoolean(UNLOAD_KEY, state.unloadOn());
+    tag.putBoolean(DEATH_POINT_KEY, state.deathPointOn());
   }
 
   /** Only a chosen interval is saved, so one nobody chose keeps following the config (1254). */
@@ -201,7 +207,8 @@ final class SavedRobotValues {
         .withDeathPoint(!tag.contains(DEATH_POINT_KEY) || tag.getBoolean(DEATH_POINT_KEY))
         .withWorkSettings(workSettings(tag).withOrganizerMode(organizerMode(tag, robot)))
         .withSpeed(speed(tag, robot))
-        .withIntroduced(introduced(tag));
+        .withIntroduced(introduced(tag))
+        .withXp(SavedXp.read(tag));
   }
 
   /**

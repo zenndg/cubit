@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.datagen;
 
 import io.github.zenndg.cubit.domain.dock.DockPanelState;
 import io.github.zenndg.cubit.domain.dock.DockSunState;
+import io.github.zenndg.cubit.entity.RobotDockReach;
 import io.github.zenndg.cubit.menu.ScreenKeys;
 import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.function.BiConsumer;
@@ -34,10 +35,12 @@ final class PortugueseSolarDockTexts {
   private static final String DEPLOYING = "Montando";
   private static final String DEPLOYED = "Montado";
   private static final String RETRACTING = "Guardando";
+  private static final String UNREACHABLE = "%s: não consigo chegar ao Dock";
 
   private PortugueseSolarDockTexts() {}
 
   static void addTo(BiConsumer<String, String> add) {
+    add.accept(RobotDockReach.UNREACHABLE_KEY, UNREACHABLE);
     add.accept(ScreenKeys.DOCK_SOLAR, SOLAR);
     add.accept(ScreenKeys.DOCK_NO_SUN, NO_SUN);
     add.accept(ScreenKeys.DOCK_TAB_SOLAR, TAB);

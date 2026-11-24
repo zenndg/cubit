@@ -13,6 +13,7 @@ import io.github.zenndg.cubit.domain.ownership.Ownership;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.EnergySlotItems;
 import io.github.zenndg.cubit.item.PowerBankItem;
+import io.github.zenndg.cubit.item.SavedDockXp;
 import io.github.zenndg.cubit.item.SavedEnergy;
 import io.github.zenndg.cubit.registry.CubitBlockEntities;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
@@ -73,6 +74,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
   private final DockTier tier = new DockTier();
   private final DockSolarPanel panel = new DockSolarPanel();
   private final DockIdentity identity = new DockIdentity(this::setChanged);
+  private final DockXp xp = new DockXp(this::setChanged, () -> tier.spec().xp());
 
   /** The Toolbox and the Power Banks, which the stock charges (answers 947 to 959). */
   private final DockStorage storage =
@@ -123,6 +125,10 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     return identity;
   }
 
+  public DockXp xp() {
+    return xp;
+  }
+
   public int storageSlots() {
     return tier.spec().storageSlots();
   }
@@ -156,7 +162,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     if (dock.panel.switched()) {
       level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
     }
-    dock.showStatus(level, pos, state);
+    DockStatusProperty.show(level, pos, state, dock.status());
   }
 
   /**
@@ -212,13 +218,6 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
           .get()
           .flatMap(id -> DockFinder.nearestRobot(server, worldPosition, id))
           .ifPresent(robot -> robot.callToDock(worldPosition));
-    }
-  }
-
-  private void showStatus(Level level, BlockPos pos, BlockState state) {
-    DockStatusProperty shown = DockStatusProperty.of(status());
-    if (state.getValue(InductionDockBlock.STATUS) != shown) {
-      level.setBlock(pos, state.setValue(InductionDockBlock.STATUS, shown), Block.UPDATE_CLIENTS);
     }
   }
 
@@ -331,6 +330,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     storage.save(tag, registries);
     panel.save(tag);
     identity.save(tag);
+    xp.save(tag);
   }
 
   @Override
@@ -341,6 +341,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     panel.load(tag);
     panel.readSun(tag);
     identity.load(tag);
+    xp.load(tag);
     stock = DockStock.of(capacity(), SavedEnergy.of(tag.getLong(ENERGY_KEY)));
     slot.setItem(SLOT, DockShapes.savedStack(tag, SLOT_KEY, registries));
     storage.load(tag, registries, worldPosition);
@@ -355,6 +356,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     storage.apply(
         input.getOrDefault(CubitDataComponents.DOCK_STORAGE.get(), ItemContainerContents.EMPTY),
         worldPosition);
+    xp.apply(input.getOrDefault(CubitDataComponents.DOCK_XP.get(), SavedDockXp.EMPTY));
     identity.apply(
         input.get(CubitDataComponents.DOCK_ID.get()), input.get(DataComponents.CUSTOM_NAME));
   }
@@ -366,6 +368,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     tier.collect(components);
     components.set(CubitDataComponents.DOCK_STORAGE.get(), storage.contents());
     identity.collect(components);
+    xp.collect(components);
   }
 
   /** The owner, who decides who can break the block, and the panel travel to the client. */

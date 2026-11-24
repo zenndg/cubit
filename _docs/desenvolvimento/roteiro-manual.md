@@ -1377,6 +1377,54 @@ Esta parte cobre o PR 4: o visual e os sons, em cinco entregas (pergunta 1771). 
 | 35 | Afaste-se mais de 16 blocos durante um combate | Os sons somem aos poucos, até não serem mais ouvidos |
 | 36 | Com o jogo em português | As legendas `Cubit trava a mira`, `Cubit dispara o laser`, `Globo de laser estoura`, `Plasma Blade acende`, `Plasma Blade golpeia`, `Plasma Blade acerta`, `Plasma Blade apaga`, `Cubit ergue o visor`, `Cubit abre as asas`, `Cubit fecha as asas` e `Cubit dá um impulso` |
 
+## XP Cubit e Dock
+
+As regras estão em [`xp.md`](../funcionalidades/xp.md) (issue #244). Este é o roteiro do PR 1, o Cubit. Nas contas, 1 ponto vale 20 mB.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Numa instância nova, coloque um Cubit Base e abra a aba XP | O ícone do tanque, `0 / 8,000 mB · 0 points`, o modo `Store`, a chave desligada e, com 0 níveis, − e + cinza com o motivo |
+| 2 | Mate mobs perto do Cubit, ou jogue frascos de XP nele | As bolinhas somem nele com o som mais grave, e o líquido sobe. As que voam para você também podem entrar no tanque |
+| 3 | Com `/xp set @s 10 levels`, aperte + três vezes e − uma vez | O nível desce um a cada +, e sobe um com o −. O tanque acompanha |
+| 4 | Encha a barra até a metade e aperte + | Só a parte do nível vai, e a barra zera |
+| 5 | Peça + até encher o tanque, com muitos níveis | O + fica cinza com `The tank is full`. O nível para onde o tanque encheu, sem perder pontos |
+| 6 | Desligue o Cubit e abra a aba | − e + cinza, com `Only with the Cubit active` |
+| 7 | No `Store` cheio, com a chave desligada, jogue frascos de XP | As bolinhas ficam no chão, e uma vez aparece `...: my XP tank is full`, com o bipe |
+| 8 | Ligue `Delete the excess` e repita | As bolinhas somem |
+| 9 | No `Ignore`, repita com o tanque pela metade | As bolinhas somem, e o tanque não muda. O + ainda envia o seu XP |
+| 10 | Do Advanced em diante, com o ímã, jogue frascos a 3 blocos | As bolinhas vêm até ele, e cada uma gasta energia uma vez |
+| 11 | Desligue a coleta na aba Behavior | Nenhuma bolinha é recolhida |
+| 12 | No `Return to Dock`, encha o tanque perto de um Dock seu, com ele seguindo | Ele vai ao Dock, o tanque esvazia, e ele volta |
+| 13 | Ponha um Cubit de bateria e vida cheias e com XP no Dock | Só sai com o tanque vazio. O clique no Dock libera antes |
+| 14 | Com um Patrulheiro, deixe-o matar mobs, perto e longe de você | Nenhuma bolinha cai, e o tanque dele sobe |
+| 15 | Com um Pescador, espere uma pesca, com e sem Keep junk | O tanque sobe de 1 a 6 pontos |
+| 16 | Com um Cozinheiro, deixe-o tirar a comida do fumeiro | O tanque sobe, e tirar mais comida à mão dessa fornada não dá XP |
+| 17 | Com um Fazendeiro, deixe-o colher umas 20 plantas | O tanque sobe cerca de 1 ponto a cada 5 colheitas |
+| 18 | Recolha o Cubit, veja a dica do item, coloque de novo e suba o tier com um Module | `XP 6,400 / 8,000 mB` na dica, e o XP, o modo e a chave continuam. No novo tier, a capacidade maior |
+| 19 | Mate o Cubit e veja a dica do Damaged Cubit | O XP está lá, e continua depois do conserto |
+| 20 | Quebre um Dock que recebeu XP e coloque de novo | O XP continua nele. A tela do Dock ainda não o mostra |
+| 21 | Com outro player, use a aba | Ele não abre a tela do seu Cubit, e a bolinha que voa para ele não vai ao seu tanque |
+| 22 | Abra um mundo de antes do XP | Os Cubits vêm com o tanque vazio, no `Store`, e nada mais muda |
+| 23 | Em português | `Tanque`, `Seu nível`, os modos e as dicas em português, sem sobreposição |
+| 24 | Com um Organizador, abra as abas | A `Supply` fica depois da XP, inteira dentro da janela |
+
+### Ida e volta do Dock sem caminho
+
+As regras estão em [`energia.md`](../funcionalidades/energia.md#ir-para-a-base-e-sair-dela) (perguntas 2090 a 2095). Faça um cercado de blocos, fechado, com um Dock encostado do lado de fora.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Com um Cubit seguindo você dentro do cercado, use Go to Dock | Anda até a parede, para por 5 s, `...: I cannot reach the Dock` com o bipe, e volta a seguir. Nunca atravessa |
+| 2 | Repita logo depois | O botão diz que não há Dock ao alcance, por 60 s |
+| 3 | Repita 1 com um Patrulheiro e com outro card na área | O mesmo, e eles voltam ao trabalho |
+| 4 | Troque um bloco da parede, em frente ao Dock, por grades ou vidraça | Continua sem atravessar |
+| 5 | Abra uma passagem, espere 60 s e use Go to Dock | Vai andando, entra pela frente e carrega |
+| 6 | Com o Cubit da área no Dock, feche a passagem e clique no Dock | Sai e, em cerca de 5 s, aparece dentro da área. Com e sem card |
+| 7 | Com o que segue no Dock, entre no cercado, feche a passagem e clique no Dock de fora antes, ou espere a carga | Em cerca de 5 s, aparece perto de você |
+| 8 | Suba numa torre de 5 blocos com o Cubit seguindo | Aparece perto no máximo uma vez, e não fica pulando |
+| 9 | Com um segundo Dock com caminho livre no raio | Desiste do primeiro e vai ao segundo |
+| 10 | Ponha o item do Cubit em cima do Dock | Entra direto, como antes |
+
 ## Apresentação
 
 As regras estão em [`falas.md`](../conceito/falas.md#apresentação). Use um mundo novo no criativo, três Cubits novos da Engineering Desk ou do inventário criativo, um Induction Dock e um Cubit de um mundo da versão `0.1.1`, se houver.
@@ -1451,6 +1499,8 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 08:37 | Acrescenta o roteiro da ida e da volta do Dock sem caminho (perguntas 2090 a 2095). |
+| Zennd | 2026-11-24 08:16 | Acrescenta o roteiro do XP, PR 1 (issue #244). |
 | Zennd | 2026-11-23 16:54 | Ajusta o roteiro da fabricação em cascata à quantidade em 0 (perguntas 2052 e 2053). |
 | Zennd | 2026-11-23 16:20 | Refaz o roteiro da fabricação em cascata com a tela do PR 2 (pergunta 2044). |
 | Zennd | 2026-11-23 14:52 | Acrescenta o alinhamento do pedido na mesa (perguntas 2039 e 2040). |

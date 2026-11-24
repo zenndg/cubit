@@ -33,6 +33,7 @@ Entra no item 9 da Fase 4.1 (respostas 422, 423 e 876 a 889). A coleta, o ímã 
 - **O que nunca pega:** o item ainda no atraso de coleta do jogo, como o que o player acabou de jogar, o Cubit e o `Damaged Cubit`, para o player não perder o rastro de um robô.
 - **Varredura:** a coleta a cada 5 ticks e o ímã a cada 10 ticks, no config, só em chunks carregados (regras 21 e 22).
 - **Estado inicial:** as duas chaves começam ligadas e ficam no item (pergunta 343).
+- **Bolinhas de XP:** entram no tanque pelo toque e pelo ímã, com as mesmas chaves e o mesmo custo, sem o filtro e sem a busca, como descreve [`xp.md`](xp.md#bolinhas-do-chão) (pergunta 1822).
 
 ### Busca
 
@@ -99,6 +100,7 @@ Entra no item 12 da Fase 4.1 (issue #170, perguntas 971 a 984).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 08:16 | Aponta para as bolinhas de XP (perguntas 1822 e 1850). |
 | Marcelo Fabiano | 2026-11-15 14:20 | Acrescenta os ícones dos slots exclusivos vazios e o slot de fertilizante (perguntas 1244, 1256 e 1257). |
 | Marcelo Fabiano | 2026-11-15 14:05 | Acrescenta a descarga por intervalo, escolhido na aba Trabalho (perguntas 1250 a 1254). |
 | Marcelo Fabiano | 2026-11-14 20:52 | Acrescenta o slot do card aos slots exclusivos (pergunta 1162). |

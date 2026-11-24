@@ -24,10 +24,12 @@ final class PatrolGoal extends Goal {
   private int repathCountdown;
   private double nearest;
   private int stuckTicks;
+  private final AreaReturn back;
 
   PatrolGoal(RobotEntity robot) {
     this.robot = robot;
     this.pause = new PatrolPause(robot);
+    this.back = new AreaReturn(robot);
     setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
   }
 
@@ -70,8 +72,7 @@ final class PatrolGoal extends Goal {
       return;
     }
     if (pause.hold()) {
-      repathCountdown = 0;
-      resetProgress();
+      restart();
       return;
     }
     Optional<BlockPos> point = patrol.currentPoint();
@@ -80,8 +81,12 @@ final class PatrolGoal extends Goal {
     }
     Vec3 target = Vec3.atBottomCenterOf(point.get().above());
     double distance = robot.position().subtract(target).horizontalDistance();
-    if (distance < ARRIVED_BLOCKS || stuck(distance)) {
+    if (distance < ARRIVED_BLOCKS) {
       patrol.arrived();
+      return;
+    }
+    if (stuck(distance)) {
+      skip(patrol);
       return;
     }
     pause.count();
@@ -89,6 +94,17 @@ final class PatrolGoal extends Goal {
       repathCountdown = CubitMod.CONFIG.followRepathTicks();
       walkTo(target, patrol.speed());
     }
+  }
+
+  private void restart() {
+    repathCountdown = 0;
+    resetProgress();
+  }
+
+  /** A point it cannot reach is skipped, and outside the area it appears inside (2092). */
+  private void skip(RobotPatrol patrol) {
+    patrol.arrived();
+    robot.workArea().here().ifPresent(back::onStuck);
   }
 
   /** On foot, or with a hop of its wings when the way on foot is too long (answer 1738). */

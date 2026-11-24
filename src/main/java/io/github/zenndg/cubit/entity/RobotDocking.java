@@ -33,6 +33,8 @@ public final class RobotDocking {
   private final RobotEntity robot;
   private final RobotPreferredDock preferred;
   private final RobotAutoReturn autoReturn;
+  private final RobotXpReturn xpReturn;
+  private final RobotDockReach reach;
   private final RobotUnload unload;
   private final RobotDeathGuide deathGuide;
   private BlockPos docked;
@@ -46,6 +48,8 @@ public final class RobotDocking {
     this.robot = robot;
     this.preferred = new RobotPreferredDock(robot);
     this.autoReturn = new RobotAutoReturn(robot, preferred);
+    this.reach = new RobotDockReach(robot);
+    this.xpReturn = new RobotXpReturn(robot, preferred);
     this.unload = new RobotUnload(robot);
     this.deathGuide = new RobotDeathGuide(robot);
   }
@@ -68,6 +72,10 @@ public final class RobotDocking {
   /** The death point and the guide to it, which a trip to a Dock cancels (answer 1121). */
   public RobotDeathGuide deathGuide() {
     return deathGuide;
+  }
+
+  RobotDockReach reach() {
+    return reach;
   }
 
   boolean hasTrip() {
@@ -98,12 +106,15 @@ public final class RobotDocking {
     Vec3 spot = dock.robotSpot();
     double distance = robot.position().distanceTo(spot);
     DockTrip.Step step =
-        progress.advance(distance, CubitMod.CONFIG.dock().stuckTicks(), dock.isOccupied());
+        progress.advance(
+            distance,
+            CubitMod.CONFIG.dock().stuckTicks(),
+            new DockTrip.Entrance(dock.isOccupied(), reach.clearTo(dock, spot)));
     progress = step.trip();
     switch (step.action()) {
       case WALK -> routeTo(trip, dock);
       case ARRIVE -> arrive(dock, spot);
-      case TELEPORT -> teleportInto(dock, spot);
+      case GIVE_UP -> giveUp();
     }
   }
 
@@ -137,22 +148,19 @@ public final class RobotDocking {
   private void goToAnotherFreeDock() {
     Optional<UUID> owner = robot.ownerId();
     if (owner.isPresent() && robot.level() instanceof ServerLevel level) {
-      DockFinder.nearestFreeDock(level, robot.blockPosition(), robot.dockCallRadius(), owner.get())
+      DockFinder.nearestFreeDock(
+              level, robot.blockPosition(), robot.dockCallRadius(), owner.get(), reach::mayTry)
           .ifPresent(free -> callTo(free.getBlockPos()));
     }
   }
 
-  /** Without a safe place to appear, the robot gives up and goes back to what it was doing. */
-  private void teleportInto(InductionDockBlockEntity dock, Vec3 spot) {
-    Level level = robot.level();
-    boolean free =
-        !dock.isOccupied()
-            && level.noCollision(
-                robot, robot.getBoundingBox().move(spot.subtract(robot.position())));
-    if (free) {
-      enter(dock, spot);
-    } else {
-      cancelTrip();
+  /** Without a way there, it tries another free dock or goes back to what it was doing (2091). */
+  private void giveUp() {
+    reach.gaveUp(trip);
+    cancelTrip();
+    goToAnotherFreeDock();
+    if (!hasTrip()) {
+      reach.tell();
     }
   }
 
@@ -172,6 +180,7 @@ public final class RobotDocking {
     trip = null;
     docked = dock.getBlockPos();
     ticksFull = 0;
+    reach.arrived();
     robot.setPowerState(PowerState.HIBERNATING);
     Player owner = RobotInteractions.onlineOwner(robot);
     if (owner != null) {
@@ -184,6 +193,7 @@ public final class RobotDocking {
   void tick() {
     if (robot.powerState() == PowerState.ACTIVE) {
       autoReturn.tick(hasTrip());
+      xpReturn.tick(hasTrip());
       return;
     }
     trip = null;
@@ -203,8 +213,10 @@ public final class RobotDocking {
     Battery battery = dock.charge(robot.battery(), dock.rechargePerTick());
     robot.setBattery(battery);
     robot.heal(DockStay.healthPerTick(spec.maxHealth(), CubitMod.CONFIG.dock().fullHealTicks()));
+    xpReturn.pass(dock);
     boolean healthFull = robot.getHealth() >= robot.getMaxHealth();
-    ticksFull = DockStay.complete(battery, healthFull) ? ticksFull + 1 : 0;
+    boolean complete = DockStay.complete(battery, healthFull) && xpReturn.done(dock);
+    ticksFull = complete ? ticksFull + 1 : 0;
     dock.reportRobot(robot.getUUID(), battery.isFull());
     boolean done =
         DockStay.shouldLeave(
@@ -234,6 +246,7 @@ public final class RobotDocking {
     }
     stepOff();
     docked = null;
+    xpReturn.left();
   }
 
   /** Clears the plate, so the next robot fits, even for a robot that stays switched off. */

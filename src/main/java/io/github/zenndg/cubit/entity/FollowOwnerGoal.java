@@ -1,14 +1,17 @@
 package io.github.zenndg.cubit.entity;
 
+import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.BurningAction;
 import io.github.zenndg.cubit.domain.behavior.FollowAction;
 import io.github.zenndg.cubit.domain.behavior.FollowDecision;
+import io.github.zenndg.cubit.domain.behavior.FollowStuck;
 import java.util.EnumSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 
@@ -24,6 +27,7 @@ final class FollowOwnerGoal extends Goal {
   private final FollowDecision decision;
   private final int repathTicks;
   private int repathCountdown;
+  private FollowStuck stuck = FollowStuck.START;
 
   FollowOwnerGoal(RobotEntity robot, FollowDecision decision, int repathTicks) {
     this.robot = robot;
@@ -47,6 +51,7 @@ final class FollowOwnerGoal extends Goal {
   @Override
   public void start() {
     repathCountdown = 0;
+    stuck = FollowStuck.START;
   }
 
   @Override
@@ -76,6 +81,17 @@ final class FollowOwnerGoal extends Goal {
           .patrolCombat()
           .wings()
           .moveTo(owner.position(), ROUTE_SPEED_MODIFIER, false);
+      appearWhenStuck(owner);
+    }
+  }
+
+  /** With no way to the owner for a while, it appears near, also within a wall (answer 2092). */
+  private void appearWhenStuck(Player owner) {
+    Path path = robot.getNavigation().getPath();
+    stuck = stuck.update(path != null && path.canReach(), robot.distanceTo(owner), repathTicks);
+    if (stuck.isStuck(CubitMod.CONFIG.dock().stuckTicks())) {
+      stuck = stuck.appeared();
+      teleportNear(owner);
     }
   }
 

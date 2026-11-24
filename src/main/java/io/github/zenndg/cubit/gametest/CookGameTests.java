@@ -16,6 +16,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
@@ -24,6 +25,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -53,6 +55,19 @@ public final class CookGameTests {
   private static final int COAL = 8;
   private static final int INPUT_SLOT = 0;
   private static final int FUEL_SLOT = 1;
+  private static final int OUTSIDE_WALL_X = 14;
+  private static final BlockPos OUTSIDE = new BlockPos(18, ON_FLOOR_Y, 2);
+  private static final String OUT = "The Cook should be back in its area";
+  private static final int OUTPUT_SLOT = 2;
+  private static final String STEAK = "cooked_beef_from_smoking";
+  private static final int MANY_STEAKS = 20;
+
+  /** The steak gives 0.35 each, so 20 give 7, with nothing to draw. */
+  private static final int STEAKS_POINTS = 7;
+
+  private static final int RATE = 20;
+  private static final String WRONG_XP = "Wrong XP from the oven";
+  private static final String NOT_CLEARED = "The oven should forget its XP";
   private static final int ELITE_OVENS = 4;
   private static final String NOT_COOKED = "The Cook did not cook the raw food in the smoker";
   private static final String TOOK_ORE = "The Cook took ore or burned planks";
@@ -77,6 +92,38 @@ public final class CookGameTests {
         helper.assertTrue(
             count(robot.inventory(), Items.COOKED_BEEF) + count(chest, Items.COOKED_BEEF) > 0,
             NOT_COOKED));
+  }
+
+  /** Out of its area with no way back, a Cubit with a card appears inside (answer 2092). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void aCookWithoutAWayGoesBackToItsArea(GameTestHelper helper) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    RobotEntity robot = cook(helper, owner);
+    DockScene.buildWallAt(helper, OUTSIDE_WALL_X);
+    Vec3 out = helper.absoluteVec(Vec3.atBottomCenterOf(OUTSIDE));
+    robot.moveTo(out.x, out.y, out.z);
+
+    helper.succeedWhen(() -> {
+      WorkArea area = robot.workArea().here().orElseThrow();
+      helper.assertTrue(area.contains(robot.getX(), robot.getY(), robot.getZ()), OUT);
+    });
+  }
+
+  /** The XP the oven keeps comes with the food, once, and the oven forgets it (answer 1824). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void theXpOfTheOvenGoesToTheTankOnce(GameTestHelper helper) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    RobotEntity robot = cook(helper, owner);
+    chest(helper, owner, robot);
+    AbstractFurnaceBlockEntity oven = oven(helper, Blocks.SMOKER);
+    oven.setItem(OUTPUT_SLOT, new ItemStack(Items.COOKED_BEEF, RAW));
+    oven.recipesUsed.put(ResourceLocation.withDefaultNamespace(STEAK), MANY_STEAKS);
+    marks(robot).click(owner, helper.absolutePos(OVEN), Direction.UP);
+
+    helper.succeedWhen(() -> {
+      helper.assertValueEqual(robot.pickup().xp().tank().fluid(), STEAKS_POINTS * RATE, WRONG_XP);
+      helper.assertTrue(oven.recipesUsed.isEmpty(), NOT_CLEARED);
+    });
   }
 
   /** Only raw food and the fuel of the tag move, so ore and planks stay in the chest (1319). */

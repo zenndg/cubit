@@ -24,12 +24,14 @@ final class FarmingGoal extends Goal {
   private static final int SEED_STACK = 64;
 
   private final RobotEntity robot;
+  private final AreaReturn back;
   private int repathCountdown;
   private double nearest;
   private int stuckTicks;
 
   FarmingGoal(RobotEntity robot) {
     this.robot = robot;
+    this.back = new AreaReturn(robot);
     setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
   }
 
@@ -50,6 +52,7 @@ final class FarmingGoal extends Goal {
 
   @Override
   public void start() {
+    back.reset();
     resetProgress();
   }
 
@@ -69,13 +72,14 @@ final class FarmingGoal extends Goal {
     Optional<Destination> next = destination(area.get());
     if (next.isEmpty()) {
       RobotJobLook.showTool(robot, false);
+      back.walkBack(area.get());
       return;
     }
     if (reaches(next.get().pos())) {
       arrive(next.get());
     } else {
       RobotJobLook.showTool(robot, false);
-      walkTo(next.get().pos());
+      walkTo(next.get().pos(), area.get());
     }
   }
 
@@ -121,11 +125,12 @@ final class FarmingGoal extends Goal {
     return robot.position().distanceTo(Vec3.atCenterOf(goal)) <= REACH_BLOCKS;
   }
 
-  private void walkTo(BlockPos goal) {
+  private void walkTo(BlockPos goal, WorkArea area) {
     Vec3 center = Vec3.atBottomCenterOf(goal.above());
     double distance = robot.position().distanceTo(center);
     if (stuck(distance)) {
       farming().giveUp();
+      back.onStuck(area);
       resetProgress();
       return;
     }

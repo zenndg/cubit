@@ -36,7 +36,11 @@ public final class DoorGameTests {
   private static final String ARENA = "arena";
   private static final int TIMEOUT = 400;
   private static final Direction ACROSS_THE_WALL = Direction.EAST;
-  private static final int SHUT_WAIT = 160;
+
+  /** Before the follower without a way appears near its owner, after 100 ticks (2092). */
+  private static final int SHUT_WAIT = 90;
+
+  private static final String NOT_NEAR = "The robot should appear near its owner";
   private static final int WALL_X = 8;
   private static final int WALL_TOP = 4;
   private static final int LANE_Z = 2;
@@ -148,13 +152,24 @@ public final class DoorGameTests {
     ServerPlayer owner = ownerBehindTheWall(helper);
     RobotEntity robot = GameTestRobots.placeNewRobot(helper, owner, ROBOT_FLOOR);
 
+    helper.onEachTick(() -> helper.assertFalse(isOpen(helper, DOOR), NOT_SHUT));
     helper.runAfterDelay(
         SHUT_WAIT,
         () -> {
           helper.assertFalse(passed(helper, robot), PASSED);
-          helper.assertFalse(isOpen(helper, DOOR), NOT_SHUT);
           helper.succeed();
         });
+  }
+
+  /** With no other way, it appears near its owner after a while, and the door stays shut (2092). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void aFollowerWithoutAWayAppearsNearItsOwner(GameTestHelper helper) {
+    walledLane(helper, Blocks.OAK_DOOR);
+    ServerPlayer owner = ownerBehindTheWall(helper);
+    RobotEntity robot = GameTestRobots.placeNewRobot(helper, owner, ROBOT_FLOOR);
+
+    helper.onEachTick(() -> helper.assertFalse(isOpen(helper, DOOR), NOT_SHUT));
+    helper.succeedWhen(() -> helper.assertTrue(passed(helper, robot), NOT_NEAR));
   }
 
   /** The upper half marks the door by its lower half, and a second click unmarks it. */

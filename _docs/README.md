@@ -43,6 +43,7 @@ Este é o mapa dos documentos do projeto. A apresentação do mod e o roadmap fi
 | Ferramentas de build e comandos | [`desenvolvimento/ferramentas-de-build.md`](desenvolvimento/ferramentas-de-build.md) |
 | Chaves e limites do config | [`desenvolvimento/config.md`](desenvolvimento/config.md) |
 | Roteiro de teste manual no jogo | [`desenvolvimento/roteiro-manual.md`](desenvolvimento/roteiro-manual.md) |
+| Access Transformer | [`desenvolvimento/access-transformer.md`](desenvolvimento/access-transformer.md) |
 | Git hooks | [`desenvolvimento/hooks-do-git.md`](desenvolvimento/hooks-do-git.md) |
 | O que vem antes do PR e as provas na descrição | [`desenvolvimento/antes-do-pr.md`](desenvolvimento/antes-do-pr.md) |
 | Publicação no Modrinth e no CurseForge | [`desenvolvimento/publicacao.md`](desenvolvimento/publicacao.md) |
@@ -55,6 +56,7 @@ Os números ficam em [`tiers.md`](tiers.md). As outras páginas apontam para lá
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 08:16 | Acrescenta o Access Transformer (pergunta 2068). |
 | Zennd | 2026-11-23 13:44 | Aponta o conceito da fabricação em cascata (pergunta 2006). |
 | Zennd | 2026-11-23 11:36 | Aponta o guia da árvore de crafts (pergunta 1975). |
 | Zennd | 2026-11-22 23:12 | Aponta o conceito do XP Cubit e Dock (pergunta 1850). |

@@ -1,15 +1,20 @@
 package io.github.zenndg.cubit.entity;
 
 import io.github.zenndg.cubit.CubitMod;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.SmokerBlockEntity;
@@ -36,6 +41,37 @@ public final class CookOvens {
     }
     BlockEntity entity = level.getBlockEntity(pos);
     return entity instanceof SmokerBlockEntity || entity instanceof FurnaceBlockEntity;
+  }
+
+  /**
+   * Takes the experience the oven keeps, as a player who takes the food out, with the same drawn
+   * rounding, and clears it, so it never comes out twice (answer 1824).
+   */
+  static int takeExperience(Level level, BlockPos pos, RandomSource random) {
+    if (!isOven(level, pos)
+        || !(level.getBlockEntity(pos) instanceof AbstractFurnaceBlockEntity oven)) {
+      return 0;
+    }
+    int points = 0;
+    for (Object2IntMap.Entry<ResourceLocation> used : oven.recipesUsed.object2IntEntrySet()) {
+      points += pointsOf(level, used.getKey(), used.getIntValue(), random);
+    }
+    oven.recipesUsed.clear();
+    oven.setChanged();
+    return points;
+  }
+
+  private static int pointsOf(
+      Level level, ResourceLocation recipe, int times, RandomSource random) {
+    float worth =
+        level
+            .getRecipeManager()
+            .byKey(recipe)
+            .filter(found -> found.value() instanceof AbstractCookingRecipe)
+            .map(found -> ((AbstractCookingRecipe) found.value()).getExperience() * times)
+            .orElse(0f);
+    int whole = Mth.floor(worth);
+    return random.nextFloat() < worth - whole ? whole + 1 : whole;
   }
 
   static boolean isSmoker(Level level, BlockPos pos) {

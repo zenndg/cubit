@@ -176,6 +176,7 @@ public final class RobotFishing implements RobotSwitch {
         FishingCatch.roll(level, point, reader.open(water), spec.luckLevel(), keepJunk)) {
       store(stack);
     }
+    robot.pickup().xp().onCatch();
     FishingEffects.splash(level, point);
     robot.workArea().work().talk().onWork(JobTalkTopic.FISHER_CATCH);
   }

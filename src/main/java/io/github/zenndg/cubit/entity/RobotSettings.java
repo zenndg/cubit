@@ -33,6 +33,7 @@ final class RobotSettings {
     robot.docking().unload().setInterval(state.workSettings().unloadInterval());
     robot.workArea().work().organizing().setMode(state.workSettings().organizerMode());
     robot.speed().setChoice(state.speed());
+    robot.pickup().xp().setState(state.xp());
     robot
         .pickup()
         .setSettings(
@@ -62,6 +63,7 @@ final class RobotSettings {
             robot.docking().unload().interval(),
             robot.workArea().work().organizing().mode()),
         robot.speed().choice(),
-        robot.chatter().introduced());
+        robot.chatter().introduced(),
+        robot.pickup().xp().state());
   }
 }

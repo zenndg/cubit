@@ -16,4 +16,5 @@ public record RobotMenuSource(
     WorkControl work,
     SpeedControl speed,
     OrganizerControl organizer,
+    XpControl xp,
     Predicate<Player> stillValid) {}

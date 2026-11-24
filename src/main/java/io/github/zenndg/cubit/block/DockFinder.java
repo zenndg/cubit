@@ -5,6 +5,7 @@ import io.github.zenndg.cubit.domain.tier.TierSpec;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Predicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.server.level.ServerLevel;
@@ -37,7 +38,7 @@ public final class DockFinder {
 
   /** Reads only the chunks already loaded: a search must never load one (AGENTS.md, rule 22). */
   public static Optional<InductionDockBlockEntity> nearestFreeDock(
-      ServerLevel level, BlockPos from, int radius, UUID owner) {
+      ServerLevel level, BlockPos from, int radius, UUID owner, Predicate<BlockPos> wanted) {
     InductionDockBlockEntity best = null;
     double bestDistance = (double) radius * radius;
     int minX = SectionPos.blockToSectionCoord(from.getX() - radius);
@@ -54,7 +55,8 @@ public final class DockFinder {
           if (entity instanceof InductionDockBlockEntity dock
               && distance < bestDistance
               && Ownership.owns(dock.owner(), owner)
-              && !dock.isOccupied()) {
+              && !dock.isOccupied()
+              && wanted.test(dock.getBlockPos())) {
             best = dock;
             bestDistance = distance;
           }

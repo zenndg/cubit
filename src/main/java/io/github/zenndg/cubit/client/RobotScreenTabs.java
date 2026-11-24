@@ -1,14 +1,17 @@
 package io.github.zenndg.cubit.client;
 
+import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.menu.BehaviorKeys;
 import io.github.zenndg.cubit.menu.DefenseKeys;
 import io.github.zenndg.cubit.menu.ScreenKeys;
 import io.github.zenndg.cubit.menu.WorkKeys;
+import io.github.zenndg.cubit.menu.XpKeys;
 import io.github.zenndg.cubit.registry.CubitItems;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 /**
@@ -22,12 +25,17 @@ final class RobotScreenTabs {
   private static final int DEFENSE_Y = 65;
   private static final int BEHAVIOR_Y = 93;
   private static final int WORK_Y = 121;
-  private static final int SUPPLY_Y = 149;
+  private static final int XP_Y = 149;
+  private static final int SUPPLY_Y = 177;
+  private static final int ICON_SIZE = 16;
+  private static final String XP_PATH = "textures/gui/xp_tab.png";
+  private static final ResourceLocation XP_ICON =
+      ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, XP_PATH);
   private static final int CHEST_X = 6;
   private static final int CHEST_Y = 6;
-  private static final int[] TOPS = {INVENTORY_Y, SETTINGS_Y, DEFENSE_Y, BEHAVIOR_Y, WORK_Y};
+  private static final int[] TOPS = {INVENTORY_Y, SETTINGS_Y, DEFENSE_Y, BEHAVIOR_Y, WORK_Y, XP_Y};
   private static final int[] TOPS_WITH_SUPPLY = {
-    INVENTORY_Y, SETTINGS_Y, DEFENSE_Y, BEHAVIOR_Y, WORK_Y, SUPPLY_Y
+    INVENTORY_Y, SETTINGS_Y, DEFENSE_Y, BEHAVIOR_Y, WORK_Y, XP_Y, SUPPLY_Y
   };
 
   private final BooleanSupplier supplyShown;
@@ -45,6 +53,7 @@ final class RobotScreenTabs {
     DEFENSE(DEFENSE_Y, DefenseKeys.TAB),
     BEHAVIOR(BEHAVIOR_Y, BehaviorKeys.TAB),
     WORK(WORK_Y, WorkKeys.TAB),
+    XP(XP_Y, XpKeys.TAB),
     SUPPLY(SUPPLY_Y, WorkKeys.SUPPLY_TAB);
 
     private final int y;
@@ -83,6 +92,16 @@ final class RobotScreenTabs {
     ScreenSprites.shield(graphics, iconX, top + DEFENSE_Y + ScreenTabStrip.ICON_Y);
     ScreenSprites.funnel(graphics, iconX, top + BEHAVIOR_Y + ScreenTabStrip.ICON_Y);
     ScreenSprites.workTab(graphics, iconX, top + WORK_Y + ScreenTabStrip.ICON_Y);
+    graphics.blit(
+        XP_ICON,
+        iconX,
+        top + XP_Y + ScreenTabStrip.ICON_Y,
+        0,
+        0,
+        ICON_SIZE,
+        ICON_SIZE,
+        ICON_SIZE,
+        ICON_SIZE);
     if (supplyShown.getAsBoolean()) {
       graphics.renderItem(
           new ItemStack(CubitItems.ORGANIZER_CARD.get()),

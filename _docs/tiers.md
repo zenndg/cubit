@@ -106,8 +106,6 @@ Valem para todos os tiers e ficam no config. Os marcados como planejados entram 
 | Patrulheiro: olhar para o dono depois do combate, `patroller_owner_check_ticks`, com o dono a até `patroller_owner_check_distance` (pergunta 1629) | 1 s (20 ticks), até 16 blocos |
 | Patrulheiro: tempo sem ameaça até o visor subir, `patroller_visor_calm_ticks` (pergunta 1629) | 3 s (60 ticks) |
 | Patrulheiro: tempo sem ver o alvo até ele sumir de vista, `patroller_lost_sight_ticks` (pergunta 1721) | 2 s (40 ticks) |
-| Patrulheiro: energia de cada ponto de XP do abate, longe do dono, `patroller_xp_energy` (pergunta 1729) | 50 FE |
-| Patrulheiro: distância do dono até a qual o XP cai para ele, `patroller_xp_owner_distance` (pergunta 1728) | 24 blocos |
 | Patrulheiro: intervalo da procura de uma bola de fogo, `patroller_intercept_interval_ticks` (pergunta 1735) | 2 ticks |
 | Patrulheiro: distância até o protegido a quem a bola de fogo se dirige, `patroller_intercept_guard_distance` (pergunta 1735) | 32 blocos |
 | Patrulheiro: maior queda que o caminho planeja, descendo planando, `patroller_glide_drop_blocks` (pergunta 1739) | 16 blocos |
@@ -153,7 +151,8 @@ Valem para todos os tiers e ficam no config. Os marcados como planejados entram 
 | Tempo com a expressão de preocupado | ~3 s |
 | Distância para ficar preocupado com o dono | 16 blocos |
 | Entrada do Induction Dock | 5.000 FE/t |
-| Tempo sem avançar antes de teleportar ao Dock | 5 s |
+| Tempo sem avançar antes de desistir do Dock, e de aparecer na área ou perto do dono | 5 s |
+| Tempo em que o Cubit deixa de fora o Dock de que desistiu, `dock_unreachable_ticks` (pergunta 2095) | 60 s |
 | Tempo com a tela completa antes de sair da base | 3 s |
 | Tempo para recuperar toda a vida na base | ~1 min |
 | Vida ao sair do conserto | 25% |
@@ -251,7 +250,7 @@ O XP como fluido, no Cubit e no Induction Dock, descrito em [`xp.md`](funcionali
 | Fluido por ponto de XP, `xp_fluid_per_point` (pergunta 1817) | 20 mB |
 | Trabalhos que recebem XP, `xp_jobs` (pergunta 1820) | `patroller`, `fisher`, `cook` e `farmer` |
 | Fazendeiro: chance de 1 ponto por colheita, `farmer_xp_chance` (pergunta 1823) | 20% |
-| Dock: pontos de XP para 1 FE, `dock_xp_points_per_fe` (pergunta 1834) | 2 pontos |
+| Dock: energia de 1 ponto de XP, `dock_fe_per_xp_point` (pergunta 1942) | 9 FE |
 | Dock: parte do tanque guardada no modo Guardar metade e converter o resto, `dock_xp_storage_percent` (pergunta 1831) | 50% |
 
 ## Slots exclusivos
@@ -337,6 +336,9 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 08:37 | Troca o teleporte ao Dock pela desistência (perguntas 2091 e 2095). |
+| Zennd | 2026-11-24 08:16 | Tira os números do XP como energia do Patrulheiro (pergunta 1825). |
+| Zennd | 2026-11-24 07:26 | Troca a taxa do XP em energia para 9 FE por ponto (pergunta 1942). |
 | Zennd | 2026-11-23 14:22 | Acrescenta a fabricação em cascata (pergunta 2020). |
 | Zennd | 2026-11-23 10:52 | Baixa a geração da noite para 25% do dia, 350 FE/t (pergunta 1955). |
 | Zennd | 2026-11-23 10:40 | Acrescenta a geração do painel do Dock à noite (perguntas 1943 e 1944). |

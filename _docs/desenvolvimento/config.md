@@ -50,7 +50,8 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general` | `burning_wander_radius_blocks` | Alcance ao andar ao acaso em chamas e ao sair da lava ou de um bloco que fere | 1 a 16 |
 | `general` | `dock_input_per_tick` | Entrada do Induction Dock | 1 a 2147483647 |
 | `general` | `dock_full_heal_ticks` | Tempo para recuperar toda a vida na base | 1 a 72000 |
-| `general` | `dock_stuck_ticks` | Tempo sem avançar antes de teleportar ao Dock | 1 a 1200 |
+| `general` | `dock_stuck_ticks` | Tempo sem avançar antes de desistir do Dock, e de aparecer na área ou perto do dono | 1 a 1200 |
+| `general` | `dock_unreachable_ticks` | Tempo em que o Cubit deixa de fora o Dock de que desistiu (pergunta 2095) | 1 a 72000 |
 | `general` | `dock_complete_hold_ticks` | Tempo com a tela completa antes de sair da base | 1 a 1200 |
 | `general` | `dock_solar_deploy_delay_ticks` | Tempo seguido com sol para o Dock montar o painel, e sem sol para guardá-lo (perguntas 1856 e 1912) | 0 a 1200 |
 | `general` | `redstone_dust_energy` | Energia de 1 pó de redstone | 1 a 2147483647 |
@@ -65,6 +66,9 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general` | `focus_forget_distance_blocks` | Distância do dono em que o alvo do Focus deixa de ser alvo | 1 a 128 |
 | `general` | `tablet_target_reach_blocks` | Alcance da mira do app Alvo do Tablet | 1 a 128 |
 | `general` | `shock_look_after_ticks` | Tempo em que o Cubit ainda olha para o ponto do alvo depois de ele morrer ou se perder | 1 a 1200 |
+| `general` | `xp_fluid_per_point` | Fluido, em mB, de 1 ponto de XP (pergunta 1817) | 1 a 1000 |
+| `general` | `xp_jobs` | Trabalhos que dão XP ao tanque. Um nome desconhecido é ignorado, com um aviso no log (pergunta 1820) | Nomes dos trabalhos |
+| `general` | `farmer_xp_chance` | Fazendeiro: chance de 1 ponto por colheita (pergunta 1823) | 0 a 100 |
 | `general` | `pickup_check_ticks` | Intervalo da coleta por contato | 1 a 1200 |
 | `general` | `magnet_check_ticks` | Intervalo do ímã | 1 a 1200 |
 | `general` | `torch_check_ticks` | Intervalo da análise das tochas | 1 a 1200 |
@@ -78,6 +82,9 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `dock_recharge_per_tick` | Recarga do Cubit e da Power Bank guardada no Dock desse tier | 1 a 2147483647 |
 | `general_robot.base` | `dock_storage_slots` | Slots do inventário do Dock desse tier | 9 a 54, em múltiplos de 9 |
 | `general_robot.base` | `dock_solar_per_tick` | Geração do painel do Dock desse tier, com o painel montado (perguntas 1385 e 1855) | 0 a 2147483647 |
+| `general_robot.base` | `xp_tank_capacity` | Tanque de XP do Cubit desse tier, em mB (pergunta 1826) | 1 a 2147483647 |
+| `general_robot.base` | `dock_xp_tank_capacity` | Tanque de XP do Dock desse tier, em mB (pergunta 1833) | 1 a 2147483647 |
+| `general_robot.base` | `dock_xp_transfer_per_tick` | Fluido que o Cubit passa ao Dock desse tier, em mB por tick (pergunta 1835) | 1 a 2147483647 |
 | `general_robot.base` | `dock_solar_night_per_tick` | Geração do painel do Dock desse tier à noite, com 0 para não gerar (pergunta 1944) | 0 a 2147483647 |
 | `general_robot.base` | `moving_consumption_per_tick` | Andar | 0 a 2147483647 |
 | `general_robot.base` | `full_inventory_extra_per_tick` | Extra ao andar com o inventário cheio | 0 a 2147483647 |
@@ -190,8 +197,6 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general` | `patroller_owner_check_distance` | Patrulheiro: distância do dono para olhar para ele | 1 a 64 |
 | `general` | `patroller_visor_calm_ticks` | Patrulheiro: tempo sem ameaça até o visor subir | 0 a 1200 |
 | `general` | `patroller_lost_sight_ticks` | Patrulheiro: tempo sem ver o alvo até ele sumir de vista, com 0 para na hora | 0 a 1200 |
-| `general` | `patroller_xp_energy` | Patrulheiro: energia de cada ponto de XP do abate, longe do dono, com 0 para desligar | 0 a 1000 |
-| `general` | `patroller_xp_owner_distance` | Patrulheiro: distância do dono até a qual o XP cai para ele | 1 a 128 |
 | `general` | `patroller_intercept_interval_ticks` | Patrulheiro: intervalo da procura de uma bola de fogo | 1 a 20 |
 | `general` | `patroller_intercept_guard_distance` | Patrulheiro: distância até o protegido a quem a bola de fogo se dirige | 1 a 64 |
 | `general` | `patroller_glide_drop_blocks` | Patrulheiro: maior queda que o caminho planeja, descendo planando | 5 a 64 |
@@ -247,6 +252,8 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 08:37 | Acrescenta o dock_unreachable_ticks (perguntas 2091 e 2095). |
+| Zennd | 2026-11-24 08:16 | Acrescenta as chaves do XP e tira as do XP como energia (perguntas 1817 a 1835). |
 | Zennd | 2026-11-23 14:22 | Acrescenta a chave da fabricação em cascata (pergunta 2020). |
 | Zennd | 2026-11-23 10:40 | Acrescenta a geração do painel do Dock à noite (pergunta 1944). |
 | Zennd | 2026-11-23 01:58 | Cita a espera de 3 s do painel do Dock (pergunta 1912). |

@@ -65,6 +65,7 @@ final class RobotScreen extends AbstractContainerScreen<RobotMenu> {
   private RobotDefensePanel defense;
   private RobotBehaviorPanel behavior;
   private RobotWorkPanel work;
+  private XpPanel xp;
   private SupplyPanel supply;
   private final RobotScreenTabs tabs =
       new RobotScreenTabs(() -> menu.organizer().mode().isPresent());
@@ -86,6 +87,7 @@ final class RobotScreen extends AbstractContainerScreen<RobotMenu> {
     defense = new RobotDefensePanel(painter, menu, right);
     behavior = new RobotBehaviorPanel(painter, menu, right);
     work = new RobotWorkPanel(painter, menu, right);
+    xp = new XpPanel(painter, menu, right);
     supply = new SupplyPanel(painter, menu, right);
     showOpenTab();
   }
@@ -170,6 +172,7 @@ final class RobotScreen extends AbstractContainerScreen<RobotMenu> {
           case BEHAVIOR -> behavior.renderDetail(graphics, font, mouseX, mouseY, leftPos, topPos);
           case SETTINGS -> settings.renderDetail(graphics, font, mouseX, mouseY, leftPos, topPos);
           case WORK -> work.renderDetail(graphics, font, mouseX, mouseY, leftPos, topPos);
+          case XP -> xp.renderDetail(graphics, font, mouseX, mouseY, leftPos, topPos);
           case SUPPLY -> supply.renderDetail(graphics, font, mouseX, mouseY, leftPos, topPos);
           default -> false;
         };
@@ -231,6 +234,7 @@ final class RobotScreen extends AbstractContainerScreen<RobotMenu> {
         case SETTINGS -> settings.render(graphics);
         case DEFENSE -> defense.render(graphics);
         case WORK -> work.render(graphics, mouseX - leftPos, mouseY - topPos);
+        case XP -> xp.render(graphics, mouseX - leftPos, mouseY - topPos);
         case SUPPLY -> supply.render(graphics, mouseX - leftPos, mouseY - topPos);
         default -> renderBehavior(graphics);
       }
@@ -347,6 +351,7 @@ final class RobotScreen extends AbstractContainerScreen<RobotMenu> {
       case DEFENSE -> defense.modeAt(x, y);
       case BEHAVIOR -> behavior.buttonAt(x, y);
       case WORK -> work.buttonAt(x, y);
+      case XP -> xp.buttonAt(x, y);
       case SUPPLY -> supply.buttonAt(x, y, hasShiftDown());
       case INVENTORY -> OptionalInt.empty();
     };

@@ -23,11 +23,19 @@ final class PickupSection {
   final ModConfigSpec.IntValue fetchGiveUp;
   final ModConfigSpec.IntValue fetchIgnore;
 
+  private final XpSection xp;
+
   PickupSection(ModConfigSpec.Builder builder) {
     pickupCheck = builder.defineInRange(PICKUP_CHECK, PICKUP_CHECK_DEFAULT, CHECK_MIN, CHECK_MAX);
     magnetCheck = builder.defineInRange(MAGNET_CHECK, MAGNET_CHECK_DEFAULT, CHECK_MIN, CHECK_MAX);
     fetchCheck = builder.defineInRange(FETCH_CHECK, FETCH_CHECK_DEFAULT, CHECK_MIN, CHECK_MAX);
     fetchGiveUp = builder.defineInRange(FETCH_GIVE_UP, FETCH_GIVE_UP_DEFAULT, CHECK_MIN, CHECK_MAX);
     fetchIgnore = builder.defineInRange(FETCH_IGNORE, FETCH_IGNORE_DEFAULT, CHECK_MIN, CHECK_MAX);
+    xp = new XpSection(builder);
+  }
+
+  /** The XP comes with the pickup, which also takes its orbs (answer 1822). */
+  XpSection xp() {
+    return xp;
   }
 }

@@ -19,6 +19,7 @@ import io.github.zenndg.cubit.domain.tier.ShockSpec;
 import io.github.zenndg.cubit.domain.tier.TierSpec;
 import io.github.zenndg.cubit.domain.tier.TorchSpec;
 import io.github.zenndg.cubit.domain.tier.UnloadSpec;
+import io.github.zenndg.cubit.domain.tier.XpSpec;
 import java.util.Map;
 import java.util.Set;
 import net.minecraft.gametest.framework.GameTest;
@@ -176,6 +177,7 @@ public final class ConfigGameTests {
   private static final int BASE_UNLOAD_CHESTS = 1;
   private static final int BASE_UNLOAD_REACH = 16;
 
+  private static final int BASE_XP_TANK = 8_000;
   private static final long BASE_POWER_BANK = 210_000;
 
   private static final TierSpec BASE_SPEC =
@@ -211,7 +213,8 @@ public final class ConfigGameTests {
           AreaSpec.NONE,
           new UnloadSpec(BASE_UNLOAD_CHESTS, BASE_UNLOAD_REACH),
           DeathPointLevel.LOCKED,
-          JobSpec.NONE);
+          JobSpec.NONE,
+          new XpSpec(BASE_XP_TANK));
   private static final String WRONG_SPEC = "Wrong tier numbers";
   private static final String ULTIMATE_SPEED_KEY = "general_robot.ultimate.speed_multiplier";
   private static final double ULTIMATE_SPEED_MULTIPLIER = 1.75;

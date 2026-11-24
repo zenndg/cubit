@@ -20,6 +20,7 @@
               "function": "minecraft:copy_components",
               "include": [
                 "cubit:dock_energy",
+                "cubit:dock_xp",
                 "cubit:dock_storage",
                 "cubit:dock_tier",
                 "cubit:dock_id",

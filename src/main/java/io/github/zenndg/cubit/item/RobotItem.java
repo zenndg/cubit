@@ -13,14 +13,17 @@ import io.github.zenndg.cubit.domain.tier.TierSpec;
 import io.github.zenndg.cubit.entity.RobotEntity;
 import io.github.zenndg.cubit.entity.RobotNaming;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
+import java.util.List;
 import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -103,6 +106,12 @@ public final class RobotItem extends Item implements DockableRobotItem, Storable
     RobotState repaired = damaged.repaired(specOf(damaged.tier()), CubitMod.CONFIG.repairHealth());
     stack.set(CubitDataComponents.ROBOT_STATE.get(), repaired);
     return stack;
+  }
+
+  @Override
+  public void appendHoverText(
+      ItemStack stack, TooltipContext context, List<Component> lines, TooltipFlag flag) {
+    XpTooltip.add(stack, lines);
   }
 
   @Override

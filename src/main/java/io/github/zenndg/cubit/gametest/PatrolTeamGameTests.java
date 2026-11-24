@@ -70,8 +70,8 @@ public final class PatrolTeamGameTests {
   private static final double FULL_TURN = 360;
   private static final int[] ROUTE_X = {2, 8, 14, 20};
   private static final double SPREAD_BLOCKS = 6;
-  private static final String ABSORBED = "Far from the owner the XP should become energy";
-  private static final String KEPT = "Near the owner the XP should fall for the owner";
+  private static final String FELL = "The XP of the kill should not fall";
+  private static final String NO_XP = "The XP of the kill should be in the tank";
   private static final float ONE_SHOT = 1f;
   private static final int OWNER_FAR_X = 60;
   private static final int AFTER_DEATH = 5;
@@ -225,28 +225,25 @@ public final class PatrolTeamGameTests {
     helper.succeedWhen(() -> helper.assertTrue(one.distanceTo(other) > SPREAD_BLOCKS, TOGETHER));
   }
 
+  /** Far from its owner too, the XP of a kill goes to the tank (answer 1821). */
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
-  public static void farFromTheOwnerTheXpBecomesEnergy(GameTestHelper helper) {
+  public static void farFromTheOwnerTheXpGoesToTheTank(GameTestHelper helper) {
     ServerPlayer owner = owner(helper);
-    patroller(helper, owner, NEAR_X, MIDDLE_Z, HEALTH);
+    RobotEntity robot = patroller(helper, owner, NEAR_X, MIDDLE_Z, HEALTH);
     BlockPos away = helper.absolutePos(new BlockPos(OWNER_FAR_X, STAND_Y, MIDDLE_Z));
     owner.setPos(away.getX(), away.getY(), away.getZ());
-    killAndCountXp(helper, owner, true, ABSORBED);
+    killAndFindTheXp(helper, owner, robot);
   }
 
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
-  public static void nearTheOwnerTheXpFallsForTheOwner(GameTestHelper helper) {
+  public static void nearTheOwnerTheXpGoesToTheTank(GameTestHelper helper) {
     ServerPlayer owner = owner(helper);
-    patroller(helper, owner, NEAR_X, MIDDLE_Z, HEALTH);
-    killAndCountXp(helper, owner, false, KEPT);
+    killAndFindTheXp(helper, owner, patroller(helper, owner, NEAR_X, MIDDLE_Z, HEALTH));
   }
 
-  /**
-   * The orbs of XP appear when the mob is gone, so the count waits for it, and a near owner may
-   * have picked them already (answers 1728 to 1730).
-   */
-  private static void killAndCountXp(
-      GameTestHelper helper, ServerPlayer owner, boolean absorbed, String message) {
+  /** The XP would appear when the mob is gone, so the count waits for it. */
+  private static void killAndFindTheXp(
+      GameTestHelper helper, ServerPlayer owner, RobotEntity robot) {
     int before = owner.totalExperience;
     onceTheTeamIsUp(
         helper,
@@ -259,8 +256,8 @@ public final class PatrolTeamGameTests {
               .thenIdle(AFTER_DEATH)
               .thenExecute(() -> {
                 boolean orbs = !helper.getEntities(EntityType.EXPERIENCE_ORB).isEmpty();
-                boolean fell = orbs || owner.totalExperience > before;
-                helper.assertTrue(fell != absorbed, message);
+                helper.assertFalse(orbs || owner.totalExperience > before, FELL);
+                helper.assertTrue(robot.pickup().xp().tank().fluid() > 0, NO_XP);
               })
               .thenSucceed();
         });

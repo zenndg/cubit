@@ -1,13 +1,14 @@
 package io.github.zenndg.cubit.config;
 
 import io.github.zenndg.cubit.domain.dock.DockSpec;
+import io.github.zenndg.cubit.domain.dock.DockXpSpec;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.SolarOutput;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 
 /**
- * The default numbers of the Induction Dock at each tier, from _docs/tiers.md (answers 1374, 1385
- * and 1944).
+ * The default numbers of the Induction Dock at each tier, from _docs/tiers.md (answers 1374, 1385,
+ * 1833, 1835 and 1944).
  */
 final class DockDefaults {
   private static final long BASE_CAPACITY = 300_000;
@@ -28,14 +29,30 @@ final class DockDefaults {
   private static final long ULTIMATE_SOLAR = 1_400;
   private static final long NO_NIGHT = 0;
   private static final long ULTIMATE_NIGHT = 350;
+  private static final DockXpSpec BASE_XP = new DockXpSpec(32_000, 50);
+  private static final DockXpSpec ADVANCED_XP = new DockXpSpec(64_000, 100);
+  private static final DockXpSpec ELITE_XP = new DockXpSpec(128_000, 250);
+  private static final DockXpSpec ULTIMATE_XP = new DockXpSpec(256_000, 500);
   private static final DockSpec BASE =
-      spec(BASE_CAPACITY, BASE_RECHARGE, BASE_SLOTS, BASE_SOLAR, NO_NIGHT);
+      spec(BASE_CAPACITY, BASE_RECHARGE, BASE_SLOTS, BASE_SOLAR, NO_NIGHT, BASE_XP);
   private static final DockSpec ADVANCED =
-      spec(ADVANCED_CAPACITY, ADVANCED_RECHARGE, ADVANCED_SLOTS, ADVANCED_SOLAR, NO_NIGHT);
+      spec(
+          ADVANCED_CAPACITY,
+          ADVANCED_RECHARGE,
+          ADVANCED_SLOTS,
+          ADVANCED_SOLAR,
+          NO_NIGHT,
+          ADVANCED_XP);
   private static final DockSpec ELITE =
-      spec(ELITE_CAPACITY, ELITE_RECHARGE, ELITE_SLOTS, ELITE_SOLAR, NO_NIGHT);
+      spec(ELITE_CAPACITY, ELITE_RECHARGE, ELITE_SLOTS, ELITE_SOLAR, NO_NIGHT, ELITE_XP);
   private static final DockSpec ULTIMATE =
-      spec(ULTIMATE_CAPACITY, ULTIMATE_RECHARGE, ULTIMATE_SLOTS, ULTIMATE_SOLAR, ULTIMATE_NIGHT);
+      spec(
+          ULTIMATE_CAPACITY,
+          ULTIMATE_RECHARGE,
+          ULTIMATE_SLOTS,
+          ULTIMATE_SOLAR,
+          ULTIMATE_NIGHT,
+          ULTIMATE_XP);
 
   private DockDefaults() {}
 
@@ -48,11 +65,13 @@ final class DockDefaults {
     };
   }
 
-  private static DockSpec spec(long capacity, long recharge, int slots, long day, long night) {
+  private static DockSpec spec(
+      long capacity, long recharge, int slots, long day, long night, DockXpSpec xp) {
     return new DockSpec(
         new Energy(capacity),
         new Energy(recharge),
         slots,
-        new SolarOutput(new Energy(day), new Energy(night)));
+        new SolarOutput(new Energy(day), new Energy(night)),
+        xp);
   }
 }

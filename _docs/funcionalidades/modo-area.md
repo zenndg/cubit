@@ -23,7 +23,7 @@ A área é marcada com o app Área do [Tablet](tablet.md#apps), em três cliques
 
 ### O Cubit na área
 
-- **Chegada:** ele deixa de seguir e vai andando. Preso sem progresso, teleporta para dentro da área, como na volta ao Dock (pergunta 1058).
+- **Chegada:** ele deixa de seguir e vai andando. Preso sem progresso, com qualquer card, teleporta para dentro da área (perguntas 2092 e 1058).
 - **Limite:** ele nunca sai da área, exceto para ir ao Dock.
 - **Sem card:** com a chave `Pickup` ligada, busca os itens do chão dentro da área, respeitando o filtro de coleta. A chave `Fetch` vale só para quem segue o dono, e, com `Pickup` desligada, o Cubit só faz a ronda (perguntas 340 e 1080). O ímã continua puxando pelo raio do tier, mesmo de fora dela (pergunta 1064).
 - **Ronda:** sem item para buscar, ele dá voltas contínuas pelas bordas da área, de canto a canto, na altura em que anda, dentro do volume, gastando com andar. Um canto que ele não alcança é pulado. Um item para buscar interrompe a ronda (perguntas 1059 e 1062).
@@ -42,6 +42,7 @@ A área é marcada com o app Área do [Tablet](tablet.md#apps), em três cliques
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 08:37 | Estende a volta à área a todos os cards (pergunta 2092). |
 | Marcelo Fabiano | 2026-11-14 13:55 | Liga o inventário cheio à descarga (perguntas 1087 e 1088). |
 | Marcelo Fabiano | 2026-11-14 12:10 | Define as chaves da busca na área (pergunta 1080). |
 | Marcelo Fabiano | 2026-11-14 11:20 | Liga o `Follow` da área ao botão do #181 (pergunta 1072). |

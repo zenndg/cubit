@@ -1,0 +1,150 @@
+package io.github.zenndg.cubit.entity;
+
+import io.github.zenndg.cubit.CubitMod;
+import io.github.zenndg.cubit.domain.energy.Percentage;
+import io.github.zenndg.cubit.domain.energy.PowerState;
+import io.github.zenndg.cubit.domain.ownership.Ownership;
+import io.github.zenndg.cubit.domain.robot.RobotJob;
+import io.github.zenndg.cubit.domain.xp.XpIntake;
+import io.github.zenndg.cubit.domain.xp.XpMode;
+import io.github.zenndg.cubit.domain.xp.XpRate;
+import io.github.zenndg.cubit.domain.xp.XpSettings;
+import io.github.zenndg.cubit.domain.xp.XpState;
+import io.github.zenndg.cubit.domain.xp.XpTank;
+import io.github.zenndg.cubit.menu.XpControl;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.player.Player;
+
+/**
+ * The XP tank of a Cubit, with its mode, what it gets from its work and what its owner trades with
+ * it (answers 1819, 1827 and 2070). The rules live in the domain, and the capacity follows the
+ * tier.
+ */
+public final class RobotXp implements XpControl {
+  /** A catch of the rod of the game gives from 1 to 6 points (answer 1820). */
+  private static final int CATCH_POINTS = 6;
+
+  private final RobotEntity robot;
+  private XpState state = XpState.EMPTY;
+
+  RobotXp(RobotEntity robot) {
+    this.robot = robot;
+  }
+
+  public XpState state() {
+    return state;
+  }
+
+  public void setState(XpState next) {
+    state = next;
+  }
+
+  @Override
+  public XpSettings settings() {
+    return state.settings();
+  }
+
+  @Override
+  public XpTank tank() {
+    return state.tank(robot.spec().xp().tankCapacity());
+  }
+
+  void setTank(XpTank tank) {
+    state = new XpState(tank.fluid(), state.settings());
+  }
+
+  static XpRate rate() {
+    return CubitMod.CONFIG.xp().rate();
+  }
+
+  boolean isFull() {
+    return tank().isFull(rate());
+  }
+
+  /** Only an active Cubit, and only the jobs of xp_jobs, which the pack may change (1839, 1844). */
+  boolean takesFrom(RobotJob job) {
+    return robot.powerState() == PowerState.ACTIVE && CubitMod.CONFIG.xp().jobs().contains(job);
+  }
+
+  /** Every catch gives XP, also the junk it throws away (answer 2066). */
+  void onCatch() {
+    if (takesFrom(RobotJob.FISHER)) {
+      onWork(robot.getRandom().nextInt(CATCH_POINTS) + 1);
+    }
+  }
+
+  /** The game gives no XP for a harvest, so this is a chance of the mod (answer 1823). */
+  void onHarvest() {
+    if (takesFrom(RobotJob.FARMER)
+        && robot.getRandom().nextInt(Percentage.MAX)
+            < CubitMod.CONFIG.xp().farmerChance().value()) {
+      onWork(1);
+    }
+  }
+
+  void onServed(BlockPos oven) {
+    if (takesFrom(RobotJob.COOK)) {
+      onWork(CookOvens.takeExperience(robot.level(), oven, robot.getRandom()));
+    }
+  }
+
+  /** Straight to the tank, and what does not fit falls beside the Cubit, so nothing is lost. */
+  void onWork(int points) {
+    if (points <= 0 || !(robot.level() instanceof ServerLevel level)) {
+      return;
+    }
+    XpIntake.Work taken = XpIntake.ofWork(tank(), state.settings(), points, rate());
+    setTank(taken.tank());
+    if (taken.spilled() > 0) {
+      ExperienceOrb.award(level, robot.position(), taken.spilled());
+    }
+  }
+
+  @Override
+  public boolean choose(Player player, XpMode mode) {
+    return change(player, state.settings().withMode(mode));
+  }
+
+  /** The switch only matters in the store (answer 1827). */
+  @Override
+  public boolean toggleExcess(Player player) {
+    return state.settings().mode() == XpMode.STORE
+        && change(player, state.settings().toggledExcess());
+  }
+
+  private boolean change(Player player, XpSettings next) {
+    if (!Ownership.owns(robot.ownerId(), player.getUUID()) || next.equals(state.settings())) {
+      return false;
+    }
+    state = new XpState(state.fluid(), next);
+    return true;
+  }
+
+  @Override
+  public boolean trades() {
+    return robot.powerState() == PowerState.ACTIVE;
+  }
+
+  @Override
+  public boolean send(Player player) {
+    return mayTrade(player) && keep(PlayerXpTrade.send(player, tank(), rate()));
+  }
+
+  @Override
+  public boolean receive(Player player) {
+    return mayTrade(player) && keep(PlayerXpTrade.receive(player, tank(), rate()));
+  }
+
+  /** Only the owner, and only with an active Cubit (answers 2073 and 2077). */
+  private boolean mayTrade(Player player) {
+    return trades() && Ownership.owns(robot.ownerId(), player.getUUID());
+  }
+
+  private boolean keep(XpTank next) {
+    boolean moved = !next.equals(tank());
+    setTank(next);
+    return moved;
+  }
+}

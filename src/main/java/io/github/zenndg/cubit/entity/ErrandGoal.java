@@ -25,6 +25,7 @@ final class ErrandGoal extends Goal {
 
   private final RobotEntity robot;
   private final Supplier<JobErrands> errands;
+  private final AreaReturn back;
   private int repathCountdown;
   private double nearest;
   private int stuckTicks;
@@ -32,6 +33,7 @@ final class ErrandGoal extends Goal {
   ErrandGoal(RobotEntity robot, Supplier<JobErrands> errands) {
     this.robot = robot;
     this.errands = errands;
+    this.back = new AreaReturn(robot);
     setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
   }
 
@@ -52,6 +54,7 @@ final class ErrandGoal extends Goal {
 
   @Override
   public void start() {
+    back.reset();
     resetProgress();
   }
 
@@ -71,13 +74,14 @@ final class ErrandGoal extends Goal {
     Optional<BlockPos> target = errands.get().target();
     if (target.isEmpty()) {
       RobotJobLook.showTool(robot, false);
+      back.walkBack(area.get());
       return;
     }
     if (reaches(target.get())) {
       arrive(target.get());
     } else {
       RobotJobLook.showTool(robot, false);
-      walkTo(target.get());
+      walkTo(target.get(), area.get());
     }
   }
 
@@ -94,11 +98,12 @@ final class ErrandGoal extends Goal {
     return robot.position().distanceTo(Vec3.atCenterOf(goal)) <= REACH_BLOCKS;
   }
 
-  private void walkTo(BlockPos goal) {
+  private void walkTo(BlockPos goal, WorkArea area) {
     Vec3 center = Vec3.atBottomCenterOf(goal);
     double distance = robot.position().distanceTo(center);
     if (stuck(distance)) {
       errands.get().giveUp();
+      back.onStuck(area);
       resetProgress();
       return;
     }

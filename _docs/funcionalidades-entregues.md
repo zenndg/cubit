@@ -85,7 +85,7 @@ O que o Cubit já faz, do primeiro commit até o merge do PR #126, com a Enginee
 - **Chamar:** o clique no Dock chama o Cubit ligado mais próximo, dentro de 15 blocos. Colocar o item do Cubit em cima também funciona.
 - **Na base:** o Cubit hiberna, com o inventário acessível, recarrega a 500 FE/t e recupera toda a vida em cerca de 1 minuto. Cheio, fica cerca de 3 s com a tela completa e sai.
 - **Fila:** cada Dock recebe um Cubit por vez, e os outros esperam na ordem de chegada ou vão a outro Dock livre.
-- **Preso:** sem avançar por 5 s, teleporta ao Dock.
+- **Preso:** sem avançar por 5 s, desiste do Dock, avisa o dono e volta ao que fazia (pergunta 2091).
 - **Tela do Dock:** desligada, ociosa, carregando, completa ou sem energia, com LEDs que acendem no escuro.
 
 ## Engineering Desk
@@ -201,6 +201,7 @@ No estilo das imagens de conceito, sem a textura do baú do jogo.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 08:37 | Troca o teleporte ao Dock pela desistência (pergunta 2091). |
 | Zennd | 2026-11-23 16:20 | Acrescenta a Engineering Desk (pergunta 2043). |
 | Marcelo Fabiano | 2026-11-21 01:05 | Troca o craft do Cubit pelas peças de montagem. |
 | Marcelo Fabiano | 2026-11-20 23:50 | Troca as receitas do Cubit e do Dock (perguntas 1331 e 1332). |

@@ -21,11 +21,16 @@ public final class DockSection {
   private static final int SOLAR_DELAY_MAX = 1_200;
   private static final int NO_DELAY = 0;
 
+  private static final String UNREACHABLE = "dock_unreachable_ticks";
+  private static final int UNREACHABLE_DEFAULT = 1_200;
+  private static final int UNREACHABLE_MAX = 72_000;
+
   private final ModConfigSpec.IntValue input;
   private final ModConfigSpec.IntValue fullHealTicks;
   private final ModConfigSpec.IntValue stuckTicks;
   private final ModConfigSpec.IntValue completeHoldTicks;
   private final ModConfigSpec.IntValue solarDelayTicks;
+  private final ModConfigSpec.IntValue unreachableTicks;
 
   DockSection(ModConfigSpec.Builder builder) {
     input = builder.defineInRange(INPUT, INPUT_DEFAULT, MIN, Integer.MAX_VALUE);
@@ -35,11 +40,18 @@ public final class DockSection {
         builder.defineInRange(COMPLETE_HOLD, COMPLETE_HOLD_DEFAULT, MIN, COMPLETE_HOLD_MAX);
     solarDelayTicks =
         builder.defineInRange(SOLAR_DELAY, SOLAR_DELAY_DEFAULT, NO_DELAY, SOLAR_DELAY_MAX);
+    unreachableTicks =
+        builder.defineInRange(UNREACHABLE, UNREACHABLE_DEFAULT, MIN, UNREACHABLE_MAX);
   }
 
   /** The sky in a row before the panel leaves or goes back to the cabinet (answer 1856). */
   public int solarDelayTicks() {
     return solarDelayTicks.get();
+  }
+
+  /** How long a robot leaves out a dock it could not reach (answer 2091). */
+  public int unreachableTicks() {
+    return unreachableTicks.get();
   }
 
   public int inputPerTick() {

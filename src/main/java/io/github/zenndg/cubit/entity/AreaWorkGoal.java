@@ -5,7 +5,6 @@ import io.github.zenndg.cubit.domain.robot.AreaCorner;
 import io.github.zenndg.cubit.domain.robot.WorkArea;
 import java.util.EnumSet;
 import java.util.Optional;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
 
@@ -24,9 +23,9 @@ final class AreaWorkGoal extends Goal {
   private static final double PROGRESS_BLOCKS = 0.5;
   private static final double HALF = 0.5;
   private static final float QUARTER_TURN = 90f;
-  private static final int TELEPORT_ATTEMPTS = 16;
 
   private final RobotEntity robot;
+  private final AreaReturn back;
   private final PatrolPause pause;
   private int corner;
   private int repathCountdown;
@@ -35,6 +34,7 @@ final class AreaWorkGoal extends Goal {
 
   AreaWorkGoal(RobotEntity robot) {
     this.robot = robot;
+    this.back = new AreaReturn(robot);
     this.pause = new PatrolPause(robot, this::outside);
     setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
   }
@@ -152,7 +152,7 @@ final class AreaWorkGoal extends Goal {
     if (inside) {
       nextCorner();
     } else {
-      teleportInto(area);
+      back.appearInside(area);
       pause.reset();
       resetProgress();
     }
@@ -179,41 +179,15 @@ final class AreaWorkGoal extends Goal {
     stuckTicks = 0;
   }
 
-  /** Without a safe spot, the robot stays and tries again after the next stuck time. */
-  private void teleportInto(WorkArea area) {
-    for (int attempt = 0; attempt < TELEPORT_ATTEMPTS; attempt++) {
-      BlockPos target =
-          new BlockPos(
-              between(area.min().x(), area.max().x()),
-              between(area.min().y() + 1, area.max().y() + 1),
-              between(area.min().z(), area.max().z()));
-      if (FollowOwnerGoal.canStandAt(robot, target)) {
-        Vec3 spot = Vec3.atBottomCenterOf(target);
-        robot.moveTo(spot.x, spot.y, spot.z, robot.getYRot(), robot.getXRot());
-        robot.getNavigation().stop();
-        return;
-      }
-    }
-  }
-
-  private int between(int low, int high) {
-    return robot.getRandom().nextIntBetweenInclusive(low, high);
-  }
-
   /**
    * The corner of the base at the height the Cubit is, within the area: the area is a volume, so
    * the round follows its edges on the level the Cubit walks, not under the ground.
    */
   private Vec3 spotOf(WorkArea area, AreaCorner corner) {
-    return new Vec3(corner.x() + HALF, levelIn(area), corner.z() + HALF);
+    return new Vec3(corner.x() + HALF, back.levelIn(area), corner.z() + HALF);
   }
 
   private Vec3 centerOf(WorkArea area) {
-    return new Vec3(area.centerX(), levelIn(area), area.centerZ());
-  }
-
-  /** From standing on the lowest marked block to standing on the highest. */
-  private double levelIn(WorkArea area) {
-    return Math.clamp(robot.getY(), area.min().y() + 1, area.max().y() + 1);
+    return new Vec3(area.centerX(), back.levelIn(area), area.centerZ());
   }
 }

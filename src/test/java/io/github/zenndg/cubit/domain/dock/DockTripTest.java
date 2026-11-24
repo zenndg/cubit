@@ -16,11 +16,14 @@ class DockTripTest {
   private static final double AT_THE_ENTRANCE = 1.5;
   private static final double OUTSIDE_THE_ENTRANCE = 1.51;
   private static final int NEGATIVE = -1;
+  private static final DockTrip.Entrance FREE = new DockTrip.Entrance(false, true);
+  private static final DockTrip.Entrance BUSY = new DockTrip.Entrance(true, true);
+  private static final DockTrip.Entrance WALLED = new DockTrip.Entrance(false, false);
 
   private static DockTrip stuckFor(int ticks) {
     DockTrip trip = DockTrip.START;
     for (int tick = 0; tick < ticks; tick++) {
-      trip = trip.advance(FAR, STUCK_LIMIT, false).trip();
+      trip = trip.advance(FAR, STUCK_LIMIT, FREE).trip();
     }
     return trip;
   }
@@ -28,40 +31,55 @@ class DockTripTest {
   @Test
   void atTheEntranceTheRobotArrives() {
     assertEquals(
-        Action.ARRIVE, DockTrip.START.advance(AT_THE_ENTRANCE, STUCK_LIMIT, false).action());
+        Action.ARRIVE, DockTrip.START.advance(AT_THE_ENTRANCE, STUCK_LIMIT, FREE).action());
   }
 
   @Test
   void justOutsideTheEntranceTheRobotWalks() {
     assertEquals(
-        Action.WALK, DockTrip.START.advance(OUTSIDE_THE_ENTRANCE, STUCK_LIMIT, false).action());
+        Action.WALK, DockTrip.START.advance(OUTSIDE_THE_ENTRANCE, STUCK_LIMIT, FREE).action());
   }
 
   @Test
   void arrivingDoesNotCountAsTimeStuck() {
     DockTrip stuck = stuckFor(STUCK_LIMIT);
 
-    assertEquals(stuck, stuck.advance(AT_THE_ENTRANCE, STUCK_LIMIT, false).trip());
+    assertEquals(stuck, stuck.advance(AT_THE_ENTRANCE, STUCK_LIMIT, FREE).trip());
   }
 
   @Test
   void upToTheLimitTheRobotKeepsWalking() {
-    assertEquals(Action.WALK, stuckFor(STUCK_LIMIT - 1).advance(FAR, STUCK_LIMIT, false).action());
+    assertEquals(Action.WALK, stuckFor(STUCK_LIMIT - 1).advance(FAR, STUCK_LIMIT, FREE).action());
   }
 
   @Test
-  void pastTheLimitARobotHeadingToAFreeDockTeleports() {
-    assertEquals(Action.TELEPORT, stuckFor(STUCK_LIMIT).advance(FAR, STUCK_LIMIT, false).action());
+  void pastTheLimitARobotHeadingToAFreeDockGivesUp() {
+    assertEquals(Action.GIVE_UP, stuckFor(STUCK_LIMIT).advance(FAR, STUCK_LIMIT, FREE).action());
   }
 
   @Test
   void pastTheLimitARobotHeadingToABusyDockWaitsWhereItIs() {
-    assertEquals(Action.ARRIVE, stuckFor(STUCK_LIMIT).advance(FAR, STUCK_LIMIT, true).action());
+    assertEquals(Action.ARRIVE, stuckFor(STUCK_LIMIT).advance(FAR, STUCK_LIMIT, BUSY).action());
+  }
+
+  /** Beside the dock but with a block between, it never goes in (answer 2091). */
+  @Test
+  void throughABlockTheRobotNeverArrives() {
+    assertEquals(
+        Action.WALK, DockTrip.START.advance(AT_THE_ENTRANCE, STUCK_LIMIT, WALLED).action());
+    DockTrip trip = DockTrip.START;
+    Action last = Action.WALK;
+    for (int tick = 0; tick <= STUCK_LIMIT; tick++) {
+      DockTrip.Step step = trip.advance(AT_THE_ENTRANCE, STUCK_LIMIT, WALLED);
+      trip = step.trip();
+      last = step.action();
+    }
+    assertEquals(Action.GIVE_UP, last);
   }
 
   @Test
   void aRealAdvanceStartsTheCountAgain() {
-    DockTrip.Step step = stuckFor(STUCK_LIMIT).advance(REAL_ADVANCE, STUCK_LIMIT, false);
+    DockTrip.Step step = stuckFor(STUCK_LIMIT).advance(REAL_ADVANCE, STUCK_LIMIT, FREE);
 
     assertEquals(Action.WALK, step.action());
     assertEquals(new DockTrip(REAL_ADVANCE, 1), step.trip());
@@ -70,7 +88,7 @@ class DockTripTest {
   @Test
   void aTinyAdvanceDoesNotCount() {
     assertEquals(
-        Action.TELEPORT, stuckFor(STUCK_LIMIT).advance(SMALL_ADVANCE, STUCK_LIMIT, false).action());
+        Action.GIVE_UP, stuckFor(STUCK_LIMIT).advance(SMALL_ADVANCE, STUCK_LIMIT, FREE).action());
   }
 
   @Test

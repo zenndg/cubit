@@ -171,9 +171,11 @@ O Dock tem um nome, como o Cubit (perguntas 1867 a 1870).
 ### Ir para a base e sair dela
 
 - **Ir:** o player clica com o botão direito no Dock, e o Cubit ligado mais próximo, dentro do raio do retorno automático, vai até ele, esteja seguindo ou em área. Colocar o item do Cubit em cima do Dock também funciona. Num Dock ocupado ou de outro player, nada acontece, e o item continua na mão.
-- **Sem conseguir chegar:** sem rota ou preso, teleporta para o Dock. Se o chunk estiver descarregado ou houver um bloqueio em cima, desiste e volta ao que fazia.
+- **Sem conseguir chegar:** preso por 5 s no caminho, em `dock_stuck_ticks`, o Cubit desiste desse Dock, avisa o dono uma vez e volta ao que fazia. Nunca se teleporta para o Dock nem entra nele através de um bloco (pergunta 2091, que muda a 301).
+  - **Outro Dock:** procura outro livre no raio. O Dock de que desistiu fica de fora por 60 s, em `dock_unreachable_ticks`, para ele não tentar sem parar.
+  - **Entrar:** só da frente do Dock, com caminho livre até a placa.
 - **Fechar o jogo:** só a hibernação é salva. A caminho ou aguardando, o Cubit volta ao que fazia ao carregar de novo. Se o Dock sumiu, ele acorda como numa liberação.
-- **Sair:** o Cubit sai sozinho cerca de 3 s depois de a bateria e a vida estarem cheias. Com a bateria cheia e a vida ainda subindo, a tela fica no estado completa e mostra quanto falta para a vida encher (pergunta 963, que muda a 55). Antes disso, clicar no Dock o libera. Ao sair, volta ao que fazia: a área ou seguir o player. Se outro assumiu o lugar de seguir, fica parado e desligado.
+- **Sair:** o Cubit sai sozinho cerca de 3 s depois de a bateria e a vida estarem cheias e o tanque de XP dele, vazio, como descreve [`xp.md`](xp.md#voltar-ao-dock) (pergunta 2067). Com a bateria cheia e a vida ainda subindo, a tela fica no estado completa e mostra quanto falta para a vida encher (pergunta 963, que muda a 55). Antes disso, clicar no Dock o libera. Ao sair, volta ao que fazia: a área ou seguir o player. Se outro assumiu o lugar de seguir, fica parado e desligado. Sem caminho de volta por 5 s, o da área aparece dentro dela, com qualquer card, e o que segue aparece perto do dono, mesmo a menos de 20 blocos (pergunta 2092).
 - **Dono offline:** o Cubit cheio continua na base e sai quando o dono entra. Se o Dock sumir nesse período, ele acorda desligado, e um clique o liga.
 
 ### Base ocupada
@@ -254,6 +256,8 @@ Entra com o item 15 da Fase 4.2, antes do modo área (perguntas 1065 a 1069).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 08:32 | Descreve a ida e a volta do Dock sem caminho (perguntas 2090 a 2095). |
+| Zennd | 2026-11-24 08:16 | Acrescenta o tanque de XP vazio à saída do Dock (pergunta 2067). |
 | Zennd | 2026-11-23 10:56 | Acrescenta a lua na tela do Dock (perguntas 1956 a 1960). |
 | Zennd | 2026-11-23 10:52 | Baixa a geração da noite para 25% do dia, 350 FE/t (pergunta 1955). |
 | Zennd | 2026-11-23 10:46 | Marca a luz da lua como autorizada (pergunta 1952). |
