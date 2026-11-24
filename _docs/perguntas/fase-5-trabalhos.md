@@ -1042,11 +1042,13 @@ Não há perguntas pendentes nesta fase.
 | 2095 | O conceito da correção da ida e da volta do Dock (2091 e 2092), com os detalhes a até f, pode ir ao código? | O desenvolvedor disse "autorizo os itens 1 e 2, pode seguir" (regra 54): os detalhes valem, com o teste antes do código e um roteiro manual curto. A recomendação foi aceita |
 | 2096 | Ideia do desenvolvedor: acessórios para o Cubit. Onde fica? | "coloque em backlog a ideia de termos acessos para os cubits onde podemos adicionar ou remover do cubit. Exemplo Gancho de rapel puxa o cubit para pular buratos, propursor para ele pular alturas de 2 ou mais blocos": anotada em `_docs/backlog.md`, na seção Todo Cubit, como acessórios, sem nada decidido |
 | 2097 | A correção da ida e da volta do Dock sem caminho (2090 a 2095) foi testada no jogo e está aprovada? | Testado e aprovado |
+| 2098 | Pedido do desenvolvedor, com as 2 GameTests reprovadas antes do PR 1 do XP | "os testes reprovados devem ser analisados": cada reprovação é analisada com evidência antes do ajuste, e a análise fica na descrição do PR. Detalha a 2085 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 08:55 | Registra a resposta 2098. |
 | Zennd | 2026-11-24 08:39 | Registra a resposta 2097. |
 | Zennd | 2026-11-24 08:35 | Registra as respostas 2095 a 2096. |
 | Zennd | 2026-11-24 08:32 | Registra as respostas 2091 a 2094. |
