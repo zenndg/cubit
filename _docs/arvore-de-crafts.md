@@ -8,10 +8,10 @@ Este é o guia do player: o que fabricar primeiro, o que cada item libera e o qu
 2. **Coloque a mesa** num lugar com 2 blocos livres lado a lado.
 3. **Dê energia:** ponha pó ou bloco de redstone no slot de energia da mesa. Um pó de redstone paga 2 crafts.
 4. **Ponha os materiais** na entrada da mesa, escolha a receita no catálogo e aperte **+** para pedir a quantidade. A mesa só fabrica depois do +.
-5. **Faça as quatro peças** e, com elas, o **Cubit**.
+5. **Faça as seis peças compartilhadas do começo, as três peças do Cubit** e, com elas, o **Cubit**. A Tela vai dentro do Visor, e são dois Servomotores, um para cada esteira.
 6. **Pegue o Cubit.** Tê-lo libera a próxima etapa.
 
-Para o primeiro Cubit, as quatro peças pedem, ao todo, 3 diamantes, 3 obsidianas, 7 lingotes de ferro, 2 pistões, 2 tochas de redstone e 4 pós de redstone. Guarde mais 3 pós de redstone para a energia da mesa. Nada disso vem do Nether.
+Para o primeiro Cubit, as peças pedem, ao todo, 3 diamantes, 3 obsidianas, 17 lingotes de ferro, 6 de cobre e 1 de ouro, 2 pistões, 2 tochas de redstone, 9 pós de redstone, 6 painéis de vidro, 4 vidros, 3 lápis-lazúlis, 1 baú e 1 balde, que pede mais 3 ferros. São 11 fabricações, então guarde mais 6 pós de redstone para a energia da mesa. Nada disso vem do Nether.
 
 ### A receita da Mesa de Engenharia
 
@@ -37,37 +37,46 @@ Cada número é o da [legenda](#legenda). A seta vai do item para o que ele libe
 
 ```mermaid
 flowchart TD
-  n1["1 Mesa de Engenharia"] --> n2["2 Carcaça do Cubit"]
-  n1 --> n3["3 Visor do Cubit"]
-  n1 --> n4["4 Esteiras do Cubit"]
-  n1 --> n5["5 Núcleo Neural do Cubit"]
-  n1 --> n6["6 Caixa de Ferramentas"]
-  n2 --> n7["7 Cubit"]
-  n3 --> n7
-  n4 --> n7
-  n5 --> n7
-  n7 --> n8["8 Base de Indução"]
-  n7 --> n9["9 Tablet do Cubit"]
-  n7 --> n10["10 Mistura de Recarga"]
-  n7 --> n11["11 Carcaça da Power Bank"]
-  n7 --> n12["12 Célula de Energia Base"]
-  n7 --> n13["13 Módulo Avançado"]
-  n12 --> n14["14 Power Bank Base"]
-  n13 --> n15["15 Carcaça do Card"]
-  n13 --> n16["16 Placa de Circuito"]
-  n13 --> n17["17 Card Pescador"]
-  n13 --> n18["18 Card Fazendeiro"]
-  n13 --> n19["19 Módulo Elite"]
-  n14 --> n20["20 Power Bank Avançada"]
-  n14 --> n21["21 Célula de Energia Avançada"]
-  n19 --> n22["22 Card Organizador"]
-  n19 --> n23["23 Card Cozinheiro"]
-  n19 --> n24["24 Card Patrulheiro Galático"]
-  n19 --> n25["25 Módulo Supremo"]
-  n20 --> n26["26 Power Bank Elite"]
-  n20 --> n27["27 Célula de Energia Elite"]
-  n26 --> n28["28 Power Bank Suprema"]
-  n26 --> n29["29 Célula de Energia Suprema"]
+  n1["1 Mesa de Engenharia"] --> n2["2 Tanque de XP"]
+  n1 --> n3["3 HD"]
+  n1 --> n4["4 Painel Solar"]
+  n1 --> n5["5 Tela"]
+  n1 --> n6["6 Servomotor"]
+  n1 --> n7["7 Núcleo Neural"]
+  n1 --> n8["8 Carcaça do Cubit"]
+  n5 --> n9["9 Visor do Cubit"]
+  n6 --> n10["10 Esteiras do Cubit"]
+  n1 --> n11["11 Caixa de Ferramentas"]
+  n2 --> n12["12 Cubit"]
+  n3 --> n12
+  n4 --> n12
+  n7 --> n12
+  n8 --> n12
+  n9 --> n12
+  n10 --> n12
+  n12 --> n13["13 Bobina de Indução"]
+  n12 --> n14["14 Placa de Circuito"]
+  n12 --> n15["15 Base de Indução"]
+  n12 --> n16["16 Tablet do Cubit"]
+  n12 --> n17["17 Mistura de Recarga"]
+  n12 --> n18["18 Carcaça da Power Bank"]
+  n12 --> n19["19 Célula de Energia Base"]
+  n12 --> n20["20 Módulo Avançado"]
+  n19 --> n21["21 Power Bank Base"]
+  n20 --> n22["22 Carcaça do Card"]
+  n20 --> n23["23 Card Pescador"]
+  n20 --> n24["24 Card Fazendeiro"]
+  n20 --> n25["25 Módulo Elite"]
+  n21 --> n26["26 Power Bank Avançada"]
+  n21 --> n27["27 Célula de Energia Avançada"]
+  n25 --> n28["28 Card Organizador"]
+  n25 --> n29["29 Card Cozinheiro"]
+  n25 --> n30["30 Card Patrulheiro Galático"]
+  n25 --> n31["31 Módulo Supremo"]
+  n26 --> n32["32 Power Bank Elite"]
+  n26 --> n33["33 Célula de Energia Elite"]
+  n32 --> n34["34 Power Bank Suprema"]
+  n32 --> n35["35 Célula de Energia Suprema"]
 ```
 
 ## Legenda
@@ -79,54 +88,60 @@ A mesa monta a receita sozinha, então você só precisa dos materiais, sem deco
 | Nº | Item | Materiais | Liberado por | Para que serve |
 |---|---|---|---|---|
 | 1 | Mesa de Engenharia (Engineering Desk) | A receita acima | Nada, na mesa de craft | Fabrica todo o resto do mod |
-| 2 | Carcaça do Cubit (Cubit Casing) | 4 ferros, 2 obsidianas e 2 tochas de redstone | Nada, já vem liberada | Peça do Cubit |
-| 3 | Visor do Cubit (Cubit Visor) | 2 diamantes e 1 obsidiana | Nada, já vem liberado | Peça do Cubit |
-| 4 | Esteiras do Cubit (Cubit Treads) | 3 ferros e 2 pistões | Nada, já vêm liberadas | Peça do Cubit |
-| 5 | Núcleo Neural do Cubit (Cubit Neural Core) | 1 diamante e 4 redstones | Nada, já vem liberado | Peça do Cubit e do Módulo Avançado |
-| 6 | Caixa de Ferramentas (Toolbox) | 7 ferros, 1 redstone e 1 obsidiana | Nada, já vem liberada | Conserta o Cubit que morreu |
-| 7 | Cubit | As peças 2, 3, 4 e 5 | Nada, já vem liberado | O seu robô companheiro |
+| 2 | Tanque de XP (XP Tank) | 4 vidros, 2 ferros e 1 balde | Nada, já vem liberado | Peça do Cubit e da Base de Indução |
+| 3 | HD (Hard Drive) | 1 baú, 2 ferros, 1 redstone, 1 ouro e 1 cobre | Nada, já vem liberado | Peça do Cubit e da Base de Indução |
+| 4 | Painel Solar (Solar Panel) | 3 painéis de vidro, 3 lápis-lazúlis, 2 cobres e 1 redstone | Nada, já vem liberado | Peça do Cubit e da Base de Indução |
+| 5 | Tela (Display Panel) | 3 painéis de vidro, 2 ferros, 1 diamante, 1 obsidiana, 1 redstone e 1 cobre | Nada, já vem liberada | Peça do Visor, do Tablet e da Base de Indução |
+| 6 | Servomotor (Servo Motor) | 1 pistão, 2 ferros, 1 cobre e 1 redstone | Nada, já vem liberado | Peça das Esteiras e da Base de Indução |
+| 7 | Núcleo Neural (Neural Core) | 1 diamante e 4 redstones | Nada, já vem liberado | Peça do Cubit, do Módulo Avançado e de todo card de trabalho |
+| 8 | Carcaça do Cubit (Cubit Casing) | 4 ferros, 2 obsidianas e 2 tochas de redstone | Nada, já vem liberada | Peça do Cubit |
+| 9 | Visor do Cubit (Cubit Visor) | 1 Tela (5) e 1 diamante | Nada, já vem liberado | Peça do Cubit |
+| 10 | Esteiras do Cubit (Cubit Treads) | 2 Servomotores (6) e 3 ferros | Nada, já vêm liberadas | Peça do Cubit |
+| 11 | Caixa de Ferramentas (Toolbox) | 7 ferros, 1 redstone e 1 obsidiana | Nada, já vem liberada | Conserta o Cubit que morreu |
+| 12 | Cubit | As peças 2, 3, 4, 7, 8, 9 e 10 | Nada, já vem liberado | O seu robô companheiro |
 
 ### Etapa 2: com o Cubit
 
 | Nº | Item | Materiais | Liberado por | Para que serve |
 |---|---|---|---|---|
-| 8 | Base de Indução (Induction Dock) | 1 diamante, 1 baú, 2 ferros e 1 redstone | 7 Cubit | Recarrega e cura o Cubit |
-| 9 | Tablet do Cubit (Cubit Tablet) | 2 painéis de vidro, 1 redstone, 4 quartzos, 1 diamante e 1 obsidiana | 7 Cubit | Comanda os Cubits de longe |
-| 10 | Mistura de Recarga (Recharge Splash) | 1 garrafa de vidro, 1 bloco de redstone, 1 ferro, 1 pólvora e 1 lápis-lazúli | 7 Cubit | Arremessada, recupera um pouco da vida e da energia dos seus Cubits |
-| 11 | Carcaça da Power Bank (Power Bank Casing) | 6 quartzos, 1 ouro e 1 obsidiana | 7 Cubit | Peça das Power Banks |
-| 12 | Célula de Energia Base (Base Power Cell) | 2 cobres, 2 redstones e 1 bloco de redstone | 7 Cubit | Peça da Power Bank Base |
-| 13 | Módulo Avançado (Advanced Module) | 1 Núcleo Neural (5), 2 lápis-lazúlis e 2 ouros | 7 Cubit | Sobe o Cubit, a Base de Indução ou a Mesa de Engenharia para o Avançado |
+| 13 | Bobina de Indução (Induction Coil) | 2 pistões, 2 ferros, 1 cobre e 1 redstone | 12 Cubit | Peça da Base de Indução e da Carcaça da Power Bank |
+| 14 | Placa de Circuito (Circuit Board) | 2 esmeraldas, 1 comparador e 3 ouros | 12 Cubit | Peça da Carcaça da Power Bank e de todo card de trabalho |
+| 15 | Base de Indução (Induction Dock) | As peças 2, 3, 4, 5, 6 e 13 e a Célula de Energia Base (19) | 12 Cubit | Recarrega e cura o Cubit |
+| 16 | Tablet do Cubit (Cubit Tablet) | 1 Tela (5), 4 quartzos e 1 redstone | 12 Cubit | Comanda os Cubits de longe |
+| 17 | Mistura de Recarga (Recharge Splash) | 1 garrafa de vidro, 1 bloco de redstone, 1 ferro, 1 pólvora e 1 lápis-lazúli | 12 Cubit | Arremessada, recupera um pouco da vida e da energia dos seus Cubits |
+| 18 | Carcaça da Power Bank (Power Bank Casing) | 6 quartzos, 1 Placa de Circuito (14) e 1 Bobina de Indução (13) | 12 Cubit | Peça das Power Banks |
+| 19 | Célula de Energia Base (Base Power Cell) | 2 cobres, 2 redstones e 1 bloco de redstone | 12 Cubit | Peça da Base de Indução e da Power Bank Base |
+| 20 | Módulo Avançado (Advanced Module) | 1 Núcleo Neural (7), 2 lápis-lazúlis e 2 ouros | 12 Cubit | Sobe o Cubit, a Base de Indução ou a Mesa de Engenharia para o Avançado |
 
 ### Etapa 3: com o Módulo Avançado ou a primeira célula
 
 | Nº | Item | Materiais | Liberado por | Para que serve |
 |---|---|---|---|---|
-| 14 | Power Bank Base (Base Power Bank) | 11 e 12 | 12 Célula de Energia Base | Bateria portátil |
-| 15 | Carcaça do Card (Card Casing) | 4 quartzos e 2 lápis-lazúlis | 13 Módulo Avançado | Peça de todo card de trabalho |
-| 16 | Placa de Circuito (Circuit Board) | 5 esmeraldas, 1 comparador e 3 ouros | 13 Módulo Avançado | Peça de todo card de trabalho |
-| 17 | Card Pescador (Machine Learning: Fisher) | 15, 16 e 1 vara de pescar | 13 Módulo Avançado | O Cubit pesca. Pede um Cubit Avançado |
-| 18 | Card Fazendeiro (Machine Learning: Farmer) | 15, 16 e 1 enxada de ferro | 13 Módulo Avançado | O Cubit cuida da plantação. Pede um Cubit Avançado |
-| 19 | Módulo Elite (Elite Module) | 1 Módulo Avançado (13), 2 corantes roxos e 2 diamantes | 13 Módulo Avançado | Sobe do Avançado para o Elite |
+| 21 | Power Bank Base (Base Power Bank) | As peças 18 e 19 | 19 Célula de Energia Base | Bateria portátil |
+| 22 | Carcaça do Card (Card Casing) | 4 quartzos e 2 lápis-lazúlis | 20 Módulo Avançado | Peça de todo card de trabalho |
+| 23 | Card Pescador (Machine Learning: Fisher) | As peças 7, 14 e 22 e 1 vara de pescar | 20 Módulo Avançado | O Cubit pesca. Pede um Cubit Avançado |
+| 24 | Card Fazendeiro (Machine Learning: Farmer) | As peças 7, 14 e 22 e 1 enxada de ferro | 20 Módulo Avançado | O Cubit cuida da plantação. Pede um Cubit Avançado |
+| 25 | Módulo Elite (Elite Module) | 1 Módulo Avançado (20), 2 corantes roxos e 2 diamantes | 20 Módulo Avançado | Sobe do Avançado para o Elite |
 
 ### Etapa 4: com o Módulo Elite ou a primeira Power Bank
 
 | Nº | Item | Materiais | Liberado por | Para que serve |
 |---|---|---|---|---|
-| 20 | Power Bank Avançada (Advanced Power Bank) | 14, 2 lápis-lazúlis e 2 ouros. Ou 11 e 21 | 14 Power Bank Base, ou 21 para a segunda receita | Bateria portátil maior |
-| 21 | Célula de Energia Avançada (Advanced Power Cell) | 12, 2 lápis-lazúlis e 2 ouros | 14 Power Bank Base | Peça da Power Bank Avançada |
-| 22 | Card Organizador (Machine Learning: Organizer) | 15, 16 e 1 funil | 19 Módulo Elite | O Cubit organiza baús. Pede um Cubit Elite |
-| 23 | Card Cozinheiro (Machine Learning: Cook) | 15, 16 e 1 defumador | 19 Módulo Elite | O Cubit cozinha. Pede um Cubit Elite |
-| 24 | Card Patrulheiro Galático (Machine Learning: Galactic Patroller) | 15, 16 e 1 estrela de fogo de artifício | 19 Módulo Elite | O Cubit protege o lugar. Pede um Cubit Elite |
-| 25 | Módulo Supremo (Ultimate Module) | 1 Módulo Elite (19), 2 lingotes de netherita e 2 varas de blaze | 19 Módulo Elite | Sobe do Elite para o Ultimate |
+| 26 | Power Bank Avançada (Advanced Power Bank) | 1 Power Bank Base (21), 2 lápis-lazúlis e 2 ouros. Ou as peças 18 e 27 | 21 Power Bank Base, ou 27 para a segunda receita | Bateria portátil maior |
+| 27 | Célula de Energia Avançada (Advanced Power Cell) | 1 Célula Base (19), 2 lápis-lazúlis e 2 ouros | 21 Power Bank Base | Peça da Power Bank Avançada |
+| 28 | Card Organizador (Machine Learning: Organizer) | As peças 7, 14 e 22 e 1 funil | 25 Módulo Elite | O Cubit organiza baús. Pede um Cubit Elite |
+| 29 | Card Cozinheiro (Machine Learning: Cook) | As peças 7, 14 e 22 e 1 defumador | 25 Módulo Elite | O Cubit cozinha. Pede um Cubit Elite |
+| 30 | Card Patrulheiro Galático (Machine Learning: Galactic Patroller) | As peças 7, 14 e 22 e 1 estrela de fogo de artifício | 25 Módulo Elite | O Cubit protege o lugar. Pede um Cubit Elite |
+| 31 | Módulo Supremo (Ultimate Module) | 1 Módulo Elite (25), 2 lingotes de netherita e 2 varas de blaze | 25 Módulo Elite | Sobe do Elite para o Ultimate |
 
 ### Etapa 5: as maiores Power Banks
 
 | Nº | Item | Materiais | Liberado por | Para que serve |
 |---|---|---|---|---|
-| 26 | Power Bank Elite (Elite Power Bank) | 20, 2 corantes roxos e 2 diamantes. Ou 11 e 27 | 20 Power Bank Avançada, ou 27 para a segunda receita | Bateria portátil ainda maior |
-| 27 | Célula de Energia Elite (Elite Power Cell) | 21, 2 corantes roxos e 2 diamantes | 20 Power Bank Avançada | Peça da Power Bank Elite |
-| 28 | Power Bank Suprema (Ultimate Power Bank) | 26, 2 lingotes de netherita e 2 varas de blaze. Ou 11 e 29 | 26 Power Bank Elite, ou 29 para a segunda receita | A maior bateria portátil |
-| 29 | Célula de Energia Suprema (Ultimate Power Cell) | 27, 2 lingotes de netherita e 2 varas de blaze | 26 Power Bank Elite | Peça da Power Bank Suprema |
+| 32 | Power Bank Elite (Elite Power Bank) | 1 Power Bank Avançada (26), 2 corantes roxos e 2 diamantes. Ou as peças 18 e 33 | 26 Power Bank Avançada, ou 33 para a segunda receita | Bateria portátil ainda maior |
+| 33 | Célula de Energia Elite (Elite Power Cell) | 1 Célula Avançada (27), 2 corantes roxos e 2 diamantes | 26 Power Bank Avançada | Peça da Power Bank Elite |
+| 34 | Power Bank Suprema (Ultimate Power Bank) | 1 Power Bank Elite (32), 2 lingotes de netherita e 2 varas de blaze. Ou as peças 18 e 35 | 32 Power Bank Elite, ou 35 para a segunda receita | A maior bateria portátil |
+| 35 | Célula de Energia Suprema (Ultimate Power Cell) | 1 Célula Elite (33), 2 lingotes de netherita e 2 varas de blaze | 32 Power Bank Elite | Peça da Power Bank Suprema |
 
 ## Fabricação em cascata: a mesa faz tudo sozinha
 
@@ -151,7 +166,7 @@ Não são itens novos, então não têm número no mapa.
 | Receita | Materiais | Liberada por |
 |---|---|---|
 | Religar um Cubit sem bateria | O Cubit e qualquer Power Bank. A Power Bank volta com a carga que sobrou | Qualquer Power Bank |
-| Consertar um Cubit que morreu | O Cubit Danificado (Damaged Cubit) e a Caixa de Ferramentas (6), que é gasta | O Cubit Danificado ou a Caixa de Ferramentas |
+| Consertar um Cubit que morreu | O Cubit Danificado (Damaged Cubit) e a Caixa de Ferramentas (11), que é gasta | O Cubit Danificado ou a Caixa de Ferramentas |
 
 ## Dúvidas comuns
 
@@ -180,7 +195,7 @@ Passe o mouse sobre ele. O motivo pode ser a quantidade em 0, material que falta
 Há uma fabricação em cascata em andamento. Elas abrem quando ela terminar.
 
 **Em que dimensão consigo os materiais?**
-O primeiro Cubit, a Base de Indução e o Módulo Avançado só usam materiais do Overworld. O Tablet, as peças das Power Banks e a peça dos cards pedem quartzo, e a netherita e a vara de blaze, do tier Ultimate, vêm do Nether.
+O primeiro Cubit, a Base de Indução e o Módulo Avançado só usam materiais do Overworld. O Tablet, a Placa de Circuito, a Carcaça da Power Bank e a Carcaça do Card pedem quartzo, e a netherita e a vara de blaze, do tier Ultimate, vêm do Nether.
 
 **O card não entra no Cubit.**
 Cada card pede um tier mínimo do Cubit: Avançado para o Pescador e o Fazendeiro, e Elite para os demais. O Cubit Base não aceita cards.
@@ -198,6 +213,8 @@ O JEI mostra todas as receitas, também as bloqueadas. Quem decide é a mesa.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 11:44 | Acrescenta o Núcleo Neural e a Placa de Circuito às peças compartilhadas e troca a imagem (perguntas 2162 a 2173). |
+| Zennd | 2026-11-24 11:10 | Acrescenta as peças compartilhadas e renumera a árvore de 1 a 35 (perguntas 2146 e 2152). |
 | Zennd | 2026-11-23 16:54 | Explica a quantidade em 0 e as peças prontas (perguntas 2052 e 2053). |
 | Zennd | 2026-11-23 16:20 | Explica a fabricação em cascata (pergunta 2006). |
 | Zennd | 2026-11-23 12:39 | Explica as cores da grade pela quantidade (pergunta 1996). |

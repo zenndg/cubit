@@ -186,14 +186,14 @@ Rode num mundo novo, em modo sobrevivência, com `/gamemode survival` e `/give @
 | # | Faça | Espere |
 |---|---|---|
 | 1 | Pegue um diamante, com `/give @s minecraft:diamond` | As receitas do `Cubit Casing`, do `Cubit Visor`, das `Cubit Treads` e do `Cubit Neural Core` aparecem no livro. A do `Cubit` e a do `Induction Dock` ainda não |
-| 2 | Dê os materiais: `/give @s minecraft:iron_ingot 16`, `/give @s minecraft:obsidian 3`, `/give @s minecraft:redstone_torch 2`, `/give @s minecraft:piston 2`, `/give @s minecraft:redstone 12`, `/give @s minecraft:diamond 5` e `/give @s minecraft:chest 2` | Os itens chegam |
-| 3 | Faça as peças: tocha de redstone, ferro, tocha de redstone / ferro, vazio, ferro / obsidiana, ferro, obsidiana; diamante, obsidiana, diamante; ferro, ferro, ferro / pistão, vazio, pistão; vazio, redstone, vazio / redstone, diamante, redstone / vazio, redstone, vazio. Com o Neural Core, abra o livro, e depois junte as quatro peças em qualquer posição | Saem as quatro peças, a receita do `Cubit` aparece com o Neural Core, e sai um `Cubit` |
+| 2 | Numa Engineering Desk com energia, ponha os materiais da [árvore de crafts](../arvore-de-crafts.md#comece-por-aqui) na entrada | Os itens chegam |
+| 3 | Faça as cinco peças compartilhadas, com 2 Servomotores, as quatro do Cubit e o `Cubit` | Saem as peças e um `Cubit`. As grades estão em [`itens.md`](../itens.md#peças-compartilhadas) |
 | 4 | Olhe o livro, com o `Cubit` no inventário | As receitas do `Induction Dock` e dos três Modules aparecem |
 | 5 | Coloque o `Cubit` | Ele segue você, com a barra de 25% na tela |
-| 6 | Na mesa, monte o L: diamante na coluna 1 da linha 1; baú na coluna 1 da linha 2; ferro, redstone e ferro na linha 3 | Sai um `Induction Dock` |
-| 7 | Monte o L espelhado, trocando as colunas 1 e 3 | Também sai um `Induction Dock` |
+| 6 | Na mesa, faça a Induction Coil e a Base Power Cell e, com as outras cinco peças compartilhadas, o `Induction Dock` | Sai um `Induction Dock` |
+| 7 | Na mesa, faça o `Cubit Tablet` com a Tela, 4 quartzos e 1 redstone | Sai um `Cubit Tablet` |
 | 8 | Coloque o `Dock` e abra a tela, com o botão direito | A barra de energia está vazia, e a tela do bloco, apagada |
-| 9 | Faça outro `Cubit Neural Core`, dê `/give @s minecraft:lapis_lazuli 2` e `/give @s minecraft:gold_ingot 2` e monte lápis em cima e embaixo, ouro nas laterais e o Neural Core no centro | Sai um `Advanced Module` |
+| 9 | Faça outro `Neural Core`, dê `/give @s minecraft:lapis_lazuli 2` e `/give @s minecraft:gold_ingot 2` e monte lápis em cima e embaixo, ouro nas laterais e o Neural Core no centro | Sai um `Advanced Module` |
 | 10 | Dê `/give @s minecraft:purple_dye 2` e `/give @s minecraft:diamond 2` e monte corante roxo em cima e embaixo, diamante nas laterais e o Advanced Module no centro | Sai um `Elite Module` |
 | 11 | Dê `/give @s minecraft:netherite_ingot 2` e `/give @s minecraft:blaze_rod 2` e monte netherite em cima e embaixo, vara de blaze nas laterais e o Elite Module no centro | Sai um `Ultimate Module` |
 
@@ -1152,7 +1152,7 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 21 | Tente pôr essa mesa num shulker box e no Dock | Não entra. Vazia, entra |
 | 22 | Coloque a mesa de novo | Volta com o tier, a energia, os inventários e o pedido |
 | 23 | Conserte um Damaged Cubit e religue um Cubit com uma Power Bank na mesa | Saem como antes, e a Power Bank volta para a saída com a carga que sobrou |
-| 24 | Faça as 4 peças do Cubit, deixe-as na saída, ponha o Casing na entrada e escolha o Cubit | A mesa puxa o Visor, o Treads e o Neural Core da saída para a entrada e começa o Cubit |
+| 24 | Faça as 4 peças do Cubit, o Tanque de XP, o HD e o Painel Solar, deixe-os na saída, ponha o Casing na entrada e escolha o Cubit | A mesa puxa as outras seis peças da saída para a entrada e começa o Cubit |
 | 25 | Peça 2 Cubits, com as peças de só um na saída | Ela faz um Cubit, puxa as peças e pausa em `Missing materials` até as peças do segundo chegarem |
 | 26 | Com o jogo em português | `Mesa de Engenharia`, `Projeto`, `Estoque` e os estados em português |
 | 27 | Na aba Projeto, compare `0 / 0` com o maior pedido, `256 / 256` no Ultimate | O −, o + e o `Cancel` alinhados às bordas do quadro dos slots, com um vão pequeno ao lado dos números, que encolhem quando não cabem |
@@ -1185,6 +1185,32 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 20 | Complete os materiais de 2 e dê energia | Tudo verde. Com 1 pronto, a conta é de 1, e continua verde |
 | 21 | Aperte − e + | As cores são refeitas a cada clique |
 
+### Peças compartilhadas
+
+As regras estão em [`pecas.md`](../funcionalidades/pecas.md#peças-compartilhadas) (issue #259). Use um mundo novo, com uma Engineering Desk com energia e os materiais, e, para as duas últimas linhas, uma mesa Ultimate com `/recipe give @s *`.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Abra o catálogo da mesa | 7 ícones de categoria, o segundo o Servomotor, com a dica `Shared parts`, sem encostar na grade |
+| 2 | Abra a categoria | Seis peças normais, com o Núcleo Neural, e a Bobina e a Placa de Circuito com cadeado, `Unlocks with: Cubit` |
+| 3 | Faça as cinco peças, com 2 Servomotores | Os materiais de [`itens.md`](../itens.md#peças-compartilhadas), e o balde é gasto, sem voltar vazio |
+| 4 | Faça o Visor, com a Tela e 1 diamante, e as Esteiras, com 3 ferros e 2 Servomotores | Saem os dois |
+| 5 | Faça a Carcaça, o Núcleo Neural e o Cubit | O Cubit pede a Carcaça, o Visor, as Esteiras, o Núcleo, o Tanque, o HD e o Painel Solar, em qualquer posição |
+| 6 | Pegue o Cubit | A Bobina, a Placa, o Dock, o Tablet, a Carcaça da Power Bank e a Célula Base se liberam |
+| 7 | Faça o Dock | Pede 7 peças, com a Célula Base, e sai Base e vazio |
+| 8 | Faça o Tablet | Pede a Tela, 4 quartzos e 1 redstone |
+| 9 | Faça a Placa de Circuito e a Carcaça da Power Bank, e depois a Power Bank Base | A Placa pede 2 esmeraldas, 1 comparador e 3 ouros. A Carcaça, 6 quartzos, a Placa e a Bobina. A Power Bank, a Carcaça e a Célula Base |
+| 10 | Suba a Power Bank para a Avançada com a cruz | Como antes, com a carga mantida |
+| 11 | Pegue o Módulo Avançado e faça o Card Pescador | Pede a Carcaça do Card, a Placa, o Núcleo Neural e a vara, e a Carcaça do Card continua na categoria dos cards |
+| 12 | Clique no chão com cada peça na mão | Nada acontece |
+| 13 | Olhe as texturas no inventário, na mão e no chão | As oito se distinguem e não têm fundo |
+| 14 | Olhe a aba do mod no criativo | As oito no fim, a última a Placa de Circuito |
+| 15 | Abra o JEI | As receitas novas, com o + que leva os materiais |
+| 16 | Num mundo de antes, com um Cubit, um Dock, um Tablet e peças já feitos | Tudo continua valendo, menos os Cubit Neural Cores e as Circuit Boards antigos, que somem (pergunta 2166) |
+| 17 | Na mesa Ultimate, planeje 1 Cubit na aba `Cascade` | 13 materiais, 10 linhas com rolagem, `27,500 FE · 17 s`, e sai o Cubit |
+| 18 | Na mesa Ultimate, planeje 1 Dock | 8 linhas, e sai o Dock |
+| 19 | Em português | `Peças compartilhadas`, `Tanque de XP`, `HD`, `Painel Solar`, `Tela`, `Servomotor`, `Bobina de Indução`, `Núcleo Neural` e `Placa de Circuito`, sem sobreposição |
+
 ### Fabricação em cascata
 
 As regras estão em [`cascata-da-mesa.md`](../funcionalidades/cascata-da-mesa.md) (issue #253). Use um mundo novo, no criativo, uma mesa Ultimate com energia e os materiais. Para ter todas as receitas, use `/recipe give @s *`, e para a trava, um player sem elas.
@@ -1193,28 +1219,28 @@ As regras estão em [`cascata-da-mesa.md`](../funcionalidades/cascata-da-mesa.md
 |---|---|---|
 | 1 | Numa mesa Elite, passe o mouse e clique na terceira aba | O ícone escuro com cadeado, `Unlocks at Ultimate`, e a aba não abre |
 | 2 | Numa Ultimate, abra a aba `Cascade` sem escolher nada | O ícone da cascata, `Pick an item in the catalog` e `View plan` apagado |
-| 3 | Escolha o Cubit e, depois, use + | Em 0: `Cubit`, `Press + to set the amount`, nenhum slot e `View plan` apagado com esse motivo. Em 1: `Materials for 1× Cubit`, 6 slots vermelhos e a dica do `View plan` com `Missing materials in the input` |
+| 3 | Escolha o Cubit e, depois, use + | Em 0: `Cubit`, `Press + to set the amount`, nenhum slot e `View plan` apagado com esse motivo. Em 1: `Materials for 1× Cubit`, 13 slots vermelhos e a dica do `View plan` com `Missing materials in the input` |
 | 4 | Use +, Shift + e − até o fim | As quantidades mudam, o número cabe entre os botões, e o − para em 0, sem slots |
 | 5 | Vá à aba Estoque, ponha parte dos materiais e volte | A escolha continua, e há slots verdes, amarelos e vermelhos, fáceis de distinguir |
 | 6 | Passe o mouse num slot | O nome e `In the input: 6 / 15` |
-| 7 | Ponha os materiais de 2 Cubits (14 ferros, 6 obsidianas, 4 tochas de redstone, 6 diamantes, 4 pistões e 8 redstones) e peça 2 | Tudo verde, e `View plan` aceso |
-| 8 | `View plan` | A tabela na largura toda, sem o catálogo nem a busca: 5 linhas, a última com `1, 2, 3, 4`, `25,000 FE · 15 s`, `Start` e `Cancel` |
+| 7 | Ponha os materiais de 2 Cubits (34 ferros, 6 obsidianas, 4 tochas de redstone, 6 diamantes, 4 pistões, 18 redstones, 12 cobres, 12 painéis de vidro, 8 vidros, 6 lápis-lazúlis, 2 ouros, 2 baús e 2 baldes) e peça 2 | Tudo verde, e `View plan` aceso |
+| 8 | `View plan` | A tabela na largura toda, sem o catálogo nem a busca: 10 linhas, com rolagem, a última a do Cubit, `55,000 FE · 33 s`, `Start` e `Cancel` |
 | 9 | Passe o mouse em `Reserved` e em `Item` | A lista dos materiais da tarefa, e o nome do item com a quantidade |
 | 10 | `Cancel` | Volta ao passo 1, com a escolha e a quantidade |
 | 11 | Com o passo 2 aberto, outro player tira e devolve um material | A tabela fica, `Start` apaga com o motivo na dica e acende de novo |
-| 12 | `Start` | O aviso sobre a tela escura, com `2× Cubit · 15 s` e `It cannot be canceled.` |
+| 12 | `Start` | O aviso sobre a tela escura, com `2× Cubit · 33 s` e `It cannot be canceled.` |
 | 13 | Com o aviso aberto, clique nas abas, nos slots e fora da janela, com um item no cursor, e aperte Esc | Nada se move nem cai, e o Esc responde `No` |
 | 14 | `Start` e `No` | Volta ao passo 2, e nada saiu da entrada |
 | 15 | `Start` e `Yes` | A entrada vazia, a linha atual clara com `Crafting 1/2` e a barra, o visto nas prontas, e os cadeados em `Start`, `Cancel`, Projeto e Estoque, com a dica `A plan is running` |
 | 16 | Feche e abra a mesa, também com outro player | Abre na aba `Cascade`, com a tabela igual e só para ver |
-| 17 | Olhe a mesa com o Jade | O item da tarefa, e `Cascade: Cubit · 3/10`, sem o pedido da aba Projeto |
+| 17 | Olhe a mesa com o Jade | O item da tarefa, e `Cascade: Cubit · 3/22`, sem o pedido da aba Projeto |
 | 18 | Tire a energia da mesa, e depois ponha redstone no slot | Pausa e volta sozinha |
 | 19 | Ligue um sinal de redstone na mesa | Pausa, e volta sem o sinal |
 | 20 | Espere terminar | 2 Cubits na saída, as abas abrem, e a tabela mostra `Done` em tudo, com `New plan` |
 | 21 | `New plan` | O passo 1, com o catálogo |
-| 22 | Deixe 1 Cubit Casing na entrada e 1 Visor na saída e planeje 1 Cubit | As duas em slots azul-claros, depois dos materiais, com `Already made: uses 1`, menos materiais e menos linhas. Com as quatro peças prontas, só os 4 slots azuis, `View plan` aceso e o plano de 1 linha faz 1 Cubit |
-| 23 | Escolha a Ultimate Power Bank e peça 256 | 11 slots, com números de 4 dígitos que cabem, e, com os materiais, 6 linhas sem rolagem |
-| 24 | No meio de um plano, quebre a mesa, veja a dica do item e coloque de novo | `Cascade: Cubit · 3/10` e os itens guardados na dica, e o plano continua de onde parou |
+| 22 | Deixe 1 Cubit Casing na entrada e 1 Visor na saída e planeje 1 Cubit | As duas em slots azul-claros, depois dos materiais, com `Already made: uses 1`, menos materiais e menos linhas. Com as sete peças prontas, só os 7 slots azuis, `View plan` aceso e o plano de 1 linha faz 1 Cubit |
+| 23 | Escolha a Ultimate Power Bank e peça 256 | 14 slots, com números de 4 dígitos que cabem, e, com os materiais, 8 linhas com rolagem |
+| 24 | No meio de um plano, quebre a mesa, veja a dica do item e coloque de novo | `Cascade: Cubit · 3/22` e os itens guardados na dica, e o plano continua de onde parou |
 | 25 | No meio de um plano, saia e entre no mundo | Continua |
 | 26 | Encha a saída e faça um Cubit | O plano termina, e o Cubit entra na saída quando há espaço. Antes disso, um plano novo abre, mas `Start` fica apagado com `The last plan still has items` |
 | 27 | Com um pedido ativo na aba Projeto e os materiais de um plano | `View plan` aceso, e `Start` apagado com `An order is active` |
@@ -1547,6 +1573,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 11:10 | Acrescenta o roteiro das peças compartilhadas e atualiza as receitas e a cascata (perguntas 2136 a 2160). |
 | Zennd | 2026-11-24 10:06 | Troca os cliques do Dock e acrescenta o roteiro deles (perguntas 2122, 2124 e 2129). |
 | Zennd | 2026-11-24 09:56 | Acrescenta o roteiro do XP no Dock (perguntas 2099 a 2117). |
 | Zennd | 2026-11-24 08:37 | Acrescenta o roteiro da ida e da volta do Dock sem caminho (perguntas 2090 a 2095). |
