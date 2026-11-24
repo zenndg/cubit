@@ -78,7 +78,7 @@ O ajuste de 2162 a 2169, autorizado na 2170:
 - **Guia:** a numeração passa a ter o Neural Core entre as peças do início e a Circuit Board com o Cubit, ainda de 1 a 35, com a imagem refeita.
 
 - **Custo do primeiro Cubit:** 3 diamantes, 3 obsidianas, 2 pistões e 2 tochas de redstone, como antes, com 20 ferros (3 no balde), 9 redstones, 6 cobres, 6 painéis de vidro, 4 vidros, 3 lápis-lazúlis, 1 ouro e 1 baú, em 11 crafts (pergunta 2146).
-- **Catálogo:** a categoria nova, `parts` no `desk_category`, aparece como Shared parts / Peças compartilhadas, com o Servomotor como ícone, numa barra com os ícones de 12 px de hoje (perguntas 2141, 2159 e 2160). As peças de hoje continuam nas categorias delas (perguntas 2141 e 2149).
+- **Catálogo:** a categoria nova, `parts` no `desk_category`, aparece como Shared parts / Peças compartilhadas, com o Servomotor como ícone, numa barra com ícones de 12 px e 1 px entre eles. Na aba Projeto, a grade, a seta, o resultado, a quantidade e o botão ficam 10 px mais à direita, e, na Cascade, o título (perguntas 2141, 2159, 2160, 2177 e 2178). As peças de hoje continuam nas categorias delas (perguntas 2141 e 2149).
 
 ### Network, provisório
 
@@ -158,6 +158,7 @@ As peças não têm data components nem NBT. Só os dois IDs da pergunta 2166 mu
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 11:57 | Afasta os ícones das categorias e a área do craft da mesa (perguntas 2176 a 2178). |
 | Zennd | 2026-11-24 11:44 | Acompanha o Neural Core, a Circuit Board, os cards e a Power Bank Casing no código (perguntas 2162 a 2173). |
 | Zennd | 2026-11-24 11:33 | Registra a autorização do ajuste do Neural Core, dos cards e da Power Bank (pergunta 2170). |
 | Zennd | 2026-11-24 11:32 | Acrescenta o Neural Core, os cards e a Power Bank Casing com as peças (perguntas 2162 a 2169). |

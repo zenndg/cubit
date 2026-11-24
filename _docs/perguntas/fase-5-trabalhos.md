@@ -1119,11 +1119,21 @@ Não há perguntas pendentes nesta fase.
 | 2172 | O código das peças, já escrito na branch `feature/259-shared-parts` e sem commit, fica como base da próxima sessão? | Sim, como base. A recomendação foi aceita |
 | 2173 | A imagem nova da árvore de crafts, com o Neural Core e a Circuit Board, está aceita? | Aceita: "imagem da árvore aceita, pode seguir". Vai a `_docs/imagens/arvore-de-crafts.png`, e o código da segunda parte começa |
 | 2174 | As peças compartilhadas, com as receitas, o Neural Core, os cards e a Power Bank Casing, foram testadas no jogo e estão aprovadas? | Testado e aprovado |
+| 2175 | A correção dos documentos que dão a `0.1.0` como enviada ao Modrinth (2171) vai no PR das peças ou à parte? | O desenvolvedor respondeu "5 sim", lido como a recomendação: à parte, numa tarefa só de documentos, depois do PR das peças, com a issue #156 |
+| 2176 | Pedido do desenvolvedor, no teste do PR das peças: a tela da Engineering Desk | "estou testando aqui vi que na mesa do mod os icones das categorias do catalogo estao grudados poderia colocar 1px entre eles a parte da tela que temos o crafting a quantidadd e botao poderia ter 10px a esquerda do catalago se afastando": 1 px entre os ícones das categorias e a área do craft 10 px mais longe do catálogo. Vai à prévia. Muda a 2160 no espaço entre os ícones |
+| 2177 | Barra de categorias e área do craft da Engineering Desk: 12 px com 1 px entre os ícones, ou 11 px com 1 px, com a grade, a seta, o resultado, a quantidade e o botão 10 px para a direita na aba Projeto? | 12 px com 1 px entre eles, como na prévia A: os ícones mantêm o tamanho, e, na aba Cascade, o título anda 10 px. Escolher autoriza o código (regra 54). A recomendação foi aceita. Detalha a 2176 |
+| 2178 | Na aba Cascade, os materiais não têm 10 px para andar. O que fazer com eles? | Deixar os materiais onde estão: o afastamento vale para a aba Projeto. A recomendação foi aceita. Detalha a 2176 |
+| 2179 | O ajuste da barra de categorias e da área do craft da mesa (2176 a 2178) foi testado no jogo e está aprovado? | Testado e aprovado ("testes ok") |
+| 2180 | O `AGENTS.md` pode atualizar o "Estado atual", com o #258 e a #259, e incluir a `SharedPartRecipes` na estrutura de pacotes? | Sim, "apos atualizar tudo", na mesma resposta que autoriza os commits, o push e o PR |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 12:02 | Registra as respostas 2179 a 2180. |
+| Zennd | 2026-11-24 11:57 | Registra as respostas 2177 a 2178. |
+| Zennd | 2026-11-24 11:54 | Registra a resposta 2176. |
+| Zennd | 2026-11-24 11:48 | Registra a resposta 2175. |
 | Zennd | 2026-11-24 11:47 | Registra a resposta 2174. |
 | Zennd | 2026-11-24 11:42 | Registra a resposta 2173. |
 | Zennd | 2026-11-24 11:33 | Registra as respostas 2170 a 2172. |

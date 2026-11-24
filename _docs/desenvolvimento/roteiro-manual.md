@@ -1191,7 +1191,7 @@ As regras estão em [`pecas.md`](../funcionalidades/pecas.md#peças-compartilhad
 
 | # | Faça | Espere |
 |---|---|---|
-| 1 | Abra o catálogo da mesa | 7 ícones de categoria, o segundo o Servomotor, com a dica `Shared parts`, sem encostar na grade |
+| 1 | Abra o catálogo da mesa | 7 ícones de categoria, com 1 px entre eles, o segundo o Servomotor, com a dica `Shared parts`, longe da grade. O clique em cada ícone abre a categoria dele, e, na aba `Cascade`, o título não fica por baixo da barra |
 | 2 | Abra a categoria | Seis peças normais, com o Núcleo Neural, e a Bobina e a Placa de Circuito com cadeado, `Unlocks with: Cubit` |
 | 3 | Faça as cinco peças, com 2 Servomotores | Os materiais de [`itens.md`](../itens.md#peças-compartilhadas), e o balde é gasto, sem voltar vazio |
 | 4 | Faça o Visor, com a Tela e 1 diamante, e as Esteiras, com 3 ferros e 2 Servomotores | Saem os dois |
@@ -1573,6 +1573,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 11:57 | Atualiza a barra de categorias da mesa (perguntas 2176 a 2178). |
 | Zennd | 2026-11-24 11:10 | Acrescenta o roteiro das peças compartilhadas e atualiza as receitas e a cascata (perguntas 2136 a 2160). |
 | Zennd | 2026-11-24 10:06 | Troca os cliques do Dock e acrescenta o roteiro deles (perguntas 2122, 2124 e 2129). |
 | Zennd | 2026-11-24 09:56 | Acrescenta o roteiro do XP no Dock (perguntas 2099 a 2117). |
