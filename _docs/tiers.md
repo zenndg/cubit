@@ -251,7 +251,7 @@ O XP como fluido, no Cubit e no Induction Dock, descrito em [`xp.md`](funcionali
 | Trabalhos que recebem XP, `xp_jobs` (pergunta 1820) | `patroller`, `fisher`, `cook` e `farmer` |
 | Fazendeiro: chance de 1 ponto por colheita, `farmer_xp_chance` (pergunta 1823) | 20% |
 | Dock: energia de 1 ponto de XP, `dock_fe_per_xp_point` (pergunta 1942) | 9 FE |
-| Dock: parte do tanque guardada no modo Guardar metade e converter o resto, `dock_xp_storage_percent` (pergunta 1831) | 50% |
+| Dock: distância até o dono do aviso de tanque cheio, `dock_xp_notice_blocks` (pergunta 2103) | 16 blocos |
 
 ## Slots exclusivos
 
@@ -336,6 +336,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 09:36 | Troca a parte guardada no Dock pela distância do aviso (perguntas 2100 e 2103). |
 | Zennd | 2026-11-24 08:37 | Troca o teleporte ao Dock pela desistência (perguntas 2091 e 2095). |
 | Zennd | 2026-11-24 08:16 | Tira os números do XP como energia do Patrulheiro (pergunta 1825). |
 | Zennd | 2026-11-24 07:26 | Troca a taxa do XP em energia para 9 FE por ponto (pergunta 1942). |
