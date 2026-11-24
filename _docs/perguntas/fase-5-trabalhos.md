@@ -1125,11 +1125,32 @@ Não há perguntas pendentes nesta fase.
 | 2178 | Na aba Cascade, os materiais não têm 10 px para andar. O que fazer com eles? | Deixar os materiais onde estão: o afastamento vale para a aba Projeto. A recomendação foi aceita. Detalha a 2176 |
 | 2179 | O ajuste da barra de categorias e da área do craft da mesa (2176 a 2178) foi testado no jogo e está aprovado? | Testado e aprovado ("testes ok") |
 | 2180 | O `AGENTS.md` pode atualizar o "Estado atual", com o #258 e a #259, e incluir a `SharedPartRecipes` na estrutura de pacotes? | Sim, "apos atualizar tudo", na mesma resposta que autoriza os commits, o push e o PR |
+| 2181 | Depois do PR das peças (#260), por onde começar: pela correção da publicação (2175) ou pela Network (#205 e #206)? | Pela correção da publicação, só de documentos. A recomendação foi aceita |
+| 2182 | Algum ajuste no roteiro das próximas tarefas (regra 53)? | Não |
+| 2183 | As peças compartilhadas são marcadas como entregues no `checklist.md` (item 25) e no `ROADMAP.md` (item 7), no próximo PR? | Sim. A recomendação foi aceita |
+| 2184 | A seção "Receitas" do `roteiro-manual.md`, com os passos 1 e 4 ainda sobre o livro de receitas, é corrigida no próximo PR? | Sim. A recomendação foi aceita |
+| 2185 | Alinhamento da correção da publicação (regra 51): algo a acrescentar? | "nada a acrescentar, pode abrir a rodada" |
+| 2186 | O que os documentos passam a dizer da `0.1.0` e da `0.1.1`: release só no GitHub, com o envio aos sites pendente, ou versões internas, sem pendência de envio? | Release só no GitHub: as duas saíram com tag e release no GitHub, e o envio ao Modrinth e ao CurseForge está pendente. No `checklist.md`, o item 9 da `0.1.0` se divide. A recomendação foi aceita. Detalha a 2171 |
+| 2187 | Como corrigir as respostas 785 e 790, da Fase 3? | Manter o texto antigo e apontar para a 2171. A recomendação foi aceita. Muda a 785 e a 790 |
+| 2188 | O que fazer com a issue #156, com a `release/0.1.1` na `main` (PR #158), a tag e a release no GitHub: deixar aberta, só com o envio aos sites, ou fechar? | Fechar, com um comentário. O envio aos sites ganha uma issue nova quando o desenvolvedor decidir publicar. Não era a recomendação |
+| 2189 | A regra 18 (saves são contrato) vale a partir de quando: desde as releases do GitHub ou só do primeiro envio a um site? | Nenhuma das duas: "quando lancar a v1.0.0". Até lá, IDs, data components, NBT, chaves de config e tags podem mudar sem migração. Pede uma mudança no texto da regra 18 |
+| 2190 | O conceito da correção da publicação (2186 a 2189), com a decisão do desenvolvedor em cada caso na regra 18, pode ir aos documentos? | Sim: "autorizo 1 a 5, pode seguir" (regra 54) |
+| 2191 | O `AGENTS.md` pode mudar no "Estado atual" e nas regras 18, 41 e 49? | Sim, na mesma resposta |
+| 2192 | Aviso do desenvolvedor sobre a Network | "a feature de network quero falar sobre ela quando for iniciar": antes do alinhamento e da rodada da Network, o agente ouve o desenvolvedor |
+| 2193 | O item 6 do `ROADMAP.md`, que dá o XP como em andamento, e os passos 1 e 8 da seção da Power Bank no `roteiro-manual.md`, sobre o livro de receitas, entram no PR da #261? | Sim. A recomendação foi aceita |
+| 2194 | O que fazer com os comentários do código que dizem que os IDs não mudam sem migração, com a regra 18 a partir da `1.0.0` (2189)? | Deixar para quando o arquivo for tocado por outra tarefa. A recomendação foi aceita |
+| 2195 | O passo 2 da seção Power Bank do `roteiro-manual.md`, com a receita antiga da Power Bank Casing, é corrigido no mesmo commit do roteiro? | Sim. A recomendação foi aceita. A falha foi do agente na #260 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 12:34 | Registra a resposta 2195. |
+| Zennd | 2026-11-24 12:33 | Registra as respostas 2193 a 2194. |
+| Zennd | 2026-11-24 12:31 | Registra as respostas 2190 a 2192. |
+| Zennd | 2026-11-24 12:25 | Registra as respostas 2186 a 2189. |
+| Zennd | 2026-11-24 12:20 | Registra a resposta 2185. |
+| Zennd | 2026-11-24 12:18 | Registra as respostas 2181 a 2184. |
 | Zennd | 2026-11-24 12:02 | Registra as respostas 2179 a 2180. |
 | Zennd | 2026-11-24 11:57 | Registra as respostas 2177 a 2178. |
 | Zennd | 2026-11-24 11:54 | Registra a resposta 2176. |

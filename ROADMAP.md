@@ -30,7 +30,7 @@ Todas as funcionalidades entraram:
 
 ### Primeira versão: `0.1.0`
 
-Saiu ao terminar a Fase 3, no Modrinth, com o mod funcionando só com ele e as dependências: GeckoLib e LambDynamicLights, obrigatórias, e Jade, opcional. O envio ao CurseForge, com a mesma versão, fica para depois.
+Saiu ao terminar a Fase 3, com tag e release no GitHub, com o mod funcionando só com ele e as dependências: GeckoLib e LambDynamicLights, obrigatórias, e Jade, opcional. O envio ao Modrinth e ao CurseForge está pendente, nesta versão e na `0.1.1` (perguntas 2171 e 2186).
 
 ## Fase 4: Upgrades e autonomia (encerrada)
 

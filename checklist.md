@@ -76,7 +76,8 @@ Sai só ao terminar todos os itens da Fase 3 (pergunta 337).
 6. [x] Outro player: o passo 9 do Dock, o 6 do `/cubit reset` e o 13 da cor e do nome ficam cobertos pelas GameTests, sem teste no jogo (perguntas 770 a 772)
 7. [x] Confirmações no jogo: saíram da `0.1.0` e ficam para depois dela, com a instância só com o mod: quando as receitas aparecem no livro, a receita do Dock em L espelhado (pergunta 351), o `/cubit reset` com chunk descarregado e o padrão da opção de luz de entidades do LambDynamicLights (perguntas 461, 719 e 776)
 8. [x] Conferir os termos das ferramentas de IA usadas nos sons antes de publicar (perguntas 338, 719 e 777)
-9. [x] Publicar: `homolog`, `release/0.1.0`, `main`, tag, release no GitHub e envio ao Modrinth. O envio ao CurseForge fica para depois da `0.1.0` (perguntas 744, 778, 785 e 787)
+9. [x] Publicar no GitHub: `homolog`, `release/0.1.0`, `main`, tag e release (perguntas 744 e 778)
+10. [ ] Enviar ao Modrinth e ao CurseForge, sem data e com uma issue nova quando o desenvolvedor decidir publicar. Vale também para a `0.1.1` (perguntas 2171, 2186 e 2188)
 
 ## Fase 4: Upgrades e autonomia
 
