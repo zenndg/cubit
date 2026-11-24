@@ -87,7 +87,7 @@ final class CubitRecipeProvider extends RecipeProvider {
         .requires(CubitItems.GENERAL_ROBOT_CASING.get())
         .requires(CubitItems.GENERAL_ROBOT_VISOR.get())
         .requires(CubitItems.GENERAL_ROBOT_TREADS.get())
-        .requires(CubitItems.GENERAL_ROBOT_CORE.get())
+        .requires(CubitItems.NEURAL_CORE.get())
         .requires(CubitItems.XP_TANK.get())
         .requires(CubitItems.HARD_DRIVE.get())
         .requires(CubitItems.SOLAR_PANEL.get())
@@ -104,7 +104,7 @@ final class CubitRecipeProvider extends RecipeProvider {
             CubitItems.ADVANCED_MODULE.get(),
             Items.LAPIS_LAZULI,
             Items.GOLD_INGOT,
-            CubitItems.GENERAL_ROBOT_CORE.get())
+            CubitItems.NEURAL_CORE.get())
         .save(output);
     module(
             CubitItems.ELITE_MODULE.get(),
@@ -127,7 +127,7 @@ final class CubitRecipeProvider extends RecipeProvider {
   private static ShapedRecipeBuilder module(
       ItemLike result, ItemLike edge, ItemLike side, ItemLike center) {
     ItemLike unlock =
-        center == CubitItems.GENERAL_ROBOT_CORE.get() ? CubitItems.GENERAL_ROBOT.get() : center;
+        center == CubitItems.NEURAL_CORE.get() ? CubitItems.GENERAL_ROBOT.get() : center;
     String criterion = HAS_PREFIX + BuiltInRegistries.ITEM.getKey(unlock.asItem()).getPath();
     return CubitPartRecipes.cross(
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result), edge, side, center)

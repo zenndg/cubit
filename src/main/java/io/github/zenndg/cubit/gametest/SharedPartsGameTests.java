@@ -1,21 +1,26 @@
 package io.github.zenndg.cubit.gametest;
 
 import io.github.zenndg.cubit.CubitMod;
+import io.github.zenndg.cubit.domain.desk.DeskCategory;
+import io.github.zenndg.cubit.item.DeskCategoryCodecs;
 import io.github.zenndg.cubit.registry.CubitItems;
 import io.github.zenndg.cubit.registry.CubitRecipes;
 import java.util.List;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
-/** The parts many items share, with the grids of _docs/itens.md (answers 2136 and 2150). */
+/** The parts many items share, with the grids of _docs/itens.md (2136, 2150 and 2168). */
 @GameTestHolder(CubitMod.MOD_ID)
 @PrefixGameTestTemplate(false)
 public final class SharedPartsGameTests {
@@ -24,6 +29,7 @@ public final class SharedPartsGameTests {
   private static final int PART_STACK_SIZE = 64;
   private static final String WRONG_RESULT = "Wrong recipe result";
   private static final String WRONG_STACK = "A part should stack up to 64";
+  private static final String WRONG_CATEGORY = "Not in the category of the shared parts: ";
   private static final String LEFT_OVER = "The bucket should be used up";
 
   private SharedPartsGameTests() {}
@@ -118,6 +124,35 @@ public final class SharedPartsGameTests {
             Items.AIR));
   }
 
+  @GameTest(template = EMPTY_TEMPLATE)
+  public static void theBoardRecipeMakesABoard(GameTestHelper helper) {
+    assertMakes(
+        helper,
+        CubitItems.CIRCUIT_BOARD.get(),
+        grid(
+            Items.EMERALD,
+            Items.COMPARATOR,
+            Items.EMERALD,
+            Items.GOLD_INGOT,
+            Items.GOLD_INGOT,
+            Items.GOLD_INGOT,
+            Items.AIR,
+            Items.AIR,
+            Items.AIR));
+  }
+
+  /** The core and the board serve many items too, by the IDs of their names (2166 and 2167). */
+  @GameTest(template = EMPTY_TEMPLATE)
+  public static void theSharedPartsAreInTheirCategory(GameTestHelper helper) {
+    for (Item part : parts()) {
+      ResourceLocation id = BuiltInRegistries.ITEM.getKey(part);
+      RecipeHolder<?> recipe = helper.getLevel().getRecipeManager().byKey(id).orElseThrow();
+      helper.assertTrue(
+          DeskCategoryCodecs.of(recipe.value()) == DeskCategory.PARTS, WRONG_CATEGORY + id);
+    }
+    helper.succeed();
+  }
+
   /** Nothing comes back from a part, not even an empty bucket (detail 4 of the concept). */
   @GameTest(template = EMPTY_TEMPLATE)
   public static void theBucketOfTheTankIsUsedUp(GameTestHelper helper) {
@@ -149,7 +184,9 @@ public final class SharedPartsGameTests {
         CubitItems.SOLAR_PANEL.get(),
         CubitItems.DISPLAY_PANEL.get(),
         CubitItems.SERVO_MOTOR.get(),
-        CubitItems.INDUCTION_COIL.get());
+        CubitItems.INDUCTION_COIL.get(),
+        CubitItems.NEURAL_CORE.get(),
+        CubitItems.CIRCUIT_BOARD.get());
   }
 
   private static List<ItemStack> tankGrid() {

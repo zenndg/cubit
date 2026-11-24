@@ -8,7 +8,7 @@ final class PortuguesePartTexts {
   private static final String CASING = "Carcaça do Cubit";
   private static final String VISOR = "Visor do Cubit";
   private static final String TREADS = "Esteiras do Cubit";
-  private static final String CORE = "Núcleo Neural do Cubit";
+  private static final String CORE = "Núcleo Neural";
   private static final String POWER_BANK_CASING = "Carcaça da Power Bank";
   private static final String BASE_CELL = "Célula de Energia Base";
   private static final String ADVANCED_CELL = "Célula de Energia Avançada";
@@ -29,7 +29,7 @@ final class PortuguesePartTexts {
     add.accept(CubitItems.GENERAL_ROBOT_CASING.get().getDescriptionId(), CASING);
     add.accept(CubitItems.GENERAL_ROBOT_VISOR.get().getDescriptionId(), VISOR);
     add.accept(CubitItems.GENERAL_ROBOT_TREADS.get().getDescriptionId(), TREADS);
-    add.accept(CubitItems.GENERAL_ROBOT_CORE.get().getDescriptionId(), CORE);
+    add.accept(CubitItems.NEURAL_CORE.get().getDescriptionId(), CORE);
     add.accept(CubitItems.POWER_BANK_CASING.get().getDescriptionId(), POWER_BANK_CASING);
     add.accept(CubitItems.BASE_POWER_CELL.get().getDescriptionId(), BASE_CELL);
     add.accept(CubitItems.ADVANCED_POWER_CELL.get().getDescriptionId(), ADVANCED_CELL);

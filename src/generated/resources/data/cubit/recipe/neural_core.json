@@ -1,7 +1,7 @@
 {
   "type": "cubit:engineering",
   "category": "misc",
-  "desk_category": "robot",
+  "desk_category": "parts",
   "key": {
     "D": {
       "item": "minecraft:diamond"
@@ -17,6 +17,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "cubit:general_robot_core"
+    "id": "cubit:neural_core"
   }
 }

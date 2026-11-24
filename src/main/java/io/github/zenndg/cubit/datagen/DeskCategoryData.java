@@ -30,7 +30,6 @@ final class DeskCategoryData {
               CubitItems.GENERAL_ROBOT_CASING,
               CubitItems.GENERAL_ROBOT_VISOR,
               CubitItems.GENERAL_ROBOT_TREADS,
-              CubitItems.GENERAL_ROBOT_CORE,
               CubitItems.GENERAL_ROBOT),
           DeskCategory.PARTS,
           List.of(
@@ -39,6 +38,8 @@ final class DeskCategoryData {
               CubitItems.SOLAR_PANEL,
               CubitItems.DISPLAY_PANEL,
               CubitItems.SERVO_MOTOR,
+              CubitItems.NEURAL_CORE,
+              CubitItems.CIRCUIT_BOARD,
               CubitItems.INDUCTION_COIL),
           DeskCategory.ENERGY,
           List.of(
@@ -59,7 +60,6 @@ final class DeskCategoryData {
           DeskCategory.CARDS,
           List.of(
               CubitItems.CARD_CASING,
-              CubitItems.CIRCUIT_BOARD,
               CubitItems.FISHER_CARD,
               CubitItems.FARMER_CARD,
               CubitItems.ORGANIZER_CARD,

@@ -46,20 +46,20 @@ public final class CubitCreativeTabs {
                     output.accept(CubitItems.GENERAL_ROBOT_CASING.get());
                     output.accept(CubitItems.GENERAL_ROBOT_VISOR.get());
                     output.accept(CubitItems.GENERAL_ROBOT_TREADS.get());
-                    output.accept(CubitItems.GENERAL_ROBOT_CORE.get());
                     output.accept(CubitItems.POWER_BANK_CASING.get());
                     output.accept(CubitItems.BASE_POWER_CELL.get());
                     output.accept(CubitItems.ADVANCED_POWER_CELL.get());
                     output.accept(CubitItems.ELITE_POWER_CELL.get());
                     output.accept(CubitItems.ULTIMATE_POWER_CELL.get());
                     output.accept(CubitItems.CARD_CASING.get());
-                    output.accept(CubitItems.CIRCUIT_BOARD.get());
                     output.accept(CubitItems.XP_TANK.get());
                     output.accept(CubitItems.HARD_DRIVE.get());
                     output.accept(CubitItems.SOLAR_PANEL.get());
                     output.accept(CubitItems.DISPLAY_PANEL.get());
                     output.accept(CubitItems.SERVO_MOTOR.get());
                     output.accept(CubitItems.INDUCTION_COIL.get());
+                    output.accept(CubitItems.NEURAL_CORE.get());
+                    output.accept(CubitItems.CIRCUIT_BOARD.get());
                   })
                   .build());
 

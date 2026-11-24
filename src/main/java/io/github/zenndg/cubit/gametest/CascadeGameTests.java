@@ -200,7 +200,7 @@ public final class CascadeGameTests {
     desk.input().setItem(THREE, new ItemStack(CubitItems.SOLAR_PANEL.get()));
     desk.output().setItem(0, new ItemStack(CubitItems.GENERAL_ROBOT_VISOR.get()));
     desk.output().setItem(1, new ItemStack(CubitItems.GENERAL_ROBOT_TREADS.get()));
-    desk.output().setItem(2, new ItemStack(CubitItems.GENERAL_ROBOT_CORE.get()));
+    desk.output().setItem(2, new ItemStack(CubitItems.NEURAL_CORE.get()));
 
     helper.assertValueEqual(startRobot(helper, desk), CascadeStart.READY, WRONG_START);
     helper.assertTrue(desk.input().isEmpty() && desk.output().isEmpty(), NOT_RESERVED);

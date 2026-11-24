@@ -3,20 +3,20 @@
   "category": "misc",
   "desk_category": "energy",
   "key": {
-    "A": {
-      "item": "minecraft:gold_ingot"
+    "B": {
+      "item": "cubit:circuit_board"
     },
-    "O": {
-      "item": "minecraft:obsidian"
+    "N": {
+      "item": "cubit:induction_coil"
     },
     "Q": {
       "item": "minecraft:quartz"
     }
   },
   "pattern": [
-    "QAQ",
+    "QBQ",
     "Q Q",
-    "QOQ"
+    "QNQ"
   ],
   "result": {
     "count": 1,

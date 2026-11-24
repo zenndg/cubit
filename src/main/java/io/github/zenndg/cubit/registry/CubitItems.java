@@ -38,11 +38,11 @@ public final class CubitItems {
   private static final String COOK_CARD_ID = "ml_cook";
   private static final String PATROLLER_CARD_ID = "ml_patroller";
   private static final String CARD_CASING_ID = "ml_card_casing";
-  private static final String CIRCUIT_BOARD_ID = "ml_circuit_board";
+  private static final String CIRCUIT_BOARD_ID = "circuit_board";
+  private static final String NEURAL_CORE_ID = "neural_core";
   private static final String CASING_SUFFIX = "_casing";
   private static final String VISOR_SUFFIX = "_visor";
   private static final String TREADS_SUFFIX = "_treads";
-  private static final String CORE_SUFFIX = "_core";
   private static final String POWER_BANK_CASING_ID = "power_bank_casing";
   private static final String POWER_CELL_SUFFIX = "_power_cell";
   private static final String XP_TANK_ID = "xp_tank";
@@ -145,8 +145,6 @@ public final class CubitItems {
       part(CubitConfig.GENERAL_ROBOT.id() + VISOR_SUFFIX);
   public static final Supplier<Item> GENERAL_ROBOT_TREADS =
       part(CubitConfig.GENERAL_ROBOT.id() + TREADS_SUFFIX);
-  public static final Supplier<Item> GENERAL_ROBOT_CORE =
-      part(CubitConfig.GENERAL_ROBOT.id() + CORE_SUFFIX);
 
   /** The parts the Power Banks are made of: one casing and a cell per tier (answer 1347). */
   public static final Supplier<Item> POWER_BANK_CASING = part(POWER_BANK_CASING_ID);
@@ -156,10 +154,8 @@ public final class CubitItems {
   public static final Supplier<Item> ELITE_POWER_CELL = powerCell(RobotTier.ELITE);
   public static final Supplier<Item> ULTIMATE_POWER_CELL = powerCell(RobotTier.ULTIMATE);
 
-  /** The two parts every card of Machine Learning is made of, as a USB stick (answer 1540). */
+  /** The shell of every card of Machine Learning, as a USB stick (answer 1540). */
   public static final Supplier<Item> CARD_CASING = part(CARD_CASING_ID);
-
-  public static final Supplier<Item> CIRCUIT_BOARD = part(CIRCUIT_BOARD_ID);
 
   /** The parts many items share, each one a function they have in common (2133 and 2149). */
   public static final Supplier<Item> XP_TANK = part(XP_TANK_ID);
@@ -169,6 +165,8 @@ public final class CubitItems {
   public static final Supplier<Item> DISPLAY_PANEL = part(DISPLAY_PANEL_ID);
   public static final Supplier<Item> SERVO_MOTOR = part(SERVO_MOTOR_ID);
   public static final Supplier<Item> INDUCTION_COIL = part(INDUCTION_COIL_ID);
+  public static final Supplier<Item> NEURAL_CORE = part(NEURAL_CORE_ID);
+  public static final Supplier<Item> CIRCUIT_BOARD = part(CIRCUIT_BOARD_ID);
 
   private CubitItems() {}
 

@@ -182,7 +182,7 @@ public final class RecipeGameTests {
 
   /** The modules, chained in a cross like the cells (answers 1357 and 1358). */
   private static List<ItemStack> advancedModuleGrid() {
-    return cross(Items.LAPIS_LAZULI, Items.GOLD_INGOT, CubitItems.GENERAL_ROBOT_CORE.get());
+    return cross(Items.LAPIS_LAZULI, Items.GOLD_INGOT, CubitItems.NEURAL_CORE.get());
   }
 
   private static List<ItemStack> eliteModuleGrid() {
@@ -251,7 +251,7 @@ public final class RecipeGameTests {
         CubitItems.XP_TANK.get(),
         Items.AIR,
         CubitItems.HARD_DRIVE.get(),
-        CubitItems.GENERAL_ROBOT_CORE.get(),
+        CubitItems.NEURAL_CORE.get(),
         CubitItems.SOLAR_PANEL.get(),
         CubitItems.GENERAL_ROBOT_VISOR.get(),
         Items.AIR,

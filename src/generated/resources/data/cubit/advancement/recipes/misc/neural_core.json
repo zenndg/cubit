@@ -6,7 +6,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "cubit:general_robot_core"
+        "recipe": "cubit:neural_core"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -19,7 +19,7 @@
   ],
   "rewards": {
     "recipes": [
-      "cubit:general_robot_core"
+      "cubit:neural_core"
     ]
   }
 }

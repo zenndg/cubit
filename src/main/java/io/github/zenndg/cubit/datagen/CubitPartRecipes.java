@@ -21,22 +21,18 @@ final class CubitPartRecipes {
   private static final String CASING_BOTTOM_ROW = "OIO";
   private static final String TREADS_TOP_ROW = "III";
   private static final String TREADS_BOTTOM_ROW = "M M";
-  private static final String CORE_TOP_ROW = " R ";
-  private static final String CORE_MIDDLE_ROW = "RDR";
-  private static final String CORE_BOTTOM_ROW = " R ";
-  private static final String BANK_CASING_TOP_ROW = "QAQ";
+  private static final String BANK_CASING_TOP_ROW = "QBQ";
   private static final String BANK_CASING_MIDDLE_ROW = "Q Q";
-  private static final String BANK_CASING_BOTTOM_ROW = "QOQ";
+  private static final String BANK_CASING_BOTTOM_ROW = "QNQ";
   private static final String CROSS_EDGE_ROW = " E ";
   private static final String CROSS_MIDDLE_ROW = "SCS";
   private static final char IRON = 'I';
   private static final char OBSIDIAN = 'O';
   private static final char TORCH = 'T';
   private static final char MOTOR = 'M';
-  private static final char REDSTONE = 'R';
-  private static final char DIAMOND = 'D';
   private static final char QUARTZ = 'Q';
-  private static final char GOLD = 'A';
+  private static final char BOARD = 'B';
+  private static final char COIL = 'N';
   private static final char EDGE = 'E';
   private static final char SIDE = 'S';
   private static final char CENTER = 'C';
@@ -50,7 +46,7 @@ final class CubitPartRecipes {
     powerBankParts(output);
   }
 
-  /** The four parts of the Cubit are open from the start, the first thing to make (answer 1496). */
+  /** The parts only the Cubit has are open from the start, the first to make (answer 1496). */
   private static void robotParts(RecipeOutput output) {
     fromStart(CubitItems.GENERAL_ROBOT_CASING.get())
         .pattern(CASING_TOP_ROW)
@@ -67,13 +63,6 @@ final class CubitPartRecipes {
         .define(IRON, Items.IRON_INGOT)
         .define(MOTOR, CubitItems.SERVO_MOTOR.get())
         .save(output);
-    fromStart(CubitItems.GENERAL_ROBOT_CORE.get())
-        .pattern(CORE_TOP_ROW)
-        .pattern(CORE_MIDDLE_ROW)
-        .pattern(CORE_BOTTOM_ROW)
-        .define(REDSTONE, Items.REDSTONE)
-        .define(DIAMOND, Items.DIAMOND)
-        .save(output);
   }
 
   /** The display and a diamond, without a shape (answer 2142). */
@@ -86,7 +75,8 @@ final class CubitPartRecipes {
   }
 
   /**
-   * The casing and the Base cell unlock with a Cubit, and each next cell with the previous bank.
+   * The casing, with the board and the coil, and the Base cell unlock with a Cubit, and each next
+   * cell with the previous bank (answers 1350 and 2169).
    */
   private static void powerBankParts(RecipeOutput output) {
     ItemLike robot = CubitItems.GENERAL_ROBOT.get();
@@ -95,8 +85,8 @@ final class CubitPartRecipes {
         .pattern(BANK_CASING_MIDDLE_ROW)
         .pattern(BANK_CASING_BOTTOM_ROW)
         .define(QUARTZ, Items.QUARTZ)
-        .define(GOLD, Items.GOLD_INGOT)
-        .define(OBSIDIAN, Items.OBSIDIAN)
+        .define(BOARD, CubitItems.CIRCUIT_BOARD.get())
+        .define(COIL, CubitItems.INDUCTION_COIL.get())
         .save(output);
     cells(output, robot);
   }

@@ -81,7 +81,7 @@ public final class CraftingPartsGameTests {
   public static void theCoreRecipeMakesACore(GameTestHelper helper) {
     assertMakes(
         helper,
-        CubitItems.GENERAL_ROBOT_CORE.get(),
+        CubitItems.NEURAL_CORE.get(),
         grid(
             Items.AIR,
             Items.REDSTONE,
@@ -101,13 +101,13 @@ public final class CraftingPartsGameTests {
         CubitItems.POWER_BANK_CASING.get(),
         grid(
             Items.QUARTZ,
-            Items.GOLD_INGOT,
+            CubitItems.CIRCUIT_BOARD.get(),
             Items.QUARTZ,
             Items.QUARTZ,
             Items.AIR,
             Items.QUARTZ,
             Items.QUARTZ,
-            Items.OBSIDIAN,
+            CubitItems.INDUCTION_COIL.get(),
             Items.QUARTZ));
   }
 
@@ -156,7 +156,7 @@ public final class CraftingPartsGameTests {
         CubitItems.GENERAL_ROBOT_CASING.get(),
         CubitItems.GENERAL_ROBOT_VISOR.get(),
         CubitItems.GENERAL_ROBOT_TREADS.get(),
-        CubitItems.GENERAL_ROBOT_CORE.get(),
+        CubitItems.NEURAL_CORE.get(),
         CubitItems.POWER_BANK_CASING.get(),
         CubitItems.BASE_POWER_CELL.get(),
         CubitItems.ADVANCED_POWER_CELL.get(),

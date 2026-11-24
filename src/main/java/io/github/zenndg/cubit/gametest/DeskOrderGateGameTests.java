@@ -137,7 +137,7 @@ public final class DeskOrderGateGameTests {
     menu.clickMenuButton(player, DeskControl.PLUS);
     helper.assertFalse(desk.order().isActive(), STARTED);
 
-    desk.output().setItem(1, new ItemStack(CubitItems.GENERAL_ROBOT_CORE.get()));
+    desk.output().setItem(1, new ItemStack(CubitItems.NEURAL_CORE.get()));
     menu.clickMenuButton(player, DeskControl.PLUS);
     helper.assertTrue(desk.order().isActive(), NOT_STARTED);
     helper.succeed();

@@ -42,10 +42,8 @@ final class CubitItemModelProvider extends ItemModelProvider {
     basicItem(CubitItems.GENERAL_ROBOT_CASING.get());
     basicItem(CubitItems.GENERAL_ROBOT_VISOR.get());
     basicItem(CubitItems.GENERAL_ROBOT_TREADS.get());
-    basicItem(CubitItems.GENERAL_ROBOT_CORE.get());
     basicItem(CubitItems.POWER_BANK_CASING.get());
     basicItem(CubitItems.CARD_CASING.get());
-    basicItem(CubitItems.CIRCUIT_BOARD.get());
     basicItem(CubitItems.BASE_POWER_CELL.get());
     basicItem(CubitItems.ADVANCED_POWER_CELL.get());
     basicItem(CubitItems.ELITE_POWER_CELL.get());
@@ -60,6 +58,8 @@ final class CubitItemModelProvider extends ItemModelProvider {
     basicItem(CubitItems.DISPLAY_PANEL.get());
     basicItem(CubitItems.SERVO_MOTOR.get());
     basicItem(CubitItems.INDUCTION_COIL.get());
+    basicItem(CubitItems.NEURAL_CORE.get());
+    basicItem(CubitItems.CIRCUIT_BOARD.get());
   }
 
   private void cards() {

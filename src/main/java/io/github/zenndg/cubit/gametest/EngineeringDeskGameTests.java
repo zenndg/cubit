@@ -270,15 +270,14 @@ public final class EngineeringDeskGameTests {
     addDriveAndPanel(desk);
     desk.output().setItem(0, new ItemStack(CubitItems.GENERAL_ROBOT_VISOR.get()));
     desk.output().setItem(1, new ItemStack(CubitItems.GENERAL_ROBOT_TREADS.get()));
-    desk.output().setItem(2, new ItemStack(CubitItems.GENERAL_ROBOT_CORE.get()));
+    desk.output().setItem(2, new ItemStack(CubitItems.NEURAL_CORE.get()));
     desk.choose(ROBOT);
     desk.adjustOrder(1);
     helper.runAfterDelay(
         NEXT_TICK,
         () -> {
           helper.assertTrue(desk.status() == DeskStatus.CRAFTING, WRONG_STATUS);
-          helper.assertTrue(
-              desk.input().countItem(CubitItems.GENERAL_ROBOT_CORE.get()) == 1, NOT_PULLED);
+          helper.assertTrue(desk.input().countItem(CubitItems.NEURAL_CORE.get()) == 1, NOT_PULLED);
           helper.assertTrue(
               desk.output().countItem(CubitItems.GENERAL_ROBOT_VISOR.get()) == 0, NOT_PULLED);
           helper.succeed();

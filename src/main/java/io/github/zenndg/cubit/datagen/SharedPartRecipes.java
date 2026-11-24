@@ -4,10 +4,12 @@ import io.github.zenndg.cubit.registry.CubitItems;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 
 /**
- * The parts many items share, with the grids of _docs/itens.md (answers 2136 and 2150). Only from
- * the Overworld and open from the start, but for the coil, which comes with the Dock.
+ * The parts many items share, with the grids of _docs/itens.md (answers 2136, 2150 and 2168). Open
+ * from the start and only from the Overworld, but for the coil and the board, which come with a
+ * Cubit.
  */
 final class SharedPartRecipes {
   private static final String TANK_TOP_ROW = "GIG";
@@ -25,6 +27,10 @@ final class SharedPartRecipes {
   private static final String MOTOR_BOTTOM_ROW = " R ";
   private static final String COIL_TOP_ROW = "SUS";
   private static final String COIL_BOTTOM_ROW = "IRI";
+  private static final String CORE_EDGE_ROW = " R ";
+  private static final String CORE_MIDDLE_ROW = "RDR";
+  private static final String BOARD_TOP_ROW = "EKE";
+  private static final String BOARD_BOTTOM_ROW = "AAA";
   private static final char GLASS = 'G';
   private static final char IRON = 'I';
   private static final char BUCKET = 'B';
@@ -37,6 +43,8 @@ final class SharedPartRecipes {
   private static final char DIAMOND = 'D';
   private static final char OBSIDIAN = 'O';
   private static final char PISTON = 'S';
+  private static final char EMERALD = 'E';
+  private static final char COMPARATOR = 'K';
 
   private SharedPartRecipes() {}
 
@@ -47,6 +55,8 @@ final class SharedPartRecipes {
     display().save(output);
     motor().save(output);
     coil().save(output);
+    core().save(output);
+    board().save(output);
   }
 
   private static ShapedRecipeBuilder tank() {
@@ -106,15 +116,37 @@ final class SharedPartRecipes {
   }
 
   private static ShapedRecipeBuilder coil() {
-    return CubitPartRecipes.shaped(
-            CubitItems.INDUCTION_COIL.get(),
-            CubitPartRecipes.HAS_ROBOT,
-            CubitItems.GENERAL_ROBOT.get())
+    return withCubit(CubitItems.INDUCTION_COIL.get())
         .pattern(COIL_TOP_ROW)
         .pattern(COIL_BOTTOM_ROW)
         .define(PISTON, Items.PISTON)
         .define(COPPER, Items.COPPER_INGOT)
         .define(IRON, Items.IRON_INGOT)
         .define(REDSTONE, Items.REDSTONE);
+  }
+
+  /** The mind of the Cubit, the first Module and the cards (answer 2163). */
+  private static ShapedRecipeBuilder core() {
+    return CubitPartRecipes.fromStart(CubitItems.NEURAL_CORE.get())
+        .pattern(CORE_EDGE_ROW)
+        .pattern(CORE_MIDDLE_ROW)
+        .pattern(CORE_EDGE_ROW)
+        .define(REDSTONE, Items.REDSTONE)
+        .define(DIAMOND, Items.DIAMOND);
+  }
+
+  /** Emerald for the green, the comparator as the chip and gold contacts (answer 2168). */
+  private static ShapedRecipeBuilder board() {
+    return withCubit(CubitItems.CIRCUIT_BOARD.get())
+        .pattern(BOARD_TOP_ROW)
+        .pattern(BOARD_BOTTOM_ROW)
+        .define(EMERALD, Items.EMERALD)
+        .define(COMPARATOR, Items.COMPARATOR)
+        .define(GOLD, Items.GOLD_INGOT);
+  }
+
+  private static ShapedRecipeBuilder withCubit(ItemLike result) {
+    return CubitPartRecipes.shaped(
+        result, CubitPartRecipes.HAS_ROBOT, CubitItems.GENERAL_ROBOT.get());
   }
 }
