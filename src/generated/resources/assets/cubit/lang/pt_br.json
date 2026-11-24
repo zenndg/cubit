@@ -694,6 +694,7 @@
   "notice.cubit.upgraded": "Evoluí para %s!",
   "notice.cubit.work_inventory_full": "Estou cheio e não tenho onde descarregar",
   "notice.cubit.work_no_water": "Não acho água para pescar aqui",
+  "notice.cubit.xp_tank_full": "%s: meu tanque de XP está cheio",
   "subtitles.cubit.engineering_desk.crafting": "Mesa de Engenharia zumbe",
   "subtitles.cubit.engineering_desk.done": "Mesa de Engenharia termina um item",
   "subtitles.cubit.engineering_desk.startup": "Mesa de Engenharia liga",

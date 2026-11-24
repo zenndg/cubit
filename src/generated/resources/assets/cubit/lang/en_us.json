@@ -694,6 +694,7 @@
   "notice.cubit.upgraded": "Upgraded to %s!",
   "notice.cubit.work_inventory_full": "I'm full and have nowhere to unload",
   "notice.cubit.work_no_water": "I can't find water to fish here",
+  "notice.cubit.xp_tank_full": "%s: my XP tank is full",
   "subtitles.cubit.engineering_desk.crafting": "Engineering Desk hums",
   "subtitles.cubit.engineering_desk.done": "Engineering Desk finishes an item",
   "subtitles.cubit.engineering_desk.startup": "Engineering Desk starts up",

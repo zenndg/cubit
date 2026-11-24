@@ -33,6 +33,7 @@ public final class RobotDocking {
   private final RobotEntity robot;
   private final RobotPreferredDock preferred;
   private final RobotAutoReturn autoReturn;
+  private final RobotXpReturn xpReturn;
   private final RobotUnload unload;
   private final RobotDeathGuide deathGuide;
   private BlockPos docked;
@@ -46,6 +47,7 @@ public final class RobotDocking {
     this.robot = robot;
     this.preferred = new RobotPreferredDock(robot);
     this.autoReturn = new RobotAutoReturn(robot, preferred);
+    this.xpReturn = new RobotXpReturn(robot, preferred);
     this.unload = new RobotUnload(robot);
     this.deathGuide = new RobotDeathGuide(robot);
   }
@@ -184,6 +186,7 @@ public final class RobotDocking {
   void tick() {
     if (robot.powerState() == PowerState.ACTIVE) {
       autoReturn.tick(hasTrip());
+      xpReturn.tick(hasTrip());
       return;
     }
     trip = null;
@@ -203,8 +206,10 @@ public final class RobotDocking {
     Battery battery = dock.charge(robot.battery(), dock.rechargePerTick());
     robot.setBattery(battery);
     robot.heal(DockStay.healthPerTick(spec.maxHealth(), CubitMod.CONFIG.dock().fullHealTicks()));
+    xpReturn.pass(dock);
     boolean healthFull = robot.getHealth() >= robot.getMaxHealth();
-    ticksFull = DockStay.complete(battery, healthFull) ? ticksFull + 1 : 0;
+    boolean complete = DockStay.complete(battery, healthFull) && xpReturn.done(dock);
+    ticksFull = complete ? ticksFull + 1 : 0;
     dock.reportRobot(robot.getUUID(), battery.isFull());
     boolean done =
         DockStay.shouldLeave(
@@ -234,6 +239,7 @@ public final class RobotDocking {
     }
     stepOff();
     docked = null;
+    xpReturn.left();
   }
 
   /** Clears the plate, so the next robot fits, even for a robot that stays switched off. */
