@@ -1,6 +1,5 @@
 package io.github.zenndg.cubit.client;
 
-import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.menu.BehaviorKeys;
 import io.github.zenndg.cubit.menu.DefenseKeys;
 import io.github.zenndg.cubit.menu.ScreenKeys;
@@ -11,7 +10,6 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 /**
@@ -27,10 +25,6 @@ final class RobotScreenTabs {
   private static final int WORK_Y = 121;
   private static final int XP_Y = 149;
   private static final int SUPPLY_Y = 177;
-  private static final int ICON_SIZE = 16;
-  private static final String XP_PATH = "textures/gui/xp_tab.png";
-  private static final ResourceLocation XP_ICON =
-      ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, XP_PATH);
   private static final int CHEST_X = 6;
   private static final int CHEST_Y = 6;
   private static final int[] TOPS = {INVENTORY_Y, SETTINGS_Y, DEFENSE_Y, BEHAVIOR_Y, WORK_Y, XP_Y};
@@ -92,16 +86,7 @@ final class RobotScreenTabs {
     ScreenSprites.shield(graphics, iconX, top + DEFENSE_Y + ScreenTabStrip.ICON_Y);
     ScreenSprites.funnel(graphics, iconX, top + BEHAVIOR_Y + ScreenTabStrip.ICON_Y);
     ScreenSprites.workTab(graphics, iconX, top + WORK_Y + ScreenTabStrip.ICON_Y);
-    graphics.blit(
-        XP_ICON,
-        iconX,
-        top + XP_Y + ScreenTabStrip.ICON_Y,
-        0,
-        0,
-        ICON_SIZE,
-        ICON_SIZE,
-        ICON_SIZE,
-        ICON_SIZE);
+    ScreenSprites.xpTab(graphics, iconX, top + XP_Y + ScreenTabStrip.ICON_Y);
     if (supplyShown.getAsBoolean()) {
       graphics.renderItem(
           new ItemStack(CubitItems.ORGANIZER_CARD.get()),

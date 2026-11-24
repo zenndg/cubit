@@ -14,6 +14,9 @@ final class ScreenSprites {
   private static final String SHEET_PATH = "textures/gui/screen_sprites.png";
   private static final ResourceLocation SHEET =
       ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, SHEET_PATH);
+  private static final String XP_PATH = "textures/gui/xp_tab.png";
+  private static final ResourceLocation XP_ICON =
+      ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, XP_PATH);
   private static final int SHEET_WIDTH = 512;
   private static final int SHEET_HEIGHT = 384;
   private static final int PICTURE = 136;
@@ -138,6 +141,11 @@ final class ScreenSprites {
 
   static void storageTab(GuiGraphics graphics, int x, int y) {
     rowIcon(graphics, x, y, STORAGE_TAB_U);
+  }
+
+  /** The tab of the XP, in a sheet of its own (answer 1830). */
+  static void xpTab(GuiGraphics graphics, int x, int y) {
+    graphics.blit(XP_ICON, x, y, 0, 0, ICON_SHOWN, ICON_SHOWN, ICON_SHOWN, ICON_SHOWN);
   }
 
   static void torches(GuiGraphics graphics, int x, int y) {

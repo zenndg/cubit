@@ -4,6 +4,7 @@ import io.github.zenndg.cubit.client.ScreenPainter.Box;
 import io.github.zenndg.cubit.menu.InductionDockMenu;
 import io.github.zenndg.cubit.menu.ScreenKeys;
 import java.util.Optional;
+import java.util.OptionalInt;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -12,7 +13,8 @@ import net.minecraft.world.entity.player.Inventory;
 
 /**
  * The dock screen of the concept image, in its three states and the two without a picture, in the
- * Dock tab, and the storage in the Storage tab (answers 956 and 960).
+ * Dock tab, the storage in the Storage tab, the panel in the Solar tab and the XP in the XP tab
+ * (answers 956, 960, 1837 and 1865).
  */
 final class InductionDockScreen extends AbstractContainerScreen<InductionDockMenu> {
   private static final int WIDTH = 176;
@@ -31,12 +33,14 @@ final class InductionDockScreen extends AbstractContainerScreen<InductionDockMen
   private final ScreenPainter painter = new ScreenPainter();
   private final DockScreenTabs tabs = new DockScreenTabs();
   private final DockMainTab mainTab;
+  private final DockXpPanel xp;
   private final DockRename rename;
   private FlatButton callButton;
 
   InductionDockScreen(InductionDockMenu menu, Inventory playerInventory, Component title) {
     super(menu, playerInventory, title);
     this.mainTab = new DockMainTab(painter, menu);
+    this.xp = new DockXpPanel(painter, menu.xp());
     this.rename = new DockRename(menu);
     imageWidth = WIDTH;
     imageHeight = HEIGHT;
@@ -80,6 +84,9 @@ final class InductionDockScreen extends AbstractContainerScreen<InductionDockMen
     graphics.pose().popPose();
     rename.render(graphics, width, height, mouseX, mouseY, partialTick);
     showOpenTab();
+    if (tabs.open() == DockScreenTabs.Tab.XP) {
+      xp.renderDetail(graphics, font, mouseX, mouseY, leftPos, topPos);
+    }
     tabAt(mouseX, mouseY)
         .ifPresent(under ->
             graphics.renderTooltip(font, Component.translatable(under.title()), mouseX, mouseY));
@@ -137,6 +144,8 @@ final class InductionDockScreen extends AbstractContainerScreen<InductionDockMen
       painter.text(graphics, storage, TITLE, ScreenPainter.TEXT, ScreenPainter.FULL_SCALE);
     } else if (tabs.open() == DockScreenTabs.Tab.SOLAR) {
       DockSolarTab.render(painter, graphics, menu);
+    } else if (tabs.open() == DockScreenTabs.Tab.XP) {
+      xp.render(graphics, mouseX - leftPos, mouseY - topPos);
     } else {
       mainTab.renderLabels(graphics, rename.name());
     }
@@ -158,6 +167,14 @@ final class InductionDockScreen extends AbstractContainerScreen<InductionDockMen
     if (clicked.isPresent()) {
       tabs.open(clicked.get());
       showOpenTab();
+      return true;
+    }
+    OptionalInt pressed =
+        tabs.open() == DockScreenTabs.Tab.XP
+            ? xp.buttonAt(mouseX - leftPos, mouseY - topPos)
+            : OptionalInt.empty();
+    if (pressed.isPresent()) {
+      minecraft.gameMode.handleInventoryButtonClick(menu.containerId, pressed.getAsInt());
       return true;
     }
     return super.mouseClicked(mouseX, mouseY, button);
