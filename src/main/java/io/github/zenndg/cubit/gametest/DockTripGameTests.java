@@ -1,6 +1,8 @@
 package io.github.zenndg.cubit.gametest;
 
 import io.github.zenndg.cubit.CubitMod;
+import io.github.zenndg.cubit.block.InductionDockBlock;
+import io.github.zenndg.cubit.block.InductionDockBlockEntity;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.PowerState;
 import io.github.zenndg.cubit.entity.RobotEntity;
@@ -25,6 +27,11 @@ public final class DockTripGameTests {
   private static final int LONG_TIMEOUT = 600;
   private static final int WALK_TICKS = 120;
   private static final int STUCK_TICKS = 180;
+  private static final int BEFORE_GIVING_UP = 60;
+  private static final double AHEAD = 1.2;
+  private static final double ASIDE = 0.5;
+  private static final double REACH = 1.5;
+  private static final String NOT_IN_REACH = "The robot should be within reach of the plate";
   private static final int THROUGH_TICKS = 300;
   private static final int CHARGE_TICKS = 20;
   private static final int ROBOT_X = 5;
@@ -139,6 +146,55 @@ public final class DockTripGameTests {
           helper.assertValueEqual(robot.powerState(), PowerState.ACTIVE, WRONG_POWER);
           helper.succeed();
         });
+  }
+
+  /** Against the bars and within reach of the plate, the line to it is what stops it (2091). */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void withinReachTheBarsStillStopTheRobot(GameTestHelper helper) {
+    ServerPlayer owner = DockScene.ownerBeside(helper);
+    InductionDockBlockEntity dock = DockScene.placeDock(helper, owner, FLOOR, STOCK);
+    closeRing(helper);
+    RobotEntity robot = withinReach(helper, owner, dock);
+
+    robot.callToDock(helper.absolutePos(DOCK));
+
+    helper.runAfterDelay(
+        BEFORE_GIVING_UP,
+        () -> {
+          helper.assertValueEqual(robot.powerState(), PowerState.ACTIVE, WRONG_POWER);
+          helper.succeed();
+        });
+  }
+
+  /** The same place without the bars is where it enters from, so the test above proves the bars. */
+  @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+  public static void withinReachAndWithoutBarsTheRobotEnters(GameTestHelper helper) {
+    ServerPlayer owner = DockScene.ownerBeside(helper);
+    InductionDockBlockEntity dock = DockScene.placeDock(helper, owner, FLOOR, STOCK);
+    RobotEntity robot = withinReach(helper, owner, dock);
+
+    robot.callToDock(helper.absolutePos(DOCK));
+
+    helper.runAfterDelay(
+        BEFORE_GIVING_UP,
+        () -> {
+          helper.assertValueEqual(robot.powerState(), PowerState.HIBERNATING, WRONG_POWER);
+          helper.succeed();
+        });
+  }
+
+  private static RobotEntity withinReach(
+      GameTestHelper helper, ServerPlayer owner, InductionDockBlockEntity dock) {
+    RobotEntity robot = DockScene.placeRobot(helper, owner, ROBOT_FLOOR, PLENTY);
+    Direction front = dock.getBlockState().getValue(InductionDockBlock.FACING);
+    Direction side = front.getClockWise();
+    Vec3 place =
+        dock.robotSpot()
+            .add(front.getStepX() * AHEAD, 0, front.getStepZ() * AHEAD)
+            .add(side.getStepX() * ASIDE, 0, side.getStepZ() * ASIDE);
+    robot.moveTo(place.x, dock.getBlockPos().getY(), place.z);
+    helper.assertTrue(robot.position().distanceTo(dock.robotSpot()) <= REACH, NOT_IN_REACH);
+    return robot;
   }
 
   /** Bars all around the dock, joined, so there is no gap between them nor at the corners. */

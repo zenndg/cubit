@@ -152,11 +152,11 @@ public final class DoorGameTests {
     ServerPlayer owner = ownerBehindTheWall(helper);
     RobotEntity robot = GameTestRobots.placeNewRobot(helper, owner, ROBOT_FLOOR);
 
+    helper.onEachTick(() -> helper.assertFalse(isOpen(helper, DOOR), NOT_SHUT));
     helper.runAfterDelay(
         SHUT_WAIT,
         () -> {
           helper.assertFalse(passed(helper, robot), PASSED);
-          helper.assertFalse(isOpen(helper, DOOR), NOT_SHUT);
           helper.succeed();
         });
   }
@@ -168,10 +168,8 @@ public final class DoorGameTests {
     ServerPlayer owner = ownerBehindTheWall(helper);
     RobotEntity robot = GameTestRobots.placeNewRobot(helper, owner, ROBOT_FLOOR);
 
-    helper.succeedWhen(() -> {
-      helper.assertFalse(isOpen(helper, DOOR), NOT_SHUT);
-      helper.assertTrue(passed(helper, robot), NOT_NEAR);
-    });
+    helper.onEachTick(() -> helper.assertFalse(isOpen(helper, DOOR), NOT_SHUT));
+    helper.succeedWhen(() -> helper.assertTrue(passed(helper, robot), NOT_NEAR));
   }
 
   /** The upper half marks the door by its lower half, and a second click unmarks it. */
