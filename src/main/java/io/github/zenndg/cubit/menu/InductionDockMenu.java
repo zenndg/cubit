@@ -1,8 +1,6 @@
 package io.github.zenndg.cubit.menu;
 
-import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
-import io.github.zenndg.cubit.config.CubitConfig;
 import io.github.zenndg.cubit.domain.behavior.RobotExpression;
 import io.github.zenndg.cubit.domain.dock.DockStatus;
 import io.github.zenndg.cubit.domain.dock.DockStorageRules;
@@ -45,15 +43,13 @@ public final class InductionDockMenu extends AbstractContainerMenu {
   private static final int SLOTS_PER_ROW = 9;
   private static final int STORAGE_FIRST = 1;
   private static final int DOCK_SLOTS = STORAGE_FIRST + DockStorageRules.MAX_SLOTS;
-  private static final String NO_NAME = "";
-  private static final UUID NO_ID = new UUID(0L, 0L);
 
   private final Predicate<Player> stillValid;
   private final ContainerData values;
   private final Runnable call;
   private final Runnable refresh;
   private final Predicate<String> rename;
-  private final Opening opening;
+  private final DockOpening opening;
   private boolean storageShown;
 
   private InductionDockMenu(
@@ -63,7 +59,7 @@ public final class InductionDockMenu extends AbstractContainerMenu {
       Container storage,
       ContainerData values,
       Server server,
-      Opening opening) {
+      DockOpening opening) {
     super(CubitMenus.INDUCTION_DOCK.get(), containerId);
     this.stillValid = server.stillValid();
     this.call = server.call();
@@ -103,7 +99,13 @@ public final class InductionDockMenu extends AbstractContainerMenu {
             values::refresh,
             typed -> dock.identity().rename(typed));
     return new InductionDockMenu(
-        containerId, playerInventory, dock.slot(), dock.storage(), values, server, Opening.NONE);
+        containerId,
+        playerInventory,
+        dock.slot(),
+        dock.storage(),
+        values,
+        server,
+        DockOpening.NONE);
   }
 
   /** On the client. The real item and the numbers come from the server. */
@@ -116,12 +118,12 @@ public final class InductionDockMenu extends AbstractContainerMenu {
         new SimpleContainer(DockStorageRules.MAX_SLOTS),
         new SimpleContainerData(DockScreenValues.COUNT),
         Server.NONE,
-        Opening.read(data));
+        DockOpening.read(data));
   }
 
   /** What travels once, when the screen opens, because it does not change while it is open. */
   public static void writeOpening(RegistryFriendlyByteBuf data, InductionDockBlockEntity dock) {
-    Opening.of(dock).write(data);
+    DockOpening.of(dock).write(data);
   }
 
   @Override
@@ -327,55 +329,5 @@ public final class InductionDockMenu extends AbstractContainerMenu {
       Predicate<Player> stillValid, Runnable call, Runnable refresh, Predicate<String> rename) {
     private static final Server NONE =
         new Server(player -> true, () -> {}, () -> {}, typed -> false);
-  }
-
-  /** The values that travel when the screen opens. */
-  private record Opening(
-      String ownerName,
-      long inputLimit,
-      int callRadius,
-      int storageSlots,
-      int tier,
-      UUID dockId,
-      String dockName) {
-    /** Only the client reads it, so the menu on the server keeps nothing. */
-    private static final Opening NONE =
-        new Opening(NO_NAME, 0, 0, DockStorageRules.MAX_SLOTS, 0, NO_ID, NO_NAME);
-
-    /** The button names the radius of the tier Base, the only one in this phase (answer 693). */
-    static Opening of(InductionDockBlockEntity dock) {
-      return new Opening(
-          dock.ownerName().orElse(NO_NAME),
-          CubitMod.CONFIG.dock().inputPerTick(),
-          CubitMod.CONFIG
-              .tierCatalog()
-              .spec(CubitConfig.GENERAL_ROBOT, RobotTier.BASE)
-              .callRadiusBlocks(),
-          dock.storageSlots(),
-          dock.tier().ordinal(),
-          dock.identity().id(),
-          dock.identity().name().value());
-    }
-
-    static Opening read(RegistryFriendlyByteBuf data) {
-      return new Opening(
-          data.readUtf(),
-          data.readVarLong(),
-          data.readVarInt(),
-          data.readVarInt(),
-          data.readVarInt(),
-          data.readUUID(),
-          data.readUtf());
-    }
-
-    void write(RegistryFriendlyByteBuf data) {
-      data.writeUtf(ownerName);
-      data.writeVarLong(inputLimit);
-      data.writeVarInt(callRadius);
-      data.writeVarInt(storageSlots);
-      data.writeVarInt(tier);
-      data.writeUUID(dockId);
-      data.writeUtf(dockName);
-    }
   }
 }

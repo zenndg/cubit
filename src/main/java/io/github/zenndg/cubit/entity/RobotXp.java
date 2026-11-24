@@ -12,6 +12,7 @@ import io.github.zenndg.cubit.domain.xp.XpSettings;
 import io.github.zenndg.cubit.domain.xp.XpState;
 import io.github.zenndg.cubit.domain.xp.XpTank;
 import io.github.zenndg.cubit.menu.XpControl;
+import io.github.zenndg.cubit.player.PlayerXpTrade;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ExperienceOrb;

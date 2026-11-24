@@ -2,7 +2,6 @@ package io.github.zenndg.cubit.block;
 
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.dock.DockInputMeter;
-import io.github.zenndg.cubit.domain.dock.DockQueue;
 import io.github.zenndg.cubit.domain.dock.DockStatus;
 import io.github.zenndg.cubit.domain.dock.DockStock;
 import io.github.zenndg.cubit.domain.dock.DockStorageRules;
@@ -56,8 +55,6 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
   private static final int SLOT_SIZE = 1;
   private static final int ONE_ITEM = 1;
 
-  private static final long ROBOT_LOST_TICKS = 3;
-
   private final SimpleContainer slot =
       new SimpleContainer(SLOT_SIZE) {
         @Override
@@ -86,10 +83,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
 
   private final DockOwner owner = new DockOwner();
   private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
-  private UUID occupant;
-  private long occupantSeen;
-  private boolean robotFull;
-  private DockQueue queue = DockQueue.EMPTY;
+  private final DockPresence presence = new DockPresence();
   private DockStock stock = emptyStock();
   private Energy inputLeft = inputPerTick();
   private final DockInputMeter inputMeter = new DockInputMeter();
@@ -154,7 +148,8 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     dock.entered = Energy.ZERO;
     dock.useSlot();
     dock.storage.dropRefused(level, pos);
-    boolean chargesBanks = DockStorageRules.chargesBanks(dock.isOccupied(), dock.robotFull);
+    boolean chargesBanks =
+        DockStorageRules.chargesBanks(dock.isOccupied(), dock.presence.robotFull());
     dock.stock =
         dock.storage.charge(dock.stock, chargesBanks, dock.rechargePerTick(), dock::setChanged);
     SolarOutput rates = dock.tier.spec().solar();
@@ -185,7 +180,8 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
   }
 
   public DockStatus status() {
-    return DockStatus.decide(stock.energy().isEmpty(), isOccupied(), isOccupied() && robotFull);
+    return DockStatus.decide(
+        stock.energy().isEmpty(), isOccupied(), isOccupied() && presence.robotFull());
   }
 
   /** What entered by cables and redstone, per tick, on average over the last second. */
@@ -194,7 +190,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
   }
 
   public int waitingCount() {
-    return level == null ? 0 : queue.waitingCount(level.getGameTime());
+    return presence.waitingCount(level);
   }
 
   /** The robot in the base, read through its capability, while it is loaded. */
@@ -237,30 +233,24 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     }
   }
 
-  /** A robot reports itself on every tick, so one that left, by any way, frees the dock. */
   public void reportRobot(UUID robot, boolean full) {
-    occupant = robot;
-    robotFull = full;
-    occupantSeen = level.getGameTime();
+    presence.reportRobot(level, robot, full);
   }
 
   public boolean isOccupied() {
-    return occupant != null
-        && level != null
-        && level.getGameTime() - occupantSeen < ROBOT_LOST_TICKS;
+    return presence.isOccupied(level);
   }
 
   Optional<UUID> occupant() {
-    return isOccupied() ? Optional.of(occupant) : Optional.empty();
+    return presence.occupant(level);
   }
 
   public void reportWaiting(UUID robot) {
-    queue = queue.report(robot, level.getGameTime());
+    presence.reportWaiting(level, robot);
   }
 
-  /** Nobody waiting also counts: the robot asking is then the next one. */
   public boolean isNextInLine(UUID robot) {
-    return queue.first(level.getGameTime()).filter(first -> !first.equals(robot)).isEmpty();
+    return presence.isNextInLine(level, robot);
   }
 
   public Battery charge(Battery robot, Energy rate) {

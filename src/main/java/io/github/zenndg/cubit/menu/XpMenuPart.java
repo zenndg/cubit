@@ -11,7 +11,7 @@ import net.minecraft.world.inventory.SimpleContainerData;
 /**
  * The XP inside the robot menu: the tank, the mode, the switch of the excess and the trade with the
  * owner, a level each click (answers 1830 and 2070 to 2078). The server decides, and the client
- * reads the numbers, each int in two values, because each value travels in 16 bits.
+ * reads the numbers.
  */
 public final class XpMenuPart {
   /** After the buttons of the Organizer: − takes from the tank, and + fills it (answer 2076). */
@@ -28,8 +28,6 @@ public final class XpMenuPart {
   private static final int EXCESS = 6;
   private static final int TRADES = 7;
   private static final int COUNT = 8;
-  private static final int HALF_BITS = 16;
-  private static final int HALF_MASK = 0xFFFF;
 
   private final XpControl control;
   private final ContainerData values = new SimpleContainerData(COUNT);
@@ -45,8 +43,8 @@ public final class XpMenuPart {
 
   /** On the server only, before the menu sends its changes. */
   void refresh() {
-    put(FLUID, control.tank().fluid());
-    put(CAPACITY, control.tank().capacity());
+    IntHalves.put(values, FLUID, control.tank().fluid());
+    IntHalves.put(values, CAPACITY, control.tank().capacity());
     values.set(RATE, CubitMod.CONFIG.xp().rate().fluidPerPoint());
     values.set(MODE, control.settings().mode().ordinal());
     values.set(EXCESS, control.settings().deleteExcess() ? 1 : 0);
@@ -72,18 +70,10 @@ public final class XpMenuPart {
     };
   }
 
-  private void put(int index, int value) {
-    values.set(index, value & HALF_MASK);
-    values.set(index + 1, value >>> HALF_BITS);
-  }
-
-  private int join(int index) {
-    return (values.get(index + 1) << HALF_BITS) | (values.get(index) & HALF_MASK);
-  }
-
   /** What the screens read, on the client, with a safe value before the first ones arrive. */
   public XpTank tank() {
-    return new XpTank(Math.max(0, join(FLUID)), Math.max(0, join(CAPACITY)));
+    return new XpTank(
+        IntHalves.joinPositive(values, FLUID), IntHalves.joinPositive(values, CAPACITY));
   }
 
   public XpRate rate() {
