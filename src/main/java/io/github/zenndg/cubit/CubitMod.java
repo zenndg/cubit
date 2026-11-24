@@ -9,6 +9,7 @@ import io.github.zenndg.cubit.registry.CubitBlocks;
 import io.github.zenndg.cubit.registry.CubitCreativeTabs;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
 import io.github.zenndg.cubit.registry.CubitEntities;
+import io.github.zenndg.cubit.registry.CubitFluids;
 import io.github.zenndg.cubit.registry.CubitItems;
 import io.github.zenndg.cubit.registry.CubitMenus;
 import io.github.zenndg.cubit.registry.CubitRecipes;
@@ -30,6 +31,7 @@ public final class CubitMod {
     CubitBlocks.register(modBus);
     CubitBlockEntities.register(modBus);
     CubitEntities.register(modBus);
+    CubitFluids.register(modBus);
     CubitItems.register(modBus);
     CubitMenus.register(modBus);
     CubitRecipes.register(modBus);

@@ -8,6 +8,7 @@ import io.github.zenndg.cubit.item.TierLook;
 import io.github.zenndg.cubit.network.CubitNetwork;
 import io.github.zenndg.cubit.registry.CubitBlockEntities;
 import io.github.zenndg.cubit.registry.CubitEntities;
+import io.github.zenndg.cubit.registry.CubitFluids;
 import io.github.zenndg.cubit.registry.CubitItems;
 import io.github.zenndg.cubit.registry.CubitMenus;
 import io.github.zenndg.cubit.registry.CubitRecipes;
@@ -98,11 +99,12 @@ public final class CubitClient {
     event.registerBlockEntityRenderer(CubitBlockEntities.INDUCTION_DOCK.get(), DockRenderer::new);
   }
 
-  /** The items of the desk and of the dock are drawn by their GeckoLib models (1494 and 1860). */
+  /** The GeckoLib models of the desk and of the dock, and the fluid (1494, 1845 and 1860). */
   @SubscribeEvent
   public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
     event.registerItem(DeskItemExtensions.INSTANCE, CubitItems.ENGINEERING_DESK.get());
     event.registerItem(DockItemExtensions.INSTANCE, CubitItems.INDUCTION_DOCK.get());
+    event.registerFluidType(XpFluidLook.INSTANCE, CubitFluids.XP_FLUID_TYPE.get());
   }
 
   /** The recipes of the desk have no place in the recipe book of the game (answer 1459). */

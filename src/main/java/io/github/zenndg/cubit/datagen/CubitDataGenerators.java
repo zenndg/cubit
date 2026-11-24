@@ -56,6 +56,9 @@ public final class CubitDataGenerators {
             new CubitBlockTagsProvider(output, event.getLookupProvider(), existingFiles));
     generator.addProvider(
         event.includeServer(),
+        new CubitFluidTagsProvider(output, event.getLookupProvider(), existingFiles));
+    generator.addProvider(
+        event.includeServer(),
         new CubitItemTagsProvider(
             output, event.getLookupProvider(), blocks.contentsGetter(), existingFiles));
   }
