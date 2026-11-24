@@ -185,6 +185,10 @@ O Cubit é o único robô do mod. O que muda entre um Cubit e outro é o tier e 
 
 56. **Prompt em arquivo:** todo prompt de imagem fica em `tmp/arte/{nome}/prompt.md`, em que `{nome}` é o item ou o assunto, como `cascata`, com vários itens. Cada prompt traz o caminho completo da imagem que ele gera, na mesma pasta do `prompt.md`, como `tmp/arte/cascata/robot_core.png`, e o destino dela depois de aceita.
 
+### GameTests
+
+57. **GameTests só antes do PR:** as GameTests rodam só antes do envio de um PR, sobre o último commit da branch. Se alguma reprovar, o erro é ajustado, as GameTests rodam de novo, e o PR só abre depois que todas passarem. Fora desse momento, elas só rodam com autorização explícita do desenvolvedor. Rodá-las, ou ajustar o que elas mostrarem, não é motivo para parar o fluxo de trabalho (resposta 2085).
+
 ## Git
 
 - **Autorização:** nunca faça commit, push, tag, release ou PR sem autorização explícita para aquela ação. Antes, mostre os arquivos, o resumo e a mensagem proposta.
