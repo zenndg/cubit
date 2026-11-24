@@ -78,7 +78,7 @@ public final class RobotDocking {
     return reach;
   }
 
-  boolean hasTrip() {
+  public boolean hasTrip() {
     return trip != null;
   }
 

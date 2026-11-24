@@ -208,7 +208,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     return owner.name(level, worldPosition);
   }
 
-  /** The click on the dock and the button on its screen call the same way. */
+  /** The sneaking click on the dock and the button on its screen call the same way. */
   public void callNearestRobot() {
     if (level instanceof ServerLevel server) {
       owner

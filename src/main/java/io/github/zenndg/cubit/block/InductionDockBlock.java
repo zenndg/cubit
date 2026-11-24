@@ -222,6 +222,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
     return true;
   }
 
+  /** The screen, and the sneaking click calls a robot or lets the one in the dock go (2122). */
   @Override
   protected InteractionResult useWithoutItem(
       BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
@@ -232,7 +233,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
     if (dock == null || !dock.isOwner(player)) {
       return InteractionResult.PASS;
     }
-    if (player.isShiftKeyDown()) {
+    if (!player.isShiftKeyDown()) {
       player.openMenu(
           state.getMenuProvider(level, pos), data -> InductionDockMenu.writeOpening(data, dock));
     } else if (level instanceof ServerLevel serverLevel) {

@@ -54,12 +54,12 @@ public final class DockTripGameTests {
   private DockTripGameTests() {}
 
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
-  public static void clickingCallsTheNearestActiveRobot(GameTestHelper helper) {
+  public static void sneakClickingCallsTheNearestActiveRobot(GameTestHelper helper) {
     ServerPlayer owner = DockScene.ownerBeside(helper);
     DockScene.placeDock(helper, owner, FLOOR, STOCK);
     RobotEntity robot = DockScene.placeRobot(helper, owner, ROBOT_FLOOR, PLENTY);
 
-    DockScene.click(helper, owner, DOCK);
+    DockScene.sneakClick(helper, owner, DOCK);
 
     Vec3 start = robot.position();
     helper.runAfterDelay(
@@ -80,12 +80,12 @@ public final class DockTripGameTests {
   }
 
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
-  public static void clickingTheUpperPartAlsoCalls(GameTestHelper helper) {
+  public static void sneakClickingTheUpperPartAlsoCalls(GameTestHelper helper) {
     ServerPlayer owner = DockScene.ownerBeside(helper);
     DockScene.placeDock(helper, owner, FLOOR, STOCK);
     RobotEntity robot = DockScene.placeRobot(helper, owner, ROBOT_FLOOR, PLENTY);
 
-    DockScene.click(helper, owner, DOCK.above());
+    DockScene.sneakClick(helper, owner, DOCK.above());
 
     helper.runAfterDelay(
         WALK_TICKS,
@@ -101,7 +101,9 @@ public final class DockTripGameTests {
     DockScene.placeDock(helper, owner, FLOOR, STOCK);
     RobotEntity robot = DockScene.placeRobot(helper, owner, ROBOT_FLOOR, PLENTY);
 
-    DockScene.click(helper, GameTestRobots.onlinePlayer(helper), DOCK);
+    ServerPlayer stranger = GameTestRobots.onlinePlayer(helper);
+    DockScene.click(helper, stranger, DOCK);
+    DockScene.sneakClick(helper, stranger, DOCK);
 
     helper.runAfterDelay(
         WALK_TICKS,
@@ -215,7 +217,7 @@ public final class DockTripGameTests {
     ServerPlayer owner = DockScene.ownerBeside(helper);
     DockScene.placeDock(helper, owner, FLOOR, STOCK);
     RobotEntity robot = DockScene.placeRobot(helper, owner, ROBOT_FLOOR, PLENTY);
-    DockScene.click(helper, owner, DOCK);
+    DockScene.sneakClick(helper, owner, DOCK);
     helper.setBlock(DOCK, Blocks.AIR);
 
     helper.runAfterDelay(

@@ -106,4 +106,11 @@ final class DockScene {
         new BlockHitResult(Vec3.atCenterOf(absolute), Direction.UP, absolute, false);
     helper.getBlockState(position).useWithoutItem(helper.getLevel(), player, hit);
   }
+
+  /** The sneaking click, which calls a robot or lets the one in the dock go (answer 2123). */
+  static void sneakClick(GameTestHelper helper, Player player, BlockPos position) {
+    player.setShiftKeyDown(true);
+    click(helper, player, position);
+    player.setShiftKeyDown(false);
+  }
 }
