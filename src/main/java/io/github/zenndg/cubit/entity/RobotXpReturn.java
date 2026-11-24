@@ -23,7 +23,6 @@ public final class RobotXpReturn {
 
   private final RobotEntity robot;
   private final RobotPreferredDock docks;
-  private XpReturn rule = XpReturn.START;
   private XpNotice notice = XpNotice.START;
   private XpFlow flow = XpFlow.START;
   private long nextCheck = Long.MIN_VALUE;
@@ -45,39 +44,23 @@ public final class RobotXpReturn {
     }
     nextCheck = now + CubitMod.CONFIG.followRepathTicks();
     boolean full = xp().isFull();
-    rule = rule.update(full);
     Optional<BlockPos> found = full && !onTrip ? docks.dockToGo() : Optional.empty();
-    if (found.flatMap(this::dockAt).filter(this::hasRoom).isPresent()) {
-      rule = rule.dockHasRoom();
-    }
     found
         .filter(spot -> goes())
         .ifPresent(spot -> {
           robot.workArea().work().patrolCombat().leaveForTheDock();
           robot.callToDock(spot);
         });
-    tell(full, onTrip || found.isPresent() && !rule.inVain());
+    tell(full, onTrip || found.isPresent());
   }
 
   private boolean goes() {
-    return rule.returns(
+    return XpReturn.returns(
         xp().state().settings().mode(),
         robot.powerState(),
         true,
         RobotAutoReturn.onDuty(robot),
         robot.workArea().work().patrolCombat().holdsTheReturn());
-  }
-
-  /** Checks the chunk first: reading a block must never load one (AGENTS.md, rule 22). */
-  private Optional<InductionDockBlockEntity> dockAt(BlockPos spot) {
-    return robot.level().hasChunkAt(spot)
-            && robot.level().getBlockEntity(spot) instanceof InductionDockBlockEntity dock
-        ? Optional.of(dock)
-        : Optional.empty();
-  }
-
-  private boolean hasRoom(InductionDockBlockEntity dock) {
-    return !dock.xp().tank().isFull(RobotXp.rate());
   }
 
   /** In the store that deletes nothing, and in the return with no Dock to go to (answer 1840). */
@@ -111,20 +94,20 @@ public final class RobotXpReturn {
 
   /** While docked, for any reason and whatever the energy (answer 1835 and detail 4). */
   void pass(InductionDockBlockEntity dock) {
-    XpFlow.Step step =
-        flow.advance(xp().tank(), dock.xp().tank(), dock.xp().transferPerTick(), RobotXp.rate());
+    XpFlow.Step step = flow.drain(xp().tank(), dock.xp().transferPerTick(), RobotXp.rate());
     flow = step.flow();
-    xp().setTank(step.from());
-    dock.xp().setTank(step.to());
+    if (step.points() > 0) {
+      xp().setTank(step.from());
+      dock.receiveXp(step.points());
+    }
   }
 
-  /** It leaves by itself with an empty tank, or with a Dock that takes no more (answer 2067). */
-  boolean done(InductionDockBlockEntity dock) {
-    return xp().tank().isEmpty(RobotXp.rate()) || !hasRoom(dock);
+  /** It leaves by itself with an empty tank, and the Dock always takes it (1831 and 2067). */
+  boolean done() {
+    return xp().tank().isEmpty(RobotXp.rate());
   }
 
   void left() {
-    rule = rule.leftTheDock(xp().isFull());
     flow = XpFlow.START;
   }
 }

@@ -1,8 +1,9 @@
 package io.github.zenndg.cubit.menu;
 
+import io.github.zenndg.cubit.domain.dock.DockXpMode;
 import io.github.zenndg.cubit.domain.xp.XpMode;
 
-/** The translation keys of the XP tab, a contract with whoever translates the mod (1830, 2070). */
+/** The translation keys of the XP tabs, a contract with whoever translates the mod (1830, 2070). */
 public final class XpKeys {
   private static final String PREFIX = "gui.cubit.xp.";
   private static final String DETAIL = ".detail";
@@ -23,12 +24,25 @@ public final class XpKeys {
   public static final String TANK_EMPTY = PREFIX + "tank_empty";
   public static final String TANK_FULL = PREFIX + "tank_full";
   public static final String NO_XP = PREFIX + "no_xp";
+  public static final String UNLOAD = PREFIX + "unload";
+  public static final String UNLOAD_DETAIL = UNLOAD + DETAIL;
+  public static final String ENERGY_MADE = PREFIX + "energy_made";
+  public static final String SEND_CONVERTS = PREFIX + "send_converts";
+  private static final String DOCK_MODE = PREFIX + "dock.";
   public static final String TOOLTIP = "tooltip.cubit.xp";
 
   private XpKeys() {}
 
   public static String mode(XpMode mode) {
     return PREFIX + mode.key();
+  }
+
+  public static String dockMode(DockXpMode mode) {
+    return DOCK_MODE + mode.key();
+  }
+
+  public static String dockModeDetail(DockXpMode mode) {
+    return dockMode(mode) + DETAIL;
   }
 
   public static String modeDetail(XpMode mode) {

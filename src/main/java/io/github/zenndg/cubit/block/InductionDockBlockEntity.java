@@ -71,7 +71,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
   private final DockTier tier = new DockTier();
   private final DockSolarPanel panel = new DockSolarPanel();
   private final DockIdentity identity = new DockIdentity(this::setChanged);
-  private final DockXp xp = new DockXp(this::setChanged, () -> tier.spec().xp());
+  private final DockXp xp = new DockXp(this::setChanged, () -> tier.spec().xp(), this::isOwner);
 
   /** The Toolbox and the Power Banks, which the stock charges (answers 947 to 959). */
   private final DockStorage storage =
@@ -154,6 +154,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
         dock.storage.charge(dock.stock, chargesBanks, dock.rechargePerTick(), dock::setChanged);
     SolarOutput rates = dock.tier.spec().solar();
     dock.stock = dock.panel.generate(level, pos, dock.stock, rates, dock::setChanged);
+    dock.stock = dock.xp.convert(dock.stock);
     if (dock.panel.switched()) {
       level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
     }
@@ -258,6 +259,15 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     stock = transfer.stock();
     setChanged();
     return transfer.robot();
+  }
+
+  /** The XP of the Cubit in the dock, which always takes all of it (answer 1831). */
+  public void receiveXp(int points) {
+    DockXp.Taken taken = xp.take(stock, points);
+    stock = taken.stock();
+    if (taken.tells() && DockXpTelling.tell(level, worldPosition, owner(), identity.name())) {
+      xp.told();
+    }
   }
 
   public Vec3 robotSpot() {

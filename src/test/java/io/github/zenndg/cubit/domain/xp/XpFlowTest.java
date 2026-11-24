@@ -8,37 +8,32 @@ class XpFlowTest {
   private static final XpRate RATE = new XpRate(20);
   private static final int PER_TICK = 50;
   private static final int CUBIT_CAPACITY = 8_000;
-  private static final int DOCK_CAPACITY = 32_000;
   private static final int TICKS_TO_EMPTY = 160;
-  private static final int SMALL = 60;
-  private static final XpTank DOCK = new XpTank(0, DOCK_CAPACITY);
 
   /** 50 mB each tick on average, always in whole points (answer 1835). */
   @Test
   void aBaseTankEmptiesInEightSecondsAndNothingIsLost() {
     XpTank cubit = new XpTank(CUBIT_CAPACITY, CUBIT_CAPACITY);
-    XpTank dock = DOCK;
     XpFlow flow = XpFlow.START;
     int ticks = 0;
+    int moved = 0;
     while (!cubit.isEmpty(RATE)) {
-      XpFlow.Step step = flow.advance(cubit, dock, PER_TICK, RATE);
+      XpFlow.Step step = flow.drain(cubit, PER_TICK, RATE);
       flow = step.flow();
       cubit = step.from();
-      dock = step.to();
+      moved += step.points();
       ticks++;
-      assertEquals(CUBIT_CAPACITY, cubit.fluid() + dock.fluid());
-      assertEquals(0, dock.fluid() % RATE.fluidPerPoint());
+      assertEquals(CUBIT_CAPACITY, cubit.fluid() + RATE.fluidOf(moved));
     }
     assertEquals(TICKS_TO_EMPTY, ticks);
   }
 
   @Test
-  void aFullDockTakesOnlyWhatFits() {
-    XpTank nearly = new XpTank(DOCK_CAPACITY - RATE.fluidPerPoint(), DOCK_CAPACITY);
+  void itGivesNoMoreThanThereIs() {
     XpFlow.Step step =
-        XpFlow.START.advance(new XpTank(SMALL, CUBIT_CAPACITY), nearly, PER_TICK, RATE);
-    assertEquals(SMALL - RATE.fluidPerPoint(), step.from().fluid());
-    assertEquals(DOCK_CAPACITY, step.to().fluid());
+        XpFlow.START.drain(new XpTank(RATE.fluidPerPoint(), CUBIT_CAPACITY), PER_TICK, RATE);
+    assertEquals(1, step.points());
+    assertEquals(0, step.from().fluid());
   }
 
   /** Waiting never saves up for a burst. */
@@ -47,10 +42,18 @@ class XpFlowTest {
     XpFlow flow = XpFlow.START;
     XpTank empty = new XpTank(0, CUBIT_CAPACITY);
     for (int tick = 0; tick < TICKS_TO_EMPTY; tick++) {
-      flow = flow.advance(empty, DOCK, PER_TICK, RATE).flow();
+      flow = flow.drain(empty, PER_TICK, RATE).flow();
     }
-    XpFlow.Step step =
-        flow.advance(new XpTank(CUBIT_CAPACITY, CUBIT_CAPACITY), DOCK, PER_TICK, RATE);
-    assertEquals(2, RATE.pointsIn(step.to().fluid()));
+    assertEquals(
+        2, flow.drain(new XpTank(CUBIT_CAPACITY, CUBIT_CAPACITY), PER_TICK, RATE).points());
+  }
+
+  /** The pace of the conversion of a Dock is the same one (answers 1939 and 2104). */
+  @Test
+  void theBudgetCountsThePointsOfATick() {
+    XpFlow.Budget first = XpFlow.START.tick(PER_TICK, RATE);
+    XpFlow.Budget second = first.flow().tick(PER_TICK, RATE);
+    assertEquals(2, first.points());
+    assertEquals(1 + 2, second.points());
   }
 }

@@ -24,8 +24,9 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * The screen of a dock, with the Dock and Storage tabs (answers 956 and 960). The server decides
- * who may keep it open and what it shows. The open tab is only a choice of the client.
+ * The screen of a dock, with the Dock, Storage, Solar and XP tabs (answers 956, 960 and 1837). The
+ * server decides who may keep it open and what it shows. The open tab is only a choice of the
+ * client.
  */
 public final class InductionDockMenu extends AbstractContainerMenu {
   public static final int SLOT_X = 152;
@@ -50,6 +51,7 @@ public final class InductionDockMenu extends AbstractContainerMenu {
   private final Runnable refresh;
   private final Predicate<String> rename;
   private final DockOpening opening;
+  private final DockXpMenuPart xp;
   private boolean storageShown;
 
   private InductionDockMenu(
@@ -67,6 +69,7 @@ public final class InductionDockMenu extends AbstractContainerMenu {
     this.rename = server.rename();
     this.values = values;
     this.opening = opening;
+    this.xp = new DockXpMenuPart(server.xp());
     addSlot(
         new Slot(slot, 0, SLOT_X, SLOT_Y) {
           @Override
@@ -81,6 +84,7 @@ public final class InductionDockMenu extends AbstractContainerMenu {
         });
     addStorageSlots(storage);
     addDataSlots(values);
+    addDataSlots(xp.values());
     addPlayerSlots(playerInventory);
   }
 
@@ -97,7 +101,8 @@ public final class InductionDockMenu extends AbstractContainerMenu {
                         dock.getBlockPos(), Container.DEFAULT_DISTANCE_BUFFER),
             dock::callNearestRobot,
             values::refresh,
-            typed -> dock.identity().rename(typed));
+            typed -> dock.identity().rename(typed),
+            dock.xp());
     return new InductionDockMenu(
         containerId,
         playerInventory,
@@ -129,12 +134,16 @@ public final class InductionDockMenu extends AbstractContainerMenu {
   @Override
   public void broadcastChanges() {
     refresh.run();
+    xp.refresh();
     super.broadcastChanges();
   }
 
   /** The server checks this menu before calling, and it is checked again for any other caller. */
   @Override
   public boolean clickMenuButton(Player player, int button) {
+    if (DockXpMenuPart.handles(button)) {
+      return stillValid(player) && xp.press(player, button);
+    }
     if (button != CALL_BUTTON || !stillValid(player)) {
       return false;
     }
@@ -221,6 +230,11 @@ public final class InductionDockMenu extends AbstractContainerMenu {
   /** What the Solar tab shows (answers 1396, 1865 and 1949). */
   public DockSolarView solar() {
     return new DockSolarView(values);
+  }
+
+  /** What the XP tab shows (answer 1837). */
+  public DockXpMenuPart xp() {
+    return xp;
   }
 
   /** The own id of the Dock, which gives its standard name (answer 1869). */
@@ -324,10 +338,14 @@ public final class InductionDockMenu extends AbstractContainerMenu {
     return stillValid(player) && rename.test(typed);
   }
 
-  /** What only the server does: check the player, call a robot and read the dock. */
+  /** What only the server does: check the player, call a robot, and read and change the dock. */
   private record Server(
-      Predicate<Player> stillValid, Runnable call, Runnable refresh, Predicate<String> rename) {
+      Predicate<Player> stillValid,
+      Runnable call,
+      Runnable refresh,
+      Predicate<String> rename,
+      DockXpControl xp) {
     private static final Server NONE =
-        new Server(player -> true, () -> {}, () -> {}, typed -> false);
+        new Server(player -> true, () -> {}, () -> {}, typed -> false, DockXpControl.NONE);
   }
 }

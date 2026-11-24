@@ -24,7 +24,7 @@ public record XpTank(int fluid, int capacity) {
 
   /** How many more points fit. */
   public int room(XpRate rate) {
-    return rate.pointsIn(Math.max(0, capacity - fluid));
+    return rate.pointsIn(freeFluid());
   }
 
   /** Without a whole point left to give. */
@@ -35,6 +35,16 @@ public record XpTank(int fluid, int capacity) {
   /** One more point does not fit (detail 3 of the concept). */
   public boolean isFull(XpRate rate) {
     return room(rate) == 0;
+  }
+
+  /** The free room of a pipe, which moves any amount (answer 2102). */
+  public int freeFluid() {
+    return Math.max(0, capacity - fluid);
+  }
+
+  /** What a pipe put in, or took out when negative. */
+  public XpTank plusFluid(int amount) {
+    return new XpTank(fluid + amount, capacity);
   }
 
   public Moved fill(int points, XpRate rate) {

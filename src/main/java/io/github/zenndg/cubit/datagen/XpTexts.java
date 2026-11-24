@@ -1,5 +1,7 @@
 package io.github.zenndg.cubit.datagen;
 
+import io.github.zenndg.cubit.block.DockXpTelling;
+import io.github.zenndg.cubit.domain.dock.DockXpMode;
 import io.github.zenndg.cubit.domain.xp.XpMode;
 import io.github.zenndg.cubit.entity.RobotXpReturn;
 import io.github.zenndg.cubit.menu.XpKeys;
@@ -33,6 +35,19 @@ final class XpTexts {
   private static final String STORE_DETAIL = "Keeps the XP until the tank is full";
   private static final String RETURN_TO_DOCK = "Return to Dock";
   private static final String RETURN_TO_DOCK_DETAIL = "When full, empties the tank at the Dock";
+  private static final String DOCK_FULL_NOTICE = "%s: the XP tank is full";
+  private static final String UNLOAD = "Unload XP";
+  private static final String UNLOAD_DETAIL = "Goes to the Dock and empties the XP tank";
+  private static final String ENERGY_MADE = "Energy made: %s FE";
+  private static final String SEND_CONVERTS = "Here the XP becomes FE, with no way back";
+  private static final String DELETE_ALL = "Delete all";
+  private static final String DELETE_ALL_DETAIL = "Deletes what arrives and keeps the stored XP";
+  private static final String STORE_DELETE = "Store and delete the excess";
+  private static final String STORE_DELETE_DETAIL = "When full, deletes what does not fit";
+  private static final String STORE_CONVERT = "Store and convert the excess";
+  private static final String STORE_CONVERT_DETAIL = "When full, turns what does not fit into FE";
+  private static final String CONVERT_ALL = "Convert all";
+  private static final String CONVERT_ALL_DETAIL = "Turns all the XP into FE, with no way back";
 
   private XpTexts() {}
 
@@ -56,7 +71,24 @@ final class XpTexts {
     add.accept(XpKeys.TANK_FULL, TANK_FULL);
     add.accept(XpKeys.NO_XP, NO_XP);
     add.accept(XpKeys.TOOLTIP, TOOLTIP);
+    add.accept(DockXpTelling.FULL_KEY, DOCK_FULL_NOTICE);
+    add.accept(XpKeys.UNLOAD, UNLOAD);
+    add.accept(XpKeys.UNLOAD_DETAIL, UNLOAD_DETAIL);
     addModes(add);
+    addDock(add);
+  }
+
+  private static void addDock(BiConsumer<String, String> add) {
+    add.accept(XpKeys.ENERGY_MADE, ENERGY_MADE);
+    add.accept(XpKeys.SEND_CONVERTS, SEND_CONVERTS);
+    add.accept(XpKeys.dockMode(DockXpMode.DELETE_ALL), DELETE_ALL);
+    add.accept(XpKeys.dockModeDetail(DockXpMode.DELETE_ALL), DELETE_ALL_DETAIL);
+    add.accept(XpKeys.dockMode(DockXpMode.STORE_DELETE_EXCESS), STORE_DELETE);
+    add.accept(XpKeys.dockModeDetail(DockXpMode.STORE_DELETE_EXCESS), STORE_DELETE_DETAIL);
+    add.accept(XpKeys.dockMode(DockXpMode.STORE_CONVERT_EXCESS), STORE_CONVERT);
+    add.accept(XpKeys.dockModeDetail(DockXpMode.STORE_CONVERT_EXCESS), STORE_CONVERT_DETAIL);
+    add.accept(XpKeys.dockMode(DockXpMode.CONVERT_ALL), CONVERT_ALL);
+    add.accept(XpKeys.dockModeDetail(DockXpMode.CONVERT_ALL), CONVERT_ALL_DETAIL);
   }
 
   private static void addModes(BiConsumer<String, String> add) {
