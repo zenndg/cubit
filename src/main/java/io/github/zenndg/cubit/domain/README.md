@@ -216,7 +216,16 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `PatrolProgress` | Para qual ponto da rota o Cubit vai, em laço |
 | `PatrolSiege` | O cerco da equipe num alvo: o lado de cada Patrulheiro, em ângulos iguais a partir do primeiro, que mantém o seu, e a distância de cada arma, a da lâmina perto e a da pistola entre a troca de arma e o alcance |
 | `PatrolSpread` | A ronda de vários Patrulheiros na mesma rota ou nas mesmas bordas: quando dois vão ao mesmo ponto, o que chegou depois segue para o ponto do laço mais longe dos colegas, e o empate se decide pelo id |
-| `PatrolXp` | O XP de um abate do Patrulheiro como energia: longe do dono, ele toma só os pontos inteiros que cabem na bateria, cada um com um pouco de energia, e o resto fica para o dono, sem criar FE (perguntas 1728 a 1730) |
+| `XpRate` | Quanto fluido vale 1 ponto de XP (pergunta 1817) |
+| `XpTank` | O tanque de XP, em mB, do Cubit e do Dock. Só move pontos inteiros e diz quantos moveu. Com a capacidade reduzida, guarda o que passa e não aceita mais (pergunta 1937) |
+| `XpSpec` e `DockXpSpec` | O tanque do Cubit e, do Dock, o tanque e a passagem, em cada tier (perguntas 1826, 1833 e 1835) |
+| `XpMode` e `XpSettings` | O modo do Cubit, Ignorar, Armazenar ou Voltar ao Dock, e a chave do excesso (pergunta 1827) |
+| `XpState` | O que o Cubit guarda do XP no mundo e no item (pergunta 1838) |
+| `XpIntake` | O que o Cubit faz com o XP do trabalho e com as bolinhas, por modo: guarda, deixa, derruba ou apaga. O XP que o player envia nunca passa por aqui (perguntas 1819, 2064, 2065 e 2080) |
+| `PlayerXp` | O XP do player em pontos inteiros, pelas contas do jogo: o que falta para subir um nível e o que se entrega para descer um (pergunta 2076) |
+| `XpFlow` | A passagem do Cubit ao Dock, em pontos inteiros e no ritmo do tier (pergunta 1835) |
+| `XpReturn` | Quando o Cubit cheio vai ao Dock, sem ir e voltar em vão (perguntas 1934 e 2063) |
+| `XpNotice` | O aviso do tanque cheio, uma vez por enchida (pergunta 1840) |
 | `WingHop` | O pulo de asa do Patrulheiro: quando vale pular (o caminho do jogo não chega ou passa do fator da linha reta), a altura do voo curto sobre o que está no caminho, dentro do salto do tier, e o movimento de cada tick, que sobe, avança e plana até o pouso (perguntas 1647, 1648, 1651 e 1738) |
 | `PatrolWatch` | O que o Patrulheiro faz como vigia: a ronda, o alerta ao avistar um hostil, pulado quando ele já fere alguém, o combate, a conferida no dono depois do último abate e a investigação do último lugar onde viu um hostil que sumiu, com o visor, que baixa no alerta e só sobe depois da calma ou da investigação (`Timings`: os tempos, a distância do dono e o tempo até o alvo sumir de vista) |
 | `PatrolStops` | As paradas da ronda: os blocos andados desde a última, o trecho sorteado até a próxima, a parada em curso e para onde a cabeça olha, duas vezes para cada lado e depois à frente |
