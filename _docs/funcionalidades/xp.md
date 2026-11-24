@@ -74,7 +74,7 @@ Escolhidos na aba XP (pergunta 1827):
 - **Qual Dock:** o Dock preferido do Tablet ou o mais perto, como o retorno automático da bateria (pergunta 1828).
 - **A caminho,** ou no fim de um combate, com o tanque cheio, age como Armazenar, sem apagar o excesso (pergunta 2064).
 - **Sem Dock alcançável:** avisa o dono uma vez e age como Armazenar, sem apagar o excesso, até o tanque ter espaço (pergunta 1828).
-- **Saída:** todo Cubit só sai sozinho do Dock com o tanque vazio e, como hoje, com a bateria e a vida cheias, e volta ao trabalho. Uma parada resolve tudo, e o clique no Dock continua liberando antes (perguntas 963, 1842 e 2067).
+- **Saída:** todo Cubit só sai sozinho do Dock com o tanque vazio e, como hoje, com a bateria e a vida cheias, e volta ao trabalho. Uma parada resolve tudo, e o Shift + clique direito no Dock continua liberando antes (perguntas 963, 1842, 2067 e 2123).
 - **Dock cheio:** o Dock sempre aceita o XP do Cubit, porque apaga ou converte o excesso (pergunta 1831). Só no intervalo do PR 1, em que o Dock ainda não tem modos, o Cubit entrega o que couber, fica com o resto, avisa e volta ao trabalho (perguntas 1828 e 1938). Depois de uma ida sem esvaziar, age como Armazenar, sem apagar o excesso, e só tenta de novo quando o Dock tiver espaço ou o tanque dele baixar e encher outra vez (pergunta 2063).
 
 ## O tanque do Dock
@@ -174,7 +174,7 @@ A revisão do PR 2 acrescenta estes, autorizados com ela (pergunta 2112):
 15. O cano se liga nos mesmos blocos e lados em que os cabos de energia se ligam hoje.
 16. O aviso de Dock cheio sai na barra de ação, só para o dono online e na mesma dimensão. No Apagar tudo não há aviso, porque o tanque não enche com o Cubit.
 17. O Descarregar XP vale em qualquer modo do Cubit.
-18. Com o Dock sempre aceitando o XP, a espera da 2063 sai do código. O Cubit solto pelo clique, ainda cheio e no Voltar ao Dock, volta ao Dock, como já faz com a bateria baixa.
+18. Com o Dock sempre aceitando o XP, a espera da 2063 sai do código. O Cubit solto pelo Shift + clique, ainda cheio e no Voltar ao Dock, volta ao Dock, como já faz com a bateria baixa.
 19. Um modo desconhecido no save vira `store_convert_excess`, e uma energia negativa, zero, com um aviso no log (regra 17).
 20. Um Cubit descarregado com uma foto de antes do XP não mostra a linha, até ser visto de novo.
 21. O Dock não ganha sinal de comparador.
@@ -213,6 +213,7 @@ Uma issue e dois PRs, cada um com o seu teste manual e as provas do [`antes-do-p
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 10:03 | Cita o Shift + clique que libera o Cubit (pergunta 2123). |
 | Zennd | 2026-11-24 09:56 | Registra a autorização do PR 2, as telas aprovadas e os botões dos menus (perguntas 2112 a 2117). |
 | Zennd | 2026-11-24 09:37 | Acrescenta a regra de que o XP que vira FE nunca volta a ser XP (pergunta 2111). |
 | Zennd | 2026-11-24 09:36 | Revisa o PR 2: tira o Guardar metade e fecha o ritmo, os canos, os avisos, a foto do Tablet, o Jade e os detalhes do Dock (perguntas 2099 a 2110). |

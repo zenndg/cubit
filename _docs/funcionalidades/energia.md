@@ -77,8 +77,8 @@ Funciona como um carregador solar real.
 ### Dono e tela
 
 - **Dono:** quem coloca o Dock. Só o dono usa o Dock e abre a tela, e só os Cubits dele entram.
-- **Clique direito:** chama o Cubit ou, com um na base, o libera. Com redstone na mão, a pilha entra no slot.
-- **Shift + clique direito:** abre a tela própria do Dock, descrita em [`telas.md`](telas.md#tela-do-induction-dock), com o botão de chamar o Cubit mais próximo (perguntas 371 e 678).
+- **Clique direito:** abre a tela própria do Dock, descrita em [`telas.md`](telas.md#tela-do-induction-dock), com o botão de chamar o Cubit mais próximo, também com um Cubit na base (perguntas 371 e 2122, que muda a 678). Com redstone, uma Power Bank, uma Toolbox, um Damaged Cubit, um Module, a etiqueta ou o item do Cubit na mão, faz o que eles já faziam. Com outro item, ou um que não cabe, abre a tela, como um baú.
+- **Shift + clique direito:** chama o Cubit ou, com um na base, o libera, só com as duas mãos vazias, o padrão do jogo (perguntas 2122 a 2124, que mudam a 295). Com algo na mão, o jogo usa o item, e o player chama pelo botão da tela.
 - **Quebrar:** só o dono, ou um player no modo criativo com permissão de operador, para remover um Dock abandonado. Sem dono, como num save sem a chave ou colocado por algo que não é um player, só o operador o remove, e o log avisa ao carregar (pergunta 524). Explosões e pistões não o afetam. O item guarda a energia, o tier e o inventário e empilha em 1 (pergunta 1373), o slot de entrada cai no chão, e o Cubit sai como numa liberação (pergunta 954). O dono do bloco novo é quem o coloca.
 
 ### Inventário do Dock
@@ -171,12 +171,12 @@ O Dock tem um nome, como o Cubit (perguntas 1867 a 1870).
 
 ### Ir para a base e sair dela
 
-- **Ir:** o player clica com o botão direito no Dock, e o Cubit ligado mais próximo, dentro do raio do retorno automático, vai até ele, esteja seguindo ou em área. Colocar o item do Cubit em cima do Dock também funciona. Num Dock ocupado ou de outro player, nada acontece, e o item continua na mão.
+- **Ir:** o player dá Shift + clique direito no Dock, ou aperta o botão da tela, e o Cubit ligado mais próximo, dentro do raio do retorno automático, vai até ele, esteja seguindo ou em área. Colocar o item do Cubit em cima do Dock também funciona. Num Dock ocupado ou de outro player, nada acontece, e o item continua na mão.
 - **Sem conseguir chegar:** preso por 5 s no caminho, em `dock_stuck_ticks`, o Cubit desiste desse Dock, avisa o dono uma vez e volta ao que fazia. Nunca se teleporta para o Dock nem entra nele através de um bloco (pergunta 2091, que muda a 301).
   - **Outro Dock:** procura outro livre no raio. O Dock de que desistiu fica de fora por 60 s, em `dock_unreachable_ticks`, para ele não tentar sem parar.
   - **Entrar:** só da frente do Dock, com caminho livre até a placa.
 - **Fechar o jogo:** só a hibernação é salva. A caminho ou aguardando, o Cubit volta ao que fazia ao carregar de novo. Se o Dock sumiu, ele acorda como numa liberação.
-- **Sair:** o Cubit sai sozinho cerca de 3 s depois de a bateria e a vida estarem cheias e o tanque de XP dele, vazio, como descreve [`xp.md`](xp.md#voltar-ao-dock) (pergunta 2067). Com a bateria cheia e a vida ainda subindo, a tela fica no estado completa e mostra quanto falta para a vida encher (pergunta 963, que muda a 55). Antes disso, clicar no Dock o libera. Ao sair, volta ao que fazia: a área ou seguir o player. Se outro assumiu o lugar de seguir, fica parado e desligado. Sem caminho de volta por 5 s, o da área aparece dentro dela, com qualquer card, e o que segue aparece perto do dono, mesmo a menos de 20 blocos (pergunta 2092).
+- **Sair:** o Cubit sai sozinho cerca de 3 s depois de a bateria e a vida estarem cheias e o tanque de XP dele, vazio, como descreve [`xp.md`](xp.md#voltar-ao-dock) (pergunta 2067). Com a bateria cheia e a vida ainda subindo, a tela fica no estado completa e mostra quanto falta para a vida encher (pergunta 963, que muda a 55). Antes disso, o Shift + clique direito no Dock o libera (pergunta 2123). Ao sair, volta ao que fazia: a área ou seguir o player. Se outro assumiu o lugar de seguir, fica parado e desligado. Sem caminho de volta por 5 s, o da área aparece dentro dela, com qualquer card, e o que segue aparece perto do dono, mesmo a menos de 20 blocos (pergunta 2092).
 - **Dono offline:** o Cubit cheio continua na base e sai quando o dono entra. Se o Dock sumir nesse período, ele acorda desligado, e um clique o liga.
 
 ### Base ocupada
@@ -257,6 +257,7 @@ Entra com o item 15 da Fase 4.2, antes do modo área (perguntas 1065 a 1069).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 10:03 | Troca o clique direito e o Shift + clique do Dock (perguntas 2122 a 2124). |
 | Zennd | 2026-11-24 09:56 | Cita a conversão do XP em energia no Dock (perguntas 1831 e 2111). |
 | Zennd | 2026-11-24 08:32 | Descreve a ida e a volta do Dock sem caminho (perguntas 2090 a 2095). |
 | Zennd | 2026-11-24 08:16 | Acrescenta o tanque de XP vazio à saída do Dock (pergunta 2067). |

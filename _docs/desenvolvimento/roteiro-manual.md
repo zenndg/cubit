@@ -171,9 +171,9 @@ Use `/data get entity @e[type=cubit:general_robot,limit=1,sort=nearest] PowerSta
 | 3 | Clique no Cubit na base, depois Shift + clique | Abre o inventário. Depois, ele é recolhido |
 | 4 | Coloque de novo, com vida baixa (`/data merge entity ... {Health:5f}`) | A vida sobe, cerca de 1 min até encher, mesmo sem energia |
 | 5 | Com ele cheio | A tela mostra completa por cerca de 3 s, e ele sai e volta a seguir |
-| 6 | Com um Cubit seguindo a até 15 blocos, clique no Dock | Ele anda até o Dock, sobe na placa e hiberna |
-| 7 | Clique no Dock com o Cubit na base | Ele é liberado e volta a seguir |
-| 8 | Coloque-o atrás de uma parede, sem rota, e clique no Dock | Depois de cerca de 5 s preso, ele aparece no Dock |
+| 6 | Com um Cubit seguindo a até 15 blocos, dê Shift + clique direito no Dock, com as mãos vazias | Ele anda até o Dock, sobe na placa e hiberna |
+| 7 | Shift + clique direito no Dock com o Cubit na base | Ele é liberado e volta a seguir |
+| 8 | Coloque-o atrás de uma parede, sem rota, e dê Shift + clique direito no Dock | Depois de cerca de 5 s preso, ele desiste, avisa e volta a seguir. Nunca atravessa a parede (pergunta 2091) |
 | 9 | Chame com o Dock ocupado | Ele para perto e aguarda. Quando o Dock libera, entra. Com outro Dock livre no raio, vai até ele |
 | 10 | Com outro Cubit seguindo, deixe o da base sair | O que sai fica parado e desligado, na frente do Dock |
 | 11 | Quebre o Dock com o Cubit na base | Ele é liberado, sem perder nada |
@@ -192,7 +192,7 @@ Rode num mundo novo, em modo sobrevivência, com `/gamemode survival` e `/give @
 | 5 | Coloque o `Cubit` | Ele segue você, com a barra de 25% na tela |
 | 6 | Na mesa, monte o L: diamante na coluna 1 da linha 1; baú na coluna 1 da linha 2; ferro, redstone e ferro na linha 3 | Sai um `Induction Dock` |
 | 7 | Monte o L espelhado, trocando as colunas 1 e 3 | Também sai um `Induction Dock` |
-| 8 | Coloque o `Dock` e abra a tela, com Shift + botão direito | A barra de energia está vazia, e a tela do bloco, apagada |
+| 8 | Coloque o `Dock` e abra a tela, com o botão direito | A barra de energia está vazia, e a tela do bloco, apagada |
 | 9 | Faça outro `Cubit Neural Core`, dê `/give @s minecraft:lapis_lazuli 2` e `/give @s minecraft:gold_ingot 2` e monte lápis em cima e embaixo, ouro nas laterais e o Neural Core no centro | Sai um `Advanced Module` |
 | 10 | Dê `/give @s minecraft:purple_dye 2` e `/give @s minecraft:diamond 2` e monte corante roxo em cima e embaixo, diamante nas laterais e o Advanced Module no centro | Sai um `Elite Module` |
 | 11 | Dê `/give @s minecraft:netherite_ingot 2` e `/give @s minecraft:blaze_rod 2` e monte netherite em cima e embaixo, vara de blaze nas laterais e o Elite Module no centro | Sai um `Ultimate Module` |
@@ -595,7 +595,7 @@ Compare cada tela com as imagens [`tela-cubit.png`](../imagens/conceito/tela-cub
 | 12 | Ande, ande na água e acenda a lanterna | `Energy use` lista as causas, como `16 FE/t · walking, lamp`. Parado, `0 FE/t · idle` |
 | 13 | Volte à aba do baú | Os slots voltam, com os itens no lugar |
 | 14 | Passe o mouse num texto cortado, se houver | O tooltip mostra o texto inteiro |
-| 15 | Coloque um Dock sem energia e abra com Shift + clique | `● No power` em laranja, a torre com o raio cortado, `0 / 100k FE`, `No input`, `No Cubit docked`, `Needs energy before it can charge.`, `Empty`, o seu nome e o botão cinza |
+| 15 | Coloque um Dock sem energia e abra com o clique direito | `● No power` em laranja, a torre com o raio cortado, `0 / 100k FE`, `No input`, `No Cubit docked`, `Needs energy before it can charge.`, `Empty`, o seu nome e o botão cinza |
 | 16 | Ponha redstone no slot do Dock | `● Idle` em azul, a torre azul, `Ready to charge.`. Com o estoque cheio, `Full` |
 | 17 | Aperte `Call the nearest Cubit (15 blocks)` com um Cubit perto | O Cubit vai ao Dock, mesmo com o botão cinza sem energia |
 | 18 | Com o Cubit na base, veja a tela | `● Charging` em verde, o retrato carregando, `Cubit · Battery`, a vida e `+500 FE/t · ...`. Com a vida cheia, `health full` |
@@ -708,7 +708,7 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#tiers-do-dock),
 | # | Faça | Espere |
 |---|---|---|
 | 1 | Coloque o Dock e olhe a torre | O topo da torre fica cinza. O Jade mostra `Tier: Base` |
-| 2 | Shift + clique direito e abra a aba `Storage` | O título mostra `Induction Dock · Base`, e o inventário tem 3 linhas |
+| 2 | Clique direito e abra a aba `Storage` | O título mostra `Induction Dock · Base`, e o inventário tem 3 linhas |
 | 3 | Clique no Dock com o `Elite Module` | `The Induction Dock needs to be Advanced first`, e o Module fica na mão |
 | 4 | Clique com o `Advanced Module` | `Induction Dock upgraded to Advanced!`, o Module é gasto, a faixa fica azul, o inventário passa a 4 linhas e o estoque, a 1,2 mi FE |
 | 5 | Repita com o Elite e o Ultimate | Faixa roxa e depois dourada. No Ultimate, o corpo fica em netherite, o inventário tem 6 linhas e o estoque, 16 mi FE |
@@ -727,7 +727,7 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#painel-solar-do
 | # | Faça | Espere |
 |---|---|---|
 | 1 | Procure no inventário criativo, no catálogo da Engineering Desk e no JEI | Só o `Induction Dock`. O `Solar Induction Dock` e o `Dock Solar Panel` não existem mais |
-| 2 | Coloque o Dock ao ar livre e abra a tela, com Shift + clique direito | O título é o nome padrão, como `Dock 3f9a2c1b · Base`, e há três abas: `Dock`, `Storage` e `Solar`, esta com o ícone do painel solar do Cubit |
+| 2 | Coloque o Dock ao ar livre e abra a tela, com o clique direito | O título é o nome padrão, como `Dock 3f9a2c1b · Base`, e há três abas: `Dock`, `Storage` e `Solar`, esta com o ícone do painel solar do Cubit |
 | 3 | Vá logo à aba `Solar` | No alto, `Stored` em vermelho; `Status: Generating`, `Panel: Stored` e `Now 0 FE/t` |
 | 4 | Espere uns 12 s | `Deploying` em amarelo por uns 6 s, e depois `Deployed` em verde, com `Now 25 FE/t`. O estoque sobe sem cabos, e o Jade mostra o nome, `Solar +25 FE/t` e `Panel: Deployed` |
 | 5 | Ponha um bloco de pedra logo acima do Dock e espere uns 15 s | `Why: Sky covered`, a geração para, e depois de 3 s o painel passa por `Retracting` até `Stored` |
@@ -833,7 +833,7 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#inventário-do-
 
 | # | Faça | Espere |
 |---|---|---|
-| 1 | Abra a tela de um Dock com Shift + clique direito | As abas `Dock` e `Storage`, com os ícones novos. A aba `Dock` mostra o slot `Redstone`, sem o slot `Charge` |
+| 1 | Abra a tela de um Dock com o clique direito | As abas `Dock` e `Storage`, com os ícones novos. A aba `Dock` mostra o slot `Redstone`, sem o slot `Charge` |
 | 2 | Abra a aba `Storage` | `Storage`, 27 slots vazios e o seu inventário abaixo |
 | 3 | Tente pôr terra num slot | Não entra |
 | 4 | Ponha duas Power Banks vazias e uma pilha de Toolbox, com o Dock com energia e sem Cubit | Só a primeira Power Bank carrega, e a segunda começa quando a primeira enche |
@@ -848,7 +848,7 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#inventário-do-
 | 13 | Clique no Dock com um Damaged Cubit na mão, e depois com um Cubit | O Damaged Cubit vai para o Storage, e o Cubit é posto na base |
 | 14 | Com um funil embaixo do Dock, guarde um Cubit e um Damaged Cubit | Os dois saem pelo funil |
 | 15 | Ponha no Dock um Cubit ferido e de bateria quase cheia | A bateria enche primeiro, a tela fica em `Complete` com o tempo que falta para a vida, e ele só sai cerca de 3 s depois de a vida encher |
-| 16 | Repita o passo 15 e clique no Dock antes de a vida encher | O Cubit sai na hora |
+| 16 | Repita o passo 15 e dê Shift + clique direito no Dock antes de a vida encher | O Cubit sai na hora |
 
 ## Retorno automático
 
@@ -1395,7 +1395,7 @@ As regras estão em [`xp.md`](../funcionalidades/xp.md) (issue #244). Os passos 
 | 10 | Do Advanced em diante, com o ímã, jogue frascos a 3 blocos | As bolinhas vêm até ele, e cada uma gasta energia uma vez |
 | 11 | Desligue a coleta na aba Behavior | Nenhuma bolinha é recolhida |
 | 12 | No `Return to Dock`, encha o tanque perto de um Dock seu, com ele seguindo | Ele vai ao Dock, o tanque esvazia, e ele volta |
-| 13 | Ponha um Cubit de bateria e vida cheias e com XP no Dock | Só sai com o tanque vazio. O clique no Dock libera antes |
+| 13 | Ponha um Cubit de bateria e vida cheias e com XP no Dock | Só sai com o tanque vazio. O Shift + clique direito no Dock libera antes |
 | 14 | Com um Patrulheiro, deixe-o matar mobs, perto e longe de você | Nenhuma bolinha cai, e o tanque dele sobe |
 | 15 | Com um Pescador, espere uma pesca, com e sem Keep junk | O tanque sobe de 1 a 6 pontos |
 | 16 | Com um Cozinheiro, deixe-o tirar a comida do fumeiro | O tanque sobe, e tirar mais comida à mão dessa fornada não dá XP |
@@ -1439,6 +1439,23 @@ Use um Dock Base seu, um Cubit Base com o tanque cheio e alguns níveis (`/xp se
 | 23 | Abra um mundo do PR 1 com XP num Dock | O XP continua, no `Store and convert the excess`, com 0 FE gerados |
 | 24 | Em português | Os modos, as dicas e o aviso em português, sem sobreposição |
 
+### Clique no Dock
+
+As regras estão em [`energia.md`](../funcionalidades/energia.md#induction-dock) (perguntas 2122 a 2124). Use um Dock seu e um Cubit seguindo você.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Clique direito no Dock, com as mãos vazias, na parte de baixo e na de cima | A tela abre nas duas, e nenhum Cubit é chamado |
+| 2 | Shift + clique direito, com as mãos vazias | A tela não abre, e o Cubit vai ao Dock |
+| 3 | Com o Cubit na base, clique direito | A tela abre, e ele continua na base |
+| 4 | Com o Cubit na base, Shift + clique direito | Ele sai, e a tela não abre |
+| 5 | Com um bloco na mão, Shift + clique direito | O bloco é colocado ao lado, e nada é chamado |
+| 6 | Com um escudo ou uma tocha só na segunda mão, Shift + clique direito | O item é usado como no jogo, e nada é chamado |
+| 7 | Com uma espada na mão, clique direito | A tela abre |
+| 8 | Com redstone, Power Bank, Module e o item do Cubit na mão, clique direito em cada caso | Como antes: entra no slot, no inventário, sobe o tier e põe na base |
+| 9 | Com outro player, os dois cliques | Nada acontece |
+| 10 | Com o Tablet no app Dock, clique direito no Dock | Marca o preferido, sem abrir a tela |
+
 ### Ida e volta do Dock sem caminho
 
 As regras estão em [`energia.md`](../funcionalidades/energia.md#ir-para-a-base-e-sair-dela) (perguntas 2090 a 2095). Faça um cercado de blocos, fechado, com um Dock encostado do lado de fora.
@@ -1450,8 +1467,8 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#ir-para-a-base-
 | 3 | Repita 1 com um Patrulheiro e com outro card na área | O mesmo, e eles voltam ao trabalho |
 | 4 | Troque um bloco da parede, em frente ao Dock, por grades ou vidraça | Continua sem atravessar |
 | 5 | Abra uma passagem, espere 60 s e use Go to Dock | Vai andando, entra pela frente e carrega |
-| 6 | Com o Cubit da área no Dock, feche a passagem e clique no Dock | Sai e, em cerca de 5 s, aparece dentro da área. Com e sem card |
-| 7 | Com o que segue no Dock, entre no cercado, feche a passagem e clique no Dock de fora antes, ou espere a carga | Em cerca de 5 s, aparece perto de você |
+| 6 | Com o Cubit da área no Dock, feche a passagem e dê Shift + clique direito no Dock | Sai e, em cerca de 5 s, aparece dentro da área. Com e sem card |
+| 7 | Com o que segue no Dock, entre no cercado, feche a passagem e dê Shift + clique direito no Dock de fora antes, ou espere a carga | Em cerca de 5 s, aparece perto de você |
 | 8 | Suba numa torre de 5 blocos com o Cubit seguindo | Aparece perto no máximo uma vez, e não fica pulando |
 | 9 | Com um segundo Dock com caminho livre no raio | Desiste do primeiro e vai ao segundo |
 | 10 | Ponha o item do Cubit em cima do Dock | Entra direto, como antes |
@@ -1530,6 +1547,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 10:06 | Troca os cliques do Dock e acrescenta o roteiro deles (perguntas 2122, 2124 e 2129). |
 | Zennd | 2026-11-24 09:56 | Acrescenta o roteiro do XP no Dock (perguntas 2099 a 2117). |
 | Zennd | 2026-11-24 08:37 | Acrescenta o roteiro da ida e da volta do Dock sem caminho (perguntas 2090 a 2095). |
 | Zennd | 2026-11-24 08:16 | Acrescenta o roteiro do XP, PR 1 (issue #244). |

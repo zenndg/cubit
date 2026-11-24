@@ -1071,11 +1071,17 @@ Não há perguntas pendentes nesta fase.
 | 2124 | Com Shift, o jogo só deixa o clique chegar ao bloco com as duas mãos vazias. Como fica o Shift + clique no Dock? | Só com as mãos vazias, o padrão do jogo e o limite que a tela tinha até hoje. Com algo na mão, o player usa o botão de chamar da tela. A recomendação foi aceita |
 | 2125 | Onde entra a troca do clique do Dock (2122)? | Neste PR, o PR 2 do XP, num commit próprio, com a GameTest mudada e um teste manual curto. A recomendação foi aceita |
 | 2126 | O item 24 do `checklist.md`, o XP Cubit e Dock, é marcado neste PR ou no seguinte? | Neste PR, como na cascata (2058). A recomendação, no PR seguinte, não foi aceita. Fecha a 2121 |
+| 2127 | O conceito da troca do clique do Dock, em `energia.md` (respostas 2122 a 2125), com os detalhes 1 a 4, pode ir ao código? | O desenvolvedor disse "autorizo os itens 1 a 4, pode seguir" (regra 54): vale nas duas metades do Dock, quem não é o dono continua sem abrir e sem chamar, o Tablet não muda, e nenhum texto, save, config ou receita muda. A recomendação foi aceita |
+| 2128 | O `AGENTS.md` diz que os commits são assinados com SSH, mas os da conta `zenndg` saem assinados com PGP e verificam, também os do #257. Corrijo o documento para PGP? | Sim, autorizado na mesma resposta da 2127: o documento passa a dizer PGP, sem mexer na configuração do Git |
+| 2129 | O passo do roteiro manual do Dock que diz que, atrás de uma parede, o Cubit "aparece no Dock" está desatualizado pela 2091. Corrijo junto? | Sim, autorizado na mesma resposta da 2127 |
+| 2130 | A troca do clique do Dock (2122 a 2127) foi testada no jogo e está aprovada? | Testado e aprovado |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 10:07 | Registra a resposta 2130. |
+| Zennd | 2026-11-24 10:05 | Registra as respostas 2127 a 2129. |
 | Zennd | 2026-11-24 10:02 | Registra as respostas 2123 a 2126. |
 | Zennd | 2026-11-24 10:00 | Registra as respostas 2119 a 2122. |
 | Zennd | 2026-11-24 09:46 | Registra a resposta 2118. |

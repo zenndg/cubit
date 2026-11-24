@@ -107,7 +107,7 @@ Fica fixo em todas as abas. `Voltar` fica no canto superior esquerdo, e os botõ
 - **Power:** o botão mostra `Switch off` com o Cubit ativo e `Turn on` com ele desligado e com carga. Sem carga, fica desabilitado, com a dica do motivo. Desliga como o botão `Power` da aba Settings, e o clique direito no Cubit também o religa, sem estado salvo novo. Também liga um Cubit desligado com carga, como a exceção da pergunta 80 (pergunta 1033, que muda a 1021).
 - **Parar e seguir:** o `Stop` saiu do Tablet por agora e espera um refinamento, em "Ainda sem fase" no `ROADMAP.md` (pergunta 1036).
 - **Follow:** fica na fileira de botões, depois do `Ir para o Dock`. A fileira começa na margem, sob o retrato, para os quatro botões caberem, e um texto que não cabe no botão encolhe. Faz o Cubit escolhido seguir o player, desligado com carga, hibernando no Dock, que ele deixa na hora, ou numa área, que se apaga com o item 13. O que seguia antes desliga onde está, como no `Turn on`. Vale de qualquer distância, na mesma dimensão, e o Cubit segue pela regra de hoje, andando ou teleportando. Já seguindo, sem carga, em outra dimensão ou com o chunk descarregado, fica desabilitado, com a dica do motivo (perguntas 1055 e 1072 a 1075).
-- **Ir para o Dock:** vai para o Dock preferido, se ele estiver na mesma dimensão, carregado e no raio de chamada do tier. Senão, vai para o Dock livre mais próximo nesse raio, como o clique no Dock (pergunta 1041). Com o preferido ocupado, vai até ele e espera na fila, procurando outro livre enquanto espera. Um preferido destruído é apagado ao ser lido (pergunta 1042). Sem Dock ao alcance, desligado, hibernando ou com o chunk descarregado, o botão fica desabilitado, com a dica do motivo. Ao sair do Dock, o Cubit volta ao que fazia.
+- **Ir para o Dock:** vai para o Dock preferido, se ele estiver na mesma dimensão, carregado e no raio de chamada do tier. Senão, vai para o Dock livre mais próximo nesse raio, como o Shift + clique no Dock (perguntas 1041 e 2122). Com o preferido ocupado, vai até ele e espera na fila, procurando outro livre enquanto espera. Um preferido destruído é apagado ao ser lido (pergunta 1042). Sem Dock ao alcance, desligado, hibernando ou com o chunk descarregado, o botão fica desabilitado, com a dica do motivo. Ao sair do Dock, o Cubit volta ao que fazia.
 
 ### Abas
 
@@ -208,6 +208,7 @@ Os textos em inglês e português, como `Cubit Tablet` / `Tablet do Cubit`, `Tab
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 10:06 | Cita o Shift + clique que chama o Cubit (pergunta 2122). |
 | Zennd | 2026-11-24 09:56 | Acrescenta a aba XP, o Descarregar XP e o XP da foto (perguntas 2075 a 2116). |
 | Zennd | 2026-11-23 00:00 | Volta ao nome padrão um nome vazio no Rename (pergunta 1878). |
 | Zennd | 2026-11-22 16:59 | Acrescenta a escolta de outra dimensão e o pacote `cubit:escort_marks` (perguntas 1661, 1764 e 1765) |

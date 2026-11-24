@@ -248,7 +248,7 @@ Pergunta 691.
 - **JUnit, no domínio:** a escolha do estado do topo, o formato dos números e a divisão dos valores acima de 16 bits.
 - **GameTests:**
   - só o dono abre;
-  - Shift + clique no Dock;
+  - clique direito no Dock;
   - a tela fecha com o Cubit desligado;
   - o botão de chamar e as chaves;
   - nenhum item duplica.
@@ -258,6 +258,7 @@ Pergunta 691.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 10:06 | Troca o clique que abre a tela do Dock (pergunta 2122). |
 | Zennd | 2026-11-24 09:56 | Acrescenta a aba XP do Dock (perguntas 1837 e 2114). |
 | Zennd | 2026-11-24 08:16 | Acrescenta a aba XP do Cubit (perguntas 1830 e 2082). |
 | Zennd | 2026-11-23 10:40 | Acrescenta a luz da lua na aba Solar (perguntas 1946 e 1949). |
