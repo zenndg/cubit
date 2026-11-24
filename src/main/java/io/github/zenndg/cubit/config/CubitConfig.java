@@ -360,6 +360,11 @@ public final class CubitConfig {
     return dock;
   }
 
+  /** The keys of the XP (answers 1817, 1820 and 1823). */
+  public XpSection xp() {
+    return pickup.xp();
+  }
+
   /** The keys of the marked doors (answers 1368 and 1369). */
   public DoorSection doors() {
     return doors;

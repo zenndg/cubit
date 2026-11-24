@@ -69,6 +69,7 @@ final class TierSection {
   private final UnloadKeys unload;
   private final DeathPointKey deathPoint;
   private final JobKeys jobs;
+  private final XpKey xp;
   private final DockKeys dock;
   private final DeskKeys desk;
 
@@ -102,6 +103,7 @@ final class TierSection {
     unload = new UnloadKeys(builder, defaults.unload());
     deathPoint = new DeathPointKey(builder, defaults.deathPoint());
     jobs = new JobKeys(builder, defaults.jobs());
+    xp = new XpKey(builder, defaults.xp());
     dock = new DockKeys(builder, dockDefaults);
     desk = new DeskKeys(builder, deskDefaults);
   }
@@ -137,7 +139,8 @@ final class TierSection {
         area.read(),
         unload.read(),
         deathPoint.read(),
-        jobs.read());
+        jobs.read(),
+        xp.read());
   }
 
   private static ModConfigSpec.DoubleValue speed(

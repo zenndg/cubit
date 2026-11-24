@@ -5,6 +5,7 @@ import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.Percentage;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.domain.tier.TierSpec;
+import io.github.zenndg.cubit.domain.xp.XpState;
 
 /**
  * What a robot keeps when it becomes an item. The config may change while a robot is stored, so the
@@ -28,7 +29,8 @@ public record RobotState(
     boolean deathPointOn,
     WorkSettings workSettings,
     SpeedChoice speed,
-    boolean introduced) {
+    boolean introduced,
+    XpState xp) {
   private static final String INVALID_HEALTH_MESSAGE = "Invalid robot health: ";
   private static final float MIN_PLACED_HEALTH = 1f;
 
@@ -74,7 +76,8 @@ public record RobotState(
         true,
         WorkSettings.INITIAL,
         SpeedChoice.FULL,
-        true);
+        true,
+        XpState.EMPTY);
   }
 
   /** Peaceful, with the solar panel and the torches on and the first pickup, as before them. */
@@ -123,7 +126,7 @@ public record RobotState(
         .withIntroduced(false);
   }
 
-  /** What a robot keeps when it dies: the tier and the looks, without energy or health. */
+  /** What a robot keeps when it dies: the tier, the looks and the XP, without energy or health. */
   public RobotState damaged() {
     return with(Energy.ZERO, 0f);
   }
@@ -158,7 +161,8 @@ public record RobotState(
         deathPointOn,
         workSettings,
         speed,
-        introduced);
+        introduced,
+        xp);
   }
 
   public RobotState withPickup(PickupSettings next) {
@@ -180,7 +184,8 @@ public record RobotState(
         deathPointOn,
         workSettings,
         speed,
-        introduced);
+        introduced,
+        xp);
   }
 
   public RobotState withTorches(boolean on) {
@@ -202,7 +207,8 @@ public record RobotState(
         deathPointOn,
         workSettings,
         speed,
-        introduced);
+        introduced,
+        xp);
   }
 
   public RobotState withAutoReturn(boolean on) {
@@ -224,7 +230,8 @@ public record RobotState(
         deathPointOn,
         workSettings,
         speed,
-        introduced);
+        introduced,
+        xp);
   }
 
   public RobotState withUnload(boolean on) {
@@ -246,7 +253,8 @@ public record RobotState(
         deathPointOn,
         workSettings,
         speed,
-        introduced);
+        introduced,
+        xp);
   }
 
   public RobotState withDeathPoint(boolean on) {
@@ -268,7 +276,8 @@ public record RobotState(
         on,
         workSettings,
         speed,
-        introduced);
+        introduced,
+        xp);
   }
 
   public RobotState withWorkSettings(WorkSettings on) {
@@ -290,7 +299,8 @@ public record RobotState(
         deathPointOn,
         on,
         speed,
-        introduced);
+        introduced,
+        xp);
   }
 
   /** The same robot walking at another percentage of its tier (answer 1266). */
@@ -313,7 +323,8 @@ public record RobotState(
         deathPointOn,
         workSettings,
         next,
-        introduced);
+        introduced,
+        xp);
   }
 
   public RobotState withIntroduced(boolean next) {
@@ -335,6 +346,31 @@ public record RobotState(
         deathPointOn,
         workSettings,
         speed,
+        next,
+        xp);
+  }
+
+  /** The same robot with another tank, mode or switch of the excess (answer 1838). */
+  public RobotState withXp(XpState next) {
+    return new RobotState(
+        tier,
+        energy,
+        health,
+        lampOn,
+        color,
+        scannersOn,
+        oreFilter,
+        chatterOn,
+        defenseMode,
+        solarOn,
+        pickup,
+        torchesOn,
+        autoReturnOn,
+        unloadOn,
+        deathPointOn,
+        workSettings,
+        speed,
+        introduced,
         next);
   }
 

@@ -14,6 +14,7 @@ import io.github.zenndg.cubit.domain.robot.WorkSettings;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.SavedEnergy;
 import io.github.zenndg.cubit.item.SavedOreFilter;
+import io.github.zenndg.cubit.item.SavedXp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -91,6 +92,7 @@ final class SavedRobotValues {
     tag.putInt(SPEED_KEY, robot.state().speed().percent());
     tag.putBoolean(INTRODUCED_KEY, robot.state().introduced());
     SavedPickup.write(tag, robot.state().pickup());
+    SavedXp.write(tag, robot.state().xp());
     robot
         .lastSafePosition()
         .ifPresent(position -> tag.putLong(LAST_SAFE_POSITION_KEY, position.asLong()));
@@ -205,7 +207,8 @@ final class SavedRobotValues {
         .withDeathPoint(!tag.contains(DEATH_POINT_KEY) || tag.getBoolean(DEATH_POINT_KEY))
         .withWorkSettings(workSettings(tag).withOrganizerMode(organizerMode(tag, robot)))
         .withSpeed(speed(tag, robot))
-        .withIntroduced(introduced(tag));
+        .withIntroduced(introduced(tag))
+        .withXp(SavedXp.read(tag));
   }
 
   /**

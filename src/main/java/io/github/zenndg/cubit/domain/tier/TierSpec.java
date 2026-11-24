@@ -30,7 +30,8 @@ public record TierSpec(
     AreaSpec area,
     UnloadSpec unload,
     DeathPointLevel deathPoint,
-    JobSpec jobs) {
+    JobSpec jobs,
+    XpSpec xp) {
 
   /** The largest radius the config accepts, which also limits the search for a robot to call. */
   public static final int MAX_CALL_RADIUS_BLOCKS = 128;
@@ -57,7 +58,7 @@ public record TierSpec(
 
   /**
    * A tier with only the first numbers: no shock, pickup, Power Bank, torches, return charge, area,
-   * unload, death point or jobs, which only tests need.
+   * unload, death point, jobs or XP, which only tests need.
    */
   public TierSpec(
       Energy batteryCapacity,
@@ -91,7 +92,8 @@ public record TierSpec(
         AreaSpec.NONE,
         UnloadSpec.NONE,
         DeathPointLevel.LOCKED,
-        JobSpec.NONE);
+        JobSpec.NONE,
+        XpSpec.NONE);
   }
 
   public Battery newBattery(Percentage initialCharge) {

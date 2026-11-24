@@ -16,6 +16,7 @@ import io.github.zenndg.cubit.domain.robot.SpeedChoice;
 import io.github.zenndg.cubit.domain.robot.UnloadInterval;
 import io.github.zenndg.cubit.domain.robot.WorkSettings;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
+import io.github.zenndg.cubit.domain.xp.XpState;
 import io.netty.buffer.ByteBuf;
 import java.util.Optional;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -100,7 +101,8 @@ public final class RobotStateComponent {
       Optional<Integer> unloadInterval,
       SpeedChoice speed,
       OrganizerMode organizerMode,
-      boolean introduced) {}
+      boolean introduced,
+      XpState xp) {}
 
   private static final MapCodec<LateSwitches> LATE_SWITCHES =
       RecordCodecBuilder.mapCodec(instance ->
@@ -132,7 +134,8 @@ public final class RobotStateComponent {
                       .forGetter(LateSwitches::organizerMode),
                   Codec.BOOL
                       .optionalFieldOf(INTRODUCED_FIELD, INTRODUCED_DEFAULT)
-                      .forGetter(LateSwitches::introduced))
+                      .forGetter(LateSwitches::introduced),
+                  SavedXp.CODEC.forGetter(LateSwitches::xp))
               .apply(instance, LateSwitches::new));
 
   public static final Codec<RobotState> CODEC =
@@ -185,7 +188,8 @@ public final class RobotStateComponent {
                           savedInterval(state.workSettings().unloadInterval()),
                           state.speed(),
                           state.workSettings().organizerMode(),
-                          state.introduced())))
+                          state.introduced(),
+                          state.xp())))
               .apply(
                   instance,
                   (tier,
@@ -224,7 +228,8 @@ public final class RobotStateComponent {
                               intervalOf(late.unloadInterval()),
                               late.organizerMode()),
                           late.speed(),
-                          late.introduced())));
+                          late.introduced(),
+                          late.xp())));
 
   public static final StreamCodec<ByteBuf, RobotState> STREAM_CODEC =
       ByteBufCodecs.fromCodec(CODEC);

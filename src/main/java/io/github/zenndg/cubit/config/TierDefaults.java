@@ -16,6 +16,7 @@ import io.github.zenndg.cubit.domain.tier.ShockSpec;
 import io.github.zenndg.cubit.domain.tier.TierSpec;
 import io.github.zenndg.cubit.domain.tier.TorchSpec;
 import io.github.zenndg.cubit.domain.tier.UnloadSpec;
+import io.github.zenndg.cubit.domain.tier.XpSpec;
 import java.util.Set;
 
 /**
@@ -182,6 +183,10 @@ final class TierDefaults {
   private static final long ADVANCED_POWER_BANK = 420_000;
   private static final long ELITE_POWER_BANK = 2_100_000;
   private static final long ULTIMATE_POWER_BANK = 5_600_000;
+  private static final XpSpec BASE_XP = new XpSpec(8_000);
+  private static final XpSpec ADVANCED_XP = new XpSpec(16_000);
+  private static final XpSpec ELITE_XP = new XpSpec(32_000);
+  private static final XpSpec ULTIMATE_XP = new XpSpec(64_000);
   private static final TierSpec BASE_SPEC =
       new TierSpec(
           new Energy(BASE_BATTERY),
@@ -215,7 +220,8 @@ final class TierDefaults {
           BASE_AREA,
           BASE_UNLOAD,
           DeathPointLevel.LOCKED,
-          JobSpec.NONE);
+          JobSpec.NONE,
+          BASE_XP);
   private static final TierSpec ADVANCED_SPEC =
       new TierSpec(
           new Energy(ADVANCED_BATTERY),
@@ -249,7 +255,8 @@ final class TierDefaults {
           ADVANCED_AREA,
           ADVANCED_UNLOAD,
           DeathPointLevel.MARK,
-          JobDefaults.ADVANCED);
+          JobDefaults.ADVANCED,
+          ADVANCED_XP);
   private static final TierSpec ELITE_SPEC =
       new TierSpec(
           new Energy(ELITE_BATTERY),
@@ -283,7 +290,8 @@ final class TierDefaults {
           ELITE_AREA,
           ELITE_UNLOAD,
           DeathPointLevel.GUIDE,
-          JobDefaults.ELITE);
+          JobDefaults.ELITE,
+          ELITE_XP);
   private static final TierSpec ULTIMATE_SPEC =
       new TierSpec(
           new Energy(ULTIMATE_BATTERY),
@@ -317,7 +325,8 @@ final class TierDefaults {
           ULTIMATE_AREA,
           ULTIMATE_UNLOAD,
           DeathPointLevel.GUIDE,
-          JobDefaults.ULTIMATE);
+          JobDefaults.ULTIMATE,
+          ULTIMATE_XP);
 
   private TierDefaults() {}
 

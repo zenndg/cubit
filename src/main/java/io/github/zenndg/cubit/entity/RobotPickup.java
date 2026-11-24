@@ -41,11 +41,18 @@ public final class RobotPickup implements PickupControl {
 
   private final RobotEntity robot;
   private final Map<UUID, ItemEntity> pulled = new HashMap<>();
+  private final RobotXp xp;
   private PickupSettings settings = PickupSettings.INITIAL;
   private FetchMemory fetchMemory = FetchMemory.EMPTY;
 
   RobotPickup(RobotEntity robot) {
     this.robot = robot;
+    this.xp = new RobotXp(robot);
+  }
+
+  /** The XP comes with the pickup, which also takes its orbs (answer 1822). */
+  public RobotXp xp() {
+    return xp;
   }
 
   @Override

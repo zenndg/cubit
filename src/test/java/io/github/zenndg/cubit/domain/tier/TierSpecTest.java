@@ -141,4 +141,10 @@ class TierSpecTest {
   void aTierWithoutShockNumbersOnlyHasPeaceful() {
     assertEquals(ShockSpec.NONE, BASE.shock());
   }
+
+  @Test
+  void aTierWithoutXpNumbersHasNoTank() {
+    assertEquals(XpSpec.NONE, BASE.xp());
+    assertThrows(IllegalArgumentException.class, () -> new XpSpec(-1));
+  }
 }

@@ -8,6 +8,7 @@ import io.github.zenndg.cubit.domain.robot.RobotState;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.EnergySlotContents;
 import io.github.zenndg.cubit.item.RobotStateComponent;
+import io.github.zenndg.cubit.item.SavedDockXp;
 import java.util.UUID;
 import java.util.function.Supplier;
 import net.minecraft.core.GlobalPos;
@@ -32,6 +33,7 @@ public final class CubitDataComponents {
   private static final String DOCK_ENERGY_ID = "dock_energy";
   private static final String DOCK_STORAGE_ID = "dock_storage";
   private static final String DOCK_TIER_ID = "dock_tier";
+  private static final String DOCK_XP_ID = "dock_xp";
   private static final String DOCK_ID_ID = "dock_id";
   private static final String DESK_TIER_ID = "engineering_desk_tier";
   private static final String DESK_ENERGY_ID = "engineering_desk_energy";
@@ -110,6 +112,13 @@ public final class CubitDataComponents {
       COMPONENTS.registerComponentType(
           DOCK_ENERGY_ID,
           builder -> builder.persistent(Codec.LONG).networkSynchronized(ByteBufCodecs.VAR_LONG));
+
+  /** The XP of a dock, kept in its item when it breaks (answer 1838). */
+  public static final Supplier<DataComponentType<SavedDockXp>> DOCK_XP =
+      COMPONENTS.registerComponentType(
+          DOCK_XP_ID,
+          builder ->
+              builder.persistent(SavedDockXp.CODEC).networkSynchronized(SavedDockXp.STREAM_CODEC));
 
   /** The tier of a dock, kept in its item when it breaks (answer 1373). */
   public static final Supplier<DataComponentType<RobotTier>> DOCK_TIER =
