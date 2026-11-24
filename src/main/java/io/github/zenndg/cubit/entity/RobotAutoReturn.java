@@ -66,15 +66,10 @@ public final class RobotAutoReturn implements RobotSwitch {
       return;
     }
     nextCheck = now + CubitMod.CONFIG.followRepathTicks();
-    // The escort of the Patroller also counts, so it goes back from it too (answer 1689).
-    boolean following =
-        RobotInteractions.followedPlayer(robot) != null
-            || robot.workArea().working()
-            || robot.workArea().work().escort().active();
     RobotPatrolCombat guard = robot.workArea().work().patrolCombat();
     AutoReturn rule = new AutoReturn(switchedOn, returnCharge());
     if (!rule.returns(
-        robot.powerState(), robot.battery(), following, onTrip, guard.holdsTheReturn())) {
+        robot.powerState(), robot.battery(), onDuty(robot), onTrip, guard.holdsTheReturn())) {
       told = false;
       return;
     }
@@ -84,6 +79,13 @@ public final class RobotAutoReturn implements RobotSwitch {
       robot.callToDock(spot);
     });
     tell(dock);
+  }
+
+  /** Following, working or, as the Patroller, escorting, so it goes back from it too (1689). */
+  static boolean onDuty(RobotEntity robot) {
+    return RobotInteractions.followedPlayer(robot) != null
+        || robot.workArea().working()
+        || robot.workArea().work().escort().active();
   }
 
   /**

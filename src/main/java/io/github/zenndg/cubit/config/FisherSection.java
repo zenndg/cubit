@@ -1,6 +1,10 @@
 package io.github.zenndg.cubit.config;
 
+import com.mojang.logging.LogUtils;
+import io.github.zenndg.cubit.domain.behavior.FishingTimes;
+import java.util.concurrent.atomic.AtomicBoolean;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import org.slf4j.Logger;
 
 /**
  * The config keys of the jobs that are the same on every tier: the time of a catch, as in the game,
@@ -27,6 +31,9 @@ final class FisherSection {
   private static final int LURE_TICKS_MIN = 0;
   private static final int TICKS_MAX = 72000;
 
+  private static final Logger LOGGER = LogUtils.getLogger();
+  private static final String REVERSED = "Fishing limits are reversed; using the minimum";
+
   final ModConfigSpec.IntValue waitMin;
   final ModConfigSpec.IntValue waitMax;
   final ModConfigSpec.IntValue biteMin;
@@ -34,6 +41,7 @@ final class FisherSection {
   final ModConfigSpec.IntValue lureTicks;
   final ModConfigSpec.IntValue castReach;
   final ModConfigSpec.IntValue farmerScan;
+  private final AtomicBoolean warned = new AtomicBoolean();
 
   FisherSection(ModConfigSpec.Builder builder) {
     waitMin = ticks(builder, WAIT_MIN, WAIT_MIN_DEFAULT);
@@ -43,6 +51,23 @@ final class FisherSection {
     lureTicks = builder.defineInRange(LURE_TICKS, LURE_TICKS_DEFAULT, LURE_TICKS_MIN, TICKS_MAX);
     castReach = builder.defineInRange(CAST_REACH, CAST_REACH_DEFAULT, TICKS_MIN, CAST_REACH_MAX);
     farmerScan = ticks(builder, FARMER_SCAN, FARMER_SCAN_DEFAULT);
+  }
+
+  /** A maximum under its minimum must not break the game: it becomes the minimum, logged once. */
+  FishingTimes times() {
+    int lowWait = waitMin.get();
+    int lowBite = biteMin.get();
+    int highWait = waitMax.get();
+    int highBite = biteMax.get();
+    if ((highWait < lowWait || highBite < lowBite) && warned.compareAndSet(false, true)) {
+      LOGGER.warn(REVERSED);
+    }
+    return new FishingTimes(
+        lowWait,
+        Math.max(lowWait, highWait),
+        lowBite,
+        Math.max(lowBite, highBite),
+        lureTicks.get());
   }
 
   private static ModConfigSpec.IntValue ticks(

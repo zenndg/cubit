@@ -125,57 +125,25 @@ public record RobotState(
 
   /** What a robot keeps when it dies: the tier and the looks, without energy or health. */
   public RobotState damaged() {
-    return new RobotState(
-        tier,
-        Energy.ZERO,
-        0f,
-        lampOn,
-        color,
-        scannersOn,
-        oreFilter,
-        chatterOn,
-        defenseMode,
-        solarOn,
-        pickup,
-        torchesOn,
-        autoReturnOn,
-        unloadOn,
-        deathPointOn,
-        workSettings,
-        speed,
-        introduced);
+    return with(Energy.ZERO, 0f);
   }
 
   public RobotState repaired(TierSpec spec, Percentage health) {
-    return new RobotState(
-        tier,
-        Energy.ZERO,
-        (float) spec.maxHealth() * health.value() / Percentage.MAX,
-        lampOn,
-        color,
-        scannersOn,
-        oreFilter,
-        chatterOn,
-        defenseMode,
-        solarOn,
-        pickup,
-        torchesOn,
-        autoReturnOn,
-        unloadOn,
-        deathPointOn,
-        workSettings,
-        speed,
-        introduced);
+    return with(Energy.ZERO, (float) spec.maxHealth() * health.value() / Percentage.MAX);
   }
 
   /**
    * The same robot with another charge, as the recharge in the crafting grid gives (answer 181).
    */
   public RobotState withEnergy(Energy next) {
+    return with(next, health);
+  }
+
+  private RobotState with(Energy nextEnergy, float nextHealth) {
     return new RobotState(
         tier,
-        next,
-        health,
+        nextEnergy,
+        nextHealth,
         lampOn,
         color,
         scannersOn,

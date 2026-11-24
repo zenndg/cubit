@@ -93,7 +93,7 @@ public class RobotMenu extends RobotMenuReading {
   private final DefenseControl defense;
   private final PowerControl power;
   private final WorkControl work;
-  private final SpeedControl speed;
+  private final RobotMenuParts parts;
   private final RobotScreenOpening opening;
   private final RobotMenuSlots slotGroups;
   private final PickupMenuPart pickup;
@@ -118,10 +118,10 @@ public class RobotMenu extends RobotMenuReading {
     this.defense = server.defense();
     this.power = server.power();
     this.work = server.work();
-    this.speed = server.speed();
     this.opening = contents.opening();
-    this.pickup = new PickupMenuPart(server.pickup());
-    this.organizer = new OrganizerMenuPart(server.organizer());
+    this.parts = RobotMenuParts.of(server);
+    this.pickup = parts.pickup();
+    this.organizer = parts.organizer();
     slotGroups.addRobotSlots(this::addSlot, container, grid);
     slotGroups.addEnergySlot(this::addSlot, contents.energySlot());
     slotGroups.addTorchSlot(
@@ -183,16 +183,15 @@ public class RobotMenu extends RobotMenuReading {
   @Override
   public void broadcastChanges() {
     refresh.run();
-    pickup.refresh();
-    organizer.refresh();
+    parts.refresh();
     super.broadcastChanges();
   }
 
   /** The server checks this menu before calling, and it is checked again for any other caller. */
   @Override
   public boolean clickMenuButton(Player player, int button) {
-    if (partButton(button)) {
-      return stillValid(player) && pressPart(player, button);
+    if (RobotMenuParts.handles(button)) {
+      return stillValid(player) && parts.press(player, button);
     }
     if (CONTROL_BUTTONS.contains(button)) {
       return stillValid(player) && pressControl(player, button);
@@ -202,22 +201,6 @@ public class RobotMenu extends RobotMenuReading {
       return stillValid(player) && defense.choose(player, DefenseMode.values()[mode]);
     }
     return toggleFromClient(player, button);
-  }
-
-  private static boolean partButton(int button) {
-    return PickupMenuPart.handles(button)
-        || SpeedButtons.handles(button)
-        || OrganizerMenuPart.handles(button);
-  }
-
-  /** The buttons that belong to a part of the menu: pickup, speed and the Organizer. */
-  private boolean pressPart(Player player, int button) {
-    if (PickupMenuPart.handles(button)) {
-      return pickup.press(player, button);
-    }
-    return SpeedButtons.handles(button)
-        ? SpeedButtons.press(speed, player, button)
-        : organizer.press(player, button);
   }
 
   /** Power switches off, Resume wakes the Cubit, and − and + step the unload interval. */

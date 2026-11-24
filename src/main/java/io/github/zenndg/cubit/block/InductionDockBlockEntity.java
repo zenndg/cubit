@@ -156,7 +156,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     if (dock.panel.switched()) {
       level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
     }
-    dock.showStatus(level, pos, state);
+    DockStatusProperty.show(level, pos, state, dock.status());
   }
 
   /**
@@ -212,13 +212,6 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
           .get()
           .flatMap(id -> DockFinder.nearestRobot(server, worldPosition, id))
           .ifPresent(robot -> robot.callToDock(worldPosition));
-    }
-  }
-
-  private void showStatus(Level level, BlockPos pos, BlockState state) {
-    DockStatusProperty shown = DockStatusProperty.of(status());
-    if (state.getValue(InductionDockBlock.STATUS) != shown) {
-      level.setBlock(pos, state.setValue(InductionDockBlock.STATUS, shown), Block.UPDATE_CLIENTS);
     }
   }
 

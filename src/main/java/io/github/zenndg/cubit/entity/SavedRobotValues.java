@@ -86,11 +86,7 @@ final class SavedRobotValues {
         .forEach(ore -> filter.add(StringTag.valueOf(ore)));
     tag.put(ORE_FILTER_KEY, filter);
     tag.putString(DEFENSE_KEY, robot.state().defenseMode().key());
-    tag.putBoolean(SOLAR_KEY, robot.state().solarOn());
-    tag.putBoolean(TORCHES_KEY, robot.state().torchesOn());
-    tag.putBoolean(AUTO_RETURN_KEY, robot.state().autoReturnOn());
-    tag.putBoolean(UNLOAD_KEY, robot.state().unloadOn());
-    tag.putBoolean(DEATH_POINT_KEY, robot.state().deathPointOn());
+    writeSwitches(tag, robot.state());
     writeWorkSettings(tag, robot.state().workSettings());
     tag.putInt(SPEED_KEY, robot.state().speed().percent());
     tag.putBoolean(INTRODUCED_KEY, robot.state().introduced());
@@ -98,6 +94,14 @@ final class SavedRobotValues {
     robot
         .lastSafePosition()
         .ifPresent(position -> tag.putLong(LAST_SAFE_POSITION_KEY, position.asLong()));
+  }
+
+  private static void writeSwitches(CompoundTag tag, RobotState state) {
+    tag.putBoolean(SOLAR_KEY, state.solarOn());
+    tag.putBoolean(TORCHES_KEY, state.torchesOn());
+    tag.putBoolean(AUTO_RETURN_KEY, state.autoReturnOn());
+    tag.putBoolean(UNLOAD_KEY, state.unloadOn());
+    tag.putBoolean(DEATH_POINT_KEY, state.deathPointOn());
   }
 
   /** Only a chosen interval is saved, so one nobody chose keeps following the config (1254). */

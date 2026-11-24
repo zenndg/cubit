@@ -30,7 +30,6 @@ public final class CubitConfig {
   public static final RobotType GENERAL_ROBOT = new RobotType("general_robot");
   private static final Logger LOGGER = LogUtils.getLogger();
   private static final String REVERSED_LAMP = "The lamp limits are reversed: off {}, on {}";
-  private static final String REVERSED_FISHING = "Fishing limits are reversed; using the minimum";
   private static final String INVALID_RARE_TAG = "Ignoring an invalid tag in rare_ore_tags: {}";
   private static final String GENERAL_SECTION = "general";
   private static final int TIER_SECTION_DEPTH = 2;
@@ -59,7 +58,6 @@ public final class CubitConfig {
   private final RechargeSplashSection rechargeSplash;
   private final AtomicBoolean warnedRareTags = new AtomicBoolean();
   private final AtomicBoolean warnedLamp = new AtomicBoolean();
-  private final AtomicBoolean warnedFishing = new AtomicBoolean();
   private final NeoForgeTierCatalog tierCatalog;
 
   public CubitConfig() {
@@ -214,8 +212,6 @@ public final class CubitConfig {
     return new OreSignals(kinds);
   }
 
-  /** The keys of the chatter. */
-  /** The numbers of the Galactic Patroller for every tier (answer 1577). */
   /** The numbers of the Galactic Patroller that hold for every tier, with its team. */
   public PatrolSection patrol() {
     return defense.patrol();
@@ -255,21 +251,8 @@ public final class CubitConfig {
     return LampPolicy.fitting(new LightLevel(onBelow), new LightLevel(offFrom));
   }
 
-  /** A maximum under its minimum must not break the game: it becomes the minimum, logged once. */
   public FishingTimes fishingTimes() {
-    int waitMin = fisher.waitMin.get();
-    int biteMin = fisher.biteMin.get();
-    int waitMax = fisher.waitMax.get();
-    int biteMax = fisher.biteMax.get();
-    if ((waitMax < waitMin || biteMax < biteMin) && warnedFishing.compareAndSet(false, true)) {
-      LOGGER.warn(REVERSED_FISHING);
-    }
-    return new FishingTimes(
-        waitMin,
-        Math.max(waitMin, waitMax),
-        biteMin,
-        Math.max(biteMin, biteMax),
-        fisher.lureTicks.get());
+    return fisher.times();
   }
 
   public int fisherCastReachBlocks() {
