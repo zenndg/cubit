@@ -18,6 +18,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.network.registration.NetworkRegistry;
 
 /** Places robots the way a player does: by using the item on a block. */
 final class GameTestRobots {
@@ -55,6 +56,15 @@ final class GameTestRobots {
   @SuppressWarnings(REMOVAL)
   static ServerPlayer onlinePlayer(GameTestHelper helper) {
     return helper.makeMockServerPlayerInLevel();
+  }
+
+  /**
+   * The connection of the online player never negotiated the channels of NeoForge, which then
+   * refuses the payload of a screen. With them, the player opens screens as in the game.
+   */
+  static ServerPlayer readyForScreens(ServerPlayer player) {
+    NetworkRegistry.configureMockConnection(player.connection.getConnection());
+    return player;
   }
 
   /** An online player standing on a floor block, within reach of what it places there. */

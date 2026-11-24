@@ -40,13 +40,17 @@ public final class DockClickGameTests {
 
   private DockClickGameTests() {}
 
+  private static ServerPlayer beside(GameTestHelper helper) {
+    return GameTestRobots.readyForScreens(DockScene.ownerBeside(helper));
+  }
+
   private static boolean opened(ServerPlayer player) {
     return player.containerMenu instanceof InductionDockMenu;
   }
 
   @GameTest(template = ARENA)
   public static void theRightClickOpensTheScreenAndCallsNobody(GameTestHelper helper) {
-    ServerPlayer owner = DockScene.ownerBeside(helper);
+    ServerPlayer owner = beside(helper);
     DockScene.placeDock(helper, owner, DockScene.FLOOR, STOCK);
     RobotEntity robot = DockScene.placeRobot(helper, owner, ROBOT_FLOOR, PLENTY);
 
@@ -62,7 +66,7 @@ public final class DockClickGameTests {
 
   @GameTest(template = ARENA)
   public static void theSneakingClickCallsAndOpensNothing(GameTestHelper helper) {
-    ServerPlayer owner = DockScene.ownerBeside(helper);
+    ServerPlayer owner = beside(helper);
     DockScene.placeDock(helper, owner, DockScene.FLOOR, STOCK);
     RobotEntity robot = DockScene.placeRobot(helper, owner, ROBOT_FLOOR, PLENTY);
 
@@ -76,7 +80,7 @@ public final class DockClickGameTests {
   /** Also with a Cubit in the Dock, the right click only opens the screen (answer 2123). */
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
   public static void onlyTheSneakingClickLetsTheDockedCubitGo(GameTestHelper helper) {
-    ServerPlayer owner = DockScene.ownerBeside(helper);
+    ServerPlayer owner = beside(helper);
     DockScene.placeDock(helper, owner, DockScene.FLOOR, STOCK);
     RobotEntity robot = DockScene.placeOnDock(helper, owner, PLENTY);
 
@@ -96,8 +100,8 @@ public final class DockClickGameTests {
 
   @GameTest(template = ARENA)
   public static void aStrangerOpensNothing(GameTestHelper helper) {
-    ServerPlayer owner = DockScene.ownerBeside(helper);
-    ServerPlayer stranger = DockScene.ownerBeside(helper);
+    ServerPlayer owner = beside(helper);
+    ServerPlayer stranger = beside(helper);
     DockScene.placeDock(helper, owner, DockScene.FLOOR, STOCK);
 
     DockScene.click(helper, stranger, DockScene.DOCK);
@@ -110,7 +114,7 @@ public final class DockClickGameTests {
   /** Through the game, which keeps the sneaking click of a full hand for the item (2124). */
   @GameTest(template = ARENA)
   public static void theSneakingClickNeedsBothHandsEmpty(GameTestHelper helper) {
-    ServerPlayer owner = DockScene.ownerBeside(helper);
+    ServerPlayer owner = beside(helper);
     DockScene.placeDock(helper, owner, DockScene.FLOOR, STOCK);
     RobotEntity robot = DockScene.placeRobot(helper, owner, ROBOT_FLOOR, PLENTY);
     owner.setShiftKeyDown(true);
@@ -129,7 +133,7 @@ public final class DockClickGameTests {
   /** With an item the Dock does not keep, the right click opens the screen, as a chest. */
   @GameTest(template = ARENA)
   public static void theRightClickWithAnotherItemOpensTheScreen(GameTestHelper helper) {
-    ServerPlayer owner = DockScene.ownerBeside(helper);
+    ServerPlayer owner = beside(helper);
     DockScene.placeDock(helper, owner, DockScene.FLOOR, STOCK);
     owner.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.STICK));
 
