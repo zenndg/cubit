@@ -51,6 +51,11 @@ public final class XpMenuPart {
     values.set(TRADES, control.trades() ? 1 : 0);
   }
 
+  /** On the server: whether the Cubit has a whole point to unload (answer 2107). */
+  boolean hasXp() {
+    return !control.tank().isEmpty(CubitMod.CONFIG.xp().rate());
+  }
+
   static boolean handles(int button) {
     return button >= TAKE_BUTTON && button <= LAST_BUTTON;
   }

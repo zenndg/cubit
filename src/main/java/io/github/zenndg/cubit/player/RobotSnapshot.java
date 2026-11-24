@@ -6,6 +6,7 @@ import io.github.zenndg.cubit.domain.behavior.RobotScreenStatus;
 import io.github.zenndg.cubit.domain.robot.RobotColor;
 import io.github.zenndg.cubit.domain.robot.RobotJob;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
+import io.github.zenndg.cubit.domain.xp.XpTank;
 import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
@@ -17,7 +18,8 @@ import net.minecraft.world.level.Level;
 
 /**
  * What the Tablet knows of a Cubit: read live while it is loaded, and kept as its last snapshot
- * while its chunk is unloaded (answers 1004 and 1026). The name is empty without a custom name.
+ * while its chunk is unloaded (answers 1004 and 1026). The name is empty without a custom name, and
+ * the XP is optional in the save (answer 2106).
  */
 public record RobotSnapshot(
     UUID robot,
@@ -29,7 +31,8 @@ public record RobotSnapshot(
     int batteryPercent,
     BlockPos pos,
     ResourceKey<Level> dimension,
-    long gameTime) {
+    long gameTime,
+    Optional<XpTank> xp) {
   private static final String ROBOT_KEY = "Robot";
   private static final String OWNER_KEY = "Owner";
   private static final String NAME_KEY = "Name";
@@ -43,6 +46,8 @@ public record RobotSnapshot(
   private static final String TIME_KEY = "Time";
   private static final String JOB_KEY = "Job";
   private static final String REASON_KEY = "Reason";
+  private static final String XP_KEY = "XpTank";
+  private static final String XP_CAPACITY_KEY = "XpCapacity";
 
   /**
    * The job while working and the reason while hibernating away, which the state shows. Both are
@@ -55,7 +60,7 @@ public record RobotSnapshot(
   /** The looks of the portrait: tier, shell color and face. */
   public record RobotLook(RobotTier tier, RobotColor color, RobotExpression expression) {}
 
-  CompoundTag save() {
+  public CompoundTag save() {
     CompoundTag tag = new CompoundTag();
     tag.putUUID(ROBOT_KEY, robot);
     tag.putUUID(OWNER_KEY, owner);
@@ -70,11 +75,15 @@ public record RobotSnapshot(
     tag.putLong(POS_KEY, pos.asLong());
     tag.putString(DIMENSION_KEY, dimension.location().toString());
     tag.putLong(TIME_KEY, gameTime);
+    xp.ifPresent(tank -> {
+      tag.putInt(XP_KEY, tank.fluid());
+      tag.putInt(XP_CAPACITY_KEY, tank.capacity());
+    });
     return tag;
   }
 
   /** A broken entry is skipped, so one bad value never hides the other Cubits (rule 17). */
-  static Optional<RobotSnapshot> load(CompoundTag tag) {
+  public static Optional<RobotSnapshot> load(CompoundTag tag) {
     ResourceLocation dimension = ResourceLocation.tryParse(tag.getString(DIMENSION_KEY));
     Optional<RobotTier> tier = RobotTier.fromKey(tag.getString(TIER_KEY));
     if (!tag.hasUUID(ROBOT_KEY) || !tag.hasUUID(OWNER_KEY) || dimension == null || tier.isEmpty()) {
@@ -98,7 +107,17 @@ public record RobotSnapshot(
             tag.getInt(BATTERY_KEY),
             BlockPos.of(tag.getLong(POS_KEY)),
             ResourceKey.create(Registries.DIMENSION, dimension),
-            tag.getLong(TIME_KEY)));
+            tag.getLong(TIME_KEY),
+            xpOf(tag)));
+  }
+
+  /** A snapshot from before the XP, or with a bad one, shows none (detail 20 and rule 17). */
+  private static Optional<XpTank> xpOf(CompoundTag tag) {
+    int fluid = tag.getInt(XP_KEY);
+    int capacity = tag.getInt(XP_CAPACITY_KEY);
+    return tag.contains(XP_KEY) && fluid >= 0 && capacity > 0
+        ? Optional.of(new XpTank(fluid, capacity))
+        : Optional.empty();
   }
 
   private static <E extends Enum<E>> E enumOr(Class<E> type, String name, E fallback) {

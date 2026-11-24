@@ -5,6 +5,7 @@ import io.github.zenndg.cubit.domain.behavior.RobotExpression;
 import io.github.zenndg.cubit.domain.behavior.RobotScreenStatus;
 import io.github.zenndg.cubit.domain.robot.RobotColor;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
+import io.github.zenndg.cubit.item.XpTooltip;
 import io.github.zenndg.cubit.menu.ScreenEnums;
 import io.github.zenndg.cubit.menu.ScreenKeys;
 import io.github.zenndg.cubit.menu.TabletKeys;
@@ -29,6 +30,7 @@ final class TabletOfflineScreen extends Screen {
   private static final int PORTRAIT_Y = 22;
   private static final Box STATUS = new Box(200, 8, 92, LINE);
   private static final Box BATTERY = new Box(TabletRobotHeader.TEXT_X, 22, 150, LINE);
+  private static final Box XP = new Box(TabletRobotHeader.TEXT_X, 33, 150, LINE);
   private static final Box NOTICE = new Box(MARGIN, TabletRobotHeader.HEIGHT + 4, 284, LINE);
   private static final long TICKS_PER_MINUTE = 1_200;
 
@@ -118,6 +120,7 @@ final class TabletOfflineScreen extends Screen {
         BATTERY,
         ScreenPainter.DETAIL,
         ScreenPainter.FULL_SCALE);
+    renderXp(graphics);
     Component coordinates =
         Component.translatable(
             TabletKeys.COORDINATES, entry.pos().getX(), entry.pos().getY(), entry.pos().getZ());
@@ -131,6 +134,19 @@ final class TabletOfflineScreen extends Screen {
         NOTICE,
         ScreenPainter.TEXT,
         ScreenPainter.FULL_SCALE);
+  }
+
+  /** A snapshot from before the XP has none to show (answer 2106). */
+  private void renderXp(GuiGraphics graphics) {
+    entry
+        .xp()
+        .ifPresent(tank ->
+            painter.text(
+                graphics,
+                XpTooltip.line(tank),
+                XP,
+                ScreenPainter.DETAIL,
+                ScreenPainter.FULL_SCALE));
   }
 
   @Override

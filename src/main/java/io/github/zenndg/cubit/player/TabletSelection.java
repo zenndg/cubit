@@ -150,7 +150,8 @@ public final class TabletSelection {
           snapshot.batteryPercent(),
           snapshot.pos(),
           snapshot.dimension().location().toString(),
-          new RobotListPayload.Where(loaded, following, distance(player), age));
+          new RobotListPayload.Where(loaded, following, distance(player), age),
+          snapshot.xp());
     }
   }
 }

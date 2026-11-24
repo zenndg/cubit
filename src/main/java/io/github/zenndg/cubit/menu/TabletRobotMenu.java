@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.menu;
 
 import io.github.zenndg.cubit.domain.dock.DockGoal;
+import io.github.zenndg.cubit.domain.dock.XpUnloadCall;
 import io.github.zenndg.cubit.domain.robot.AreaCorner;
 import io.github.zenndg.cubit.domain.robot.FollowCall;
 import io.github.zenndg.cubit.domain.robot.UnloadCall;
@@ -33,6 +34,9 @@ public final class TabletRobotMenu extends RobotMenu {
 
   /** Sends the Cubit to unload in its chests, before the rows to scroll (answer 1089). */
   public static final int UNLOAD_NOW_BUTTON = 19;
+
+  /** Sends the Cubit to its Dock to empty the XP tank, after the buttons of the XP (2079). */
+  public static final int UNLOAD_XP_BUTTON = 56;
 
   private static final int ONE_SLOT = 1;
   private static final int UNLOAD_VALUE = 2;
@@ -171,6 +175,11 @@ public final class TabletRobotMenu extends RobotMenu {
     return (areaValues.get(FIRST_CORNER + 2 * index + 1) << HALF_BITS) | low;
   }
 
+  /** Whether Unload XP sends the Cubit now, or why not (answers 2079 and 2107). */
+  public XpUnloadCall xpUnloadCall() {
+    return XpUnloadCall.of(dockGoal(), xp().tank().isEmpty(xp().rate()));
+  }
+
   public UnloadCall unloadCall() {
     return ScreenEnums.of(UnloadCall.values(), dockValues.get(UNLOAD_VALUE));
   }
@@ -195,18 +204,32 @@ public final class TabletRobotMenu extends RobotMenu {
     if (XpMenuPart.trades(button)) {
       return false;
     }
-    if (button == GO_TO_DOCK_BUTTON) {
-      return stillValid(player) && dock.go(player);
+    if (isOfTheTablet(button)) {
+      return stillValid(player) && press(player, button);
     }
-    if (button == FOLLOW_BUTTON) {
-      return stillValid(player) && follow.call(player);
-    }
-    if (button == UNLOAD_NOW_BUTTON) {
-      return stillValid(player) && unload.unload(player);
-    }
-    return button == POWER_TOGGLE_BUTTON
-        ? stillValid(player) && togglePower(player)
-        : super.clickMenuButton(player, button);
+    return super.clickMenuButton(player, button);
+  }
+
+  private static boolean isOfTheTablet(int button) {
+    return switch (button) {
+      case POWER_TOGGLE_BUTTON,
+          GO_TO_DOCK_BUTTON,
+          FOLLOW_BUTTON,
+          UNLOAD_NOW_BUTTON,
+          UNLOAD_XP_BUTTON ->
+          true;
+      default -> false;
+    };
+  }
+
+  private boolean press(Player player, int button) {
+    return switch (button) {
+      case GO_TO_DOCK_BUTTON -> dock.go(player);
+      case UNLOAD_XP_BUTTON -> xp().hasXp() && dock.go(player);
+      case FOLLOW_BUTTON -> follow.call(player);
+      case UNLOAD_NOW_BUTTON -> unload.unload(player);
+      default -> togglePower(player);
+    };
   }
 
   private boolean togglePower(Player player) {
