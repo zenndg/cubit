@@ -193,6 +193,10 @@ O Cubit é o único robô do mod. O que muda entre um Cubit e outro é o tier e 
 
 58. **XP que vira FE não volta:** o XP que se torna FE nunca volta a ser XP. Vale para tudo que trabalha com XP no mod, hoje e no que vier, como o Servidor e as profissões: nada no mod transforma FE em XP (resposta 2111).
 
+### Prompts antes do código
+
+59. **Recursos primeiro:** os prompts de geração de recursos, como imagens e sons, são prioridade e ficam prontos antes de iniciar o código da tarefa. Ao fechar o refinamento, o agente lista os recursos que a tarefa pede, ou diz que ela não pede nenhum, e escreve os prompts em `tmp/arte/{nome}/prompt.md`, como na regra 56 (respostas 2153 e 2154).
+
 ## Git
 
 - **Autorização:** nunca faça commit, push, tag, release ou PR sem autorização explícita para aquela ação. Antes, mostre os arquivos, o resumo e a mensagem proposta.
