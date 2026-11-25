@@ -19,8 +19,8 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 
 /**
  * The catalog of the desk: every recipe of the mod, one category at a time, or every category that
- * matches a search, with the locked ones dimmed and last, without their materials (answers 1441,
- * 1474, 1523 and 1524). A click sends the place of the recipe in the whole catalog.
+ * matches a search, each one shown by the rule of the tab (answers 1474, 1523, 1524 and 2400). A
+ * click sends the place of the recipe in the whole catalog.
  */
 final class DeskCatalog {
   static final int X = 8;
@@ -56,11 +56,6 @@ final class DeskCatalog {
         : DeskRecipes.all(minecraft.level.getRecipeManager());
   }
 
-  static boolean unlocked(RecipeHolder<?> recipe) {
-    Minecraft minecraft = Minecraft.getInstance();
-    return minecraft.player != null && minecraft.player.getRecipeBook().contains(recipe);
-  }
-
   static ItemStack resultOf(RecipeHolder<CraftingRecipe> recipe) {
     Minecraft minecraft = Minecraft.getInstance();
     return minecraft.level == null
@@ -69,7 +64,7 @@ final class DeskCatalog {
   }
 
   /**
-   * The places in the whole catalog that show now: by category, in the order of release, which
+   * The places in the whole catalog that show now: by category, in the order of the catalog, which
    * never moves with the materials (answers 1499 and 1987).
    */
   List<Integer> view() {
@@ -123,7 +118,7 @@ final class DeskCatalog {
     renderScrollBar(graphics, left, top, shown.size());
   }
 
-  /** A locked recipe shows its item dark with a padlock, by the rule of the tab. */
+  /** An item in a cycle shows dark with a padlock, by the rule of the tab (answer 2034). */
   private void renderItem(GuiGraphics graphics, RecipeHolder<CraftingRecipe> recipe, int x, int y) {
     DeskCatalogRules.Look look = rules.look(recipe);
     if (look == DeskCatalogRules.Look.READY) {
@@ -192,7 +187,7 @@ final class DeskCatalog {
     firstRow = Math.max(0, Math.min(last, firstRow - (int) Math.signum(delta)));
   }
 
-  /** The name of the item and, when locked, what releases it (answer 1970). */
+  /** The name of the item and, when it has a padlock, why (answer 2034). */
   void tooltip(GuiGraphics graphics, Font font, int index, int mouseX, int mouseY) {
     RecipeHolder<CraftingRecipe> recipe = recipes().get(index);
     List<Component> lines = new ArrayList<>(List.of(resultOf(recipe).getHoverName()));

@@ -9,8 +9,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class CascadeRulesTest {
-  private static final CascadeCheck READY =
-      new CascadeCheck(true, true, true, true, true, false, false);
+  private static final CascadeCheck READY = new CascadeCheck(true, true, true, true, false, false);
   private static final String OAK = "oak";
   private static final String BIRCH = "birch";
   private static final int MANY = 8;
@@ -28,25 +27,22 @@ class CascadeRulesTest {
     assertEquals(CascadeStart.READY, CascadeStart.decide(READY));
     assertEquals(
         CascadeStart.TIER,
-        CascadeStart.decide(new CascadeCheck(false, true, true, true, true, false, false)));
+        CascadeStart.decide(new CascadeCheck(false, true, true, true, false, false)));
     assertEquals(
         CascadeStart.NO_AMOUNT,
-        CascadeStart.decide(new CascadeCheck(true, false, false, true, true, false, false)));
+        CascadeStart.decide(new CascadeCheck(true, false, false, true, false, false)));
     assertEquals(
         CascadeStart.NO_PLAN,
-        CascadeStart.decide(new CascadeCheck(true, true, false, true, true, false, false)));
-    assertEquals(
-        CascadeStart.LOCKED,
-        CascadeStart.decide(new CascadeCheck(true, true, true, false, true, false, false)));
+        CascadeStart.decide(new CascadeCheck(true, true, false, true, false, false)));
     assertEquals(
         CascadeStart.MISSING,
-        CascadeStart.decide(new CascadeCheck(true, true, true, true, false, false, false)));
+        CascadeStart.decide(new CascadeCheck(true, true, true, false, false, false)));
     assertEquals(
         CascadeStart.ORDER_ACTIVE,
-        CascadeStart.decide(new CascadeCheck(true, true, true, true, true, true, false)));
+        CascadeStart.decide(new CascadeCheck(true, true, true, true, true, false)));
     assertEquals(
         CascadeStart.STOCK_LEFT,
-        CascadeStart.decide(new CascadeCheck(true, true, true, true, true, false, true)));
+        CascadeStart.decide(new CascadeCheck(true, true, true, true, false, true)));
   }
 
   /** The plan opens with every material, and only the start waits for the rest (2015, 2017). */
@@ -58,7 +54,6 @@ class CascadeRulesTest {
     assertFalse(CascadeStart.TIER.showsPlan());
     assertFalse(CascadeStart.NO_AMOUNT.showsPlan());
     assertFalse(CascadeStart.NO_PLAN.showsPlan());
-    assertFalse(CascadeStart.LOCKED.showsPlan());
     assertFalse(CascadeStart.MISSING.showsPlan());
   }
 

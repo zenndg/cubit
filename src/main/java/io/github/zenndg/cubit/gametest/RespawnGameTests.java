@@ -90,7 +90,10 @@ public final class RespawnGameTests {
     helper.succeed();
   }
 
-  /** The Nether chunk is forced only by this test, because a robot only comes back if loaded. */
+  /**
+   * The Nether chunk is forced only by this test, because a robot only comes back if loaded. It is
+   * also made at once, because the test server runs its ticks faster than a chunk is made.
+   */
   @GameTest(template = ARENA, timeoutTicks = CHUNK_LOAD_TIMEOUT)
   public static void aRobotInAnotherDimensionComesBackWithItsInventory(GameTestHelper helper) {
     ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
@@ -99,6 +102,7 @@ public final class RespawnGameTests {
     robot.inventory().setItem(0, new ItemStack(Items.DIAMOND));
     ServerLevel nether = helper.getLevel().getServer().getLevel(Level.NETHER);
     nether.setChunkForced(NETHER_CHUNK, NETHER_CHUNK, true);
+    nether.getChunk(NETHER_CHUNK, NETHER_CHUNK);
     robot.changeDimension(
         new DimensionTransition(
             nether, NETHER_SPOT, Vec3.ZERO, 0, 0, DimensionTransition.DO_NOTHING));

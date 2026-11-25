@@ -1310,11 +1310,19 @@ Não há perguntas pendentes nesta fase.
 | 2363 | Network, entrega 2: o código está autorizado (2224)? | Sim ("2 sim"), só o da entrega 2, a #264. As outras entregas continuam esperando a autorização própria |
 | 2364 | Network, entrega 2: quantos baús o Organizador marca no Advanced, em `organizer_chests`, até os 12, 18 e 25 da entrega 5 (2235)? | 4, cerca de metade do Elite, como as 4 marcas e os 2 fornos: 4, 9 e 18 até a entrega 5. A recomendação, 6, foi recusada |
 | 2365 | Network, entrega 2: com a área em L, como se comporta o caminho entre dois lugares da área? | Prefere dentro: contorna o canto por dentro e só passa por fora se não houver outro caminho, como hoje com um obstáculo. Ir ao Dock, ao baú e perseguir não mudam. A trava total vem na entrega 6, com os chunks (2201). A recomendação foi aceita |
+| 2400 | Pedido do desenvolvedor, depois de ver no Iron Meridian todas as receitas da Engineering Desk bloqueadas, com os materiais na mesa | "vamos fazer uma coisa todos os itens do mod cubit ficam liberados sem bloqueio de progresso": nenhuma receita da mesa fica mais presa à progressão, e o + depende só dos materiais. Muda a 1991 e a 1974, deixa sem efeito a 1969 e a 1970, e ajusta a 1437, a 1441, a 1498, a 2009, a 2016 e a 2038. O cadeado de um plano em andamento (2015) e o de receitas em ciclo (2034) não são progressão e continuam |
+| 2401 | Receitas sem bloqueio: o conceito está autorizado (regra 54), e de onde sai a branch? | "vamos criar uma branch a partir da develop para atuar com unicamente este objetivo", com os cinco pontos do conceito: a mesa deixa de consultar o livro e as conquistas; saem o cadeado, `Locked`, `Unlocks with`, `DeskUnlocks` e `DeskOpeners`, e a Cascata deixa de exigir a cadeia liberada; o teste que reproduz o bug vem antes; mudam as respostas da 2400; e os saves e o config não mudam. Lido como a autorização do conceito, na #275. Pelo escopo, as conquistas escondidas de receita continuam, só para o livro do jogo, e as conquistas visíveis da #250 não são tocadas (1989 e 2005) |
+| 2402 | Com que número as respostas desta tarefa começam, com as de 2366 a 2378 citadas em issues e ainda fora do remoto? | Em 2400, com folga para as que podem estar em outra máquina. A recomendação foi aceita |
+| 2403 | O guia do player e a imagem da árvore de crafts, que explicam o que cada item libera, mudam com a 2400? | "vamos manter a imagem .md mesmo forma por enquanto": `_docs/arvore-de-crafts.md` e a imagem ficam como estão por enquanto, mesmo sem a liberação que descrevem. A recomendação, reescrever o guia e tirar a imagem, foi recusada |
+| 2404 | O `AGENTS.md` pode deixar de citar `DeskUnlocks` e `DeskOpeners` na estrutura de pacotes e citar a #275 no "Estado atual"? | Sim ("1. sim"), no commit do código. A recomendação foi aceita |
+| 2405 | Sem a chave PGP da conta `zenndg` na máquina desta tarefa, como assinar os commits da #275? | Com SSH desta vez ("2. b"). A recomendação, importar a chave PGP antes do commit, foi recusada. É uma exceção à 2128 só para a #275, e a regra do `AGENTS.md` não muda |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 12:30 | Registra as respostas 2404 e 2405. |
+| Zennd | 2026-11-25 12:26 | Registra as respostas 2400 a 2403, das receitas sem bloqueio na Engineering Desk. |
 | Zennd | 2026-11-25 00:07 | Registra as respostas 2364 a 2365. |
 | Zennd | 2026-11-25 00:04 | Registra as respostas 2362 a 2363. |
 | Zennd | 2026-11-25 00:01 | Registra as respostas 2358 a 2361. |

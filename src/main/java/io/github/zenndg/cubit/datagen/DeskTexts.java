@@ -30,8 +30,6 @@ final class DeskTexts {
   private static final String STORED_ENERGY = "Stored energy";
   private static final String ORDER = "%s / %s";
   private static final String CANCEL = "Cancel";
-  private static final String LOCKED = "Locked";
-  private static final String UNLOCKS_WITH = "Unlocks with: %s";
   private static final String MISSING = "Missing: %s %s";
   private static final String CATALOG = "Catalog";
   private static final String SEARCH = "Search...";
@@ -100,8 +98,6 @@ final class DeskTexts {
     add.accept(DeskScreenKeys.STORED_ENERGY, STORED_ENERGY);
     add.accept(DeskScreenKeys.ORDER, ORDER);
     add.accept(DeskScreenKeys.CANCEL, CANCEL);
-    add.accept(DeskScreenKeys.LOCKED, LOCKED);
-    add.accept(DeskScreenKeys.UNLOCKS_WITH, UNLOCKS_WITH);
     add.accept(DeskScreenKeys.MISSING, MISSING);
     add.accept(DeskScreenKeys.CATALOG, CATALOG);
     add.accept(DeskScreenKeys.SEARCH, SEARCH);

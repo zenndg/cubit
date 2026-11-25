@@ -7,7 +7,6 @@ import io.github.zenndg.cubit.domain.desk.CascadePlanner;
 import io.github.zenndg.cubit.domain.desk.CascadeStart;
 import java.util.Map;
 import java.util.Optional;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
@@ -40,7 +39,6 @@ public final class CascadeLaunch {
                 desk.spec().cascade(),
                 asked > 0,
                 plan.isPresent(),
-                released(player, book, item),
                 plan.map(found -> hasBase(found, input)).orElse(false),
                 desk.order().isActive(),
                 desk.cascade().isRunning() || desk.cascade().holdsItems()));
@@ -57,26 +55,14 @@ public final class CascadeLaunch {
         .allMatch(need -> input.getOrDefault(need.getKey(), 0) >= need.getValue());
   }
 
-  /** Only an item with a plan and with its whole chain released is chosen (2009, 2038). */
+  /** Only an item with a plan is chosen (answers 2034 and 2400). */
   public static boolean mayChoose(ServerPlayer player, RecipeHolder<CraftingRecipe> recipe) {
     if (!CascadeRecipes.isFixed(recipe)) {
       return false;
     }
     CascadeBook book = CascadeRecipes.book(player.serverLevel(), Map.of());
     Item item = recipe.value().getResultItem(player.registryAccess()).getItem();
-    return CascadePlanner.order(book, CascadeRecipes.idOf(item)).isPresent()
-        && released(player, book, item);
-  }
-
-  /** The item and its whole chain, for who starts it (answers 1991, 2009 and 2016). */
-  public static boolean released(ServerPlayer player, CascadeBook book, Item item) {
-    return CascadePlanner.order(book, CascadeRecipes.idOf(item)).stream()
-        .flatMap(order -> order.stream())
-        .allMatch(each ->
-            book.recipeOf(each)
-                .map(recipe -> ResourceLocation.parse(recipe.id()))
-                .map(id -> player.getRecipeBook().contains(id))
-                .orElse(false));
+    return CascadePlanner.order(book, CascadeRecipes.idOf(item)).isPresent();
   }
 
   private static void reserve(EngineeringDeskBlockEntity desk, CascadePlan plan) {

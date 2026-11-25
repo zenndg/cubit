@@ -181,14 +181,14 @@ Use `/data get entity @e[type=cubit:general_robot,limit=1,sort=nearest] PowerSta
 
 ## Receitas
 
-Rode num mundo novo, em modo sobrevivência, com `/gamemode survival`, e uma Engineering Desk com energia. Para ver se uma receita está liberada, escolha-a no catálogo da mesa e pare o mouse no `+`: a dica de uma receita bloqueada começa com `Locked` e diz o que a libera.
+Rode num mundo novo, em modo sobrevivência, com `/gamemode survival`, e uma Engineering Desk com energia. Nenhuma receita fica bloqueada: com os materiais na mesa, o `+` acende (pergunta 2400).
 
 | # | Faça | Espere |
 |---|---|---|
-| 1 | Sem nenhum Cubit, escolha na mesa o `Cubit`, as peças dele, o `Induction Dock` e os três Modules | O `Cubit`, o `Cubit Casing`, o `Cubit Visor`, as `Cubit Treads`, o `Neural Core` e as outras peças dele já vêm liberados, só com os materiais em falta. O `Induction Dock` e o `Advanced Module` estão bloqueados e se liberam com o `Cubit`, e o `Elite Module` e o `Ultimate Module`, com o Module anterior |
+| 1 | Sem nenhum Cubit, escolha na mesa o `Cubit`, as peças dele, o `Induction Dock` e os três Modules | Todos abrem, sem cadeado, e a dica do `+` só lista os materiais em falta |
 | 2 | Ponha os materiais da [árvore de crafts](../arvore-de-crafts.md#comece-por-aqui) na entrada da mesa | Os itens chegam |
 | 3 | Faça as cinco peças compartilhadas, com 2 Servomotores, as quatro do Cubit e o `Cubit` | Saem as peças e um `Cubit`. As grades estão em [`itens.md`](../itens.md#peças-compartilhadas) |
-| 4 | Com o `Cubit` no inventário, escolha na mesa o `Induction Dock` e os três Modules | O `Induction Dock` e o `Advanced Module` estão liberados. O `Elite Module` e o `Ultimate Module` continuam bloqueados |
+| 4 | Com o `Cubit` no inventário, escolha na mesa o `Induction Dock` e os três Modules | Tudo como no passo 1: ter o Cubit não muda o catálogo |
 | 5 | Coloque o `Cubit` | Ele segue você, com a barra de 25% na tela |
 | 6 | Na mesa, faça a Induction Coil e a Base Power Cell e, com as outras cinco peças compartilhadas, o `Induction Dock` | Sai um `Induction Dock` |
 | 7 | Na mesa, faça o `Cubit Tablet` com a Tela, 4 quartzos e 1 redstone | Sai um `Cubit Tablet` |
@@ -668,7 +668,7 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#power-bank) e a
 
 | # | Faça | Espere |
 |---|---|---|
-| 1 | Com um Cubit no inventário, escolha na Engineering Desk a `Power Bank Casing`, a `Base Power Cell` e a Base Power Bank e pare o mouse no `+` | A `Power Bank Casing` e a `Base Power Cell` estão liberadas. A Base Power Bank está bloqueada e se libera com a `Base Power Cell` |
+| 1 | Sem um Cubit, escolha na Engineering Desk a `Power Bank Casing`, a `Base Power Cell` e a Base Power Bank e pare o mouse no `+` | As três abrem, sem cadeado, e a dica só lista os materiais em falta |
 | 2 | Faça a carcaça (quartzo, Circuit Board, quartzo / quartzo, vazio, quartzo / quartzo, Induction Coil, quartzo), a célula Base (vazio, cobre, vazio / redstone, bloco de redstone, redstone / vazio, cobre, vazio) e junte as duas em qualquer posição | Sai a Base Power Bank vazia, não empilha, com o nome cinza, a barra verde vazia e a dica `0 / 210k FE` e `Charges at the Induction Dock` |
 | 3 | Coloque-a na aba `Storage` de um Induction Dock com energia e sem Cubit | A carga da Power Bank sobe e o estoque do Dock desce na mesma quantidade |
 | 3a | Ponha uma Power Bank carregada no slot `Redstone` de um Dock com pouco estoque | A Power Bank descarrega no estoque, a linha mostra `Input +X FE/t`, e vazia ela fica no slot |
@@ -677,7 +677,7 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#power-bank) e a
 | 5 | Tente carregar a Power Bank num carregador de FE de outro mod, se houver | Não carrega (pergunta 905) |
 | 6 | Ponha a Power Bank carregada no slot de energia de um Cubit com pouca bateria | A bateria sobe na recarga do tier, a linha mostra `Slot +500 FE/t` no Base, e a Power Bank desce o mesmo tanto |
 | 7 | Deixe-a esvaziar | Ela continua no slot, e a linha mostra `Not charging` |
-| 8 | Com a Base Power Bank no inventário, escolha na mesa a `Advanced Power Cell` e a Advanced Power Bank | A `Advanced Power Cell` e a Advanced Power Bank feita da Base estão liberadas |
+| 8 | Escolha na mesa a `Advanced Power Cell` e a Advanced Power Bank | As duas abrem, sem cadeado |
 | 9 | Monte lápis-lazúli em cima e embaixo, ouro nas laterais e uma Base carregada no centro | A nova sai com a mesma carga, o nome azul e 2 LEDs no ícone |
 | 10 | Recolha um Cubit sem bateria e combine-o com uma Power Bank na grade | Sai o Cubit com a carga de religar, e a Power Bank fica na grade com o resto |
 | 11 | Tente com uma Power Bank quase vazia, ou com um Damaged Cubit | A receita não aparece |
@@ -1159,25 +1159,25 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 
 ### Pedir só com o que é preciso
 
-As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenharia.md#ver-a-receita-e-pedir-só-com-o-que-é-preciso) (issue #250). Use um mundo **novo**, em sobrevivência com comandos, uma mesa e `/give` para os materiais. Não use `/recipe` nem `/advancement`.
+As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenharia.md#ver-a-receita-e-pedir-só-com-o-que-é-preciso) (issues #250 e #275). Use um mundo **novo**, em sobrevivência com comandos, uma mesa e `/give` para os materiais. Comece com `/recipe take @s *`, para o livro de receitas ficar vazio. Repita os passos 1 a 5 no Iron Meridian, com `recipebookShowAll = true` no Recipe Essentials e `disableRecipeAdvancements = true` no Utilitarian.
 
 | # | Faça | Espere |
 |---|---|---|
-| 1 | Abra a mesa vazia | O Cubit, as 4 peças e a Toolbox escurecidos, **sem** cadeado. As outras, escurecidas **com** cadeado. A ordem é a de sempre, sem bloqueadas no fim |
-| 2 | Passe o mouse sobre o Tablet | `Locked` e `Unlocks with: Cubit` |
+| 1 | Abra a mesa vazia | Todas as receitas escurecidas e nenhuma com cadeado, sempre na mesma ordem |
+| 2 | Passe o mouse sobre o Tablet | Só o nome do item |
 | 3 | Clique no Tablet | A receita abre e mostra os materiais na grade, em vermelho. O + fica cinza |
-| 4 | Passe o mouse sobre o + | `Locked`, `Unlocks with: Cubit` e uma linha `Missing` para cada material |
-| 5 | Ponha os materiais do Tablet na entrada | Os vermelhos somem um a um. O + continua cinza, só com `Locked` e `Unlocks with: Cubit` |
+| 4 | Passe o mouse sobre o + | Uma linha `Missing` para cada material, e nada mais |
+| 5 | Ponha os materiais do Tablet na entrada e aperte + | Os vermelhos somem um a um, o + acende e o pedido vai a `0 / 1`, sem nenhum Cubit feito |
 | 6 | Escolha a Toolbox, com 6 ferros, 1 redstone e 1 obsidiana | O + cinza, com `Missing: 1 Iron Ingot`, e um ferro em vermelho |
 | 7 | Ponha mais 1 ferro | A Toolbox normal no catálogo e o + aceso. Com o +, o pedido vai a `0 / 1` |
 | 8 | Com o pedido ativo e sem material, aperte + e Shift + | O total sobe, e a mesa pausa com `Missing materials`. Ao pôr o material, volta sozinha |
 | 9 | Faça as 4 peças e deixe-as na saída. Escolha o Cubit | O + aceso, sem tirar as peças da saída, e o Cubit sai |
-| 10 | Deixe o Cubit na saída e espere 1 s com a mesa aberta | O Tablet, o Dock e os outros da etapa 2 perdem o cadeado, sem tirar o Cubit |
-| 11 | Faça a Base Power Cell e deixe-a na saída | A Base Power Bank perde o cadeado |
-| 12 | Com o JEI, use o + do JEI numa receita bloqueada | A receita abre na mesa, com o + cinza |
-| 13 | Marque uma receita bloqueada à mão na grade | A mesa a reconhece e abre, com o + cinza |
-| 14 | Saia e entre no mundo | As receitas liberadas continuam liberadas |
-| 15 | Com o jogo em português | `Bloqueada`, `Liberada com: Cubit` e `Falta: 2 Diamante` |
+| 10 | Com os materiais na entrada, peça um Elite Module sem nunca ter tido um Cubit | O + acende e o Elite Module sai |
+| 11 | Com os materiais na entrada, peça a Base Power Bank | O + acende |
+| 12 | Com o JEI, use o + do JEI numa receita sem material | A receita abre na mesa, com o + cinza |
+| 13 | Marque à mão na grade uma receita sem material | A mesa a reconhece e abre, com o + cinza |
+| 14 | Saia e entre no mundo | Nenhuma receita tem cadeado |
+| 15 | Com o jogo em português | `Falta: 2 Diamante` |
 | 16 | Escolha a Toolbox com os materiais de 1 na entrada, e o pedido em 0 | Os 9 espaços em verde fraco e transparente, com os itens à vista |
 | 17 | Tire 1 ferro | Um espaço de ferro em vermelho fraco, e os outros em verde |
 | 18 | Devolva o ferro, aperte + até 1 e depois até 2, sem energia na mesa | Com 1, tudo verde. Com 2, 3 espaços de ferro verdes e 4 vermelhos, com a redstone e a obsidiana vermelhas, e o + continua aceso |
@@ -1187,16 +1187,16 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 
 ### Peças compartilhadas
 
-As regras estão em [`pecas.md`](../funcionalidades/pecas.md#peças-compartilhadas) (issue #259). Use um mundo novo, com uma Engineering Desk com energia e os materiais, e, para as duas últimas linhas, uma mesa Ultimate com `/recipe give @s *`.
+As regras estão em [`pecas.md`](../funcionalidades/pecas.md#peças-compartilhadas) (issue #259). Use um mundo novo, com uma Engineering Desk com energia e os materiais, e, para as duas últimas linhas, uma mesa Ultimate.
 
 | # | Faça | Espere |
 |---|---|---|
 | 1 | Abra o catálogo da mesa | 7 ícones de categoria, com 1 px entre eles, o segundo o Servomotor, com a dica `Shared parts`, longe da grade. O clique em cada ícone abre a categoria dele, e, na aba `Cascade`, o título não fica por baixo da barra |
-| 2 | Abra a categoria | Seis peças normais, com o Núcleo Neural, e a Bobina e a Placa de Circuito com cadeado, `Unlocks with: Cubit` |
+| 2 | Abra a categoria | As oito peças, sem cadeado, escuras só as que não têm material |
 | 3 | Faça as cinco peças, com 2 Servomotores | Os materiais de [`itens.md`](../itens.md#peças-compartilhadas), e o balde é gasto, sem voltar vazio |
 | 4 | Faça o Visor, com a Tela e 1 diamante, e as Esteiras, com 3 ferros e 2 Servomotores | Saem os dois |
 | 5 | Faça a Carcaça, o Núcleo Neural e o Cubit | O Cubit pede a Carcaça, o Visor, as Esteiras, o Núcleo, o Tanque, o HD e o Painel Solar, em qualquer posição |
-| 6 | Pegue o Cubit | A Bobina, a Placa, o Dock, o Tablet, a Carcaça da Power Bank e a Célula Base se liberam |
+| 6 | Pegue o Cubit | Nada muda no catálogo |
 | 7 | Faça o Dock | Pede 7 peças, com a Célula Base, e sai Base e vazio |
 | 8 | Faça o Tablet | Pede a Tela, 4 quartzos e 1 redstone |
 | 9 | Faça a Placa de Circuito e a Carcaça da Power Bank, e depois a Power Bank Base | A Placa pede 2 esmeraldas, 1 comparador e 3 ouros. A Carcaça, 6 quartzos, a Placa e a Bobina. A Power Bank, a Carcaça e a Célula Base |
@@ -1213,7 +1213,7 @@ As regras estão em [`pecas.md`](../funcionalidades/pecas.md#peças-compartilhad
 
 ### Fabricação em cascata
 
-As regras estão em [`cascata-da-mesa.md`](../funcionalidades/cascata-da-mesa.md) (issue #253). Use um mundo novo, no criativo, uma mesa Ultimate com energia e os materiais. Para ter todas as receitas, use `/recipe give @s *`, e para a trava, um player sem elas.
+As regras estão em [`cascata-da-mesa.md`](../funcionalidades/cascata-da-mesa.md) (issue #253). Use um mundo novo, no criativo, uma mesa Ultimate com energia e os materiais. Comece com `/recipe take @s *`, para o livro de receitas ficar vazio.
 
 | # | Faça | Espere |
 |---|---|---|
@@ -1244,7 +1244,7 @@ As regras estão em [`cascata-da-mesa.md`](../funcionalidades/cascata-da-mesa.md
 | 25 | No meio de um plano, saia e entre no mundo | Continua |
 | 26 | Encha a saída e faça um Cubit | O plano termina, e o Cubit entra na saída quando há espaço. Antes disso, um plano novo abre, mas `Start` fica apagado com `The last plan still has items` |
 | 27 | Com um pedido ativo na aba Projeto e os materiais de um plano | `View plan` aceso, e `Start` apagado com `An order is active` |
-| 28 | Num mundo novo, antes do `/recipe give`, abra a aba `Cascade` com a mesa vazia. Depois use `/recipe give @s *` | Antes: o Cubit, as peças e a Toolbox normais, sem cinza, e o Tablet com cadeado, `Locked: Cubit Tablet` e sem ser escolhido. Depois: nenhum item cinza nem com cadeado |
+| 28 | Num mundo novo, abra a aba `Cascade` com a mesa vazia | Nenhum item cinza nem com cadeado, e todos podem ser escolhidos |
 | 29 | Com um funil na entrada e outro na saída, durante um plano | Os funis trabalham, e o plano não muda |
 | 30 | Com o jogo em português | `Cascata`, `Ver plano`, `Reserva`, `Depende`, `Aguardando`, `Processando`, `Concluído`, `Não dá para cancelar.` e os motivos, sem texto sobreposto |
 | 31 | Na aba Projeto, marque a grade, peça, use a busca e o + do JEI | Tudo como antes |
@@ -1708,6 +1708,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 12:27 | Tira o bloqueio das receitas dos roteiros da mesa, das peças, da Power Bank e da cascata (pergunta 2400). |
 | Zennd | 2026-11-25 00:02 | Completa o teste da área desenhada da Network (perguntas 2350 a 2361). |
 | Zennd | 2026-11-24 23:38 | Acrescenta a medida dos quadros por segundo da Network (pergunta 2346). |
 | Zennd | 2026-11-24 22:44 | Escreve o roteiro das entregas da Network (perguntas 2293 e 2318). |

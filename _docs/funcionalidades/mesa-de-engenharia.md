@@ -54,8 +54,8 @@ A redstone que entra pelos lados ou por trás vai para o inventário de entrada,
 ## Receita e pedido
 
 - **Grade de 9 slots:** mostra marcações dos itens, não itens reais. O player escolhe a receita no catálogo, e a grade se preenche, ou marca à mão, arrastando um item para a grade, e a mesa reconhece a receita (pergunta 1426).
-- **Catálogo:** mostra todas as receitas do mod, na ordem em que são liberadas (pergunta 1499), em categorias com ícones (Cubit e peças, Peças compartilhadas, Energia, Dock, Modules, Cards e Ferramentas) e com um campo de busca pelo nome (pergunta 1474). Um ícone escolhido mostra só a categoria dele, e a busca procura em todas, pelo nome que o player vê, sem diferença de maiúsculas e acentos (pergunta 1523).
-- **Bloqueadas:** as que a progressão ainda não liberou, na ordem de [`itens.md`](../itens.md#progressão-das-receitas), com o Cubit e as peças desde o início (perguntas 1441 e 1495 a 1498). Podem ser vistas, mas não pedidas, como em [Ver a receita e pedir só com o que é preciso](#ver-a-receita-e-pedir-só-com-o-que-é-preciso) (pergunta 1991).
+- **Catálogo:** mostra todas as receitas do mod, sempre na mesma ordem (pergunta 1499), em categorias com ícones (Cubit e peças, Peças compartilhadas, Energia, Dock, Modules, Cards e Ferramentas) e com um campo de busca pelo nome (pergunta 1474). Um ícone escolhido mostra só a categoria dele, e a busca procura em todas, pelo nome que o player vê, sem diferença de maiúsculas e acentos (pergunta 1523).
+- **Sem bloqueio:** nenhuma receita fica presa à progressão, e a mesa não consulta o livro de receitas do jogo nem as conquistas dele, que um pack pode esvaziar ou remover (pergunta 2400).
 - **Um pedido por vez:** uma receita e uma quantidade. Para fabricar outra coisa, o player troca a receita (pergunta 1442).
 - **Começa em zero:** escolher a receita só a marca, com o pedido em zero. A mesa só fabrica depois que o player pede a quantidade no +, para nada ser feito por acidente nem gastar material (pergunta 1506).
 - **Quantidade:** botões − e +, como no controle de velocidade. O clique muda 1, e com Shift muda 8, entre 1 e o maior pedido do tier. Um botão cancela o pedido (pergunta 1444).
@@ -64,30 +64,24 @@ A redstone que entra pelos lados ou por trás vai para o inventário de entrada,
 
 ### Ver a receita e pedir só com o que é preciso
 
-Toda receita pode ser vista, e o que trava é o pedido: o + não sai de 0 para 1 enquanto a receita não estiver liberada pela progressão **e** os materiais de 1 unidade não estiverem na mesa (perguntas 1982 a 1988 e 1991). Vale para todos os tiers.
+Toda receita pode ser vista, e o que trava é o pedido: o + não sai de 0 para 1 enquanto os materiais de 1 unidade não estiverem na mesa (perguntas 1982 a 1988 e 2400). Vale para todos os tiers.
 
-**Situação:** autorizado (pergunta 1992), na issue #250. As conquistas visíveis entram noutro PR (pergunta 1993).
+**Situação:** autorizado (perguntas 1992 e 2401), nas issues #250 e #275. As conquistas visíveis entram noutro PR (pergunta 1993) e não liberam nada.
 
-- **Toda receita aparece e pode ser escolhida,** no catálogo, marcando a grade à mão ou pelo botão + do JEI, e mostra os materiais, também a bloqueada pela progressão. Muda a 1441, a 1533 e a 1970 só nisso.
-- **O que trava o + de 0 para 1:**
-  1. **Progressão:** a receita ainda não foi liberada, na ordem de [`itens.md`](../itens.md#progressão-das-receitas), que não muda.
-  2. **Material:** faltam os materiais de 1 unidade, somando a entrada e a saída, como na cascata (pergunta 1984).
+- **Toda receita aparece e pode ser escolhida,** no catálogo, marcando a grade à mão ou pelo botão + do JEI, e mostra os materiais. Muda a 1441 e a 1533.
+- **O que trava o + de 0 para 1:** só o material, quando faltam os de 1 unidade, somando a entrada e a saída, como na cascata (perguntas 1984 e 2400).
 - **Depois do 1,** o + e o Shift + vão até o maior pedido do tier. Os botões − e cancelar não mudam.
 - **Pedido ativo:** sem material no meio, pausa e volta sozinho (pergunta 1985). Um pedido que termina volta a zero, e o próximo + confere de novo.
 - **Energia, espaço e sinal de redstone** não travam o +: pausam o pedido e mostram o motivo, como hoje. Uma receita com material que ela não aceita, como a Power Bank com carga demais, também só pausa.
-- **No servidor:** ele confere a progressão e o material a cada clique, e o cliente só mostra (regras 19 e 20).
-- **Catálogo:** a ordem é sempre a mesma. A receita bloqueada pela progressão fica escurecida, com o cadeado, e a que só falta material, escurecida, sem cadeado. Com tudo, fica normal (pergunta 1987).
-- **Aviso:** com o + cinza, a dica dele diz o motivo, um por linha (perguntas 1970 e 1988):
-  - na progressão, o que libera, como `Unlocks with: Cubit` / `Liberada com: Cubit`;
-  - no material, o que falta, como `Missing: 2 Diamond` / `Falta: 2 Diamante`, com os itens em vermelho na grade.
+- **No servidor:** ele confere o material a cada clique, e o cliente só mostra (regras 19 e 20).
+- **Catálogo:** a ordem é sempre a mesma. A receita a que falta material fica escurecida, sem cadeado, e, com tudo, normal (perguntas 1987 e 2400).
+- **Aviso:** com o + cinza, a dica dele diz o que falta, um item por linha (pergunta 1988), como `Missing: 2 Diamond` / `Falta: 2 Diamante`, com os itens em vermelho na grade.
 - **Cores da grade** (perguntas 1996 a 2000), com um véu fraco e transparente sobre o item, que continua à vista:
   - **verde**, o espaço que tem material, e **vermelho**, o que não tem, somando a entrada e a saída;
   - a conta é pela quantidade que ainda falta fazer: com o pedido em 0, 1 unidade, e com 3 de 8 prontos, 5. Ela é refeita a cada − ou +, a cada item pronto e a cada material que entra ou sai;
   - cada espaço precisa do item para todas as unidades. Com material para parte delas, só os espaços sem material ficam vermelhos;
   - a dica do + e o `Missing` contam tudo o que falta para a quantidade. Com o pedido ativo, o + não trava, e a grade só mostra.
-- **O que libera, para o cliente:** o jogo não envia ao cliente as conquistas escondidas das receitas, então o servidor manda, ao abrir a tela, os itens que liberam cada receita bloqueada, lidos das conquistas do datapack. Não há pacote novo: vai nos dados de abertura da tela.
-- **Liberação protegida** (perguntas 1969 e 1974): uma receita sem conquista que a bloqueie, como a inicial ou a de um pack, fica sempre liberada. A conquista já concluída libera mesmo que o livro tenha perdido a receita. O servidor confere ao abrir a mesa e repara o livro. Os itens na entrada e na saída da mesa contam para quem a abre, e, com a tela aberta, contam de novo quando um item fica pronto.
-- **Sem mudança:** saves, config, IDs, receitas, custo, tempo, automação, o guia do player e a imagem da árvore. O guia ganha só a explicação do + e da dica, junto do código.
+- **Sem mudança:** saves, config, IDs, receitas, custo, tempo e automação. As conquistas escondidas de receita continuam, só para o livro do jogo (pergunta 2401), e o guia do player e a imagem da árvore ficam como estão por enquanto (pergunta 2403).
 
 ## Fabricação
 
@@ -181,8 +175,8 @@ O gráfico do progresso do craft, o item que será entregue, quanto falta do ped
 
 Um plugin opcional do JEI, isolado em `compat/jei`, como o do Jade, que mostra as receitas da mesa. O mod abre sem o JEI (perguntas 1461 e 1486 e regra 24). A versão é a do Iron Meridian, `19.64.0.455`. Muda a 1284: o JEI deixa de ser só do cliente de teste, e o mod passa a ter o plugin.
 
-- **Receitas:** todas as da mesa, inclusive as quatro especiais e as ainda bloqueadas, numa categoria própria, com a mesa como catalisador (perguntas 1531 e 1532).
-- **Botão +:** com a tela da mesa aberta, escolhe a receita no catálogo, com o pedido em zero. O servidor confere como num clique no catálogo, e a bloqueada também abre, com o pedido travado (perguntas 1533 e 1991).
+- **Receitas:** todas as da mesa, inclusive as quatro especiais, numa categoria própria, com a mesa como catalisador (perguntas 1531 e 1532).
+- **Botão +:** com a tela da mesa aberta, escolhe a receita no catálogo, com o pedido em zero. O servidor confere como num clique no catálogo, e a receita sem material também abre, com o pedido travado (perguntas 1533 e 2400).
 
 ## Segurança e defesa
 
@@ -220,6 +214,7 @@ Uma issue mãe e quatro PRs, em ordem, cada um testável no jogo (pergunta 1478)
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 12:27 | Tira o bloqueio por progressão das receitas (perguntas 2400 a 2403). |
 | Zennd | 2026-11-24 11:10 | Acrescenta a categoria das peças compartilhadas (perguntas 2141, 2159 e 2160). |
 | Zennd | 2026-11-23 16:20 | Distingue a cascata da fabricação em cascata e cita o plano no Jade (pergunta 2043). |
 | Zennd | 2026-11-23 12:29 | Acrescenta as cores da grade pela quantidade do pedido (perguntas 1996 a 2000). |
