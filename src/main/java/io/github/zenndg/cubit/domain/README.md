@@ -197,6 +197,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `CascadeCost` | A energia e o tempo de um plano, que a tela mostra e não exige (pergunta 2013) |
 | `MaterialLevel` e `CascadeChoice` | Quanto a entrada tem de um material, e o item escolhido numa marca com vários (perguntas 2006 e 2033) |
 | `DeskOrderGate` | O que um pedido precisa para sair de zero: os materiais de um item, sem depender de progressão. Só o começo é travado (perguntas 1984, 1985 e 2400) |
+| `RecipeTrail` | As receitas por onde o player passou ao abrir a receita de uma peça, até 8, para voltar uma por vez (pergunta 2478) |
 | `DeskProgress` | Os ticks do craft em andamento, mantidos na pausa |
 | `DeskCheck` | O que a mesa encontrou no tick: pedido, sinal de redstone, materiais, receita aceita, energia e espaço na saída |
 | `DeskStatus` | O que a mesa está fazendo: parada, criando ou pausada, com o motivo |

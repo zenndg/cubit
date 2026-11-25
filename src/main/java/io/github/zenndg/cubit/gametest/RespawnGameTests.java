@@ -34,6 +34,7 @@ public final class RespawnGameTests {
   private static final double AT_THE_OWNER = 1;
   private static final double MOVED = 0.5;
   private static final int NETHER_CHUNK = 0;
+  private static final int CHUNKS_AROUND = 2;
   private static final int CHUNK_LOAD_TIMEOUT = 600;
   private static final Vec3 NETHER_SPOT = new Vec3(8.5, 64, 8.5);
   private static final String NOT_THERE = "The robot should be loaded in the Nether";
@@ -91,8 +92,9 @@ public final class RespawnGameTests {
   }
 
   /**
-   * The Nether chunk is forced only by this test, because a robot only comes back if loaded. It is
-   * also made at once, because the test server runs its ticks faster than a chunk is made.
+   * The Nether chunk is forced only by this test, because a robot only comes back if loaded. It and
+   * the ones around it, which it needs to tick its entities, are made at once, because the test
+   * server runs its ticks faster than a chunk is made.
    */
   @GameTest(template = ARENA, timeoutTicks = CHUNK_LOAD_TIMEOUT)
   public static void aRobotInAnotherDimensionComesBackWithItsInventory(GameTestHelper helper) {
@@ -102,7 +104,7 @@ public final class RespawnGameTests {
     robot.inventory().setItem(0, new ItemStack(Items.DIAMOND));
     ServerLevel nether = helper.getLevel().getServer().getLevel(Level.NETHER);
     nether.setChunkForced(NETHER_CHUNK, NETHER_CHUNK, true);
-    nether.getChunk(NETHER_CHUNK, NETHER_CHUNK);
+    makeAround(nether);
     robot.changeDimension(
         new DimensionTransition(
             nether, NETHER_SPOT, Vec3.ZERO, 0, 0, DimensionTransition.DO_NOTHING));
@@ -118,5 +120,13 @@ public final class RespawnGameTests {
       helper.assertTrue(back.powerState() == PowerState.ACTIVE, LOST_LINK);
       back.discard();
     });
+  }
+
+  private static void makeAround(ServerLevel nether) {
+    for (int x = -CHUNKS_AROUND; x <= CHUNKS_AROUND; x++) {
+      for (int z = -CHUNKS_AROUND; z <= CHUNKS_AROUND; z++) {
+        nether.getChunk(NETHER_CHUNK + x, NETHER_CHUNK + z);
+      }
+    }
   }
 }

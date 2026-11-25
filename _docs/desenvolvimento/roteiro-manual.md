@@ -1157,6 +1157,33 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 26 | Com o jogo em português | `Mesa de Engenharia`, `Projeto`, `Estoque` e os estados em português |
 | 27 | Na aba Projeto, compare `0 / 0` com o maior pedido, `256 / 256` no Ultimate | O −, o + e o `Cancel` alinhados às bordas do quadro dos slots, com um vão pequeno ao lado dos números, que encolhem quando não cabem |
 
+### Usabilidade da tela
+
+As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenharia.md#usabilidade) (issues #280 e #255). Use uma mesa com energia, com o JEI e um segundo player.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Peça 8 Hard Drives e, com o craft andando, troque de categoria, busque, role o catálogo e passe pelas abas | O craft segue, e o catálogo fica escurecido, menos o Hard Drive |
+| 2 | Passe o mouse em outro item e clique nele | `Finish or cancel the order first`, em vermelho, e nada muda |
+| 3 | Use o + do JEI numa outra receita e ponha um item à mão na grade | O JEI diz o mesmo aviso, e a grade não muda |
+| 4 | Tire o material, espere `Missing materials` e clique em outro item | A pausa também trava |
+| 5 | Com o segundo player na mesma mesa, clique em outro item | Travado para ele também |
+| 6 | Clique em `Cancel` e em outro item | A receita troca na hora |
+| 7 | Com 3 Hard Drives prontos, olhe o quadro à direita da grade | O item normal, com o 3. Sem nenhum pronto, um desenho fraco |
+| 8 | Clique no quadro, com o cursor vazio e, depois, com outro item no cursor | Pega os 3. Com outro item, nada muda |
+| 9 | Com itens prontos, use Shift + clique no quadro, também com o inventário cheio | Vão para o inventário, e o que não couber fica na saída |
+| 10 | Conserte um Damaged Cubit com nome e itens e pegue-o pelo quadro | Sai o próprio Cubit, com o nome e os itens |
+| 11 | Com um Cubit pronto, os dois players clicam no quadro | Só um o recebe |
+| 12 | Com um plano da cascata andando | Só a aba Cascata abre |
+| 13 | Escolha o Cubit e use Shift + clique no Neural Core da grade | Abre a receita do Neural Core, com a categoria dele no catálogo e a seta de voltar ao lado da grade. Nada sai da entrada nem da saída |
+| 14 | Siga por mais peças e clique na seta | Volta uma receita por clique, até o Cubit, e a seta some |
+| 15 | Use Shift + clique num ferro | Nada acontece |
+| 16 | Vá até uma peça e escolha outra receita no catálogo | A seta some |
+| 17 | Com um pedido, segure Shift sobre uma peça do mod da grade e clique | O aviso, e a receita não muda. A seta não aparece |
+| 18 | Busque um nome e use Shift + clique numa peça | A busca se limpa, e a categoria da peça aparece |
+| 19 | Com um item no cursor, clique nas três abas | O item continua no cursor |
+| 20 | Com o jogo em português | `Termine ou cancele o pedido antes` e `Voltar` |
+
 ### Pedir só com o que é preciso
 
 As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenharia.md#ver-a-receita-e-pedir-só-com-o-que-é-preciso) (issues #250 e #275). Use um mundo **novo**, em sobrevivência com comandos, uma mesa e `/give` para os materiais. Comece com `/recipe take @s *`, para o livro de receitas ficar vazio. Repita os passos 1 a 5 no Iron Meridian, com `recipebookShowAll = true` no Recipe Essentials e `disableRecipeAdvancements = true` no Utilitarian.
@@ -1168,7 +1195,7 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 3 | Clique no Tablet | A receita abre e mostra os materiais na grade, em vermelho. O + fica cinza |
 | 4 | Passe o mouse sobre o + | Uma linha `Missing` para cada material, e nada mais |
 | 5 | Ponha os materiais do Tablet na entrada e aperte + | Os vermelhos somem um a um, o + acende e o pedido vai a `0 / 1`, sem nenhum Cubit feito |
-| 6 | Escolha a Toolbox, com 6 ferros, 1 redstone e 1 obsidiana | O + cinza, com `Missing: 1 Iron Ingot`, e um ferro em vermelho |
+| 6 | Cancele o pedido, o que também vale antes de cada troca de receita daqui em diante, e escolha a Toolbox, com 6 ferros, 1 redstone e 1 obsidiana | O + cinza, com `Missing: 1 Iron Ingot`, e um ferro em vermelho |
 | 7 | Ponha mais 1 ferro | A Toolbox normal no catálogo e o + aceso. Com o +, o pedido vai a `0 / 1` |
 | 8 | Com o pedido ativo e sem material, aperte + e Shift + | O total sobe, e a mesa pausa com `Missing materials`. Ao pôr o material, volta sozinha |
 | 9 | Faça as 4 peças e deixe-as na saída. Escolha o Cubit | O + aceso, sem tirar as peças da saída, e o Cubit sai |
@@ -1573,6 +1600,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 16:11 | Acrescenta a usabilidade da tela da Engineering Desk (perguntas 2470 a 2481 e 2492). |
 | Zennd | 2026-11-25 12:27 | Tira o bloqueio das receitas dos roteiros da mesa, das peças, da Power Bank e da cascata (pergunta 2400). |
 | Zennd | 2026-11-24 12:32 | Corrige as seções Receitas e Power Bank, que falavam do livro de receitas e da carcaça antiga (perguntas 2184, 2193 e 2195). |
 | Zennd | 2026-11-24 11:57 | Atualiza a barra de categorias da mesa (perguntas 2176 a 2178). |
