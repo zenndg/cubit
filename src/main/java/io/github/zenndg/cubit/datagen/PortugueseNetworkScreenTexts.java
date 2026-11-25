@@ -15,7 +15,10 @@ final class PortugueseNetworkScreenTexts {
   private static final String FLOW = "Fluxo";
   private static final String SUN = "Relé Solar";
   private static final String SUN_RATE = "+%s / %s FE/t";
-  private static final String CHUNK_COST = "Chunk do Servidor";
+  private static final String CHUNK_COST = "Servidor e chunk";
+  private static final String COST_CHUNK = "Chunk: %s FE/t";
+  private static final String COST_SERVER = "Servidor: %s FE/t";
+  private static final String COST_RELAY = "Relé Solar: %s FE/t";
   private static final String BANKS = "Power Banks";
   private static final String GAIN = "+%s FE/t";
   private static final String LOSS = "−%s FE/t";
@@ -77,6 +80,9 @@ final class PortugueseNetworkScreenTexts {
     add.accept(NetworkKeys.SUN, SUN);
     add.accept(NetworkKeys.SUN_RATE, SUN_RATE);
     add.accept(NetworkKeys.CHUNK_COST, CHUNK_COST);
+    add.accept(NetworkKeys.COST_CHUNK, COST_CHUNK);
+    add.accept(NetworkKeys.COST_SERVER, COST_SERVER);
+    add.accept(NetworkKeys.COST_RELAY, COST_RELAY);
     add.accept(NetworkKeys.BANKS, BANKS);
     add.accept(NetworkKeys.GAIN, GAIN);
     add.accept(NetworkKeys.LOSS, LOSS);

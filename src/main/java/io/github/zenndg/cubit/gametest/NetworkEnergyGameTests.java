@@ -33,6 +33,10 @@ public final class NetworkEnergyGameTests {
 
   private static final int SLOT = 0;
   private static final int DUST_COUNT = 3;
+
+  /** A Base server and its relay. */
+  private static final long UPKEEP = 22;
+
   private static final int SLOT_TICKS = 10;
   private static final int BANK_TICKS = 20;
   private static final int OVER_THE_RELAY = 3;
@@ -97,7 +101,9 @@ public final class NetworkEnergyGameTests {
     helper.runAfterDelay(
         SLOT_TICKS,
         () -> {
-          helper.assertValueEqual(server.energy().amount(), DUST_ENERGY * DUST_COUNT, WRONG_SUM);
+          long spent = DUST_ENERGY * DUST_COUNT - server.energy().amount();
+          helper.assertTrue(spent > 0 && spent <= UPKEEP * (SLOT_TICKS + 1), WRONG_SUM);
+          helper.assertTrue(spent % UPKEEP == 0, WRONG_SUM);
           helper.assertValueEqual(relay.energy().amount(), DUST_ENERGY * DUST_COUNT, WRONG_SUM);
           helper.succeed();
         });

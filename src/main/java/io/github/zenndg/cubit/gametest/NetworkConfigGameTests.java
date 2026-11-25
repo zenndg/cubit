@@ -21,6 +21,11 @@ public final class NetworkConfigGameTests {
   private static final String CHUNKS_PER_WORLD_KEY = "network.chunks_per_world";
   private static final String CHUNK_COST_KEY = "network.chunk_cost";
   private static final String CHUNK_RESUME_ENERGY_KEY = "network.chunk_resume_energy";
+  private static final String CHUNK_RESUME_SECONDS_KEY = "network.chunk_resume_seconds";
+  private static final String BASE_STANDBY_KEY = "network.base.standby_per_tick";
+  private static final String ULTIMATE_STANDBY_KEY = "network.ultimate.standby_per_tick";
+  private static final String BASE_RELAY_STANDBY_KEY = "network.base.relay_standby_per_tick";
+  private static final String ELITE_RELAY_STANDBY_KEY = "network.elite.relay_standby_per_tick";
   private static final String WAKE_INTERVAL_TICKS_KEY = "network.wake_interval_ticks";
   private static final String SERVER_UPS_PERCENT_KEY = "network.server_ups_percent";
   private static final String RELAY_ENERGY_CAPACITY_KEY = "network.relay_energy_capacity";
@@ -44,23 +49,28 @@ public final class NetworkConfigGameTests {
           Map.entry(CHUNKS_PER_WORLD_KEY, 192),
           Map.entry(CHUNK_COST_KEY, 25),
           Map.entry(CHUNK_RESUME_ENERGY_KEY, 30_000),
+          Map.entry(CHUNK_RESUME_SECONDS_KEY, 60),
           Map.entry(WAKE_INTERVAL_TICKS_KEY, 40),
           Map.entry(SERVER_UPS_PERCENT_KEY, 25),
           Map.entry(RELAY_ENERGY_CAPACITY_KEY, 300_000),
           Map.entry(RELAY_INPUT_PER_TICK_KEY, 5_000),
           Map.entry(STORAGE_SLOT_LIMIT_KEY, 128));
   private static final Map<String, Object> TIER_DEFAULTS =
-      Map.of(
-          BASE_ENERGY_CAPACITY_KEY, 1_200_000,
-          BASE_CHANNELS_KEY, 4,
-          ADVANCED_INPUT_PER_TICK_KEY, 40_000,
-          ADVANCED_STORAGE_SLOTS_KEY, 36,
-          ELITE_DAY_KEY, 2_000,
-          ELITE_NIGHT_KEY, 0,
-          ULTIMATE_ENERGY_CAPACITY_KEY, 64_000_000,
-          ULTIMATE_CHANNELS_KEY, 16,
-          ULTIMATE_STORAGE_SLOTS_KEY, 54,
-          ULTIMATE_NIGHT_KEY, 1_000);
+      Map.ofEntries(
+          Map.entry(BASE_ENERGY_CAPACITY_KEY, 1_200_000),
+          Map.entry(BASE_CHANNELS_KEY, 4),
+          Map.entry(ADVANCED_INPUT_PER_TICK_KEY, 40_000),
+          Map.entry(ADVANCED_STORAGE_SLOTS_KEY, 36),
+          Map.entry(ELITE_DAY_KEY, 2_000),
+          Map.entry(ELITE_NIGHT_KEY, 0),
+          Map.entry(ULTIMATE_ENERGY_CAPACITY_KEY, 64_000_000),
+          Map.entry(ULTIMATE_CHANNELS_KEY, 16),
+          Map.entry(ULTIMATE_STORAGE_SLOTS_KEY, 54),
+          Map.entry(ULTIMATE_NIGHT_KEY, 1_000),
+          Map.entry(BASE_STANDBY_KEY, 20),
+          Map.entry(ULTIMATE_STANDBY_KEY, 160),
+          Map.entry(BASE_RELAY_STANDBY_KEY, 2),
+          Map.entry(ELITE_RELAY_STANDBY_KEY, 15));
 
   private NetworkConfigGameTests() {}
 

@@ -8,6 +8,7 @@ import io.github.zenndg.cubit.domain.network.HoldTime;
 import io.github.zenndg.cubit.domain.network.UpsReserve;
 import io.github.zenndg.cubit.menu.NetworkKeys;
 import io.github.zenndg.cubit.menu.NetworkServerMenu;
+import java.util.List;
 import java.util.OptionalInt;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -18,6 +19,7 @@ final class ServerEnergyTab {
   private static final int FLOW_Y = 59;
   private static final Box NET = new Box(8, FLOW_Y, 160, NetworkScreen.LINE);
   private static final int FLOW_ROWS = 72;
+  private static final int UPKEEP_ROW = FLOW_ROWS + NetworkScreen.ROW_HEIGHT;
   private static final int CHUNK_Y = 108;
   private static final int SWITCH_ROW = 120;
   private static final int SWITCH_HEIGHT = 13;
@@ -63,7 +65,7 @@ final class ServerEnergyTab {
 
   private void renderFlow(GuiGraphics graphics) {
     XpHeading.render(graphics, screen.painter, NetworkKeys.FLOW, FLOW_Y, NetworkScreen.ROW_RIGHT);
-    long net = menu.sun().amount() - menu.chunkCost().amount() - menu.banks().amount();
+    long net = menu.sun().amount() - menu.upkeep().amount() - menu.banks().amount();
     Energy size = new Energy(Math.abs(net));
     screen.painter.textRight(
         graphics,
@@ -77,7 +79,7 @@ final class ServerEnergyTab {
             NetworkKeys.SUN_RATE, EnergyFormat.rate(menu.sun()), EnergyFormat.rate(menu.sunMost()));
     int color = menu.sun().isZero() ? ScreenPainter.DETAIL : ScreenPainter.STATUS_GREEN;
     screen.rowPair(graphics, FLOW_ROWS, NetworkKeys.SUN, sun, color);
-    renderCost(graphics, 1, NetworkKeys.CHUNK_COST, menu.chunkCost());
+    renderCost(graphics, 1, NetworkKeys.CHUNK_COST, menu.upkeep());
     renderCost(graphics, 2, NetworkKeys.BANKS, menu.banks());
   }
 
@@ -181,6 +183,24 @@ final class ServerEnergyTab {
     return time.hours() == 0
         ? Component.translatable(NetworkKeys.HOLDS_MINUTES, time.minutes())
         : Component.translatable(NetworkKeys.HOLDS_HOURS, time.hours(), time.minutes());
+  }
+
+  /** What the row of the upkeep sums, when the mouse is on it (answer 2440). */
+  List<Component> costLines(double x, double y) {
+    if (x < NetworkScreen.ROW_LEFT || x >= NetworkScreen.ROW_RIGHT) {
+      return List.of();
+    }
+    if (y < UPKEEP_ROW || y >= UPKEEP_ROW + NetworkScreen.ROW_HEIGHT) {
+      return List.of();
+    }
+    return List.of(
+        cost(NetworkKeys.COST_CHUNK, menu.chunkCost()),
+        cost(NetworkKeys.COST_SERVER, menu.standby()),
+        cost(NetworkKeys.COST_RELAY, menu.relayCost()));
+  }
+
+  private static Component cost(String key, Energy amount) {
+    return Component.translatable(key, EnergyFormat.rate(amount));
   }
 
   /** The button of the server under a point of the window, if it can be pressed. */

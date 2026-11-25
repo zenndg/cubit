@@ -40,6 +40,7 @@ public final class NetworkStorageGameTests {
   private static final int ONE = 1;
   private static final int INPUT = 0;
   private static final int HANDLER_FIRST = 1;
+  private static final long STANDBY = 20;
   private static final int CHARGE_TICKS = 20;
   private static final int DROP_TICKS = 5;
   private static final int UPS = 30;
@@ -255,8 +256,15 @@ public final class NetworkStorageGameTests {
     helper.runAfterDelay(
         CHARGE_TICKS,
         () -> {
-          helper.assertValueEqual(server.energy(), RESERVE, WRONG_CHARGE);
-          helper.assertValueEqual(chargeAt(server, FIRST), ROOM, WRONG_CHARGE);
+          // Only the standby takes from the reserve (answer 2437).
+          long spent = start.amount() - server.energy().amount() - chargeAt(server, FIRST).amount();
+          helper.assertTrue(
+              spent > 0 && spent % STANDBY == 0 && spent <= STANDBY * (CHARGE_TICKS + 1),
+              WRONG_CHARGE);
+          helper.assertTrue(chargeAt(server, FIRST).amount() <= ROOM.amount(), WRONG_CHARGE);
+          helper.assertTrue(
+              server.energy().amount() >= RESERVE.amount() - STANDBY * (CHARGE_TICKS + 1),
+              WRONG_CHARGE);
           helper.assertTrue(chargeAt(server, SECOND).isZero(), WRONG_CHARGE);
           helper.succeed();
         });

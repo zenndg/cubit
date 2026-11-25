@@ -5,6 +5,7 @@ import io.github.zenndg.cubit.domain.network.ServerStatus;
 import io.github.zenndg.cubit.item.TierLook;
 import io.github.zenndg.cubit.menu.NetworkKeys;
 import io.github.zenndg.cubit.menu.NetworkServerMenu;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -68,6 +69,10 @@ final class NetworkServerScreen extends NetworkScreen<NetworkServerMenu> {
     tabAt(mouseX, mouseY)
         .ifPresent(under ->
             graphics.renderTooltip(font, Component.translatable(under.title()), mouseX, mouseY));
+    if (!showsStorage() && !rename.isOpen()) {
+      List<Component> lines = energy.costLines(mouseX - leftPos, mouseY - topPos);
+      graphics.renderComponentTooltip(font, lines, mouseX, mouseY);
+    }
   }
 
   @Override

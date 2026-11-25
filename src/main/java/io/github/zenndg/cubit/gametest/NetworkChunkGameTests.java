@@ -16,6 +16,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ForcedChunksSavedData;
 import net.minecraft.world.level.GameType;
@@ -33,14 +34,24 @@ public final class NetworkChunkGameTests {
   private static final int NEXT_CHECK = 45;
 
   private static final int PAID_TICKS = 10;
+
+  /** Two checks and two fillings, a tick of input at a time. */
+  private static final int RESUME_TIMEOUT = 300;
+
   private static final int PER_PLAYER = 48;
-  private static final long COST = 25;
+  private static final long CHUNK_COST = 25;
+  private static final long STANDBY = 20;
+  private static final long ELITE_STANDBY = 80;
+  private static final long ELITE_RELAY = 15;
   private static final int FAR = 1_000_000;
   private static final int CHUNK_BLOCKS = 16;
   private static final Energy PLENTY = new Energy(1_000_000);
-  private static final Energy TWO_TICKS = new Energy(50);
-  private static final Energy BELOW_RESUME = new Energy(29_000);
-  private static final Energy ABOVE_RESUME = new Energy(31_000);
+  private static final Energy TWO_TICKS = new Energy(90);
+
+  /** The chunk and the server for 60 s, without a relay: 54 thousand (answer 2438). */
+  private static final Energy BELOW_RESUME = new Energy(53_000);
+
+  private static final Energy ABOVE_RESUME = new Energy(56_000);
   private static final int MAX_UPS = 50;
   private static final String ENERGY_KEY = "Energy";
   private static final String DATA_FILE = "chunks";
@@ -63,9 +74,13 @@ public final class NetworkChunkGameTests {
           helper.assertValueEqual(server.chunkState(), ChunkState.HOLDING, WRONG_STATE);
           helper.assertTrue(hasTicket(helper), NO_TICKET);
           helper.assertTrue(chunks(helper).holds(where(helper)), WRONG_LIST);
-          long paid = PLENTY.amount() - server.energy().amount();
-          helper.assertTrue(paid > 0 && paid % COST == 0, WRONG_COST);
-          done(helper);
+          Energy left = server.energy();
+          helper.runAfterDelay(
+              PAID_TICKS,
+              () -> {
+                assertPaid(helper, server, left, (CHUNK_COST + STANDBY) * PAID_TICKS);
+                done(helper);
+              });
         });
   }
 
@@ -85,7 +100,7 @@ public final class NetworkChunkGameTests {
                 helper.runAfterDelay(
                     PAID_TICKS,
                     () -> {
-                      helper.assertValueEqual(server.energy(), left, WRONG_COST);
+                      assertPaid(helper, server, left, STANDBY * PAID_TICKS);
                       done(helper);
                     });
               });
@@ -93,7 +108,7 @@ public final class NetworkChunkGameTests {
   }
 
   /** It spends the whole reserve, which is only for the chunk, and then lets go (2209, 2372). */
-  @GameTest(template = NetworkScene.CHUNK)
+  @GameTest(template = NetworkScene.CHUNK, timeoutTicks = RESUME_TIMEOUT)
   public static void withoutEnergyTheChunkGoesAndOnlyComesBackWithEnough(GameTestHelper helper) {
     NetworkServerBlockEntity server = place(helper, owner(helper), TWO_TICKS);
     server.setUps(new UpsReserve(MAX_UPS));
@@ -144,7 +159,7 @@ public final class NetworkChunkGameTests {
 
   /** The owner of this one is not in the list of players, as one that left (answer 2210). */
   @GameTest(template = NetworkScene.CHUNK)
-  public static void anOwnerThatIsNotThereHoldsNothingAndPaysNothing(GameTestHelper helper) {
+  public static void anOwnerThatIsNotThereHoldsNothingAndPaysNoChunk(GameTestHelper helper) {
     NetworkServerBlockEntity server =
         NetworkScene.placeServer(
             helper, helper.makeMockPlayer(GameType.SURVIVAL), RobotTier.BASE, PLENTY);
@@ -153,7 +168,7 @@ public final class NetworkChunkGameTests {
         PAID_TICKS,
         () -> {
           assertReleased(helper, server, ChunkState.OWNER_OFFLINE);
-          helper.assertValueEqual(server.energy(), PLENTY, WRONG_COST);
+          assertPaysOnlyTheStandby(helper, server);
           done(helper);
         });
   }
@@ -195,10 +210,48 @@ public final class NetworkChunkGameTests {
         PAID_TICKS,
         () -> {
           assertReleased(helper, server, ChunkState.PLAYER_LIMIT);
-          helper.assertValueEqual(server.energy(), PLENTY, WRONG_COST);
+          assertPaysOnlyTheStandby(helper, server);
           for (int index = 0; index < PER_PLAYER; index++) {
             chunks.release(elsewhere(helper, index));
           }
+          done(helper);
+        });
+  }
+
+  /** The tier of the server, and its relay, which the server pays for (answers 2435, 2436). */
+  @GameTest(template = NetworkScene.CHUNK)
+  public static void theServerPaysForItselfAndForItsRelay(GameTestHelper helper) {
+    Player owner = helper.makeMockPlayer(GameType.SURVIVAL);
+    NetworkServerBlockEntity server =
+        NetworkScene.placeServer(helper, owner, RobotTier.ELITE, PLENTY);
+    NetworkScene.placeRelay(helper, owner);
+
+    helper.runAfterDelay(
+        FIRST_CHECK,
+        () -> {
+          Energy left = server.energy();
+          helper.assertValueEqual(server.standbyCost().amount(), ELITE_STANDBY, WRONG_COST);
+          helper.assertValueEqual(server.relayCost().amount(), ELITE_RELAY, WRONG_COST);
+          helper.runAfterDelay(
+              PAID_TICKS,
+              () -> {
+                assertPaid(helper, server, left, (ELITE_STANDBY + ELITE_RELAY) * PAID_TICKS);
+                done(helper);
+              });
+        });
+  }
+
+  /** The chunk comes first, and what is left goes to the standby until nothing is (2439). */
+  @GameTest(template = NetworkScene.CHUNK)
+  public static void theChunkIsPaidFirstAndAtZeroNothingIsSpent(GameTestHelper helper) {
+    NetworkServerBlockEntity server = place(helper, owner(helper), new Energy(CHUNK_COST + 1));
+
+    helper.runAfterDelay(
+        FIRST_CHECK,
+        () -> {
+          helper.assertTrue(server.energy().isZero(), WRONG_COST);
+          helper.assertTrue(server.standbyCost().isZero(), WRONG_COST);
+          helper.assertValueEqual(server.chunkState(), ChunkState.NO_ENERGY, WRONG_STATE);
           done(helper);
         });
   }
@@ -241,6 +294,19 @@ public final class NetworkChunkGameTests {
   private static NetworkServerBlockEntity place(
       GameTestHelper helper, ServerPlayer owner, Energy energy) {
     return NetworkScene.placeServer(helper, owner, RobotTier.BASE, energy);
+  }
+
+  private static void assertPaid(
+      GameTestHelper helper, NetworkServerBlockEntity server, Energy before, long paid) {
+    helper.assertValueEqual(before.amount() - server.energy().amount(), paid, WRONG_COST);
+  }
+
+  /** It is on, also without its chunk (answer 2439). */
+  private static void assertPaysOnlyTheStandby(
+      GameTestHelper helper, NetworkServerBlockEntity server) {
+    long paid = PLENTY.amount() - server.energy().amount();
+    helper.assertTrue(
+        paid > 0 && paid % STANDBY == 0 && paid <= STANDBY * (PAID_TICKS + 1), WRONG_COST);
   }
 
   /** By the cables, a tick of input at a time, until it has that much. */
