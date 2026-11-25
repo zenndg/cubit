@@ -31,6 +31,7 @@ import software.bernie.geckolib.animation.AnimatableManager;
 public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   private static final String UPS_KEY = "Ups";
   private static final String CHUNK_KEY = "ChunkLoading";
+  private static final String WALL_KEY = "ShowWall";
 
   private final BlockTier<ServerSpec> tier = NetworkParts.serverTier();
   private final ServerStorage storage = new ServerStorage(this::setChanged, this::storageSlots);
@@ -39,6 +40,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   private UpsReserve ups = CubitMod.CONFIG.network().chunks().serverUps();
   private final ServerChunk chunk = new ServerChunk(this::setChanged);
   private boolean chunkLoading = true;
+  private boolean showWall;
   private Energy bankGiven = Energy.ZERO;
   private boolean first;
   private SolarRelayBlockEntity relay;
@@ -162,6 +164,16 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     setChanged();
   }
 
+  /** Whether its owner sees the wall around its chunk (answer 2448). */
+  public boolean showsWall() {
+    return showWall;
+  }
+
+  public void setShowWall(boolean shown) {
+    showWall = shown;
+    changeShown();
+  }
+
   /** Whether it holds its chunk, and why not. */
   public ChunkState chunkState() {
     return chunk.state();
@@ -256,7 +268,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   @Override
   SavedNetwork kept() {
     return new SavedNetwork(
-        tier(), energy().amount(), storage.contents(), Optional.of(ups), chunkLoading);
+        tier(), energy().amount(), storage.contents(), Optional.of(ups), chunkLoading, showWall);
   }
 
   @Override
@@ -265,6 +277,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     storage.restore(saved.items(), worldPosition);
     ups = saved.ups().orElseGet(() -> CubitMod.CONFIG.network().chunks().serverUps());
     chunkLoading = saved.chunkLoading();
+    showWall = saved.showWall();
   }
 
   @Override
@@ -274,6 +287,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     storage.save(tag, registries);
     tag.putInt(UPS_KEY, ups.percent());
     tag.putBoolean(CHUNK_KEY, chunkLoading);
+    tag.putBoolean(WALL_KEY, showWall);
     chunk.save(tag);
   }
 
@@ -285,6 +299,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     storage.load(tag, registries, worldPosition);
     ups = tag.contains(UPS_KEY) ? UpsReserve.of(tag.getInt(UPS_KEY)) : ups;
     chunkLoading = !tag.contains(CHUNK_KEY) || tag.getBoolean(CHUNK_KEY);
+    showWall = tag.getBoolean(WALL_KEY);
     chunk.load(tag);
     show.read(tag);
   }
@@ -293,6 +308,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
     CompoundTag tag = super.getUpdateTag(registries);
     show.write(tag);
+    tag.putBoolean(WALL_KEY, showWall);
     return tag;
   }
 

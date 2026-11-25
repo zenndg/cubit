@@ -34,6 +34,7 @@ public final class NetworkServerMenu extends NetworkMenu {
   public static final int CHUNK_BUTTON = 0;
   public static final int UPS_LESS_BUTTON = 1;
   public static final int UPS_MORE_BUTTON = 2;
+  public static final int WALL_BUTTON = 3;
   private static final int STORAGE_FIRST = 1;
   private static final int PLAYER_FIRST = STORAGE_FIRST + ServerSpec.MAX_SLOTS;
 
@@ -223,6 +224,10 @@ public final class NetworkServerMenu extends NetworkMenu {
   /** The chunk, the server and its relay together (answer 2440). */
   public Energy upkeep() {
     return chunkCost().plus(standby()).plus(relayCost());
+  }
+
+  public boolean showsWall() {
+    return ScreenValues.isTrue(values(), ServerScreenValues.WALL);
   }
 
   public ChunkState chunkState() {

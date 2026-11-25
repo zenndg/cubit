@@ -60,7 +60,7 @@ final class NetworkScene {
     ItemStack item = new ItemStack(CubitItems.NETWORK_SERVER.get());
     item.set(
         CubitDataComponents.NETWORK_STATE.get(),
-        new SavedNetwork(tier, energy.amount(), List.of(items), Optional.empty(), true));
+        new SavedNetwork(tier, energy.amount(), List.of(items), Optional.empty(), true, false));
     return item;
   }
 

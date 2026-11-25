@@ -15,21 +15,23 @@ import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
 
 /**
- * What a block of the Network keeps in its item, a contract with the saves (answers 2410 and 2411).
- * The Solar Relay only keeps its energy. Without a reserve, the one of the config applies.
+ * What a block of the Network keeps in its item, a contract with the saves (answers 2410, 2411 and
+ * 2448). The Solar Relay only keeps its energy. Without a reserve, the one of the config applies.
  */
 public record SavedNetwork(
     RobotTier tier,
     long energy,
     List<SavedBigStack> items,
     Optional<UpsReserve> ups,
-    boolean chunkLoading) {
+    boolean chunkLoading,
+    boolean showWall) {
   private static final Logger LOGGER = LogUtils.getLogger();
   private static final String TIER_FIELD = "tier";
   private static final String ENERGY_FIELD = "energy";
   private static final String ITEMS_FIELD = "items";
   private static final String UPS_FIELD = "ups";
   private static final String CHUNK_FIELD = "chunk_loading";
+  private static final String WALL_FIELD = "show_wall";
   private static final String BROKEN_ITEM = "Skipping a broken item of a Network Server: {}";
   private static final String UNKNOWN_TIER = "Unknown tier {} in a Network item. Using Base.";
 
@@ -56,14 +58,15 @@ public record SavedNetwork(
                   UPS.optionalFieldOf(UPS_FIELD).forGetter(SavedNetwork::ups),
                   Codec.BOOL
                       .optionalFieldOf(CHUNK_FIELD, true)
-                      .forGetter(SavedNetwork::chunkLoading))
+                      .forGetter(SavedNetwork::chunkLoading),
+                  Codec.BOOL.optionalFieldOf(WALL_FIELD, false).forGetter(SavedNetwork::showWall))
               .apply(instance, SavedNetwork::new));
 
   public static final StreamCodec<RegistryFriendlyByteBuf, SavedNetwork> STREAM_CODEC =
       ByteBufCodecs.fromCodecWithRegistries(CODEC);
 
   public static SavedNetwork onlyEnergy(long energy) {
-    return new SavedNetwork(RobotTier.BASE, energy, List.of(), Optional.empty(), true);
+    return new SavedNetwork(RobotTier.BASE, energy, List.of(), Optional.empty(), true, false);
   }
 
   /** What the item keeps, or a new block. */

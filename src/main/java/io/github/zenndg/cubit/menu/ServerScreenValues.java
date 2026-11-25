@@ -18,7 +18,8 @@ final class ServerScreenValues extends NetworkScreenValues {
   static final int UPS = 17;
   static final int STANDBY = 18;
   static final int RELAY_COST = 20;
-  static final int COUNT = 22;
+  static final int WALL = 22;
+  static final int COUNT = 23;
 
   private final NetworkServerBlockEntity server;
 
@@ -41,5 +42,6 @@ final class ServerScreenValues extends NetworkScreenValues {
     put(UPS, server.ups().percent());
     put(STANDBY, server.standbyCost());
     put(RELAY_COST, server.relayCost());
+    put(WALL, server.showsWall());
   }
 }
