@@ -258,7 +258,7 @@ Sons próprios em `.ogg`, descritos em [`sons.md`](../../conceito/sons.md#patrul
 | Onde | Nome | Conteúdo |
 |---|---|---|
 | Item | `cubit:ml_patroller` | O card, na tag `cubit:ml_cards`. Substitui `cubit:ml_defender`, que não foi publicado (pergunta 1569) |
-| Receita | `cubit:ml_patroller` | Card Casing, Circuit Board e estrela de fogo de artifício, liberada pelo Elite Module (pergunta 1576) |
+| Receita | `cubit:ml_patroller` | Card Casing, Circuit Board e estrela de fogo de artifício (perguntas 1576 e 2400) |
 | Config, `allowed_jobs` | `patroller` | No lugar de `defender`, no Elite e no Ultimate (pergunta 1569) |
 | Config, por tier | `patroller_pistol_damage`, `patroller_pistol_range`, `patroller_pistol_interval_ticks`, `patroller_pistol_cost`, `patroller_slowness_level`, `patroller_blade_damage`, `patroller_blade_interval_ticks`, `patroller_blade_knockback`, `patroller_armor`, `patroller_search_radius`, `patroller_jump_height`, `patroller_jump_cost`, `patroller_route_points`, `patroller_area_size`, `patroller_blade_reach`, `patroller_gap_distance` e `patroller_return_charge_percent` | Os números por tier da tabela acima (perguntas 1642, 1648 e 1689) |
 | Config, geral | `patroller_slowness_chance`, `patroller_slowness_ticks`, `patroller_head_chance`, `patroller_chase_distance`, `patroller_weapon_switch_distance`, `patroller_patrol_speed`, `patroller_stop_min_ticks`, `patroller_stop_max_ticks`, `patroller_stop_min_distance`, `patroller_stop_max_distance`, `patroller_alert_ticks`, `patroller_owner_check_ticks`, `patroller_owner_check_distance`, `patroller_visor_calm_ticks`, `patroller_creeper_blast`, `patroller_keep_away`, `patroller_search_interval_ticks`, `patroller_blade_knockback_base`, `patroller_blade_knockback_step`, `patroller_call_range`, `patroller_wing_detour_factor`, `patroller_low_health_percent`, `patroller_rescue_radius`, `patroller_lost_sight_ticks`, `patroller_intercept_interval_ticks`, `patroller_intercept_guard_distance`, `patroller_glide_drop_blocks`, `patroller_escort_still_ticks`, `patroller_blade_ignite_distance`, `patroller_blade_linger_ticks` e `patroller_wings_linger_ticks` | 20%, 3 s, 50%, 16 blocos, 4 blocos, 0,6, 3 s, 5 s, 12 blocos, 20 blocos, 0,5 s, 1 s, 16 blocos, 3 s, 4 blocos, 6 blocos, 0,5 s, 0,4, 0,5, 32 blocos, 2, 25%, 8 blocos, 2 s, 50 FE, 24 blocos, 2 ticks, 32 blocos, 16 blocos, 1 s, 8 blocos, 2 s e 2 s (perguntas 1614 a 1618, 1632, 1642, 1644, 1651, 1686, 1691, 1721, 1728, 1729, 1735, 1739, 1744, 1804, 1805 e 1807) |
@@ -289,6 +289,7 @@ Uma issue, a #198 renomeada, e quatro PRs testados no jogo (perguntas 1578, 1605
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 12:27 | Tira a liberação da receita do card (pergunta 2400). |
 | Zennd | 2026-11-24 08:16 | Troca o XP como energia pelo XP no tanque (perguntas 1821, 1825 e 2062). |
 | Zennd | 2026-11-22 22:08 | Deixa a lente do visor e o brilho dela mais transparentes, para os olhos aparecerem (pergunta 1811). |
 | Zennd | 2026-11-22 22:05 | Alonga o visor até cobrir os olhos quando baixado (perguntas 1809 e 1810). |

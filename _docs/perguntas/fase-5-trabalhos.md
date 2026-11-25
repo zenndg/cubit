@@ -1140,11 +1140,19 @@ Não há perguntas pendentes nesta fase.
 | 2193 | O item 6 do `ROADMAP.md`, que dá o XP como em andamento, e os passos 1 e 8 da seção da Power Bank no `roteiro-manual.md`, sobre o livro de receitas, entram no PR da #261? | Sim. A recomendação foi aceita |
 | 2194 | O que fazer com os comentários do código que dizem que os IDs não mudam sem migração, com a regra 18 a partir da `1.0.0` (2189)? | Deixar para quando o arquivo for tocado por outra tarefa. A recomendação foi aceita |
 | 2195 | O passo 2 da seção Power Bank do `roteiro-manual.md`, com a receita antiga da Power Bank Casing, é corrigido no mesmo commit do roteiro? | Sim. A recomendação foi aceita. A falha foi do agente na #260 |
+| 2400 | Pedido do desenvolvedor, depois de ver no Iron Meridian todas as receitas da Engineering Desk bloqueadas, com os materiais na mesa | "vamos fazer uma coisa todos os itens do mod cubit ficam liberados sem bloqueio de progresso": nenhuma receita da mesa fica mais presa à progressão, e o + depende só dos materiais. Muda a 1991 e a 1974, deixa sem efeito a 1969 e a 1970, e ajusta a 1437, a 1441, a 1498, a 2009, a 2016 e a 2038. O cadeado de um plano em andamento (2015) e o de receitas em ciclo (2034) não são progressão e continuam |
+| 2401 | Receitas sem bloqueio: o conceito está autorizado (regra 54), e de onde sai a branch? | "vamos criar uma branch a partir da develop para atuar com unicamente este objetivo", com os cinco pontos do conceito: a mesa deixa de consultar o livro e as conquistas; saem o cadeado, `Locked`, `Unlocks with`, `DeskUnlocks` e `DeskOpeners`, e a Cascata deixa de exigir a cadeia liberada; o teste que reproduz o bug vem antes; mudam as respostas da 2400; e os saves e o config não mudam. Lido como a autorização do conceito, na #275. Pelo escopo, as conquistas escondidas de receita continuam, só para o livro do jogo, e as conquistas visíveis da #250 não são tocadas (1989 e 2005) |
+| 2402 | Com que número as respostas desta tarefa começam, com as de 2366 a 2378 citadas em issues e ainda fora do remoto? | Em 2400, com folga para as que podem estar em outra máquina. A recomendação foi aceita |
+| 2403 | O guia do player e a imagem da árvore de crafts, que explicam o que cada item libera, mudam com a 2400? | "vamos manter a imagem .md mesmo forma por enquanto": `_docs/arvore-de-crafts.md` e a imagem ficam como estão por enquanto, mesmo sem a liberação que descrevem. A recomendação, reescrever o guia e tirar a imagem, foi recusada |
+| 2404 | O `AGENTS.md` pode deixar de citar `DeskUnlocks` e `DeskOpeners` na estrutura de pacotes e citar a #275 no "Estado atual"? | Sim ("1. sim"), no commit do código. A recomendação foi aceita |
+| 2405 | Sem a chave PGP da conta `zenndg` na máquina desta tarefa, como assinar os commits da #275? | Com SSH desta vez ("2. b"). A recomendação, importar a chave PGP antes do commit, foi recusada. É uma exceção à 2128 só para a #275, e a regra do `AGENTS.md` não muda |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 12:30 | Registra as respostas 2404 e 2405. |
+| Zennd | 2026-11-25 12:26 | Registra as respostas 2400 a 2403, das receitas sem bloqueio na Engineering Desk. |
 | Zennd | 2026-11-24 12:34 | Registra a resposta 2195. |
 | Zennd | 2026-11-24 12:33 | Registra as respostas 2193 a 2194. |
 | Zennd | 2026-11-24 12:31 | Registra as respostas 2190 a 2192. |

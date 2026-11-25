@@ -21,7 +21,7 @@ Trocar com aldeões é uma das tarefas mais repetitivas do jogo. O Trader assume
 | ID | `cubit:ml_trader` |
 | Nome | "Machine Learning: Trader" (`en_us`), "Machine Learning: Negociante" (`pt_br`) |
 | Tiers | Advanced, Elite e Ultimate. O Base não aceita o card |
-| Receita | Card Casing, Circuit Board e uma esmeralda, sem forma, liberada pelo Advanced Module (**assumido**) |
+| Receita | Card Casing, Circuit Board e uma esmeralda, sem forma (**assumido**) |
 
 ## Fluxo
 
@@ -123,4 +123,5 @@ Exemplo de aviso: "Trader: sem esmeraldas para continuar, 34 itens no baú."
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 12:27 | Tira a liberação da receita do card (pergunta 2400). |
 | Zennd | 2026-11-22 16:46 | Cria o conceito do Trader no modelo de trabalho, com as decisões das cinco rodadas. |

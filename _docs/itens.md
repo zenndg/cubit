@@ -59,9 +59,9 @@
 
 ## Progressão das receitas
 
-Só com recursos do jogo puro. Todas as receitas do mod saem da [Engineering Desk](funcionalidades/mesa-de-engenharia.md), no tipo `cubit:engineering` ou nos tipos especiais, com os mesmos IDs. A única que fica na mesa de craft do jogo é a da própria mesa (perguntas 1427, 1430, 1438 e 1459). A liberação de cada receita no catálogo da mesa segue a tabela abaixo (pergunta 1498), e as bloqueadas aparecem escurecidas e acinzentadas (perguntas 1441 e 1495).
+Só com recursos do jogo puro. Todas as receitas do mod saem da [Engineering Desk](funcionalidades/mesa-de-engenharia.md), no tipo `cubit:engineering` ou nos tipos especiais, com os mesmos IDs. A única que fica na mesa de craft do jogo é a da própria mesa (perguntas 1427, 1430, 1438 e 1459). Nenhuma receita da mesa fica bloqueada: todas podem ser feitas desde o início, com os materiais (pergunta 2400). A tabela abaixo é só a ordem em que elas entram no livro de receitas do jogo, sem efeito na mesa (perguntas 1498 e 2401).
 
-| Etapa | Quando libera | Receitas |
+| Etapa | Quando entra no livro | Receitas |
 |---|---|---|
 | 1 | Desde o início | XP Tank, Hard Drive, Solar Panel, Display Panel, Servo Motor, Neural Core, Cubit, Cubit Casing, Cubit Visor, Cubit Treads e Toolbox |
 | 2 | Ao ter um Cubit | Induction Coil, Circuit Board, Induction Dock, Cubit Tablet, Power Bank Casing, Base Power Cell, Advanced Module e a Recharge Splash |
@@ -90,7 +90,7 @@ Os materiais que marcam cada tier, nas células das Power Banks e nos Modules (p
 
 ### Cubit
 
-Na Engineering Desk, sem forma: Cubit Casing, Cubit Visor, Cubit Treads, Neural Core, XP Tank, Hard Drive e Solar Panel, em qualquer posição (perguntas 1343 e 2146). Só com materiais do Overworld, nas [peças de montagem](#peças-de-montagem) e nas [peças compartilhadas](#peças-compartilhadas). A receita fica liberada desde o início (pergunta 1496).
+Na Engineering Desk, sem forma: Cubit Casing, Cubit Visor, Cubit Treads, Neural Core, XP Tank, Hard Drive e Solar Panel, em qualquer posição (perguntas 1343 e 2146). Só com materiais do Overworld, nas [peças de montagem](#peças-de-montagem) e nas [peças compartilhadas](#peças-compartilhadas).
 
 ### Induction Dock
 
@@ -126,7 +126,7 @@ Na Engineering Desk, a partir das [peças de montagem](#peças-de-montagem) (per
 
 ### Peças de montagem
 
-As regras estão em [`pecas.md`](funcionalidades/pecas.md). As três peças só do Cubit ficam liberadas desde o início (pergunta 1496). A Power Bank Casing e a Base Power Cell aparecem com um Cubit, e cada célula seguinte, com a Power Bank anterior (pergunta 1350).
+As regras estão em [`pecas.md`](funcionalidades/pecas.md). Todas podem ser feitas desde o início, com os materiais (pergunta 2400).
 
 | Peça | Linha 1 | Linha 2 | Linha 3 |
 |---|---|---|---|
@@ -143,7 +143,7 @@ O Visor é sem forma, e as Esteiras ocupam duas linhas (perguntas 2142, 2143 e 2
 
 ### Peças compartilhadas
 
-As regras estão em [`pecas.md`](funcionalidades/pecas.md#peças-compartilhadas). A Induction Coil e a Circuit Board aparecem com um Cubit, e as outras ficam liberadas desde o início, só com materiais do Overworld (perguntas 2136, 2150 e 2165). O Neural Core era o Cubit Neural Core, `cubit:general_robot_core`, e a Circuit Board, `cubit:ml_circuit_board`, sem migração, porque só os mundos de teste os tinham (pergunta 2166).
+As regras estão em [`pecas.md`](funcionalidades/pecas.md#peças-compartilhadas). Todas podem ser feitas desde o início (pergunta 2400), e, menos a Circuit Board, só com materiais do Overworld (perguntas 2136, 2150 e 2165). O Neural Core era o Cubit Neural Core, `cubit:general_robot_core`, e a Circuit Board, `cubit:ml_circuit_board`, sem migração, porque só os mundos de teste os tinham (pergunta 2166).
 
 | Peça | Linha 1 | Linha 2 | Linha 3 |
 |---|---|---|---|
@@ -349,6 +349,7 @@ O estado salvo é validado ao entrar no jogo, sem derrubá-lo (regra 17 do `AGEN
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 12:27 | Tira o bloqueio por progressão das receitas (pergunta 2400). |
 | Zennd | 2026-11-24 12:32 | Atualiza o contrato dos saves, que vale a partir da `1.0.0` (perguntas 2189 e 2190). |
 | Zennd | 2026-11-24 11:44 | Muda o Neural Core, a Circuit Board, os cards e a Power Bank Casing (perguntas 2162 a 2169). |
 | Zennd | 2026-11-24 11:10 | Acrescenta as peças compartilhadas e as receitas que mudam com elas (perguntas 2136 a 2150). |
