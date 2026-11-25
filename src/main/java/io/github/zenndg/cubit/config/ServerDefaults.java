@@ -3,11 +3,12 @@ package io.github.zenndg.cubit.config;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.SolarOutput;
 import io.github.zenndg.cubit.domain.network.ServerSpec;
+import io.github.zenndg.cubit.domain.network.Standby;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 
 /**
  * The default numbers of the Network Server at each tier, from _docs/tiers.md (answers 2220 to
- * 2223, 2267, 2269 and 2326).
+ * 2223, 2267, 2269, 2326 and 2435).
  */
 final class ServerDefaults {
   private static final long NO_NIGHT = 0;
@@ -30,31 +31,58 @@ final class ServerDefaults {
   private static final SolarOutput ELITE_RELAY = relay(2_000, NO_NIGHT);
   private static final SolarOutput ULTIMATE_RELAY = relay(4_000, 1_000);
 
+  private static final Standby BASE_STANDBY = standby(20, 2);
+  private static final Standby ADVANCED_STANDBY = standby(40, 5);
+  private static final Standby ELITE_STANDBY = standby(80, 15);
+  private static final Standby ULTIMATE_STANDBY = standby(160, 40);
+
   private ServerDefaults() {}
 
   static ServerSpec of(RobotTier tier) {
     return switch (tier) {
-      case BASE -> spec(BASE_CAPACITY, BASE_CHANNELS, BASE_INPUT, BASE_SLOTS, BASE_RELAY);
+      case BASE ->
+          new ServerSpec(
+              new Energy(BASE_CAPACITY),
+              BASE_CHANNELS,
+              new Energy(BASE_INPUT),
+              BASE_SLOTS,
+              BASE_RELAY,
+              BASE_STANDBY);
       case ADVANCED ->
-          spec(
-              ADVANCED_CAPACITY, ADVANCED_CHANNELS, ADVANCED_INPUT, ADVANCED_SLOTS, ADVANCED_RELAY);
-      case ELITE -> spec(ELITE_CAPACITY, ELITE_CHANNELS, ELITE_INPUT, ELITE_SLOTS, ELITE_RELAY);
-      case ULTIMATE ->
-          spec(
-              ULTIMATE_CAPACITY,
-              ServerSpec.MAX_CHANNELS,
-              ULTIMATE_INPUT,
-              ServerSpec.MAX_SLOTS,
-              ULTIMATE_RELAY);
+          new ServerSpec(
+              new Energy(ADVANCED_CAPACITY),
+              ADVANCED_CHANNELS,
+              new Energy(ADVANCED_INPUT),
+              ADVANCED_SLOTS,
+              ADVANCED_RELAY,
+              ADVANCED_STANDBY);
+      case ELITE ->
+          new ServerSpec(
+              new Energy(ELITE_CAPACITY),
+              ELITE_CHANNELS,
+              new Energy(ELITE_INPUT),
+              ELITE_SLOTS,
+              ELITE_RELAY,
+              ELITE_STANDBY);
+      case ULTIMATE -> ultimate();
     };
+  }
+
+  private static ServerSpec ultimate() {
+    return new ServerSpec(
+        new Energy(ULTIMATE_CAPACITY),
+        ServerSpec.MAX_CHANNELS,
+        new Energy(ULTIMATE_INPUT),
+        ServerSpec.MAX_SLOTS,
+        ULTIMATE_RELAY,
+        ULTIMATE_STANDBY);
+  }
+
+  private static Standby standby(long server, long relay) {
+    return new Standby(new Energy(server), new Energy(relay));
   }
 
   private static SolarOutput relay(long day, long night) {
     return new SolarOutput(new Energy(day), new Energy(night));
-  }
-
-  private static ServerSpec spec(
-      long capacity, int channels, long input, int slots, SolarOutput relay) {
-    return new ServerSpec(new Energy(capacity), channels, new Energy(input), slots, relay);
   }
 }

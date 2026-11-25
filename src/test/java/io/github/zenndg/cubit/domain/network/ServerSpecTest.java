@@ -18,7 +18,7 @@ class ServerSpecTest {
   private static final int TOO_MANY_CHANNELS = 17;
 
   private static ServerSpec spec(Energy battery, int channels, Energy input, int slots) {
-    return new ServerSpec(battery, channels, input, slots, RELAY);
+    return new ServerSpec(battery, channels, input, slots, RELAY, Standby.NONE);
   }
 
   @Test

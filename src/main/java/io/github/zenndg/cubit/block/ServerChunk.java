@@ -39,7 +39,7 @@ final class ServerChunk {
 
   /** What it costs now, for the screen. */
   Energy cost() {
-    return state.holds() ? keys().price().perTick() : Energy.ZERO;
+    return state.holds() ? keys().perTick() : Energy.ZERO;
   }
 
   /** Something the owner chose changed, so the next tick looks at everything. */
@@ -49,7 +49,7 @@ final class ServerChunk {
 
   /** The stock, with what the chunk cost in this tick. */
   EnergyStock tick(ServerLevel level, BlockPos pos, Asked asked, EnergyStock stock) {
-    ChunkCall.Price price = keys().price();
+    ChunkCall.Price price = keys().price(asked.standby());
     ChunkCharge next = charge.next(stock.energy().charge(), price);
     if (!next.equals(charge)) {
       charge = next;
@@ -128,6 +128,6 @@ final class ServerChunk {
     return CubitMod.CONFIG.network().chunks();
   }
 
-  /** Who the server belongs to, and whether the chunk is asked for. */
-  record Asked(Optional<UUID> owner, boolean on) {}
+  /** Who the server belongs to, whether the chunk is asked for and what the server spends. */
+  record Asked(Optional<UUID> owner, boolean on, Energy standby) {}
 }

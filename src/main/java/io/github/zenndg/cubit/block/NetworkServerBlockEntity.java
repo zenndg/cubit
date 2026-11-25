@@ -58,7 +58,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     battery.tick();
     server.storage.dropRefused(level, pos);
     server.chargeBanks();
-    server.payChunk((ServerLevel) level);
+    server.payUpkeep((ServerLevel) level);
     server.show.passes(battery.enteredNow());
     if (server.show.tick(level, pos, server.reading())) {
       server.changeShown();
@@ -78,10 +78,26 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     show.passes(bankGiven);
   }
 
-  /** The chunk pays last, so the banks of this tick never take what it needs. */
-  private void payChunk(ServerLevel level) {
-    ServerChunk.Asked asked = new ServerChunk.Asked(owner(), chunkLoading && first);
-    battery().set(chunk.tick(level, worldPosition, asked, battery().stock()));
+  /** The chunk is paid first, and then what the server spends for being on (answer 2439). */
+  private void payUpkeep(ServerLevel level) {
+    Energy standby = spec().standby().total(relay != null);
+    ServerChunk.Asked asked = new ServerChunk.Asked(owner(), chunkLoading && first, standby);
+    EnergyStock left = chunk.tick(level, worldPosition, asked, battery().stock());
+    EnergyStock.Spent spent = left.spend(standby);
+    battery().set(spent.stock());
+    if (!spent.paid().isZero()) {
+      setChanged();
+    }
+  }
+
+  /** What it spends for being on now, and nothing without energy (answers 2435 and 2439). */
+  public Energy standbyCost() {
+    return energy().isZero() ? Energy.ZERO : spec().standby().server();
+  }
+
+  /** What it pays for its relay now (answer 2436). */
+  public Energy relayCost() {
+    return energy().isZero() ? Energy.ZERO : spec().standby().relay(relay != null);
   }
 
   /** At the speed of the Dock of its tier (answer 2373). */

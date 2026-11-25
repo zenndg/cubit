@@ -173,7 +173,7 @@ final class ServerEnergyTab {
   }
 
   private Component time(UpsReserve ups) {
-    Energy price = new Energy(menu.numbers().chunkPrice());
+    Energy price = new Energy(menu.numbers().upkeep());
     if (price.isZero()) {
       return Component.translatable(NetworkKeys.NONE);
     }

@@ -16,7 +16,9 @@ final class ServerScreenValues extends NetworkScreenValues {
   static final int CHUNK_ON = 15;
   static final int CHUNKS_HELD = 16;
   static final int UPS = 17;
-  static final int COUNT = 18;
+  static final int STANDBY = 18;
+  static final int RELAY_COST = 20;
+  static final int COUNT = 22;
 
   private final NetworkServerBlockEntity server;
 
@@ -37,5 +39,7 @@ final class ServerScreenValues extends NetworkScreenValues {
     put(CHUNK_ON, server.chunkLoading());
     put(CHUNKS_HELD, server.chunksHeld());
     put(UPS, server.ups().percent());
+    put(STANDBY, server.standbyCost());
+    put(RELAY_COST, server.relayCost());
   }
 }

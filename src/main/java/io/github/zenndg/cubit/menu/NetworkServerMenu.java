@@ -210,6 +210,21 @@ public final class NetworkServerMenu extends NetworkMenu {
     return ScreenValues.energy(values(), ServerScreenValues.CHUNK_COST);
   }
 
+  /** What the server spends for being on, now (answer 2435). */
+  public Energy standby() {
+    return ScreenValues.energy(values(), ServerScreenValues.STANDBY);
+  }
+
+  /** What it pays for its relay, now (answer 2436). */
+  public Energy relayCost() {
+    return ScreenValues.energy(values(), ServerScreenValues.RELAY_COST);
+  }
+
+  /** The chunk, the server and its relay together (answer 2440). */
+  public Energy upkeep() {
+    return chunkCost().plus(standby()).plus(relayCost());
+  }
+
   public ChunkState chunkState() {
     return ScreenEnums.of(ChunkState.values(), values().get(ServerScreenValues.CHUNK_STATE));
   }
@@ -253,15 +268,16 @@ public final class NetworkServerMenu extends NetworkMenu {
 
   /** The numbers of the tier and of the config that the screen shows. */
   public record ServerNumbers(
-      int tier, int storageSlots, int slotLimit, long chunkPrice, long resume, int perPlayer) {
+      int tier, int storageSlots, int slotLimit, long upkeep, long resume, int perPlayer) {
     static ServerNumbers of(NetworkServerBlockEntity server) {
       ChunkKeys chunks = CubitMod.CONFIG.network().chunks();
+      Energy standby = server.spec().standby().total(server.relay().isPresent());
       return new ServerNumbers(
           server.tier().ordinal(),
           server.storageSlots(),
           CubitMod.CONFIG.network().slot().limit(),
-          chunks.price().perTick().amount(),
-          chunks.price().resume().amount(),
+          chunks.perTick().plus(standby).amount(),
+          chunks.price(standby).resume().amount(),
           chunks.limits().perPlayer());
     }
 
@@ -279,7 +295,7 @@ public final class NetworkServerMenu extends NetworkMenu {
       data.writeVarInt(tier);
       data.writeVarInt(storageSlots);
       data.writeVarInt(slotLimit);
-      data.writeVarLong(chunkPrice);
+      data.writeVarLong(upkeep);
       data.writeVarLong(resume);
       data.writeVarInt(perPlayer);
     }
