@@ -20,6 +20,14 @@ public final class ServerFront {
     return Math.max(1, (int) (amount / (capacity / (double) BARS)));
   }
 
+  /**
+   * The energy column: full also when only the spending of a tick is missing, which a server that
+   * pays for its chunk and for being on never gets back before the end of the tick (2509).
+   */
+  public static int energyBars(long amount, long capacity, long upkeep) {
+    return amount > 0 && amount + upkeep >= capacity ? BARS : bars(amount, capacity);
+  }
+
   public static Lamp lamp(int index, int channels, boolean powered) {
     if (index >= channels) {
       return Lamp.CLOSED;

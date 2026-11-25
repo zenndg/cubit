@@ -74,7 +74,8 @@ final class ServerShow {
         !flow.perTick().isZero(),
         now.linked(),
         new ServerLook.Columns(
-            ServerFront.bars(now.energy().amount(), spec.capacity().amount()),
+            ServerFront.energyBars(
+                now.energy().amount(), spec.capacity().amount(), now.upkeep().amount()),
             ServerFront.bars(now.usedSlots(), spec.storageSlots())),
         spec.channels());
   }
@@ -126,5 +127,11 @@ final class ServerShow {
   }
 
   /** What the server has at the end of a tick. */
-  record Reading(Energy energy, UpsReserve ups, ServerSpec spec, int usedSlots, boolean linked) {}
+  record Reading(
+      Energy energy,
+      UpsReserve ups,
+      ServerSpec spec,
+      int usedSlots,
+      boolean linked,
+      Energy upkeep) {}
 }

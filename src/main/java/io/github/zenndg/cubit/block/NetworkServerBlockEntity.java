@@ -68,7 +68,8 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   }
 
   private ServerShow.Reading reading() {
-    return new ServerShow.Reading(energy(), ups, spec(), storage.used(), relay != null);
+    Energy upkeep = chunkCost().plus(standbyCost()).plus(relayCost());
+    return new ServerShow.Reading(energy(), ups, spec(), storage.used(), relay != null, upkeep);
   }
 
   /** One at a time, with what passes the reserve (answer 2373). */
