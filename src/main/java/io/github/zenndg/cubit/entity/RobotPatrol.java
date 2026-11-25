@@ -198,8 +198,12 @@ public final class RobotPatrol {
    * (answers 1616 and 1708).
    */
   int spreadCorner(int corner) {
-    edgeTo(Math.floorMod(corner, WorkArea.CORNERS));
     Optional<WorkArea> area = robot.workArea().here();
+    if (area.isEmpty()) {
+      return corner;
+    }
+    int corners = area.get().cornerCount();
+    edgeTo(Math.floorMod(corner, corners));
     List<PatrolSpread.Walker> mates =
         PatrolTeams.mates(robot).stream()
             .filter(mate -> mate.workArea().here().equals(area))
@@ -207,7 +211,7 @@ public final class RobotPatrol {
             .filter(RobotPatrol::onEdges)
             .map(RobotPatrol::edgeWalker)
             .toList();
-    edgeTo(PatrolSpread.place(WorkArea.CORNERS, edgeWalker(), mates));
+    edgeTo(PatrolSpread.place(corners, edgeWalker(), mates));
     return edgeCorner;
   }
 

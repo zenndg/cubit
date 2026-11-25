@@ -38,7 +38,7 @@ Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e uma
 ## Como o player o põe para patrulhar
 
 1. Põe o card no slot de um Cubit Elite ou Ultimate.
-2. Com o app Área do Tablet, marca a área que ele guarda, que pode ter o dobro do lado da área dos outros cards: até 64×64 no Elite e 128×128 no Ultimate, com a altura do tier, de 24 e 32 blocos (perguntas 1600 e 1601). Sem área, ele segue o dono e faz a escolta (perguntas 1565 e 1599).
+2. Com o app Área do Tablet, desenha a área que ele guarda, que pode ter o dobro do lado da área dos outros cards: até 64×64 no Elite e 128×128 no Ultimate, com a altura do tier, de 24 e 32 blocos (perguntas 1600 e 1601). Sem área, ele segue o dono e faz a escolta (perguntas 1565 e 1599).
 3. Com o app Marcar, marca os pontos da rota dentro da área, na ordem em que quer que ele passe (perguntas 1579 e 1599).
 4. Sem pontos marcados, ele patrulha a área pelas bordas, no mesmo passo lento, parando em cada canto e a cada trecho de 12 a 20 blocos andados (perguntas 1561, 1616 e 1628).
 5. Para guardar os drops, marca um baú com o app Descarga, como nos outros cards (pergunta 1570).
@@ -95,7 +95,7 @@ O comportamento de um vigia de verdade, decidido no início do PR 3 (perguntas 1
 3. **Conferir o dono:** ao abater o último hostil por perto, com o dono a até 16 blocos, ele vira a cabeça para o dono por 1 s, antes de investigar ou voltar (pergunta 1629).
 4. **Visor com calma:** depois do combate, o visor só sobe depois da investigação ou de 3 s sem ameaça (pergunta 1629).
 5. **Volta à ronda:** volta ao ponto da rota mais perto de onde está e segue a ordem a partir dele. Na ronda pelas bordas, volta ao canto mais perto (pergunta 1625).
-6. **Olhar para fora:** nas paradas das bordas, a varredura é feita de frente para fora da área, pela borda mais perto, e, a até 2 blocos de dois lados, como nos cantos, de frente para a diagonal de fora. Nos pontos da rota e na investigação, segue a direção em que andava (perguntas 1626 e 1724).
+6. **Olhar para fora:** nas paradas das bordas, a varredura é feita de frente para fora da área, pela borda mais perto, e, a até 2 blocos de dois lados, como nos cantos, de frente para a diagonal de fora, também no canto de dentro de um L (pergunta 2240). Nos pontos da rota e na investigação, segue a direção em que andava (perguntas 1626 e 1724).
 7. **Guarda:** na parada, ele ergue um pouco o braço da pistola, apontada para onde olha, e o abaixa ao retomar a caminhada (pergunta 1627).
 8. **Ritmo variado:** cada parada sorteia entre 3 e 5 s, e cada trecho, entre 12 e 20 blocos (pergunta 1628).
 9. **Água:** ele nunca entra na água para perseguir. Contra um alvo na água, como o afogado e o guardião, atira da margem, com o alvo no alcance e à vista, e o globo não perde velocidade na água. Um alvo que só se alcança pela água, fora do alcance, conta como fugido, e ele investiga da margem. Se cair na água, luta de lá (pergunta 1693).
@@ -293,6 +293,7 @@ Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 00:23 | Cita a área desenhada e o canto de dentro de um L (pergunta 2240). |
 | Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-24 08:16 | Troca o XP como energia pelo XP no tanque (perguntas 1821, 1825 e 2062). |
 | Zennd | 2026-11-22 22:08 | Deixa a lente do visor e o brilho dela mais transparentes, para os olhos aparecerem (pergunta 1811). |

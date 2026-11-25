@@ -193,7 +193,7 @@ public final class RobotWork implements WorkControl {
     }
   }
 
-  /** Called on the server on every tick. Without the card, the sleep ends (answer 1171). */
+  /** Called on the server on every tick. Without the card or the area, the sleep ends (1171). */
   void tick() {
     showJob();
     escort.checkTheDimension();
@@ -203,7 +203,7 @@ public final class RobotWork implements WorkControl {
     organizing.tick();
     cooking.tick();
     if (asleep()) {
-      if (job().isEmpty()) {
+      if (job().isEmpty() || robot.workArea().area().isEmpty()) {
         wake();
       }
       return;

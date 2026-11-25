@@ -1,8 +1,8 @@
 # Network
 
-A rede sem fio do mod: o Network Server, o Solar Relay e a Signal Antenna. O conceito é do desenvolvedor e foi refinado nas perguntas 2196 a 2344, citadas só pelo número. As respostas em [`perguntas/`](../perguntas/fase-5-trabalhos.md) prevalecem. As entregas estão no [`ROADMAP.md`](../../ROADMAP.md#network-a-rede-sem-fio-em-conceito).
+A rede sem fio do mod: o Network Server, o Solar Relay e a Signal Antenna. O conceito é do desenvolvedor e foi refinado nas perguntas 2196 a 2365, citadas só pelo número. As respostas em [`perguntas/`](../perguntas/fase-5-trabalhos.md) prevalecem. As entregas estão no [`ROADMAP.md`](../../ROADMAP.md#network-a-rede-sem-fio-em-conceito).
 
-**Situação:** conceito autorizado (pergunta 2325). O código espera a autorização própria do desenvolvedor (pergunta 2224). Os números entram em [`tiers.md`](../tiers.md) e no config na Entrega 1.
+**Situação:** conceito autorizado (pergunta 2325). O código da Entrega 2, a área desenhada, foi autorizado (pergunta 2363), e o das outras espera a autorização própria do desenvolvedor (pergunta 2224). Os números entram em [`tiers.md`](../tiers.md) e no config na Entrega 1.
 
 ## A ideia
 
@@ -119,12 +119,15 @@ Clique na antena, depois no Cubit, que fica ligado, e depois em cada Dock e baú
 
 Muda o app Área (2225, 2240 e 2243 a 2246, 2287 e 2311).
 
-1. O player escolhe o Cubit e clica em cada ponto, a até 32 blocos. A linha, de 3 px, fica vermelha e liga os pontos em ângulo reto. De 4 a 32 pontos.
-2. Clicar no primeiro ponto fecha a forma, e a linha fica verde. Shift + clique aplica. Com a linha vermelha, Shift + clique desfaz o último ponto. Trocar de app cancela.
-3. Um ponto ou linha fora dos chunks das antenas é recusado na hora, com o motivo.
+1. O player escolhe o Cubit e clica em cada ponto, a até 32 blocos. A linha, de 3 px, fica vermelha e liga os pontos em ângulo reto. De 4 a 32 pontos. O clique em outro Cubit do player descarta o desenho e recomeça com ele, e um Cubit Base ou de outro player só avisa (2357).
+2. Clicar no primeiro ponto fecha a forma, e a linha fica verde. Shift + clique aplica. Com a linha vermelha, Shift + clique desfaz o último ponto, também mirando num Cubit (2352). Com a verde, o clique num ponto só tira o fechamento, e os pontos ficam (2355). Trocar de app cancela.
+3. Um ponto ou linha fora dos chunks das antenas é recusado na hora, com o motivo. Também a linha que passa por um bloco que já é do desenho, fora a emenda e o fechamento, e o ponto que passa do tamanho ou da altura do tier (2354 e 2356). Linhas lado a lado valem.
 4. Os blocos dos pontos e das linhas fazem parte da área. A altura vai do ponto mais baixo ao mais alto, até 8, 24 e 32 por tier.
-5. **Ver:** com o Cubit escolhido e o app Área, a linha aparece.
-6. **Apagar:** Shift + clique no Cubit, com confirmação (2299).
+5. **Ver:** com o Cubit escolhido e o app Área, a linha aparece, verde e sem cubos (2360).
+6. **Apagar:** Shift + clique no Cubit, sem desenho em andamento, com confirmação (2299 e 2352). Quem fica sem área para e desliga, com a carga mantida, e, no Dock, continua no Dock. Os itens, o card e as chaves não mudam (2353).
+7. **Caminho:** entre dois lugares da área, contorna o canto por dentro e só passa por fora sem outro caminho. A trava total vem na entrega 6 (2365).
+8. **Linha:** uma barra de 3 px do bloco, com volume, no centro do bloco, e um cubo de 6 px em cada ponto enquanto a área não é aplicada. O trecho até a mira é translúcido e só aparece em ângulo reto, com o bloco na mira marcado (2358). Desenhando, é um traço só, que sobe na vertical. Fechada ou aplicada, mostra o contorno da base e o do topo, ou um só com um nível (2359). Atrás de um bloco, fica mais fraca (2361).
+9. **Até a rede ser obrigatória,** na entrega 6: o desenho cabe nos limites de hoje, 16, 32 e 64 blocos, e 64 e 128 no Patrulheiro, conferidos em cada clique. O centro do retângulo em volta dele fica no raio de chamada do Dock, na dimensão do Cubit, o que é conferido ao aplicar (2350, 2351 e 2356). As antenas não contam até a entrega 5.
 
 O Cubit espera a área ser desenhada, parado e acordado, com `Waiting for area` (2239 e 2298). As áreas antigas, em caixa, são apagadas (2283).
 
@@ -136,7 +139,7 @@ O Cubit espera a área ser desenhada, parado e acordado, com `Waiting for area` 
 - **`Follow`:** pausa, e o `Back to work`, na tela dele e no Tablet, o manda de volta, na mesma dimensão e com o chunk carregado (2251 e 2308).
 - **Recolher e morrer:** apagam antenas, área, Docks e baús (2251 e 2304). Ao morrer, o dono é avisado.
 - **Patrulheiro:** segue as mesmas antenas, e persegue até 16 blocos para fora, só com o dono por perto e em chunk que roda entidades (2231).
-- **Organizador e Cozinheiro:** a partir do Advanced. Organizador: 4 máquinas ou destinos no Advanced. Cozinheiro: 2, 4 e 8 fornos. Os dois: 50 FE por pilha, 20 e 160 ticks no Advanced (2235, 2236 e 2242). Tudo nos chunks das antenas.
+- **Organizador e Cozinheiro:** a partir do Advanced. Organizador: 4 máquinas ou destinos no Advanced. Cozinheiro: 2, 4 e 8 fornos. Os dois: 50 FE por pilha, 20 e 160 ticks no Advanced (2235, 2236 e 2242). O Organizador marca 4 baús no Advanced até a Entrega 5 (2364). Tudo nos chunks das antenas.
 
 ## XP
 
@@ -261,7 +264,8 @@ Os nomes foram propostos pelo agente, a partir do padrão do mod, e autorizados 
 | Modos do Dock | `XpMode`: `send_excess` e `send_all` | Os dois modos novos |
 | Modos do Servidor | `XpMode`: `store`, `store_convert_excess` e `convert_all` | O padrão é `store` |
 | Config | `[network]`, `[network.{tier}]` e `network_*` em `[general_robot.{tier}]` | As chaves de [`tiers.md`](../tiers.md#network) |
-| Config, que saem | `area_size_blocks` e `patroller_area_size` | O tamanho vem das antenas (2226). O `unload_chests` fica só para quem segue (2284) |
+| NBT de `DrawnArea` | `Points`, `Low`, `High` e `Dimension` | Os cantos da forma, as alturas e a dimensão. Já no código, com a Entrega 2 |
+| Config, que saem | `area_size_blocks` e `patroller_area_size` | Na entrega 6 (2350). O tamanho vem das antenas (2226). O `unload_chests` fica só para quem segue (2284) |
 | Tablet | App `network` | O valor no componente do item |
 | Comando | `/cubit network list` e `/cubit network release` | Só operador |
 | Receitas | `desk_category`: `dock` e `parts` | Sem categoria nova no JSON (2305) |
@@ -276,6 +280,7 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 00:02 | Fecha as lacunas do desenho da área e a prévia da linha, e registra o código da Entrega 2 (perguntas 2350 a 2365). |
 | Zennd | 2026-11-24 23:33 | Acrescenta as pranchas aceitas e as correções delas (perguntas 2341 a 2344). |
 | Zennd | 2026-11-24 22:58 | Acrescenta as metas de construção, as animações e os sons (perguntas 2336 a 2340). |
 | Zennd | 2026-11-24 22:42 | Escreve o contrato, com os nomes. |

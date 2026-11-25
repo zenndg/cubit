@@ -1292,11 +1292,35 @@ Não há perguntas pendentes nesta fase.
 | 2345 | Network: o formato das pranchas em `_docs/imagens/conceito/` | WebP, qualidade 92, 1,2 MB no total, com os originais em `tmp/`. A recomendação foi aceita |
 | 2346 | Network: medir os quadros por segundo na entrega 9, ao lado de 20 blocos da rede? | Sim. A recomendação foi aceita |
 | 2347 | O link quebrado `energia.md#dock-solar`, no `decisoes.md`, de antes da Network, é corrigido numa próxima tarefa ou agora? | Agora, com um commit a mais no PR da Entrega 1 e as provas refeitas. A recomendação, numa próxima tarefa, foi recusada |
+| 2348 | Network, entrega 2: tem algo a acrescentar ou algum ajuste no roteiro das próximas tarefas (regras 51 e 53)? | Não ("1 nao"). A entrega 2 segue com o escopo da #264, e o roteiro fica como está |
+| 2349 | Network, entrega 2: corrigir a altura da área do Elite no `modo-area.md`, de 16 para 24 (1601), e tratar o `config.md`, que o `ROADMAP.md` pede na Entrega 1, com cada chave entrando nele junto do código que a lê e o item ajustado antes de ser marcado? | Sim, as duas, junto da entrega 2 ("3 autorizo"). A recomendação foi aceita |
+| 2350 | Network, entrega 2: sem antenas até a entrega 5, o que limita o tamanho da área desenhada, e quando saem `area_size_blocks` e `patroller_area_size` (2226)? | Os limites de hoje: o desenho cabe num retângulo de 16, 32 e 64 blocos por tier, e de 64 e 128 no Patrulheiro. As duas chaves só saem na entrega 6, quando a rede passa a ser obrigatória. A recomendação foi aceita. Detalha a 2226 e a 2334 |
+| 2351 | Network, entrega 2: o centro da área no raio de chamada do Dock e a mesma dimensão (1058) continuam até a rede chegar? | Sim: o centro do retângulo em volta da forma, mesmo que num L ele fique fora dela, precisa estar no raio, medido do Cubit. Sai quando a rede for obrigatória. A recomendação foi aceita |
+| 2352 | Network, entrega 2: com um desenho em andamento, o que faz Shift + clique mirando num Cubit do player? | Vale o desenho: com a linha vermelha, desfaz o último ponto, e, com a verde, aplica. O pedido de apagar a área só existe sem desenho em andamento. A recomendação foi aceita. Detalha a 2245 e a 2299 |
+| 2353 | Network, entrega 2: o que faz um Cubit que perde a área, ao apagá-la pelo app Área ou quando a área antiga some ao carregar o mundo (2283 e 2299)? | Para e desliga, a regra de hoje para quem não segue nem tem área, com a carga mantida, e um clique direito o liga para seguir. No Dock, continua no Dock. Itens, card e chaves não mudam. A recomendação foi aceita. O `Waiting for area` (2298) segue para quem está ligado a uma antena |
+| 2354 | Network, entrega 2: o que acontece quando a linha nova cruza, encosta ou volta por cima do próprio desenho? | O clique é recusado na hora, com o motivo, se a linha passar por um bloco que já é do desenho, fora a emenda com o último ponto e o fechamento no primeiro. Linhas em blocos vizinhos, lado a lado, valem. A recomendação foi aceita. Detalha a 2240 e a 2246 |
+| 2355 | Network, entrega 2: com a linha verde, o clique num ponto marcado reabre a forma (2245). O que acontece com os pontos? | Só tira o fechamento: qualquer ponto clicado desfaz a ligação do último ponto ao primeiro, a linha volta a ficar vermelha, todos os pontos ficam, e o desenho segue do último. A recomendação foi aceita. Detalha a 2245 |
+| 2356 | Network, entrega 2: quando é recusado um ponto que passa do tamanho ou da altura do tier? | No clique: o ponto não entra, a barra de ação diz o motivo e o limite, e o desenho continua. O raio de chamada e a dimensão são conferidos ao aplicar, porque o centro muda a cada ponto (2351). A recomendação foi aceita |
+| 2357 | Network, entrega 2: com um desenho em andamento, o que faz o clique em outro Cubit do player, sem Shift? | Recomeça com ele, como hoje: o desenho em andamento é descartado. Um Cubit Base ou de outro player só avisa e não descarta nada. A recomendação foi aceita |
+| 2358 | Network, entrega 2: a prévia da linha, em `tmp/arte/area-desenhada/previa_linha.png`, quadros 1 a 3 | Aprovada: barra de 3 px do bloco, com volume, no centro do bloco marcado, um cubo de 6 px em cada ponto, o trecho translúcido até a mira, só em ângulo reto, o bloco na mira marcado e os textos na barra de ação. A recomendação foi aceita |
+| 2359 | Network, entrega 2: como a linha aparece com pontos em alturas diferentes (quadros 4 e 5)? | Desenhando, um traço só, que sobe na vertical até o próximo ponto. Ao fechar e depois de aplicada, o volume, com o contorno da base e o do topo, e um contorno só com um nível. A recomendação foi aceita |
+| 2360 | Network, entrega 2: a cor da área já aplicada, com o Cubit escolhido e o app Área (quadros 6 e 7) | Verde, sem cubos, a mesma cor da forma fechada. A recomendação, roxa e sem cubos, foi recusada. Muda a cor da 1056 |
+| 2361 | Network, entrega 2: a linha da área aparece através dos blocos? | Mais fraca atrás: cheia onde está à vista e translúcida onde um bloco a cobre. A recomendação foi aceita. Muda a 1056 |
+| 2362 | Network, entrega 2: o conceito da área desenhada, com os detalhes das respostas 2350 a 2361, está autorizado (regra 54)? | Sim ("1. sim"), sem mudança |
+| 2363 | Network, entrega 2: o código está autorizado (2224)? | Sim ("2 sim"), só o da entrega 2, a #264. As outras entregas continuam esperando a autorização própria |
+| 2364 | Network, entrega 2: quantos baús o Organizador marca no Advanced, em `organizer_chests`, até os 12, 18 e 25 da entrega 5 (2235)? | 4, cerca de metade do Elite, como as 4 marcas e os 2 fornos: 4, 9 e 18 até a entrega 5. A recomendação, 6, foi recusada |
+| 2365 | Network, entrega 2: com a área em L, como se comporta o caminho entre dois lugares da área? | Prefere dentro: contorna o canto por dentro e só passa por fora se não houver outro caminho, como hoje com um obstáculo. Ir ao Dock, ao baú e perseguir não mudam. A trava total vem na entrega 6, com os chunks (2201). A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 00:07 | Registra as respostas 2364 a 2365. |
+| Zennd | 2026-11-25 00:04 | Registra as respostas 2362 a 2363. |
+| Zennd | 2026-11-25 00:01 | Registra as respostas 2358 a 2361. |
+| Zennd | 2026-11-24 23:59 | Registra as respostas 2354 a 2357. |
+| Zennd | 2026-11-24 23:56 | Registra as respostas 2350 a 2353. |
+| Zennd | 2026-11-24 23:54 | Registra as respostas 2348 a 2349. |
 | Zennd | 2026-11-24 23:43 | Registra a resposta 2347. |
 | Zennd | 2026-11-24 23:37 | Registra as respostas 2345 a 2346. |
 | Zennd | 2026-11-24 23:32 | Registra as respostas 2341 a 2344. |

@@ -100,7 +100,7 @@ public final class UnloadIntervalGameTests {
   private static WorkArea area(GameTestHelper helper, RobotEntity robot) {
     BlockPos one = helper.absolutePos(FIRST_CORNER);
     BlockPos two = helper.absolutePos(SECOND_CORNER);
-    return WorkArea.between(
+    return AreaBoxes.between(
         new AreaCorner(one.getX(), one.getY(), one.getZ()),
         new AreaCorner(two.getX(), two.getY(), two.getZ()),
         robot.level().dimension().location().toString());

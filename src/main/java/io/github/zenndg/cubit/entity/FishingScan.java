@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.entity;
 
 import io.github.zenndg.cubit.domain.behavior.FishingSpot;
 import io.github.zenndg.cubit.domain.behavior.OpenWater;
+import io.github.zenndg.cubit.domain.robot.AreaColumn;
 import io.github.zenndg.cubit.domain.robot.WorkArea;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ final class FishingScan {
     this.robot = robot;
     this.area = area;
     this.water = new FishingWater(robot.level());
-    this.volume = (long) area.width() * area.depth() * area.height();
+    this.volume = (long) area.columnCount() * area.height();
   }
 
   boolean done() {
@@ -57,10 +58,9 @@ final class FishingScan {
 
   /** The feet of the Cubit, one block over each marked block, as it stands in its area. */
   private BlockPos standAt(long index) {
-    int x = (int) (index % area.width());
-    int z = (int) (index / area.width() % area.depth());
-    int y = (int) (index / ((long) area.width() * area.depth()));
-    return new BlockPos(area.min().x() + x, area.min().y() + y + 1, area.min().z() + z);
+    AreaColumn column = area.column((int) (index % area.columnCount()));
+    int level = area.low() + (int) (index / area.columnCount()) + 1;
+    return new BlockPos(column.x(), level, column.z());
   }
 
   /**

@@ -27,8 +27,8 @@ O mod funciona numa instância só com ele e suas dependências. Tudo aceita red
 | Tier | Trabalhos |
 |---|---|
 | Base | Nenhum. Não aceita cards |
-| Avançado | Pescador, Fazendeiro e Pecuarista |
-| Elite | Os do Avançado, mais Organizador, Cozinheiro, Patrulheiro Galático, Minerador, Construtor, Mecânico e Alquimista |
+| Avançado | Pescador, Fazendeiro, Pecuarista, Organizador e Cozinheiro (perguntas 2235 e 2236) |
+| Elite | Os do Avançado, mais Patrulheiro Galático, Minerador, Construtor, Mecânico e Alquimista |
 | Ultimate | Os mesmos do Elite. Nenhum trabalho espera o Ultimate, que só melhora os números de cada card (pergunta 1598) |
 
 O tier também melhora o que o card faz, com mais velocidade, alcance ou opções. A evolução de cada card é proposta e é decidida no refinamento dele, com os números em [`tiers.md`](../tiers.md#trabalhos) (perguntas 1144 e 1154). A do Minerador e a do Patrulheiro Galático, no lugar do Defensor, já estão decididas (perguntas 1149, 1150 e 1563), e as do Pescador e do Fazendeiro foram decididas no card de cada um (perguntas 1185, 1221 e 1226).
@@ -40,8 +40,8 @@ O tier também melhora o que o card faz, com mais velocidade, alcance ou opçõe
 | Pescador | `cubit:ml_fisher` | Avançado | Pesca na água da área, sem vara de verdade, pela tabela do jogo | [`pescador.md`](trabalhos/pescador.md) |
 | Fazendeiro | `cubit:ml_farmer` | Avançado | Ara perto da água, planta com as sementes do baú, colhe o que amadureceu e replanta | [`fazendeiro.md`](trabalhos/fazendeiro.md) |
 | Pecuarista | `cubit:ml_rancher` | Avançado | Alimenta, tosquia, recolhe ovos e controla o rebanho | [`pecuarista.md`](trabalhos/pecuarista.md) |
-| Organizador | `cubit:ml_organizer` | Elite | Recolhe e guarda nos baús certos, ou abastece destinos | [`organizador.md`](trabalhos/organizador.md) |
-| Cozinheiro | `cubit:ml_cook` | Elite | Leva comida crua aos fornos e guarda a pronta | [`cozinheiro.md`](trabalhos/cozinheiro.md) |
+| Organizador | `cubit:ml_organizer` | Avançado | Recolhe e guarda nos baús certos, ou abastece destinos | [`organizador.md`](trabalhos/organizador.md) |
+| Cozinheiro | `cubit:ml_cook` | Avançado | Leva comida crua aos fornos e guarda a pronta | [`cozinheiro.md`](trabalhos/cozinheiro.md) |
 | Patrulheiro Galático | `cubit:ml_patroller` | Elite | Faz a ronda, procura hostis e ataca primeiro, com pistola laser e Plasma Blade | [`patrulheiro.md`](trabalhos/patrulheiro.md) |
 | Minerador | `cubit:ml_miner` | Elite | Escava, abre túneis ou busca minérios, com a fornalha elétrica | [`minerador.md`](trabalhos/minerador.md) |
 | Construtor | `cubit:ml_builder` | Elite | Aplaina e preenche, com os modos novos propostos | [`construtor.md`](trabalhos/construtor.md) |
@@ -57,15 +57,15 @@ Os itens "Em aberto" de cada conceito são respondidos no refinamento do card da
 
 ## Como o Cubit começa a trabalhar
 
-1. Com o app Área do [Tablet](tablet.md#apps), o player marca dois cantos, que definem uma área em 3D.
-2. O processo só termina ao escolher o Cubit no Tablet. Ele deixa de seguir e vai para a área, como no [modo área](modo-area.md) da Fase 4.2.
+1. Com o app Área do [Tablet](tablet.md#apps), o player escolhe o Cubit e desenha a área, ponto por ponto, em ângulo reto ([`modo-area.md`](modo-area.md#marcar-a-área)).
+2. Ao aplicar o desenho, ele deixa de seguir e vai para a área, como no [modo área](modo-area.md) da Fase 4.2.
 3. O Tablet também manda descarregar ou ir ao Dock, pelos botões `Descarregar` e `Ir para o Dock`.
 
 Os baús são marcados com o app Descarga do Tablet, e a tela do Cubit tem uma aba Trabalho, com modo e filtros. Marcar os outros blocos do trabalho, como fornos e suportes de poções, usa o app Marcar do Tablet, que entra com o Organizador, o primeiro card que precisa dele (perguntas 1155, 1288 e 1297). O Pescador e o Fazendeiro não precisam: um acha sozinho a água da área, e o outro, a plantação e as sementes dos baús da Descarga dentro dela (perguntas 1186 e 1234). Se o player recolher o Cubit e colocá-lo de novo, precisa refazer a configuração.
 
 ## Regras de toda área
 
-- **Limite:** o Cubit nunca sai da área marcada.
+- **Limite:** o Cubit não sai da área marcada para trabalhar, e prefere o caminho por dentro dela (pergunta 2365).
 - **Área carregada:** ela tem prioridade sobre o tier. Se o tier permitir uma área maior que a carregada, ele só atua na parte carregada.
 - **Proteção:** o Cubit nunca mexe em blocos com dados, como baús, máquinas, Dock, antena e Servidor, nem na tag de blocos protegidos, que o pack pode editar. Cada card só mexe no seu tipo de bloco. As exceções são o Organizador, que só tira pela face de baixo das máquinas marcadas e põe nos baús e destinos marcados, e o Cozinheiro, que só põe e tira nos fornos marcados, os dois pela capability do NeoForge, sem quebrar o bloco (perguntas 1289 e 1316, [`organizador.md`](trabalhos/organizador.md#proteção) e [`cozinheiro.md`](trabalhos/cozinheiro.md#proteção)).
 - **Vários Cubits:** há um número fixo por área, e cada um reserva o alvo antes de ir. Varreduras e ações têm limite por tick, e os robôs esperam a vez. Os Patrulheiros são a exceção: lutam em equipe, no mesmo alvo ([`patrulheiro.md`](trabalhos/patrulheiro.md#quem-ele-ataca), pergunta 1643).
@@ -155,6 +155,7 @@ A ordem segue a pergunta 251, mudada na 1666, na 1777 e na 1788: depois do Patru
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 00:23 | Leva o Organizador e o Cozinheiro ao Advanced e cita a área desenhada (perguntas 2235, 2236, 2240 e 2365). |
 | Zennd | 2026-11-24 22:42 | Troca o Servidor, a antena e a viagem até o Dock pelo `network.md` (pergunta 2325). |
 | Zennd | 2026-11-23 03:25 | Põe o Trader depois do Mecânico e tira a personalização visual por card do roteiro (perguntas 1927 e 1930). |
 | Zennd | 2026-11-22 23:12 | Liga o XP Cubit e Dock à #244 e ao conceito (pergunta 1851). |

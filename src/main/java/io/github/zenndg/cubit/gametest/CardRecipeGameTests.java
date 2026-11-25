@@ -52,8 +52,8 @@ public final class CardRecipeGameTests {
           CASING, CubitItems.ADVANCED_MODULE,
           FISHER, CubitItems.ADVANCED_MODULE,
           FARMER, CubitItems.ADVANCED_MODULE,
-          ORGANIZER, CubitItems.ELITE_MODULE,
-          COOK, CubitItems.ELITE_MODULE);
+          ORGANIZER, CubitItems.ADVANCED_MODULE,
+          COOK, CubitItems.ADVANCED_MODULE);
 
   private CardRecipeGameTests() {}
 

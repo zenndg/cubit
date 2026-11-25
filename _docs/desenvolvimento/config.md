@@ -219,6 +219,9 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general` | `job_chatter_range` | Falas das profissões: distância do dono para ouvir | 1 a 128 |
 | `general` | `intro_link_cooldown_ticks` | Apresentação: tempo, por player, sem repetir a frase do link | 0 a 72000 |
 | `general` | `intro_link_url` | Apresentação: endereço do link, só `https://` | Texto |
+| `network` | `area_min_points` | Desenho da área, o mínimo de pontos | 4 a 32 |
+| `network` | `area_max_points` | Desenho da área, o máximo de pontos | 4 a 256 |
+| `network` | `area_reach_blocks` | Desenho da área, o alcance da mira | 1 a 128 |
 
 ## Por que esses limites
 
@@ -242,6 +245,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Situação | O que acontece |
 |---|---|
+| `area_max_points` menor que `area_min_points` | O mínimo vale também como máximo, para o desenho ainda fechar |
 | Número fora dos limites | O NeoForge usa o limite mais próximo e registra no log |
 | Chave ausente ou valor que não é número | O NeoForge volta ao padrão da chave e registra no log |
 | `lamp_off_from_light` menor que `lamp_on_below_light` | A lanterna apaga a partir do maior dos dois, e o mod registra no log uma vez |
@@ -254,6 +258,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 00:23 | Acrescenta as chaves do desenho da área, na seção `network` (perguntas 2287, 2311 e 2349). |
 | Zennd | 2026-11-24 12:32 | Atualiza o contrato das chaves, que vale a partir da `1.0.0` (perguntas 2189 e 2190). |
 | Zennd | 2026-11-24 09:56 | Acrescenta as chaves do XP do Dock (perguntas 1942 e 2103). |
 | Zennd | 2026-11-24 08:37 | Acrescenta o dock_unreachable_ticks (perguntas 2091 e 2095). |

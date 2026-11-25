@@ -127,8 +127,7 @@ final class FarmingGoal extends Goal {
 
   private void walkTo(BlockPos goal, WorkArea area) {
     Vec3 center = Vec3.atBottomCenterOf(goal.above());
-    double distance = robot.position().distanceTo(center);
-    if (stuck(distance)) {
+    if (stuck(AreaWalk.left(robot, center))) {
       farming().giveUp();
       back.onStuck(area);
       resetProgress();
@@ -136,7 +135,7 @@ final class FarmingGoal extends Goal {
     }
     if (--repathCountdown <= 0) {
       repathCountdown = CubitMod.CONFIG.followRepathTicks();
-      robot.getNavigation().moveTo(center.x, center.y, center.z, ROUTE_SPEED_MODIFIER);
+      AreaWalk.to(robot, center, ROUTE_SPEED_MODIFIER);
     }
   }
 

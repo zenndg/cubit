@@ -889,19 +889,19 @@ As regras estão em [`modo-area.md`](../funcionalidades/modo-area.md). Use um Cu
 |---|---|---|
 | 1 | Com o Tablet na mão, troque para o app Área com Shift + roda | `Tablet · Area` na barra de ação |
 | 2 | Clique com o botão direito num Cubit Base | `... has no area mode in its tier`, e nada muda |
-| 3 | Clique no Cubit Advanced | Ele vira o Cubit escolhido, e a barra de ação pede o primeiro canto |
-| 4 | Clique num bloco do chão | `First corner x y z · click the other one`. Uma caixa vai do canto até o bloco na mira, e a barra de ação mostra o tamanho, como `10 × 1 × 8` |
-| 5 | Mire num bloco a mais de 16 blocos do primeiro canto | A caixa e o tamanho ficam vermelhos |
-| 6 | Clique nesse bloco | `... is too big`, e o primeiro canto continua marcado |
-| 7 | Clique num bloco dentro do limite | `... works in 10 × 1 × 8`. O Cubit para de seguir e vai andando até a área |
+| 3 | Clique no Cubit Advanced | Ele vira o Cubit escolhido, e a barra de ação pede os pontos da área dele |
+| 4 | Clique num bloco do chão | `Point 1 of 32 marked`, com um cubo vermelho no bloco. Mirando em outro, alinhado, o trecho aparece translúcido, e a barra de ação mostra o próximo ponto e o tamanho |
+| 5 | Mire num bloco a mais de 16 blocos do primeiro ponto | O trecho até a mira não aparece |
+| 6 | Clique nesse bloco | `Too wide for ...`, em vermelho, e o desenho continua |
+| 7 | Marque os outros cantos, clique no primeiro e use Shift + clique | A linha fica verde, e depois `... works in 10 × 1 × 8`. O Cubit para de seguir e vai andando até a área |
 | 8 | Na área, abra a tela do Cubit pelo Tablet | Estado `In area`, em roxo, e, na aba Recursos, a linha `Area` com o tamanho e os cantos |
 | 9 | Com a área vazia de itens | Ele dá voltas pelas bordas, de canto a canto |
 | 10 | Desligue `Fetch` na aba Behavior e jogue itens dentro da área | Ele vai buscá-los, mesmo com `Fetch` desligada |
 | 11 | Jogue um item fora da área, perto da borda | Ele não sai da área para buscar. O ímã ainda puxa o que estiver no raio |
 | 12 | Encha o inventário dele | Estado `Inventory full`, em laranja, e ele para de buscar |
 | 13 | Afaste-se mais de 20 blocos | Ele fica na área, sem teleportar até você |
-| 14 | Com o Tablet na mão no app Área, sem marcar nada | A caixa roxa mostra a área do Cubit escolhido |
-| 15 | Clique num Cubit, num canto e então Shift + clique direito | `Area marking cancelled`, e a caixa da marcação some |
+| 14 | Com o Tablet na mão no app Área, sem marcar nada | A linha verde mostra a área do Cubit escolhido |
+| 15 | Clique num Cubit, num bloco e então duas vezes Shift + clique direito fora do Cubit | `Point removed`, e depois `Area marking cancelled` |
 | 16 | Use `Follow` na tela do Cubit | Ele sai da área e volta a seguir você, e a linha `Area` mostra `None` |
 | 17 | Marque a área de novo, com um Dock no raio, e deixe a bateria dele cair a 10% | Ele vai ao Dock, carrega e, cheio, volta para a área, sem seguir você |
 | 18 | Saia e entre no mundo | A área continua, e ele volta a trabalhar nela |
@@ -1089,7 +1089,7 @@ As regras estão em [`organizador.md`](../funcionalidades/trabalhos/organizador.
 | 1 | Faça o card na bancada: papel, comparador, papel / redstone, funil, redstone / papel, redstone, papel | Sai o `Machine Learning: Organizer` |
 | 2 | Tente pôr o card num Cubit Advanced | Ele não entra, e a dica diz `Elite` |
 | 3 | Ponha o card num Cubit Elite | Aparecem o boné laranja cobrindo o painel solar, a mochila com o livro e pena e a caixa no canto da tela, e o livro e pena vai para a garra quando ele tira ou põe um item |
-| 4 | Marque a área com o app Área e os três baús com o app Descarga, com pedras no segundo baú | O Elite aceita até 9 baús |
+| 4 | Marque a área com o app Área e os três baús com o app Descarga, com pedras no segundo baú | O Elite aceita até 9 baús, e o Advanced, até 4 |
 | 5 | Com o app Marcar, marque a fornalha | Aparece a seta sobre ela, e o Elite aceita até 8 marcas |
 | 6 | Espere a fornalha fundir e jogue pedras e terra no chão da área | Ele tira o resultado e o balde vazio por baixo, sem mexer no minério nem no carvão, pega os itens do chão e guarda as pedras no segundo baú e o resto no primeiro com espaço |
 | 7 | Jogue uma picareta encantada e uma comum | As duas não se misturam pela regra do baú com mais do mesmo item |
@@ -1511,17 +1511,19 @@ Antes, apague o `config/cubit-common.toml` da instância de teste (pergunta 2324
 |---|---|---|
 | 1 | Com o app Área, escolha o Cubit e clique em três pontos em ângulo reto | Uma linha vermelha de 3 px liga os pontos. O clique fora do ângulo reto é recusado, com o motivo |
 | 2 | Clique no quarto ponto e depois no primeiro | A forma fecha, e a linha fica verde |
-| 3 | Shift + clique | A área é aplicada, e o Cubit vai para ela |
+| 3 | Shift + clique | A área é aplicada, e o Cubit vai para ela. A linha continua verde, sem os cubos dos pontos |
 | 4 | Comece outro desenho, e use Shift + clique com a linha vermelha | Sai um ponto por vez. Trocar de app cancela tudo |
-| 5 | Com a linha verde, clique num ponto marcado | A forma reabre |
+| 5 | Com a linha verde, clique num ponto marcado | A forma reabre, vermelha, com todos os pontos |
 | 6 | Clique num bloco a 30 e a 40 blocos | O primeiro entra, e o segundo é recusado |
 | 7 | Tente fechar com 3 pontos, e depois passar de 32 | Avisa quantos faltam, e depois recusa |
 | 8 | Desenhe um L e ponha nele cada trabalho, um por vez | O Cubit trabalha só dentro do L, também no canto de dentro |
-| 9 | Marque um ponto no alto e outro no chão | A altura vai de um ao outro, sem passar de 8, 24 ou 32 |
-| 10 | Shift + clique no Cubit, no app Área, e de novo em 5 s | Pede confirmação e apaga a área |
-| 11 | Abra um mundo com uma área antiga | A área sumiu, e o Cubit e os itens dele continuam iguais |
+| 9 | Marque um ponto no alto e outro no chão, e feche | A altura vai de um ao outro, sem passar de 8, 24 ou 32, e a linha mostra a base e o topo, mais fraca atrás dos blocos |
+| 10 | Shift + clique no Cubit, no app Área, e de novo em 5 s | Pede confirmação e apaga a área. O Cubit para e desliga, e o clique direito o liga |
+| 11 | Abra um mundo com uma área antiga | A área sumiu, o Cubit está parado e desligado, com a carga e os itens iguais. Quem estava no Dock continua nele |
 | 12 | Num mundo novo, consiga o Advanced Module | Os cards do Organizador e do Cozinheiro ficam liberados |
 | 13 | Ponha os dois cards em Cubits Advanced | Trabalham, mais devagar que no Elite, com 4 marcas e 2 fornos |
+| 14 | Passe a linha por cima do próprio desenho, e depois marque um ponto além do limite do tier | Os dois são recusados no clique, com o motivo, e o desenho continua |
+| 15 | No meio de um desenho, use Shift + clique mirando no Cubit, e depois clique em outro Cubit seu | Sai o último ponto, e depois o desenho recomeça com o outro |
 
 ### Entrega 3: Network Server e Solar Relay
 
@@ -1706,6 +1708,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 00:02 | Completa o teste da área desenhada da Network (perguntas 2350 a 2361). |
 | Zennd | 2026-11-24 23:38 | Acrescenta a medida dos quadros por segundo da Network (pergunta 2346). |
 | Zennd | 2026-11-24 22:44 | Escreve o roteiro das entregas da Network (perguntas 2293 e 2318). |
 | Zennd | 2026-11-24 12:32 | Corrige as seções Receitas e Power Bank, que falavam do livro de receitas e da carcaça antiga (perguntas 2184, 2193 e 2195). |

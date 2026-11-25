@@ -196,7 +196,7 @@ public final class CookGameTests {
     robot
         .workArea()
         .assign(
-            WorkArea.between(
+            AreaBoxes.between(
                 new AreaCorner(one.getX(), one.getY(), one.getZ()),
                 new AreaCorner(two.getX(), two.getY(), two.getZ()),
                 robot.level().dimension().location().toString()),

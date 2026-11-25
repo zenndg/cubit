@@ -66,11 +66,11 @@ flowchart TD
   n20 --> n22["22 Carcaça do Card"]
   n20 --> n23["23 Card Pescador"]
   n20 --> n24["24 Card Fazendeiro"]
+  n20 --> n28["28 Card Organizador"]
+  n20 --> n29["29 Card Cozinheiro"]
   n20 --> n25["25 Módulo Elite"]
   n21 --> n26["26 Power Bank Avançada"]
   n21 --> n27["27 Célula de Energia Avançada"]
-  n25 --> n28["28 Card Organizador"]
-  n25 --> n29["29 Card Cozinheiro"]
   n25 --> n30["30 Card Patrulheiro Galático"]
   n25 --> n31["31 Módulo Supremo"]
   n26 --> n32["32 Power Bank Elite"]
@@ -121,6 +121,8 @@ A mesa monta a receita sozinha, então você só precisa dos materiais, sem deco
 | 22 | Carcaça do Card (Card Casing) | 4 quartzos e 2 lápis-lazúlis | 20 Módulo Avançado | Peça de todo card de trabalho |
 | 23 | Card Pescador (Machine Learning: Fisher) | As peças 7, 14 e 22 e 1 vara de pescar | 20 Módulo Avançado | O Cubit pesca. Pede um Cubit Avançado |
 | 24 | Card Fazendeiro (Machine Learning: Farmer) | As peças 7, 14 e 22 e 1 enxada de ferro | 20 Módulo Avançado | O Cubit cuida da plantação. Pede um Cubit Avançado |
+| 28 | Card Organizador (Machine Learning: Organizer) | As peças 7, 14 e 22 e 1 funil | 20 Módulo Avançado | O Cubit organiza baús. Pede um Cubit Avançado |
+| 29 | Card Cozinheiro (Machine Learning: Cook) | As peças 7, 14 e 22 e 1 defumador | 20 Módulo Avançado | O Cubit cozinha. Pede um Cubit Avançado |
 | 25 | Módulo Elite (Elite Module) | 1 Módulo Avançado (20), 2 corantes roxos e 2 diamantes | 20 Módulo Avançado | Sobe do Avançado para o Elite |
 
 ### Etapa 4: com o Módulo Elite ou a primeira Power Bank
@@ -129,8 +131,6 @@ A mesa monta a receita sozinha, então você só precisa dos materiais, sem deco
 |---|---|---|---|---|
 | 26 | Power Bank Avançada (Advanced Power Bank) | 1 Power Bank Base (21), 2 lápis-lazúlis e 2 ouros. Ou as peças 18 e 27 | 21 Power Bank Base, ou 27 para a segunda receita | Bateria portátil maior |
 | 27 | Célula de Energia Avançada (Advanced Power Cell) | 1 Célula Base (19), 2 lápis-lazúlis e 2 ouros | 21 Power Bank Base | Peça da Power Bank Avançada |
-| 28 | Card Organizador (Machine Learning: Organizer) | As peças 7, 14 e 22 e 1 funil | 25 Módulo Elite | O Cubit organiza baús. Pede um Cubit Elite |
-| 29 | Card Cozinheiro (Machine Learning: Cook) | As peças 7, 14 e 22 e 1 defumador | 25 Módulo Elite | O Cubit cozinha. Pede um Cubit Elite |
 | 30 | Card Patrulheiro Galático (Machine Learning: Galactic Patroller) | As peças 7, 14 e 22 e 1 estrela de fogo de artifício | 25 Módulo Elite | O Cubit protege o lugar. Pede um Cubit Elite |
 | 31 | Módulo Supremo (Ultimate Module) | 1 Módulo Elite (25), 2 lingotes de netherita e 2 varas de blaze | 25 Módulo Elite | Sobe do Elite para o Ultimate |
 
@@ -213,6 +213,7 @@ O JEI mostra todas as receitas, também as bloqueadas. Quem decide é a mesa.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 00:23 | Leva os cards do Organizador e do Cozinheiro ao Módulo Avançado. A imagem é refeita na Entrega 9 da Network (perguntas 2235 e 2236). |
 | Zennd | 2026-11-24 11:44 | Acrescenta o Núcleo Neural e a Placa de Circuito às peças compartilhadas e troca a imagem (perguntas 2162 a 2173). |
 | Zennd | 2026-11-24 11:10 | Acrescenta as peças compartilhadas e renumera a árvore de 1 a 35 (perguntas 2146 e 2152). |
 | Zennd | 2026-11-23 16:54 | Explica a quantidade em 0 e as peças prontas (perguntas 2052 e 2053). |

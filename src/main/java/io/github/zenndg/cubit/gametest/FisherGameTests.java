@@ -166,7 +166,7 @@ public final class FisherGameTests {
       GameTestHelper helper, RobotEntity robot, BlockPos first, BlockPos second) {
     BlockPos one = helper.absolutePos(first);
     BlockPos two = helper.absolutePos(second);
-    return WorkArea.between(
+    return AreaBoxes.between(
         new AreaCorner(one.getX(), one.getY(), one.getZ()),
         new AreaCorner(two.getX(), two.getY(), two.getZ()),
         robot.level().dimension().location().toString());

@@ -30,7 +30,7 @@ Sem forma, rendendo 1, como todos os cards: a Card Casing, a Circuit Board e uma
 
 Sem app novo no Tablet (pergunta 1186). Com o card no slot:
 
-1. O app Área marca os dois cantos da área, como no [modo área](../modo-area.md). A área de um Cubit com o card do Pescador é a área de pesca.
+1. O app Área desenha a área, como no [modo área](../modo-area.md). A área de um Cubit com o card do Pescador é a área de pesca.
 2. O app Descarga marca o baú onde ele guarda o que pescou, como na [descarga em baú](../inventario.md#descarregar-em-baú).
 
 O app de marcar blocos do trabalho (pergunta 1155) continua para o primeiro card que precisar dele.
@@ -107,6 +107,7 @@ A reserva dos pontos fica só na memória do servidor e não vai para o save.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 00:23 | Cita a área desenhada (pergunta 2240). |
 | Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-21 21:21 | Troca a receita do card pela receita comum dos cards (perguntas 1540 a 1545). |
 | Marcelo Fabiano | 2026-11-15 09:30 | Troca a imagem conceito pela do visual novo (pergunta 1212). |

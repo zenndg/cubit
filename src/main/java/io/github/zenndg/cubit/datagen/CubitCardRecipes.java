@@ -31,8 +31,8 @@ final class CubitCardRecipes {
     casing(output);
     card(output, CubitItems.FISHER_CARD.get(), Items.FISHING_ROD, CubitItems.ADVANCED_MODULE.get());
     card(output, CubitItems.FARMER_CARD.get(), Items.IRON_HOE, CubitItems.ADVANCED_MODULE.get());
-    card(output, CubitItems.ORGANIZER_CARD.get(), Items.HOPPER, CubitItems.ELITE_MODULE.get());
-    card(output, CubitItems.COOK_CARD.get(), Items.SMOKER, CubitItems.ELITE_MODULE.get());
+    card(output, CubitItems.ORGANIZER_CARD.get(), Items.HOPPER, CubitItems.ADVANCED_MODULE.get());
+    card(output, CubitItems.COOK_CARD.get(), Items.SMOKER, CubitItems.ADVANCED_MODULE.get());
     card(
         output,
         CubitItems.PATROLLER_CARD.get(),

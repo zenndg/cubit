@@ -6,7 +6,6 @@ import io.github.zenndg.cubit.domain.robot.AreaCorner;
 import io.github.zenndg.cubit.domain.robot.OrganizerMode;
 import io.github.zenndg.cubit.domain.robot.RobotState;
 import io.github.zenndg.cubit.domain.robot.UnloadChests;
-import io.github.zenndg.cubit.domain.robot.WorkArea;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.entity.RobotEntity;
 import io.github.zenndg.cubit.entity.RobotMarks;
@@ -191,7 +190,7 @@ public final class OrganizerGameTests {
     robot
         .workArea()
         .assign(
-            WorkArea.between(
+            AreaBoxes.between(
                 new AreaCorner(one.getX(), one.getY(), one.getZ()),
                 new AreaCorner(two.getX(), two.getY(), two.getZ()),
                 robot.level().dimension().location().toString()),

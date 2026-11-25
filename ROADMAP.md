@@ -86,10 +86,10 @@ Em toda entrega:
 
 ### Entrega 1: Conceito
 
-- [ ] `_docs/funcionalidades/network.md`, com as decisões, os detalhes técnicos e o contrato, já escrito e autorizado (pergunta 2325)
-- [ ] números em `tiers.md` e `config.md`, e os nomes em `itens.md` e `glossario.md`
-- [ ] `modo-area.md`, `tablet.md`, `energia.md`, `xp.md`, `telas.md`, `trabalhos.md` e os cards, conferidos com as mudanças
-- [ ] roteiro manual de cada entrega e a mudança do Gitflow no `AGENTS.md` e no `fluxo-de-trabalho.md`
+- [x] `_docs/funcionalidades/network.md`, com as decisões, os detalhes técnicos e o contrato, já escrito e autorizado (pergunta 2325)
+- [x] números em `tiers.md`, com cada chave no `config.md` na entrega que a lê (pergunta 2349), e os nomes em `itens.md` e `glossario.md`
+- [x] `modo-area.md`, `tablet.md`, `energia.md`, `xp.md`, `telas.md`, `trabalhos.md` e os cards, conferidos com as mudanças
+- [x] roteiro manual de cada entrega e a mudança do Gitflow no `AGENTS.md` e no `fluxo-de-trabalho.md`
 - **Recursos:** pranchas do Servidor, do Solar Relay e da antena, refeitas
 - **GameTests:** nenhuma
 
@@ -141,6 +141,7 @@ Em toda entrega:
 
 - [ ] todo o modo área só com a rede, com a hibernação `No network` e `Owner offline`, o `Waiting for area` e o `Back to work`
 - [ ] a borda dos chunks e a fuga, sem o Cubit sair
+- [ ] saem o raio de chamada da área e as chaves `area_size_blocks` e `patroller_area_size` (perguntas 2350 e 2351)
 - [ ] o `Follow` que pausa, recolher e morrer que apagam, e o Call e o Ir para o Dock só nos marcados
 - [ ] o Patrulheiro, a escolta e o resto dos trabalhos na rede
 - [ ] a aba Network na tela do Cubit e no Tablet, com os estados novos
