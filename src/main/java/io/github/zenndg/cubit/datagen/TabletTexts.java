@@ -67,8 +67,9 @@ final class TabletTexts {
   private static final String FOLLOW = "Follow";
   private static final String FOLLOW_DETAIL = "Follows you · the one following now switches off";
   private static final String FOLLOW_ALREADY = "Already following you";
-  private static final String FOLLOW_NO_CHARGE = "Without charge to follow you";
-  private static final String FOLLOW_OTHER_DIMENSION = "In another dimension";
+  private static final String FOLLOW_NO_CHARGE = "Comes switched off, without charge";
+  private static final String FOLLOW_ANYWHERE = "Calls it from anywhere";
+  private static final String FOLLOW_CALLING = "Calling...";
   private static final String DOCK_OUT_OF_REACH = "No free Dock within reach";
   private static final String BACK = "Back";
   private static final String RENAME = "Rename";
@@ -190,6 +191,7 @@ final class TabletTexts {
     add.accept(TabletKeys.FOLLOW_DETAIL, FOLLOW_DETAIL);
     add.accept(TabletKeys.FOLLOW_ALREADY, FOLLOW_ALREADY);
     add.accept(TabletKeys.FOLLOW_NO_CHARGE, FOLLOW_NO_CHARGE);
-    add.accept(TabletKeys.FOLLOW_OTHER_DIMENSION, FOLLOW_OTHER_DIMENSION);
+    add.accept(TabletKeys.FOLLOW_ANYWHERE, FOLLOW_ANYWHERE);
+    add.accept(TabletKeys.FOLLOW_CALLING, FOLLOW_CALLING);
   }
 }

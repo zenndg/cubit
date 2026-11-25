@@ -1,18 +1,17 @@
 package io.github.zenndg.cubit.entity;
 
-import io.github.zenndg.cubit.domain.energy.PowerState;
+import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.ownership.Ownership;
 import io.github.zenndg.cubit.domain.robot.FollowCall;
 import io.github.zenndg.cubit.menu.FollowControl;
-import io.github.zenndg.cubit.player.TabletAreaView;
+import io.github.zenndg.cubit.player.RobotCalls;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 
 /**
- * `Follow` of the Tablet: the chosen Cubit takes the place to follow, and the one that followed
- * switches off where it is, as with `Turn on`. A Cubit in the Dock leaves it at once, and one in an
- * area leaves it (answers 1055 and 1073 to 1075).
+ * `Follow` of the Tablet: the chosen Cubit comes from anywhere and takes the place to follow, and
+ * the one that followed switches off where it is, as with `Turn on` (answers 1055, 1073 to 1075 and
+ * 2450).
  */
 public final class RobotFollowCall implements FollowControl {
   private final RobotEntity robot;
@@ -23,36 +22,19 @@ public final class RobotFollowCall implements FollowControl {
 
   @Override
   public FollowCall goal() {
-    Player owner = RobotInteractions.onlineOwner(robot);
-    return FollowCall.of(
-        robot.powerState(),
-        robot.battery(),
-        RobotInteractions.followedPlayer(robot) != null,
-        owner != null && owner.level() == robot.level());
+    Player owner = RobotInteractions.followedPlayer(robot);
+    boolean nearby =
+        owner != null
+            && owner.level() == robot.level()
+            && robot.distanceTo(owner) < CubitMod.CONFIG.followDecision().teleportDistanceBlocks();
+    return FollowCall.of(robot.powerState(), robot.battery(), nearby);
   }
 
   /** Checked again now, only for the owner. */
   @Override
   public boolean call(Player player) {
-    if (!Ownership.owns(robot.ownerId(), player.getUUID()) || !goal().ready()) {
-      return false;
-    }
-    robot.workArea().work().wake();
-    // Follow is an order of the owner, so it ends a marked escort (answer 1660).
-    robot.workArea().work().escort().stop();
-    if (robot.workArea().area().isPresent()) {
-      robot.workArea().clear();
-      if (player instanceof ServerPlayer server) {
-        TabletAreaView.sync(server);
-      }
-    }
-    if (robot.powerState() == PowerState.INACTIVE_SWITCHED_OFF) {
-      return RobotInteractions.turnOn(robot, player) == InteractionResult.CONSUME;
-    }
-    RobotInteractions.takeThePlace(robot, player);
-    if (robot.powerState() == PowerState.HIBERNATING) {
-      robot.releaseFromDock();
-    }
-    return true;
+    return player instanceof ServerPlayer owner
+        && Ownership.owns(robot.ownerId(), player.getUUID())
+        && RobotCalls.callFromTablet(owner, robot.getUUID()).comes();
   }
 }

@@ -87,7 +87,8 @@ public final class TabletKeys {
   public static final String FOLLOW_DETAIL = PREFIX + "follow_detail";
   public static final String FOLLOW_ALREADY = PREFIX + "follow_already";
   public static final String FOLLOW_NO_CHARGE = PREFIX + "follow_no_charge";
-  public static final String FOLLOW_OTHER_DIMENSION = PREFIX + "follow_other_dimension";
+  public static final String FOLLOW_ANYWHERE = PREFIX + "follow_anywhere";
+  public static final String FOLLOW_CALLING = PREFIX + "follow_calling";
   public static final String WITH_APP = "item.cubit.tablet.with_app";
   public static final String OVERWORLD = PREFIX + "dimension.overworld";
   public static final String NETHER = PREFIX + "dimension.the_nether";
