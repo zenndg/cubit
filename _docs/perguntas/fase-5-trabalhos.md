@@ -1347,11 +1347,18 @@ Não há perguntas pendentes nesta fase.
 | 2400 | Network, entrega 3: antecipar o tanque e a aba XP do Servidor ou manter na entrega 7? | Manter na entrega 7 ("3 mantemos"). Confirma a 2370. A recomendação foi aceita |
 | 2401 | Network, entrega 3: o nome padrão do Servidor e do Solar Relay (2275), que nas prévias em português apareceram traduzidos | Igual ao Dock: `Server` e `Relay` com os 8 primeiros dígitos do UUID, gravados em inglês nos dois idiomas, e o player pode renomear. A recomendação foi aceita. Muda os nomes das prévias da 2397 |
 | 2402 | Network, entrega 3: quando atualizar a estrutura de pacotes do `AGENTS.md`, com as classes que mudaram de nome na refatoração (2371) e as novas? | Uma vez, no fim da entrega, num commit só de documentos antes das GameTests, com o texto mostrado antes. A recomendação foi aceita |
+| 2403 | Network, entrega 3: os limites das chaves do config do Servidor e do Solar Relay, propostos pelo agente | Autorizados: chunks por player e no mundo e o custo de 0 em diante, com 0 para sem limite e de graça; a retomada nunca abaixo do custo; o UPS de 0 a 50, de 5 em 5; baterias e entradas de 1 em diante; canais de 1 a 16; slots de 9 a 54, em linhas de 9; itens por slot de 1 a 999; e a geração de 0 em diante. A recomendação foi aceita |
+| 2404 | Network, entrega 3: as chaves e os campos que o contrato não listava | Autorizados os três: o NBT `SolarPanel` no Solar Relay, com `deployed` ou `stored`, igual ao Dock; o NBT `Drained` no Servidor, verdadeiro de quando ele zera até voltar aos 30 mil FE (pergunta 2372); e o `network_state` com `tier`, `energy`, `items` (`slot`, `item` e `amount`), `ups` e `chunk_loading`, com o Relay gravando só `energy`. A recomendação foi aceita. Detalha a 2334 |
+| 2405 | Network, entrega 3: o item do Servidor guarda também o UPS e a chave do chunk? | Sim, os dois, para o Servidor recolocado voltar igual. A recomendação foi aceita. Detalha a 2254 |
+| 2406 | Network, entrega 3: de onde vêm os 3 s do painel do Solar Relay (detalhe 9) no config? | Da chave do Dock, `dock_solar_deploy_delay_ticks`, sem chave nova. A recomendação foi aceita. Detalha a 2376 |
+| 2407 | Network, entrega 3: em que ritmo voltam os chunks dos Servidores quando o dono entra (2210)? | Um a cada 2 s, com o primeiro na hora, pela chave `wake_interval_ticks` (40), que vem da entrega 4 para esta. O `cubit_network` guarda a lista `Chunks`, com `Owner`, `Dimension`, `Pos` e `Waiting`. A recomendação foi aceita. Detalha a 2210, a 2330 e a 2334 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 12:16 | Registra as respostas 2404 a 2407. |
+| Zennd | 2026-11-25 12:02 | Registra a resposta 2403. |
 | Zennd | 2026-11-25 11:44 | Registra as respostas 2401 a 2402. |
 | Zennd | 2026-11-25 11:37 | Registra as respostas 2398 a 2400. |
 | Zennd | 2026-11-25 11:32 | Registra as respostas 2395 a 2397. |
