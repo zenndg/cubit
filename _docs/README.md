@@ -25,6 +25,7 @@ Este é o mapa dos documentos do projeto. A apresentação do mod e o roadmap fi
 | Choque e modos de defesa | [`funcionalidades/combate.md`](funcionalidades/combate.md) |
 | Tablet, que substitui o controle remoto | [`funcionalidades/tablet.md`](funcionalidades/tablet.md) |
 | Modo área | [`funcionalidades/modo-area.md`](funcionalidades/modo-area.md) |
+| Network, a rede sem fio: Servidor, Solar Relay e antena (em conceito) | [`funcionalidades/network.md`](funcionalidades/network.md) |
 | Trabalhos, antena, Servidor e storage wireless (Fase 5, planejada) | [`funcionalidades/trabalhos.md`](funcionalidades/trabalhos.md) |
 | Conceito de cada trabalho da Fase 5 | [`funcionalidades/trabalhos/`](funcionalidades/trabalhos/) |
 | Itens, blocos, nomes e receitas | [`itens.md`](itens.md) |
@@ -56,6 +57,7 @@ Os números ficam em [`tiers.md`](tiers.md). As outras páginas apontam para lá
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:26 | Cita o conceito da Network (pergunta 2320). |
 | Zennd | 2026-11-24 08:16 | Acrescenta o Access Transformer (pergunta 2068). |
 | Zennd | 2026-11-23 13:44 | Aponta o conceito da fabricação em cascata (pergunta 2006). |
 | Zennd | 2026-11-23 11:36 | Aponta o guia da árvore de crafts (pergunta 1975). |
