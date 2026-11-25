@@ -139,6 +139,9 @@ Valem para todos os tiers e ficam no config. Os marcados como planejados entram 
 | Busca de água em chamas, em qualquer direção | 8 blocos |
 | Alcance ao andar ao acaso em chamas e ao sair da lava ou de um bloco que fere | 5 blocos |
 | Distância para teleportar até o player | ~20 blocos |
+| Chamar o Cubit: intervalo entre chamadas, por player (pergunta 2460) | 10 s |
+| Chamar o Cubit: até onde do dono ele aparece (perguntas 2450 e 2482) | 4 blocos |
+| Chamar o Cubit: tempo para achar o de um chunk descarregado (pergunta 2464) | 10 s |
 | Religar | 5% de bateria |
 | Recharge Splash: vida e energia que dá, sobre a vida máxima e a bateria do tier do Cubit (pergunta 1405) | 20% de vida e 15% de bateria |
 | Recharge Splash: raio a partir do impacto (pergunta 1405) | 4 blocos |
@@ -336,6 +339,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 17:33 | Acrescenta os números de chamar o Cubit (perguntas 2450, 2460 e 2464). |
 | Zennd | 2026-11-24 09:36 | Troca a parte guardada no Dock pela distância do aviso (perguntas 2100 e 2103). |
 | Zennd | 2026-11-24 08:37 | Troca o teleporte ao Dock pela desistência (perguntas 2091 e 2095). |
 | Zennd | 2026-11-24 08:16 | Tira os números do XP como energia do Patrulheiro (pergunta 1825). |

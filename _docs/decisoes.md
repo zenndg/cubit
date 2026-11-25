@@ -146,6 +146,7 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 - **XP Cubit e Dock depois do Patrulheiro (perguntas 1787 a 1789):** a ideia do XP em tanque de líquido (1762) sai do backlog e vira um item do roadmap, logo depois do Patrulheiro e antes do Servidor e das Antenas, só com o nome. Vai ao refinamento quando começar.
 - **Explorador (perguntas 1668 a 1671):** uma profissão nova anotada, sem nada decidido: um app do Tablet que lista os biomas da dimensão e guia o player até o escolhido, com marcações nomeadas e coloridas, filtro, avisos e mapas do jogo gerados no caminho, sem sobrepor, com os mapas em branco do inventário. Entra depois do Mecânico, e a ideia está em [`explorador.md`](funcionalidades/trabalhos/explorador.md).
 - **Scanner de minérios só no Minerador (pergunta 1741):** quando o Minerador começar, o scanner sai de todo Cubit e passa a ser só dele, melhorado. A chave, o filtro e os saves de hoje são decididos no refinamento do Minerador.
+- **Chamar o Cubit (perguntas 2450 a 2465, 2482 a 2486, 2491, 2499 e 2500, issue #281):** um só mecanismo traz o Cubit de qualquer lugar, ao renascer, pelo `Follow` do Tablet e por `/cubit follow`, com o `/cubit list`. Carrega o chunk dele por poucos segundos, sem nunca recriá-lo, e a regra 22 ganha essa exceção. O conceito está em [`movimento.md`](funcionalidades/movimento.md#chamar-o-cubit), e o item do teleporte longo saiu do backlog (2461).
 - **Backlog (perguntas 1746 a 1748):** as ideias do futuro, sem decisão, ficam em [`backlog.md`](backlog.md): o Cubit que se perde num teleporte longo do dono, para uma issue própria depois do PR 3; a lista de todos os Cubits no Tablet, puxar o Cubit para o inventário e o Tablet com tiers; e o nome pedido ao colocar o Cubit.
 - **Frases de apresentação (perguntas 1672 a 1682):** todo Cubit novo, na primeira vez que é colocado, diz `Cubit: Happy to help you!` acima da hotbar e mostra no chat um link clicável para o GitHub do mod. Só o link tem um temporizador de 10 minutos por player. Os Cubits das versões publicadas contam como apresentados. Entra no PR 3 do Patrulheiro.
 - **Contrato da apresentação (perguntas 1750 a 1754):** o campo opcional `introduced`, no `cubit:robot_state` e na chave `Introduced` do NBT, vale `true` quando falta, e só o estado inicial de um Cubit novo nasce com `false`. O temporizador fica no attachment `cubit:intro_link_time` do player. Colocar o Cubit direto num Induction Dock também é a primeira colocação, e um Cubit com a chave `Chatter` desligada não fala e conta como apresentado. As classes são `IntroLink`, `IntroSection` e `RobotIntro`.
@@ -243,6 +244,7 @@ Resumo do que já foi decidido no projeto. As perguntas, abertas e respondidas, 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 17:34 | Resume chamar o Cubit (perguntas 2450 a 2500). |
 | Zennd | 2026-11-25 12:27 | Registra as receitas sem bloqueio (perguntas 2400 a 2403). |
 | Zennd | 2026-11-24 12:32 | Registra o contrato dos saves a partir da `1.0.0` (perguntas 2189 e 2190). |
 | Zennd | 2026-11-24 12:34 | Corrige o envio da `0.1.0` e da `0.1.1` (perguntas 2171, 2186 e 2188). |

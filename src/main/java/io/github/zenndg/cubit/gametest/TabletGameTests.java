@@ -19,6 +19,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -121,6 +122,28 @@ public final class TabletGameTests {
     helper.assertValueEqual(ids(entries), List.of(id), WRONG_LIST);
     helper.assertFalse(entries.getFirst().where().loaded(), WRONG_LIST);
     helper.succeed();
+  }
+
+  /** As in the game, where the chunk hides the Cubit before it gives a reason (2500). */
+  @GameTest(template = ARENA, timeoutTicks = FarAwayScene.TIMEOUT)
+  public static void aCubitWhoseChunkUnloadsStaysInTheList(GameTestHelper helper) {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    RobotEntity robot = GameTestRobots.placeNewRobot(helper, owner, FIRST);
+    UUID id = robot.getUUID();
+    Vec3 home = owner.position();
+    FarAwayScene scene = FarAwayScene.of(helper, owner, robot);
+
+    helper
+        .startSequence()
+        .thenWaitUntil(scene::assertLoaded)
+        .thenExecute(() -> scene.ownerLeaves(home))
+        .thenWaitUntil(scene::assertUnloaded)
+        .thenExecute(() -> {
+          List<RobotListPayload.Entry> entries = TabletSelection.entriesFor(owner);
+          helper.assertValueEqual(ids(entries), List.of(id), WRONG_LIST);
+          helper.assertFalse(entries.getFirst().where().loaded(), WRONG_LIST);
+        })
+        .thenSucceed();
   }
 
   /** A picked up or destroyed Cubit leaves the list and the choice (answer 1009). */

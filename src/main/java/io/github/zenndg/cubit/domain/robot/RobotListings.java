@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.domain.robot;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 /** The order and the search of the selection screen of the Tablet (answers 1003 and 1005). */
 public final class RobotListings {
@@ -16,6 +17,10 @@ public final class RobotListings {
           .thenComparingDouble(RobotListings::distanceInGroup)
           .thenComparing(RobotListing::name, String.CASE_INSENSITIVE_ORDER);
 
+  private static final Comparator<RobotListing> BY_NAME =
+      Comparator.comparing(RobotListing::name, String.CASE_INSENSITIVE_ORDER)
+          .thenComparing(RobotListing::id);
+
   private RobotListings() {}
 
   /**
@@ -24,6 +29,18 @@ public final class RobotListings {
    */
   public static List<RobotListing> ordered(List<RobotListing> listings) {
     return listings.stream().sorted(ORDER).toList();
+  }
+
+  /** By name, as the command lists them (answer 2455). */
+  public static List<RobotListing> byName(List<RobotListing> listings) {
+    return listings.stream().sorted(BY_NAME).toList();
+  }
+
+  /** The Cubit a command calls: the first by name with this short id (answer 2465). */
+  public static Optional<RobotListing> called(List<RobotListing> listings, String shortId) {
+    return byName(listings).stream()
+        .filter(listing -> RobotName.shortId(listing.id()).equalsIgnoreCase(shortId))
+        .findFirst();
   }
 
   /** A name matches a search that it contains, ignoring case. An empty search keeps everyone. */
