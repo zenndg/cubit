@@ -1342,11 +1342,15 @@ Não há perguntas pendentes nesta fase.
 | 2395 | Network, entrega 3: quais imagens das peças e da aba entram? | O `energy_tab` como foi gerado e as versões ajustadas do `transceiver`, com o contorno que faltava, e da `chunk_anchor`, redesenhada com o bloco de obsidiana preso por grampos sobre a base, em `tmp/arte/network/entrega3/ajustadas/`. A recomendação foi aceita |
 | 2396 | Network, entrega 3: os nove sons, em `tmp/wav/network/`, estão aceitos? | Sim, com ajuste do agente, sem gerar de novo: o fim da partida e do upgrade suavizado e a trava do painel uns 6 dB mais alta, com as versões mostradas. A recomendação foi aceita |
 | 2397 | Network, entrega 3: as prévias das telas Energy e Storage do Servidor e da tela do Solar Relay estão aprovadas? | Sim, as três, com o Rename e o dono na aba Energy até a aba Network existir, as abas no lugar definitivo, com os vãos das outras, o tier do Relay na linha do par e a quantidade de 3 dígitos em letra menor. A recomendação foi aceita. Não autoriza o código (pergunta 2224) |
+| 2398 | Network, entrega 3: os três sons ajustados (2396), a partida, o upgrade e a trava, ficam assim? | Sim ("1 sim") |
+| 2399 | Network, entrega 3: o código está autorizado (2224)? | Sim ("2 sim"), só o da entrega 3, a #265, começando pela refatoração dos nomes neutros (2371). As outras entregas continuam esperando a autorização própria, e cada commit é pedido à parte |
+| 2400 | Network, entrega 3: antecipar o tanque e a aba XP do Servidor ou manter na entrega 7? | Manter na entrega 7 ("3 mantemos"). Confirma a 2370. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 11:37 | Registra as respostas 2398 a 2400. |
 | Zennd | 2026-11-25 11:32 | Registra as respostas 2395 a 2397. |
 | Zennd | 2026-11-25 11:20 | Registra a resposta 2394. |
 | Zennd | 2026-11-25 11:09 | Registra as respostas 2390 a 2393. |
