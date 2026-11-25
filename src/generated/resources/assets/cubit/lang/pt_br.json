@@ -79,6 +79,7 @@
   "gui.cubit.dock.tab_storage": "Armazenamento",
   "gui.cubit.dock.title_tier": "%s · %s",
   "gui.cubit.energy_amount": "%s / %s FE",
+  "gui.cubit.engineering_desk.back": "Voltar",
   "gui.cubit.engineering_desk.cancel": "Cancelar",
   "gui.cubit.engineering_desk.cascade": "Cascata",
   "gui.cubit.engineering_desk.cascade_amount": "%s× %s",

@@ -16,7 +16,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
-/** The right side of the Project tab: the grid of marks, the item it makes and the order (1473). */
+/**
+ * The right side of the Project tab: the grid of marks, the item it makes, the order and the arrow
+ * back to the recipe before (answers 1473 and 2478).
+ */
 final class ProjectTab {
   private static final int GRID_FRAME = 3;
   private static final int ARROW_X = 166;
@@ -28,6 +31,8 @@ final class ProjectTab {
   private static final int BUTTON_HEIGHT = 12;
   private static final int SMALL_BUTTON = 14;
   private static final int ORDER_GAP = 2;
+  private static final int BACK_GAP = 2;
+  private static final int BACK_ARROW_INSET = 3;
 
   /** The dashed frame of the grid, which the row of the order follows (answer 2040). */
   private static final int FRAME_X = DeskGridView.X - GRID_FRAME;
@@ -46,18 +51,22 @@ final class ProjectTab {
   private final IntConsumer send;
   private final DeskGridView grid = new DeskGridView();
   private final DeskResultView result;
+  private final DeskRecipeSteps steps;
   private int left;
   private int top;
+  private boolean shownNow;
   private BlueprintButton minus;
   private BlueprintButton plus;
   private BlueprintButton cancel;
+  private BlueprintButton back;
 
-  ProjectTab(EngineeringDeskMenu menu, DeskCatalog catalog, IntConsumer send) {
+  ProjectTab(EngineeringDeskMenu menu, DeskCatalog catalog, IntConsumer send, IntConsumer reveal) {
     this.menu = menu;
     this.catalog = catalog;
     this.send = send;
     this.orderView = new DeskOrderView(menu, catalog);
     this.result = new DeskResultView(menu, send);
+    this.steps = new DeskRecipeSteps(menu, catalog, send, reveal);
   }
 
   void init(int newLeft, int newTop, Consumer<BlueprintButton> add) {
@@ -76,12 +85,32 @@ final class ProjectTab {
             Component.translatable(DeskScreenKeys.CANCEL),
             BlueprintPainter.CANCEL,
             () -> send.accept(DeskControl.CANCEL));
-    List.of(minus, plus, cancel).forEach(add);
+    back = backButton();
+    List.of(minus, plus, cancel, back).forEach(add);
   }
 
   private BlueprintButton small(int x, Component label, Runnable action) {
     return new BlueprintButton(
         left + x, top + ORDER_Y, SMALL_BUTTON, BUTTON_HEIGHT, label, BlueprintPainter.CELL, action);
+  }
+
+  private BlueprintButton backButton() {
+    BlueprintButton button =
+        new BlueprintButton(
+            left + FRAME_X - BACK_GAP - SMALL_BUTTON,
+            top + DeskGridView.Y - GRID_FRAME,
+            SMALL_BUTTON,
+            BUTTON_HEIGHT,
+            Component.translatable(DeskScreenKeys.BACK),
+            BlueprintPainter.CELL,
+            steps::back);
+    button.drawInstead((graphics, x, y) ->
+        BlueprintPainter.backArrow(
+            graphics,
+            x + BACK_ARROW_INSET,
+            y + BUTTON_HEIGHT / 2,
+            SMALL_BUTTON - BACK_ARROW_INSET * 2));
+    return button;
   }
 
   private void order(boolean up) {
@@ -95,11 +124,17 @@ final class ProjectTab {
     minus.visible = shown;
     plus.visible = shown;
     cancel.visible = shown;
+    shownNow = shown;
   }
 
-  /** Before the buttons are drawn, whether the plus is off (answer 1988). */
+  /** Before the buttons are drawn: the plus may be off, and the arrow back hidden (1988, 2478). */
   void update() {
     plus.active = orderView.mayRaise();
+    back.visible = shownNow && steps.canGoBack();
+  }
+
+  void tick() {
+    steps.tick();
   }
 
   /** The grid of marks in a dashed frame, the arrow of the progress and the item it makes. */
@@ -126,13 +161,22 @@ final class ProjectTab {
   void tooltips(GuiGraphics graphics, Font font, int mouseX, int mouseY) {
     recipeTooltip(graphics, font, mouseX, mouseY);
     plusTooltip(graphics, font, mouseX, mouseY);
+    if (back.visible && back.isHovered()) {
+      graphics.renderTooltip(font, back.getMessage(), mouseX, mouseY);
+    }
   }
 
   /**
    * The name of an item of the recipe, in the grid or in the result, as in a slot (answer 1548).
+   * With Shift on a part whose recipe an order holds, why it does not open (answer 2477).
    */
   private void recipeTooltip(GuiGraphics graphics, Font font, int mouseX, int mouseY) {
     ItemStack mark = markAt(mouseX, mouseY);
+    if (Screen.hasShiftDown() && menu.holdsRecipe() && steps.recipeOf(mark).isPresent()) {
+      graphics.renderTooltip(
+          font, Component.translatable(DeskScreenKeys.ORDER_HOLDS), mouseX, mouseY);
+      return;
+    }
     boolean overResult = result.isOver(mouseX, mouseY, left, top);
     ItemStack item = overResult ? result.shown(chosenResult()) : mark;
     if (!item.isEmpty()) {
@@ -174,8 +218,8 @@ final class ProjectTab {
   }
 
   /**
-   * The result gives what is ready, and the grid takes the carried item as a mark, unless an order
-   * holds the recipe. True when the click was on them.
+   * The result gives what is ready, Shift opens the recipe of a part, and a plain click puts the
+   * carried item as a mark, unless an order holds the recipe. True when the click was on them.
    */
   boolean click(double mouseX, double mouseY) {
     if (result.isOver(mouseX, mouseY, left, top)) {
@@ -183,7 +227,9 @@ final class ProjectTab {
       return true;
     }
     Optional<Integer> cell = grid.at(mouseX, mouseY, left, top);
-    if (cell.isPresent() && !menu.holdsRecipe()) {
+    if (cell.isPresent() && Screen.hasShiftDown()) {
+      steps.open(markAt(mouseX, mouseY));
+    } else if (cell.isPresent() && !menu.holdsRecipe()) {
       menu.marks().set(cell.get(), menu.getCarried().copyWithCount(1));
       send.accept(DeskControl.mark(cell.get()));
     }

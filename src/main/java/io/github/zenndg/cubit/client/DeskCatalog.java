@@ -97,6 +97,13 @@ final class DeskCatalog {
     }
   }
 
+  /** Shows a recipe in its category, scrolled to its row. */
+  void reveal(int place) {
+    showCategoryOf(place);
+    int row = view().indexOf(place) / COLUMNS;
+    firstRow = Math.max(0, row - ROWS + 1);
+  }
+
   void render(GuiGraphics graphics, int left, int top) {
     categories.render(graphics, left, top, chosenCategory, !search.isEmpty());
     List<RecipeHolder<CraftingRecipe>> all = recipes();

@@ -31,6 +31,7 @@ final class DeskTexts {
   private static final String ORDER = "%s / %s";
   private static final String CANCEL = "Cancel";
   private static final String ORDER_HOLDS = "Finish or cancel the order first";
+  private static final String BACK = "Back";
   private static final String MISSING = "Missing: %s %s";
   private static final String CATALOG = "Catalog";
   private static final String SEARCH = "Search...";
@@ -100,6 +101,7 @@ final class DeskTexts {
     add.accept(DeskScreenKeys.ORDER, ORDER);
     add.accept(DeskScreenKeys.CANCEL, CANCEL);
     add.accept(DeskScreenKeys.ORDER_HOLDS, ORDER_HOLDS);
+    add.accept(DeskScreenKeys.BACK, BACK);
     add.accept(DeskScreenKeys.MISSING, MISSING);
     add.accept(DeskScreenKeys.CATALOG, CATALOG);
     add.accept(DeskScreenKeys.SEARCH, SEARCH);

@@ -96,6 +96,14 @@ final class BlueprintPainter {
     }
   }
 
+  /** A plain arrow to the left, of one pixel, from its tip. */
+  static void backArrow(GuiGraphics graphics, int x, int y, int width) {
+    graphics.fill(x, y, x + width, y + 1, LINE);
+    for (int side = 1; side <= DASH; side++) {
+      graphics.fill(x + side, y - side, x + side + 1, y + side + 1, LINE);
+    }
+  }
+
   /** A padlock over an item, small enough for its corner. */
   static void padlock(GuiGraphics graphics, int x, int y, int color) {
     graphics.pose().pushPose();

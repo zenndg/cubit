@@ -24,6 +24,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
   private static final int SEARCH_HEIGHT = 12;
   private static final int SEARCH_INSET = 2;
   private static final int SEARCH_MAX = 32;
+  private static final String NO_SEARCH = "";
 
   private final DeskCatalog catalog;
   private final DeskCatalog cascadeCatalog;
@@ -37,7 +38,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     CascadeCatalogRules rules = new CascadeCatalogRules(menu);
     catalog = new DeskCatalog(new ProjectCatalogRules(menu));
     cascadeCatalog = new DeskCatalog(rules);
-    project = new ProjectTab(menu, catalog, this::send);
+    project = new ProjectTab(menu, catalog, this::send, this::reveal);
     cascade = new CascadeTab(menu, cascadeCatalog, rules, this::send);
     imageWidth = EngineeringDeskMenu.WIDTH;
     imageHeight = HEIGHT;
@@ -79,6 +80,12 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
 
   private void send(int id) {
     minecraft.gameMode.handleInventoryButtonClick(menu.containerId, id);
+  }
+
+  /** Out of a search, so the category of the recipe shows (answer 2477). */
+  private void reveal(int place) {
+    search.setValue(NO_SEARCH);
+    catalog.reveal(place);
   }
 
   private boolean storageOpen() {
@@ -263,6 +270,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
       open(DeskTab.CASCADE);
     }
     cascade.tick();
+    project.tick();
     showSearch();
   }
 
