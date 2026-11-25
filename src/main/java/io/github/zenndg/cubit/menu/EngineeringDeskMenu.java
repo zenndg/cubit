@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.menu;
 import io.github.zenndg.cubit.block.CascadeRecipes;
 import io.github.zenndg.cubit.block.DeskGrid;
 import io.github.zenndg.cubit.block.DeskMaterialFilter;
+import io.github.zenndg.cubit.block.DeskRecipes;
 import io.github.zenndg.cubit.block.DeskShortage;
 import io.github.zenndg.cubit.block.EngineeringDeskBlockEntity;
 import io.github.zenndg.cubit.domain.desk.DeskOrder;
@@ -162,7 +163,32 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
         || id >= CascadeMenuPart.CHOOSE_FIRST) {
       return !cascade.locks() && cascade.click(server, id);
     }
-    return !cascade.locks() && DeskControl.click(desk, server, marks, id);
+    return !cascade.locks() && (take(server, id) || DeskControl.click(desk, server, marks, id));
+  }
+
+  /** The result beside the grid, on the server. True when the click was on it (answer 2479). */
+  private boolean take(ServerPlayer player, int id) {
+    ItemStack result = DeskRecipes.result(player.level(), desk.recipeId().orElse(null));
+    if (id == DeskControl.TAKE) {
+      setCarried(DeskResult.take(containers.output(), result, getCarried()));
+    } else if (id == DeskControl.TAKE_ALL) {
+      takeAll(player, result);
+    }
+    return id == DeskControl.TAKE || id == DeskControl.TAKE_ALL;
+  }
+
+  /** What does not fit in the inventory stays in the output. */
+  private void takeAll(ServerPlayer player, ItemStack result) {
+    for (int index = OUTPUT_FIRST; index < DESK_SLOTS; index++) {
+      if (DeskResult.matches(slots.get(index).getItem(), result)) {
+        quickMoveStack(player, index);
+      }
+    }
+  }
+
+  /** What is ready of the result of a recipe, as the output has it now (answer 2479). */
+  public DeskResult ready(ItemStack result) {
+    return DeskResult.of(containers.output(), result);
   }
 
   @Override

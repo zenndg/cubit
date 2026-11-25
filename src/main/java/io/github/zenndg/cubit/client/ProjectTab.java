@@ -23,8 +23,6 @@ final class ProjectTab {
   private static final int ARROW_Y = 50;
   private static final int ARROW_WIDTH = 22;
   private static final int ARROW_HEIGHT = 6;
-  private static final int RESULT_X = 194;
-  private static final int RESULT_Y = 44;
   private static final int ORDER_Y = 92;
   private static final int CANCEL_Y = 108;
   private static final int BUTTON_HEIGHT = 12;
@@ -47,6 +45,7 @@ final class ProjectTab {
   private final DeskOrderView orderView;
   private final IntConsumer send;
   private final DeskGridView grid = new DeskGridView();
+  private final DeskResultView result;
   private int left;
   private int top;
   private BlueprintButton minus;
@@ -58,6 +57,7 @@ final class ProjectTab {
     this.catalog = catalog;
     this.send = send;
     this.orderView = new DeskOrderView(menu, catalog);
+    this.result = new DeskResultView(menu, send);
   }
 
   void init(int newLeft, int newTop, Consumer<BlueprintButton> add) {
@@ -114,8 +114,7 @@ final class ProjectTab {
         menu.progressPercent(),
         PERCENT,
         BlueprintPainter.CRAFTING);
-    BlueprintPainter.slot(graphics, left + RESULT_X, top + RESULT_Y);
-    graphics.renderFakeItem(chosenResult(), left + RESULT_X + 1, top + RESULT_Y + 1);
+    result.render(graphics, left, top, chosenResult());
   }
 
   void renderLabels(GuiGraphics graphics, Font font) {
@@ -133,10 +132,9 @@ final class ProjectTab {
    * The name of an item of the recipe, in the grid or in the result, as in a slot (answer 1548).
    */
   private void recipeTooltip(GuiGraphics graphics, Font font, int mouseX, int mouseY) {
-    ItemStack item =
-        grid.at(mouseX, mouseY, left, top)
-            .map(cell -> DeskGridView.markAt(cell, chosenMarks(), menu.marks(), playerTicks()))
-            .orElseGet(() -> overResult(mouseX, mouseY) ? chosenResult() : ItemStack.EMPTY);
+    ItemStack mark = markAt(mouseX, mouseY);
+    boolean overResult = result.isOver(mouseX, mouseY, left, top);
+    ItemStack item = overResult ? result.shown(chosenResult()) : mark;
     if (!item.isEmpty()) {
       graphics.renderTooltip(font, item, mouseX, mouseY);
     }
@@ -150,13 +148,10 @@ final class ProjectTab {
     }
   }
 
-  private boolean overResult(int mouseX, int mouseY) {
-    int x = left + RESULT_X;
-    int y = top + RESULT_Y;
-    return mouseX >= x
-        && mouseX < x + ScreenPainter.SLOT_SIZE
-        && mouseY >= y
-        && mouseY < y + ScreenPainter.SLOT_SIZE;
+  private ItemStack markAt(double mouseX, double mouseY) {
+    return grid.at(mouseX, mouseY, left, top)
+        .map(cell -> DeskGridView.markAt(cell, chosenMarks(), menu.marks(), playerTicks()))
+        .orElse(ItemStack.EMPTY);
   }
 
   private static long playerTicks() {
@@ -179,10 +174,14 @@ final class ProjectTab {
   }
 
   /**
-   * Puts the carried item as a mark, unless an order holds the recipe. True when the click was on
-   * the grid.
+   * The result gives what is ready, and the grid takes the carried item as a mark, unless an order
+   * holds the recipe. True when the click was on them.
    */
   boolean click(double mouseX, double mouseY) {
+    if (result.isOver(mouseX, mouseY, left, top)) {
+      result.click();
+      return true;
+    }
     Optional<Integer> cell = grid.at(mouseX, mouseY, left, top);
     if (cell.isPresent() && !menu.holdsRecipe()) {
       menu.marks().set(cell.get(), menu.getCarried().copyWithCount(1));

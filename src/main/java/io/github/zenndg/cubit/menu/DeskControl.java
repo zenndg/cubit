@@ -28,6 +28,8 @@ public final class DeskControl {
   public static final int MINUS_SHIFT = 2;
   public static final int PLUS_SHIFT = 3;
   public static final int CANCEL = 4;
+  public static final int TAKE = 5;
+  public static final int TAKE_ALL = 6;
   public static final int CHOOSE_FIRST = 1_000;
   public static final int MARK_FIRST = 2_000;
 
