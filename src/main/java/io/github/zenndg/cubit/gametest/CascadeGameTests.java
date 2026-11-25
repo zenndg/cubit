@@ -36,7 +36,7 @@ public final class CascadeGameTests {
   private static final String ARENA = "arena";
   private static final int TIMEOUT = 600;
   private static final long ENERGY = 1_000_000;
-  private static final long COST_OF_THE_CHAIN = 27_500;
+  private static final long COST_OF_THE_CHAIN = 38_500;
   private static final int CHAIN_TICKS = 400;
   private static final int SOME_TICKS = 20;
   private static final int MANY = 64;

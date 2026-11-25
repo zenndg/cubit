@@ -90,6 +90,7 @@
   "gui.cubit.dock.tab_solar": "Solar",
   "gui.cubit.dock.tab_storage": "Storage",
   "gui.cubit.dock.title_tier": "%s · %s",
+  "gui.cubit.dock.uses": "%s · Uses %s FE/t",
   "gui.cubit.energy_amount": "%s / %s FE",
   "gui.cubit.engineering_desk.back": "Back",
   "gui.cubit.engineering_desk.cancel": "Cancel",

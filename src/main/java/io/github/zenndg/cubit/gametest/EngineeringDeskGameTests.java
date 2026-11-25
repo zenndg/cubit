@@ -47,7 +47,7 @@ public final class EngineeringDeskGameTests {
   private static final int TWO = 2;
   private static final int FULL_SIGNAL = 15;
   private static final long ENERGY = 50_000;
-  private static final long COST_OF_TWO = 5_000;
+  private static final long COST_OF_TWO = 7_000;
   private static final BlockPos FLOOR = new BlockPos(START_X, FLOOR_Y, MIDDLE_Z);
   static final BlockPos DESK = FLOOR.above();
   private static final String TOOLBOX_PATH = "toolbox";

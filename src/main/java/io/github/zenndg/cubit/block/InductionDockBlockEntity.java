@@ -130,6 +130,7 @@ public final class InductionDockBlockEntity extends BlockEntity
   static void serverTick(
       Level level, BlockPos pos, BlockState state, InductionDockBlockEntity dock) {
     dock.energy.tick();
+    dock.payStandby();
     dock.storage.dropRefused(level, pos);
     boolean chargesBanks =
         DockStorageRules.chargesBanks(dock.isOccupied(), dock.presence.robotFull());
@@ -143,6 +144,25 @@ public final class InductionDockBlockEntity extends BlockEntity
       level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
     }
     DockStatusProperty.show(level, pos, state, dock.status());
+  }
+
+  /** First in the tick, before the sun, the XP and the banks, so a full dock still shows it. */
+  private void payStandby() {
+    EnergyStock.Spent spent = energy.stock().spend(tier.spec().standby(energy()));
+    energy.set(spent.stock());
+    if (!spent.paid().isZero()) {
+      setChanged();
+    }
+  }
+
+  /** What it spends for being on now, and nothing at zero (answer 2466). */
+  public Energy standbyCost() {
+    return tier.spec().standby(energy());
+  }
+
+  /** Full also when only the spending of a tick is missing (answer 2509). */
+  public boolean isFull() {
+    return tier.spec().isFull(energy());
   }
 
   public DockStatus status() {

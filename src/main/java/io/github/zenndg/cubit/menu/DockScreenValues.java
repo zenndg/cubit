@@ -28,7 +28,9 @@ final class DockScreenValues extends ScreenValues {
   static final int SOLAR_MAX = 24;
   static final int PANEL = 26;
   static final int SOLAR_NIGHT = 27;
-  static final int COUNT = 28;
+  static final int STANDBY = 28;
+  static final int FULL = 30;
+  static final int COUNT = 31;
 
   private final InductionDockBlockEntity dock;
 
@@ -42,6 +44,8 @@ final class DockScreenValues extends ScreenValues {
     put(STOCK, dock.energy());
     put(CAPACITY, dock.capacity());
     put(INPUT, dock.inputShown());
+    put(STANDBY, dock.standbyCost());
+    put(FULL, dock.isFull());
     SolarReading solar = dock.solar();
     put(SOLAR, solar.given());
     put(SUN_STATE, solar.state().ordinal());

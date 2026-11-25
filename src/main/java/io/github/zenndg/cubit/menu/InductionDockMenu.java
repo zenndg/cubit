@@ -163,6 +163,15 @@ public final class InductionDockMenu extends AbstractContainerMenu implements Re
     return DockScreenValues.energy(values, DockScreenValues.INPUT);
   }
 
+  /** What the dock spends for being on, and nothing at zero (answer 2467). */
+  public Energy standby() {
+    return DockScreenValues.energy(values, DockScreenValues.STANDBY);
+  }
+
+  public boolean isFull() {
+    return DockScreenValues.isTrue(values, DockScreenValues.FULL);
+  }
+
   public DockStatus status() {
     return ScreenEnums.of(DockStatus.values(), values.get(DockScreenValues.STATUS));
   }
