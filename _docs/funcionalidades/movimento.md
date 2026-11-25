@@ -15,6 +15,7 @@ O player escolhe entre o robô seguir ou atuar numa área. A marcação da área
 - **Na lava:** leva dano igual ao player sem armadura e continua pegando fogo ao sair. Ativo, se colocarem lava no bloco dele, tenta ir para o bloco seguro mais próximo, mas a lava o deixa muito lento. Quanto menor o tier, maior a chance de morrer antes de sair, e no Base isso costuma acontecer. Inativo, fica parado.
 - O robô que segue anda até o player e para quando chega perto.
 - O robô que segue, se ficar longe demais do player, teleporta para perto, só na mesma dimensão.
+- O robô que segue e fica sem caminho, como atrás de uma parede, aparece perto do player depois de um tempo sem avançar, uma vez até ter caminho de novo (pergunta 2092). Sem lugar seguro, fica e tenta de novo (pergunta 2497).
 - **Quando o dono renasce:** o robô ativo que segue volta com ele, em qualquer dimensão, se ainda estiver carregado nesse momento e longe demais. Um robô já descarregado continua onde está, porque nenhum chunk é carregado à força. Um robô a caminho do Dock continua indo, e passar por um portal não o leva (pergunta 567).
 - Só se move no estado ativo. Inativo ou em hibernação, fica parado e não teleporta.
 - Faz barulho de esteira ao andar. O som entra na Fase 3.
@@ -142,6 +143,7 @@ Do Advanced em diante, com a chave ligada, quando o dono renasce, o Cubit que se
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 16:46 | Acrescenta o robô sem caminho, que tenta de novo sem lugar seguro (perguntas 2092 e 2497). |
 | Zennd | 2026-11-21 12:50 | Passa o conserto para a Engineering Desk (pergunta 1427). |
 | Marcelo Fabiano | 2026-11-19 20:18 | Define o controle de velocidade (perguntas 1258 a 1261 e 1266 a 1271). |
 | Marcelo Fabiano | 2026-11-14 18:46 | Detalha quem guia, a viagem ao Dock e a pausa por perigo. |
