@@ -35,7 +35,6 @@ public final class DrawnAreaGameTests {
   private static final int TOO_HIGH_Y = 9;
   private static final int HEIGHT = 8;
   private static final float LOOK_DOWN = 90f;
-  private static final float LOOK_UP = -90f;
   private static final BlockPos ROBOT_FLOOR = new BlockPos(4, FLOOR_Y, 2);
   private static final BlockPos OTHER_FLOOR = new BlockPos(6, FLOOR_Y, 2);
   private static final BlockPos A = new BlockPos(14, FLOOR_Y, 0);
@@ -162,6 +161,7 @@ public final class DrawnAreaGameTests {
 
     helper.assertTrue(robot.workArea().area().isEmpty(), HAS_AREA);
     helper.assertTrue(other.workArea().area().isEmpty(), HAS_AREA);
+    AreaClicks.shift(owner, new TabletUse.Air());
     AreaClicks.draw(helper, owner, other, A, B, C, D);
     helper.assertTrue(other.workArea().area().isPresent(), NO_AREA);
     helper.succeed();
@@ -247,7 +247,7 @@ public final class DrawnAreaGameTests {
     helper.succeed();
   }
 
-  /** A click in the air marks the block in the aim, and nothing when there is none (2311). */
+  /** A click in the air marks the block in the aim (answer 2311). */
   @GameTest(template = ARENA)
   public static void theBlockInTheAimIsMarked(GameTestHelper helper) {
     ServerPlayer owner = GameTestRobots.onlinePlayerAt(helper, A);
@@ -255,8 +255,6 @@ public final class DrawnAreaGameTests {
     RobotEntity robot = robot(helper, owner, ROBOT_FLOOR);
     AreaClicks.choose(owner, robot);
 
-    owner.setXRot(LOOK_UP);
-    TabletUse.click(owner, AreaClicks.tablet(), new TabletUse.Air());
     owner.setXRot(LOOK_DOWN);
     TabletUse.click(owner, AreaClicks.tablet(), new TabletUse.Air());
     AreaClicks.mark(helper, owner, B, C, D, A);

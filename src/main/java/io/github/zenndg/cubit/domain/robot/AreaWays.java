@@ -11,6 +11,12 @@ import java.util.List;
 final class AreaWays {
   private static final double HALF = 0.5;
 
+  /**
+   * How near an inner corner it counts as reached: the game ends a route a block short, and the
+   * corner itself may have a block on it.
+   */
+  private static final double AT_THE_TURN = 2;
+
   /** How far apart the blocks of a straight line are read. */
   private static final double STEP = 0.25;
 
@@ -48,7 +54,8 @@ final class AreaWays {
       double start = from.distance(turn.x(), turn.z());
       double rest = shortest(lengths[first], ends);
       if (start > 0 && start + rest < best.length() && clear(from, turn)) {
-        best = new Way(turn, start + rest);
+        WorkArea.Place next = start <= AT_THE_TURN ? between(turn, to).next() : turn;
+        best = new Way(next, start + rest);
       }
     }
     return best.length() < Double.MAX_VALUE ? best : new Way(to, straight);

@@ -69,6 +69,17 @@ final class RobotNodeEvaluator extends WalkNodeEvaluator {
     return node;
   }
 
+  /** A diagonal past a block outside would graze it, so it goes around straight. */
+  @Override
+  protected boolean isDiagonalValid(Node root, Node xNode, Node zNode) {
+    boolean grazes = area.isPresent() && !outside(root) && (grazes(xNode) || grazes(zNode));
+    return !grazes && super.isDiagonalValid(root, xNode, zNode);
+  }
+
+  private boolean grazes(Node node) {
+    return node != null && outside(node);
+  }
+
   private boolean outside(Node node) {
     return area.isPresent() && !area.get().shape().has(node.x, node.z);
   }

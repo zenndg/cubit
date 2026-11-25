@@ -24,6 +24,7 @@ class AreaWaysTest {
   private static final WorkArea.Place EAST_LEG = new WorkArea.Place(18.5, 18.5);
   private static final WorkArea.Place NORTH_END = new WorkArea.Place(18.5, 2.5);
   private static final WorkArea.Place INNER_WEST = new WorkArea.Place(4.5, 4.5);
+  private static final WorkArea.Place BESIDE_INNER_WEST = new WorkArea.Place(4.5, 5.5);
   private static final WorkArea.Place INNER_EAST = new WorkArea.Place(15.5, 4.5);
   private static final WorkArea.Place OUTSIDE = new WorkArea.Place(10.5, 10.5);
 
@@ -46,6 +47,13 @@ class AreaWaysTest {
   void fromTheInnerCornerTheWayGoesOn() {
     assertEquals(NORTH_END, ELL.next(INNER_WEST, NORTH_END));
     assertEquals(WEST_LEG, ELL.next(INNER_WEST, WEST_LEG));
+  }
+
+  /** The game ends a route a block short of a corner, which may have a block on it. */
+  @Test
+  void besideTheInnerCornerTheWayGoesOnToo() {
+    assertEquals(NORTH_END, ELL.next(BESIDE_INNER_WEST, NORTH_END));
+    assertEquals(INNER_EAST, YOU.next(BESIDE_INNER_WEST, EAST_LEG));
   }
 
   @Test
