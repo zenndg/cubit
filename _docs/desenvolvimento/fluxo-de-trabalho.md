@@ -88,7 +88,7 @@ Use `git add` com os arquivos do plano, nunca `git add .`. Se um gate reprovar, 
 
 ### 9. Pull request
 
-Antes do push, atualize a branch com a de origem. Depois, execute e analise o que está em [`antes-do-pr.md`](antes-do-pr.md), com as GameTests, e só então abra o PR para a `develop` (regra 46):
+Antes do push, atualize a branch com a de origem. Depois, execute e analise o que está em [`antes-do-pr.md`](antes-do-pr.md), com as GameTests, e só então abra o PR para a `develop` (regra 46). Numa feature grande, a branch sai da `integration/{feature}`, e o PR vai para ela, com `--base integration/{feature}`. A feature completa vai à `develop` num PR final, e só ele fecha as issues, porque a branch padrão é a `develop` (perguntas 2204, 2205 e 2333):
 
 ```bash
 git push -u origin feature/{issue}-{slug}
@@ -173,7 +173,7 @@ Use só para um problema no que já foi publicado.
 
 ## Reescrever o histórico
 
-Só em último caso, numa branch sem merge e com autorização, como para tirar um dado que não podia ter sido enviado. Nunca em `main`, `homolog` ou `develop`.
+Só em último caso, numa branch sem merge e com autorização, como para tirar um dado que não podia ter sido enviado. Nunca em `main`, `homolog`, `develop` ou `integration/{feature}`.
 
 ```bash
 git push --force-with-lease=feature/{issue}-{slug}:{hash esperado} origin feature/{issue}-{slug}
@@ -206,6 +206,7 @@ O primeiro passo, separando o que está decidido do que está pendente.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:40 | Acrescenta a `integration/{feature}` (pergunta 2333). |
 | Zennd | 2026-11-24 12:32 | Atualiza o cuidado com os saves (perguntas 2189 e 2190). |
 | Zennd | 2026-11-22 16:35 | Acrescenta o que vem antes do PR e a numeração nova das regras (perguntas 1715 e 1716). |
 | Zennd | 2026-11-22 16:30 | Acrescenta o script do macOS (pergunta 1712). |

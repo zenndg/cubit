@@ -217,12 +217,13 @@ O projeto segue o Gitflow, com Semantic Versioning e Conventional Commits.
 | `release/X.Y.Z` | `homolog` | `main` e `develop` | Release fechada |
 | `homolog` | `develop` | `release/X.Y.Z` | Release em teste |
 | `develop` | `main` | `homolog` | Integração do trabalho em andamento |
-| `feature/{issue}-{slug}` | `develop` | `develop` | Funcionalidade, melhoria, correção não urgente ou tarefa técnica |
+| `integration/{feature}` | `develop` | `develop` | Integração de uma feature grande em vários PRs, levada à `develop` num PR final |
+| `feature/{issue}-{slug}` | `develop` ou `integration/{feature}` | A mesma de onde saiu | Funcionalidade, melhoria, correção não urgente ou tarefa técnica |
 | `hotfix/{issue}-{slug}` | `main` | `main`, `homolog` e `develop` | Correção urgente do que já foi publicado |
 
 ### Regras de Git
 
-- **Proibido:** commit direto em `main`, `homolog` ou `develop`; usar `--no-verify`; misturar várias mudanças lógicas num commit.
+- **Proibido:** commit direto em `main`, `homolog`, `develop` ou `integration/{feature}`; usar `--no-verify`; misturar várias mudanças lógicas num commit.
 - **Issue:** toda tarefa começa por uma issue, e a branch leva o número dela. O nome da branch fica em inglês e em `kebab-case`: `feature/12-power-bank`.
 - **PR:** todo merge é feito por PR, com `Closes #n` na descrição. A branch padrão no GitHub é a `develop`.
 - **Commits:** em Conventional Commits, em português, e atômicos: `feat: adiciona a Power Bank`.
