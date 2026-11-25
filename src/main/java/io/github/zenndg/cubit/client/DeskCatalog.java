@@ -113,14 +113,15 @@ final class DeskCatalog {
       if (index == rules.chosen()) {
         graphics.renderOutline(x, y, CELL, CELL, CHOSEN);
       }
-      renderItem(graphics, all.get(index), x + ICON_INSET, y + ICON_INSET);
+      renderItem(graphics, index, all.get(index), x + ICON_INSET, y + ICON_INSET);
     }
     renderScrollBar(graphics, left, top, shown.size());
   }
 
   /** An item in a cycle shows dark with a padlock, by the rule of the tab (answer 2034). */
-  private void renderItem(GuiGraphics graphics, RecipeHolder<CraftingRecipe> recipe, int x, int y) {
-    DeskCatalogRules.Look look = rules.look(recipe);
+  private void renderItem(
+      GuiGraphics graphics, int place, RecipeHolder<CraftingRecipe> recipe, int x, int y) {
+    DeskCatalogRules.Look look = rules.look(place, recipe);
     if (look == DeskCatalogRules.Look.READY) {
       graphics.renderFakeItem(resultOf(recipe), x, y);
       return;
@@ -187,11 +188,11 @@ final class DeskCatalog {
     firstRow = Math.max(0, Math.min(last, firstRow - (int) Math.signum(delta)));
   }
 
-  /** The name of the item and, when it has a padlock, why (answer 2034). */
+  /** The name of the item and why it has a padlock or is held (answers 2034 and 2476). */
   void tooltip(GuiGraphics graphics, Font font, int index, int mouseX, int mouseY) {
     RecipeHolder<CraftingRecipe> recipe = recipes().get(index);
     List<Component> lines = new ArrayList<>(List.of(resultOf(recipe).getHoverName()));
-    lines.addAll(rules.hints(recipe));
+    lines.addAll(rules.hints(index, recipe));
     graphics.renderComponentTooltip(font, lines, mouseX, mouseY);
   }
 

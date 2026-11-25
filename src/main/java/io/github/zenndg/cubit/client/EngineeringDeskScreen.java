@@ -271,8 +271,8 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
       return true;
     }
     var recipe = openCatalog().at(mouseX, mouseY, leftPos, topPos);
-    if (recipe.isPresent()) {
-      boolean inCascade = tab == DeskTab.CASCADE;
+    boolean inCascade = tab == DeskTab.CASCADE;
+    if (recipe.isPresent() && (inCascade || !menu.holdsRecipe())) {
       send(inCascade ? CascadeMenuPart.choose(recipe.get()) : DeskControl.choose(recipe.get()));
     }
     return recipe.isPresent();

@@ -178,13 +178,16 @@ final class ProjectTab {
         : DeskCatalog.resultOf(all.get(index));
   }
 
-  /** Puts the carried item as a mark. True when the click was on the grid. */
+  /**
+   * Puts the carried item as a mark, unless an order holds the recipe. True when the click was on
+   * the grid.
+   */
   boolean click(double mouseX, double mouseY) {
     Optional<Integer> cell = grid.at(mouseX, mouseY, left, top);
-    cell.ifPresent(at -> {
-      menu.marks().set(at, menu.getCarried().copyWithCount(1));
-      send.accept(DeskControl.mark(at));
-    });
+    if (cell.isPresent() && !menu.holdsRecipe()) {
+      menu.marks().set(cell.get(), menu.getCarried().copyWithCount(1));
+      send.accept(DeskControl.mark(cell.get()));
+    }
     return cell.isPresent();
   }
 }

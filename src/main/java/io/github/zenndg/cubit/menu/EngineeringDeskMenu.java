@@ -245,6 +245,11 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
     return values.get(DeskScreenValues.DONE);
   }
 
+  /** An order, also a paused one, holds its recipe (answer 2476). */
+  public boolean holdsRecipe() {
+    return total() > done();
+  }
+
   public int maxOrder() {
     return values.get(DeskScreenValues.MAX_ORDER);
   }

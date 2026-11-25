@@ -19,7 +19,8 @@ import net.minecraft.world.item.crafting.RecipeManager;
 /**
  * The buttons of the desk screen, read on the server (rules 19 and 20): the order, the recipe of
  * the catalog, and the marks the player puts by hand in the grid (answers 1426 and 1444). Any
- * recipe can be chosen, and an order only starts with its materials (answers 1984 and 2400).
+ * recipe can be chosen, and an order only starts with its materials (answers 1984 and 2400). An
+ * order, also a paused one, holds its recipe until it ends or is canceled (answer 2476).
  */
 public final class DeskControl {
   public static final int MINUS = 0;
@@ -76,6 +77,9 @@ public final class DeskControl {
 
   private static boolean chooseOrMark(
       EngineeringDeskBlockEntity desk, ServerPlayer player, NonNullList<ItemStack> marks, int id) {
+    if (desk.order().isActive()) {
+      return false;
+    }
     RecipeManager recipes = player.serverLevel().getRecipeManager();
     if (id >= MARK_FIRST && id < MARK_FIRST + DeskGrid.CELLS) {
       marks.set(id - MARK_FIRST, player.containerMenu.getCarried().copyWithCount(1));

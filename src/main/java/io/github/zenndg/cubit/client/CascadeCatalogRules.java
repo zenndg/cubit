@@ -63,12 +63,12 @@ final class CascadeCatalogRules implements DeskCatalogRules {
   }
 
   @Override
-  public Look look(RecipeHolder<CraftingRecipe> recipe) {
+  public Look look(int place, RecipeHolder<CraftingRecipe> recipe) {
     return inCycle.contains(recipe.id()) ? Look.LOCKED : Look.READY;
   }
 
   @Override
-  public List<Component> hints(RecipeHolder<CraftingRecipe> recipe) {
+  public List<Component> hints(int place, RecipeHolder<CraftingRecipe> recipe) {
     return inCycle.contains(recipe.id())
         ? List.of(
             Component.translatable(DeskScreenKeys.cascadeStart(CascadeStart.NO_PLAN))

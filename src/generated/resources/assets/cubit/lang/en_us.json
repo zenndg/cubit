@@ -123,6 +123,7 @@
   "gui.cubit.engineering_desk.input": "Input",
   "gui.cubit.engineering_desk.missing": "Missing: %s %s",
   "gui.cubit.engineering_desk.order": "%s / %s",
+  "gui.cubit.engineering_desk.order_holds": "Finish or cancel the order first",
   "gui.cubit.engineering_desk.output": "Output",
   "gui.cubit.engineering_desk.search": "Search...",
   "gui.cubit.engineering_desk.status.crafting": "Crafting",

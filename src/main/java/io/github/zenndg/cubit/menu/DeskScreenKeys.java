@@ -15,6 +15,7 @@ public final class DeskScreenKeys {
   public static final String STORED_ENERGY = PREFIX + "stored_energy";
   public static final String ORDER = PREFIX + "order";
   public static final String CANCEL = PREFIX + "cancel";
+  public static final String ORDER_HOLDS = PREFIX + "order_holds";
   public static final String MISSING = PREFIX + "missing";
   public static final String CASCADE = PREFIX + "cascade";
   public static final String CASCADE_LOCKED = PREFIX + "cascade_locked";
