@@ -2,7 +2,7 @@ package io.github.zenndg.cubit.client;
 
 import io.github.zenndg.cubit.block.DockSolarReading;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
-import io.github.zenndg.cubit.domain.dock.DockPanelState;
+import io.github.zenndg.cubit.domain.energy.PanelState;
 import io.github.zenndg.cubit.domain.energy.SolarPanel;
 
 /**
@@ -14,7 +14,7 @@ final class DockMoonlight {
 
   static boolean gives(InductionDockBlockEntity dock) {
     DockSolarReading solar = dock.solar();
-    return solar.sunlit() && solar.panel() == DockPanelState.DEPLOYED;
+    return solar.sunlit() && solar.panel() == PanelState.DEPLOYED;
   }
 
   static boolean isNight(InductionDockBlockEntity dock) {

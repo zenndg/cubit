@@ -1,7 +1,7 @@
 package io.github.zenndg.cubit.menu;
 
-import io.github.zenndg.cubit.domain.dock.DockPanelState;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.PanelState;
 import io.github.zenndg.cubit.domain.energy.SunState;
 import net.minecraft.world.inventory.ContainerData;
 
@@ -27,7 +27,7 @@ public record DockSolarView(ContainerData values) {
   }
 
   /** Where the panel is: in the cabinet, on its way or on the tower (answer 1865). */
-  public DockPanelState panel() {
-    return ScreenEnums.of(DockPanelState.values(), values.get(DockScreenValues.PANEL));
+  public PanelState panel() {
+    return ScreenEnums.of(PanelState.values(), values.get(DockScreenValues.PANEL));
   }
 }

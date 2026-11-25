@@ -3,6 +3,8 @@ package io.github.zenndg.cubit.domain.dock;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import io.github.zenndg.cubit.domain.energy.FoldingPanel;
+import io.github.zenndg.cubit.domain.energy.PanelState;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
@@ -11,23 +13,23 @@ class DockPanelSoundTest {
   private static final int BEFORE_LOCK = LOCK - 1;
   private static final int AFTER_LOCK = LOCK + 1;
 
-  private static Optional<DockPanelSound> between(DockPanel before, DockPanel after) {
+  private static Optional<DockPanelSound> between(FoldingPanel before, FoldingPanel after) {
     return DockPanelSound.between(before, after, LOCK);
   }
 
-  private static DockPanel deploying(int ticks) {
-    return new DockPanel(DockPanelState.DEPLOYING, ticks);
+  private static FoldingPanel deploying(int ticks) {
+    return new FoldingPanel(PanelState.DEPLOYING, ticks);
   }
 
   @Test
   void theDeploySoundPlaysWhenTheArmsStartToDeploy() {
-    assertEquals(Optional.of(DockPanelSound.DEPLOY), between(DockPanel.STORED, deploying(0)));
+    assertEquals(Optional.of(DockPanelSound.DEPLOY), between(FoldingPanel.STORED, deploying(0)));
   }
 
   @Test
   void theRetractSoundPlaysWhenTheArmsStartToRetract() {
-    DockPanel deployed = new DockPanel(DockPanelState.DEPLOYED, 0);
-    DockPanel retracting = new DockPanel(DockPanelState.RETRACTING, 0);
+    FoldingPanel deployed = new FoldingPanel(PanelState.DEPLOYED, 0);
+    FoldingPanel retracting = new FoldingPanel(PanelState.RETRACTING, 0);
 
     assertEquals(Optional.of(DockPanelSound.RETRACT), between(deployed, retracting));
   }
@@ -43,8 +45,8 @@ class DockPanelSoundTest {
 
   @Test
   void nothingPlaysWhileThePanelStays() {
-    assertTrue(between(DockPanel.STORED, DockPanel.STORED).isEmpty());
-    DockPanel deployed = new DockPanel(DockPanelState.DEPLOYED, 0);
+    assertTrue(between(FoldingPanel.STORED, FoldingPanel.STORED).isEmpty());
+    FoldingPanel deployed = new FoldingPanel(PanelState.DEPLOYED, 0);
     assertTrue(between(deployed, deployed).isEmpty());
   }
 }

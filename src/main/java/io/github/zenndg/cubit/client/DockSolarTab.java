@@ -2,8 +2,8 @@ package io.github.zenndg.cubit.client;
 
 import io.github.zenndg.cubit.client.ScreenPainter.Box;
 import io.github.zenndg.cubit.client.ScreenPainter.Colors;
-import io.github.zenndg.cubit.domain.dock.DockPanelState;
 import io.github.zenndg.cubit.domain.energy.EnergyFormat;
+import io.github.zenndg.cubit.domain.energy.PanelState;
 import io.github.zenndg.cubit.domain.energy.SunState;
 import io.github.zenndg.cubit.menu.InductionDockMenu;
 import io.github.zenndg.cubit.menu.ScreenKeys;
@@ -84,7 +84,7 @@ final class DockSolarTab {
   }
 
   /** The light of the doors: green on the tower, red in the cabinet, yellow on the way (1863). */
-  private static int lightOf(DockPanelState state) {
+  private static int lightOf(PanelState state) {
     return switch (state) {
       case DEPLOYED -> ScreenPainter.STATUS_GREEN;
       case STORED -> ScreenPainter.STATUS_RED;

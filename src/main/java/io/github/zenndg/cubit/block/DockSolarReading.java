@@ -1,7 +1,7 @@
 package io.github.zenndg.cubit.block;
 
-import io.github.zenndg.cubit.domain.dock.DockPanelState;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.PanelState;
 import io.github.zenndg.cubit.domain.energy.SunState;
 
 /**
@@ -15,4 +15,4 @@ public record DockSolarReading(
     boolean givesAtNight,
     SunState state,
     boolean sunlit,
-    DockPanelState panel) {}
+    PanelState panel) {}

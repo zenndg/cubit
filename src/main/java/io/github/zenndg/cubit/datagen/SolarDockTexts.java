@@ -1,6 +1,6 @@
 package io.github.zenndg.cubit.datagen;
 
-import io.github.zenndg.cubit.domain.dock.DockPanelState;
+import io.github.zenndg.cubit.domain.energy.PanelState;
 import io.github.zenndg.cubit.domain.energy.SunState;
 import io.github.zenndg.cubit.entity.RobotDockReach;
 import io.github.zenndg.cubit.menu.ScreenKeys;
@@ -85,9 +85,9 @@ final class SolarDockTexts {
   /** Where the panel of the Dock is, on the Solar tab and in Jade (answer 1865). */
   private static void addPanel(BiConsumer<String, String> add) {
     add.accept(ScreenKeys.DOCK_SOLAR_PANEL, PANEL);
-    add.accept(ScreenKeys.dockPanel(DockPanelState.STORED), STORED);
-    add.accept(ScreenKeys.dockPanel(DockPanelState.DEPLOYING), DEPLOYING);
-    add.accept(ScreenKeys.dockPanel(DockPanelState.DEPLOYED), DEPLOYED);
-    add.accept(ScreenKeys.dockPanel(DockPanelState.RETRACTING), RETRACTING);
+    add.accept(ScreenKeys.dockPanel(PanelState.STORED), STORED);
+    add.accept(ScreenKeys.dockPanel(PanelState.DEPLOYING), DEPLOYING);
+    add.accept(ScreenKeys.dockPanel(PanelState.DEPLOYED), DEPLOYED);
+    add.accept(ScreenKeys.dockPanel(PanelState.RETRACTING), RETRACTING);
   }
 }

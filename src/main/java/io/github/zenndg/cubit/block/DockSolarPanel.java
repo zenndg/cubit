@@ -1,11 +1,11 @@
 package io.github.zenndg.cubit.block;
 
 import io.github.zenndg.cubit.CubitMod;
-import io.github.zenndg.cubit.domain.dock.DockPanel;
 import io.github.zenndg.cubit.domain.dock.DockPanelSound;
-import io.github.zenndg.cubit.domain.dock.DockPanelState;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.EnergyStock;
+import io.github.zenndg.cubit.domain.energy.FoldingPanel;
+import io.github.zenndg.cubit.domain.energy.PanelState;
 import io.github.zenndg.cubit.domain.energy.SkySun;
 import io.github.zenndg.cubit.domain.energy.SolarOutput;
 import io.github.zenndg.cubit.domain.energy.SolarPanel;
@@ -46,8 +46,8 @@ final class DockSolarPanel {
 
   private Energy given = Energy.ZERO;
   private SunState state = SunState.NO_SUN;
-  private DockPanel panel = DockPanel.STORED;
-  private DockPanelState sent = DockPanelState.STORED;
+  private FoldingPanel panel = FoldingPanel.STORED;
+  private PanelState sent = PanelState.STORED;
   private boolean day = true;
   private boolean read;
   private boolean skyOpen;
@@ -82,7 +82,7 @@ final class DockSolarPanel {
   void readSun(CompoundTag tag) {
     sunlit = tag.getBoolean(SUN_KEY);
     if (tag.contains(SHOWN_KEY)) {
-      panel = new DockPanel(shown(tag.getString(SHOWN_KEY)), 0);
+      panel = new FoldingPanel(shown(tag.getString(SHOWN_KEY)), 0);
     }
   }
 
@@ -93,7 +93,7 @@ final class DockSolarPanel {
 
   void load(CompoundTag tag) {
     if (tag.contains(PANEL_KEY)) {
-      panel = DockPanel.saved(DEPLOYED.equals(tag.getString(PANEL_KEY)));
+      panel = FoldingPanel.saved(DEPLOYED.equals(tag.getString(PANEL_KEY)));
     }
   }
 
@@ -122,9 +122,9 @@ final class DockSolarPanel {
 
   /** The arms follow the sky; a new end of the motion is saved (answers 1856 and 1862). */
   private void move(Level level, BlockPos lower, Runnable changed) {
-    DockPanel before = panel;
-    DockPanel.Timings timings =
-        new DockPanel.Timings(CubitMod.CONFIG.dock().solarDelayTicks(), MOTION_TICKS);
+    FoldingPanel before = panel;
+    FoldingPanel.Timings timings =
+        new FoldingPanel.Timings(CubitMod.CONFIG.dock().solarDelayTicks(), MOTION_TICKS);
     panel = panel.tick(state.generates(), timings);
     if (before.deployedAtTheEnd() != panel.deployedAtTheEnd()) {
       changed.run();
@@ -145,7 +145,7 @@ final class DockSolarPanel {
 
   /** The third block stands as the plate of the panel only with it deployed (answer 1898). */
   private void showPlate(Level level, BlockPos lower) {
-    boolean deployed = panel.state() == DockPanelState.DEPLOYED;
+    boolean deployed = panel.state() == PanelState.DEPLOYED;
     if (plateShown == null || plateShown != deployed) {
       DockTop.show(level, lower, deployed);
       plateShown = deployed;
@@ -153,13 +153,13 @@ final class DockSolarPanel {
   }
 
   /** An unknown state, as from a newer server, shows the panel in the cabinet. */
-  private static DockPanelState shown(String name) {
-    for (DockPanelState value : DockPanelState.values()) {
+  private static PanelState shown(String name) {
+    for (PanelState value : PanelState.values()) {
       if (value.name().equals(name.toUpperCase(Locale.ROOT))) {
         return value;
       }
     }
-    return DockPanelState.STORED;
+    return PanelState.STORED;
   }
 
   /**

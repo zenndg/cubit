@@ -2,8 +2,8 @@ package io.github.zenndg.cubit.gametest;
 
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
-import io.github.zenndg.cubit.domain.dock.DockPanelState;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.PanelState;
 import io.github.zenndg.cubit.registry.CubitItems;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -49,7 +49,7 @@ public final class DockPanelGameTests {
     helper.runAfterDelay(
         DEPLOYED_TICKS,
         () -> {
-          helper.assertValueEqual(dock.solar().panel(), DockPanelState.DEPLOYED, NOT_DEPLOYED);
+          helper.assertValueEqual(dock.solar().panel(), PanelState.DEPLOYED, NOT_DEPLOYED);
           helper.assertValueEqual(dock.solar().given().amount(), BASE_SOLAR, NOT_GENERATED);
           helper.assertTrue(dock.energy().amount() > 0, NOT_GENERATED);
           helper.succeed();
@@ -64,7 +64,7 @@ public final class DockPanelGameTests {
     helper.runAfterDelay(
         DELAY_TICKS,
         () -> {
-          helper.assertValueEqual(dock.solar().panel(), DockPanelState.DEPLOYING, NOT_DEPLOYING);
+          helper.assertValueEqual(dock.solar().panel(), PanelState.DEPLOYING, NOT_DEPLOYING);
           helper.assertValueEqual(dock.energy(), Energy.ZERO, GENERATED);
           helper.succeed();
         });
@@ -88,7 +88,7 @@ public final class DockPanelGameTests {
     helper.runAfterDelay(
         DEPLOYED_TICKS,
         () -> {
-          helper.assertValueEqual(dock.solar().panel(), DockPanelState.DEPLOYED, NOT_DEPLOYED);
+          helper.assertValueEqual(dock.solar().panel(), PanelState.DEPLOYED, NOT_DEPLOYED);
           helper.assertTrue(dock.energy().amount() > 0, NOT_GENERATED);
           helper.succeed();
         });
@@ -112,7 +112,7 @@ public final class DockPanelGameTests {
     helper.runAfterDelay(
         DEPLOYED_TICKS,
         () -> {
-          helper.assertValueEqual(dock.solar().panel(), DockPanelState.STORED, NOT_STORED);
+          helper.assertValueEqual(dock.solar().panel(), PanelState.STORED, NOT_STORED);
           helper.assertValueEqual(dock.energy(), Energy.ZERO, GENERATED);
           helper.succeed();
         });

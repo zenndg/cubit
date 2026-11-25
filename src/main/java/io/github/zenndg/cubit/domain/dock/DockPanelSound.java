@@ -1,5 +1,7 @@
 package io.github.zenndg.cubit.domain.dock;
 
+import io.github.zenndg.cubit.domain.energy.FoldingPanel;
+import io.github.zenndg.cubit.domain.energy.PanelState;
 import java.util.Optional;
 
 /**
@@ -17,15 +19,16 @@ public enum DockPanelSound {
    *
    * @param lockTick the tick of the deploy at which the halves meet
    */
-  public static Optional<DockPanelSound> between(DockPanel before, DockPanel after, int lockTick) {
-    if (after.state() == DockPanelState.DEPLOYING && before.state() != DockPanelState.DEPLOYING) {
+  public static Optional<DockPanelSound> between(
+      FoldingPanel before, FoldingPanel after, int lockTick) {
+    if (after.state() == PanelState.DEPLOYING && before.state() != PanelState.DEPLOYING) {
       return Optional.of(DEPLOY);
     }
-    if (after.state() == DockPanelState.RETRACTING && before.state() != DockPanelState.RETRACTING) {
+    if (after.state() == PanelState.RETRACTING && before.state() != PanelState.RETRACTING) {
       return Optional.of(RETRACT);
     }
     boolean locks =
-        after.state() == DockPanelState.DEPLOYING
+        after.state() == PanelState.DEPLOYING
             && before.ticks() < lockTick
             && after.ticks() >= lockTick;
     return locks ? Optional.of(LOCK) : Optional.empty();

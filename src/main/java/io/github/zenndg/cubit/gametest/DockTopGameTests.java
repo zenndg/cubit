@@ -3,7 +3,7 @@ package io.github.zenndg.cubit.gametest;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
 import io.github.zenndg.cubit.block.InductionDockTopBlock;
-import io.github.zenndg.cubit.domain.dock.DockPanelState;
+import io.github.zenndg.cubit.domain.energy.PanelState;
 import io.github.zenndg.cubit.domain.energy.SunState;
 import io.github.zenndg.cubit.registry.CubitBlocks;
 import io.github.zenndg.cubit.registry.CubitItems;
@@ -97,7 +97,7 @@ public final class DockTopGameTests {
     helper.runAfterDelay(
         DEPLOYED_TICKS,
         () -> {
-          helper.assertValueEqual(dock.solar().panel(), DockPanelState.STORED, NOT_STORED);
+          helper.assertValueEqual(dock.solar().panel(), PanelState.STORED, NOT_STORED);
           helper.assertValueEqual(dock.solar().state(), SunState.NO_ROOM, NOT_NO_ROOM);
           helper.assertBlockPresent(Blocks.STONE, TOP);
           helper.succeed();
@@ -112,7 +112,7 @@ public final class DockTopGameTests {
     helper.runAfterDelay(
         DEPLOYED_TICKS,
         () -> {
-          helper.assertValueEqual(dock.solar().panel(), DockPanelState.DEPLOYED, NO_PLATE);
+          helper.assertValueEqual(dock.solar().panel(), PanelState.DEPLOYED, NO_PLATE);
           helper.assertBlockProperty(TOP, InductionDockTopBlock.DEPLOYED, true);
           helper.succeed();
         });

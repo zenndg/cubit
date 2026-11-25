@@ -1,7 +1,7 @@
 package io.github.zenndg.cubit.menu;
 
-import io.github.zenndg.cubit.domain.dock.DockPanelState;
 import io.github.zenndg.cubit.domain.dock.DockStatus;
+import io.github.zenndg.cubit.domain.energy.PanelState;
 import io.github.zenndg.cubit.domain.energy.SunState;
 import java.util.Locale;
 
@@ -119,7 +119,7 @@ public final class ScreenKeys {
   }
 
   /** Where the panel of the Dock is, as `gui.cubit.dock.panel.deployed` (answer 1865). */
-  public static String dockPanel(DockPanelState state) {
+  public static String dockPanel(PanelState state) {
     return DOCK + PANEL_PREFIX + state.name().toLowerCase(Locale.ROOT);
   }
 
