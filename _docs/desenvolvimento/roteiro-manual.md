@@ -1628,8 +1628,9 @@ Antes, apague o `config/cubit-common.toml` da instância de teste (pergunta 2324
 | 1 | Jade em cada bloco, e sem o Jade | Nome, canal, sinal, bateria e chave, e o mod abre sem ele |
 | 2 | Siga só o guia do player, num mundo novo, até a primeira rede | Dá para chegar lá sem outra ajuda |
 | 3 | 20 a 30 Cubits em 16 antenas | O tempo de tick fica perto do medido antes da Network |
-| 4 | Servidor dedicado, com dois players | Cada um só mexe no que é seu |
-| 5 | A instância só com o mod, e o Iron Meridian | Tudo acima funciona nas duas |
+| 4 | 20 blocos da rede lado a lado, com o `F3` aberto, e o mesmo lugar sem eles | A diferença de quadros por segundo fica anotada no PR |
+| 5 | Servidor dedicado, com dois players | Cada um só mexe no que é seu |
+| 6 | A instância só com o mod, e o Iron Meridian | Tudo acima funciona nas duas |
 
 ## Apresentação
 
@@ -1705,6 +1706,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 23:38 | Acrescenta a medida dos quadros por segundo da Network (pergunta 2346). |
 | Zennd | 2026-11-24 22:44 | Escreve o roteiro das entregas da Network (perguntas 2293 e 2318). |
 | Zennd | 2026-11-24 12:32 | Corrige as seções Receitas e Power Bank, que falavam do livro de receitas e da carcaça antiga (perguntas 2184, 2193 e 2195). |
 | Zennd | 2026-11-24 11:57 | Atualiza a barra de categorias da mesa (perguntas 2176 a 2178). |

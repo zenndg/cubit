@@ -167,7 +167,7 @@ Em toda entrega:
 
 - [ ] o Jade, as dicas e os sons que faltarem
 - [ ] o guia do player, a árvore de crafts e a imagem dela
-- [ ] o teste de desempenho com 20 a 30 Cubits em 16 antenas, com o tempo de tick
+- [ ] o teste de desempenho com 20 a 30 Cubits em 16 antenas, com o tempo de tick, e os quadros por segundo ao lado de 20 blocos da rede (pergunta 2346)
 - [ ] o teste na instância só com o mod e no Iron Meridian, e a revisão final da feature
 - **Recursos:** a imagem da árvore
 - **GameTests:** a suíte inteira, com a feature completa
