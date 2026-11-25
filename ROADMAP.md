@@ -108,12 +108,14 @@ Em toda entrega:
 - [ ] Transceptor, Âncora de Chunk e as receitas dos dois blocos, na categoria `Dock and Network`
 - [ ] modelos, texturas, a frente com os 16 quadradinhos, ainda sem canais, e as 3 colunas, e as luzes
 - [ ] par no mesmo chunk, geração de 500 a 4.000 FE/t, com a noite só no Ultimate
-- [ ] bateria e tanque 4× o Dock, entrada por cabo e redstone, e upgrade pelos Modules
-- [ ] chave e UPS do chunk do Servidor, e inventário de 27 a 54 slots de 128, com as regras do Dock
+- [ ] refatoração antes, com nomes neutros no que serve ao Dock e ao Servidor, sem mudar o jogo (pergunta 2371)
+- [ ] bateria 4× o Dock, entrada por cabo e redstone, e upgrade pelos Modules, com o tanque na entrega 7 (pergunta 2370)
+- [ ] chave e UPS do chunk do Servidor, com os limites de 48 por player e 192 no mundo, o dono offline e a retomada com 30 mil FE (perguntas 2369 e 2372)
+- [ ] inventário de 27 a 54 slots de 128, com as regras do Dock
 - [ ] as telas do Servidor, nas abas Energy e Storage, e do Solar Relay, com Rename
 - [ ] os modelos acima do Dock, com as animações por estado (perguntas 2336 a 2338)
 - **Recursos:** 2 texturas do Servidor, 1 do Relay, 2 peças, ícones das abas e 9 sons
-- **GameTests:** par, recusas, geração, tiers, quebrar e recolocar, chunk e UPS, slots de 128
+- **GameTests:** par, recusas, geração, tiers, quebrar e recolocar, chunk, UPS, limites, dono offline, slots de 128 e somas de FE
 
 ### Entrega 4: Signal Antenna e chunks
 
@@ -121,7 +123,7 @@ Em toda entrega:
 - [ ] a ligação ao Servidor, o canal escolhido pelo player, a ordem fixa em inglês e 4, 8, 12 e 16 por tier
 - [ ] um de cada bloco por chunk, de qualquer dono, e a reconexão ao mover o Servidor ou a antena
 - [ ] a energia até a antena e o chunk carregado, com 25 FE/t, o custo da distância, o UPS e a retomada uma a uma
-- [ ] os limites de 48 por player e 192 no mundo, o dono offline e o `/cubit network`
+- [ ] as antenas nos limites de chunks e no dono offline, que entram na entrega 3 (pergunta 2369), e o `/cubit network`
 - [ ] a parede do chunk, vista só pelo dono com o Tablet no app Network
 - [ ] o modelo acima do Dock, com as animações do sinal (perguntas 2336 a 2338)
 - **Recursos:** 1 textura da antena, 1 ícone de item e 5 sons

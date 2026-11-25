@@ -284,6 +284,7 @@ Planejado, na `0.2.0`, e ainda fora do código, menos o desenho da área, descri
 | Chunk, por tick, `chunk_cost` (pergunta 2216) | 25 FE |
 | Distância: livre, passo e custo, `distance_free_blocks`, `distance_step_blocks` e `distance_cost` (pergunta 2310) | 100 blocos, 500 blocos e 1 FE/t |
 | Retomada, entre uma antena e outra, `wake_interval_ticks` (pergunta 2330) | 2 s (40 ticks) |
+| Carga com que o Servidor zerado volta a segurar o chunk, `chunk_resume_energy` (perguntas 2372 e 2376) | 30 mil FE |
 | Antena sem sinal até parar, `signal_loss_ticks` (pergunta 2323) | 20 min (24.000 ticks) |
 | Antena: bateria e tanque, `antenna_energy_capacity` e `antenna_xp_tank_capacity` (pergunta 2273) | 600 mil FE e 64 baldes |
 | Antena: o que recebe da rede e por cabo, `antenna_input_per_tick` (perguntas 2276 e 2326) | 5.000 FE/t |
@@ -374,6 +375,8 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 09:55 | Confirma o nome da chave da retomada (pergunta 2376). |
+| Zennd | 2026-11-25 09:52 | Acrescenta a retomada do chunk do Servidor (pergunta 2372). |
 | Zennd | 2026-11-25 00:26 | Marca o desenho da área no código (perguntas 2287 e 2311). |
 | Zennd | 2026-11-25 00:23 | Leva o Organizador e o Cozinheiro ao Advanced, com os números (perguntas 2235, 2236, 2242 e 2364). |
 | Zennd | 2026-11-24 22:42 | Acrescenta os números da Network e tira o limite de Cubits por área, que não existe no código (perguntas 2196 a 2333). |

@@ -1545,6 +1545,10 @@ Antes, apague o `config/cubit-common.toml` da instância de teste (pergunta 2324
 | 14 | Olhe o Relay do amanhecer ao anoitecer | O painel se desdobra em etapas, acompanha o sol e se guarda, com os sons |
 | 15 | Afaste-se uns 20 blocos | Os loops somem |
 | 16 | Em português | Textos sem sobreposição |
+| 17 | Tire itens de um slot com 128, com clique, Shift + clique, tecla de atalho e soltar, e reabra o mundo | Sai no máximo uma pilha normal por vez, e os 128 continuam no slot ao voltar |
+| 18 | Quebre o Servidor com o Relay ao lado, e recoloque | O painel se guarda, e a faixa fica cinza, com o motivo na tela. Com o Servidor, tudo volta |
+| 19 | Num servidor, saia com o dono, e entre de novo | O chunk do Servidor sai, e volta quando ele entra |
+| 20 | Zere a bateria e devolva a energia aos poucos | O chunk sai, e volta com 30 mil FE |
 
 ### Entrega 4: Signal Antenna e chunks
 
@@ -1708,6 +1712,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 09:52 | Leva o dono offline e os slots de 128 à Entrega 3 da Network (perguntas 2368, 2369 e 2374). |
 | Zennd | 2026-11-25 00:02 | Completa o teste da área desenhada da Network (perguntas 2350 a 2361). |
 | Zennd | 2026-11-24 23:38 | Acrescenta a medida dos quadros por segundo da Network (pergunta 2346). |
 | Zennd | 2026-11-24 22:44 | Escreve o roteiro das entregas da Network (perguntas 2293 e 2318). |
