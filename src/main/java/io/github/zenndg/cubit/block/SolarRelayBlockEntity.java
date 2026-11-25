@@ -104,6 +104,11 @@ public final class SolarRelayBlockEntity extends NetworkBlockEntity {
   }
 
   @Override
+  void openScreen(Player player) {
+    NetworkMenus.open(this, player);
+  }
+
+  @Override
   boolean use(Player player, ItemStack stack) {
     if (stack.getItem() instanceof ModuleItem) {
       NetworkUpgrade.tellRelay(player);

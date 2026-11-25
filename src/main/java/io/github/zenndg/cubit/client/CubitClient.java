@@ -128,5 +128,7 @@ public final class CubitClient {
     event.register(CubitMenus.INDUCTION_DOCK.get(), InductionDockScreen::new);
     event.register(CubitMenus.TABLET_ROBOT.get(), TabletRobotScreen::new);
     event.register(CubitMenus.ENGINEERING_DESK.get(), EngineeringDeskScreen::new);
+    event.register(CubitMenus.NETWORK_SERVER.get(), NetworkServerScreen::new);
+    event.register(CubitMenus.SOLAR_RELAY.get(), SolarRelayScreen::new);
   }
 }

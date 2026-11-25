@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -145,6 +146,20 @@ public abstract class NetworkBlock extends BaseEntityBlock {
     return used
         ? ItemInteractionResult.CONSUME
         : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+  }
+
+  @Override
+  protected InteractionResult useWithoutItem(
+      BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+    if (level.isClientSide()) {
+      return InteractionResult.SUCCESS;
+    }
+    NetworkBlockEntity network = networkAt(level, pos, state);
+    if (network == null || !network.isOwner(player)) {
+      return InteractionResult.PASS;
+    }
+    network.openScreen(player);
+    return InteractionResult.CONSUME;
   }
 
   /** As the Dock: only the owner, or an operator in creative (Delivery 3, detail 3). */

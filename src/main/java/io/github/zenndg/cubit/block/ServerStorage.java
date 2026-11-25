@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.block;
 
 import com.mojang.logging.LogUtils;
+import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.EnergyStock;
 import io.github.zenndg.cubit.item.SavedBigStack;
@@ -12,7 +13,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -37,11 +37,11 @@ final class ServerStorage {
 
   ServerStorage(Runnable changed, IntSupplier tierSlots) {
     this.tierSlots = tierSlots;
-    slots = new ServerSlots(changed, tierSlots);
+    slots = new ServerSlots(changed, tierSlots, () -> CubitMod.CONFIG.network().slot());
     handler = new ServerItemHandler(slots);
   }
 
-  Container container() {
+  ServerSlots container() {
     return slots;
   }
 

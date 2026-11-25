@@ -1,6 +1,5 @@
 package io.github.zenndg.cubit.block;
 
-import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.dock.DockStorageRules;
 import io.github.zenndg.cubit.domain.network.BigSlot;
 import io.github.zenndg.cubit.item.PowerBankItem;
@@ -68,7 +67,7 @@ final class ServerItemHandler implements IItemHandlerModifiable {
     return simulate ? stored.copyWithCount(given) : slots.removeItem(index, given);
   }
 
-  private static BigSlot rule() {
-    return CubitMod.CONFIG.network().slot();
+  private BigSlot rule() {
+    return slots.rule();
   }
 }

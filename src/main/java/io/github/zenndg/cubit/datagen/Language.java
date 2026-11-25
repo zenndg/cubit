@@ -36,7 +36,8 @@ enum Language {
           JobTalkPhrases::addTo,
           WorkTexts::addTo,
           DeskTexts::addTo,
-          NetworkTexts::addTo),
+          NetworkTexts::addTo,
+          NetworkScreenTexts::addTo),
       ChatPhrases::of),
   PT_BR(
       Locales.PORTUGUESE,
@@ -63,7 +64,8 @@ enum Language {
           PortugueseJobTalkPhrases::addTo,
           PortugueseWorkTexts::addTo,
           PortugueseDeskTexts::addTo,
-          PortugueseNetworkTexts::addTo),
+          PortugueseNetworkTexts::addTo,
+          PortugueseNetworkScreenTexts::addTo),
       PortugueseChatPhrases::of);
 
   private final String locale;

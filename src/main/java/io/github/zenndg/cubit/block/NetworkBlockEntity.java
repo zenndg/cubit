@@ -67,6 +67,8 @@ public abstract class NetworkBlockEntity extends BlockEntity implements GeoBlock
   /** What the automation sees, by any face. */
   public abstract IItemHandler itemHandler();
 
+  abstract void openScreen(Player player);
+
   /** What the owner does with an item in the hand. False when it does nothing. */
   abstract boolean use(Player player, ItemStack stack);
 

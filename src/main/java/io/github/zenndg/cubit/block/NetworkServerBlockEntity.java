@@ -17,7 +17,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -112,7 +111,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     return tier.spec().storageSlots();
   }
 
-  public Container storage() {
+  public ServerSlots storage() {
     return storage.container();
   }
 
@@ -150,6 +149,13 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   /** Whether it holds its chunk, and why not. */
   public ChunkState chunkState() {
     return chunk.state();
+  }
+
+  /** How many chunks its owner holds now, with this one. */
+  public int chunksHeld() {
+    return level instanceof ServerLevel server
+        ? owner().map(NetworkData.of(server.getServer()).chunks()::heldBy).orElse(0)
+        : 0;
   }
 
   /** What the chunk costs now per tick. */
@@ -208,6 +214,11 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   @Override
   public IItemHandler itemHandler() {
     return itemHandler;
+  }
+
+  @Override
+  void openScreen(Player player) {
+    NetworkMenus.open(this, player);
   }
 
   @Override
