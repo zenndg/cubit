@@ -40,6 +40,16 @@ public final class BlockIdentity {
     return id;
   }
 
+  /** What it is, for the title of the window of its name. */
+  BlockName.Kind kind() {
+    return kept.kind();
+  }
+
+  /** Where the item keeps the id. */
+  DataComponentType<UUID> component() {
+    return kept.component().get();
+  }
+
   public BlockName name() {
     return BlockName.of(kept.kind(), id(), given.flatMap(RobotName::typed));
   }

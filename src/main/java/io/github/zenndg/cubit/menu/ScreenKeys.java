@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.menu;
 import io.github.zenndg.cubit.domain.dock.DockStatus;
 import io.github.zenndg.cubit.domain.energy.PanelState;
 import io.github.zenndg.cubit.domain.energy.SunState;
+import io.github.zenndg.cubit.domain.ownership.BlockName;
 import java.util.Locale;
 
 /** The translation keys of the screens, shared by the screens and the language file. */
@@ -60,6 +61,7 @@ public final class ScreenKeys {
 
   private static final String DOCK_STATUS = DOCK + "status.";
   private static final String ROBOT = PREFIX + "robot.";
+  private static final String BLOCK_NAME_TITLE = PREFIX + "block_name_title.";
   public static final String ROBOT_NAME_TITLE = ROBOT + "name_title";
   private static final String ROBOT_STATUS = ROBOT + "status.";
   private static final String RECHARGE = ROBOT + "recharge.";
@@ -172,5 +174,10 @@ public final class ScreenKeys {
     public static final String COMPLETE = "complete";
 
     private DockStatusName() {}
+  }
+
+  /** The title of the window of the name of a new block (answer 2422). */
+  public static String blockNameTitle(BlockName.Kind kind) {
+    return BLOCK_NAME_TITLE + kind.name().toLowerCase(Locale.ROOT);
   }
 }

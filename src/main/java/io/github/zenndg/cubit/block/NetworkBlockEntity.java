@@ -11,6 +11,7 @@ import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -33,7 +34,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * What every block of the Network has: an owner, an id with a name, a battery fed by cables and by
  * its slot, and the other blocks of its chunk. The rules live in the domain.
  */
-public abstract class NetworkBlockEntity extends BlockEntity implements GeoBlockEntity {
+public abstract class NetworkBlockEntity extends BlockEntity implements GeoBlockEntity, NamedBlock {
   private static final String ENERGY_KEY = "Energy";
   private static final String SLOT_KEY = "Slot";
   private static final int SLOT = 0;
@@ -108,6 +109,7 @@ public abstract class NetworkBlockEntity extends BlockEntity implements GeoBlock
     return slot;
   }
 
+  @Override
   public BlockIdentity identity() {
     return identity;
   }
@@ -120,6 +122,12 @@ public abstract class NetworkBlockEntity extends BlockEntity implements GeoBlock
     return owner.name(level, worldPosition);
   }
 
+  @Override
+  public DataComponentType<UUID> idComponent() {
+    return identity.component();
+  }
+
+  @Override
   public boolean isOwner(Player player) {
     return Ownership.owns(owner(), player.getUUID());
   }

@@ -156,6 +156,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
         && level.getBlockEntity(pos) instanceof InductionDockBlockEntity dock) {
       dock.setOwner(player);
     }
+    BlockNaming.placed(level, pos, placer, stack);
   }
 
   /** Each part only exists with the other, as in a door. */

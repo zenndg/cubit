@@ -19,6 +19,7 @@ import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -45,7 +46,8 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * The state of a dock: its owner, its energy, its input slot and its storage. The rules live in the
  * domain.
  */
-public final class InductionDockBlockEntity extends BlockEntity implements GeoBlockEntity {
+public final class InductionDockBlockEntity extends BlockEntity
+    implements GeoBlockEntity, NamedBlock {
   private static final String ENERGY_KEY = "Energy";
   private static final String SLOT_KEY = "Slot";
   private static final int SLOT = 0;
@@ -98,6 +100,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
   }
 
   /** Its own id and the name the owner gave it (answers 1867 to 1870). */
+  @Override
   public BlockIdentity identity() {
     return identity;
   }
@@ -184,6 +187,12 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     return owner.get();
   }
 
+  @Override
+  public DataComponentType<UUID> idComponent() {
+    return identity.component();
+  }
+
+  @Override
   public boolean isOwner(Player player) {
     return Ownership.owns(owner(), player.getUUID());
   }

@@ -1549,6 +1549,7 @@ Antes, apague o `config/cubit-common.toml` da instância de teste (pergunta 2324
 | 18 | Quebre o Servidor com o Relay ao lado, e recoloque | O painel se guarda, e a faixa fica cinza, com o motivo na tela. Com o Servidor, tudo volta |
 | 19 | Num servidor, saia com o dono, e entre de novo | O chunk do Servidor sai, e volta quando ele entra |
 | 20 | Zere a bateria e devolva a energia aos poucos | O chunk sai, e volta com 30 mil FE |
+| 21 | Coloque um Dock, um Servidor e um Solar Relay novos. Confirme um nome num, deixe vazio noutro e feche com Esc no terceiro. Quebre e recoloque | A janela abre com o nome padrão no campo. O primeiro fica com o nome dado, e os outros, com o padrão. Ao recolocar, não abre |
 
 ### Entrega 4: Signal Antenna e chunks
 
@@ -1712,6 +1713,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 14:30 | Acrescenta a janela do nome à Entrega 3 da Network (pergunta 2422). |
 | Zennd | 2026-11-25 14:00 | Tira o Advanced Module das receitas da Entrega 3 da Network (pergunta 2419). |
 | Zennd | 2026-11-25 12:27 | Tira o bloqueio das receitas dos roteiros da mesa, das peças, da Power Bank e da cascata (pergunta 2400). |
 | Zennd | 2026-11-25 09:52 | Leva o dono offline e os slots de 128 à Entrega 3 da Network (perguntas 2368, 2369 e 2374). |

@@ -53,7 +53,7 @@ public final class CubitClient {
     CubitNetwork.setEscortMarksDisplay(TabletEscortMarks::show);
     CubitNetwork.setDoorMarksDisplay(TabletDoorMarks::show);
     CubitNetwork.setDeathLogDisplay(TabletDeathLog::show);
-    CubitNetwork.setAskNameDisplay(RobotNameScreen::show);
+    CubitNetwork.setAskNameDisplay(NameScreen::show, NameScreen::show);
     DeskClientTicks.set(BlockSoundLoops::tick);
     NetworkClientTicks.set(BlockSoundLoops::tick, BlockSoundLoops::tick);
     event.enqueueWork(() ->

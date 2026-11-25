@@ -1,38 +1,58 @@
 package io.github.zenndg.cubit.client;
 
 import io.github.zenndg.cubit.menu.ScreenKeys;
+import io.github.zenndg.cubit.network.AskBlockNamePayload;
 import io.github.zenndg.cubit.network.AskRobotNamePayload;
 import io.github.zenndg.cubit.network.CubitNetwork;
+import java.util.function.Consumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
 /**
- * The window of the name of a Cubit placed for the first time, with its standard name in the field
- * (answers 1875 and 1879). Confirm sends the name; cancel, Esc or closing keep the standard one,
- * and either way the server answers once, so the greeting follows (answer 1880).
+ * The window of the name of a Cubit or of a block placed for the first time, with its standard name
+ * in the field (answers 1875, 1879 and 2422). Confirm sends the name; cancel, Esc or closing keep
+ * the standard one, and either way the server answers once.
  */
-final class RobotNameScreen extends Screen {
+final class NameScreen extends Screen {
   private static final String NO_NAME = "";
 
-  private final AskRobotNamePayload ask;
+  private final String titleKey;
+  private final String standard;
+  private final Consumer<String> send;
   private TabletRenameDialog dialog;
   private boolean answered;
 
-  private RobotNameScreen(AskRobotNamePayload ask) {
-    super(Component.translatable(ScreenKeys.ROBOT_NAME_TITLE));
-    this.ask = ask;
+  private NameScreen(String titleKey, String standard, Consumer<String> send) {
+    super(Component.translatable(titleKey));
+    this.titleKey = titleKey;
+    this.standard = standard;
+    this.send = send;
   }
 
   static void show(AskRobotNamePayload ask) {
-    Minecraft.getInstance().setScreen(new RobotNameScreen(ask));
+    open(
+        ScreenKeys.ROBOT_NAME_TITLE,
+        ask.name(),
+        name -> CubitNetwork.answerName(ask.robot(), name));
+  }
+
+  static void show(AskBlockNamePayload ask) {
+    open(
+        ScreenKeys.blockNameTitle(ask.kind()),
+        ask.name(),
+        name -> CubitNetwork.answerBlockName(ask.pos(), name));
+  }
+
+  private static void open(String titleKey, String standard, Consumer<String> send) {
+    Minecraft.getInstance().setScreen(new NameScreen(titleKey, standard, send));
   }
 
   @Override
   protected void init() {
-    dialog = new TabletRenameDialog(font, width, height, ScreenKeys.ROBOT_NAME_TITLE, this::answer);
-    dialog.open(ask.name());
+    dialog = new TabletRenameDialog(font, width, height, titleKey, this::answer);
+    dialog.open(standard);
   }
 
   @Override
@@ -79,7 +99,7 @@ final class RobotNameScreen extends Screen {
   private void answer(String name) {
     if (!answered) {
       answered = true;
-      CubitNetwork.answerName(ask.robot(), name);
+      send.accept(name);
     }
   }
 }

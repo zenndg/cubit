@@ -107,6 +107,7 @@ public abstract class NetworkBlock extends BaseEntityBlock {
         && level.getBlockEntity(pos) instanceof NetworkBlockEntity network) {
       network.setOwner(player);
     }
+    BlockNaming.placed(level, pos, placer, stack);
   }
 
   /** Each half only exists with the other, as in a door. */

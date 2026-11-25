@@ -2,6 +2,8 @@ package io.github.zenndg.cubit.datagen;
 
 import io.github.zenndg.cubit.block.NetworkPlacement;
 import io.github.zenndg.cubit.block.NetworkUpgrade;
+import io.github.zenndg.cubit.domain.ownership.BlockName;
+import io.github.zenndg.cubit.menu.ScreenKeys;
 import io.github.zenndg.cubit.registry.CubitBlocks;
 import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.function.BiConsumer;
@@ -27,6 +29,9 @@ final class NetworkTexts {
   private static final String RELAY_PANEL_CLOSE_SOUND = "Solar Relay closes";
   private static final String RELAY_PANEL_LOCK_SOUND = "Solar Relay locks";
   private static final String RELAY_TRANSMIT_SOUND = "Solar Relay transmits";
+  private static final String NAME_DOCK = "Name your Dock";
+  private static final String NAME_SERVER = "Name your Server";
+  private static final String NAME_RELAY = "Name your Solar Relay";
 
   private NetworkTexts() {}
 
@@ -41,6 +46,9 @@ final class NetworkTexts {
     add.accept(NetworkUpgrade.ALREADY_TIER_KEY, ALREADY_TIER);
     add.accept(NetworkUpgrade.RELAY_FOLLOWS_KEY, RELAY_FOLLOWS);
     addSounds(add);
+    add.accept(ScreenKeys.blockNameTitle(BlockName.Kind.DOCK), NAME_DOCK);
+    add.accept(ScreenKeys.blockNameTitle(BlockName.Kind.SERVER), NAME_SERVER);
+    add.accept(ScreenKeys.blockNameTitle(BlockName.Kind.RELAY), NAME_RELAY);
   }
 
   private static void addSounds(BiConsumer<String, String> add) {
