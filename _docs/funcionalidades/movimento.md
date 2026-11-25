@@ -106,7 +106,7 @@ Um só mecanismo, com três gatilhos:
 
 **Chunk descarregado** (regra 22 e pergunta 2456):
 
-1. O mod sabe o lugar pela foto que o Tablet já guarda, gravada quando o Cubit descarrega.
+1. O mod sabe o lugar pela foto que o Tablet já guarda, gravada quando o Cubit descarrega. Num descarregar de verdade ela não era gravada, porque o jogo tira o Cubit do mundo antes de dizer o motivo, o que a #281 corrige.
 2. Carrega só o chunk dele, com um ticket temporário do jogo, que não é salvo no mundo e expira sozinho.
 3. Acha o próprio Cubit, o move e solta o chunk. **Nunca o recria pela foto:** se ele não estiver lá, nada é criado.
 4. Sem achá-lo em `call_timeout_seconds`, desiste e avisa.
@@ -204,6 +204,7 @@ Do Advanced em diante, com a chave ligada, quando o dono renasce, o Cubit que se
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 17:52 | Registra a correção da foto do Cubit que descarrega (pergunta 2500). |
 | Zennd | 2026-11-25 17:33 | Define chamar o Cubit, o renascer com o chunk descarregado e os comandos `/cubit list` e `/cubit follow` (perguntas 2450 a 2465, 2482 a 2486, 2491, 2499 e 2500). |
 | Zennd | 2026-11-25 16:46 | Acrescenta o robô sem caminho, que tenta de novo sem lugar seguro (perguntas 2092 e 2497). |
 | Zennd | 2026-11-21 12:50 | Passa o conserto para a Engineering Desk (pergunta 1427). |
