@@ -4,6 +4,8 @@ import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.EngineeringDeskBlock;
 import io.github.zenndg.cubit.block.InductionDockBlock;
 import io.github.zenndg.cubit.block.InductionDockTopBlock;
+import io.github.zenndg.cubit.block.NetworkServerBlock;
+import io.github.zenndg.cubit.block.SolarRelayBlock;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
@@ -18,6 +20,8 @@ public final class CubitBlocks {
   public static final String INDUCTION_DOCK_ID = "induction_dock";
   public static final String INDUCTION_DOCK_TOP_ID = "induction_dock_top";
   public static final String ENGINEERING_DESK_ID = "engineering_desk";
+  public static final String NETWORK_SERVER_ID = "network_server";
+  public static final String SOLAR_RELAY_ID = "solar_relay";
   private static final float DOCK_HARDNESS = 3.5f;
 
   /** As strong as bedrock: no explosion breaks a block that only its owner may break. */
@@ -37,6 +41,14 @@ public final class CubitBlocks {
   /** The crafting desk of the mod, two blocks wide (answers 1428 and 1456). */
   public static final Supplier<Block> ENGINEERING_DESK =
       BLOCKS.register(ENGINEERING_DESK_ID, () -> new EngineeringDeskBlock(deskProperties()));
+
+  /** The center of a network, two blocks tall (answer 2254). */
+  public static final Supplier<Block> NETWORK_SERVER =
+      BLOCKS.register(NETWORK_SERVER_ID, () -> new NetworkServerBlock(dockProperties()));
+
+  /** The panel and the radio of the server of its chunk (answer 2268). */
+  public static final Supplier<Block> SOLAR_RELAY =
+      BLOCKS.register(SOLAR_RELAY_ID, () -> new SolarRelayBlock(dockProperties()));
 
   private CubitBlocks() {}
 

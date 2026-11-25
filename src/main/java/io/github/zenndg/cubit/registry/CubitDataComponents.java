@@ -9,6 +9,7 @@ import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.EnergySlotContents;
 import io.github.zenndg.cubit.item.RobotStateComponent;
 import io.github.zenndg.cubit.item.SavedDockXp;
+import io.github.zenndg.cubit.item.SavedNetwork;
 import java.util.UUID;
 import java.util.function.Supplier;
 import net.minecraft.core.GlobalPos;
@@ -35,6 +36,8 @@ public final class CubitDataComponents {
   private static final String DOCK_TIER_ID = "dock_tier";
   private static final String DOCK_XP_ID = "dock_xp";
   private static final String DOCK_ID_ID = "dock_id";
+  private static final String NETWORK_ID_ID = "network_id";
+  private static final String NETWORK_STATE_ID = "network_state";
   private static final String DESK_TIER_ID = "engineering_desk_tier";
   private static final String DESK_ENERGY_ID = "engineering_desk_energy";
   private static final String DESK_INPUT_ID = "engineering_desk_input";
@@ -143,6 +146,21 @@ public final class CubitDataComponents {
               builder
                   .persistent(ItemContainerContents.CODEC)
                   .networkSynchronized(ItemContainerContents.STREAM_CODEC));
+
+  /** The own id of a block of the Network, kept in its item (answers 2254 and 2334). */
+  public static final Supplier<DataComponentType<UUID>> NETWORK_ID =
+      COMPONENTS.registerComponentType(
+          NETWORK_ID_ID,
+          builder -> builder.persistent(UUIDUtil.CODEC).networkSynchronized(UUIDUtil.STREAM_CODEC));
+
+  /** What a block of the Network keeps in its item when it breaks (answers 2254 and 2404). */
+  public static final Supplier<DataComponentType<SavedNetwork>> NETWORK_STATE =
+      COMPONENTS.registerComponentType(
+          NETWORK_STATE_ID,
+          builder ->
+              builder
+                  .persistent(SavedNetwork.CODEC)
+                  .networkSynchronized(SavedNetwork.STREAM_CODEC));
 
   /** The tier of an Engineering Desk, kept in its item when it breaks (answer 1492). */
   public static final Supplier<DataComponentType<RobotTier>> DESK_TIER =

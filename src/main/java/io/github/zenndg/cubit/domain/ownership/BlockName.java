@@ -11,6 +11,8 @@ import java.util.UUID;
  */
 public record BlockName(String value) {
   private static final String DOCK_PREFIX = "Dock ";
+  private static final String SERVER_PREFIX = "Server ";
+  private static final String RELAY_PREFIX = "Relay ";
   private static final int ID_DIGITS = 8;
   private static final String INVALID = "A block name is not blank and has up to 50 characters: ";
 
@@ -36,7 +38,9 @@ public record BlockName(String value) {
 
   /** What the standard name starts with. */
   public enum Kind {
-    DOCK(DOCK_PREFIX);
+    DOCK(DOCK_PREFIX),
+    SERVER(SERVER_PREFIX),
+    RELAY(RELAY_PREFIX);
 
     private final String prefix;
 

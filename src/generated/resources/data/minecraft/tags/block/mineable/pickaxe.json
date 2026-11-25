@@ -1,5 +1,7 @@
 {
   "values": [
-    "cubit:induction_dock"
+    "cubit:induction_dock",
+    "cubit:network_server",
+    "cubit:solar_relay"
   ]
 }

@@ -11,12 +11,13 @@ import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 /**
- * The block models of the blocks drawn by GeckoLib, the dock and the desk, which only give the
- * particles of breaking, and their items, drawn by the same models.
+ * The block models of the blocks drawn by GeckoLib, the dock, the desk and the Network, which only
+ * give the particles of breaking, and their items, drawn by the same models.
  */
 final class CubitBlockStateProvider extends BlockStateProvider {
   private static final String PARTICLE = "particle";
   private static final String DOCK_BODY = "_body";
+  private static final String IRON = "block/iron_block";
   private static final String BLOCK_FOLDER = "block/";
   private static final String BUILTIN_ENTITY = "builtin/entity";
   // The display of a block item of the game, so the desk sits in the slot like any block.
@@ -49,6 +50,19 @@ final class CubitBlockStateProvider extends BlockStateProvider {
   protected void registerStatesAndModels() {
     inductionDock();
     engineeringDesk();
+    network(CubitBlocks.NETWORK_SERVER.get(), CubitBlocks.NETWORK_SERVER_ID);
+    network(CubitBlocks.SOLAR_RELAY.get(), CubitBlocks.SOLAR_RELAY_ID);
+  }
+
+  /**
+   * The blocks of the Network are drawn by GeckoLib too, and break into iron, so their large
+   * textures stay out of the atlas of the blocks. Their items are as tall as the dock.
+   */
+  private void network(Block block, String name) {
+    ModelFile particles = models().getBuilder(name).texture(PARTICLE, mcLoc(IRON));
+    getVariantBuilder(block)
+        .forAllStates(state -> ConfiguredModel.builder().modelFile(particles).build());
+    tallItem(name);
   }
 
   /**
@@ -64,7 +78,7 @@ final class CubitBlockStateProvider extends BlockStateProvider {
         CubitBlocks.INDUCTION_DOCK_TOP.get(),
         CubitBlocks.INDUCTION_DOCK_TOP_ID,
         CubitBlocks.INDUCTION_DOCK_ID + DOCK_BODY);
-    dockItem();
+    tallItem(CubitBlocks.INDUCTION_DOCK_ID);
   }
 
   private void particlesOnly(Block block, String name, String texture) {
@@ -74,10 +88,10 @@ final class CubitBlockStateProvider extends BlockStateProvider {
         .forAllStates(state -> ConfiguredModel.builder().modelFile(particles).build());
   }
 
-  /** The item of the dock, placed in each view as the JSON model it had before GeckoLib. */
-  private void dockItem() {
+  /** The item of a block two blocks tall, placed in each view as the dock was before GeckoLib. */
+  private void tallItem(String name) {
     itemModels()
-        .getBuilder(CubitBlocks.INDUCTION_DOCK_ID)
+        .getBuilder(name)
         .parent(new ModelFile.UncheckedModelFile(BUILTIN_ENTITY))
         .transforms()
         .transform(ItemDisplayContext.GUI)

@@ -33,9 +33,6 @@ public final class NetworkSection implements ServerCatalog {
   private static final String SLOT_LIMIT = "storage_slot_limit";
   private static final int SLOT_LIMIT_DEFAULT = 128;
 
-  /** The screen shows up to three digits. */
-  private static final int SLOT_LIMIT_MAX = 999;
-
   private static final int MIN = 1;
 
   private final ModConfigSpec.IntValue minPoints;
@@ -67,7 +64,7 @@ public final class NetworkSection implements ServerCatalog {
     relayCapacity =
         builder.defineInRange(RELAY_CAPACITY, RELAY_CAPACITY_DEFAULT, MIN, Integer.MAX_VALUE);
     relayInput = builder.defineInRange(RELAY_INPUT, RELAY_INPUT_DEFAULT, MIN, Integer.MAX_VALUE);
-    slotLimit = builder.defineInRange(SLOT_LIMIT, SLOT_LIMIT_DEFAULT, MIN, SLOT_LIMIT_MAX);
+    slotLimit = builder.defineInRange(SLOT_LIMIT, SLOT_LIMIT_DEFAULT, MIN, BigSlot.MAX_LIMIT);
     for (RobotTier tier : RobotTier.values()) {
       builder.push(tier.key());
       servers.put(tier, new ServerKeys(builder, ServerDefaults.of(tier)));

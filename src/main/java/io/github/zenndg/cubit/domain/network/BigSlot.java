@@ -6,11 +6,14 @@ package io.github.zenndg.cubit.domain.network;
  * and 2368).
  */
 public record BigSlot(int limit) {
-  private static final String INVALID = "A slot keeps at least one item: ";
+  /** The screen shows up to three digits, and no save brings more than this. */
+  public static final int MAX_LIMIT = 999;
+
+  private static final String INVALID = "A slot keeps from 1 to 999 items: ";
   private static final int ONE = 1;
 
   public BigSlot {
-    if (limit < ONE) {
+    if (limit < ONE || limit > MAX_LIMIT) {
       throw new IllegalArgumentException(INVALID + limit);
     }
   }

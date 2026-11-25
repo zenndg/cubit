@@ -9,6 +9,8 @@ import io.github.zenndg.cubit.item.EngineeringDeskItem;
 import io.github.zenndg.cubit.item.InductionDockItem;
 import io.github.zenndg.cubit.item.JobCardItem;
 import io.github.zenndg.cubit.item.ModuleItem;
+import io.github.zenndg.cubit.item.NetworkItem;
+import io.github.zenndg.cubit.item.NetworkServerItem;
 import io.github.zenndg.cubit.item.PowerBankItem;
 import io.github.zenndg.cubit.item.RechargeSplashItem;
 import io.github.zenndg.cubit.item.RobotItem;
@@ -122,6 +124,21 @@ public final class CubitItems {
               new EngineeringDeskItem(
                   CubitBlocks.ENGINEERING_DESK.get(),
                   new Item.Properties().stacksTo(DOCK_STACK_SIZE)));
+
+  public static final Supplier<Item> NETWORK_SERVER =
+      ITEMS.register(
+          CubitBlocks.NETWORK_SERVER_ID,
+          () ->
+              new NetworkServerItem(
+                  CubitBlocks.NETWORK_SERVER.get(),
+                  new Item.Properties().stacksTo(DOCK_STACK_SIZE)));
+
+  public static final Supplier<Item> SOLAR_RELAY =
+      ITEMS.register(
+          CubitBlocks.SOLAR_RELAY_ID,
+          () ->
+              new NetworkItem(
+                  CubitBlocks.SOLAR_RELAY.get(), new Item.Properties().stacksTo(DOCK_STACK_SIZE)));
 
   public static final Supplier<Item> RECHARGE_SPLASH =
       ITEMS.register(

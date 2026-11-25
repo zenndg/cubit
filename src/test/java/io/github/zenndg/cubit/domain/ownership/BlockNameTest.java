@@ -12,12 +12,21 @@ import org.junit.jupiter.api.Test;
 class BlockNameTest {
   private static final UUID ID = UUID.fromString("3f9a2c1b-0000-4000-8000-000000000000");
   private static final String STANDARD = "Dock 3f9a2c1b";
+  private static final String SERVER = "Server 3f9a2c1b";
+  private static final String RELAY = "Relay 3f9a2c1b";
   private static final String GIVEN = "Garden Dock";
   private static final String BLANK = "   ";
 
   @Test
   void theStandardNameIsDockAndTheFirstEightDigits() {
     assertEquals(STANDARD, BlockName.standard(BlockName.Kind.DOCK, ID).value());
+  }
+
+  /** In English in both languages, as the Dock (answer 2401). */
+  @Test
+  void theBlocksOfTheNetworkHaveTheirOwnStart() {
+    assertEquals(SERVER, BlockName.standard(BlockName.Kind.SERVER, ID).value());
+    assertEquals(RELAY, BlockName.standard(BlockName.Kind.RELAY, ID).value());
   }
 
   @Test

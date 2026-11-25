@@ -45,7 +45,9 @@ class BigSlotTest {
   }
 
   @Test
-  void aSlotKeepsAtLeastOne() {
+  void aSlotKeepsFromOneToThreeDigits() {
     assertThrows(IllegalArgumentException.class, () -> new BigSlot(0));
+    assertThrows(IllegalArgumentException.class, () -> new BigSlot(BigSlot.MAX_LIMIT + 1));
+    assertEquals(BigSlot.MAX_LIMIT, new BigSlot(BigSlot.MAX_LIMIT).keeps(STACK));
   }
 }
