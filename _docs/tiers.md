@@ -253,6 +253,51 @@ O XP como fluido, no Cubit e no Induction Dock, descrito em [`xp.md`](funcionali
 | Dock: energia de 1 ponto de XP, `dock_fe_per_xp_point` (pergunta 1942) | 9 FE |
 | Dock: distância até o dono do aviso de tanque cheio, `dock_xp_notice_blocks` (pergunta 2103) | 16 blocos |
 
+## Network
+
+Planejado, na `0.2.0`, e ainda fora do código, descrito em [`network.md`](funcionalidades/network.md). As chaves ficam em `[network.{tier}]`, com o tier do Servidor.
+
+| Network Server | Base | Avançado | Elite | Ultimate |
+|---|---|---|---|---|
+| Bateria, `energy_capacity` (pergunta 2222) | 1,2 mi FE | 4,8 mi FE | 24 mi FE | 64 mi FE |
+| Tanque de XP, `xp_tank_capacity` (pergunta 2222) | 128 baldes | 256 baldes | 512 baldes | 1.024 baldes |
+| Canais e antenas, `channels` (pergunta 2269) | 4 | 8 | 12 | 16 |
+| Entrada por cabo e redstone, `input_per_tick` (pergunta 2326) | 20 mil FE/t | 40 mil FE/t | 80 mil FE/t | 160 mil FE/t |
+| O que distribui, `output_per_tick` (pergunta 2276) | 20 mil FE/t | 40 mil FE/t | 80 mil FE/t | 160 mil FE/t |
+| XP por antena, `xp_per_tick` (pergunta 2327) | 200 mB/t | 400 mB/t | 700 mB/t | 1.000 mB/t |
+| Slots, de 128 itens cada, `storage_slots` (pergunta 2267) | 27 | 36 | 45 | 54 |
+| Solar Relay, de dia, `relay_solar_per_tick` (pergunta 2220) | 500 FE/t | 1.000 FE/t | 2.000 FE/t | 4.000 FE/t |
+| Solar Relay, à noite, `relay_solar_night_per_tick` (pergunta 2223) | — | — | — | 1.000 FE/t |
+
+| Por Cubit, em `[general_robot.{tier}]` | Base | Avançado | Elite | Ultimate |
+|---|---|---|---|---|
+| Antenas, `network_antennas` (pergunta 2226) | 0 | 1 | 4 | 9 |
+| Baús, `network_chests` (pergunta 2232) | 1 | 2 | 4 | 6 |
+| Docks, `network_docks` (pergunta 2233) | 1 | 2 | 4 | 6 |
+| Baús do Organizador, `network_organizer_chests` (pergunta 2235) | — | 12 | 18 | 25 |
+| Organizador: máquinas ou destinos, `organizer_marks` (perguntas 1300 e 2242) | — | 4 | 8 | 16 |
+| Cozinheiro: fornos, `cook_ovens` (pergunta 2236) | — | 2 | 4 | 8 |
+| Organizador e Cozinheiro: custo por pilha, pausa e varredura (pergunta 2242) | — | 50 FE, 20 e 160 ticks | 50 FE, 12 e 100 ticks | 50 FE, 6 e 40 ticks |
+
+| Valor geral, em `[network]` | Padrão |
+|---|---|
+| Carregamento de chunks do mod, `chunk_loading_enabled` (pergunta 227) | Ligado |
+| Solta os chunks com o dono offline, `release_when_owner_offline` (pergunta 2210) | Ligado |
+| Chunks por player e no mundo, `chunks_per_player` e `chunks_per_world`, com 0 para sem limite (pergunta 2215) | 48 e 192 |
+| Chunk, por tick, `chunk_cost` (pergunta 2216) | 25 FE |
+| Distância: livre, passo e custo, `distance_free_blocks`, `distance_step_blocks` e `distance_cost` (pergunta 2310) | 100 blocos, 500 blocos e 1 FE/t |
+| Retomada, entre uma antena e outra, `wake_interval_ticks` (pergunta 2330) | 2 s (40 ticks) |
+| Antena sem sinal até parar, `signal_loss_ticks` (pergunta 2323) | 20 min (24.000 ticks) |
+| Antena: bateria e tanque, `antenna_energy_capacity` e `antenna_xp_tank_capacity` (pergunta 2273) | 600 mil FE e 64 baldes |
+| Antena: o que recebe da rede e por cabo, `antenna_input_per_tick` (perguntas 2276 e 2326) | 5.000 FE/t |
+| Antena: bateria que nenhum Dock tira, `antenna_floor_percent` (pergunta 2322) | 5% |
+| Solar Relay: bateria, tanque e entrada, `relay_energy_capacity`, `relay_xp_tank_capacity` e `relay_input_per_tick` (perguntas 2289 e 2326) | 300 mil FE, 32 baldes e 5.000 FE/t |
+| UPS padrão, `server_ups_percent` e `antenna_ups_percent`, de 0 a 50, de 5 em 5 (pergunta 2221) | 25% e 50% |
+| Itens por slot do Servidor, `storage_slot_limit` (pergunta 2263) | 128 |
+| Frente do Servidor: cheio e baixo, `warn_full_percent` e `warn_low_percent` (pergunta 2272) | 80% e 10% |
+| Log, `log_entries` (pergunta 2278) | 100 |
+| Desenho da área: pontos e alcance, `area_min_points`, `area_max_points` e `area_reach_blocks` (perguntas 2287 e 2311) | 4, 32 e 32 blocos |
+
 ## Slots exclusivos
 
 | Recurso | Base | Avançado | Elite | Ultimate |
@@ -312,7 +357,6 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Valor geral | Valor |
 |---|---|
-| Cubits por área | Até 3 |
 | Teste antes de fechar um card | 20 a 30 robôs |
 | Pescador: espera antes da mordida, como no jogo (pergunta 1184) | 100 a 600 ticks |
 | Pescador: mordida, como no jogo | 20 a 80 ticks |
@@ -325,10 +369,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 **A definir:**
 
-- antenas e chunks por tier do Servidor, área e consumo por tier da antena e teto de chunks no mundo;
-- consumo do Servidor e da antena com o carregamento desligado;
 - custo por ação dos outros cards;
-- limites por tick e distância do Dock ao Servidor ou à antena;
 - limite de animais do Pecuarista e custo do storage e tamanho dos canais;
 - alcance e viabilidade do feixe da lanterna de cabeça do Minerador.
 
@@ -336,6 +377,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:42 | Acrescenta os números da Network e tira o limite de Cubits por área, que não existe no código (perguntas 2196 a 2333). |
 | Zennd | 2026-11-24 09:36 | Troca a parte guardada no Dock pela distância do aviso (perguntas 2100 e 2103). |
 | Zennd | 2026-11-24 08:37 | Troca o teleporte ao Dock pela desistência (perguntas 2091 e 2095). |
 | Zennd | 2026-11-24 08:16 | Tira os números do XP como energia do Patrulheiro (pergunta 1825). |

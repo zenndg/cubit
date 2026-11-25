@@ -253,10 +253,15 @@ Entra com o item 15 da Fase 4.2, antes do modo área (perguntas 1065 a 1069).
 - **Patrulheiro:** com o card, o retorno vale com 5% no Elite e 3% no Ultimate, em `patroller_return_charge_percent`, só depois do combate e com um aviso ao dono na barra de ação, no lugar do `I need to recharge`. As regras estão em [`patrulheiro.md`](trabalhos/patrulheiro.md#bateria) (perguntas 1688 a 1690 e 1699).
 - **Chave:** `Auto return` / `Retorno automático`, desde o Base, ligada por padrão e guardada no item, na aba Settings da tela do Cubit e na aba Recursos do Tablet (pergunta 1066).
 
+## Com a Network
+
+Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](network.md). O Dock ligado a uma antena recebe energia dela, depois do sol e dentro do limite de entrada. Na área, o Cubit só usa os Docks marcados para ele, e o Call e o Ir para o Dock valem só para esses. Seguindo, nada muda (perguntas 2233, 2237, 2302 e 2303).
+
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-24 10:03 | Troca o clique direito e o Shift + clique do Dock (perguntas 2122 a 2124). |
 | Zennd | 2026-11-24 09:56 | Cita a conversão do XP em energia no Dock (perguntas 1831 e 2111). |
 | Zennd | 2026-11-24 08:32 | Descreve a ida e a volta do Dock sem caminho (perguntas 2090 a 2095). |

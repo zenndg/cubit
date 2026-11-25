@@ -1278,11 +1278,14 @@ Não há perguntas pendentes nesta fase.
 | 2331 | Network: a cor dos estados novos do Cubit | `Hibernating · No network` e `Hibernating · Owner offline` em azul, e `Waiting for area` em roxo. A recomendação foi aceita |
 | 2332 | Network: o que a aba Network do Servidor mostra de uma antena sem sinal ou descarregada? | A última foto dos Cubits, Docks e baús, apagada, com a hora do jogo, guardada nos dados do mundo. A recomendação foi aceita. Detalha a 230 |
 | 2333 | Network: o texto da `integration/{feature}` no Gitflow do `AGENTS.md` (2204) | Autorizado: duas linhas na tabela, a `integration/{feature}`, que sai da `develop` e volta para ela num PR final, e a `feature/{issue}-{slug}`, que sai da `develop` ou da `integration/{feature}` e volta para a mesma. A `integration/{feature}` entra na regra Proibido. Vale também no `fluxo-de-trabalho.md` |
+| 2334 | Network: os nomes do contrato, propostos pelo agente no `network.md` e nas chaves de `tiers.md`, estão autorizados? | Sim: "autorizo os nomes", sem mudança |
+| 2335 | O link quebrado do `inventario.md` e o clique antigo do Dock em "Quem abre", no `telas.md`, são corrigidos num commit à parte? | Sim. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:43 | Registra as respostas 2334 a 2335. |
 | Zennd | 2026-11-24 22:39 | Registra as respostas 2330 a 2333. |
 | Zennd | 2026-11-24 22:35 | Registra as respostas 2326 a 2329. |
 | Zennd | 2026-11-24 22:29 | Registra a resposta 2325. |

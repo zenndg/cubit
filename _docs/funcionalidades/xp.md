@@ -209,10 +209,15 @@ Uma issue e dois PRs, cada um com o seu teste manual e as provas do [`antes-do-p
 1. **PR 1, o Cubit:** o fluido e as texturas, o tanque do Cubit, as fontes de XP, os três modos, a saída do XP como energia do Patrulheiro, a passagem para um tanque do Dock ainda sem tela e sem modos, que só guarda, com o Cubit ficando com o que não couber, a aba XP da tela do Cubit, com o ícone e a troca de XP com o player, a dica do item, o aviso do Cubit cheio e os sons.
 2. **PR 2, o Dock:** os quatro modos do Dock, a conversão em energia, a troca de XP com o player, os canos, a aba XP do Tablet e do Dock, a dica do item do Dock, o aviso do Dock e o Jade.
 
+## Com a Network
+
+Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](network.md). O Dock ganha os modos enviar o excesso e enviar tudo ao Servidor, e o padrão de um Dock novo não muda (perguntas 2261 e 2265). A regra do XP que vira FE vale também no Servidor.
+
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-24 10:03 | Cita o Shift + clique que libera o Cubit (pergunta 2123). |
 | Zennd | 2026-11-24 09:56 | Registra a autorização do PR 2, as telas aprovadas e os botões dos menus (perguntas 2112 a 2117). |
 | Zennd | 2026-11-24 09:37 | Acrescenta a regra de que o XP que vira FE nunca volta a ser XP (pergunta 2111). |

@@ -205,18 +205,27 @@ Não foram perguntados um a um e foram autorizados em bloco com o conceito, sem 
 
 ## Contrato
 
-| Onde | Nomes |
-|---|---|
-| Blocos e itens | Os cinco IDs acima |
-| Dados do mundo | `cubit_network`, com Servidores, antenas, canais, vínculos e o Log |
-| Ticket | `cubit:network` |
-| NBT do Cubit | As antenas, a área desenhada e as marcas da rede, e `no_network` e `owner_offline` no motivo da hibernação |
-| Config, novas | `network_*`: limites, taxas, gasto, UPS, distância, baús e Docks por tier. O `unload_chests` fica só para quem segue, com o valor de hoje (2284) |
-| Config, que saem | `area_size_blocks` e `patroller_area_size` |
-| Tablet | App `network` |
-| Comando | `/cubit network` |
+Os nomes foram propostos pelo agente, a partir do padrão do mod, e autorizados (2334). Entram no código com cada entrega. Os números estão em [`tiers.md`](../tiers.md#network).
 
-Os nomes exatos e os padrões entram na Entrega 1. Os saves de antes da Network continuam abrindo: perde-se a área de cada Cubit (2283 e 2189). O config das instâncias de teste é apagado uma vez (2324).
+| Onde | Nome | Conteúdo |
+|---|---|---|
+| Blocos e itens | `cubit:network_server`, `cubit:solar_relay`, `cubit:signal_antenna`, `cubit:transceiver` e `cubit:chunk_anchor` | Cada um com a receita de mesmo ID |
+| Dados do mundo | `cubit_network` | Servidores, antenas, canais, vínculos, a última foto e o Log, por dono |
+| Ticket | `cubit:network` | Os chunks, conferidos ao abrir o mundo |
+| NBT dos blocos | `NetworkId`, `Owner`, `CustomName`, `Energy`, `XpTank`, `Slot`, `Ups` e `ChunkLoading` | Comuns aos três, com o `Tier` e os `Items` no Servidor |
+| NBT da antena | `Server`, `Channel`, `Enabled` e `ShowWall` | O Servidor, o canal e as chaves |
+| Item | `cubit:network_id` e `cubit:network_state` | O ID e o estado guardado, como o do Dock |
+| NBT do Cubit | `NetworkAntennas`, `NetworkDocks`, `NetworkChests`, `NetworkPaused` e `DrawnArea` | `DrawnArea` tem os pontos, a altura e a dimensão. A chave antiga `WorkArea` é ignorada (2283) |
+| NBT do Cubit | `HibernationReason`: `no_network` e `owner_offline` | Os motivos novos |
+| Modos do Dock | `XpMode`: `send_excess` e `send_all` | Os dois modos novos |
+| Modos do Servidor | `XpMode`: `store`, `store_convert_excess` e `convert_all` | O padrão é `store` |
+| Config | `[network]`, `[network.{tier}]` e `network_*` em `[general_robot.{tier}]` | As chaves de [`tiers.md`](../tiers.md#network) |
+| Config, que saem | `area_size_blocks` e `patroller_area_size` | O tamanho vem das antenas (2226). O `unload_chests` fica só para quem segue (2284) |
+| Tablet | App `network` | O valor no componente do item |
+| Comando | `/cubit network list` e `/cubit network release` | Só operador |
+| Receitas | `desk_category`: `dock` e `parts` | Sem categoria nova no JSON (2305) |
+
+Os saves de antes da Network continuam abrindo: perde-se a área de cada Cubit (2283 e 2189). O config das instâncias de teste é apagado uma vez (2324).
 
 ## Fora do escopo
 
@@ -226,5 +235,6 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:42 | Escreve o contrato, com os nomes. |
 | Zennd | 2026-11-24 22:40 | Completa as taxas, a retomada, os estados, a cor do app e a última foto (perguntas 2326 a 2332). |
 | Zennd | 2026-11-24 22:26 | Cria o conceito da Network (perguntas 2196 a 2324). |

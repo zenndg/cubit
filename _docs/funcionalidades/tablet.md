@@ -204,10 +204,15 @@ Os textos em inglês e português, como `Cubit Tablet` / `Tablet do Cubit`, `Tab
 - **Tela sem o Cubit por perto:** as telas de hoje são menus presos à entidade, e o jogo fecha um menu longe dela. A tela do Tablet precisa de um menu próprio, que lê o Cubit pelo UUID no servidor, e de pacotes do cliente para o servidor, que o `AGENTS.md` já previa para o controle.
 - **Chunk descarregado:** o Cubit não está na memória, então a seleção depende da foto salva no mundo.
 
+## Com a Network
+
+Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](network.md). Entram o app Network, rosa, a aba Network, entre Trabalho e XP, e o `Back to work`. O app Área passa a desenhar por pontos, a até 32 blocos. O app Dock e o Descarga ficam para quem segue (perguntas 2228, 2237, 2249, 2251, 2311, 2316, 2317 e 2328).
+
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-24 10:06 | Cita o Shift + clique que chama o Cubit (pergunta 2122). |
 | Zennd | 2026-11-24 09:56 | Acrescenta a aba XP, o Descarregar XP e o XP da foto (perguntas 2075 a 2116). |
 | Zennd | 2026-11-23 00:00 | Volta ao nome padrão um nome vazio no Rename (pergunta 1878). |

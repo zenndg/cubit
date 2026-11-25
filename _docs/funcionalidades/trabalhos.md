@@ -109,41 +109,9 @@ Estado semelhante ao desligado, mas com o inventário e as configurações acess
 - **Sem card:** tirar o card do slot cancela a hibernação, que só existe com trabalho, e ele volta ao comportamento sem card na área (pergunta 1171).
 - **Recolher:** Shift + clique continua recolhendo, e o clique direito continua abrindo a tela (pergunta 253).
 
-## Robot Server
+## Network
 
-- **Lugar:** um bloco fixo na base.
-- **Energia:** gasta FE para manter o próprio chunk, se essa opção estiver ligada, e aceita redstone por slot ou funil. Sem energia, solta o próprio chunk e avisa, mas as antenas continuam com a bateria delas.
-- **Tier:** limita o número de antenas e de chunks carregados, sem influenciar a antena nem o Cubit diretamente. A receita de cada tier tem a dificuldade do Cubit do mesmo tier.
-- **Upgrade:** o mesmo Module de cada tier serve no Cubit, no Servidor e na antena, com clique direito, e é consumido, sem pular etapas.
-
-### Log
-
-A tela do Servidor mostra, por antena, robôs, tarefa, bateria, inventário e os últimos eventos. Os dados são enviados enquanto o chunk está carregado. Descarregado, mostra a última foto, com a hora.
-
-## Signal Antenna
-
-- **Ligação:** o player clica no Servidor com a antena. Sem ligação, ela não carrega chunks. Com o Servidor quebrado, as antenas ligadas soltam os chunks e voltam quando ele volta, sem perder a ligação nem a carga.
-- **Área:** cada tier aumenta a área carregada, e um conjunto de antenas pode cobrir áreas maiores que 1 chunk.
-- **Bateria:** gasta FE por tick enquanto ligada, mais em tiers maiores, e tem botão de ligar e desligar. Recarrega com redstone por funil, cabos ou outros mods.
-- **Sem bateria:** perto de zerar, avisa o dono. Ao zerar, solta os chunks e guarda o estado.
-- **Quebrar:** vira item com a bateria guardada, e a lista salva no mundo limpa o que não existir mais.
-
-## Carregamento de chunks
-
-- **Opcional:** a chave `chunk_loading_enabled` fica ligada por padrão. Desligada, os blocos continuam existindo e guardando dados, mas ninguém carrega chunks.
-- **Antena com o carregamento desligado:** gasta um valor menor, só para o log. Sem carga, deixa de enviar log, mas continua valendo como referência de Dock.
-- **Limites:** o Servidor limita antenas e chunks, e o config tem um teto de chunks no mundo. O player vê o motivo se passar dele.
-- **Exceção:** é a única exceção à regra 22 do `AGENTS.md`.
-- **Jogo fechado:** em singleplayer, nada roda com o jogo fechado. Manter carregado só vale para o player longe da área.
-
-## Viagem até o Dock
-
-Com um Cubit com trabalho trabalhando em área, todo Dock precisa estar no chunk do Servidor ou próximo a ele ou a uma antena, mesmo com o carregamento desligado. Um Cubit sem card usa qualquer Dock, como nas Fases 2 a 4.
-
-1. Com bateria baixa, o Cubit prefere um Dock livre na área.
-2. Sem ele, anda até a borda do carregado, rumo ao Dock ligado ao Servidor pelo Tablet.
-3. Teleporta para a borda do chunk do Servidor, sem custo de FE, e caminha até o Dock. Preso sem progresso, teleporta também. Sem ponto seguro, aparece na frente do Dock.
-4. Se o chunk de destino estiver descarregado, espera na borda e tenta de novo a cada intervalo. Se a bateria acabar, desliga sem perder nada.
+O Network Server, o Solar Relay e a Signal Antenna, com o carregamento de chunks, o log e os Docks, estão em [`network.md`](network.md), autorizado na pergunta 2325 e planejado para a `0.2.0`. Com ela, todo o modo área passa a exigir a rede (perguntas 2202 e 2206). A antena com tiers e a viagem até o Dock com teleporte, previstas antes nas perguntas 225, 229, 243 e 246, não valem mais (perguntas 2199 e 2250).
 
 ## Storage wireless
 
@@ -164,7 +132,7 @@ A Fase 5 é entregue como um kanban, no GitHub Project "Cubit · Fase 5", um car
 6. Cozinheiro (#197)
 7. Patrulheiro Galático, no lugar do Defensor (#198)
 8. XP Cubit e Dock, o XP como fluido no tanque do Cubit e do Dock (#244, [`xp.md`](xp.md))
-9. Servidor e Antenas, energia sem fio e carregamento de chunks (#205 e #206)
+9. Network, a rede sem fio, em 9 entregas ([`network.md`](network.md), #205, #206 e #263)
 10. Lenhador, uma profissão nova, ainda sem issue
 11. Pecuarista (#201)
 12. Mecânico (#203)
@@ -187,6 +155,7 @@ A ordem segue a pergunta 251, mudada na 1666, na 1777 e na 1788: depois do Patru
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:42 | Troca o Servidor, a antena e a viagem até o Dock pelo `network.md` (pergunta 2325). |
 | Zennd | 2026-11-23 03:25 | Põe o Trader depois do Mecânico e tira a personalização visual por card do roteiro (perguntas 1927 e 1930). |
 | Zennd | 2026-11-22 23:12 | Liga o XP Cubit e Dock à #244 e ao conceito (pergunta 1851). |
 | Zennd | 2026-11-22 21:03 | Põe o XP Cubit e Dock depois do Patrulheiro, antes do Servidor e das Antenas (perguntas 1787 a 1789). |

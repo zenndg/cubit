@@ -243,12 +243,15 @@ Levam o Cubit ao tier seguinte, sem pular etapas. As regras estão em [`upgrade-
 
 ## Previstos na Fase 5
 
-Nomes aprovados nas perguntas 256, 1146 e 1147. Viram contrato só quando implementados.
+Nomes aprovados nas perguntas 256, 1146, 1147 e 2275. Viram contrato só quando implementados.
 
 | Nome | ID | Descrição |
 |---|---|---|
-| Robot Server | `cubit:robot_server` | Bloco fixo na base, com tiers, que gerencia antenas |
-| Signal Antenna | `cubit:signal_antenna` | Bloco com bateria, levado ao local de trabalho, que carrega chunks |
+| Network Server | `cubit:network_server` | Bloco da base, com tiers, o centro da rede ([`network.md`](funcionalidades/network.md)) |
+| Solar Relay | `cubit:solar_relay` | Gera com o sol e é o rádio do Servidor |
+| Signal Antenna | `cubit:signal_antenna` | Carrega o chunk onde está e liga os Cubits, os Docks e os baús |
+| Transceiver | `cubit:transceiver` | Peça compartilhada: 1 Circuit Board, 1 pérola do ender, 2 cobres e 1 redstone (pergunta 2282) |
+| Chunk Anchor | `cubit:chunk_anchor` | Peça compartilhada: 3 pérolas do ender, 3 obsidianas, 2 ouros e 1 diamante (pergunta 2282) |
 | Wireless Chest | `cubit:wireless_chest` | Acessa um canal do storage wireless |
 | Wireless Storage Upgrade | A definir | Liga o Cubit Ultimate a um canal |
 | Machine Learning: Miner | `cubit:ml_miner` | Card de Aprendizado de Máquina do trabalho de Minerador |
@@ -349,6 +352,7 @@ O estado salvo é validado ao entrar no jogo, sem derrubá-lo (regra 17 do `AGEN
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:42 | Atualiza os itens previstos da Network (perguntas 2275 e 2282). |
 | Zennd | 2026-11-24 12:32 | Atualiza o contrato dos saves, que vale a partir da `1.0.0` (perguntas 2189 e 2190). |
 | Zennd | 2026-11-24 11:44 | Muda o Neural Core, a Circuit Board, os cards e a Power Bank Casing (perguntas 2162 a 2169). |
 | Zennd | 2026-11-24 11:10 | Acrescenta as peças compartilhadas e as receitas que mudam com elas (perguntas 2136 a 2150). |
