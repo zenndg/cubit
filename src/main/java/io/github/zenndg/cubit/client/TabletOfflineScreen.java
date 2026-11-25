@@ -1,6 +1,8 @@
 package io.github.zenndg.cubit.client;
 
+import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.client.ScreenPainter.Box;
+import io.github.zenndg.cubit.domain.behavior.CallSpec;
 import io.github.zenndg.cubit.domain.behavior.RobotExpression;
 import io.github.zenndg.cubit.domain.behavior.RobotScreenStatus;
 import io.github.zenndg.cubit.domain.robot.RobotColor;
@@ -8,7 +10,9 @@ import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.XpTooltip;
 import io.github.zenndg.cubit.menu.ScreenEnums;
 import io.github.zenndg.cubit.menu.ScreenKeys;
+import io.github.zenndg.cubit.menu.TabletDimensions;
 import io.github.zenndg.cubit.menu.TabletKeys;
+import io.github.zenndg.cubit.network.CallRobotPayload;
 import io.github.zenndg.cubit.network.CubitNetwork;
 import io.github.zenndg.cubit.network.RobotListPayload;
 import net.minecraft.client.Minecraft;
@@ -16,11 +20,13 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
 
 /**
  * The screen of a Cubit in an unloaded chunk: only the header of its last snapshot, without tabs,
- * and the notice of how old it is. The buttons stay disabled with the reason, and Back still works
- * (answer 1034). The client builds it from the list, so nothing goes to the server but Back.
+ * and the notice of how old it is. The buttons stay disabled with the reason, but Back and Follow,
+ * which calls the Cubit from anywhere and opens its screen when it arrives (answers 1034 and 2463).
+ * The client builds it from the list.
  */
 final class TabletOfflineScreen extends Screen {
   private static final int WIDTH = TabletRobotHeader.WIDTH;
@@ -38,6 +44,8 @@ final class TabletOfflineScreen extends Screen {
   private final RobotListPayload.Entry entry;
   private int left;
   private int top;
+  private int callingTicks;
+  private FlatButton follow;
 
   private TabletOfflineScreen(RobotListPayload.Entry entry) {
     super(Component.translatable(TabletKeys.TITLE));
@@ -57,7 +65,48 @@ final class TabletOfflineScreen extends Screen {
     disabled(1, TabletKeys.RENAME);
     disabled(2, TabletKeys.GO_TO_DOCK);
     mute(addRenderableWidget(TabletHeaderButtons.unloadButton(left, top, () -> {})));
-    mute(addRenderableWidget(TabletHeaderButtons.followButton(left, top, () -> {})));
+    follow = addRenderableWidget(TabletHeaderButtons.followButton(left, top, this::call));
+    showFollow();
+  }
+
+  private void call() {
+    CallRobotPayload.send(entry.robot());
+    callingTicks = CubitMod.CONFIG.calls().timeoutTicks() + CallSpec.TICKS_PER_SECOND;
+    showFollow();
+  }
+
+  /** Off while the Cubit is searched, with `Calling...` (answer 2463). */
+  private void showFollow() {
+    boolean calling = callingTicks > 0;
+    follow.active = !calling;
+    follow.setMuted(calling);
+    follow.setTooltip(
+        Tooltip.create(
+            Component.translatable(
+                calling ? TabletKeys.FOLLOW_CALLING : TabletKeys.FOLLOW_ANYWHERE)));
+  }
+
+  /** The Cubit that arrived is an entity beside the player, and its screen opens (answer 2501). */
+  @Override
+  public void tick() {
+    if (callingTicks == 0) {
+      return;
+    }
+    callingTicks--;
+    if (arrived()) {
+      callingTicks = 0;
+      CubitNetwork.chooseRobot(entry.robot());
+    }
+    showFollow();
+  }
+
+  private boolean arrived() {
+    for (Entity entity : minecraft.level.entitiesForRendering()) {
+      if (entity.getUUID().equals(entry.robot())) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private void disabled(int place, String key) {

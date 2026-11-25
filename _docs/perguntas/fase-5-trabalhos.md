@@ -1456,16 +1456,21 @@ Não há perguntas pendentes nesta fase.
 |---|---|---|
 | Zennd | 2026-11-25 19:06 | Registra a resposta 2504. |
 | Zennd | 2026-11-25 19:01 | Registra a resposta 2503. |
+| Zennd | 2026-11-25 18:12 | Registra a resposta 2502. |
 | Zennd | 2026-11-25 18:05 | Registra a resposta 2502. |
 | Zennd | 2026-11-25 17:38 | Registra a resposta 2501. |
+| Zennd | 2026-11-25 17:33 | Registra as respostas de chamar o Cubit, 2450 a 2465, 2482 a 2486, 2491 e 2499 a 2501, com os mesmos números da Network. |
 | Zennd | 2026-11-25 17:32 | Registra a resposta 2500. |
 | Zennd | 2026-11-25 17:26 | Registra a resposta 2499. |
+| Zennd | 2026-11-25 17:07 | Registra a resposta 2498. |
 | Zennd | 2026-11-25 17:06 | Registra a resposta 2498. |
+| Zennd | 2026-11-25 16:46 | Registra as respostas 2495 e 2497. |
 | Zennd | 2026-11-25 16:45 | Registra a resposta 2497. |
 | Zennd | 2026-11-25 16:42 | Registra a resposta 2496. |
 | Zennd | 2026-11-25 16:38 | Registra as respostas 2494 a 2495. |
 | Zennd | 2026-11-25 16:05 | Registra a resposta 2493. |
 | Zennd | 2026-11-25 16:02 | Registra as respostas 2489 a 2492. |
+| Zennd | 2026-11-25 16:02 | Registra as respostas da Engineering Desk, 2470 a 2481, 2488 a 2490, 2492 e 2493, com os mesmos números da Network. |
 | Zennd | 2026-11-25 15:59 | Registra as respostas 2484 a 2488. |
 | Zennd | 2026-11-25 15:57 | Registra as respostas 2480 a 2483. |
 | Zennd | 2026-11-25 15:56 | Registra as respostas 2476 a 2479. |

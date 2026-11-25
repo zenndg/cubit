@@ -9,6 +9,7 @@ import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.TierLook;
 import io.github.zenndg.cubit.menu.ScreenEnums;
 import io.github.zenndg.cubit.menu.ScreenKeys;
+import io.github.zenndg.cubit.menu.TabletDimensions;
 import io.github.zenndg.cubit.menu.TabletKeys;
 import io.github.zenndg.cubit.network.CubitNetwork;
 import io.github.zenndg.cubit.network.RobotListPayload;

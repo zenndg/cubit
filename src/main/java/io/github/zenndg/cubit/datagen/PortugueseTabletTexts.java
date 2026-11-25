@@ -78,8 +78,9 @@ final class PortugueseTabletTexts {
   private static final String FOLLOW = "Seguir";
   private static final String FOLLOW_DETAIL = "Segue você · o que seguia antes desliga";
   private static final String FOLLOW_ALREADY = "Já está seguindo você";
-  private static final String FOLLOW_NO_CHARGE = "Sem carga para seguir você";
-  private static final String FOLLOW_OTHER_DIMENSION = "Em outra dimensão";
+  private static final String FOLLOW_NO_CHARGE = "Vem desligado, sem carga";
+  private static final String FOLLOW_ANYWHERE = "Chama de qualquer lugar";
+  private static final String FOLLOW_CALLING = "Chamando...";
   private static final String DOCK_OUT_OF_REACH = "Nenhum Dock livre ao alcance";
   private static final String BACK = "Voltar";
   private static final String RENAME = "Renomear";
@@ -212,6 +213,7 @@ final class PortugueseTabletTexts {
     add.accept(TabletKeys.FOLLOW_DETAIL, FOLLOW_DETAIL);
     add.accept(TabletKeys.FOLLOW_ALREADY, FOLLOW_ALREADY);
     add.accept(TabletKeys.FOLLOW_NO_CHARGE, FOLLOW_NO_CHARGE);
-    add.accept(TabletKeys.FOLLOW_OTHER_DIMENSION, FOLLOW_OTHER_DIMENSION);
+    add.accept(TabletKeys.FOLLOW_ANYWHERE, FOLLOW_ANYWHERE);
+    add.accept(TabletKeys.FOLLOW_CALLING, FOLLOW_CALLING);
   }
 }

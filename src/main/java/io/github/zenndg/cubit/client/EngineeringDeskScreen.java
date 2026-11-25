@@ -24,6 +24,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
   private static final int SEARCH_HEIGHT = 12;
   private static final int SEARCH_INSET = 2;
   private static final int SEARCH_MAX = 32;
+  private static final String NO_SEARCH = "";
 
   private final DeskCatalog catalog;
   private final DeskCatalog cascadeCatalog;
@@ -37,7 +38,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     CascadeCatalogRules rules = new CascadeCatalogRules(menu);
     catalog = new DeskCatalog(new ProjectCatalogRules(menu));
     cascadeCatalog = new DeskCatalog(rules);
-    project = new ProjectTab(menu, catalog, this::send);
+    project = new ProjectTab(menu, catalog, this::send, this::reveal);
     cascade = new CascadeTab(menu, cascadeCatalog, rules, this::send);
     imageWidth = EngineeringDeskMenu.WIDTH;
     imageHeight = HEIGHT;
@@ -79,6 +80,12 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
 
   private void send(int id) {
     minecraft.gameMode.handleInventoryButtonClick(menu.containerId, id);
+  }
+
+  /** Out of a search, so the category of the recipe shows (answer 2477). */
+  private void reveal(int place) {
+    search.setValue(NO_SEARCH);
+    catalog.reveal(place);
   }
 
   private boolean storageOpen() {
@@ -246,6 +253,13 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     return super.mouseReleased(mouseX, mouseY, button);
   }
 
+  /** The tabs are part of the window, so a click there never drops the carried item (#255). */
+  @Override
+  protected boolean hasClickedOutside(double mouseX, double mouseY, int left, int top, int button) {
+    return tabAt(mouseX, mouseY) == null
+        && super.hasClickedOutside(mouseX, mouseY, left, top, button);
+  }
+
   /** A plan on its way keeps the Cascade tab open, and a tier without it never opens it. */
   private void open(DeskTab wanted) {
     if (menu.cascade().locks()) {
@@ -263,6 +277,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
       open(DeskTab.CASCADE);
     }
     cascade.tick();
+    project.tick();
     showSearch();
   }
 
@@ -271,8 +286,8 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
       return true;
     }
     var recipe = openCatalog().at(mouseX, mouseY, leftPos, topPos);
-    if (recipe.isPresent()) {
-      boolean inCascade = tab == DeskTab.CASCADE;
+    boolean inCascade = tab == DeskTab.CASCADE;
+    if (recipe.isPresent() && (inCascade || !menu.holdsRecipe())) {
       send(inCascade ? CascadeMenuPart.choose(recipe.get()) : DeskControl.choose(recipe.get()));
     }
     return recipe.isPresent();

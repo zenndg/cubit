@@ -69,8 +69,7 @@ public final class CascadeGameTests {
 
   private CascadeGameTests() {}
 
-  private static EngineeringDeskBlockEntity place(
-      GameTestHelper helper, RobotTier tier, long energy) {
+  static EngineeringDeskBlockEntity place(GameTestHelper helper, RobotTier tier, long energy) {
     ItemStack item = new ItemStack(CubitBlocks.ENGINEERING_DESK.get());
     item.set(CubitDataComponents.DESK_ENERGY.get(), energy);
     item.set(CubitDataComponents.DESK_TIER.get(), tier);
@@ -87,7 +86,7 @@ public final class CascadeGameTests {
   }
 
   /** The base materials of one robot, with the ones of its shared parts (answer 2146). */
-  private static void fillRobot(EngineeringDeskBlockEntity desk) {
+  static void fillRobot(EngineeringDeskBlockEntity desk) {
     List<ItemStack> materials =
         List.of(
             new ItemStack(Items.IRON_INGOT, IRON),
@@ -108,7 +107,7 @@ public final class CascadeGameTests {
     }
   }
 
-  private static CascadeStart startRobot(GameTestHelper helper, EngineeringDeskBlockEntity desk) {
+  static CascadeStart startRobot(GameTestHelper helper, EngineeringDeskBlockEntity desk) {
     return CascadeLaunch.start(desk, player(helper), CubitItems.GENERAL_ROBOT.get(), 1);
   }
 

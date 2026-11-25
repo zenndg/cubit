@@ -106,7 +106,7 @@ Fica fixo em todas as abas. `Voltar` fica no canto superior esquerdo, e os botõ
 - **Rename, a janela:** pequena, no centro, com o campo de até 50 caracteres já preenchido com o nome atual, Confirmar e Cancelar. Enter confirma, e Esc cancela. Um Cubit sem nome abre o campo vazio, para Confirmar não chamá-lo de `Cubit` (pergunta 1035).
 - **Power:** o botão mostra `Switch off` com o Cubit ativo e `Turn on` com ele desligado e com carga. Sem carga, fica desabilitado, com a dica do motivo. Desliga como o botão `Power` da aba Settings, e o clique direito no Cubit também o religa, sem estado salvo novo. Também liga um Cubit desligado com carga, como a exceção da pergunta 80 (pergunta 1033, que muda a 1021).
 - **Parar e seguir:** o `Stop` saiu do Tablet por agora e espera um refinamento, em "Ainda sem fase" no `ROADMAP.md` (pergunta 1036).
-- **Follow:** fica na fileira de botões, depois do `Ir para o Dock`. A fileira começa na margem, sob o retrato, para os quatro botões caberem, e um texto que não cabe no botão encolhe. Faz o Cubit escolhido seguir o player, desligado com carga, hibernando no Dock, que ele deixa na hora, ou numa área, que se apaga com o item 13. O que seguia antes desliga onde está, como no `Turn on`. Vale de qualquer distância, na mesma dimensão, e o Cubit segue pela regra de hoje, andando ou teleportando. Já seguindo, sem carga, em outra dimensão ou com o chunk descarregado, fica desabilitado, com a dica do motivo (perguntas 1055 e 1072 a 1075).
+- **Follow:** fica na fileira de botões, depois do `Ir para o Dock`. A fileira começa na margem, sob o retrato, para os quatro botões caberem, e um texto que não cabe no botão encolhe. Faz o Cubit escolhido seguir o player, desligado com carga, hibernando no Dock, que ele deixa na hora, ou numa área, que se apaga com o item 13. O que seguia antes desliga onde está, como no `Turn on`. Vale de qualquer lugar, também de outra dimensão e com o chunk descarregado, como em [Chamar o Cubit](movimento.md#chamar-o-cubit). Sem carga, o Cubit vem desligado, sem tomar o lugar de quem segue. Só fica desabilitado com ele já seguindo por perto e durante a busca, com `Calling...` (perguntas 1055, 1072 a 1075, 2457, 2463 e 2483).
 - **Ir para o Dock:** vai para o Dock preferido, se ele estiver na mesma dimensão, carregado e no raio de chamada do tier. Senão, vai para o Dock livre mais próximo nesse raio, como o Shift + clique no Dock (perguntas 1041 e 2122). Com o preferido ocupado, vai até ele e espera na fila, procurando outro livre enquanto espera. Um preferido destruído é apagado ao ser lido (pergunta 1042). Sem Dock ao alcance, desligado, hibernando ou com o chunk descarregado, o botão fica desabilitado, com a dica do motivo. Ao sair do Dock, o Cubit volta ao que fazia.
 
 ### Abas
@@ -156,10 +156,10 @@ Entra com o item 16 da Fase 4.2 (perguntas 1111 e 1119). As regras do histórico
 
 ## Distância
 
-- **Cubit descarregado:** a tela abre só com o cabeçalho da foto, sem abas, e um aviso como `Out of reach · seen 5 min ago`. Os botões ficam desabilitados com a dica do motivo, e `Voltar` continua funcionando (pergunta 1034). Abaixo da bateria, o cabeçalho mostra o XP da foto, como `XP 6,400 / 8,000 mB` (perguntas 2106 e 2116).
+- **Cubit descarregado:** a tela abre só com o cabeçalho da foto, sem abas, e um aviso como `Out of reach · seen 5 min ago`. Os botões ficam desabilitados com a dica do motivo, menos o `Follow`, com a dica `Calls it from anywhere`, e o `Voltar` (perguntas 1034 e 2463). Quando o Cubit chega, a tela dele abre. Abaixo da bateria, o cabeçalho mostra o XP da foto, como `XP 6,400 / 8,000 mB` (perguntas 2106 e 2116).
 
 - **Chunk carregado:** o Tablet lê e muda tudo, a qualquer distância e em qualquer dimensão (pergunta 1018, que muda a 94).
-- **Chunk descarregado:** o Tablet só lê a última foto, com a hora. As chaves, os botões e o `Rename` ficam desabilitados, com a dica do motivo.
+- **Chunk descarregado:** o Tablet só lê a última foto, com a hora. As chaves, os botões e o `Rename` ficam desabilitados, com a dica do motivo. O `Follow` é a exceção (pergunta 2463).
 
 ## Segurança
 
@@ -213,6 +213,7 @@ Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 17:33 | Estende o `Follow` a qualquer lugar (perguntas 2450, 2457, 2463 e 2483). |
 | Zennd | 2026-11-25 00:23 | Atualiza o app Área, com o desenho por pontos, e o contrato (perguntas 2240 a 2246, 2283 e 2358). |
 | Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-24 10:06 | Cita o Shift + clique que chama o Cubit (pergunta 2122). |

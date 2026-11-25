@@ -44,6 +44,9 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general` | `stop_distance_blocks` | Distância para parar perto do player | 1 a 16 |
 | `general` | `max_drop_blocks` | Altura máxima que a rota desce | 1 a 16 |
 | `general` | `teleport_distance_blocks` | Distância para teleportar até o player | 17 a 128 |
+| `general` | `call_cooldown_seconds` | Chamar o Cubit: intervalo entre chamadas, por player (pergunta 2460) | 0 a 600 |
+| `general` | `call_arrival_blocks` | Chamar o Cubit: distância máxima até o dono em que ele aparece (perguntas 2459 e 2482) | 1 a 16 |
+| `general` | `call_timeout_seconds` | Chamar o Cubit: tempo para achar o que está num chunk descarregado (pergunta 2464) | 1 a 60 |
 | `general` | `burning_speed_multiplier` | Velocidade em chamas, sobre a do tier | 1 a 4 |
 | `general` | `full_inventory_speed_multiplier` | Velocidade com o inventário cheio, sobre a do tier | 0,1 a 1 |
 | `general` | `water_search_radius_blocks` | Busca de água em chamas | 1 a 16 |
@@ -278,6 +281,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 17:33 | Acrescenta as chaves de chamar o Cubit (perguntas 2464 e 2482). |
 | Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado, na seção `network` (pergunta 2442). |
 | Zennd | 2026-11-25 14:00 | Acompanha a numeração nova das respostas da Entrega 3 da Network (pergunta 2418). |
 | Zennd | 2026-11-25 12:34 | Acrescenta `wake_interval_ticks`, na seção `network` (perguntas 2330 e 2413). |

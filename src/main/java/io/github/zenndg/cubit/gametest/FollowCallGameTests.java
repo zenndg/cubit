@@ -70,16 +70,13 @@ public final class FollowCallGameTests {
   }
 
   @GameTest(template = ARENA)
-  public static void theCubitThatFollowsAndOneWithoutChargeCannotBeCalled(GameTestHelper helper) {
-    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+  public static void theCubitThatFollowsNearbyHasNothingToDo(GameTestHelper helper) {
+    ServerPlayer owner = DockScene.ownerBeside(helper);
     RobotEntity following = DockScene.placeRobot(helper, owner, FIRST_FLOOR, CHARGE);
-    RobotEntity empty = DockScene.placeRobot(helper, owner, SECOND_FLOOR, Energy.ZERO);
 
     helper.assertValueEqual(
         new RobotFollowCall(following).goal(), FollowCall.FOLLOWING, WRONG_CALL);
-    helper.assertValueEqual(new RobotFollowCall(empty).goal(), FollowCall.NO_CHARGE, WRONG_CALL);
-    helper.assertFalse(new RobotFollowCall(empty).call(owner), WRONG_CALL);
-    helper.assertValueEqual(follower(owner), Optional.of(following.getUUID()), WRONG_FOLLOWER);
+    helper.assertFalse(new RobotFollowCall(following).call(owner), WRONG_CALL);
     helper.succeed();
   }
 

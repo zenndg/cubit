@@ -3,25 +3,28 @@ package io.github.zenndg.cubit.entity;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.RespawnReturn;
 import io.github.zenndg.cubit.registry.CubitAttachments;
+import java.util.Optional;
 import java.util.UUID;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.portal.DimensionTransition;
-import net.minecraft.world.phys.Vec3;
 
 /**
- * Brings the robot that follows to an owner who respawned. The chunk where the owner died is still
- * loaded at that moment, and a robot already unloaded stays there, because nothing is ever loaded
- * by force (AGENTS.md, rule 22). The robot goes to the spot the game chose for the owner.
+ * Brings the robot that follows to an owner who respawned, at the spot the game chose for the
+ * owner. The game takes a dead owner out of the world a second later, so the chunk of the robot may
+ * be gone, and then it is searched as in a call (answers 2458 and 2500).
  */
 public final class RobotRespawn {
   private RobotRespawn() {}
 
-  public static void bringTo(ServerPlayer owner) {
-    MinecraftServer server = owner.getServer();
-    if (server != null) {
-      RobotFollowing.follower(owner).ifPresent(robot -> bringTo(owner, server, robot));
+  /** The robot to search, when the one that follows is not loaded anywhere. */
+  public static Optional<UUID> bringTo(ServerPlayer owner) {
+    return RobotFollowing.follower(owner).filter(robot -> !bringLoaded(owner, robot));
+  }
+
+  /** A robot found by the search, if it still follows. */
+  public static void bringTo(ServerPlayer owner, RobotEntity robot) {
+    if (RobotFollowing.follower(owner).filter(robot.getUUID()::equals).isPresent()) {
+      bring(robot, owner);
     }
   }
 
@@ -41,13 +44,14 @@ public final class RobotRespawn {
                 .ifPresent(robot -> robot.docking().deathGuide().tellOnRespawn(death)));
   }
 
-  private static void bringTo(ServerPlayer owner, MinecraftServer server, UUID robotId) {
-    for (ServerLevel level : server.getAllLevels()) {
+  private static boolean bringLoaded(ServerPlayer owner, UUID robotId) {
+    for (ServerLevel level : owner.server.getAllLevels()) {
       if (level.getEntity(robotId) instanceof RobotEntity robot) {
         bring(robot, owner);
-        return;
+        return true;
       }
     }
+    return false;
   }
 
   private static void bring(RobotEntity robot, ServerPlayer owner) {
@@ -59,24 +63,8 @@ public final class RobotRespawn {
             sameDimension,
             sameDimension ? robot.distanceTo(owner) : 0,
             CubitMod.CONFIG.followDecision().teleportDistanceBlocks());
-    if (!bringsBack) {
-      return;
+    if (bringsBack) {
+      RobotArrival.moveTo(robot, owner, owner.position());
     }
-    robot.getNavigation().stop();
-    if (sameDimension) {
-      robot.teleportTo(owner.getX(), owner.getY(), owner.getZ());
-    } else {
-      robot.changeDimension(transitionTo(robot, owner));
-    }
-  }
-
-  private static DimensionTransition transitionTo(RobotEntity robot, ServerPlayer owner) {
-    return new DimensionTransition(
-        owner.serverLevel(),
-        owner.position(),
-        Vec3.ZERO,
-        robot.getYRot(),
-        robot.getXRot(),
-        DimensionTransition.DO_NOTHING);
   }
 }

@@ -30,7 +30,12 @@ public record RobotName(String value) {
 
   /** The name of a Cubit without one: Cubit and the first eight characters of its id (1874). */
   public static RobotName standard(UUID id) {
-    return new RobotName(STANDARD_PREFIX + id.toString().substring(0, ID_DIGITS));
+    return new RobotName(STANDARD_PREFIX + shortId(id));
+  }
+
+  /** The first eight characters of the id, which call a Cubit by a command (answer 2453). */
+  public static String shortId(UUID id) {
+    return id.toString().substring(0, ID_DIGITS);
   }
 
   public boolean removes() {

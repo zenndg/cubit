@@ -517,6 +517,35 @@ Use modo sobrevivência, com `/gamemode survival`. Para morrer, use `/kill @s`. 
 | 4 | Passe por um portal do Nether, sem morrer | Ele não vai junto |
 | 5 | Deixe um Cubit desligado longe, ligue outro para seguir, morra e renasça | O que seguia volta, e o desligado continua no lugar |
 | 6 | Chame o Cubit a um Dock e morra antes de ele chegar, perto do Dock | Ele continua indo ao Dock |
+| 7 | Com o Cubit seguindo, a 1000 blocos do spawn, morra, **espere 10 s na tela de morte** e renasça | Ele aparece com você, com a mesma carga e os mesmos itens, em até 10 s |
+| 8 | Repita, saindo do jogo na tela de morte e voltando | Como no passo 7 |
+| 9 | Repita no Nether, esperando 10 s | Ele aparece com você no mundo normal |
+| 10 | Com o Cubit numa área ou no Dock, longe, morra, espere 10 s e renasça | Ele fica onde está |
+
+## Chamar o Cubit
+
+As regras estão em [`movimento.md`](../funcionalidades/movimento.md#chamar-o-cubit) (issue #281). Use modo sobrevivência com comandos e três Cubits, um com nome. Guarde um item em cada um, para conferir que nada some nem se repete.
+
+| # | Passo | Resultado esperado |
+|---|---|---|
+| 1 | Rode `/cubit list` | Os três por nome, com os 8 caracteres, o estado e a dimensão |
+| 2 | Clique numa linha e use o Tab no `/cubit follow` | O comando aparece escrito, e o Tab sugere os seus Cubits |
+| 3 | Deixe um Cubit parado, vá com `/tp @s ~2000 ~ ~`, espere o chunk descarregar e rode `/cubit list` | Ele aparece como `Unloaded` |
+| 4 | Rode `/cubit follow` com os 8 caracteres dele | Ele aparece a até 4 blocos, num lugar seguro, e segue você, com o item e a carga |
+| 5 | Volte ao lugar antigo | Não há outro Cubit lá |
+| 6 | Rode de novo, em menos de 10 s | A mensagem pede para esperar |
+| 7 | Repita os passos 3 a 5 com o Cubit no Nether e você no mundo normal, e o contrário | Como antes |
+| 8 | Com o Cubit descarregado, abra-o no Tablet | Só o `Follow` e o `Voltar` acesos, com a dica `Calls it from anywhere` |
+| 9 | Use o `Follow` | `Calling...`, o Cubit chega e a tela dele abre |
+| 10 | Chame um Cubit sem bateria, com outro seguindo você | Vem desligado, e o outro continua seguindo |
+| 11 | Chame um Cubit que trabalha numa área e um que está no Dock | Vêm seguir você. A área se apaga, e o Dock fica livre |
+| 12 | Chame um Cubit a menos de 20 blocos | Vem andando |
+| 13 | Numa ilha de 1 bloco sobre a lava, chame um Cubit de longe | Ele fica onde está, com o aviso |
+| 14 | Chame um Cubit descarregado e troque de dimensão antes de ele chegar | Aparece onde você está |
+| 15 | Chame um Cubit descarregado e saia do jogo na hora. Volte e procure | Está num lugar só, com o item |
+| 16 | Guarde um Cubit no baú e rode `/cubit list` e o `/cubit follow` dele | Não está na lista, e o comando diz que não o achou |
+| 17 | Com o segundo player, rode o `/cubit follow` com os caracteres de um Cubit seu | Não acha |
+| 18 | Com o jogo em português | Tudo em português |
 
 ## Falas
 
@@ -1157,6 +1186,33 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 26 | Com o jogo em português | `Mesa de Engenharia`, `Projeto`, `Estoque` e os estados em português |
 | 27 | Na aba Projeto, compare `0 / 0` com o maior pedido, `256 / 256` no Ultimate | O −, o + e o `Cancel` alinhados às bordas do quadro dos slots, com um vão pequeno ao lado dos números, que encolhem quando não cabem |
 
+### Usabilidade da tela
+
+As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenharia.md#usabilidade) (issues #280 e #255). Use uma mesa com energia, com o JEI e um segundo player.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Peça 8 Hard Drives e, com o craft andando, troque de categoria, busque, role o catálogo e passe pelas abas | O craft segue, e o catálogo fica escurecido, menos o Hard Drive |
+| 2 | Passe o mouse em outro item e clique nele | `Finish or cancel the order first`, em vermelho, e nada muda |
+| 3 | Use o + do JEI numa outra receita e ponha um item à mão na grade | O JEI diz o mesmo aviso, e a grade não muda |
+| 4 | Tire o material, espere `Missing materials` e clique em outro item | A pausa também trava |
+| 5 | Com o segundo player na mesma mesa, clique em outro item | Travado para ele também |
+| 6 | Clique em `Cancel` e em outro item | A receita troca na hora |
+| 7 | Com 3 Hard Drives prontos, olhe o quadro à direita da grade | O item normal, com o 3. Sem nenhum pronto, um desenho fraco |
+| 8 | Clique no quadro, com o cursor vazio e, depois, com outro item no cursor | Pega os 3. Com outro item, nada muda |
+| 9 | Com itens prontos, use Shift + clique no quadro, também com o inventário cheio | Vão para o inventário, e o que não couber fica na saída |
+| 10 | Conserte um Damaged Cubit com nome e itens e pegue-o pelo quadro | Sai o próprio Cubit, com o nome e os itens |
+| 11 | Com um Cubit pronto, os dois players clicam no quadro | Só um o recebe |
+| 12 | Com um plano da cascata andando | Só a aba Cascata abre |
+| 13 | Escolha o Cubit e use Shift + clique no Neural Core da grade | Abre a receita do Neural Core, com a categoria dele no catálogo e a seta de voltar ao lado da grade. Nada sai da entrada nem da saída |
+| 14 | Siga por mais peças e clique na seta | Volta uma receita por clique, até o Cubit, e a seta some |
+| 15 | Use Shift + clique num ferro | Nada acontece |
+| 16 | Vá até uma peça e escolha outra receita no catálogo | A seta some |
+| 17 | Com um pedido, segure Shift sobre uma peça do mod da grade e clique | O aviso, e a receita não muda. A seta não aparece |
+| 18 | Busque um nome e use Shift + clique numa peça | A busca se limpa, e a categoria da peça aparece |
+| 19 | Com um item no cursor, clique nas três abas | O item continua no cursor |
+| 20 | Com o jogo em português | `Termine ou cancele o pedido antes` e `Voltar` |
+
 ### Pedir só com o que é preciso
 
 As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenharia.md#ver-a-receita-e-pedir-só-com-o-que-é-preciso) (issues #250 e #275). Use um mundo **novo**, em sobrevivência com comandos, uma mesa e `/give` para os materiais. Comece com `/recipe take @s *`, para o livro de receitas ficar vazio. Repita os passos 1 a 5 no Iron Meridian, com `recipebookShowAll = true` no Recipe Essentials e `disableRecipeAdvancements = true` no Utilitarian.
@@ -1168,7 +1224,7 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 3 | Clique no Tablet | A receita abre e mostra os materiais na grade, em vermelho. O + fica cinza |
 | 4 | Passe o mouse sobre o + | Uma linha `Missing` para cada material, e nada mais |
 | 5 | Ponha os materiais do Tablet na entrada e aperte + | Os vermelhos somem um a um, o + acende e o pedido vai a `0 / 1`, sem nenhum Cubit feito |
-| 6 | Escolha a Toolbox, com 6 ferros, 1 redstone e 1 obsidiana | O + cinza, com `Missing: 1 Iron Ingot`, e um ferro em vermelho |
+| 6 | Cancele o pedido, o que também vale antes de cada troca de receita daqui em diante, e escolha a Toolbox, com 6 ferros, 1 redstone e 1 obsidiana | O + cinza, com `Missing: 1 Iron Ingot`, e um ferro em vermelho |
 | 7 | Ponha mais 1 ferro | A Toolbox normal no catálogo e o + aceso. Com o +, o pedido vai a `0 / 1` |
 | 8 | Com o pedido ativo e sem material, aperte + e Shift + | O total sobe, e a mesa pausa com `Missing materials`. Ao pôr o material, volta sozinha |
 | 9 | Faça as 4 peças e deixe-as na saída. Escolha o Cubit | O + aceso, sem tirar as peças da saída, e o Cubit sai |
@@ -1716,6 +1772,8 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 17:34 | Acrescenta o renascer com o chunk descarregado e chamar o Cubit (perguntas 2450 a 2500). |
+| Zennd | 2026-11-25 16:11 | Acrescenta a usabilidade da tela da Engineering Desk (perguntas 2470 a 2481 e 2492). |
 | Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado e a parede do chunk à Entrega 3 da Network (perguntas 2438, 2440 e 2448). |
 | Zennd | 2026-11-25 14:30 | Acrescenta a janela do nome à Entrega 3 da Network (pergunta 2422). |
 | Zennd | 2026-11-25 14:00 | Tira o Advanced Module das receitas da Entrega 3 da Network (pergunta 2419). |

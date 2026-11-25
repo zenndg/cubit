@@ -120,7 +120,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `GameClock` | O dia e a hora do mundo, como o jogo conta: o mundo começa às 06:00 do primeiro dia (pergunta 1116) |
 | `DeathGuideCall` | Se o botão de guiar da aba Mortes pode mandar o Cubit, ou por que não, e quando o Cubit diz a coordenada ao renascer (perguntas 1111, 1117, 1118 e 1120) |
 | `DeathGuideSpec`, `DeathGuideProgress` e `DeathGuideStep` | Os números da guia, o quanto ela avançou e o próximo passo: andar, esperar o dono, chegar ou desistir (perguntas 1121, 1123 e 1126) |
-| `FollowCall` | Se o `Follow` do Tablet pode fazer o Cubit escolhido seguir o dono agora, ou por que não: já seguindo, sem carga ou em outra dimensão (perguntas 1073 a 1075) |
+| `FollowCall` | Se o `Follow` pode chamar o Cubit escolhido, de qualquer lugar: sem carga ele vem desligado, e quem já segue por perto não tem o que fazer (perguntas 2450, 2457 e 2483) |
 | `TabletWheel` | Para que lado Shift + roda troca o app do Tablet. Sem rolagem vertical, como no mouse do macOS com Shift, vale a rolagem para o lado, com o sinal trocado, como na hotbar do jogo |
 | `IntroLink` | Quando o player viu o link da apresentação pela última vez, em ticks, com `NEVER` para nunca. O link só sai depois do temporizador, e um tempo anterior ao último link, como num outro mundo, o mostra de novo. Também diz se um endereço é seguro: só `https://`, com algo depois e sem espaços (perguntas 1674, 1677 e 1681) |
 | `RobotName` | O nome que o Tablet dá ao Cubit, com as regras da etiqueta: corta os espaços das pontas, aceita até 50 caracteres e, vazio, tira o nome (perguntas 1015 a 1017). Sem nome, o padrão é `Cubit` e os 8 primeiros caracteres do UUID, e um nome vazio volta a ele (perguntas 1874 e 1878) |
@@ -140,6 +140,10 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `BiomeWatch` | Quando o robô entra em outro grupo de biomas |
 | `LeftBehindWatch` | Quando o robô reclama de o dono se afastar |
 | `RespawnReturn` | Se o robô que segue volta com o dono que renasceu |
+| `CallArrival` | Como um Cubit chamado chega: perto, anda, e, longe ou sem carga, aparece (pergunta 2462) |
+| `CallSpec` | Os números de chamar o Cubit e quantos segundos faltam para a próxima chamada (perguntas 2460, 2464 e 2482) |
+| `CallSearch` | A busca de um Cubit num chunk descarregado, por uma chamada ou por um renascer, que acaba depois de um tempo (perguntas 2464 e 2485) |
+| `CallResult` | O que deu uma chamada, como o dono é avisado |
 | `BatteryIndicator` | O que o indicador nas costas mostra: vazio, ou de 1 a 4 níveis, normal ou crítico |
 | `LightLevel` | Nível de luz do jogo, de 0 a 15 |
 | `LampPolicy` | Quando a lanterna acende e apaga, conforme a chave, o estado e a luz do ambiente |
@@ -225,6 +229,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `CascadeCost` | A energia e o tempo de um plano, que a tela mostra e não exige (pergunta 2013) |
 | `MaterialLevel` e `CascadeChoice` | Quanto a entrada tem de um material, e o item escolhido numa marca com vários (perguntas 2006 e 2033) |
 | `DeskOrderGate` | O que um pedido precisa para sair de zero: os materiais de um item, sem depender de progressão. Só o começo é travado (perguntas 1984, 1985 e 2400) |
+| `RecipeTrail` | As receitas por onde o player passou ao abrir a receita de uma peça, até 8, para voltar uma por vez (pergunta 2478) |
 | `DeskProgress` | Os ticks do craft em andamento, mantidos na pausa |
 | `DeskCheck` | O que a mesa encontrou no tick: pedido, sinal de redstone, materiais, receita aceita, energia e espaço na saída |
 | `DeskStatus` | O que a mesa está fazendo: parada, criando ou pausada, com o motivo |

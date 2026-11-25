@@ -56,19 +56,20 @@ public final class TabletEvents {
   }
 
   /**
-   * An unloaded Cubit leaves its snapshot. A destroyed one, picked up or dead, leaves the list and
-   * the choice of its owner. A change of dimension keeps both.
+   * An unloaded Cubit leaves its snapshot, and the game hides it before it gives a reason (answer
+   * 2500). A destroyed one, picked up or dead, leaves the list and the choice of its owner. A
+   * change of dimension keeps both.
    */
   @SubscribeEvent
   public static void onLeave(EntityLeaveLevelEvent event) {
     if (!(event.getEntity() instanceof RobotEntity robot)
-        || !(event.getLevel() instanceof ServerLevel level)
-        || robot.getRemovalReason() == null) {
+        || !(event.getLevel() instanceof ServerLevel level)) {
       return;
     }
     RobotSnapshots snapshots = RobotSnapshots.of(level.getServer());
-    if (!robot.getRemovalReason().shouldDestroy()) {
-      if (robot.getRemovalReason() != Entity.RemovalReason.CHANGED_DIMENSION) {
+    Entity.RemovalReason reason = robot.getRemovalReason();
+    if (reason == null || !reason.shouldDestroy()) {
+      if (reason != Entity.RemovalReason.CHANGED_DIMENSION) {
         RobotSnapshotReader.of(robot).ifPresent(snapshots::keep);
       }
       return;
