@@ -1438,11 +1438,20 @@ Não há perguntas pendentes nesta fase.
 | 2491 | De onde sai a branch da #281, chamar o Cubit? | Da `develop`, com PR próprio, sem esperar a `0.2.0`: sai do escopo da entrega 3. A recomendação foi aceita. Muda a 2449 e a 2450 na entrega |
 | 2492 | A #255 e a #276, da mesma mesa, entram no PR da #280? | Só a #255, num commit à parte, porque o item pego do resultado fica no cursor. A #276 mexe nos saves e fica para depois. A recomendação foi aceita |
 | 2493 | Engineering Desk, #280: o conceito das quatro melhorias e da #255, e o código dele, estão autorizados (regra 54)? | Sim, com o catálogo escurecido durante o pedido e a correção da linha que dizia que escolher a receita puxa materiais. Nenhum recurso novo (regra 59). A recomendação foi aceita |
+| 2494 | Achado do desenvolvedor no jogo: as luzes da frente do Servidor sem energia | "um ponto vi que no servidor quando sem energia esta com as luzes em seus paineis frontais ligados acho que deveria estar todos desligados": sem energia, todas as luzes da frente apagam. Entra na entrega 3 (#265), na volta a ela |
+| 2495 | As GameTests instáveis, achadas na prova da #280, que também falham na `develop` pura | Corrigir, num commit `test:` à parte na #280, e aceitar só depois de umas 10 rodadas seguidas do zero. A recomendação foi aceita |
+| 2496 | Quais luzes do Servidor ficam acesas sem energia (2494), com quanto na tela e com Relay? | As barras dos contadores, como a da energia, e as gavetas do rodapé também. Zero na tela, e sem Relay |
+| 2497 | O Cubit sem caminho que conta como aparecido mesmo quando o sorteio do lugar seguro falha, achado pela GameTest instável: quando corrigir? | Agora, na #280, num commit `fix:` à parte: ele só conta como aparecido se apareceu, e, sem lugar seguro, tenta de novo. A recomendação foi aceita. Detalha a 2092 |
+| 2498 | O teste manual da #280, com a #255 e a correção do Cubit sem caminho, no `5afb0c9`, está aprovado? | "testes ok podemos seguir": aprovado em 2026-11-25 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 17:06 | Registra a resposta 2498. |
+| Zennd | 2026-11-25 16:45 | Registra a resposta 2497. |
+| Zennd | 2026-11-25 16:42 | Registra a resposta 2496. |
+| Zennd | 2026-11-25 16:38 | Registra as respostas 2494 a 2495. |
 | Zennd | 2026-11-25 16:05 | Registra a resposta 2493. |
 | Zennd | 2026-11-25 16:02 | Registra as respostas 2489 a 2492. |
 | Zennd | 2026-11-25 15:59 | Registra as respostas 2484 a 2488. |
