@@ -53,6 +53,10 @@
 | Induction Coil | `cubit:induction_coil` | [Abaixo](#peças-compartilhadas) |
 | Neural Core | `cubit:neural_core` | [Abaixo](#peças-compartilhadas) |
 | Circuit Board | `cubit:circuit_board` | [Abaixo](#peças-compartilhadas) |
+| Transceiver | `cubit:transceiver` | [Abaixo](#peças-compartilhadas) |
+| Chunk Anchor | `cubit:chunk_anchor` | [Abaixo](#peças-compartilhadas) |
+| Network Server | `cubit:network_server` | [Abaixo](#network-server-e-solar-relay) |
+| Solar Relay | `cubit:solar_relay` | [Abaixo](#network-server-e-solar-relay) |
 | Card Casing | `cubit:ml_card_casing` | [Abaixo](#cards-de-trabalho) |
 | Recharge Splash | `cubit:recharge_splash` | [Abaixo](#recharge-splash) |
 | Engineering Desk | `cubit:engineering_desk` | [Abaixo](#engineering-desk) |
@@ -95,6 +99,15 @@ Na Engineering Desk, sem forma: Cubit Casing, Cubit Visor, Cubit Treads, Neural 
 ### Induction Dock
 
 Na Engineering Desk, sem forma: Hard Drive, XP Tank, Base Power Cell, Induction Coil, Display Panel, Servo Motor e Solar Panel, em qualquer posição (perguntas 2138, 2144 e 2147). A célula é sempre a Base, porque o Dock sai Base e sobe com os Modules. A receita aparece ao ter um Cubit.
+
+### Network Server e Solar Relay
+
+Na Engineering Desk, sem forma e sem bloqueio por progressão, na categoria `Dock and Network` (perguntas 2282, 2305 e 2419):
+
+- **Network Server:** bloco de ferro, Hard Drive, XP Tank, Base Power Cell, Neural Core, Chunk Anchor, Transceiver e Display Panel.
+- **Solar Relay:** Solar Panel, Transceiver, Base Power Cell e XP Tank.
+
+O Servidor sai Base e sobe com os Modules, e o Relay segue o tier dele. A dica do Servidor mostra o tier, a energia e quantos itens guarda, e a do Relay, só a energia, com as linhas só quando há o que mostrar (pergunta 2416).
 
 ### Cubit Tablet
 
@@ -143,7 +156,7 @@ O Visor é sem forma, e as Esteiras ocupam duas linhas (perguntas 2142, 2143 e 2
 
 ### Peças compartilhadas
 
-As regras estão em [`pecas.md`](funcionalidades/pecas.md#peças-compartilhadas). Todas podem ser feitas desde o início (pergunta 2400), e, menos a Circuit Board, só com materiais do Overworld (perguntas 2136, 2150 e 2165). O Neural Core era o Cubit Neural Core, `cubit:general_robot_core`, e a Circuit Board, `cubit:ml_circuit_board`, sem migração, porque só os mundos de teste os tinham (pergunta 2166).
+As regras estão em [`pecas.md`](funcionalidades/pecas.md#peças-compartilhadas). Todas podem ser feitas desde o início (pergunta 2400), e, menos a Circuit Board, o Transceiver e a Chunk Anchor, só com materiais do Overworld (perguntas 2136, 2150 e 2165). O Neural Core era o Cubit Neural Core, `cubit:general_robot_core`, e a Circuit Board, `cubit:ml_circuit_board`, sem migração, porque só os mundos de teste os tinham (pergunta 2166).
 
 | Peça | Linha 1 | Linha 2 | Linha 3 |
 |---|---|---|---|
@@ -155,6 +168,8 @@ As regras estão em [`pecas.md`](funcionalidades/pecas.md#peças-compartilhadas)
 | Induction Coil | Pistão, lingote de cobre, pistão | Ferro, redstone, ferro | — |
 | Neural Core | Vazio, redstone, vazio | Redstone, diamante, redstone | Vazio, redstone, vazio |
 | Circuit Board | Esmeralda, comparador, esmeralda | Lingote de ouro, lingote de ouro, lingote de ouro | — |
+| Transceiver (pergunta 2282) | Vazio, pérola do ender, vazio | Lingote de cobre, Circuit Board, lingote de cobre | Vazio, redstone, vazio |
+| Chunk Anchor (pergunta 2282) | Pérola do ender, pérola do ender, pérola do ender | Lingote de ouro, diamante, lingote de ouro | Obsidiana, obsidiana, obsidiana |
 
 ### Cards de trabalho
 
@@ -247,11 +262,7 @@ Nomes aprovados nas perguntas 256, 1146, 1147 e 2275. Viram contrato só quando 
 
 | Nome | ID | Descrição |
 |---|---|---|
-| Network Server | `cubit:network_server` | Bloco da base, com tiers, o centro da rede ([`network.md`](funcionalidades/network.md)) |
-| Solar Relay | `cubit:solar_relay` | Gera com o sol e é o rádio do Servidor |
 | Signal Antenna | `cubit:signal_antenna` | Carrega o chunk onde está e liga os Cubits, os Docks e os baús |
-| Transceiver | `cubit:transceiver` | Peça compartilhada: 1 Circuit Board, 1 pérola do ender, 2 cobres e 1 redstone (pergunta 2282) |
-| Chunk Anchor | `cubit:chunk_anchor` | Peça compartilhada: 3 pérolas do ender, 3 obsidianas, 2 ouros e 1 diamante (pergunta 2282) |
 | Wireless Chest | `cubit:wireless_chest` | Acessa um canal do storage wireless |
 | Wireless Storage Upgrade | A definir | Liga o Cubit Ultimate a um canal |
 | Machine Learning: Miner | `cubit:ml_miner` | Card de Aprendizado de Máquina do trabalho de Minerador |
@@ -310,7 +321,8 @@ A partir da `1.0.0`, estes nomes não mudam sem migração (regra 18 do `AGENTS.
 | NBT do jogo na entidade | `CustomName` | Nome do Cubit |
 | Dados do player | `cubit:following_robot` | `robot`: o UUID do robô que segue, ou nada |
 | Item | `cubit:general_robot_casing`, `cubit:general_robot_visor`, `cubit:general_robot_treads`, `cubit:power_bank_casing` e `cubit:{tier}_power_cell` | As peças de montagem, sem data components (pergunta 1349) |
-| Item | `cubit:xp_tank`, `cubit:hard_drive`, `cubit:solar_panel`, `cubit:display_panel`, `cubit:servo_motor`, `cubit:induction_coil`, `cubit:neural_core` e `cubit:circuit_board` | As peças compartilhadas, sem data components, com a receita de mesmo ID (perguntas 2149 e 2166) |
+| Item | `cubit:xp_tank`, `cubit:hard_drive`, `cubit:solar_panel`, `cubit:display_panel`, `cubit:servo_motor`, `cubit:induction_coil`, `cubit:neural_core`, `cubit:circuit_board`, `cubit:transceiver` e `cubit:chunk_anchor` | As peças compartilhadas, sem data components, com a receita de mesmo ID (perguntas 2149 e 2166) |
+| Bloco e item | `cubit:network_server` e `cubit:solar_relay` | O Network Server e o Solar Relay, com a receita de mesmo ID. O NBT, os data components `cubit:network_id` e `cubit:network_state`, o ticket e os dados do mundo estão em [`network.md`](funcionalidades/network.md#contrato) (perguntas 2334, 2410, 2411 e 2413) |
 | Item | `cubit:ml_card_casing` | A carcaça de todo card, sem data components (perguntas 1541 e 1542) |
 | Receita | `cubit:ml_card_casing` | A receita da carcaça dos cards, em [Cards de trabalho](#cards-de-trabalho) (pergunta 1542) |
 | Item | `cubit:ml_fisher` | O card do Pescador. Na base, só por `/give`, sem receita (perguntas 1161 e 1172). A receita entra no card do Pescador (pergunta 1192) |
@@ -352,6 +364,7 @@ O estado salvo é validado ao entrar no jogo, sem derrubá-lo (regra 17 do `AGEN
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 14:47 | Acrescenta o Network Server, o Solar Relay, o Transceiver e a Chunk Anchor (perguntas 2282, 2416 e 2419). |
 | Zennd | 2026-11-25 12:27 | Tira o bloqueio por progressão das receitas (pergunta 2400). |
 | Zennd | 2026-11-24 22:42 | Atualiza os itens previstos da Network (perguntas 2275 e 2282). |
 | Zennd | 2026-11-24 12:32 | Atualiza o contrato dos saves, que vale a partir da `1.0.0` (perguntas 2189 e 2190). |

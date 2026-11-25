@@ -256,12 +256,26 @@ Pergunta 691.
 
 ## Com a Network
 
-Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](network.md). A tela do Cubit ganha a aba Network, entre Work e XP, e os estados `Hibernating · No network` e `Hibernating · Owner offline`, em azul, e `Waiting for area`, em roxo. Entram as telas do Servidor, do Solar Relay e da antena, todas com prévia antes do código (perguntas 2277, 2280, 2315, 2316 e 2331).
+As regras estão em [`network.md`](network.md), e as medidas, nas prévias aprovadas (pergunta 2397). Já no código, as telas do Servidor e do Solar Relay. O resto é planejado, na `0.2.0`. A tela do Cubit ganha a aba Network, entre Work e XP, e os estados `Hibernating · No network` e `Hibernating · Owner offline`, em azul, e `Waiting for area`, em roxo. Entra a tela da antena, com prévia antes do código (perguntas 2277, 2280, 2315, 2316 e 2331).
+
+### Tela do Network Server
+
+Só o dono abre, e o servidor confere o dono, a distância e o config em cada botão (regra 20). Duas abas, com o lugar das outras livre (pergunta 2277):
+
+- **Energy:** o nome, o tier e o estado, `On`, `On UPS` ou `No energy`; a bateria, com a marca da reserva, a entrada e o slot de redstone; o fluxo, com o Solar Relay, o chunk e as Power Banks; a chave do chunk, com o motivo de ele estar solto; o UPS, com − e + e o tempo que segura; o dono e o Rename. Sem limite de chunks por player no config, a linha diz só quantos são seus.
+- **Storage:** as fileiras do tier, os slots usados, a regra e se uma Power Bank carrega ou espera a reserva. A quantidade de 3 dígitos sai em letra menor.
+
+**Slots de 128:** clique, metade, Shift + clique, tecla de atalho e soltar tiram no máximo uma pilha normal, e uma pilha acima disso nunca troca de lugar com outro item (pergunta 2368).
+
+### Tela do Solar Relay
+
+Sem abas: o nome e o estado, `Generating`, `Stopped` ou `No pair`; a bateria e o slot de redstone; o céu, o que gera agora, o máximo do tier e o painel; o par, com o tier do Servidor, ou `No Server in this chunk`; o dono e o Rename (pergunta 2280).
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 14:47 | Acrescenta as telas do Network Server e do Solar Relay (pergunta 2397). |
 | Zennd | 2026-11-24 22:43 | Corrige o clique que abre a tela do Dock (perguntas 2122 e 2335). |
 | Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-24 10:06 | Troca o clique que abre a tela do Dock (pergunta 2122). |

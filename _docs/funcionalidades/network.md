@@ -2,7 +2,7 @@
 
 A rede sem fio do mod: o Network Server, o Solar Relay e a Signal Antenna. O conceito é do desenvolvedor e foi refinado nas perguntas 2196 a 2425, citadas só pelo número. As respostas em [`perguntas/`](../perguntas/fase-5-trabalhos.md) prevalecem. As entregas estão no [`ROADMAP.md`](../../ROADMAP.md#network-a-rede-sem-fio-em-andamento).
 
-**Situação:** conceito autorizado (pergunta 2325). A Entrega 1, este conceito (PR #272), e a Entrega 2, a área desenhada (pergunta 2363, PR #274), já entraram na `integration/network`, a branch centralizadora, de onde sai e para onde vai toda entrega. A `develop` só recebe a feature completa (pergunta 2378). O código das outras espera a autorização própria do desenvolvedor (pergunta 2224). Os números estão em [`tiers.md`](../tiers.md#network), e cada chave entra no config com o código que a lê (pergunta 2349).
+**Situação:** conceito autorizado (pergunta 2325). A Entrega 1, este conceito (PR #272), e a Entrega 2, a área desenhada (pergunta 2363, PR #274), já entraram na `integration/network`, a branch centralizadora, de onde sai e para onde vai toda entrega. A `develop` só recebe a feature completa (pergunta 2378). O código da Entrega 3, o Network Server e o Solar Relay, está autorizado e em andamento (pergunta 2399), e o das outras espera a autorização própria do desenvolvedor (pergunta 2224). Os números estão em [`tiers.md`](../tiers.md#network), e cada chave entra no config com o código que a lê (pergunta 2349).
 
 ## A ideia
 
@@ -308,6 +308,7 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 14:47 | Registra o código da Entrega 3 em andamento (pergunta 2399). |
 | Zennd | 2026-11-25 14:22 | Acrescenta a janela do nome e os nomes flutuantes do app Network (perguntas 2420 a 2425). |
 | Zennd | 2026-11-25 14:00 | Tira o bloqueio das receitas (pergunta 2419) e acompanha a numeração nova das respostas (pergunta 2418). |
 | Zennd | 2026-11-25 12:16 | Completa o contrato da Entrega 3, com as chaves dos saves e a volta do dono (perguntas 2410 a 2413). |

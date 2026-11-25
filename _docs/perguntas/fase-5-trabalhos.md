@@ -1372,11 +1372,13 @@ Não há perguntas pendentes nesta fase.
 | 2425 | Nomes flutuantes (2421): como é a caixinha? | Só o nome, numa caixinha escura e translúcida, com a borda na cor do tier ou do canal, sempre de frente para o player e visível através de blocos, mais fraca atrás deles, com a prévia antes do código. A recomendação foi aceita |
 | 2426 | Network, entrega 3: o conceito da janela do nome do Dock, do Servidor e do Solar Relay (2420 a 2423) e o código dela estão autorizados (regra 54)? | Sim, para fazer agora, com GameTests, num commit à parte, antes das telas. Nenhum recurso novo (regra 59). A recomendação foi aceita |
 | 2427 | Depois do merge do #278: algum ajuste no roteiro (regra 53)? | Nenhum: a janela do nome, as telas do Servidor e do Solar Relay, as receitas com a dica, o Jade e o JEI, os documentos e, no fim, as GameTests, o teste manual e o PR. A recomendação foi aceita |
+| 2428 | Network, entrega 3: as posições na grade do Transceiver e da Chunk Anchor, que a 2282 não fecha, e o texto do `AGENTS.md` com a estrutura de pacotes (2408) estão autorizados? | Sim, os dois, sem mudança: o Transceiver com a pérola em cima, a Circuit Board entre dois cobres e a redstone embaixo, e a Chunk Anchor com três pérolas, o diamante entre dois ouros e três obsidianas. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 14:51 | Registra a resposta 2428. |
 | Zennd | 2026-11-25 14:28 | Registra a resposta 2427. |
 | Zennd | 2026-11-25 14:22 | Registra a resposta 2426. |
 | Zennd | 2026-11-25 14:21 | Registra as respostas 2422 a 2425. |
