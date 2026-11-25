@@ -22,7 +22,7 @@ class BlockNameTest {
     assertEquals(STANDARD, BlockName.standard(BlockName.Kind.DOCK, ID).value());
   }
 
-  /** In English in both languages, as the Dock (answer 2401). */
+  /** In English in both languages, as the Dock (answer 2407). */
   @Test
   void theBlocksOfTheNetworkHaveTheirOwnStart() {
     assertEquals(SERVER, BlockName.standard(BlockName.Kind.SERVER, ID).value());

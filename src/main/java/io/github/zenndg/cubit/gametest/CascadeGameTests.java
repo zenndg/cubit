@@ -50,7 +50,6 @@ public final class CascadeGameTests {
   private static final String STEPS = "steps";
   private static final String RECIPE = "recipe";
   private static final String ROBOT = "general_robot";
-  private static final String VISOR = "general_robot_visor";
   private static final String WRONG_CHOICE = "Wrong answer to the choice";
   private static final String GONE = "cubit:gone";
   private static final String WRONG_START = "Wrong answer to the start";
@@ -80,10 +79,10 @@ public final class CascadeGameTests {
     return helper.getBlockEntity(EngineeringDeskGameTests.DESK);
   }
 
-  /** A player with every recipe, so the chain is released. */
+  /** A player with an empty recipe book, which never holds a chain (answer 2400). */
   private static ServerPlayer player(GameTestHelper helper) {
     ServerPlayer player = GameTestRobots.onlinePlayer(helper);
-    player.awardRecipes(helper.getLevel().getRecipeManager().getRecipes());
+    player.resetRecipes(helper.getLevel().getRecipeManager().getRecipes());
     return player;
   }
 
@@ -158,31 +157,13 @@ public final class CascadeGameTests {
     helper.succeed();
   }
 
-  /** The chain must be released for who starts it (answers 2009 and 2016). */
+  /** Nothing in the recipe book is needed to choose an item (answer 2400). */
   @GameTest(template = ARENA)
-  public static void aLockedChainDoesNotStart(GameTestHelper helper) {
-    EngineeringDeskBlockEntity desk = place(helper, RobotTier.ULTIMATE, ENERGY);
-    fillRobot(desk);
-    ServerPlayer player = GameTestRobots.onlinePlayer(helper);
-    player.resetRecipes(helper.getLevel().getRecipeManager().getRecipes());
-
-    helper.assertValueEqual(
-        CascadeLaunch.start(desk, player, CubitItems.GENERAL_ROBOT.get(), 1),
-        CascadeStart.LOCKED,
-        WRONG_START);
-    helper.succeed();
-  }
-
-  /** With the robot released and a part of it locked, the robot is not chosen (2009, 2038). */
-  @GameTest(template = ARENA)
-  public static void anItemWithALockedPartIsNotChosen(GameTestHelper helper) {
+  public static void anEmptyBookChoosesAnItem(GameTestHelper helper) {
     var recipes = helper.getLevel().getRecipeManager();
-    ServerPlayer player = player(helper);
     var robot = DeskRecipes.find(recipes, id(ROBOT)).orElseThrow();
-    helper.assertTrue(CascadeLaunch.mayChoose(player, robot), WRONG_CHOICE);
 
-    player.resetRecipes(List.of(DeskRecipes.find(recipes, id(VISOR)).orElseThrow()));
-    helper.assertFalse(CascadeLaunch.mayChoose(player, robot), WRONG_CHOICE);
+    helper.assertTrue(CascadeLaunch.mayChoose(player(helper), robot), WRONG_CHOICE);
     helper.succeed();
   }
 

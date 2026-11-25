@@ -184,7 +184,7 @@ public final class NetworkStorageGameTests {
         });
   }
 
-  /** The whole way of the game: the drop of the loot table, placed again (answers 2254, 2405). */
+  /** The whole way of the game: the drop of the loot table, placed again (answers 2254, 2411). */
   @GameTest(template = NetworkScene.CHUNK)
   public static void theDropKeepsAllOfTheServer(GameTestHelper helper) {
     Player owner = helper.makeMockPlayer(GameType.SURVIVAL);

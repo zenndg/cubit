@@ -283,7 +283,7 @@ Planejado, na `0.2.0`, e ainda fora do código, menos o desenho da área, descri
 | Chunks por player e no mundo, `chunks_per_player` e `chunks_per_world`, com 0 para sem limite (pergunta 2215) | 48 e 192 |
 | Chunk, por tick, `chunk_cost` (pergunta 2216) | 25 FE |
 | Distância: livre, passo e custo, `distance_free_blocks`, `distance_step_blocks` e `distance_cost` (pergunta 2310) | 100 blocos, 500 blocos e 1 FE/t |
-| Retomada, entre um chunk e outro do mesmo dono, `wake_interval_ticks` (perguntas 2330 e 2407) | 2 s (40 ticks) |
+| Retomada, entre um chunk e outro do mesmo dono, `wake_interval_ticks` (perguntas 2330 e 2413) | 2 s (40 ticks) |
 | Carga com que o Servidor zerado volta a segurar o chunk, `chunk_resume_energy` (perguntas 2372 e 2376) | 30 mil FE |
 | Antena sem sinal até parar, `signal_loss_ticks` (pergunta 2323) | 20 min (24.000 ticks) |
 | Antena: bateria e tanque, `antenna_energy_capacity` e `antenna_xp_tank_capacity` (pergunta 2273) | 600 mil FE e 64 baldes |
@@ -375,7 +375,8 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
-| Zennd | 2026-11-25 12:34 | Estende `wake_interval_ticks` aos chunks dos Servidores (pergunta 2407). |
+| Zennd | 2026-11-25 14:00 | Acompanha a numeração nova das respostas da Entrega 3 da Network (pergunta 2418). |
+| Zennd | 2026-11-25 12:34 | Estende `wake_interval_ticks` aos chunks dos Servidores (pergunta 2413). |
 | Zennd | 2026-11-25 09:55 | Confirma o nome da chave da retomada (pergunta 2376). |
 | Zennd | 2026-11-25 09:52 | Acrescenta a retomada do chunk do Servidor (pergunta 2372). |
 | Zennd | 2026-11-25 00:26 | Marca o desenho da área no código (perguntas 2287 e 2311). |

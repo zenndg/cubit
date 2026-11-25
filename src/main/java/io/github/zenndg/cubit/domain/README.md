@@ -184,7 +184,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `UpsReserve` | A parte da bateria que é só do chunk, o Nobreak, de 0% a 50% em passos de 5, com o que sobra para o resto e quanto tempo ela segura. Um número salvo ou editado vai ao passo de baixo, dentro do limite (perguntas 2209, 2212 e 2221) |
 | `UpsWatch` | O aviso do Nobreak: uma vez ao descer para a reserva, e de novo só depois de sair dela |
 | `ChunkCall` e `ChunkState` | Se um bloco segura o chunk e por que não, com o motivo em que o player menos pode agir primeiro: o config, a chave, o dono offline, a energia e os limites (perguntas 2210 a 2215) |
-| `ChunkCharge` | Se um bloco ficou sem energia para o chunk: zera sem o custo de um tick e só volta com a carga da retomada, também depois de um save. Um chunk de graça nunca zera (perguntas 2372 e 2404) |
+| `ChunkCharge` | Se um bloco ficou sem energia para o chunk: zera sem o custo de um tick e só volta com a carga da retomada, também depois de um save. Um chunk de graça nunca zera (perguntas 2372 e 2410) |
 | `ChunkRoster` | Quais chunks o mod segura, de qual player, na ordem em que chegaram, e quais esperam o dono. Quem chegou primeiro fica dentro dos limites (perguntas 2210 e 2215) |
 | `ChunkLimits` | Quantos chunks o mod pode segurar, de um player e no mundo, com 0 para sem limite (pergunta 2215) |
 | `ServerPower` | O que a bateria fez num tick: ligou, caiu ou nada, para a partida e a queda |
@@ -214,13 +214,13 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `CascadeRecipe` e `CascadeBook` | Uma receita como a cascata a vê, e a receita de cada item, a primeira na ordem do catálogo (perguntas 2009 e 2032) |
 | `CascadePlanner`, `CascadePlan` e `CascadeTask` | O plano de um item: as tarefas em série, com as peças antes, os materiais de base e as peças aproveitadas. Um ciclo não tem plano (perguntas 2006, 2008, 2012 e 2034) |
 | `CascadeRun` e `CascadeTaskStatus` | O plano em andamento, uma tarefa por vez, que nunca volta, com o status de cada uma e o sinal do comparador |
-| `CascadeCheck` e `CascadeStart` | O que a mesa encontrou para iniciar um plano, e se ele pode começar ou o primeiro motivo (perguntas 2009, 2015 e 2028) |
+| `CascadeCheck` e `CascadeStart` | O que a mesa encontrou para iniciar um plano, e se ele pode começar ou o primeiro motivo (perguntas 2015, 2028 e 2400) |
 | `CascadeTable` e `CascadeLine` | A tabela de um plano, igual antes e depois do início: a ordem, o item, o que a tarefa consome, de quais depende e o progresso. Em andamento, o resto sai das receitas (pergunta 2024) |
 | `CascadeAmount` | Quantos itens um plano pede, de 0, como um item escolhido começa, ao maior pedido do tier (perguntas 2011 e 2053) |
 | `CascadeNeed` | O que um plano usa de um item: um material de base ou uma peça pronta (perguntas 2006 e 2052) |
 | `CascadeCost` | A energia e o tempo de um plano, que a tela mostra e não exige (pergunta 2013) |
 | `MaterialLevel` e `CascadeChoice` | Quanto a entrada tem de um material, e o item escolhido numa marca com vários (perguntas 2006 e 2033) |
-| `DeskOrderGate` | O que um pedido precisa para sair de zero: a receita liberada pela progressão e os materiais de um item. Só o começo é travado (perguntas 1984, 1985 e 1991) |
+| `DeskOrderGate` | O que um pedido precisa para sair de zero: os materiais de um item, sem depender de progressão. Só o começo é travado (perguntas 1984, 1985 e 2400) |
 | `DeskProgress` | Os ticks do craft em andamento, mantidos na pausa |
 | `DeskCheck` | O que a mesa encontrou no tick: pedido, sinal de redstone, materiais, receita aceita, energia e espaço na saída |
 | `DeskStatus` | O que a mesa está fazendo: parada, criando ou pausada, com o motivo |

@@ -65,7 +65,7 @@ public final class ChunkKeys {
         new Energy(cost.get()), new Energy(Math.max(resume.get(), cost.get())));
   }
 
-  /** Between one chunk and the next, when their owner comes back (answers 2330 and 2407). */
+  /** Between one chunk and the next, when their owner comes back (answers 2330 and 2413). */
   public int wakeIntervalTicks() {
     return wakeInterval.get();
   }

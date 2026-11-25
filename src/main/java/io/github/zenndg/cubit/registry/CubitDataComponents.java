@@ -153,7 +153,7 @@ public final class CubitDataComponents {
           NETWORK_ID_ID,
           builder -> builder.persistent(UUIDUtil.CODEC).networkSynchronized(UUIDUtil.STREAM_CODEC));
 
-  /** What a block of the Network keeps in its item when it breaks (answers 2254 and 2404). */
+  /** What a block of the Network keeps in its item when it breaks (answers 2254 and 2410). */
   public static final Supplier<DataComponentType<SavedNetwork>> NETWORK_STATE =
       COMPONENTS.registerComponentType(
           NETWORK_STATE_ID,

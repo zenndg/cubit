@@ -19,8 +19,7 @@ import net.minecraft.world.item.crafting.RecipeManager;
 /**
  * The buttons of the desk screen, read on the server (rules 19 and 20): the order, the recipe of
  * the catalog, and the marks the player puts by hand in the grid (answers 1426 and 1444). Any
- * recipe can be chosen, and an order only starts with it released and with its materials (answer
- * 1991).
+ * recipe can be chosen, and an order only starts with its materials (answers 1984 and 2400).
  */
 public final class DeskControl {
   public static final int MINUS = 0;
@@ -60,7 +59,7 @@ public final class DeskControl {
     boolean allowed =
         desk.recipeId()
             .flatMap(id -> DeskRecipes.find(player.serverLevel().getRecipeManager(), id))
-            .map(recipe -> gate(desk, player, recipe).allows(desk.order().isActive()))
+            .map(recipe -> gate(desk, recipe).allows(desk.order().isActive()))
             .orElse(false);
     if (allowed) {
       desk.adjustOrder(step);
@@ -68,11 +67,11 @@ public final class DeskControl {
   }
 
   private static DeskOrderGate gate(
-      EngineeringDeskBlockEntity desk, ServerPlayer player, RecipeHolder<CraftingRecipe> recipe) {
+      EngineeringDeskBlockEntity desk, RecipeHolder<CraftingRecipe> recipe) {
     DeskShortage shortage =
         DeskShortage.of(
             DeskGrid.of(recipe.value()), desk.input(), desk.output(), desk.slots(), DeskOrder.STEP);
-    return new DeskOrderGate(DeskRecipes.unlocked(player, recipe), shortage.isEmpty());
+    return new DeskOrderGate(shortage.isEmpty());
   }
 
   private static boolean chooseOrMark(

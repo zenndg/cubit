@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 /**
  * The Network in the data of the world, so it is known also with its chunks unloaded: in this
  * delivery, the chunks it holds and the ones that wait for their owner. The names are a contract
- * (answers 2334 and 2407), and a broken entry is skipped (rule 17).
+ * (answers 2334 and 2413), and a broken entry is skipped (rule 17).
  */
 public final class NetworkData extends SavedData {
   private static final Logger LOGGER = LogUtils.getLogger();

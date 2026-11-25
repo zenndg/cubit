@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 
 /**
  * Brings the chunks of a network back when their owner comes back, the first at once and the others
- * one at a time, so no player feels a pause (answer 2407). A chunk whose block is gone is
+ * one at a time, so no player feels a pause (answer 2413). A chunk whose block is gone is
  * forgotten.
  */
 final class NetworkWake {

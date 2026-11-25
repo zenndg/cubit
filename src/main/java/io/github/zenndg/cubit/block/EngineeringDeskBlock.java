@@ -239,8 +239,7 @@ public final class EngineeringDeskBlock extends BaseEntityBlock {
       return InteractionResult.PASS;
     }
     player.openMenu(
-        state.getMenuProvider(level, pos),
-        data -> EngineeringDeskMenu.writeOpening(data, desk, player));
+        state.getMenuProvider(level, pos), data -> EngineeringDeskMenu.writeOpening(data, desk));
     return InteractionResult.CONSUME;
   }
 

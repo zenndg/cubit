@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
 
 /**
- * What a block of the Network keeps in its item, a contract with the saves (answers 2404 and 2405).
+ * What a block of the Network keeps in its item, a contract with the saves (answers 2410 and 2411).
  * The Solar Relay only keeps its energy. Without a reserve, the one of the config applies.
  */
 public record SavedNetwork(

@@ -15,13 +15,10 @@ public final class DeskScreenKeys {
   public static final String STORED_ENERGY = PREFIX + "stored_energy";
   public static final String ORDER = PREFIX + "order";
   public static final String CANCEL = PREFIX + "cancel";
-  public static final String LOCKED = PREFIX + "locked";
-  public static final String UNLOCKS_WITH = PREFIX + "unlocks_with";
   public static final String MISSING = PREFIX + "missing";
   public static final String CASCADE = PREFIX + "cascade";
   public static final String CASCADE_LOCKED = PREFIX + "cascade_locked";
   public static final String CASCADE_LOCKS = PREFIX + "cascade_locks";
-  public static final String CASCADE_PART_LOCKED = PREFIX + "cascade_part_locked";
   public static final String CASCADE_PICK = PREFIX + "cascade_pick";
   public static final String CASCADE_MATERIALS = PREFIX + "cascade_materials";
   public static final String CASCADE_HAS = PREFIX + "cascade_has";

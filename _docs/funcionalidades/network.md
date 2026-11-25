@@ -1,6 +1,6 @@
 # Network
 
-A rede sem fio do mod: o Network Server, o Solar Relay e a Signal Antenna. O conceito é do desenvolvedor e foi refinado nas perguntas 2196 a 2407, citadas só pelo número. As respostas em [`perguntas/`](../perguntas/fase-5-trabalhos.md) prevalecem. As entregas estão no [`ROADMAP.md`](../../ROADMAP.md#network-a-rede-sem-fio-em-andamento).
+A rede sem fio do mod: o Network Server, o Solar Relay e a Signal Antenna. O conceito é do desenvolvedor e foi refinado nas perguntas 2196 a 2413, citadas só pelo número. As respostas em [`perguntas/`](../perguntas/fase-5-trabalhos.md) prevalecem. As entregas estão no [`ROADMAP.md`](../../ROADMAP.md#network-a-rede-sem-fio-em-andamento).
 
 **Situação:** conceito autorizado (pergunta 2325). A Entrega 1, este conceito (PR #272), e a Entrega 2, a área desenhada (pergunta 2363, PR #274), já entraram na `integration/network`, a branch centralizadora, de onde sai e para onde vai toda entrega. A `develop` só recebe a feature completa (pergunta 2378). O código das outras espera a autorização própria do desenvolvedor (pergunta 2224). Os números estão em [`tiers.md`](../tiers.md#network), e cada chave entra no config com o código que a lê (pergunta 2349).
 
@@ -158,7 +158,7 @@ O Dock ganha dois modos: enviar o excesso e enviar tudo ao Servidor (2261). O XP
 
 ## Receitas
 
-Na Engineering Desk, liberadas com o Advanced Module, na categoria `Dock and Network`. Transceptor e Âncora em Shared parts (2282 e 2305).
+Na Engineering Desk, sem bloqueio por progressão, na categoria `Dock and Network`. Transceptor e Âncora em Shared parts (2282, 2305 e 2419).
 
 | Item | Materiais |
 |---|---|
@@ -262,17 +262,17 @@ Propostos pelo agente, conferidos contra o código e autorizados em bloco, sem v
 6. **Tirar do slot:** clique, metade, tecla de atalho, soltar e Shift + clique levam no máximo uma pilha normal.
 7. **Quantidade quebrada:** acima de 128 ou de um item que não cabe, o resto cai ao lado do bloco, com log (regra 17).
 8. **Relay por cabo e redstone:** enche só a própria bateria, que espera as antenas da Entrega 5. O sol nunca passa por ela.
-9. **Céu:** o Relay lê o céu acima do segundo bloco, no intervalo do Dock. O painel abre com 3 s de sol e fecha com 3 s sem ele, pela chave do Dock, `dock_solar_deploy_delay_ticks` (2406), também na chuva, e fica aberto à noite só com o Servidor Ultimate.
+9. **Céu:** o Relay lê o céu acima do segundo bloco, no intervalo do Dock. O painel abre com 3 s de sol e fecha com 3 s sem ele, pela chave do Dock, `dock_solar_deploy_delay_ticks` (2412), também na chuva, e fica aberto à noite só com o Servidor Ultimate.
 10. **Acompanhar o sol:** de leste a oeste do mundo, não importa para onde o bloco olha, até 11° para cada lado, o que cabe no bloco (2384). Virado para norte ou sul, o painel fica inclinado para a frente e gira de lado. Para leste ou oeste, fica quase deitado e vai de 79° a 101° no eixo da frente (2385). Só inclina depois de desdobrar. Com a lua, fica nivelado.
 11. **Frente:** cada traço é 10%, com ao menos um aceso acima de zero. A coluna do inventário mede os slots ocupados. Os quadradinhos abertos pelo tier ficam como canal livre, e os outros, fechados. Sem energia, tudo apaga.
 12. **Ligado e caído:** a partida toca quando a bateria sai de zero, e a queda, quando zera. Ao carregar o mundo, nenhuma das duas toca.
 13. **UPS:** o aviso soa uma vez ao descer para a reserva e volta a valer ao sair dela. Em 0%, não soa. O tempo na tela é o da porcentagem escolhida.
 14. **Limite de chunks:** acima dele, o Servidor funciona sem segurar o chunk, e a tela diz o motivo. Vale quem chegou primeiro.
-15. **Dono offline:** o chunk sai. Se outro player o mantém carregado, o Servidor continua gerando e carregando, sem pagar os 25 FE/t. Quando o dono entra, os chunks dele voltam um a cada 2 s, com o primeiro na hora (2407).
+15. **Dono offline:** o chunk sai. Se outro player o mantém carregado, o Servidor continua gerando e carregando, sem pagar os 25 FE/t. Quando o dono entra, os chunks dele voltam um a cada 2 s, com o primeiro na hora (2413).
 16. **Estado no item:** o Servidor com itens ou energia não cabe num shulker nem num inventário do mod. Vazio, cabe.
 17. **Abas:** Energy e Storage, na ordem da 2277, com os lugares das outras livres. O ícone de Storage é o do Dock, e o de Energy é novo. O Rename e o dono ficam na aba Energy até a aba Network existir, o tier do Relay aparece na linha do par, na tela dele, e a quantidade de 3 dígitos sai em letra menor (2397).
 18. **Receitas:** as duas peças em grade, como as outras peças, e os dois blocos sem forma, como o Dock.
-19. **Config:** `chunk_resume_energy`, em `[network]`, com 30.000, e a `wake_interval_ticks`, que vem da Entrega 4 (2407). As outras chaves já estão em [`tiers.md`](../tiers.md#network) e entram com o código que as lê.
+19. **Config:** `chunk_resume_energy`, em `[network]`, com 30.000, e a `wake_interval_ticks`, que vem da Entrega 4 (2413). As outras chaves já estão em [`tiers.md`](../tiers.md#network) e entram com o código que as lê.
 20. **Saves:** nada do Dock muda. O formato do slot é uma lista com `Slot`, o item com 1 e `Amount`.
 
 ## Contrato
@@ -282,11 +282,11 @@ Os nomes foram propostos pelo agente, a partir do padrão do mod, e autorizados 
 | Onde | Nome | Conteúdo |
 |---|---|---|
 | Blocos e itens | `cubit:network_server`, `cubit:solar_relay`, `cubit:signal_antenna`, `cubit:transceiver` e `cubit:chunk_anchor` | Cada um com a receita de mesmo ID |
-| Dados do mundo | `cubit_network` | Servidores, antenas, canais, vínculos, a última foto e o Log, por dono. Na Entrega 3, só a lista `Chunks`, com `Owner`, `Dimension`, `Pos` e `Waiting` (2407) |
+| Dados do mundo | `cubit_network` | Servidores, antenas, canais, vínculos, a última foto e o Log, por dono. Na Entrega 3, só a lista `Chunks`, com `Owner`, `Dimension`, `Pos` e `Waiting` (2413) |
 | Ticket | `cubit:network` | Os chunks, conferidos ao abrir o mundo |
-| NBT dos blocos | `NetworkId`, `Owner`, `CustomName`, `Energy`, `XpTank`, `Slot`, `Ups` e `ChunkLoading` | Comuns aos três, com o `Tier`, os `Items` e o `Drained` no Servidor e o `SolarPanel` no Relay (2404) |
+| NBT dos blocos | `NetworkId`, `Owner`, `CustomName`, `Energy`, `XpTank`, `Slot`, `Ups` e `ChunkLoading` | Comuns aos três, com o `Tier`, os `Items` e o `Drained` no Servidor e o `SolarPanel` no Relay (2410) |
 | NBT da antena | `Server`, `Channel`, `Enabled` e `ShowWall` | O Servidor, o canal e as chaves |
-| Item | `cubit:network_id` e `cubit:network_state` | O ID e o estado guardado, como o do Dock: `tier`, `energy`, `items` (`slot`, `item` e `amount`), `ups` e `chunk_loading`. O Relay grava só `energy` (2404 e 2405) |
+| Item | `cubit:network_id` e `cubit:network_state` | O ID e o estado guardado, como o do Dock: `tier`, `energy`, `items` (`slot`, `item` e `amount`), `ups` e `chunk_loading`. O Relay grava só `energy` (2410 e 2411) |
 | NBT do Cubit | `NetworkAntennas`, `NetworkDocks`, `NetworkChests`, `NetworkPaused` e `DrawnArea` | `DrawnArea` tem os pontos, a altura e a dimensão. A chave antiga `WorkArea` é ignorada (2283) |
 | NBT do Cubit | `HibernationReason`: `no_network` e `owner_offline` | Os motivos novos |
 | Modos do Dock | `XpMode`: `send_excess` e `send_all` | Os dois modos novos |
@@ -308,7 +308,8 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
-| Zennd | 2026-11-25 12:16 | Completa o contrato da Entrega 3, com as chaves dos saves e a volta do dono (perguntas 2404 a 2407). |
+| Zennd | 2026-11-25 14:00 | Tira o bloqueio das receitas (pergunta 2419) e acompanha a numeração nova das respostas (pergunta 2418). |
+| Zennd | 2026-11-25 12:16 | Completa o contrato da Entrega 3, com as chaves dos saves e a volta do dono (perguntas 2410 a 2413). |
 | Zennd | 2026-11-25 11:32 | Detalha as telas da Entrega 3 (pergunta 2397). |
 | Zennd | 2026-11-25 11:10 | Acrescenta os tempos das animações da Entrega 3 (pergunta 2391). |
 | Zennd | 2026-11-25 11:07 | Troca o metal das pranchas pelo claro (pergunta 2388). |

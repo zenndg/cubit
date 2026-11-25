@@ -7,7 +7,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
-/** When the Network brings chunks back: the world opens, or their owner comes (2210, 2407). */
+/** When the Network brings chunks back: the world opens, or their owner comes (2210, 2413). */
 @EventBusSubscriber(modid = CubitMod.MOD_ID)
 public final class NetworkEvents {
   private NetworkEvents() {}

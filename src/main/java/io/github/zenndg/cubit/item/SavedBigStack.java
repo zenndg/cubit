@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * A slot of the Network Server in a save: the item, with one, and how many apart, because the game
- * only saves stacks from 1 to 99. A contract with the saves (answers 2368 and 2404).
+ * only saves stacks from 1 to 99. A contract with the saves (answers 2368 and 2410).
  */
 public record SavedBigStack(int slot, ItemStack item, int amount) {
   private static final String SLOT_FIELD = "slot";

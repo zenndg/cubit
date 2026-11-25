@@ -276,7 +276,8 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
-| Zennd | 2026-11-25 12:34 | Acrescenta `wake_interval_ticks`, na seção `network` (perguntas 2330 e 2407). |
+| Zennd | 2026-11-25 14:00 | Acompanha a numeração nova das respostas da Entrega 3 da Network (pergunta 2418). |
+| Zennd | 2026-11-25 12:34 | Acrescenta `wake_interval_ticks`, na seção `network` (perguntas 2330 e 2413). |
 | Zennd | 2026-11-25 11:58 | Acrescenta as chaves do Network Server e do Solar Relay (perguntas 2334, 2349 e 2376). |
 | Zennd | 2026-11-25 00:23 | Acrescenta as chaves do desenho da área, na seção `network` (perguntas 2287, 2311 e 2349). |
 | Zennd | 2026-11-24 12:32 | Atualiza o contrato das chaves, que vale a partir da `1.0.0` (perguntas 2189 e 2190). |

@@ -10,21 +10,17 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 /**
- * Whether the plus of the desk may start an order, and why not: what releases the recipe and what
- * the desk misses (answers 1970, 1988 and 1991). It only shows: the server checks again.
+ * Whether the plus of the desk may start an order, and why not: what the desk misses (answers 1988
+ * and 2400). It only shows: the server checks again.
  */
 final class DeskOrderView {
-  private static final String OR = " / ";
-
   private final EngineeringDeskMenu menu;
   private final DeskCatalog catalog;
 
@@ -42,8 +38,7 @@ final class DeskOrderView {
   boolean mayRaise() {
     return chosen()
         .map(recipe ->
-            new DeskOrderGate(DeskCatalog.unlocked(recipe), menu.shortage(recipe).isEmpty())
-                .allows(menu.total() > menu.done()))
+            new DeskOrderGate(menu.shortage(recipe).isEmpty()).allows(menu.total() > menu.done()))
         .orElse(false);
   }
 
@@ -54,29 +49,7 @@ final class DeskOrderView {
   }
 
   List<Component> reasons() {
-    List<Component> lines = new ArrayList<>();
-    chosen()
-        .filter(recipe -> !DeskCatalog.unlocked(recipe))
-        .ifPresent(recipe -> lines.addAll(locked(menu, recipe)));
-    lines.addAll(missing(shortage()));
-    return lines;
-  }
-
-  /** Locked, with the items that release it, when the server told them. */
-  static List<Component> locked(EngineeringDeskMenu menu, RecipeHolder<CraftingRecipe> recipe) {
-    List<Component> lines = new ArrayList<>();
-    lines.add(Component.translatable(DeskScreenKeys.LOCKED).withStyle(ChatFormatting.RED));
-    List<Item> openers = menu.openersOf(recipe.id());
-    if (!openers.isEmpty()) {
-      String names =
-          openers.stream()
-              .map(item -> item.getDescription().getString())
-              .collect(Collectors.joining(OR));
-      lines.add(
-          Component.translatable(DeskScreenKeys.UNLOCKS_WITH, names)
-              .withStyle(ChatFormatting.GRAY));
-    }
-    return lines;
+    return missing(shortage());
   }
 
   /** One line for each missing item, with how many. */

@@ -18,7 +18,6 @@ import java.util.Map;
 import java.util.Optional;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -74,22 +73,9 @@ final class CascadeReading {
                 menu.cascade().allowed(),
                 quantity() > 0,
                 plan.isPresent(),
-                released(book, id),
                 plan.map(found -> CascadeLaunch.hasBase(found, input)).orElse(false),
                 menu.total() > menu.done(),
                 menu.cascade().holdsItems()));
-  }
-
-  private static boolean released(CascadeBook book, String item) {
-    return CascadePlanner.order(book, item).stream()
-        .flatMap(List::stream)
-        .allMatch(each -> book.recipeOf(each).map(recipe -> known(recipe.id())).orElse(false));
-  }
-
-  private static boolean known(String recipe) {
-    Minecraft minecraft = Minecraft.getInstance();
-    return minecraft.player != null
-        && minecraft.player.getRecipeBook().contains(ResourceLocation.parse(recipe));
   }
 
   /** The plan on its way, or nothing while its numbers are still on the way from the server. */

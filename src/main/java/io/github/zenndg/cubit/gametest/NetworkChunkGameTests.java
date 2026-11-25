@@ -119,7 +119,7 @@ public final class NetworkChunkGameTests {
         });
   }
 
-  /** Who ran out remembers it through a save (answer 2404). */
+  /** Who ran out remembers it through a save (answer 2410). */
   @GameTest(template = NetworkScene.CHUNK)
   public static void aSavedServerStaysDrained(GameTestHelper helper) {
     NetworkServerBlockEntity server = place(helper, owner(helper), Energy.ZERO);
@@ -158,7 +158,7 @@ public final class NetworkChunkGameTests {
         });
   }
 
-  /** When the owner leaves, the chunk goes and waits for the return (answers 2210 and 2407). */
+  /** When the owner leaves, the chunk goes and waits for the return (answers 2210 and 2413). */
   @GameTest(template = NetworkScene.CHUNK)
   public static void anOwnerThatLeavesKeepsThePlaceInLine(GameTestHelper helper) {
     ServerPlayer owner = owner(helper);
@@ -218,7 +218,7 @@ public final class NetworkChunkGameTests {
         });
   }
 
-  /** Only the names of the contract, and nothing is lost (answer 2407). */
+  /** Only the names of the contract, and nothing is lost (answer 2413). */
   @GameTest(template = NetworkScene.CHUNK)
   public static void theDataOfTheWorldComesBack(GameTestHelper helper) {
     ServerPlayer owner = owner(helper);

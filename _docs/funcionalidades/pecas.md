@@ -39,14 +39,14 @@ Seis peças novas, cada uma com uma função que vários itens do mod têm em co
 
 ### As peças
 
-| Peça | ID | Linha 1 | Linha 2 | Linha 3 | Liberada por | Onde entra |
-|---|---|---|---|---|---|---|
-| XP Tank / Tanque de XP, sempre vazio | `cubit:xp_tank` | Vidro, ferro, vidro | Vidro, balde, vidro | Vazio, ferro, vazio | Desde o início | Cubit e Dock |
-| Hard Drive / HD | `cubit:hard_drive` | Ferro, baú, ferro | Redstone, ouro, cobre | | Desde o início | Cubit e Dock |
-| Solar Panel / Painel Solar | `cubit:solar_panel` | 3 painéis de vidro | 3 lápis-lazúlis | Cobre, redstone, cobre | Desde o início | Cubit e Dock |
-| Display Panel / Tela | `cubit:display_panel` | 3 painéis de vidro | Ferro, diamante, ferro | Redstone, obsidiana, cobre | Desde o início | Visor do Cubit, Tablet e Dock |
-| Servo Motor / Servomotor | `cubit:servo_motor` | Vazio, cobre, vazio | Ferro, pistão, ferro | Vazio, redstone, vazio | Desde o início | Esteiras do Cubit e Dock |
-| Induction Coil / Bobina de Indução | `cubit:induction_coil` | Pistão, cobre, pistão | Ferro, redstone, ferro | | Cubit, junto do Dock | Dock |
+| Peça | ID | Linha 1 | Linha 2 | Linha 3 | Onde entra |
+|---|---|---|---|---|---|
+| XP Tank / Tanque de XP, sempre vazio | `cubit:xp_tank` | Vidro, ferro, vidro | Vidro, balde, vidro | Vazio, ferro, vazio | Cubit e Dock |
+| Hard Drive / HD | `cubit:hard_drive` | Ferro, baú, ferro | Redstone, ouro, cobre | | Cubit e Dock |
+| Solar Panel / Painel Solar | `cubit:solar_panel` | 3 painéis de vidro | 3 lápis-lazúlis | Cobre, redstone, cobre | Cubit e Dock |
+| Display Panel / Tela | `cubit:display_panel` | 3 painéis de vidro | Ferro, diamante, ferro | Redstone, obsidiana, cobre | Visor do Cubit, Tablet e Dock |
+| Servo Motor / Servomotor | `cubit:servo_motor` | Vazio, cobre, vazio | Ferro, pistão, ferro | Vazio, redstone, vazio | Esteiras do Cubit e Dock |
+| Induction Coil / Bobina de Indução | `cubit:induction_coil` | Pistão, cobre, pistão | Ferro, redstone, ferro | | Dock |
 
 As cinco primeiras usam só materiais do Overworld, porque fazem parte do primeiro Cubit (perguntas 1343, 2136, 2149 e 2150).
 
@@ -69,7 +69,7 @@ O ajuste de 2162 a 2169, autorizado na 2170:
 | Item | Como fica | Pergunta |
 |---|---|---|
 | Neural Core / Núcleo Neural | O Cubit Neural Core muda de nome e de ID, `cubit:neural_core`, com a mesma grade, e vira peça compartilhada: Cubit, Advanced Module e todo card | 2163, 2166 e 2167 |
-| Circuit Board / Placa de Circuito | Passa a `cubit:circuit_board` e a peça compartilhada: cards e Power Bank Casing. Esmeralda, comparador, esmeralda / três ouros, liberada com o Cubit | 2165 a 2168 |
+| Circuit Board / Placa de Circuito | Passa a `cubit:circuit_board` e a peça compartilhada: cards e Power Bank Casing. Esmeralda, comparador, esmeralda / três ouros | 2165 a 2168 |
 | Cards de profissão | Card Casing, Circuit Board, Neural Core e o item do trabalho, sem forma. A liberação, pelo Module do tier, não muda | 2164 |
 | Power Bank Casing | Quartzo, Circuit Board, quartzo / quartzo, vazio, quartzo / quartzo, Induction Coil, quartzo. As Power Banks e o upgrade não mudam, e montar do zero e subir de tier continuam com o mesmo custo (pergunta 1355) | 2165 e 2169 |
 
@@ -93,7 +93,7 @@ Não foram perguntados e foram autorizados junto do conceito (pergunta 2155):
 3. Os materiais são os itens exatos, como nas receitas de hoje: vidro e painel de vidro sem cor, e lingotes de ferro, ouro e cobre.
 4. O balde vazio é gasto, sem devolução.
 5. A categoria Parts fica logo depois da Robot na barra do catálogo.
-6. O Visor, as Esteiras e o Cubit continuam liberados desde o início, e o Dock e o Tablet, com o Cubit.
+6. Nenhuma receita fica bloqueada por progressão (pergunta 2400).
 7. Um plano da fabricação em cascata em andamento, com uma receita que mudou, devolve tudo, como já faz (pergunta 2010).
 8. As texturas são de 16×16, no estilo das peças de hoje, por prompts em `tmp/arte/pecas/prompt.md`, aprovadas antes do código.
 9. O guia do player e a imagem da árvore ganham a numeração nova, e o teste da árvore alcançável passa a valer para as peças.
@@ -121,7 +121,7 @@ Uma issue e um PR: as texturas aprovadas, os itens, as receitas, a categoria, o 
 - **Pilha:** todas empilham até 64, como os Modules.
 - **Criativo:** ficam na aba `cubit:main`.
 - **Uso:** nenhuma peça tem uso fora da [Engineering Desk](mesa-de-engenharia.md). O clique direito com elas não faz nada.
-- **Catálogo:** as receitas saem da Engineering Desk. O Cubit, as três peças só dele e as compartilhadas do começo ficam liberados desde o início, e o resto segue a ordem de [`itens.md`](../itens.md#progressão-das-receitas) (perguntas 1496 e 1498).
+- **Catálogo:** as receitas saem da Engineering Desk. Todas podem ser feitas desde o início, com os materiais (pergunta 2400).
 - **Modules:** seguem a mesma linha das células, numa cruz com o Module anterior no centro. O Advanced nasce do Neural Core (perguntas 1357, 1358 e 2163). As grades estão em [`itens.md`](../itens.md#modules).
 - **O que não muda:** a Toolbox, o conserto do Damaged Cubit e a recarga pela grade. O Dock e o Tablet passam às [peças compartilhadas](#peças-compartilhadas).
 
@@ -158,6 +158,7 @@ As peças não têm data components nem NBT. Só os dois IDs da pergunta 2166 mu
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 12:27 | Tira o bloqueio por progressão das receitas (pergunta 2400). |
 | Zennd | 2026-11-24 22:42 | Fecha as peças da Network (pergunta 2282). |
 | Zennd | 2026-11-24 11:57 | Afasta os ícones das categorias e a área do craft da mesa (perguntas 2176 a 2178). |
 | Zennd | 2026-11-24 11:44 | Acompanha o Neural Core, a Circuit Board, os cards e a Power Bank Casing no código (perguntas 2162 a 2173). |
