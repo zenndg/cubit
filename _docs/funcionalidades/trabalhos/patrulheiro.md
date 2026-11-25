@@ -285,10 +285,15 @@ Uma issue, a #198 renomeada, e quatro PRs testados no jogo (perguntas 1578, 1605
 3. **Realismo:** o realismo da seção [Realismo](#realismo), os alvos novos, a equipe de Patrulheiros, as asas para se mover, a escolta marcada, as correções das perguntas 1635 a 1642, o refinamento final das perguntas 1685 a 1697, o XP como energia, as frases de apresentação de todo Cubit e o estado do Patrulheiro sincronizado com o cliente, que o visual vai ler.
 4. **Visual e sons:** o modelo, as texturas, as animações, os efeitos, os sons e a textura do card, a partir das imagens e dos `.wav` aprovados, com rodada e autorização próprias (pergunta 1749).
 
+## Com a Network
+
+Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](../network.md). A área passa a vir das antenas, no limite dos outros cards, sem os 64×64 e 128×128 próprios. A perseguição continua até 16 blocos para fora, só em chunk que roda entidades e com o dono por perto. A escolta marcada não precisa da rede (perguntas 2231 e 2253).
+
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-24 08:16 | Troca o XP como energia pelo XP no tanque (perguntas 1821, 1825 e 2062). |
 | Zennd | 2026-11-22 22:08 | Deixa a lente do visor e o brilho dela mais transparentes, para os olhos aparecerem (pergunta 1811). |
 | Zennd | 2026-11-22 22:05 | Alonga o visor até cobrir os olhos quando baixado (perguntas 1809 e 1810). |

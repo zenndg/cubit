@@ -103,10 +103,15 @@ Só visual, sempre com o card, no padrão dos trabalhos: um chapéu e a mesma mo
 
 As marcas não vão para o item: recolher o Cubit as apaga, como a área e os baús (perguntas 343 e 1297).
 
+## Com a Network
+
+Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](../network.md). O card passa a valer a partir do Advanced, com 4 máquinas ou destinos, e os baús passam a 12, 18 e 25, nos chunks das antenas do Cubit (perguntas 2235 e 2242).
+
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-21 21:21 | Troca a receita do card pela receita comum dos cards (perguntas 1540 a 1545). |
 | Marcelo Fabiano | 2026-11-19 23:06 | Troca a chave das marcas para `MarkedBlocks` (pergunta 1327). |

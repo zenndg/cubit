@@ -18,8 +18,12 @@ O inglês é o idioma base do mod, e o jogo também tem a tradução para o port
 | Tiers: Base, Avançado, Elite e Ultimate | Base, Advanced, Elite e Ultimate |
 | Upgrades | Advanced, Elite e Ultimate Module |
 | Power Bank | Base, Advanced, Elite e Ultimate Power Bank |
-| Servidor | Robot Server |
-| Antena | Signal Antenna |
+| Servidor da Rede ou Servidor, planejado | Network Server |
+| Relé Solar, planejado | Solar Relay |
+| Antena de Sinal ou antena, planejada | Signal Antenna |
+| Rede, planejada ([`network.md`](funcionalidades/network.md)) | Network |
+| Reserva do chunk, planejada (pergunta 2218) | UPS, e Nobreak em português |
+| Voltar ao trabalho, planejado | Back to work |
 | Baú wireless | Wireless Chest |
 | Upgrade do storage wireless | Wireless Storage Upgrade |
 | Trabalho | Job |
@@ -83,6 +87,7 @@ Os IDs estão em [`itens.md`](itens.md).
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:42 | Atualiza os nomes da Network (perguntas 2218 e 2275). |
 | Zennd | 2026-11-23 16:20 | Acrescenta a cascata, a fabricação em cascata e o plano (pergunta 2043). |
 | Zennd | 2026-11-22 23:12 | Acrescenta o Cubit XP Fluid, o tanque de XP e o mB (pergunta 1850). |
 | Zennd | 2026-11-22 13:00 | Acrescenta os apps do Tablet, as armas e a escolta marcada do Patrulheiro (perguntas 1554, 1655 e 1665). |

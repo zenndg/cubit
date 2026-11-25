@@ -89,10 +89,15 @@ Só visual, sempre com o card, no padrão dos trabalhos (pergunta 1324):
 
 A reserva dos fornos fica só na memória do servidor e não vai para o save.
 
+## Com a Network
+
+Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](../network.md). O card passa a valer a partir do Advanced, com 2, 4 e 8 fornos, nos chunks das antenas do Cubit (perguntas 2236 e 2242).
+
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-21 21:21 | Troca a receita do card pela receita comum dos cards (perguntas 1540 a 1545). |
 | Marcelo Fabiano | 2026-11-19 23:04 | Fecha o conceito do Cozinheiro, com os baús da Descarga, o app Marcar, o combustível, a proteção, o visual e os números (perguntas 1314 a 1327). |

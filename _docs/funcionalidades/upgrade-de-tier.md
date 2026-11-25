@@ -54,13 +54,14 @@ O colar do ícone do Cubit e do Damaged Cubit ganha a cor do tier por uma segund
 
 ## Fora desta entrega
 
-- O uso dos Modules no Servidor e na antena, que entram na Fase 5 ([`trabalhos.md`](trabalhos.md)).
+- O uso dos Modules no Network Server, que entra com a [Network](network.md). A antena não tem tier (pergunta 2199).
 - Os recursos que dependem do tier e ainda não existem, como o choque, o ímã, o modo área e as tochas, que entram nos itens seguintes da Fase 4.
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:42 | Aponta o Servidor para a Network (pergunta 2199). |
 | Marcelo Fabiano | 2026-11-13 09:05 | Troca a fornalha pelas tochas nos recursos seguintes. |
 | Marcelo Fabiano | 2026-11-12 08:30 | Aponta para as receitas dos Modules. |
 | Marcelo Fabiano | 2026-11-11 23:10 | Acrescenta os nomes e os textos em português. |

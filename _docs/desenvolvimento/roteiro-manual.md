@@ -1499,6 +1499,139 @@ As regras estão em [`energia.md`](../funcionalidades/energia.md#ir-para-a-base-
 | 9 | Com um segundo Dock com caminho livre no raio | Desiste do primeiro e vai ao segundo |
 | 10 | Ponha o item do Cubit em cima do Dock | Entra direto, como antes |
 
+## Network
+
+Planejado, na `0.2.0`. As regras estão em [`network.md`](../funcionalidades/network.md), e os números, em [`tiers.md`](../tiers.md#network). Cada seção é o teste de uma entrega, logo depois das GameTests (pergunta 2293), e entra em uso com ela. Os textos exatos das telas saem das prévias aprovadas.
+
+### Entrega 2: área desenhada
+
+Antes, apague o `config/cubit-common.toml` da instância de teste (pergunta 2324). Use um Cubit Advanced, um Elite e um Ultimate.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Com o app Área, escolha o Cubit e clique em três pontos em ângulo reto | Uma linha vermelha de 3 px liga os pontos. O clique fora do ângulo reto é recusado, com o motivo |
+| 2 | Clique no quarto ponto e depois no primeiro | A forma fecha, e a linha fica verde |
+| 3 | Shift + clique | A área é aplicada, e o Cubit vai para ela |
+| 4 | Comece outro desenho, e use Shift + clique com a linha vermelha | Sai um ponto por vez. Trocar de app cancela tudo |
+| 5 | Com a linha verde, clique num ponto marcado | A forma reabre |
+| 6 | Clique num bloco a 30 e a 40 blocos | O primeiro entra, e o segundo é recusado |
+| 7 | Tente fechar com 3 pontos, e depois passar de 32 | Avisa quantos faltam, e depois recusa |
+| 8 | Desenhe um L e ponha nele cada trabalho, um por vez | O Cubit trabalha só dentro do L, também no canto de dentro |
+| 9 | Marque um ponto no alto e outro no chão | A altura vai de um ao outro, sem passar de 8, 24 ou 32 |
+| 10 | Shift + clique no Cubit, no app Área, e de novo em 5 s | Pede confirmação e apaga a área |
+| 11 | Abra um mundo com uma área antiga | A área sumiu, e o Cubit e os itens dele continuam iguais |
+| 12 | Num mundo novo, consiga o Advanced Module | Os cards do Organizador e do Cozinheiro ficam liberados |
+| 13 | Ponha os dois cards em Cubits Advanced | Trabalham, mais devagar que no Elite, com 4 marcas e 2 fornos |
+
+### Entrega 3: Network Server e Solar Relay
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Faça as peças e os dois blocos na mesa, com o Advanced Module | Na categoria `Dock and Network`, e o Transceptor e a Âncora em Shared parts |
+| 2 | Coloque o Servidor e o Relay no mesmo chunk | Pareiam sozinhos, e o LED fica ciano |
+| 3 | Coloque um segundo Servidor e um segundo Relay no chunk, também com outro player | Recusados, com o motivo |
+| 4 | Olhe os dois de dia, à noite, na chuva e cobertos | O painel abre com o sol. Só o Ultimate gera à noite, e nenhum na chuva |
+| 5 | Suba o Servidor até o Ultimate | A faixa muda, o corpo fica em netherite, e nada do que ele guarda se perde |
+| 6 | Ponha redstone, uma Power Bank e um cabo de outro mod | A bateria sobe, e a Power Bank descarrega |
+| 7 | Na aba Storage, ponha 128 itens do mod num slot, e um item de fora | Cabem 128, e o de fora é recusado. A Power Bank carrega |
+| 8 | Na aba Energy, mude o UPS | O tempo ao lado acompanha, e 0% avisa |
+| 9 | Afaste-se bastante, com a chave do chunk ligada e desligada, e volte | Ligada, o Servidor continuou gerando. Desligada, não |
+| 10 | Quebre o Servidor cheio e coloque em outro chunk | Volta com tudo. O item não cabe num shulker nem no Dock |
+| 11 | Compare os dois ao lado do Dock e da mesa, de dia e no escuro | Parecem da mesma família, e as luzes acendem no escuro |
+| 12 | Olhe de perto cada lado dos dois | Relevo e sombra em toda face, sem face lisa e chapada |
+| 13 | Ligue, encha, tire a energia e suba o tier do Servidor | Partida, ventoinhas, HDs, barras e queda de luz, com os sons |
+| 14 | Olhe o Relay do amanhecer ao anoitecer | O painel se desdobra em etapas, acompanha o sol e se guarda, com os sons |
+| 15 | Afaste-se uns 20 blocos | Os loops somem |
+| 16 | Em português | Textos sem sobreposição |
+
+### Entrega 4: Signal Antenna e chunks
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Coloque uma antena sem ligar | Recusada, com o motivo |
+| 2 | Clique com ela no Servidor e coloque longe | Recebe energia e pega o primeiro canal livre |
+| 3 | Na tela dela, troque o canal | A faixa e o anel mudam de cor |
+| 4 | Olhe as 16 cores de perto e de longe, de dia e no escuro | Todas se distinguem, também o preto e o cinza |
+| 5 | Ligue a parede, com e sem o Tablet no app Network | Só aparece com ele, em volta do chunk, por 16 blocos. Outro player não vê |
+| 6 | Ligue a de duas antenas vizinhas | As duas aparecem, sem piscar |
+| 7 | Plante trigo no chunk e vá para longe por alguns minutos | Cresceu |
+| 8 | Desligue a chave do chunk e repita | Não cresceu |
+| 9 | Passe do limite de canais do tier e coloque uma segunda antena no chunk | Recusadas, com o motivo |
+| 10 | Quebre o Servidor, o Relay e a antena, um por vez, e recoloque | A antena usa a bateria, e tudo volta, uma antena a cada 2 s |
+| 11 | Tire toda a energia | A antena entra no UPS, avisa uma vez, e depois solta o chunk |
+| 12 | Saia e entre no mundo | Tudo continua como estava |
+| 13 | Num servidor, saia com o dono | Os chunks saem, e voltam quando ele entra |
+| 14 | `/cubit network list` e `release`, com e sem operador | Só o operador usa |
+| 15 | Coloque a antena, corte o sinal e devolva | O mastro se ergue, a parabólica procura, trava e perde o sinal, com os sons |
+| 16 | Olhe a antena de perto, de todos os lados | Relevo e sombra, sem face chapada |
+
+### Entrega 5: app Network, ligações e energia
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | No app Network, clique na antena, no Cubit, num Dock e num baú | As setas mostram as ligações, e o Dock recebe energia |
+| 2 | Repita cada clique | A ligação se desfaz, com confirmação quando algo se perde |
+| 3 | Use um barril, um shulker e um storage de outro mod | Todos valem. Fora do chunk, recusados |
+| 4 | Passe do limite de antenas, baús e Docks de cada tier | Recusado, com o número do limite |
+| 5 | Ligue um Cubit Elite a 2 antenas pela quina, e depois pelo lado | A quina é recusada, e o lado vale |
+| 6 | Desenhe a área dentro e fora dos chunks | Fora, o clique é recusado na hora |
+| 7 | Desligue a antena por onde a área passa | Pede confirmação, e a área inteira some |
+| 8 | Um baú para dois Cubits, e um baú para cada | Os dois jeitos funcionam |
+| 9 | Com pouca energia e vários Docks | O Dock com Cubit carregando recebe antes |
+| 10 | Esvazie a antena pelos Docks, com a chave do chunk desligada | Ela para em 5% |
+
+### Entrega 6: a rede obrigatória e os trabalhos
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Abra um mundo com Cubits trabalhando sem rede | Hibernam com `No network`, e nada se perde |
+| 2 | Ligue um Cubit a uma antena | Para de seguir e mostra `Waiting for area` |
+| 3 | Desenhe a área, marque Dock e baú e vá para longe | Na volta, ele trabalhou, recarregou e descarregou |
+| 4 | Desligue a antena, e ligue de novo | Hiberna, avisa uma vez, e volta sozinho |
+| 5 | Quebre o Servidor e espere | Ele segue trabalhando até a bateria da antena acabar, ou 20 minutos |
+| 6 | Ponha fogo nele perto da borda, e empurre-o para fora | Não sai dos chunks, e volta |
+| 7 | Cerque o Dock dele com um muro | Desiste, avisa e tenta outro, sem atravessar |
+| 8 | `Follow`, e depois `Back to work` | Pausa, guarda tudo e volta |
+| 9 | Recolha um Cubit, e mate outro | As ligações somem. Na morte, o dono é avisado |
+| 10 | Chame pelo Dock um Cubit que não tem aquele Dock marcado | Não vem |
+| 11 | Com um Patrulheiro, persiga um hostil para fora, com você perto e longe | Perto, sai até 16 blocos e volta. Longe, não sai |
+| 12 | Marque uma escolta sem rede | Funciona |
+| 13 | Veja a aba Network na tela do Cubit e no Tablet | Antenas com a cor do canal, Docks, baús, motivo e o botão |
+| 14 | Todos os trabalhos na rede, e um Cubit Base seguindo | Os trabalhos funcionam, e seguir continua como antes |
+
+### Entrega 7: XP de volta
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | No Dock ligado, escolha enviar o excesso e, depois, enviar tudo | O XP sobe até o Servidor, aos poucos |
+| 2 | Quebre o Relay | O XP espera no Dock e, com ele cheio, vira energia |
+| 3 | Tire e envie XP no Servidor, um nível por clique | O nível e o tanque acompanham, sem perder pontos |
+| 4 | Passe pelos três modos do Servidor | Armazenar não apaga nem converte. Os outros convertem, e o XP não volta |
+| 5 | Encha o Servidor no Armazenar | Avisa uma vez, e o XP espera nos Docks |
+| 6 | Use canos de outro mod | Entram e saem só o fluido do mod |
+
+### Entrega 8: painel de controle
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Na aba Network, olhe uma rede com 4, 8 e 16 antenas | Antenas, Docks, baús e Cubits legíveis, com a cor do canal e um ícone do estado |
+| 2 | Provoque cada estado da frente | Verde, amarelo, vermelho, cinza, escuro e preto, e o pior vence |
+| 3 | Descarregue um chunk de antena | Ela aparece apagada, com a última foto e a hora |
+| 4 | Faça cada evento | Aparece no Log, com hora, canal e nome, e o mais antigo sai depois de 100 |
+| 5 | Repita o mesmo problema | O aviso sai uma vez por acontecimento |
+| 6 | Veja tudo em preto e branco, por uma captura | Os estados continuam distinguíveis |
+
+### Entrega 9: acabamento
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Jade em cada bloco, e sem o Jade | Nome, canal, sinal, bateria e chave, e o mod abre sem ele |
+| 2 | Siga só o guia do player, num mundo novo, até a primeira rede | Dá para chegar lá sem outra ajuda |
+| 3 | 20 a 30 Cubits em 16 antenas | O tempo de tick fica perto do medido antes da Network |
+| 4 | 20 blocos da rede lado a lado, com o `F3` aberto, e o mesmo lugar sem eles | A diferença de quadros por segundo fica anotada no PR |
+| 5 | Servidor dedicado, com dois players | Cada um só mexe no que é seu |
+| 6 | A instância só com o mod, e o Iron Meridian | Tudo acima funciona nas duas |
+
 ## Apresentação
 
 As regras estão em [`falas.md`](../conceito/falas.md#apresentação). Use um mundo novo no criativo, três Cubits novos da Engineering Desk ou do inventário criativo, um Induction Dock e um Cubit de um mundo da versão `0.1.1`, se houver.
@@ -1573,6 +1706,8 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 23:38 | Acrescenta a medida dos quadros por segundo da Network (pergunta 2346). |
+| Zennd | 2026-11-24 22:44 | Escreve o roteiro das entregas da Network (perguntas 2293 e 2318). |
 | Zennd | 2026-11-24 12:32 | Corrige as seções Receitas e Power Bank, que falavam do livro de receitas e da carcaça antiga (perguntas 2184, 2193 e 2195). |
 | Zennd | 2026-11-24 11:57 | Atualiza a barra de categorias da mesa (perguntas 2176 a 2178). |
 | Zennd | 2026-11-24 11:10 | Acrescenta o roteiro das peças compartilhadas e atualiza as receitas e a cascata (perguntas 2136 a 2160). |

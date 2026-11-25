@@ -38,10 +38,15 @@ A área é marcada com o app Área do [Tablet](tablet.md#apps), em três cliques
 - **Ao recolher:** a área, os baús marcados e o Dock preferido se perdem (perguntas 343 e 1008).
 - **Com trabalho, na Fase 5:** vale [`trabalhos.md`](trabalhos.md).
 
+## Com a Network
+
+Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](network.md). Muda a marcação: a área passa a ser desenhada por pontos, dentro dos chunks das antenas do Cubit, e o tamanho deixa de vir do tier. A altura continua a do tier, do ponto mais baixo ao mais alto. Sem rede, o Cubit não vai à área. As áreas antigas são apagadas (perguntas 2206, 2225, 2240, 2244 e 2283).
+
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-24 08:37 | Estende a volta à área a todos os cards (pergunta 2092). |
 | Marcelo Fabiano | 2026-11-14 13:55 | Liga o inventário cheio à descarga (perguntas 1087 e 1088). |
 | Marcelo Fabiano | 2026-11-14 12:10 | Define as chaves da busca na área (pergunta 1080). |

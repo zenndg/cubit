@@ -126,7 +126,7 @@ Entra com a coleta e o ímã, no item 9 da Fase 4.1 (perguntas 878 a 888). As re
 
 ### Quem abre
 
-- **Shift + clique direito**, como hoje. O clique continua chamando ou liberando o Cubit (pergunta 678).
+- **Clique direito**, também com um Cubit na base. O Shift + clique direito, com as duas mãos vazias, chama ou libera o Cubit, e os itens de [`energia.md`](energia.md#dono-e-tela) continuam fazendo o que faziam (perguntas 2122 a 2124, que mudam a 678).
 - **Só o dono**, validado no servidor (regra 20).
 
 ### Aba Storage
@@ -254,10 +254,16 @@ Pergunta 691.
   - nenhum item duplica.
 - **Roteiro manual:** cada tela comparada com a imagem dela.
 
+## Com a Network
+
+Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](network.md). A tela do Cubit ganha a aba Network, entre Work e XP, e os estados `Hibernating · No network` e `Hibernating · Owner offline`, em azul, e `Waiting for area`, em roxo. Entram as telas do Servidor, do Solar Relay e da antena, todas com prévia antes do código (perguntas 2277, 2280, 2315, 2316 e 2331).
+
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:43 | Corrige o clique que abre a tela do Dock (perguntas 2122 e 2335). |
+| Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-24 10:06 | Troca o clique que abre a tela do Dock (pergunta 2122). |
 | Zennd | 2026-11-24 09:56 | Acrescenta a aba XP do Dock (perguntas 1837 e 2114). |
 | Zennd | 2026-11-24 08:16 | Acrescenta a aba XP do Cubit (perguntas 1830 e 2082). |

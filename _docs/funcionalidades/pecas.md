@@ -80,9 +80,9 @@ O ajuste de 2162 a 2169, autorizado na 2170:
 - **Custo do primeiro Cubit:** 3 diamantes, 3 obsidianas, 2 pistões e 2 tochas de redstone, como antes, com 20 ferros (3 no balde), 9 redstones, 6 cobres, 6 painéis de vidro, 4 vidros, 3 lápis-lazúlis, 1 ouro e 1 baú, em 11 crafts (pergunta 2146).
 - **Catálogo:** a categoria nova, `parts` no `desk_category`, aparece como Shared parts / Peças compartilhadas, com o Servomotor como ícone, numa barra com ícones de 12 px e 1 px entre eles. Na aba Projeto, a grade, a seta, o resultado, a quantidade e o botão ficam 10 px mais à direita, e, na Cascade, o título (perguntas 2141, 2159, 2160, 2177 e 2178). As peças de hoje continuam nas categorias delas (perguntas 2141 e 2149).
 
-### Network, provisório
+### Network, planejado
 
-Entram com o Servidor e as Antenas, e serão revistos lá (perguntas 2137 e 2139): o Transceptor (1 Placa de Circuito, 1 pérola do ender, 2 cobres e 1 redstone), a Âncora de Chunk (3 pérolas do ender, 3 obsidianas, 2 ouros e 1 diamante), as receitas do Servidor, do Solar Relay e da Signal Antenna e as peças próprias deles, a Carcaça e o Mastro. O Tablet fica sem Transceptor (pergunta 2148).
+O Transceptor e a Âncora de Chunk entram com a Network, na categoria Shared parts, com as receitas de [`network.md`](network.md#receitas). A Carcaça e o Mastro não viram peças: entram o bloco de ferro e o para-raios (pergunta 2282). O Tablet fica sem Transceptor (pergunta 2148).
 
 ### Detalhes completados pelo agente
 
@@ -158,6 +158,7 @@ As peças não têm data components nem NBT. Só os dois IDs da pergunta 2166 mu
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:42 | Fecha as peças da Network (pergunta 2282). |
 | Zennd | 2026-11-24 11:57 | Afasta os ícones das categorias e a área do craft da mesa (perguntas 2176 a 2178). |
 | Zennd | 2026-11-24 11:44 | Acompanha o Neural Core, a Circuit Board, os cards e a Power Bank Casing no código (perguntas 2162 a 2173). |
 | Zennd | 2026-11-24 11:33 | Registra a autorização do ajuste do Neural Core, dos cards e da Power Bank (pergunta 2170). |
