@@ -158,7 +158,6 @@ final class TabletHeaderButtons {
           case READY -> TabletKeys.FOLLOW_DETAIL;
           case FOLLOWING -> TabletKeys.FOLLOW_ALREADY;
           case NO_CHARGE -> TabletKeys.FOLLOW_NO_CHARGE;
-          case OTHER_DIMENSION -> TabletKeys.FOLLOW_OTHER_DIMENSION;
         };
     enable(follow, call.ready(), detail);
   }

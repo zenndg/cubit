@@ -154,7 +154,7 @@ public final class CubitNetwork {
             (payload, context) -> onServer(context, player -> renameDock(player, payload)));
   }
 
-  /** The guide and delete buttons of the Deaths tab (answer 1111). */
+  /** The buttons of the Deaths tab and the call of an unloaded Cubit (answers 1111 and 2463). */
   private static void registerDeathRequests(PayloadRegistrar registrar) {
     registrar
         .playToServer(
@@ -166,7 +166,12 @@ public final class CubitNetwork {
             DeleteDeathPayload.TYPE,
             DeleteDeathPayload.STREAM_CODEC,
             (payload, context) ->
-                onServer(context, player -> tabletRequests.deleteDeath().accept(player, payload)));
+                onServer(context, player -> tabletRequests.deleteDeath().accept(player, payload)))
+        .playToServer(
+            CallRobotPayload.TYPE,
+            CallRobotPayload.STREAM_CODEC,
+            (payload, context) ->
+                onServer(context, player -> tabletRequests.call().accept(player, payload.robot())));
   }
 
   private static void onServer(IPayloadContext context, Consumer<ServerPlayer> handler) {

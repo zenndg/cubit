@@ -15,7 +15,8 @@ O player escolhe entre o robô seguir ou atuar numa área. A marcação da área
 - **Na lava:** leva dano igual ao player sem armadura e continua pegando fogo ao sair. Ativo, se colocarem lava no bloco dele, tenta ir para o bloco seguro mais próximo, mas a lava o deixa muito lento. Quanto menor o tier, maior a chance de morrer antes de sair, e no Base isso costuma acontecer. Inativo, fica parado.
 - O robô que segue anda até o player e para quando chega perto.
 - O robô que segue, se ficar longe demais do player, teleporta para perto, só na mesma dimensão.
-- **Quando o dono renasce:** o robô ativo que segue volta com ele, em qualquer dimensão, se ainda estiver carregado nesse momento e longe demais. Um robô já descarregado continua onde está, porque nenhum chunk é carregado à força. Um robô a caminho do Dock continua indo, e passar por um portal não o leva (pergunta 567).
+- O robô que segue e fica sem caminho, como atrás de uma parede, aparece perto do player depois de um tempo sem avançar, uma vez até ter caminho de novo (pergunta 2092). Sem lugar seguro, fica e tenta de novo (pergunta 2497).
+- **Quando o dono renasce:** o robô ativo que segue volta com ele, em qualquer dimensão, se estiver longe demais, mesmo com o chunk dele já descarregado, como em [Chamar o Cubit](#chamar-o-cubit). Um robô a caminho do Dock continua indo, e passar por um portal não o leva (perguntas 567 e 2458).
 - Só se move no estado ativo. Inativo ou em hibernação, fica parado e não teleporta.
 - Faz barulho de esteira ao andar. O som entra na Fase 3.
 
@@ -81,6 +82,67 @@ Vale para magma, fogueira acesa, cacto, arbusto de frutas, rosa do wither, estal
 - **Sem limite:** não há limite de quantidade.
 - **Sem vínculo:** um robô ativo que não é o que segue, nem trabalha em área, fica parado e desligado. O clique direito o liga, e ele passa a seguir o player.
 
+### Chamar o Cubit
+
+Traz um Cubit de qualquer lugar, para ele não se perder (issue #281, perguntas 2450 a 2465, 2482 a 2486, 2491, 2499 e 2500). **Situação:** autorizado (pergunta 2501).
+
+**Por que ele ficava para trás:** o jogo remove o player do mundo 1 s depois da morte, ainda na tela de morte, e os chunks em volta descarregam. A volta ao renascer só achava o Cubit dentro desse segundo (pergunta 2500).
+
+Um só mecanismo, com três gatilhos:
+
+| Gatilho | Quem vem | Intervalo |
+|---|---|---|
+| **Renascer**, sozinho | Só o que seguia, ativo. Quem trabalha, escolta, está no Dock, a caminho dele ou desligado fica (perguntas 2458 e 2484) | Nenhum |
+| **`Follow` do Tablet** | O Cubit escolhido, de qualquer lugar (perguntas 2450 e 2463) | O do config |
+| **`/cubit follow {8 caracteres}`** | O Cubit do player com esse começo de UUID, sem precisar do Tablet (perguntas 2453 a 2455) | O do config |
+
+- **Só os próprios:** o servidor confere o dono em tudo, e nenhum comando pede permissão de operador (pergunta 2454).
+- **Perto:** na mesma dimensão e a menos de `teleport_distance_blocks`, vem andando, como hoje. Além disso, aparece (pergunta 2462).
+- **Onde aparece:** no chão seguro mais perto do dono, a até `call_arrival_blocks`: bloco sólido embaixo e espaço livre, sem lava, fogo, água nem bloco que fere. Sem nenhum, o Cubit fica onde está, com o aviso. Ao renascer, vale o lugar do renascer (pergunta 2459).
+- **O que ele fazia:** sai da área, que se apaga, da escolta ou do Dock, como no `Follow` de hoje. Quem seguia antes é desligado onde está (perguntas 2457 e 2484).
+- **Já seguindo:** o `Follow` e o comando também trazem o que já segue e ficou longe, em outra dimensão ou descarregado.
+- **Sem bateria:** vem desligado até o dono, sempre aparecendo, sai da área e não toma o lugar de quem segue (perguntas 2457, 2462, 2483 e 2484).
+- **Custo:** nenhum FE. Depois de uma chamada, `call_cooldown_seconds` até a próxima, por player (pergunta 2460).
+
+**Chunk descarregado** (regra 22 e pergunta 2456):
+
+1. O mod sabe o lugar pela foto que o Tablet já guarda, gravada quando o Cubit descarrega. Num descarregar de verdade ela não era gravada, porque o jogo tira o Cubit do mundo antes de dizer o motivo, o que a #281 corrige.
+2. Carrega só o chunk dele, com um ticket temporário do jogo, que não é salvo no mundo e expira sozinho.
+3. Acha o próprio Cubit, o move e solta o chunk. **Nunca o recria pela foto:** se ele não estiver lá, nada é criado.
+4. Sem achá-lo em `call_timeout_seconds`, desiste e avisa.
+
+**Durante a busca** (pergunta 2485): uma por player. Vale o lugar do dono no fim, também em outra dimensão. Se o dono sair ou morrer, ela para, e o Cubit fica onde está. Outra chamada é recusada, com o aviso.
+
+#### Comando `/cubit list`
+
+Mostra os Cubits do player por nome, com os 8 primeiros caracteres do UUID, o estado, a dimensão e se o chunk está descarregado. Clicar numa linha escreve o `/cubit follow` no chat, e o Tab sugere os Cubits (pergunta 2455).
+
+```text
+Your Cubits (3)
+  7c41e0aa  Bolt
+     Working · Overworld
+  1f9b22d0  Cubit 1f9b22d0
+     Following · Overworld
+  e03a77c4  Rex
+     Unloaded · The Nether
+```
+
+- **Mesmos 8 caracteres:** chama o primeiro por nome (pergunta 2465).
+- **Fora da lista:** o Cubit guardado como item e o Damaged Cubit, como no Tablet (perguntas 1004 e 2465).
+
+#### Contrato
+
+| Tipo | Nome | O que é |
+|---|---|---|
+| Comandos | `/cubit list` e `/cubit follow {8 caracteres}` | Sem permissão de operador |
+| Config, `general` | `call_cooldown_seconds` | Intervalo entre chamadas, com 10, de 0 a 600 |
+| Config, `general` | `call_arrival_blocks` | Distância até o dono, com 4, de 1 a 16 |
+| Config, `general` | `call_timeout_seconds` | Tempo da busca, com 10, de 1 a 60 |
+| Pacote | `cubit:call_robot` | O `Follow` do Tablet com o Cubit descarregado, do cliente ao servidor, só com o UUID |
+| Traduções | `command.cubit.list.*`, `command.cubit.follow.*` e `notice.cubit.call.*` | A lista e os avisos, em inglês e português |
+
+Os saves não mudam: a foto, em `cubit_robot_snapshots`, já existe (pergunta 1026).
+
 ### Comando `/cubit reset`
 
 Limpa o vínculo de quem segue, se ele se perder.
@@ -142,6 +204,9 @@ Do Advanced em diante, com a chave ligada, quando o dono renasce, o Cubit que se
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 17:52 | Registra a correção da foto do Cubit que descarrega (pergunta 2500). |
+| Zennd | 2026-11-25 17:33 | Define chamar o Cubit, o renascer com o chunk descarregado e os comandos `/cubit list` e `/cubit follow` (perguntas 2450 a 2465, 2482 a 2486, 2491, 2499 e 2500). |
+| Zennd | 2026-11-25 16:46 | Acrescenta o robô sem caminho, que tenta de novo sem lugar seguro (perguntas 2092 e 2497). |
 | Zennd | 2026-11-21 12:50 | Passa o conserto para a Engineering Desk (pergunta 1427). |
 | Marcelo Fabiano | 2026-11-19 20:18 | Define o controle de velocidade (perguntas 1258 a 1261 e 1266 a 1271). |
 | Marcelo Fabiano | 2026-11-14 18:46 | Detalha quem guia, a viagem ao Dock e a pausa por perigo. |

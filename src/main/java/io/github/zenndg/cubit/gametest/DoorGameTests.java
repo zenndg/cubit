@@ -35,6 +35,9 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 public final class DoorGameTests {
   private static final String ARENA = "arena";
   private static final int TIMEOUT = 400;
+  private static final int RETRY_TIMEOUT = 600;
+  private static final int STUCK_WAIT = 250;
+  private static final int IN_THE_AIR = 6;
   private static final Direction ACROSS_THE_WALL = Direction.EAST;
 
   /** Before the follower without a way appears near its owner, after 100 ticks (2092). */
@@ -170,6 +173,25 @@ public final class DoorGameTests {
 
     helper.onEachTick(() -> helper.assertFalse(isOpen(helper, DOOR), NOT_SHUT));
     helper.succeedWhen(() -> helper.assertTrue(passed(helper, robot), NOT_NEAR));
+  }
+
+  /**
+   * With no safe spot near its owner, it tries again, and appears as soon as there is one (2497).
+   */
+  @GameTest(template = ARENA, timeoutTicks = RETRY_TIMEOUT)
+  public static void aFollowerWithoutASafeSpotTriesAgain(GameTestHelper helper) {
+    walledLane(helper, Blocks.OAK_DOOR);
+    ServerPlayer owner = ownerBehindTheWall(helper);
+    owner.setPos(owner.getX(), owner.getY() + IN_THE_AIR, owner.getZ());
+    RobotEntity robot = GameTestRobots.placeNewRobot(helper, owner, ROBOT_FLOOR);
+
+    helper
+        .startSequence()
+        .thenIdle(STUCK_WAIT)
+        .thenExecute(() -> helper.assertFalse(passed(helper, robot), PASSED))
+        .thenExecute(() -> moveOwner(helper, owner, OWNER_X, OWNER_Z))
+        .thenWaitUntil(() -> helper.assertTrue(passed(helper, robot), NOT_NEAR))
+        .thenSucceed();
   }
 
   /** The upper half marks the door by its lower half, and a second click unmarks it. */

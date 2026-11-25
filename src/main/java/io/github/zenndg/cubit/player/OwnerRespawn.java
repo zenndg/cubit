@@ -16,8 +16,10 @@ public final class OwnerRespawn {
   @SubscribeEvent
   public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
     if (!event.isEndConquered() && event.getEntity() instanceof ServerPlayer owner) {
-      RobotRespawn.bringTo(owner);
-      RobotRespawn.tellDeathPoint(owner);
+      RobotRespawn.bringTo(owner)
+          .ifPresentOrElse(
+              robot -> RobotCalls.searchAfterRespawn(owner, robot),
+              () -> RobotRespawn.tellDeathPoint(owner));
     }
   }
 }

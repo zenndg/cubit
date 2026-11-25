@@ -10,8 +10,8 @@ import io.github.zenndg.cubit.domain.robot.OreKind;
 import io.github.zenndg.cubit.domain.robot.RobotJob;
 import io.github.zenndg.cubit.entity.OreNames;
 import io.github.zenndg.cubit.menu.RobotMenu;
+import io.github.zenndg.cubit.menu.RobotStatusTexts;
 import io.github.zenndg.cubit.menu.ScreenKeys;
-import io.github.zenndg.cubit.menu.WorkKeys;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.network.chat.Component;
@@ -27,27 +27,13 @@ final class RobotTexts {
     return status(menu.status(), menu.job(), menu.hibernationReason());
   }
 
-  /**
-   * The text of a state, with the job while working and the reason while hibernating away, as the
-   * top of the screens and the list of the Tablet show it (answer 1168).
-   */
   static Component status(
       RobotScreenStatus status, Optional<RobotJob> job, Optional<HibernationReason> reason) {
-    String key = ScreenKeys.robotStatus(status);
-    return switch (status) {
-      case WORKING -> Component.translatable(key, jobName(job));
-      case HIBERNATING_AWAY ->
-          Component.translatable(
-              key,
-              Component.translatable(
-                  WorkKeys.reason(reason.orElse(HibernationReason.INVENTORY_FULL))));
-      default -> Component.translatable(key);
-    };
+    return RobotStatusTexts.status(status, job, reason);
   }
 
   static Component jobName(Optional<RobotJob> job) {
-    return job.map(found -> (Component) Component.translatable(WorkKeys.job(found)))
-        .orElseGet(() -> Component.translatable(WorkKeys.NO_JOB));
+    return RobotStatusTexts.jobName(job);
   }
 
   static int statusColor(RobotScreenStatus status) {

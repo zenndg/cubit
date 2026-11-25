@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit.config;
 
+import io.github.zenndg.cubit.domain.behavior.CallSpec;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 /** The config keys valid for every robot. The key names are a contract with the pack. */
@@ -49,6 +50,7 @@ final class GeneralSection {
   final ModConfigSpec.IntValue stopDistance;
   final ModConfigSpec.IntValue maxDrop;
   final ModConfigSpec.IntValue teleportDistance;
+  private final CallKeys calls;
   final ModConfigSpec.DoubleValue burningSpeed;
   final ModConfigSpec.IntValue waterSearchRadius;
   final ModConfigSpec.IntValue burningWanderRadius;
@@ -72,6 +74,7 @@ final class GeneralSection {
             TELEPORT_DISTANCE_DEFAULT,
             TELEPORT_DISTANCE_MIN,
             TELEPORT_DISTANCE_MAX);
+    calls = new CallKeys(builder);
     burningSpeed =
         builder.defineInRange(
             BURNING_SPEED, BURNING_SPEED_DEFAULT, BURNING_SPEED_MIN, BURNING_SPEED_MAX);
@@ -81,5 +84,9 @@ final class GeneralSection {
     burningWanderRadius =
         builder.defineInRange(
             BURNING_WANDER, BURNING_WANDER_DEFAULT, BURNING_RADIUS_MIN, BURNING_RADIUS_MAX);
+  }
+
+  CallSpec calls() {
+    return calls.spec();
   }
 }

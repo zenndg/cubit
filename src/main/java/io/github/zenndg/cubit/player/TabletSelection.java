@@ -41,7 +41,8 @@ public final class TabletSelection {
         TabletUse::switchApp,
         TabletDeaths::guide,
         TabletDeaths::delete,
-        (player, payload) -> RobotNaming.answered(player, payload.robot(), payload.name()));
+        (player, payload) -> RobotNaming.answered(player, payload.robot(), payload.name()),
+        RobotCalls::callFromTablet);
   }
 
   public static void open(ServerPlayer player) {

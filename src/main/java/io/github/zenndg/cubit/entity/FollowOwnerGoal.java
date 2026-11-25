@@ -85,13 +85,15 @@ final class FollowOwnerGoal extends Goal {
     }
   }
 
-  /** With no way to the owner for a while, it appears near, also within a wall (answer 2092). */
+  /**
+   * With no way to the owner for a while, it appears near, also within a wall, and without a safe
+   * spot it tries again on the next route update (answers 2092 and 2497).
+   */
   private void appearWhenStuck(Player owner) {
     Path path = robot.getNavigation().getPath();
     stuck = stuck.update(path != null && path.canReach(), robot.distanceTo(owner), repathTicks);
-    if (stuck.isStuck(CubitMod.CONFIG.dock().stuckTicks())) {
+    if (stuck.isStuck(CubitMod.CONFIG.dock().stuckTicks()) && teleportNear(owner)) {
       stuck = stuck.appeared();
-      teleportNear(owner);
     }
   }
 
@@ -107,14 +109,15 @@ final class FollowOwnerGoal extends Goal {
   }
 
   /** Without a safe spot, the robot stays and tries again on the next route update. */
-  private void teleportNear(Player owner) {
-    teleportNear(robot, owner, decision.stopDistanceBlocks());
+  private boolean teleportNear(Player owner) {
+    return teleportNear(robot, owner, decision.stopDistanceBlocks());
   }
 
   /**
    * Near one it follows, owner or escorted, on a safe spot, or it tries again on the next route.
+   * True when it appeared there.
    */
-  static void teleportNear(RobotEntity robot, Entity around, int radius) {
+  static boolean teleportNear(RobotEntity robot, Entity around, int radius) {
     BlockPos center = around.blockPosition();
     for (int attempt = 0; attempt < TELEPORT_ATTEMPTS; attempt++) {
       BlockPos target =
@@ -130,9 +133,10 @@ final class FollowOwnerGoal extends Goal {
             robot.getYRot(),
             robot.getXRot());
         robot.getNavigation().stop();
-        return;
+        return true;
       }
     }
+    return false;
   }
 
   private static int randomOffset(RobotEntity robot, int range) {

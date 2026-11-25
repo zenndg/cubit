@@ -15,34 +15,31 @@ class FollowCallTest {
   private static final Battery EMPTY = new Battery(CAPACITY, Energy.ZERO);
 
   @Test
-  void aSwitchedOffCubitWithChargeCanFollow() {
-    assertTrue(FollowCall.of(PowerState.INACTIVE_SWITCHED_OFF, CHARGED, false, true).ready());
+  void aSwitchedOffCubitWithChargeCanBeCalled() {
+    FollowCall call = FollowCall.of(PowerState.INACTIVE_SWITCHED_OFF, CHARGED, false);
+    assertEquals(FollowCall.READY, call);
+    assertTrue(call.ready());
   }
 
   @Test
-  void aCubitInTheDockOrActiveWithoutThePlaceCanFollow() {
-    assertTrue(FollowCall.of(PowerState.HIBERNATING, CHARGED, false, true).ready());
-    assertTrue(FollowCall.of(PowerState.ACTIVE, CHARGED, false, true).ready());
+  void aCubitInTheDockOrActiveWithoutThePlaceCanBeCalled() {
+    assertEquals(FollowCall.READY, FollowCall.of(PowerState.HIBERNATING, CHARGED, false));
+    assertEquals(FollowCall.READY, FollowCall.of(PowerState.ACTIVE, CHARGED, false));
   }
 
   @Test
-  void theCubitThatFollowsAlreadySaysSo() {
-    assertEquals(FollowCall.FOLLOWING, FollowCall.of(PowerState.ACTIVE, CHARGED, true, true));
-  }
-
-  @Test
-  void withoutChargeItCannotFollow() {
-    assertEquals(
-        FollowCall.NO_CHARGE, FollowCall.of(PowerState.INACTIVE_SWITCHED_OFF, EMPTY, false, true));
-    assertEquals(
-        FollowCall.NO_CHARGE, FollowCall.of(PowerState.INACTIVE_EXHAUSTED, CHARGED, false, true));
-  }
-
-  @Test
-  void inAnotherDimensionItCannotFollow() {
-    FollowCall call = FollowCall.of(PowerState.INACTIVE_SWITCHED_OFF, CHARGED, false, false);
-
-    assertEquals(FollowCall.OTHER_DIMENSION, call);
+  void theCubitThatFollowsNearbyAlreadySaysSo() {
+    FollowCall call = FollowCall.of(PowerState.ACTIVE, CHARGED, true);
+    assertEquals(FollowCall.FOLLOWING, call);
     assertFalse(call.ready());
+  }
+
+  @Test
+  void withoutChargeItIsCalledAndSaysSo() {
+    assertEquals(
+        FollowCall.NO_CHARGE, FollowCall.of(PowerState.INACTIVE_SWITCHED_OFF, EMPTY, false));
+    FollowCall exhausted = FollowCall.of(PowerState.INACTIVE_EXHAUSTED, CHARGED, true);
+    assertEquals(FollowCall.NO_CHARGE, exhausted);
+    assertTrue(exhausted.ready());
   }
 }
