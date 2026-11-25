@@ -1,10 +1,11 @@
 package io.github.zenndg.cubit.datagen;
 
 import io.github.zenndg.cubit.domain.behavior.CallResult;
+import io.github.zenndg.cubit.player.CallCommands;
 import io.github.zenndg.cubit.player.RobotCalls;
 import java.util.function.BiConsumer;
 
-/** Calling a Cubit, in Portuguese, with the same keys. */
+/** Calling a Cubit and its commands, in Portuguese, with the same keys. */
 final class PortugueseCallTexts {
   private static final String COMING = "Está vindo";
   private static final String ARRIVED = "Está aqui";
@@ -14,6 +15,12 @@ final class PortugueseCallTexts {
   private static final String BUSY = "Outro Cubit está a caminho";
   private static final String NOT_FOUND = "Não encontrei esse Cubit";
   private static final String NO_SPOT = "Nenhum lugar seguro perto de você";
+  private static final String TITLE = "Seus Cubits (%s)";
+  private static final String NONE = "Você não tem Cubits";
+  private static final String ENTRY = "  %s  %s";
+  private static final String WHERE = "     %s · %s";
+  private static final String UNLOADED = "Descarregado";
+  private static final String NO_MATCH = "Nenhum Cubit seu começa com %s";
 
   private PortugueseCallTexts() {}
 
@@ -26,5 +33,11 @@ final class PortugueseCallTexts {
     add.accept(RobotCalls.keyOf(CallResult.BUSY), BUSY);
     add.accept(RobotCalls.keyOf(CallResult.NOT_FOUND), NOT_FOUND);
     add.accept(RobotCalls.keyOf(CallResult.NO_SPOT), NO_SPOT);
+    add.accept(CallCommands.TITLE_KEY, TITLE);
+    add.accept(CallCommands.NONE_KEY, NONE);
+    add.accept(CallCommands.ENTRY_KEY, ENTRY);
+    add.accept(CallCommands.WHERE_KEY, WHERE);
+    add.accept(CallCommands.UNLOADED_KEY, UNLOADED);
+    add.accept(CallCommands.NO_MATCH_KEY, NO_MATCH);
   }
 }

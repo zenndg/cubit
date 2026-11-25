@@ -1,9 +1,11 @@
 package io.github.zenndg.cubit.gametest;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.behavior.CallResult;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.PowerState;
+import io.github.zenndg.cubit.domain.robot.RobotName;
 import io.github.zenndg.cubit.entity.RobotEntity;
 import io.github.zenndg.cubit.player.RobotCalls;
 import io.github.zenndg.cubit.player.TabletSelection;
@@ -52,6 +54,9 @@ public final class RobotCallGameTests {
   private static final int CHUNKS_AROUND = 2;
   private static final int CHUNK = 16;
   private static final int NETHER_Y = 64;
+  private static final String LIST = "cubit list";
+  private static final String FOLLOW = "cubit follow ";
+  private static final String NO_ID = "zzzzzzzz";
   private static final String NOT_NEAR = "The Cubit should be beside its owner";
   private static final String MOVED = "The Cubit should have stayed";
   private static final String LOST_ITEM = "The Cubit lost what it carried";
@@ -315,5 +320,33 @@ public final class RobotCallGameTests {
         RobotCalls.call(stranger, robot.getUUID()), CallResult.NOT_FOUND, WRONG_RESULT);
     helper.assertTrue(robot.position().equals(before), MOVED);
     helper.succeed();
+  }
+
+  @GameTest(template = ARENA)
+  public static void theCommandsListAndCallTheOwnCubits(GameTestHelper helper)
+      throws CommandSyntaxException {
+    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
+    ServerPlayer stranger = GameTestRobots.onlinePlayer(helper);
+    RobotEntity robot = GameTestRobots.placeNewRobot(helper, owner, FLOOR);
+    DockScene.placeRobot(helper, owner, SECOND_FLOOR, CHARGE);
+    goHome(helper, owner);
+    robot.moveTo(robot.getX() + FAR, robot.getY(), robot.getZ());
+    String call = FOLLOW + RobotName.shortId(robot.getUUID());
+
+    helper.assertValueEqual(run(owner, LIST), 2, WRONG_RESULT);
+    helper.assertValueEqual(run(stranger, LIST), 0, WRONG_RESULT);
+    helper.assertValueEqual(run(stranger, call), 0, WRONG_RESULT);
+    helper.assertValueEqual(run(owner, FOLLOW + NO_ID), 0, WRONG_RESULT);
+    helper.assertValueEqual(run(owner, call), 1, WRONG_RESULT);
+    helper.assertTrue(robot.distanceTo(owner) < ARRIVAL, NOT_NEAR);
+    helper.succeed();
+  }
+
+  private static int run(ServerPlayer player, String command) throws CommandSyntaxException {
+    return player
+        .server
+        .getCommands()
+        .getDispatcher()
+        .execute(command, player.createCommandSourceStack());
   }
 }
