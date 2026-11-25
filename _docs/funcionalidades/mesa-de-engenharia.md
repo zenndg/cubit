@@ -56,10 +56,10 @@ A redstone que entra pelos lados ou por trás vai para o inventário de entrada,
 - **Grade de 9 slots:** mostra marcações dos itens, não itens reais. O player escolhe a receita no catálogo, e a grade se preenche, ou marca à mão, arrastando um item para a grade, e a mesa reconhece a receita (pergunta 1426).
 - **Catálogo:** mostra todas as receitas do mod, sempre na mesma ordem (pergunta 1499), em categorias com ícones (Cubit e peças, Peças compartilhadas, Energia, Dock, Modules, Cards e Ferramentas) e com um campo de busca pelo nome (pergunta 1474). Um ícone escolhido mostra só a categoria dele, e a busca procura em todas, pelo nome que o player vê, sem diferença de maiúsculas e acentos (pergunta 1523).
 - **Sem bloqueio:** nenhuma receita fica presa à progressão, e a mesa não consulta o livro de receitas do jogo nem as conquistas dele, que um pack pode esvaziar ou remover (pergunta 2400).
-- **Um pedido por vez:** uma receita e uma quantidade. Para fabricar outra coisa, o player troca a receita (pergunta 1442).
+- **Um pedido por vez:** uma receita e uma quantidade. Para fabricar outra coisa, o player espera ou cancela o pedido e troca a receita (perguntas 1442 e 2476).
 - **Começa em zero:** escolher a receita só a marca, com o pedido em zero. A mesa só fabrica depois que o player pede a quantidade no +, para nada ser feito por acidente nem gastar material (pergunta 1506).
 - **Quantidade:** botões − e +, como no controle de velocidade. O clique muda 1, e com Shift muda 8, entre 1 e o maior pedido do tier. Um botão cancela o pedido (pergunta 1444).
-- **Trocar a receita:** zera o pedido e o progresso, e os materiais continuam no inventário de entrada.
+- **Trocar a receita:** só sem pedido, como em [Usabilidade](#usabilidade). Os materiais continuam no inventário de entrada.
 - **Só do mod:** a mesa não fabrica receitas do jogo.
 
 ### Ver a receita e pedir só com o que é preciso
@@ -83,6 +83,31 @@ Toda receita pode ser vista, e o que trava é o pedido: o + não sai de 0 para 1
   - a dica do + e o `Missing` contam tudo o que falta para a quantidade. Com o pedido ativo, o + não trava, e a grade só mostra.
 - **Sem mudança:** saves, config, IDs, receitas, custo, tempo e automação. As conquistas escondidas de receita continuam, só para o livro do jogo (pergunta 2401), e o guia do player e a imagem da árvore ficam como estão por enquanto (pergunta 2403).
 
+### Usabilidade
+
+Quatro melhorias da tela, na issue #280, com a #255 (perguntas 2470 a 2481, 2492 e 2493). **Situação:** autorizado (pergunta 2493).
+
+1. **Receita travada com um pedido** (perguntas 2472 e 2476). Com um pedido, rodando ou em pausa, não se escolhe outra receita, nem no catálogo, nem marcando a grade à mão, nem pelo + do JEI.
+   - O servidor recusa a escolha, e o pedido, o progresso e a receita não mudam. Os botões −, + e Cancelar continuam, e o Cancelar libera na hora.
+   - Navegar continua livre: as categorias, a busca, a rolagem e as abas.
+   - O catálogo fica escurecido, e a dica de cada item, do Shift + clique e do + do JEI diz `Finish or cancel the order first` / `Termine ou cancele o pedido antes`.
+   - Vale para todos que usam a mesa, porque o pedido é dela (pergunta 1431).
+2. **Trocar a categoria ou a aba não cancela o craft** (perguntas 2471 e 2480). O que cancelava era o clique em outra receita, que a melhoria 1 trava.
+3. **O resultado se pega ao lado da grade** (perguntas 2473 e 2479). O quadro à direita da grade mostra o que há na saída da receita escolhida.
+   - **O que mostra:** o primeiro item da saída do mesmo tipo do resultado, com o total de itens prontos. Sem nenhum, o desenho fraco do resultado.
+   - **O que entrega:** o clique pega até uma pilha para o cursor, e o Shift + clique manda ao inventário. O que sai é o item da saída, com os dados dele, como o nome e o inventário de um Cubit consertado.
+   - **Só tira:** não aceita item. As sobras, como a Power Bank do religar, ficam na aba Estoque.
+   - **Travado** durante a cascata, como a aba Estoque (pergunta 2015).
+   - **Segurança:** o item existe só na saída, e o quadro é uma janela para ela. Dois players na mesma mesa nunca pegam o mesmo item, e o servidor confere tudo (regras 13 e 19).
+4. **Shift + clique na grade seleciona a receita do item** (perguntas 2470, 2475 e 2477). Vale para qualquer item do mod na grade, que abre a receita e a categoria dele.
+   - Um item sem receita na mesa, ou que não é do mod, não faz nada. Com mais de uma receita para o mesmo item, vale a primeira na ordem do catálogo.
+   - Num espaço que aceita vários itens, vale o que está à vista.
+   - O clique sem Shift continua marcando à mão.
+   - **Voltar** (pergunta 2478): uma seta junto da grade volta um passo por clique, por até 8 receitas, e vale só na tela aberta, sem save. Aparece só quando há para onde voltar e some com um pedido. Escolher no catálogo limpa a volta.
+5. **Item do cursor** (#255 e pergunta 2492). Clicar numa aba com um item no cursor não o joga no chão.
+
+**Sem mudança:** saves, config, IDs, receitas, custo, tempo e automação. **Recursos:** nenhuma imagem nem som novo; a seta é desenhada pela própria tela, em traço branco, como a grade.
+
 ## Fabricação
 
 - **Uma unidade por vez:** cada craft leva o tempo do tier. Ao terminar, a mesa consome os materiais e o FE de uma vez, e o item vai do slot de saída da receita para o inventário de saída. O contador desce, e a mesa para no zero (pergunta 1429).
@@ -94,7 +119,7 @@ Toda receita pode ser vista, e o que trava é o pedido: o + não sai de 0 para 1
 
 Uma receita feita de itens que a própria mesa fabrica, como o Cubit, feito das quatro peças, continua sozinha (perguntas 1500 a 1503), em todos os tiers. Ela só move o que já está pronto da saída para a entrada. Fazer também as peças é a [fabricação em cascata](cascata-da-mesa.md), do último tier:
 
-- **Quando:** ao escolher a receita no catálogo e, durante o pedido, sempre que faltar material na entrada.
+- **Quando:** durante o pedido, sempre que faltar material na entrada. Só escolher a receita não move nada (pergunta 2493).
 - **Condição:** a entrada e a saída juntas têm os materiais de uma unidade. A mesa puxa da saída só o que falta na entrada.
 - **Sem espaço:** a mesa move o que couber na entrada, e o resto fica na saída.
 - **Nada se perde:** os itens só passam de um inventário da mesa para o outro, e um item só sai da saída depois de entrar na entrada (regra 13).
@@ -214,6 +239,7 @@ Uma issue mãe e quatro PRs, em ordem, cada um testável no jogo (pergunta 1478)
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 16:02 | Define as melhorias de usabilidade da tela (perguntas 2470 a 2481, 2492 e 2493). |
 | Zennd | 2026-11-25 12:27 | Tira o bloqueio por progressão das receitas (perguntas 2400 a 2403). |
 | Zennd | 2026-11-24 11:10 | Acrescenta a categoria das peças compartilhadas (perguntas 2141, 2159 e 2160). |
 | Zennd | 2026-11-23 16:20 | Distingue a cascata da fabricação em cascata e cita o plano no Jade (pergunta 2043). |
