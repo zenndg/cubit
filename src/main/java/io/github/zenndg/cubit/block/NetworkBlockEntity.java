@@ -2,6 +2,8 @@ package io.github.zenndg.cubit.block;
 
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.EnergyStock;
+import io.github.zenndg.cubit.domain.ownership.BlockName;
+import io.github.zenndg.cubit.domain.ownership.FloatingName;
 import io.github.zenndg.cubit.domain.ownership.Ownership;
 import io.github.zenndg.cubit.item.SavedEnergy;
 import io.github.zenndg.cubit.item.SavedNetwork;
@@ -34,10 +36,12 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * What every block of the Network has: an owner, an id with a name, a battery fed by cables and by
  * its slot, and the other blocks of its chunk. The rules live in the domain.
  */
-public abstract class NetworkBlockEntity extends BlockEntity implements GeoBlockEntity, NamedBlock {
+public abstract class NetworkBlockEntity extends BlockEntity
+    implements GeoBlockEntity, NamedBlock, ShowsName {
   private static final String ENERGY_KEY = "Energy";
   private static final String SLOT_KEY = "Slot";
   private static final int SLOT = 0;
+  private static final int BLOCKS_TALL = 2;
 
   private final EnergySlot slot = new EnergySlot(this::setChanged);
   private final BlockOwner owner = new BlockOwner();
@@ -53,7 +57,7 @@ public abstract class NetworkBlockEntity extends BlockEntity implements GeoBlock
       BlockIdentity.Kept kept,
       BlockEnergy.Start start) {
     super(type, pos, state);
-    identity = new BlockIdentity(kept, this::setChanged);
+    identity = new BlockIdentity(kept, this::changeShown);
     energy = new BlockEnergy(start, this::inputPerTick, slot, this::setChanged);
     energyStorage = new InputOnlyEnergy(energy);
   }
@@ -142,6 +146,17 @@ public abstract class NetworkBlockEntity extends BlockEntity implements GeoBlock
     }
   }
 
+  @Override
+  public BlockName shownName() {
+    return identity.name();
+  }
+
+  @Override
+  public FloatingName nameSpot() {
+    BlockPos pos = worldPosition;
+    return FloatingName.over(pos.getX(), pos.getY(), pos.getZ(), BLOCKS_TALL);
+  }
+
   /** Saved, and told to the clients. */
   void changeShown() {
     setChanged();
@@ -198,11 +213,12 @@ public abstract class NetworkBlockEntity extends BlockEntity implements GeoBlock
     identity.collect(components);
   }
 
-  /** The owner, who decides who can break the block, travels to the client. */
+  /** The owner, who decides who can break the block, and the name travel to the client. */
   @Override
   public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
     CompoundTag tag = new CompoundTag();
     owner.save(tag);
+    identity.show(tag);
     return tag;
   }
 

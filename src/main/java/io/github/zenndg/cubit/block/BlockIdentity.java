@@ -21,6 +21,7 @@ import net.minecraft.world.item.Items;
  */
 public final class BlockIdentity {
   private static final String NAME_KEY = "CustomName";
+  private static final String NO_NAME = "";
 
   private final Kept kept;
   private final Runnable changed;
@@ -78,6 +79,17 @@ public final class BlockIdentity {
   void save(CompoundTag tag) {
     tag.putUUID(kept.idKey(), id());
     given.ifPresent(name -> tag.putString(NAME_KEY, name));
+  }
+
+  /**
+   * The id and the name the client shows over the block (answer 2517). An empty name travels too,
+   * so a name taken away goes back to the standard there, and the save never changes.
+   */
+  void show(CompoundTag tag) {
+    save(tag);
+    if (given.isEmpty()) {
+      tag.putString(NAME_KEY, NO_NAME);
+    }
   }
 
   void load(CompoundTag tag) {

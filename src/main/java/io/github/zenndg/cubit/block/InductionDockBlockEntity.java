@@ -8,6 +8,8 @@ import io.github.zenndg.cubit.domain.energy.Battery;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.EnergyStock;
 import io.github.zenndg.cubit.domain.energy.SolarOutput;
+import io.github.zenndg.cubit.domain.ownership.BlockName;
+import io.github.zenndg.cubit.domain.ownership.FloatingName;
 import io.github.zenndg.cubit.domain.ownership.Ownership;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.SavedDockXp;
@@ -47,7 +49,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * domain.
  */
 public final class InductionDockBlockEntity extends BlockEntity
-    implements GeoBlockEntity, NamedBlock {
+    implements GeoBlockEntity, NamedBlock, ShowsName {
   private static final String ENERGY_KEY = "Energy";
   private static final String SLOT_KEY = "Slot";
   private static final int SLOT = 0;
@@ -55,7 +57,7 @@ public final class InductionDockBlockEntity extends BlockEntity
   private final EnergySlot slot = new EnergySlot(this::setChanged);
   private final BlockTier<DockSpec> tier = DockParts.tier();
   private final DockSolarPanel panel = new DockSolarPanel();
-  private final BlockIdentity identity = DockParts.identity(this::setChanged);
+  private final BlockIdentity identity = DockParts.identity(this::changeShown);
   private final DockXp xp = new DockXp(this::setChanged, () -> tier.spec().xp(), this::isOwner);
 
   /** The Toolbox and the Power Banks, which the stock charges (answers 947 to 959). */
@@ -219,10 +221,27 @@ public final class InductionDockBlockEntity extends BlockEntity
 
   void setOwner(Player player) {
     owner.set(player.getUUID());
+    changeShown();
+  }
+
+  /** Saved, and told to the clients, which show the owner and the name. */
+  private void changeShown() {
     setChanged();
     if (level != null) {
       level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
     }
+  }
+
+  @Override
+  public BlockName shownName() {
+    return identity.name();
+  }
+
+  /** Over the third block, with the panel out or not, so the name never jumps (2517). */
+  @Override
+  public FloatingName nameSpot() {
+    BlockPos pos = worldPosition;
+    return FloatingName.over(pos.getX(), pos.getY(), pos.getZ(), DockTop.DOCK_BLOCKS);
   }
 
   public void reportRobot(UUID robot, boolean full) {
@@ -347,12 +366,13 @@ public final class InductionDockBlockEntity extends BlockEntity
     xp.collect(components);
   }
 
-  /** The owner, who decides who can break the block, and the panel travel to the client. */
+  /** The owner, who decides who can break the block, the panel and the name go to the client. */
   @Override
   public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
     CompoundTag tag = new CompoundTag();
     owner.save(tag);
     panel.writeSun(tag);
+    identity.show(tag);
     return tag;
   }
 

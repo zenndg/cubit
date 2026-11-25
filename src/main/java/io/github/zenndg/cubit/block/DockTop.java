@@ -14,6 +14,9 @@ import net.minecraft.world.level.block.state.BlockState;
 final class DockTop {
   private static final int ABOVE_THE_LOWER_PART = 2;
 
+  /** How many blocks tall a dock is, with this one. */
+  static final int DOCK_BLOCKS = ABOVE_THE_LOWER_PART + 1;
+
   private DockTop() {}
 
   static BlockPos of(BlockPos lower) {
