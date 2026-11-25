@@ -1,16 +1,13 @@
 package io.github.zenndg.cubit.block;
 
-import static io.github.zenndg.cubit.CubitMod.MOD_ID;
-
 import com.mojang.logging.LogUtils;
-import io.github.zenndg.cubit.domain.dock.DockStock;
 import io.github.zenndg.cubit.domain.dock.DockStorageRules;
-import io.github.zenndg.cubit.domain.dock.DockStoredKind;
+import io.github.zenndg.cubit.domain.dock.StoredKind;
 import io.github.zenndg.cubit.domain.energy.Battery;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.EnergyStock;
 import io.github.zenndg.cubit.item.EnergySlotItems;
 import io.github.zenndg.cubit.item.PowerBankItem;
-import io.github.zenndg.cubit.registry.CubitItems;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +16,6 @@ import java.util.function.IntSupplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -62,7 +58,7 @@ final class DockStorage {
           @Override
           public boolean canPlaceItem(int index, ItemStack stack) {
             return DockStorageRules.opens(index, tierSlots.getAsInt())
-                && DockStorageRules.accepts(kindOf(stack));
+                && DockStorageRules.accepts(StoredKinds.of(stack));
           }
 
           @Override
@@ -70,23 +66,6 @@ final class DockStorage {
             changed.run();
           }
         };
-  }
-
-  static DockStoredKind kindOf(ItemStack stack) {
-    if (PowerBankItem.is(stack)) {
-      return DockStoredKind.POWER_BANK;
-    }
-    if (stack.getItem() instanceof StorableRobotItem) {
-      return DockStoredKind.ROBOT;
-    }
-    if (stack.is(CubitItems.TOOLBOX.get())) {
-      return DockStoredKind.TOOLBOX;
-    }
-    boolean ofTheMod = BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace().equals(MOD_ID);
-    // A desk that keeps items never nests in the dock (answer 1481).
-    return ofTheMod && stack.canFitInsideContainerItems()
-        ? DockStoredKind.MOD_ITEM
-        : DockStoredKind.OTHER;
   }
 
   Container container() {
@@ -100,7 +79,7 @@ final class DockStorage {
       public ItemStack extractItem(int index, int amount, boolean simulate) {
         ItemStack stack = items.getItem(index);
         boolean full = PowerBankItem.is(stack) && PowerBankItem.batteryOf(stack).isFull();
-        return DockStorageRules.releases(kindOf(stack), full)
+        return DockStorageRules.releases(StoredKinds.of(stack), full)
             ? super.extractItem(index, amount, simulate)
             : ItemStack.EMPTY;
       }
@@ -112,8 +91,8 @@ final class DockStorage {
    * the input slot (959). Other items of the mod go in by the screen or a hopper (answer 1382).
    */
   boolean insertByClick(ItemStack stack, SimpleContainer input) {
-    DockStoredKind kind = kindOf(stack);
-    if (kind == DockStoredKind.MOD_ITEM) {
+    StoredKind kind = StoredKinds.of(stack);
+    if (kind == StoredKind.MOD_ITEM) {
       return false;
     }
     return DockStorageRules.accepts(kind) ? insert(stack) : EnergySlotItems.insert(input, stack);
@@ -124,7 +103,7 @@ final class DockStorage {
    * (answer 959). False when nothing fits.
    */
   boolean insert(ItemStack hand) {
-    if (!DockStorageRules.accepts(kindOf(hand))) {
+    if (!DockStorageRules.accepts(StoredKinds.of(hand))) {
       return false;
     }
     int before = hand.getCount();
@@ -135,13 +114,13 @@ final class DockStorage {
   }
 
   /** One bank at a time, and only while no robot in the base still charges (949 and 952). */
-  DockStock charge(DockStock stock, boolean chargesBanks, Energy rate, Runnable changed) {
+  EnergyStock charge(EnergyStock stock, boolean chargesBanks, Energy rate, Runnable changed) {
     if (!chargesBanks) {
       return stock;
     }
     OptionalInt index = DockStorageRules.bankToCharge(banks());
     return index.isPresent()
-        ? DockPowerBanks.charge(stock, items.getItem(index.getAsInt()), rate, changed)
+        ? PowerBankTransfer.charge(stock, items.getItem(index.getAsInt()), rate, changed)
         : stock;
   }
 
@@ -218,7 +197,7 @@ final class DockStorage {
       return;
     }
     if (DockStorageRules.opens(index, tierSlots.getAsInt())
-        && DockStorageRules.accepts(kindOf(stack))) {
+        && DockStorageRules.accepts(StoredKinds.of(stack))) {
       items.setItem(index, stack);
       return;
     }

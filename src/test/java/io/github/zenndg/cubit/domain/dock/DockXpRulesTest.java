@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.EnergyStock;
 import io.github.zenndg.cubit.domain.xp.XpConversion;
 import io.github.zenndg.cubit.domain.xp.XpRate;
 import io.github.zenndg.cubit.domain.xp.XpTank;
@@ -19,8 +20,8 @@ class DockXpRulesTest {
   private static final int CAPACITY = 1_000;
   private static final int POINTS_OF_THE_TANK = 50;
   private static final Energy BATTERY = new Energy(300_000);
-  private static final DockStock EMPTY = DockStock.of(BATTERY, Energy.ZERO);
-  private static final DockStock FULL = DockStock.of(BATTERY, BATTERY);
+  private static final EnergyStock EMPTY = EnergyStock.of(BATTERY, Energy.ZERO);
+  private static final EnergyStock FULL = EnergyStock.of(BATTERY, BATTERY);
   private static final int POINTS = 10;
   private static final int ROOM = 4;
   private static final String STORE_CONVERT = "STORE_CONVERT_EXCESS";
@@ -32,11 +33,11 @@ class DockXpRulesTest {
     return new XpTank(RATE.fluidOf(points), CAPACITY);
   }
 
-  private static DockStock roomFor(int energy) {
-    return DockStock.of(BATTERY, new Energy(BATTERY.amount() - energy));
+  private static EnergyStock roomFor(int energy) {
+    return EnergyStock.of(BATTERY, new Energy(BATTERY.amount() - energy));
   }
 
-  private static DockXpRules.Received receive(DockXpMode mode, XpTank tank, DockStock stock) {
+  private static DockXpRules.Received receive(DockXpMode mode, XpTank tank, EnergyStock stock) {
     return DockXpRules.receive(mode, tank, stock, POINTS, NINE);
   }
 
@@ -44,7 +45,7 @@ class DockXpRulesTest {
   @ParameterizedTest
   @EnumSource(DockXpMode.class)
   void everyPointIsKeptConvertedOrDeleted(DockXpMode mode) {
-    for (DockStock stock : new DockStock[] {EMPTY, FULL, roomFor(FE * 2 + 1)}) {
+    for (EnergyStock stock : new EnergyStock[] {EMPTY, FULL, roomFor(FE * 2 + 1)}) {
       for (int held : new int[] {0, POINTS_OF_THE_TANK - ROOM, POINTS_OF_THE_TANK}) {
         DockXpRules.Received got = receive(mode, tank(held), stock);
         int kept = got.tank().points(RATE) - held;

@@ -1,7 +1,7 @@
 package io.github.zenndg.cubit.datagen;
 
 import io.github.zenndg.cubit.domain.dock.DockPanelState;
-import io.github.zenndg.cubit.domain.dock.DockSunState;
+import io.github.zenndg.cubit.domain.energy.SunState;
 import io.github.zenndg.cubit.entity.RobotDockReach;
 import io.github.zenndg.cubit.menu.ScreenKeys;
 import io.github.zenndg.cubit.registry.CubitSounds;
@@ -66,20 +66,20 @@ final class SolarDockTexts {
   }
 
   private static void addStates(BiConsumer<String, String> add) {
-    add.accept(ScreenKeys.dockSun(DockSunState.GENERATING), GENERATING);
-    add.accept(ScreenKeys.dockSun(DockSunState.MOONLIGHT), MOONLIGHT);
-    for (DockSunState state : DockSunState.values()) {
+    add.accept(ScreenKeys.dockSun(SunState.GENERATING), GENERATING);
+    add.accept(ScreenKeys.dockSun(SunState.MOONLIGHT), MOONLIGHT);
+    for (SunState state : SunState.values()) {
       if (!state.generates()) {
         add.accept(ScreenKeys.dockSun(state), STOPPED);
       }
     }
-    add.accept(ScreenKeys.dockSunReason(DockSunState.GENERATING), GENERATING);
-    add.accept(ScreenKeys.dockSunReason(DockSunState.MOONLIGHT), MOONLIGHT);
-    add.accept(ScreenKeys.dockSunReason(DockSunState.NIGHT), NIGHT);
-    add.accept(ScreenKeys.dockSunReason(DockSunState.RAIN), RAIN);
-    add.accept(ScreenKeys.dockSunReason(DockSunState.COVERED), COVERED);
-    add.accept(ScreenKeys.dockSunReason(DockSunState.NO_SUN), NO_SUN_HERE);
-    add.accept(ScreenKeys.dockSunReason(DockSunState.NO_ROOM), NO_ROOM);
+    add.accept(ScreenKeys.dockSunReason(SunState.GENERATING), GENERATING);
+    add.accept(ScreenKeys.dockSunReason(SunState.MOONLIGHT), MOONLIGHT);
+    add.accept(ScreenKeys.dockSunReason(SunState.NIGHT), NIGHT);
+    add.accept(ScreenKeys.dockSunReason(SunState.RAIN), RAIN);
+    add.accept(ScreenKeys.dockSunReason(SunState.COVERED), COVERED);
+    add.accept(ScreenKeys.dockSunReason(SunState.NO_SUN), NO_SUN_HERE);
+    add.accept(ScreenKeys.dockSunReason(SunState.NO_ROOM), NO_ROOM);
   }
 
   /** Where the panel of the Dock is, on the Solar tab and in Jade (answer 1865). */

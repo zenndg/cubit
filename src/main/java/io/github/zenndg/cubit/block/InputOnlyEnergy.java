@@ -3,17 +3,19 @@ package io.github.zenndg.cubit.block;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 
-/** How other mods see a dock: it takes FE in, up to its input, and never gives any out. */
-final class DockEnergyStorage implements IEnergyStorage {
-  private final InductionDockBlockEntity dock;
+/**
+ * How other mods see a block of the mod: it takes FE in, up to its input, and never gives any out.
+ */
+final class InputOnlyEnergy implements IEnergyStorage {
+  private final EnergyInput block;
 
-  DockEnergyStorage(InductionDockBlockEntity dock) {
-    this.dock = dock;
+  InputOnlyEnergy(EnergyInput block) {
+    this.block = block;
   }
 
   @Override
   public int receiveEnergy(int toReceive, boolean simulate) {
-    return Math.toIntExact(dock.receive(new Energy(Math.max(toReceive, 0)), simulate).amount());
+    return Math.toIntExact(block.receive(new Energy(Math.max(toReceive, 0)), simulate).amount());
   }
 
   @Override
@@ -23,12 +25,12 @@ final class DockEnergyStorage implements IEnergyStorage {
 
   @Override
   public int getEnergyStored() {
-    return Math.toIntExact(dock.energy().amount());
+    return Math.toIntExact(block.energy().amount());
   }
 
   @Override
   public int getMaxEnergyStored() {
-    return Math.toIntExact(dock.capacityAmount());
+    return Math.toIntExact(block.capacityAmount());
   }
 
   @Override

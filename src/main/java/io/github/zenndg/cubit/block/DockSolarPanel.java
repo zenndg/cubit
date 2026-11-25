@@ -4,12 +4,12 @@ import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.dock.DockPanel;
 import io.github.zenndg.cubit.domain.dock.DockPanelSound;
 import io.github.zenndg.cubit.domain.dock.DockPanelState;
-import io.github.zenndg.cubit.domain.dock.DockStock;
-import io.github.zenndg.cubit.domain.dock.DockSun;
-import io.github.zenndg.cubit.domain.dock.DockSunState;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.EnergyStock;
+import io.github.zenndg.cubit.domain.energy.SkySun;
 import io.github.zenndg.cubit.domain.energy.SolarOutput;
 import io.github.zenndg.cubit.domain.energy.SolarPanel;
+import io.github.zenndg.cubit.domain.energy.SunState;
 import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.Locale;
 import net.minecraft.core.BlockPos;
@@ -45,7 +45,7 @@ final class DockSolarPanel {
   private static final String STORED = "stored";
 
   private Energy given = Energy.ZERO;
-  private DockSunState state = DockSunState.NO_SUN;
+  private SunState state = SunState.NO_SUN;
   private DockPanel panel = DockPanel.STORED;
   private DockPanelState sent = DockPanelState.STORED;
   private boolean day = true;
@@ -97,22 +97,22 @@ final class DockSolarPanel {
     }
   }
 
-  DockStock generate(
-      Level level, BlockPos lower, DockStock stock, SolarOutput rates, Runnable changed) {
+  EnergyStock generate(
+      Level level, BlockPos lower, EnergyStock stock, SolarOutput rates, Runnable changed) {
     given = Energy.ZERO;
     if (!read || level.getGameTime() % CubitMod.CONFIG.solarCheckTicks() == 0) {
       readSky(level, lower);
     }
     day = SolarPanel.isDay(level.getDayTime());
     boolean raining = level.isRaining() || level.isThundering();
-    state = new DockSun(day, skyOpen, raining, sunExists, room, rates.givesAtNight()).state();
+    state = new SkySun(day, skyOpen, raining, sunExists, room, rates.givesAtNight()).state();
     move(level, lower, changed);
     showPlate(level, lower);
     Energy rate = rates.at(day);
     if (rate.isZero() || !state.generates() || !panel.generates()) {
       return stock;
     }
-    DockStock.Received received = stock.receive(rate, rate);
+    EnergyStock.Received received = stock.receive(rate, rate);
     given = received.accepted();
     if (!given.isZero()) {
       changed.run();

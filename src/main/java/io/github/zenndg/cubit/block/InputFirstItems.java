@@ -9,11 +9,11 @@ import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 
 /**
- * What the automation sees of a dock, by any face: the input first, then the storage (answers 925
- * and 953).
+ * What the automation sees of a block of the mod, by any face: the input first, then the storage
+ * (answers 925 and 953).
  */
-final class DockItemHandler {
-  private DockItemHandler() {}
+final class InputFirstItems {
+  private InputFirstItems() {}
 
   /**
    * Redstone goes into the input, which never gives back, because the energy it becomes never comes

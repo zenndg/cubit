@@ -1,12 +1,12 @@
 package io.github.zenndg.cubit.block;
 
 import io.github.zenndg.cubit.CubitMod;
-import io.github.zenndg.cubit.domain.dock.DockStock;
 import io.github.zenndg.cubit.domain.dock.DockXpMode;
 import io.github.zenndg.cubit.domain.dock.DockXpNotice;
 import io.github.zenndg.cubit.domain.dock.DockXpRules;
 import io.github.zenndg.cubit.domain.dock.DockXpSpec;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.EnergyStock;
 import io.github.zenndg.cubit.domain.xp.XpConversion;
 import io.github.zenndg.cubit.domain.xp.XpFlow;
 import io.github.zenndg.cubit.domain.xp.XpTank;
@@ -73,7 +73,7 @@ public final class DockXp implements DockXpControl {
   }
 
   /** The XP of a docked Cubit, all of it (answer 1831). */
-  Taken take(DockStock stock, int points) {
+  Taken take(EnergyStock stock, int points) {
     DockXpRules.Received got =
         DockXpRules.receive(state.mode(), tank(), stock, points, conversion());
     keep(got.tank(), got.converted());
@@ -81,14 +81,14 @@ public final class DockXp implements DockXpControl {
   }
 
   /** The stock after the XP that came in, and whether the owner should read of the full tank. */
-  record Taken(DockStock stock, boolean tells) {}
+  record Taken(EnergyStock stock, boolean tells) {}
 
   void told() {
     notice = notice.afterTelling();
   }
 
   /** On each tick, with XP in Convert all only, at the pace of the tier (answers 1939 and 2104). */
-  DockStock convert(DockStock stock) {
+  EnergyStock convert(EnergyStock stock) {
     if (state.mode() != DockXpMode.CONVERT_ALL || state.fluid() == 0) {
       flow = XpFlow.START;
       return stock;

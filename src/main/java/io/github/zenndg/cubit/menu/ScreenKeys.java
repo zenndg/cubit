@@ -2,7 +2,7 @@ package io.github.zenndg.cubit.menu;
 
 import io.github.zenndg.cubit.domain.dock.DockPanelState;
 import io.github.zenndg.cubit.domain.dock.DockStatus;
-import io.github.zenndg.cubit.domain.dock.DockSunState;
+import io.github.zenndg.cubit.domain.energy.SunState;
 import java.util.Locale;
 
 /** The translation keys of the screens, shared by the screens and the language file. */
@@ -114,7 +114,7 @@ public final class ScreenKeys {
   public static final String FOLLOWING_NOBODY = ROBOT + "following_nobody";
 
   /** The state of the panel of a Solar Dock, as `gui.cubit.dock.sun.night` (answer 1396). */
-  public static String dockSun(DockSunState state) {
+  public static String dockSun(SunState state) {
     return DOCK + SUN_PREFIX + state.name().toLowerCase(Locale.ROOT);
   }
 
@@ -124,7 +124,7 @@ public final class ScreenKeys {
   }
 
   /** Why the panel stops, as `gui.cubit.dock.sun_reason.night` (answer 1396). */
-  public static String dockSunReason(DockSunState state) {
+  public static String dockSunReason(SunState state) {
     return DOCK + SUN_REASON_PREFIX + state.name().toLowerCase(Locale.ROOT);
   }
 

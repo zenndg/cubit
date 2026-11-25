@@ -11,7 +11,7 @@ final class DockTierStates {
   private DockTierStates() {}
 
   static void show(Level level, BlockPos lower, RobotTier tier) {
-    DockTierProperty property = DockTierProperty.of(tier);
+    TierProperty property = TierProperty.of(tier);
     for (BlockPos pos : new BlockPos[] {lower, lower.above()}) {
       BlockState state = level.getBlockState(pos);
       if (state.getBlock() instanceof InductionDockBlock

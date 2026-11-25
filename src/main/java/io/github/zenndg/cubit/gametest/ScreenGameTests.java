@@ -3,9 +3,9 @@ package io.github.zenndg.cubit.gametest;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
 import io.github.zenndg.cubit.domain.behavior.RobotScreenStatus;
-import io.github.zenndg.cubit.domain.dock.DockInputMeter;
 import io.github.zenndg.cubit.domain.dock.DockStatus;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.InputMeter;
 import io.github.zenndg.cubit.domain.energy.PowerState;
 import io.github.zenndg.cubit.entity.RobotEntity;
 import io.github.zenndg.cubit.entity.RobotScreenReadout;
@@ -122,7 +122,7 @@ public final class ScreenGameTests {
         METER_TICKS,
         () -> {
           menu.broadcastChanges();
-          Energy average = new Energy(BURST / DockInputMeter.TICKS_PER_SECOND);
+          Energy average = new Energy(BURST / InputMeter.TICKS_PER_SECOND);
           helper.assertValueEqual(menu.input(), average, WRONG_DOCK);
           helper.succeed();
         });

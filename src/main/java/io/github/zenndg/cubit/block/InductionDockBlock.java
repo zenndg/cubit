@@ -59,8 +59,8 @@ public final class InductionDockBlock extends BaseEntityBlock {
   public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
   public static final EnumProperty<DockStatusProperty> STATUS =
       EnumProperty.create(STATUS_NAME, DockStatusProperty.class);
-  public static final EnumProperty<DockTierProperty> TIER =
-      EnumProperty.create(TIER_NAME, DockTierProperty.class);
+  public static final EnumProperty<TierProperty> TIER =
+      EnumProperty.create(TIER_NAME, TierProperty.class);
 
   private static final MapCodec<InductionDockBlock> CODEC = simpleCodec(InductionDockBlock::new);
   private static final float CANNOT_BREAK = 0f;
@@ -75,7 +75,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
             .setValue(FACING, Direction.NORTH)
             .setValue(HALF, DoubleBlockHalf.LOWER)
             .setValue(STATUS, DockStatusProperty.OFF)
-            .setValue(TIER, DockTierProperty.BASE));
+            .setValue(TIER, TierProperty.BASE));
   }
 
   @Override
@@ -150,7 +150,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
   public void setPlacedBy(
       Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
     RobotTier tier = stack.getOrDefault(CubitDataComponents.DOCK_TIER.get(), RobotTier.BASE);
-    BlockState placed = state.setValue(TIER, DockTierProperty.of(tier));
+    BlockState placed = state.setValue(TIER, TierProperty.of(tier));
     level.setBlock(pos, placed, UPDATE_ALL);
     level.setBlock(pos.above(), placed.setValue(HALF, DoubleBlockHalf.UPPER), UPDATE_ALL);
     DockTop.place(level, pos);

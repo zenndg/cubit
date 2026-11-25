@@ -162,7 +162,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `RechargeSplashReception` | O que uma mistura faz com um Cubit: começa, se ele for de quem arremessou e estiver no raio; não dá nada e avisa, se ele ainda recebe a anterior; ou ignora |
 | `WakeRecharge` | Religar um Cubit guardado com uma Power Bank na grade: só abaixo da carga de religar, só o que falta e só se a Power Bank tiver tudo |
 | `PowerBankUpgrade` | A Power Bank encadeada leva a carga da anterior, e a receita não vale se a carga não couber |
-| `DockStock` | Estoque de energia de um Induction Dock e as transferências dele, sem criar nem perder FE |
+| `EnergyStock` | Estoque de energia de um bloco do mod, como o Induction Dock, e as transferências dele, sem criar nem perder FE |
 | `DockStatus` | O que a tela de um Dock mostra |
 | `DockStay` | Vida recuperada por tick e quando o robô sai da base |
 | `DockQueue` | Robôs aguardando um Dock ocupado, por ordem de chegada |
@@ -172,14 +172,14 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `AutoReturn` | Quando o Cubit volta sozinho a um Dock: com a chave ligada, ativo, seguindo o dono e com a bateria do retorno do tier ou menos, a não ser que já esteja a caminho (perguntas 1065 a 1068). Em guarda (`onGuard`), o Patrulheiro espera o fim do combate e um raio de procura sem hostil, sem conferir o dono nem investigar (perguntas 1689 e 1763) |
 | `DockRemoval` | Quem pode quebrar um Dock |
 | `DockStorageRules` | O inventário do Dock: o que ele guarda, quais slots o tier abre, quando e qual Power Bank ele carrega, e o que a automação tira (perguntas 1361 e 1374) |
-| `DockStoredKind` | O que um item é para o inventário do Dock: Toolbox, Power Bank, Cubit, outro item do mod ou um item de fora |
+| `StoredKind` | O que um item é para o inventário do Dock e do Network Server: Toolbox, Power Bank, Cubit, outro item do mod ou um item de fora |
 | `DockSpec` e `DockCatalog` | Os números do Dock em cada tier: o estoque, a recarga do Cubit e da Power Bank guardada, os slots, em linhas inteiras de 9, e a geração do painel, de dia e à noite. O config os serve (perguntas 1374, 1381, 1385 e 1944) |
-| `DockSun` | O que o painel do Dock vê: dia, céu aberto, chuva, um mundo com sol e o 3º bloco, onde o painel fica. Só gera com tudo a favor, e sem sol é um Dock normal. Um Dock de antes, sem espaço para o 3º bloco, fica sem o painel, e só um mundo sem sol é um motivo mais duradouro. No tier que gera à noite, a noite não para o painel, que fica em `MOONLIGHT`, e a chuva o para como de dia (perguntas 1384, 1897 e 1943) |
+| `SkySun` | O que um painel vê, o do Dock ou o do Solar Relay: dia, céu aberto, chuva, um mundo com sol e o espaço do painel, que no Dock é o 3º bloco. Só gera com tudo a favor, e sem sol é um Dock normal. Um Dock de antes, sem espaço para o 3º bloco, fica sem o painel, e só um mundo sem sol é um motivo mais duradouro. No tier que gera à noite, a noite não para o painel, que fica em `MOONLIGHT`, e a chuva o para como de dia (perguntas 1384, 1897 e 1943) |
 | `DockPanel` | O painel solar de todo Dock: sai do armário depois de um tempo seguido com sol e volta depois do mesmo tempo sem sol, também à noite, menos no tier que gera à noite (pergunta 1943); o movimento dos braços vai até o fim, qualquer que seja o céu; só o painel montado por completo gera; e só o destino do movimento é salvo (`Timings`: a espera e o movimento) (perguntas 1856, 1859, 1862 e 1864) |
 | `DockPanelState` | Onde o painel está: guardado, montando, montado ou guardando, para a aba Solar e a luz das portas (perguntas 1863 e 1865) |
 | `DockPanelSound` | O som de cada momento do painel: a montagem quando os braços começam a sair, a trava quando as metades se encontram no centro e a desmontagem quando os braços começam a voltar (perguntas 1861 e 1921) |
 | `DockDoorLight` | A luz na borda das folhas das portas: vermelha com o painel guardado, verde com ele montado e amarela, piscando, durante o movimento (perguntas 1853 e 1863) |
-| `DockName` | O nome de um Dock: o dado pelo dono, com as regras do nome do Cubit, ou o padrão `Dock` e os 8 primeiros dígitos do UUID dele, para o Dock nunca ficar sem nome (perguntas 1867 a 1869) |
+| `BlockName` | O nome de um bloco com dono, como o Dock: o dado pelo dono, com as regras do nome do Cubit, ou o padrão, o começo do tipo dele (`Dock`) e os 8 primeiros dígitos do UUID, para ele nunca ficar sem nome (perguntas 1867 a 1869) |
 | `RobotClick` | O que o clique direito faz no robô: ignorar, recolher, subir o tier, pintar, escolher o minério, abrir ou ligar |
 | `InventoryFit` | Separa os itens que cabem nos slots do config dos que sobram |
 | `InventoryGrid` | Como o inventário aparece na tela: sempre 3 fileiras, com 9, 12, 15 e 18 colunas do Base ao Ultimate, a coluna e a fileira de cada slot e as colunas a mais, que alargam a tela (pergunta 1101) |
@@ -194,7 +194,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `EnergyUseCause` | Por que o robô gastou energia no tick, na ordem que a tela lista |
 | `RechargeSource` | De onde a bateria recebeu energia no último tick: Dock, slot, painel ou nada |
 | `HealTime` | Quanto tempo a base leva para encher a vida, em minutos |
-| `DockInputMeter` | A média do que entrou num Dock por tick, no último segundo |
+| `InputMeter` | A média do que entrou num bloco do mod por tick, no último segundo |
 | `DeskSpec` | Os números da Engineering Desk num tier: bateria, ticks de um craft, slots de cada inventário e maior pedido |
 | `DeskCatalog` | Interface que dá o `DeskSpec` de um tier, servida pelo config |
 | `DeskOrder` | O pedido da mesa: quantos itens foram pedidos e quantos estão prontos, com o sinal do comparador |

@@ -1,4 +1,4 @@
-package io.github.zenndg.cubit.domain.dock;
+package io.github.zenndg.cubit.domain.ownership;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
-class DockNameTest {
+class BlockNameTest {
   private static final UUID ID = UUID.fromString("3f9a2c1b-0000-4000-8000-000000000000");
   private static final String STANDARD = "Dock 3f9a2c1b";
   private static final String GIVEN = "Garden Dock";
@@ -17,29 +17,30 @@ class DockNameTest {
 
   @Test
   void theStandardNameIsDockAndTheFirstEightDigits() {
-    assertEquals(STANDARD, DockName.standard(ID).value());
+    assertEquals(STANDARD, BlockName.standard(BlockName.Kind.DOCK, ID).value());
   }
 
   @Test
   void aGivenNameIsShown() {
-    assertEquals(GIVEN, DockName.of(ID, Optional.of(new RobotName(GIVEN))).value());
+    assertEquals(
+        GIVEN, BlockName.of(BlockName.Kind.DOCK, ID, Optional.of(new RobotName(GIVEN))).value());
   }
 
   /** An empty name goes back to the standard one, so a dock always has a name (answer 1868). */
   @Test
   void noNameOrAnEmptyOneShowsTheStandard() {
-    assertEquals(STANDARD, DockName.of(ID, Optional.empty()).value());
-    assertEquals(STANDARD, DockName.of(ID, RobotName.typed(BLANK)).value());
+    assertEquals(STANDARD, BlockName.of(BlockName.Kind.DOCK, ID, Optional.empty()).value());
+    assertEquals(STANDARD, BlockName.of(BlockName.Kind.DOCK, ID, RobotName.typed(BLANK)).value());
   }
 
   @Test
   void anEmptyTypedNameIsNotKept() {
-    assertTrue(DockName.kept(RobotName.typed(BLANK)).isEmpty());
-    assertEquals(GIVEN, DockName.kept(RobotName.typed(GIVEN)).orElseThrow());
+    assertTrue(BlockName.kept(RobotName.typed(BLANK)).isEmpty());
+    assertEquals(GIVEN, BlockName.kept(RobotName.typed(GIVEN)).orElseThrow());
   }
 
   @Test
-  void aBlankDockNameIsRejected() {
-    assertThrows(IllegalArgumentException.class, () -> new DockName(BLANK));
+  void aBlankNameIsRejected() {
+    assertThrows(IllegalArgumentException.class, () -> new BlockName(BLANK));
   }
 }

@@ -3,8 +3,8 @@ package io.github.zenndg.cubit.client;
 import io.github.zenndg.cubit.client.ScreenPainter.Box;
 import io.github.zenndg.cubit.client.ScreenPainter.Colors;
 import io.github.zenndg.cubit.domain.dock.DockPanelState;
-import io.github.zenndg.cubit.domain.dock.DockSunState;
 import io.github.zenndg.cubit.domain.energy.EnergyFormat;
+import io.github.zenndg.cubit.domain.energy.SunState;
 import io.github.zenndg.cubit.menu.InductionDockMenu;
 import io.github.zenndg.cubit.menu.ScreenKeys;
 import net.minecraft.ChatFormatting;
@@ -34,7 +34,7 @@ final class DockSolarTab {
     Component title =
         Component.translatable(ScreenKeys.DOCK_TAB_SOLAR).withStyle(ChatFormatting.BOLD);
     painter.text(graphics, title, TITLE, ScreenPainter.TEXT, ScreenPainter.FULL_SCALE);
-    DockSunState state = menu.solar().sun();
+    SunState state = menu.solar().sun();
     Component sun = Component.translatable(ScreenKeys.dockSun(state));
     Component panel = Component.translatable(ScreenKeys.dockPanel(menu.solar().panel()));
     painter.status(graphics, panel, STATUS, lightOf(menu.solar().panel()));

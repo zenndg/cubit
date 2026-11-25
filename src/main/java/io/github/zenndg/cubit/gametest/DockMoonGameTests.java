@@ -3,8 +3,8 @@ package io.github.zenndg.cubit.gametest;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
 import io.github.zenndg.cubit.domain.dock.DockPanelState;
-import io.github.zenndg.cubit.domain.dock.DockSunState;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.SunState;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
 import io.github.zenndg.cubit.registry.CubitItems;
@@ -92,12 +92,12 @@ public final class DockMoonGameTests {
 
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
   public static void anEliteDockKeepsThePanelInAtNight(GameTestHelper helper) {
-    assertStoredAfterAWhile(helper, place(helper, RobotTier.ELITE), DockSunState.NIGHT);
+    assertStoredAfterAWhile(helper, place(helper, RobotTier.ELITE), SunState.NIGHT);
   }
 
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT, batch = RAIN_BATCH)
   public static void theRainKeepsThePanelInAtNight(GameTestHelper helper) {
-    assertStoredAfterAWhile(helper, place(helper, RobotTier.ULTIMATE), DockSunState.RAIN);
+    assertStoredAfterAWhile(helper, place(helper, RobotTier.ULTIMATE), SunState.RAIN);
   }
 
   /** The panel stays on the tower at dusk, without closing and opening again (answer 1943). */
@@ -130,12 +130,12 @@ public final class DockMoonGameTests {
   }
 
   private static void assertMoonlight(GameTestHelper helper, InductionDockBlockEntity dock) {
-    helper.assertValueEqual(dock.solar().state(), DockSunState.MOONLIGHT, NOT_MOONLIGHT);
+    helper.assertValueEqual(dock.solar().state(), SunState.MOONLIGHT, NOT_MOONLIGHT);
     helper.assertValueEqual(dock.solar().given().amount(), ULTIMATE_NIGHT, NOT_GENERATED);
   }
 
   private static void assertStoredAfterAWhile(
-      GameTestHelper helper, InductionDockBlockEntity dock, DockSunState reason) {
+      GameTestHelper helper, InductionDockBlockEntity dock, SunState reason) {
     helper.runAfterDelay(
         DEPLOYED_TICKS,
         () -> {

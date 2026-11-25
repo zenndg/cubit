@@ -1,7 +1,7 @@
-package io.github.zenndg.cubit.domain.dock;
+package io.github.zenndg.cubit.domain.energy;
 
-/** What the panel of a Dock is doing, and why it stops, for the Solar tab (answer 1396). */
-public enum DockSunState {
+/** What a solar panel is doing, and why it stops, for the Solar tab (answer 1396). */
+public enum SunState {
   GENERATING,
   NIGHT,
   RAIN,

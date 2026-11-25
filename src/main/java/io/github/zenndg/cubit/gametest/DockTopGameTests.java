@@ -4,7 +4,7 @@ import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
 import io.github.zenndg.cubit.block.InductionDockTopBlock;
 import io.github.zenndg.cubit.domain.dock.DockPanelState;
-import io.github.zenndg.cubit.domain.dock.DockSunState;
+import io.github.zenndg.cubit.domain.energy.SunState;
 import io.github.zenndg.cubit.registry.CubitBlocks;
 import io.github.zenndg.cubit.registry.CubitItems;
 import net.minecraft.core.BlockPos;
@@ -98,7 +98,7 @@ public final class DockTopGameTests {
         DEPLOYED_TICKS,
         () -> {
           helper.assertValueEqual(dock.solar().panel(), DockPanelState.STORED, NOT_STORED);
-          helper.assertValueEqual(dock.solar().state(), DockSunState.NO_ROOM, NOT_NO_ROOM);
+          helper.assertValueEqual(dock.solar().state(), SunState.NO_ROOM, NOT_NO_ROOM);
           helper.assertBlockPresent(Blocks.STONE, TOP);
           helper.succeed();
         });

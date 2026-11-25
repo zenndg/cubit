@@ -1,13 +1,12 @@
 package io.github.zenndg.cubit.client;
 
 import io.github.zenndg.cubit.client.ScreenPainter.Box;
-import io.github.zenndg.cubit.domain.dock.DockName;
+import io.github.zenndg.cubit.domain.ownership.BlockName;
 import io.github.zenndg.cubit.domain.robot.RobotName;
-import io.github.zenndg.cubit.menu.InductionDockMenu;
-import io.github.zenndg.cubit.menu.ScreenKeys;
 import io.github.zenndg.cubit.menu.TabletKeys;
-import io.github.zenndg.cubit.network.CubitNetwork;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
@@ -15,25 +14,25 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 
 /**
- * The Rename button of the Dock screen and its dialog, as the one of the Cubit on the Tablet. The
- * server names the Dock; the screen shows the name it will keep, by the same rule, so the title
- * follows at once (answers 1867 to 1870).
+ * The Rename button of the screen of a block and its dialog, as the one of the Cubit on the Tablet.
+ * The server names the block; the screen shows the name it will keep, by the same rule, so the
+ * title follows at once (answers 1867 to 1870).
  */
-final class DockRename {
+final class BlockRename {
   private static final Box BUTTON = new Box(118, 133, 50, 12);
 
-  private final InductionDockMenu menu;
+  private final Named named;
   private String shown;
   private TabletRenameDialog dialog;
   private FlatButton button;
 
-  DockRename(InductionDockMenu menu) {
-    this.menu = menu;
-    this.shown = menu.dockName();
+  BlockRename(Named named) {
+    this.named = named;
+    this.shown = named.name();
   }
 
   void init(Font font, int width, int height, int left, int top, Function<FlatButton, ?> add) {
-    dialog = new TabletRenameDialog(font, width, height, ScreenKeys.DOCK_RENAME_TITLE, this::send);
+    dialog = new TabletRenameDialog(font, width, height, named.titleKey(), this::send);
     Box at = BUTTON.moved(left, top);
     Component label = Component.translatable(TabletKeys.RENAME).withStyle(ChatFormatting.BOLD);
     button =
@@ -41,7 +40,7 @@ final class DockRename {
     add.apply(button);
   }
 
-  /** The name in the title: the one the Dock had, or the one just given. */
+  /** The name in the title: the one the block had, or the one just given. */
   Component name() {
     return Component.literal(shown);
   }
@@ -78,7 +77,12 @@ final class DockRename {
     if (name.isEmpty()) {
       return;
     }
-    CubitNetwork.renameDock(menu.containerId, typed);
-    shown = DockName.of(menu.dockId(), name).value();
+    named.send().accept(typed);
+    shown = BlockName.of(named.kind(), named.id(), name).value();
   }
+
+  /**
+   * The block of the screen: its kind, its id, its name and how the typed one reaches the server.
+   */
+  record Named(BlockName.Kind kind, UUID id, String name, String titleKey, Consumer<String> send) {}
 }

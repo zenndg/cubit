@@ -1,12 +1,10 @@
-package io.github.zenndg.cubit.domain.dock;
-
-import io.github.zenndg.cubit.domain.energy.Energy;
+package io.github.zenndg.cubit.domain.energy;
 
 /**
- * What entered a dock per tick, on average over the last second, for its screen. Cables push energy
- * in bursts, so one tick alone would make the number jump.
+ * What entered a block of the mod per tick, on average over the last second, for its screen. Cables
+ * push energy in bursts, so one tick alone would make the number jump.
  */
-public final class DockInputMeter {
+public final class InputMeter {
   public static final int TICKS_PER_SECOND = 20;
 
   private final long[] received = new long[TICKS_PER_SECOND];

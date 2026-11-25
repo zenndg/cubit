@@ -1,8 +1,8 @@
 package io.github.zenndg.cubit.block;
 
 import io.github.zenndg.cubit.domain.dock.DockPanelState;
-import io.github.zenndg.cubit.domain.dock.DockSunState;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.SunState;
 
 /**
  * What the panel of a Dock gives now, what it gives at most at the moment, whether its tier gives
@@ -13,6 +13,6 @@ public record DockSolarReading(
     Energy given,
     Energy max,
     boolean givesAtNight,
-    DockSunState state,
+    SunState state,
     boolean sunlit,
     DockPanelState panel) {}

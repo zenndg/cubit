@@ -1,15 +1,17 @@
 package io.github.zenndg.cubit.block;
 
-import io.github.zenndg.cubit.domain.dock.DockStock;
 import io.github.zenndg.cubit.domain.energy.Battery;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.EnergyStock;
 import io.github.zenndg.cubit.item.PowerBankItem;
 import java.util.function.UnaryOperator;
 import net.minecraft.world.item.ItemStack;
 
-/** The Power Banks in the input slot and in the storage of the dock (answers 919 to 959). */
-final class DockPowerBanks {
-  private DockPowerBanks() {}
+/**
+ * The Power Banks in the input slot and in the storage of a block of the mod (answers 919 to 959).
+ */
+final class PowerBankTransfer {
+  private PowerBankTransfer() {}
 
   /** The bank in the input slot empties into the stock like the cables, within the same input. */
   static void discharge(ItemStack stack, UnaryOperator<Energy> receive) {
@@ -21,16 +23,16 @@ final class DockPowerBanks {
   }
 
   /**
-   * At the rate of the tier of the dock (answer 1376). Entities tick before block entities, so a
+   * At the rate of the tier of the block (answer 1376). Entities tick before block entities, so a
    * docked robot already took its share this tick, and the bank only charges once it is full
    * (answer 952).
    */
-  static DockStock charge(DockStock stock, ItemStack stack, Energy rate, Runnable changed) {
+  static EnergyStock charge(EnergyStock stock, ItemStack stack, Energy rate, Runnable changed) {
     if (!PowerBankItem.is(stack)) {
       return stock;
     }
     Battery before = PowerBankItem.batteryOf(stack);
-    DockStock.Transfer transfer = stock.charge(before, rate);
+    EnergyStock.Transfer transfer = stock.charge(before, rate);
     if (transfer.robot().equals(before)) {
       return stock;
     }

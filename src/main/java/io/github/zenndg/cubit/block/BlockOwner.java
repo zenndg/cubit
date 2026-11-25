@@ -9,12 +9,12 @@ import net.minecraft.world.level.Level;
 import org.slf4j.Logger;
 
 /**
- * The owner of a dock, who alone uses it, kept in the save and sent to the client, which decides
- * who can break the block.
+ * The owner of a block of the mod, who alone uses it, kept in the save and sent to the client,
+ * which decides who can break the block.
  */
-final class DockOwner {
+final class BlockOwner {
   private static final Logger LOGGER = LogUtils.getLogger();
-  private static final String NO_OWNER_MESSAGE = "The dock at {} has no owner.";
+  private static final String NO_OWNER_MESSAGE = "The block at {} has no owner.";
   private static final String KEY = "Owner";
 
   private UUID owner;
