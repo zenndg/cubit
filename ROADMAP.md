@@ -117,7 +117,7 @@ Em toda entrega:
 
 ### Entrega 4: Signal Antenna e chunks
 
-- [ ] o item, a receita, o modelo, as 16 cores com contorno claro e a tela, com as três chaves
+- [ ] o item, a receita, o modelo, as 16 cores com o fio de contorno e a tela, com as três chaves
 - [ ] a ligação ao Servidor, o canal escolhido pelo player, a ordem fixa em inglês e 4, 8, 12 e 16 por tier
 - [ ] um de cada bloco por chunk, de qualquer dono, e a reconexão ao mover o Servidor ou a antena
 - [ ] a energia até a antena e o chunk carregado, com 25 FE/t, o custo da distância, o UPS e a retomada uma a uma
