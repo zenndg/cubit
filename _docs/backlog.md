@@ -57,6 +57,25 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
      - como convivem com as asas do Patrulheiro, que já fazem voos curtos;
      - o estado no save e no item (regra 18).
 
+## Robô de transporte
+
+1. **Um segundo robô, o caminhão** (pergunta 2197).
+   - **A ideia:** além do Cubit, um robô em forma de caminhão, com uma única função, o transporte logístico. Ele traz os recursos de cada farm para a base principal. A cada tier, fica mais rápido e tem mais energia, e cada slot do inventário dele tem a quantidade da pilha dobrada.
+   - **Quando:** logo depois da Network completa, e antes das outras profissões.
+   - **Outros recursos:** o pedido os cita sem dizer quais, e a lista fica para o refinamento.
+   - **Em aberto:**
+     - a regra do robô único do [`AGENTS.md`](../AGENTS.md#robô-único), que diz que o Cubit é o único robô do mod, e o que vale para o novo nas regras 39 a 43;
+     - o nome, o ID e o visual, sem copiar um robô ou veículo existente (regra 9);
+     - o que dobra: a pilha de cada tier em relação ao anterior, como 64, 128, 256 e 512, ou o dobro do jogo em todos os tiers;
+     - a pilha acima de 99, que o jogo não salva num slot comum (`ItemStack.CODEC` vai de 1 a 99), e a dos itens que empilham até 16 ou 1;
+     - de onde ele tira e onde põe os itens: o baú de descarga, o inventário do Servidor, que hoje não recebe nada pela rede, ou outro;
+     - o caminho entre a farm e a base, com chunks descarregados no meio, que ele não pode carregar à força (regra 22): sem player por perto, um robô para ao sair de um chunk ativo;
+     - se ele anda de verdade, por terreno difícil e água, e como sobe e desce;
+     - a rota, as paradas, o Dock em que recarrega e os apps do Tablet;
+     - quantos por player e o desempenho;
+     - o que o separa do Organizador, que move itens na área, do storage wireless (#207) e do Logístico, descartado na pergunta 1146;
+     - morte, conserto, recolher com a carga dentro, sem perder nem duplicar itens, e se ele usa cards.
+
 ## Profissões
 
 1. **Scanner de minérios só no Minerador** (pergunta 1741). Quando o Minerador começar, o scanner de minérios sai de todo Cubit e passa a ser só do Minerador, melhorado. Está anotado em [`trabalhos/minerador.md`](funcionalidades/trabalhos/minerador.md).
@@ -69,6 +88,7 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 13:34 | Acrescenta o robô de transporte (pergunta 2197). |
 | Zennd | 2026-11-24 08:35 | Acrescenta os acessórios do Cubit (pergunta 2096). |
 | Zennd | 2026-11-23 20:27 | Acrescenta o tier acima do Ultimate (pergunta 2057). |
 | Zennd | 2026-11-23 00:00 | Troca o nome ao colocar o Cubit pelo link do conceito (perguntas 1874 a 1881). |
