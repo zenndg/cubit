@@ -1354,11 +1354,13 @@ Não há perguntas pendentes nesta fase.
 | 2407 | Network, entrega 3: em que ritmo voltam os chunks dos Servidores quando o dono entra (2210)? | Um a cada 2 s, com o primeiro na hora, pela chave `wake_interval_ticks` (40), que vem da entrega 4 para esta. O `cubit_network` guarda a lista `Chunks`, com `Owner`, `Dimension`, `Pos` e `Waiting`. A recomendação foi aceita. Detalha a 2210, a 2330 e a 2334 |
 | 2408 | A Engineering Desk quebrada com um plano da cascata perde o plano e o estoque dele em sobrevivência, contra a 2010, porque a tabela de drop não copia `engineering_desk_cascade` | Abrir uma issue própria, com a causa e o teste que falta, corrigida fora da Network. A recomendação foi aceita |
 | 2409 | Network, entrega 3: os limites da chave `wake_interval_ticks`, que a 2403 não incluía | De 1 a 1200, com 40 de padrão, os mesmos limites do `solar_check_ticks`. A recomendação foi aceita. Detalha a 2407 |
+| 2410 | Network, entrega 3: o que a dica dos itens do Servidor e do Solar Relay mostra? | Como a Engineering Desk: o Servidor, com o tier, a energia e quantos itens guarda, e o Relay, só com a energia, com as linhas só quando há o que mostrar. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 13:55 | Registra a resposta 2410. |
 | Zennd | 2026-11-25 12:49 | Registra a resposta 2409. |
 | Zennd | 2026-11-25 12:30 | Registra a resposta 2408. |
 | Zennd | 2026-11-25 12:16 | Registra as respostas 2404 a 2407. |
