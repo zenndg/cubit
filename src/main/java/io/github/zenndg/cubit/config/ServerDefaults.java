@@ -1,0 +1,60 @@
+package io.github.zenndg.cubit.config;
+
+import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.SolarOutput;
+import io.github.zenndg.cubit.domain.network.ServerSpec;
+import io.github.zenndg.cubit.domain.tier.RobotTier;
+
+/**
+ * The default numbers of the Network Server at each tier, from _docs/tiers.md (answers 2220 to
+ * 2223, 2267, 2269 and 2326).
+ */
+final class ServerDefaults {
+  private static final long NO_NIGHT = 0;
+  private static final long BASE_CAPACITY = 1_200_000;
+  private static final long ADVANCED_CAPACITY = 4_800_000;
+  private static final long ELITE_CAPACITY = 24_000_000;
+  private static final long ULTIMATE_CAPACITY = 64_000_000;
+  private static final int BASE_CHANNELS = 4;
+  private static final int ADVANCED_CHANNELS = 8;
+  private static final int ELITE_CHANNELS = 12;
+  private static final long BASE_INPUT = 20_000;
+  private static final long ADVANCED_INPUT = 40_000;
+  private static final long ELITE_INPUT = 80_000;
+  private static final long ULTIMATE_INPUT = 160_000;
+  private static final int BASE_SLOTS = 27;
+  private static final int ADVANCED_SLOTS = 36;
+  private static final int ELITE_SLOTS = 45;
+  private static final SolarOutput BASE_RELAY = relay(500, NO_NIGHT);
+  private static final SolarOutput ADVANCED_RELAY = relay(1_000, NO_NIGHT);
+  private static final SolarOutput ELITE_RELAY = relay(2_000, NO_NIGHT);
+  private static final SolarOutput ULTIMATE_RELAY = relay(4_000, 1_000);
+
+  private ServerDefaults() {}
+
+  static ServerSpec of(RobotTier tier) {
+    return switch (tier) {
+      case BASE -> spec(BASE_CAPACITY, BASE_CHANNELS, BASE_INPUT, BASE_SLOTS, BASE_RELAY);
+      case ADVANCED ->
+          spec(
+              ADVANCED_CAPACITY, ADVANCED_CHANNELS, ADVANCED_INPUT, ADVANCED_SLOTS, ADVANCED_RELAY);
+      case ELITE -> spec(ELITE_CAPACITY, ELITE_CHANNELS, ELITE_INPUT, ELITE_SLOTS, ELITE_RELAY);
+      case ULTIMATE ->
+          spec(
+              ULTIMATE_CAPACITY,
+              ServerSpec.MAX_CHANNELS,
+              ULTIMATE_INPUT,
+              ServerSpec.MAX_SLOTS,
+              ULTIMATE_RELAY);
+    };
+  }
+
+  private static SolarOutput relay(long day, long night) {
+    return new SolarOutput(new Energy(day), new Energy(night));
+  }
+
+  private static ServerSpec spec(
+      long capacity, int channels, long input, int slots, SolarOutput relay) {
+    return new ServerSpec(new Energy(capacity), channels, new Energy(input), slots, relay);
+  }
+}

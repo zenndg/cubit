@@ -114,6 +114,11 @@ public final class CubitConfig {
     return network.drawing();
   }
 
+  /** The keys of the Network, with the server at each tier. */
+  public NetworkSection network() {
+    return network;
+  }
+
   public int retaliateMemoryTicks() {
     return defense.retaliateMemory.get();
   }

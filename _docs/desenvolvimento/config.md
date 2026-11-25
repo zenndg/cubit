@@ -222,6 +222,19 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `network` | `area_min_points` | Desenho da área, o mínimo de pontos | 4 a 32 |
 | `network` | `area_max_points` | Desenho da área, o máximo de pontos | 4 a 256 |
 | `network` | `area_reach_blocks` | Desenho da área, o alcance da mira | 1 a 128 |
+| `network` | `chunk_loading_enabled` | Carregamento de chunks do mod | Ligado ou desligado |
+| `network` | `release_when_owner_offline` | Solta os chunks com o dono offline | Ligado ou desligado |
+| `network` | `chunks_per_player` e `chunks_per_world` | Chunks por player e no mundo, com 0 para sem limite | 0 a 2147483647 |
+| `network` | `chunk_cost` | Chunk, por tick | 0 a 2147483647 |
+| `network` | `chunk_resume_energy` | Carga com que o Servidor zerado volta a segurar o chunk | 0 a 2147483647 |
+| `network` | `server_ups_percent` | UPS padrão do Servidor | 0 a 50 |
+| `network` | `relay_energy_capacity` e `relay_input_per_tick` | Solar Relay: bateria e entrada | 1 a 2147483647 |
+| `network` | `storage_slot_limit` | Itens por slot do Servidor | 1 a 999 |
+| `network.{tier}` | `energy_capacity` | Network Server, a bateria | 1 a 2147483647 |
+| `network.{tier}` | `channels` | Network Server, os canais | 1 a 16 |
+| `network.{tier}` | `input_per_tick` | Network Server, a entrada por cabo e redstone | 1 a 2147483647 |
+| `network.{tier}` | `storage_slots` | Network Server, os slots | 9 a 54 |
+| `network.{tier}` | `relay_solar_per_tick` e `relay_solar_night_per_tick` | Solar Relay, de dia e à noite | 0 a 2147483647 |
 
 ## Por que esses limites
 
@@ -246,6 +259,10 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 | Situação | O que acontece |
 |---|---|
 | `area_max_points` menor que `area_min_points` | O mínimo vale também como máximo, para o desenho ainda fechar |
+| `server_ups_percent` fora dos passos de 5 | Vale o passo de baixo |
+| `chunk_resume_energy` menor que `chunk_cost` | Vale o custo, para o chunk não piscar |
+| `storage_slot_limit` abaixo da pilha normal do item | O slot guarda a pilha normal |
+| `storage_slots` da rede que não fecha uma linha de 9 | Vale a linha de baixo, e o mod registra no log |
 | Número fora dos limites | O NeoForge usa o limite mais próximo e registra no log |
 | Chave ausente ou valor que não é número | O NeoForge volta ao padrão da chave e registra no log |
 | `lamp_off_from_light` menor que `lamp_on_below_light` | A lanterna apaga a partir do maior dos dois, e o mod registra no log uma vez |
@@ -258,6 +275,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 11:58 | Acrescenta as chaves do Network Server e do Solar Relay (perguntas 2334, 2349 e 2376). |
 | Zennd | 2026-11-25 00:23 | Acrescenta as chaves do desenho da área, na seção `network` (perguntas 2287, 2311 e 2349). |
 | Zennd | 2026-11-24 12:32 | Atualiza o contrato das chaves, que vale a partir da `1.0.0` (perguntas 2189 e 2190). |
 | Zennd | 2026-11-24 09:56 | Acrescenta as chaves do XP do Dock (perguntas 1942 e 2103). |
