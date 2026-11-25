@@ -19,12 +19,24 @@ final class BlueprintButton extends AbstractButton {
   private final Runnable action;
   private final int fill;
   private boolean locked;
+  private Drawing drawing;
 
   BlueprintButton(
       int x, int y, int width, int height, Component message, int fill, Runnable action) {
     super(x, y, width, height, message);
     this.fill = fill;
     this.action = action;
+  }
+
+  /** What a button shows in place of its text, from its corner. */
+  @FunctionalInterface
+  interface Drawing {
+    void draw(GuiGraphics graphics, int x, int y);
+  }
+
+  /** The text stays for the narration. */
+  void drawInstead(Drawing shown) {
+    drawing = shown;
   }
 
   /** Off with a padlock, as a running plan leaves it (answer 2015). */
@@ -46,6 +58,14 @@ final class BlueprintButton extends AbstractButton {
       graphics.fill(getX(), getY(), getX() + width, getY() + height, HOVER);
     }
     graphics.renderOutline(getX(), getY(), width, height, BlueprintPainter.LINE);
+    if (drawing != null) {
+      drawing.draw(graphics, getX(), getY());
+      return;
+    }
+    renderText(graphics);
+  }
+
+  private void renderText(GuiGraphics graphics) {
     int room = locked ? width - LOCK_ROOM : width;
     BlueprintPainter.fitted(
         graphics,

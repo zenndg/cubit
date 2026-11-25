@@ -22,7 +22,8 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 /**
  * The plus button of JEI on the screen of the desk: it picks the recipe in the catalog with the
  * same request as a click there, which the server checks, with the order at zero. No item moves,
- * and a locked recipe opens too, with its order held (answers 1506, 1533 and 1991).
+ * and a locked recipe opens too, with its order held (answers 1506, 1533 and 1991). While an order
+ * holds its recipe, no other one opens (answer 2476).
  */
 final class DeskTransferHandler
     implements IRecipeTransferHandler<EngineeringDeskMenu, RecipeHolder<CraftingRecipe>> {
@@ -70,6 +71,9 @@ final class DeskTransferHandler
     if (menu.cascade().locks()) {
       return helper.createUserErrorWithTooltip(
           Component.translatable(DeskScreenKeys.CASCADE_LOCKS));
+    }
+    if (menu.holdsRecipe() && index.get() != menu.recipeIndex()) {
+      return helper.createUserErrorWithTooltip(Component.translatable(DeskScreenKeys.ORDER_HOLDS));
     }
     if (doTransfer && minecraft.gameMode != null) {
       minecraft.gameMode.handleInventoryButtonClick(

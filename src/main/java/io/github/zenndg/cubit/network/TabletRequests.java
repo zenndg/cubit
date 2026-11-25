@@ -7,8 +7,8 @@ import net.minecraft.server.level.ServerPlayer;
 
 /**
  * Who handles on the server what the Tablet asks: the choice of a Cubit, the list again, the name,
- * the app and the buttons of the Deaths tab. The network never depends on the player code, which
- * checks every request (rule 20).
+ * the app, the buttons of the Deaths tab and the call of an unloaded Cubit. The network never
+ * depends on the player code, which checks every request (rule 20).
  */
 public record TabletRequests(
     BiConsumer<ServerPlayer, UUID> choose,
@@ -17,7 +17,8 @@ public record TabletRequests(
     BiConsumer<ServerPlayer, Integer> switchApp,
     BiConsumer<ServerPlayer, DeathGuidePayload> guideDeath,
     BiConsumer<ServerPlayer, DeleteDeathPayload> deleteDeath,
-    BiConsumer<ServerPlayer, RobotNamedPayload> named) {
+    BiConsumer<ServerPlayer, RobotNamedPayload> named,
+    BiConsumer<ServerPlayer, UUID> call) {
   static final TabletRequests NONE =
       new TabletRequests(
           (player, robot) -> {},
@@ -26,5 +27,6 @@ public record TabletRequests(
           (player, direction) -> {},
           (player, guide) -> {},
           (player, delete) -> {},
-          (player, named) -> {});
+          (player, named) -> {},
+          (player, robot) -> {});
 }

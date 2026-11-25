@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.config;
 
 import com.mojang.logging.LogUtils;
+import io.github.zenndg.cubit.domain.behavior.CallSpec;
 import io.github.zenndg.cubit.domain.behavior.DeathGuideSpec;
 import io.github.zenndg.cubit.domain.behavior.FishingTimes;
 import io.github.zenndg.cubit.domain.behavior.FollowDecision;
@@ -322,6 +323,10 @@ public final class CubitConfig {
   /** The limits of the two keys do not overlap, so this is always a valid decision. */
   public FollowDecision followDecision() {
     return new FollowDecision(general.stopDistance.get(), general.teleportDistance.get());
+  }
+
+  public CallSpec calls() {
+    return general.calls();
   }
 
   public double baseMovementSpeed() {

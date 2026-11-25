@@ -20,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.gametest.GameTestHolder;
@@ -35,6 +36,9 @@ public final class TorchGameTests {
   private static final String ARENA = "arena";
   private static final int PLACE_TIMEOUT = 200;
   private static final int WAIT_TICKS = 100;
+  private static final int LIGHT_TIMEOUT = 2_000;
+  private static final int ABOVE_FLOOR_Y = 2;
+  private static final int LIT = 12;
   private static final int LENGTH = 24;
   private static final int WIDTH = 5;
   private static final int ROOF_Y = 4;
@@ -46,6 +50,7 @@ public final class TorchGameTests {
   private static final Energy CHARGE = new Energy(100_000);
   private static final BlockPos FLOOR = new BlockPos(12, 1, 2);
   private static final String NOT_PLACED = "The robot should have placed a torch";
+  private static final String NOT_LIT = "The roof should light the cave";
   private static final String PLACED = "The robot should not have placed a torch";
   private static final String WRONG_COST = "A torch should cost its number once";
   private static final String WRONG_SLOT = "The torch slot took the wrong item";
@@ -89,14 +94,19 @@ public final class TorchGameTests {
 
   /**
    * A cave already lit gets no torch, so none is wasted (answer 971). The rule for the sky by day
-   * lives in the unit tests, because changing the time here would change it for every test.
+   * lives in the unit tests, because changing the time here would change it for every test. The
+   * light of the roof comes from another thread, so the robot only enters a cave already lit.
    */
-  @GameTest(template = ARENA, timeoutTicks = PLACE_TIMEOUT)
+  @GameTest(template = ARENA, timeoutTicks = LIGHT_TIMEOUT)
   public static void aLitCaveGetsNoTorch(GameTestHelper helper) {
     buildRoof(helper, Blocks.GLOWSTONE);
-    withTorches(helper, place(helper, RobotTier.ADVANCED));
 
-    helper.runAfterDelay(WAIT_TICKS, () -> assertNoTorch(helper));
+    helper
+        .startSequence()
+        .thenWaitUntil(() -> assertLit(helper))
+        .thenExecute(() -> withTorches(helper, place(helper, RobotTier.ADVANCED)))
+        .thenIdle(WAIT_TICKS)
+        .thenExecute(() -> assertNoTorch(helper));
   }
 
   @GameTest(template = ARENA)
@@ -183,6 +193,16 @@ public final class TorchGameTests {
     for (int x = 0; x < LENGTH; x++) {
       for (int z = 0; z < WIDTH; z++) {
         helper.setBlock(new BlockPos(x, ROOF_Y, z), block);
+      }
+    }
+  }
+
+  private static void assertLit(GameTestHelper helper) {
+    for (int x = 0; x < LENGTH; x++) {
+      for (int z = 0; z < WIDTH; z++) {
+        BlockPos above = helper.absolutePos(new BlockPos(x, ABOVE_FLOOR_Y, z));
+        int light = helper.getLevel().getBrightness(LightLayer.BLOCK, above);
+        helper.assertTrue(light >= LIT, NOT_LIT);
       }
     }
   }

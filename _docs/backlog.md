@@ -26,17 +26,11 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 ## Todo Cubit
 
-1. **O Cubit que se perde num teleporte longo do dono** (pergunta 1746).
-   - **A ideia:** no instante do teleporte do dono, o Cubit que segue e ainda está carregado vai junto, como no renascer (`RobotRespawn`), sem carregar chunk à força (regra 22).
-   - **Por quê:** hoje o teleporte do seguir roda no tick do Cubit, e num teleporte longo o chunk dele sai da simulação antes de ele ver o dono longe.
-   - **Quando:** numa issue própria, depois do PR 3 do Patrulheiro.
-   - **Em aberto:** o teleporte para outra dimensão.
+1. **Nome ao colocar o Cubit** (pergunta 1748). Entrou no Dock unificado, na issue #246, refinado nas perguntas 1874 a 1881, com o conceito em [`personalizacao.md`](funcionalidades/personalizacao.md#nome).
 
-2. **Nome ao colocar o Cubit** (pergunta 1748). Entrou no Dock unificado, na issue #246, refinado nas perguntas 1874 a 1881, com o conceito em [`personalizacao.md`](funcionalidades/personalizacao.md#nome).
+2. **XP em tanque de líquido** (pergunta 1762). Virou o XP Cubit e Dock, refinado e autorizado nas perguntas 1814 a 1851, na issue #244, com o conceito em [`xp.md`](funcionalidades/xp.md).
 
-3. **XP em tanque de líquido** (pergunta 1762). Virou o XP Cubit e Dock, refinado e autorizado nas perguntas 1814 a 1851, na issue #244, com o conceito em [`xp.md`](funcionalidades/xp.md).
-
-4. **Tier acima do Ultimate** (pergunta 2057).
+3. **Tier acima do Ultimate** (pergunta 2057).
    - **A ideia:** um quinto tier, acima do Ultimate, feito com a estrela do Nether, que o Wither solta, e outros dos itens mais raros do Minecraft. Os números são o dobro dos do Ultimate, e ele só pode ser aplicado no Cubit, não no Dock nem na Engineering Desk.
    - **Em aberto:**
      - o nome, a cor do colar e o visual do tier;
@@ -47,7 +41,7 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
      - o Module desse tier usado no Dock e na mesa, que hoje aceitam todos;
      - os saves, que guardam o tier, e o config, que tem chaves por tier (regra 18).
 
-5. **Acessórios do Cubit** (pergunta 2096).
+4. **Acessórios do Cubit** (pergunta 2096).
    - **A ideia:** peças que o player adiciona ao Cubit ou remove dele. Exemplos: um gancho de rapel, que puxa o Cubit para passar por buracos, e um propulsor, para ele pular alturas de 2 ou mais blocos.
    - **Em aberto:**
      - onde os acessórios ficam, se em slots próprios, quantos e a partir de qual tier;
@@ -88,6 +82,7 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 17:33 | Tira o Cubit que se perde num teleporte longo, que chamar o Cubit resolve (pergunta 2461). |
 | Zennd | 2026-11-24 13:34 | Acrescenta o robô de transporte (pergunta 2197). |
 | Zennd | 2026-11-24 08:35 | Acrescenta os acessórios do Cubit (pergunta 2096). |
 | Zennd | 2026-11-23 20:27 | Acrescenta o tier acima do Ultimate (pergunta 2057). |

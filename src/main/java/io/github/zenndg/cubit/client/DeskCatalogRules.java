@@ -19,8 +19,9 @@ interface DeskCatalogRules {
   /** The chosen recipe, as its place in the whole catalog. */
   int chosen();
 
-  Look look(RecipeHolder<CraftingRecipe> recipe);
+  /** The place is the one in the whole catalog. */
+  Look look(int place, RecipeHolder<CraftingRecipe> recipe);
 
-  /** The lines under the name, with why it has a padlock. */
-  List<Component> hints(RecipeHolder<CraftingRecipe> recipe);
+  /** The lines under the name, with why it has a padlock or cannot be chosen now. */
+  List<Component> hints(int place, RecipeHolder<CraftingRecipe> recipe);
 }
