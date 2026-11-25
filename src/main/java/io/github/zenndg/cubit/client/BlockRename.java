@@ -19,21 +19,26 @@ import net.minecraft.network.chat.Component;
  * title follows at once (answers 1867 to 1870).
  */
 final class BlockRename {
-  private static final Box BUTTON = new Box(118, 133, 50, 12);
+  private static final int BUTTON_X = 118;
+  private static final int BUTTON_WIDTH = 50;
+  private static final int BUTTON_HEIGHT = 12;
 
   private final Named named;
+  private final Box place;
   private String shown;
   private TabletRenameDialog dialog;
   private FlatButton button;
 
-  BlockRename(Named named) {
+  /** The button goes at that height of the window. */
+  BlockRename(Named named, int top) {
     this.named = named;
+    this.place = new Box(BUTTON_X, top, BUTTON_WIDTH, BUTTON_HEIGHT);
     this.shown = named.name();
   }
 
   void init(Font font, int width, int height, int left, int top, Function<FlatButton, ?> add) {
     dialog = new TabletRenameDialog(font, width, height, named.titleKey(), this::send);
-    Box at = BUTTON.moved(left, top);
+    Box at = place.moved(left, top);
     Component label = Component.translatable(TabletKeys.RENAME).withStyle(ChatFormatting.BOLD);
     button =
         new FlatButton(at.x(), at.y(), at.width(), at.height(), label, () -> dialog.open(shown));

@@ -26,6 +26,7 @@ final class InductionDockScreen extends AbstractContainerScreen<InductionDockMen
   private static final Box TITLE = new Box(8, 6, 92, LINE);
   private static final int STORAGE_FRAME_Y = InductionDockMenu.STORAGE_Y - 1;
   private static final Box CALL = new Box(7, 149, 162, 16);
+  private static final int RENAME_Y = 133;
   private static final int INVENTORY_LABEL_Y = 169;
   private static final int ROWS = 3;
   private static final int COLUMNS = 9;
@@ -50,7 +51,8 @@ final class InductionDockScreen extends AbstractContainerScreen<InductionDockMen
                 menu.dockId(),
                 menu.dockName(),
                 ScreenKeys.DOCK_RENAME_TITLE,
-                typed -> CubitNetwork.renameDock(menu.containerId, typed)));
+                typed -> CubitNetwork.renameBlock(menu.containerId, typed)),
+            RENAME_Y);
     imageWidth = WIDTH;
     imageHeight = HEIGHT;
     inventoryLabelX = MARGIN;

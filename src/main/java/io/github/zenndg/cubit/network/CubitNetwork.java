@@ -1,6 +1,6 @@
 package io.github.zenndg.cubit.network;
 
-import io.github.zenndg.cubit.menu.InductionDockMenu;
+import io.github.zenndg.cubit.menu.RenamableMenu;
 import java.util.UUID;
 import java.util.function.Consumer;
 import net.minecraft.network.chat.Component;
@@ -149,9 +149,9 @@ public final class CubitNetwork {
             (payload, context) ->
                 onServer(context, player -> tabletRequests.named().accept(player, payload)))
         .playToServer(
-            RenameDockPayload.TYPE,
-            RenameDockPayload.STREAM_CODEC,
-            (payload, context) -> onServer(context, player -> renameDock(player, payload)));
+            RenameBlockPayload.TYPE,
+            RenameBlockPayload.STREAM_CODEC,
+            (payload, context) -> onServer(context, player -> renameBlock(player, payload)));
   }
 
   /** The guide and delete buttons of the Deaths tab (answer 1111). */
@@ -283,17 +283,17 @@ public final class CubitNetwork {
     PacketDistributor.sendToServer(new SwitchTabletAppPayload(direction));
   }
 
-  /** Only the Dock of the screen the player has open, which checks the owner and the reach. */
-  private static void renameDock(ServerPlayer player, RenameDockPayload payload) {
-    if (player.containerMenu instanceof InductionDockMenu menu
-        && menu.containerId == payload.containerId()) {
+  /** Only the block of the screen the player has open, which checks the owner and the reach. */
+  private static void renameBlock(ServerPlayer player, RenameBlockPayload payload) {
+    if (player.containerMenu instanceof RenamableMenu menu
+        && player.containerMenu.containerId == payload.containerId()) {
       menu.rename(player, payload.name());
     }
   }
 
-  /** On the client: asks the server to name the Dock of the open screen (answer 1868). */
-  public static void renameDock(int containerId, String name) {
-    PacketDistributor.sendToServer(new RenameDockPayload(containerId, name));
+  /** On the client: asks the server to name the block of the open screen (answer 1868). */
+  public static void renameBlock(int containerId, String name) {
+    PacketDistributor.sendToServer(new RenameBlockPayload(containerId, name));
   }
 
   /**

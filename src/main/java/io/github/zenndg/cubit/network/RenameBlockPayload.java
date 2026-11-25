@@ -8,27 +8,27 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 
 /**
- * The name the player typed for a Dock, on its screen. The server names only the Dock of the screen
- * the player has open, which only its owner opens within reach (answer 1868 and rule 20).
+ * The name the player typed for a block, on its screen. The server names only the block of the
+ * screen the player has open, which only its owner opens within reach (answer 1868 and rule 20).
  */
-public record RenameDockPayload(int containerId, String name) implements CustomPacketPayload {
-  private static final String PATH = "rename_dock";
+public record RenameBlockPayload(int containerId, String name) implements CustomPacketPayload {
+  private static final String PATH = "rename_block";
 
   /** Room for spaces around the 50 characters, which the server cuts, and nothing more. */
   private static final int MAX_TYPED = 256;
 
-  public static final Type<RenameDockPayload> TYPE =
+  public static final Type<RenameBlockPayload> TYPE =
       new Type<>(ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, PATH));
-  public static final StreamCodec<RegistryFriendlyByteBuf, RenameDockPayload> STREAM_CODEC =
+  public static final StreamCodec<RegistryFriendlyByteBuf, RenameBlockPayload> STREAM_CODEC =
       StreamCodec.composite(
           ByteBufCodecs.VAR_INT,
-          RenameDockPayload::containerId,
+          RenameBlockPayload::containerId,
           ByteBufCodecs.stringUtf8(MAX_TYPED),
-          RenameDockPayload::name,
-          RenameDockPayload::new);
+          RenameBlockPayload::name,
+          RenameBlockPayload::new);
 
   @Override
-  public Type<RenameDockPayload> type() {
+  public Type<RenameBlockPayload> type() {
     return TYPE;
   }
 }

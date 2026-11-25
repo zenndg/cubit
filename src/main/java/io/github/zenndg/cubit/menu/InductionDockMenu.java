@@ -28,7 +28,7 @@ import net.minecraft.world.item.ItemStack;
  * server decides who may keep it open and what it shows. The open tab is only a choice of the
  * client.
  */
-public final class InductionDockMenu extends AbstractContainerMenu {
+public final class InductionDockMenu extends AbstractContainerMenu implements RenamableMenu {
   public static final int SLOT_X = 152;
   public static final int SLOT_Y = 33;
   public static final int PLAYER_INVENTORY_Y = 179;
@@ -333,7 +333,7 @@ public final class InductionDockMenu extends AbstractContainerMenu {
     return stillValid.test(player);
   }
 
-  /** On the server: the owner names the Dock of the open screen (answer 1868). */
+  @Override
   public boolean rename(Player player, String typed) {
     return stillValid(player) && rename.test(typed);
   }
