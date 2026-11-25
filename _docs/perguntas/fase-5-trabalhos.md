@@ -1443,11 +1443,21 @@ Não há perguntas pendentes nesta fase.
 | 2496 | Quais luzes do Servidor ficam acesas sem energia (2494), com quanto na tela e com Relay? | As barras dos contadores, como a da energia, e as gavetas do rodapé também. Zero na tela, e sem Relay |
 | 2497 | O Cubit sem caminho que conta como aparecido mesmo quando o sorteio do lugar seguro falha, achado pela GameTest instável: quando corrigir? | Agora, na #280, num commit `fix:` à parte: ele só conta como aparecido se apareceu, e, sem lugar seguro, tenta de novo. A recomendação foi aceita. Detalha a 2092 |
 | 2498 | O teste manual da #280, com a #255 e a correção do Cubit sem caminho, no `5afb0c9`, está aprovado? | "testes ok podemos seguir": aprovado em 2026-11-25 |
+| 2499 | #281, chamar o Cubit: o alinhamento da regra 51, o roteiro e a branch | "pode seguir": sem acréscimos e sem mudar o roteiro, com a `feature/281-call-cubit` a partir da `develop`, e a causa primeiro, com o teste de morte de verdade |
+| 2500 | A causa do Cubit que fica para trás na morte (2452, 2458 e 2486), achada pelo teste de morte de verdade | O jogo remove o player do mundo 20 ticks, 1 s, depois da morte, ainda na tela de morte, e com ele saem os tickets dos chunks. Em duas rodadas, com o Cubit longe do spawn: renascendo em 2 e em 15 ticks, ele volta, e, de 25 a 200 ticks, o chunk já descarregou e ele fica. A volta da 567 só serve dentro do primeiro segundo: a carga do chunk da 2458 é a correção |
+| 2501 | #281, chamar o Cubit: o conceito e o código estão autorizados (regra 54)? | Sim, com a tela do Cubit que abre quando ele chega pelo `Follow`, o pacote `cubit:call_robot`, o `Follow` e o comando que trazem o que já segue e ficou longe, e os nomes das traduções. Nenhum recurso novo (regra 59). Autorizado também o texto do Estado atual do `AGENTS.md`, sobre o teleporte longo |
+| 2502 | O teste manual da #280 e o da #281, e o PR da #281 | "ignore os testes antigos no final da entrega vou fazer teste completo. Pode avancar com commits, push e pr autorizado": o teste manual das duas fica para o fim da entrega, completo, e o PR da #281 abre antes dele, com isso dito na descrição. O `AGENTS.md` ganha a estrutura mostrada |
+| 2503 | O teste manual da `develop`, com a #280 e a #281, no `d749e7a` | "testes ok.": aprovado em 2026-11-25. Cumpre a parte da 2502 que cobre as duas |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 19:01 | Registra a resposta 2503. |
+| Zennd | 2026-11-25 18:05 | Registra a resposta 2502. |
+| Zennd | 2026-11-25 17:38 | Registra a resposta 2501. |
+| Zennd | 2026-11-25 17:32 | Registra a resposta 2500. |
+| Zennd | 2026-11-25 17:26 | Registra a resposta 2499. |
 | Zennd | 2026-11-25 17:06 | Registra a resposta 2498. |
 | Zennd | 2026-11-25 16:45 | Registra a resposta 2497. |
 | Zennd | 2026-11-25 16:42 | Registra a resposta 2496. |
