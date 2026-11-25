@@ -11,7 +11,6 @@ import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
@@ -24,7 +23,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -200,26 +198,13 @@ public final class InductionDockBlock extends BaseEntityBlock {
       DockUpgrade.apply(dock, player, stack);
       return ItemInteractionResult.CONSUME;
     }
-    if (renamedByTag(dock, player, stack)) {
+    if (dock.identity().renameByTag(player, stack)) {
       return ItemInteractionResult.CONSUME;
     }
     if (dock.insert(stack)) {
       return ItemInteractionResult.CONSUME;
     }
     return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-  }
-
-  /** The name tag of the game names the Dock too, and is used up, as on a mob (answer 1868). */
-  private static boolean renamedByTag(
-      InductionDockBlockEntity dock, Player player, ItemStack stack) {
-    Component tagged = stack.get(DataComponents.CUSTOM_NAME);
-    if (!stack.is(Items.NAME_TAG)
-        || tagged == null
-        || !dock.identity().rename(tagged.getString())) {
-      return false;
-    }
-    stack.consume(1, player);
-    return true;
   }
 
   /** The screen, and the sneaking click calls a robot or lets the one in the dock go (2122). */

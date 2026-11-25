@@ -2,16 +2,11 @@ package io.github.zenndg.cubit.block;
 
 import com.mojang.logging.LogUtils;
 import io.github.zenndg.cubit.domain.dock.DockStorageRules;
-import io.github.zenndg.cubit.domain.dock.StoredKind;
-import io.github.zenndg.cubit.domain.energy.Battery;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.EnergyStock;
-import io.github.zenndg.cubit.item.EnergySlotItems;
 import io.github.zenndg.cubit.item.PowerBankItem;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.OptionalInt;
 import java.util.function.IntSupplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -27,7 +22,6 @@ import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.items.wrapper.RangedWrapper;
 import org.slf4j.Logger;
@@ -86,52 +80,18 @@ final class DockStorage {
     };
   }
 
-  /**
-   * The click keeps only the Toolbox, the Power Bank and the Damaged Cubit, and redstone goes to
-   * the input slot (959). Other items of the mod go in by the screen or a hopper (answer 1382).
-   */
   boolean insertByClick(ItemStack stack, SimpleContainer input) {
-    StoredKind kind = StoredKinds.of(stack);
-    if (kind == StoredKind.MOD_ITEM) {
-      return false;
-    }
-    return DockStorageRules.accepts(kind) ? insert(stack) : EnergySlotItems.insert(input, stack);
+    return StorageClick.put(stack, open(), input);
   }
 
-  /**
-   * The item in the hand of the owner, joining the stacks and then the free slots of the tier
-   * (answer 959). False when nothing fits.
-   */
-  boolean insert(ItemStack hand) {
-    if (!DockStorageRules.accepts(StoredKinds.of(hand))) {
-      return false;
-    }
-    int before = hand.getCount();
-    IItemHandler open = new RangedWrapper(new InvWrapper(items), 0, tierSlots.getAsInt());
-    ItemStack rest = ItemHandlerHelper.insertItemStacked(open, hand.copy(), false);
-    hand.setCount(rest.getCount());
-    return rest.getCount() < before;
+  /** The slots of the tier. */
+  private IItemHandler open() {
+    return new RangedWrapper(new InvWrapper(items), 0, tierSlots.getAsInt());
   }
 
   /** One bank at a time, and only while no robot in the base still charges (949 and 952). */
   EnergyStock charge(EnergyStock stock, boolean chargesBanks, Energy rate, Runnable changed) {
-    if (!chargesBanks) {
-      return stock;
-    }
-    OptionalInt index = DockStorageRules.bankToCharge(banks());
-    return index.isPresent()
-        ? PowerBankTransfer.charge(stock, items.getItem(index.getAsInt()), rate, changed)
-        : stock;
-  }
-
-  private List<Optional<Battery>> banks() {
-    List<Optional<Battery>> banks = new ArrayList<>();
-    for (int index = 0; index < items.getContainerSize(); index++) {
-      ItemStack stack = items.getItem(index);
-      banks.add(
-          PowerBankItem.is(stack) ? Optional.of(PowerBankItem.batteryOf(stack)) : Optional.empty());
-    }
-    return banks;
+    return chargesBanks ? PowerBankTransfer.chargeFirst(stock, items, rate, changed) : stock;
   }
 
   void save(CompoundTag tag, HolderLookup.Provider registries) {

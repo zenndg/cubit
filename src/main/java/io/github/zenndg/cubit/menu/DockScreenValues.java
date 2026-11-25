@@ -1,9 +1,9 @@
 package io.github.zenndg.cubit.menu;
 
 import io.github.zenndg.cubit.CubitMod;
-import io.github.zenndg.cubit.block.DockSolarReading;
 import io.github.zenndg.cubit.block.DockedRobot;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
+import io.github.zenndg.cubit.block.SolarReading;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.EnergyHalves;
 import io.github.zenndg.cubit.domain.robot.HealTime;
@@ -49,7 +49,7 @@ final class DockScreenValues implements ContainerData {
     putEnergy(STOCK, dock.energy());
     putEnergy(CAPACITY, dock.capacity());
     putEnergy(INPUT, dock.inputShown());
-    DockSolarReading solar = dock.solar();
+    SolarReading solar = dock.solar();
     putEnergy(SOLAR, solar.given());
     values[SUN_STATE] = solar.state().ordinal();
     putEnergy(SOLAR_MAX, solar.max());

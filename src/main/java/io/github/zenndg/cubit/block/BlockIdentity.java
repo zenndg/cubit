@@ -10,6 +10,9 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 /**
  * Who a block with an owner is: its own id, drawn when it is placed or, for an old one, when it
@@ -49,6 +52,16 @@ public final class BlockIdentity {
     }
     given = BlockName.kept(name);
     changed.run();
+    return true;
+  }
+
+  /** The name tag of the game names the block too, and is used up, as on a mob (answer 1868). */
+  boolean renameByTag(Player player, ItemStack stack) {
+    Component tagged = stack.get(DataComponents.CUSTOM_NAME);
+    if (!stack.is(Items.NAME_TAG) || tagged == null || !rename(tagged.getString())) {
+      return false;
+    }
+    stack.consume(1, player);
     return true;
   }
 

@@ -19,7 +19,6 @@ final class DockParts {
 
   /** The catalog is read on each use, because the config may load after the block. */
   static BlockTier<DockSpec> tier() {
-    return new BlockTier<>(
-        CubitDataComponents.DOCK_TIER, tier -> CubitMod.CONFIG.dockCatalog().dock(tier));
+    return new BlockTier<>(tier -> CubitMod.CONFIG.dockCatalog().dock(tier));
   }
 }

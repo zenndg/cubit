@@ -6,12 +6,10 @@ import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.EnergyStock;
 import io.github.zenndg.cubit.domain.energy.FoldingPanel;
 import io.github.zenndg.cubit.domain.energy.PanelState;
-import io.github.zenndg.cubit.domain.energy.SkySun;
 import io.github.zenndg.cubit.domain.energy.SolarOutput;
 import io.github.zenndg.cubit.domain.energy.SolarPanel;
 import io.github.zenndg.cubit.domain.energy.SunState;
 import io.github.zenndg.cubit.registry.CubitSounds;
-import java.util.Locale;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
@@ -39,19 +37,12 @@ final class DockSolarPanel {
   private static final float PITCH = 1f;
 
   private static final String SUN_KEY = "Sun";
-  private static final String PANEL_KEY = "SolarPanel";
-  private static final String SHOWN_KEY = "PanelState";
-  private static final String DEPLOYED = "deployed";
-  private static final String STORED = "stored";
 
+  private final SkyWatch sky = new SkyWatch(ABOVE_THE_PANEL);
+  private final KeptPanel panel = new KeptPanel();
   private Energy given = Energy.ZERO;
   private SunState state = SunState.NO_SUN;
-  private FoldingPanel panel = FoldingPanel.STORED;
-  private PanelState sent = PanelState.STORED;
   private boolean day = true;
-  private boolean read;
-  private boolean skyOpen;
-  private boolean sunExists;
   private boolean room;
   private Boolean plateShown;
 
@@ -59,53 +50,47 @@ final class DockSolarPanel {
   private boolean sunlit;
 
   /** For the Solar tab, Jade and the client (answers 1396, 1865 and 1949). */
-  DockSolarReading reading(SolarOutput rates) {
-    return new DockSolarReading(
+  SolarReading reading(SolarOutput rates) {
+    return new SolarReading(
         given, rates.most(day), rates.givesAtNight(), state, sunlit, panel.state());
   }
 
   /** True when the pulse or the place of the panel changed, so the client hears of it once. */
   boolean switched() {
     boolean now = !given.isZero();
-    boolean changed = now != sunlit || panel.state() != sent;
+    boolean changed = now != sunlit;
     sunlit = now;
-    sent = panel.state();
-    return changed;
+    return panel.moved() || changed;
   }
 
   /** What the client needs: the pulse and where the panel is, also mid motion. */
   void writeSun(CompoundTag tag) {
     tag.putBoolean(SUN_KEY, sunlit);
-    tag.putString(SHOWN_KEY, panel.state().name());
+    panel.write(tag);
   }
 
   void readSun(CompoundTag tag) {
     sunlit = tag.getBoolean(SUN_KEY);
-    if (tag.contains(SHOWN_KEY)) {
-      panel = new FoldingPanel(shown(tag.getString(SHOWN_KEY)), 0);
-    }
+    panel.read(tag);
   }
 
-  /** Only the end of a motion is saved, so a load shows the panel already there (answer 1864). */
   void save(CompoundTag tag) {
-    tag.putString(PANEL_KEY, panel.deployedAtTheEnd() ? DEPLOYED : STORED);
+    panel.save(tag);
   }
 
   void load(CompoundTag tag) {
-    if (tag.contains(PANEL_KEY)) {
-      panel = FoldingPanel.saved(DEPLOYED.equals(tag.getString(PANEL_KEY)));
-    }
+    panel.load(tag);
   }
 
   EnergyStock generate(
       Level level, BlockPos lower, EnergyStock stock, SolarOutput rates, Runnable changed) {
     given = Energy.ZERO;
-    if (!read || level.getGameTime() % CubitMod.CONFIG.solarCheckTicks() == 0) {
-      readSky(level, lower);
+    if (sky.refresh(level, lower)) {
+      // A Dock from before the third block takes it here, if the space is empty.
+      room = DockTop.claim(level, lower);
     }
     day = SolarPanel.isDay(level.getDayTime());
-    boolean raining = level.isRaining() || level.isThundering();
-    state = new SkySun(day, skyOpen, raining, sunExists, room, rates.givesAtNight()).state();
+    state = sky.state(level, room, rates.givesAtNight());
     move(level, lower, changed);
     showPlate(level, lower);
     Energy rate = rates.at(day);
@@ -122,14 +107,13 @@ final class DockSolarPanel {
 
   /** The arms follow the sky; a new end of the motion is saved (answers 1856 and 1862). */
   private void move(Level level, BlockPos lower, Runnable changed) {
-    FoldingPanel before = panel;
     FoldingPanel.Timings timings =
         new FoldingPanel.Timings(CubitMod.CONFIG.dock().solarDelayTicks(), MOTION_TICKS);
-    panel = panel.tick(state.generates(), timings);
-    if (before.deployedAtTheEnd() != panel.deployedAtTheEnd()) {
+    KeptPanel.Step step = panel.tick(state.generates(), timings);
+    if (step.worthSaving()) {
       changed.run();
     }
-    DockPanelSound.between(before, panel, LOCK_TICK)
+    DockPanelSound.between(step.before(), step.after(), LOCK_TICK)
         .ifPresent(sound ->
             level.playSound(null, lower, eventOf(sound), SoundSource.BLOCKS, VOLUME, PITCH));
   }
@@ -150,27 +134,5 @@ final class DockSolarPanel {
       DockTop.show(level, lower, deployed);
       plateShown = deployed;
     }
-  }
-
-  /** An unknown state, as from a newer server, shows the panel in the cabinet. */
-  private static PanelState shown(String name) {
-    for (PanelState value : PanelState.values()) {
-      if (value.name().equals(name.toUpperCase(Locale.ROOT))) {
-        return value;
-      }
-    }
-    return PanelState.STORED;
-  }
-
-  /**
-   * As the panel of the Cubit: light that passes through glass still counts, an opaque block over
-   * the Dock stops it, and the Nether and the End have no sun. Only this waits for the interval of
-   * the Cubit (rule 21). A Dock from before the third block takes it here, if the space is empty.
-   */
-  private void readSky(Level level, BlockPos lower) {
-    read = true;
-    room = DockTop.claim(level, lower);
-    skyOpen = level.canSeeSky(lower.above(ABOVE_THE_PANEL));
-    sunExists = level.dimensionType().hasSkyLight() && !level.dimensionType().hasCeiling();
   }
 }
