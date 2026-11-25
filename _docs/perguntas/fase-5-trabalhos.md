@@ -1352,11 +1352,15 @@ Não há perguntas pendentes nesta fase.
 | 2405 | Network, entrega 3: o item do Servidor guarda também o UPS e a chave do chunk? | Sim, os dois, para o Servidor recolocado voltar igual. A recomendação foi aceita. Detalha a 2254 |
 | 2406 | Network, entrega 3: de onde vêm os 3 s do painel do Solar Relay (detalhe 9) no config? | Da chave do Dock, `dock_solar_deploy_delay_ticks`, sem chave nova. A recomendação foi aceita. Detalha a 2376 |
 | 2407 | Network, entrega 3: em que ritmo voltam os chunks dos Servidores quando o dono entra (2210)? | Um a cada 2 s, com o primeiro na hora, pela chave `wake_interval_ticks` (40), que vem da entrega 4 para esta. O `cubit_network` guarda a lista `Chunks`, com `Owner`, `Dimension`, `Pos` e `Waiting`. A recomendação foi aceita. Detalha a 2210, a 2330 e a 2334 |
+| 2408 | A Engineering Desk quebrada com um plano da cascata perde o plano e o estoque dele em sobrevivência, contra a 2010, porque a tabela de drop não copia `engineering_desk_cascade` | Abrir uma issue própria, com a causa e o teste que falta, corrigida fora da Network. A recomendação foi aceita |
+| 2409 | Network, entrega 3: os limites da chave `wake_interval_ticks`, que a 2403 não incluía | De 1 a 1200, com 40 de padrão, os mesmos limites do `solar_check_ticks`. A recomendação foi aceita. Detalha a 2407 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 12:49 | Registra a resposta 2409. |
+| Zennd | 2026-11-25 12:30 | Registra a resposta 2408. |
 | Zennd | 2026-11-25 12:16 | Registra as respostas 2404 a 2407. |
 | Zennd | 2026-11-25 12:02 | Registra a resposta 2403. |
 | Zennd | 2026-11-25 11:44 | Registra as respostas 2401 a 2402. |
