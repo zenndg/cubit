@@ -86,6 +86,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `dock_energy_capacity` | Estoque do Induction Dock desse tier. Troca a chave geral de mesmo nome (pergunta 1381) | 1 a 2147483647 |
 | `general_robot.base` | `dock_recharge_per_tick` | Recarga do Cubit e da Power Bank guardada no Dock desse tier | 1 a 2147483647 |
 | `general_robot.base` | `dock_storage_slots` | Slots do inventário do Dock desse tier | 9 a 54, em múltiplos de 9 |
+| `general_robot.base` | `dock_standby_per_tick` | Gasto do Dock desse tier por ficar ligado (perguntas 2435 e 2468) | 0 a 2147483647 |
 | `general_robot.base` | `dock_solar_per_tick` | Geração do painel do Dock desse tier, com o painel montado (perguntas 1385 e 1855) | 0 a 2147483647 |
 | `general_robot.base` | `xp_tank_capacity` | Tanque de XP do Cubit desse tier, em mB (pergunta 1826) | 1 a 2147483647 |
 | `general_robot.base` | `dock_xp_tank_capacity` | Tanque de XP do Dock desse tier, em mB (pergunta 1833) | 1 a 2147483647 |
@@ -180,7 +181,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general` | `speed_control_step_percent` | Velocidade: o passo dos botões − e + | 1 a 50 |
 | `general` | `door_open_cost` | Custo de abrir uma porta marcada | 0 a 10000 |
 | `general` | `door_marks_limit` | Portas marcadas por dono | 1 a 256 |
-| `general` | `engineering_desk_craft_energy` | Engineering Desk: custo de cada craft | 0 a 2147483647 |
+| `general` | `engineering_desk_craft_energy` | Engineering Desk: custo de cada craft, com 3.500 (pergunta 2441) | 0 a 2147483647 |
 | `general` | `engineering_desk_input_per_tick` | Engineering Desk: energia que a mesa recebe por tick | 1 a 2147483647 |
 | `general` | `unload_interval_default_minutes` | Intervalo de descarga na área, padrão de um Cubit novo, com 0 para só quando cheio | 0 a 1440 |
 | `general` | `unload_interval_max_minutes` | Intervalo de descarga na área, o maior que a aba Trabalho oferece | 1 a 1440 |
@@ -281,6 +282,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 19:45 | Acrescenta o gasto do Dock e o custo novo da mesa (perguntas 2441 e 2468). |
 | Zennd | 2026-11-25 17:33 | Acrescenta as chaves de chamar o Cubit (perguntas 2464 e 2482). |
 | Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado, na seção `network` (pergunta 2442). |
 | Zennd | 2026-11-25 14:00 | Acompanha a numeração nova das respostas da Entrega 3 da Network (pergunta 2418). |

@@ -1170,7 +1170,7 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 10 | Na aba Estoque, ponha 7 ferros, 1 redstone e 1 obsidiana na entrada; ponha terra | Os materiais entram, e a terra não |
 | 11 | Sem energia | `No energy`, e nada sai da entrada |
 | 12 | Ponha redstone no slot de energia | A barra sobe 5k por pó, e começa `Crafting` |
-| 13 | Espere 5 s | Sai uma `Toolbox` na saída, e a energia cai 2.500 FE |
+| 13 | Espere 5 s | Sai uma `Toolbox` na saída, e a energia cai 3.500 FE |
 | 14 | Esvazie a entrada no meio do pedido | `Missing materials`, e o progresso continua quando os materiais voltam |
 | 15 | Ponha um bloco de redstone ao lado | `Redstone signal`, e a mesa pausa |
 | 16 | Ligue um comparador | O sinal acompanha o que falta do pedido, de 15 a 0 |
@@ -1185,6 +1185,20 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 25 | Peça 2 Cubits, com as peças de só um na saída | Ela faz um Cubit, puxa as peças e pausa em `Missing materials` até as peças do segundo chegarem |
 | 26 | Com o jogo em português | `Mesa de Engenharia`, `Projeto`, `Estoque` e os estados em português |
 | 27 | Na aba Projeto, compare `0 / 0` com o maior pedido, `256 / 256` no Ultimate | O −, o + e o `Cancel` alinhados às bordas do quadro dos slots, com um vão pequeno ao lado dos números, que encolhem quando não cabem |
+
+### Gasto do Dock
+
+As regras estão em [`energia.md`](../funcionalidades/energia.md#induction-dock) (issue #279). Use um config novo.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Ponha um Dock Base com energia, sem sol e sem Cubit, e abra a tela | `No input · Uses 3 FE/t`, e o estoque cai 60 FE por segundo |
+| 2 | Suba o Dock de tier | `Uses 8`, `25` e `60 FE/t` |
+| 3 | Deixe o estoque zerar | A tela do Dock desliga, sem gasto na linha, e nada fica negativo |
+| 4 | Ponha 1 redstone | Liga de novo |
+| 5 | Com um Cubit carregando e sol | Recarrega como antes, e o gasto aparece na linha |
+| 6 | Encha o estoque com cabo ou sol, e espere | `Full · Uses 3 FE/t`, sem piscar |
+| 7 | Com o jogo em português | `Sem entrada · Gasta 3 FE/t` |
 
 ### Usabilidade da tela
 
@@ -1772,6 +1786,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 19:45 | Acrescenta o gasto do Dock e o custo novo da mesa (perguntas 2435, 2441 e 2467). |
 | Zennd | 2026-11-25 17:34 | Acrescenta o renascer com o chunk descarregado e chamar o Cubit (perguntas 2450 a 2500). |
 | Zennd | 2026-11-25 16:11 | Acrescenta a usabilidade da tela da Engineering Desk (perguntas 2470 a 2481 e 2492). |
 | Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado e a parede do chunk à Entrega 3 da Network (perguntas 2438, 2440 e 2448). |

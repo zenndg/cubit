@@ -44,6 +44,7 @@ O Dock sobe de tier com os mesmos Modules do Cubit (perguntas 1373 a 1380). Os n
 | Recarga do Cubit e da Power Bank guardada | 500 FE/t | 1.000 FE/t | 2.500 FE/t | 5.000 FE/t |
 | Slots do inventário | 27 | 36 | 45 | 54 |
 | Entrada, por cabos e redstone | 5.000 FE/t | 5.000 FE/t | 5.000 FE/t | 5.000 FE/t |
+| Gasto por ficar ligado, em `dock_standby_per_tick` (perguntas 2435, 2466 e 2468) | 3 FE/t | 8 FE/t | 25 FE/t | 60 FE/t |
 | Geração do painel do Dock, de dia, a céu aberto e sem chuva, com o painel montado, em `dock_solar_per_tick` (perguntas 1385 e 1855) | 25 FE/t | 100 FE/t | 500 FE/t | 1.400 FE/t |
 | Geração do painel do Dock à noite, a céu aberto e sem chuva, com o painel montado, em `dock_solar_night_per_tick` (perguntas 1943 e 1955) | — | — | — | 350 FE/t |
 | Faixa, em volta do topo da torre (perguntas 1389 e 1918) | Cinza | Azul | Roxa | Dourada, com o corpo em netherite |
@@ -59,7 +60,7 @@ A mesa sobe de tier com os mesmos Modules do Cubit e do Dock (perguntas 1433 a 1
 | Fabricação em cascata, `engineering_desk_cascade` (pergunta 2020) | — | — | — | ✔ |
 | Bateria | 100 mil FE | 400 mil FE | 2 mi FE | 8 mi FE |
 | Slots do inventário de entrada e do de saída, cada um (pergunta 1505) | 12 | 18 | 27 | 36 |
-| Custo por craft | 2.500 FE | 2.500 FE | 2.500 FE | 2.500 FE |
+| Custo por craft (pergunta 2441) | 3.500 FE | 3.500 FE | 3.500 FE | 3.500 FE |
 | Entrada, por cabos e redstone | 5.000 FE/t | 5.000 FE/t | 5.000 FE/t | 5.000 FE/t |
 | Luz da luminária, enquanto cria | 7 | 7 | 7 | 7 |
 | Faixa, na borda do tampo (pergunta 1439) | Cinza | Azul | Roxa | Dourada, com o corpo em netherite |
@@ -381,6 +382,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 19:45 | Acrescenta o gasto do Dock e sobe o custo por craft da mesa (perguntas 2435, 2441 e 2468). |
 | Zennd | 2026-11-25 17:33 | Acrescenta os números de chamar o Cubit (perguntas 2450, 2460 e 2464). |
 | Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado do Servidor e do Solar Relay (perguntas 2435 a 2442). |
 | Zennd | 2026-11-25 14:00 | Acompanha a numeração nova das respostas da Entrega 3 da Network (pergunta 2418). |

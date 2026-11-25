@@ -1450,11 +1450,19 @@ Não há perguntas pendentes nesta fase.
 | 2503 | O teste manual da `develop`, com a #280 e a #281, no `d749e7a` | "testes ok.": aprovado em 2026-11-25. Cumpre a parte da 2502 que cobre as duas |
 | 2504 | Ideia do desenvolvedor para o backlog: desmontar itens na Engineering Desk | "crie uma anotacao do backlog uma ideia que pode vim logo quando finalizar a network": uma aba `Desmontar`, do tier Elite, que desmonta os itens do mod feitos com outros itens do mod e devolve só esses, sem os do jogo, com o mesmo tempo e o mesmo FE de criar, na saída da mesa. Só anotada, em [`backlog.md`](../backlog.md), sem conceito nem autorização |
 | 2505 | Pedido do desenvolvedor: em qual entrega entra desmontar itens na mesa (2504)? | "acrescente na entrega 3 o item que falei sobre a mesa ter opcao desmontar apos item 3 luzes": na entrega 3 da Network, depois das luzes do Servidor. Muda a 2504, que o deixava no backlog. Precisa de rodada, conceito e autorização |
+| 2506 | Ideia do desenvolvedor, na apresentação do conceito do Dock e da mesa: o gasto por ficar ligado | "pensei no gasto de FE nao por tique mas por um tempo ligado. A cada X segundos disconta 1 Fe": o gasto sai por tempo ligado, 1 FE a cada X segundos, e não por tick. Os detalhes vão a uma rodada. Pode mudar a 2435 |
+| 2507 | O gasto por ficar ligado, por tempo (2506) ou por tick? | "vamos manter entao por tique": continua por tick, com os números da 2435, depois de ver que 1 FE a cada X segundos faria o estoque durar dias ou anos. Desfaz a 2506 |
+| 2508 | Pedido do desenvolvedor: a Engineering Desk gasta por ficar ligada? | "a mesa nao tera gasto por de FE passivo ela somente gasta quando utilizada para crafting": não. A mesa só gasta no craft, 3.500 FE por item, também na cascata (2441). Confirma o que o conceito já dizia |
+| 2509 | Dock e mesa (#279): o conceito, com o Dock cheio quando só falta o gasto de um tick, a mesma regra nas barras do Servidor e o código estão autorizados (regra 54)? | Sim, como recomendado: o gasto do Dock por tick, a linha `Input +25 · Uses 3 FE/t`, 3.500 FE por craft também na cascata, o cheio com a margem de um tick no Dock e, num `fix:` à parte, nas barras do Servidor. Nenhum recurso novo (regra 59) |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 19:52 | Registra a resposta 2509. |
+| Zennd | 2026-11-25 19:51 | Registra a resposta 2508. |
+| Zennd | 2026-11-25 19:50 | Registra a resposta 2507. |
+| Zennd | 2026-11-25 19:49 | Registra a resposta 2506. |
 | Zennd | 2026-11-25 19:44 | Registra a resposta 2505. |
 | Zennd | 2026-11-25 19:06 | Registra a resposta 2504. |
 | Zennd | 2026-11-25 19:01 | Registra a resposta 2503. |

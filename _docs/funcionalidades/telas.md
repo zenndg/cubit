@@ -223,6 +223,7 @@ Estes textos não aparecem nas imagens. O agente os propôs (pergunta 692), e o 
 | Linha de entrada | Recebendo energia | `Input +2,400 FE/t`, como na imagem: a média do que entrou no último segundo |
 | Linha de entrada | Estoque cheio | `Full`, como na imagem |
 | Linha de entrada | Sem receber e sem estar cheio | `No input`, como na imagem |
+| Linha de entrada | Com o Dock gastando | O gasto depois do texto, como `Input +25 · Uses 3 FE/t`, `Full · Uses 3 FE/t` e `No input · Uses 3 FE/t` (pergunta 2467) |
 | Docked Cubit | `CHARGING` | `+500 FE/t · full health in about 1 min`, como na imagem, com o tempo arredondado para minutos |
 | Docked Cubit | `CHARGING`, com a vida cheia | `+500 FE/t · health full` |
 | Docked Cubit | `COMPLETE` | `Battery full · full health in about 1 min`, ou `Battery full · health full` |
@@ -275,6 +276,7 @@ Sem abas: o nome e o estado, `Generating`, `Stopped` ou `No pair`; a bateria e o
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 19:45 | Acrescenta o gasto à linha de entrada do Dock (pergunta 2467). |
 | Zennd | 2026-11-25 14:47 | Acrescenta as telas do Network Server e do Solar Relay (pergunta 2397). |
 | Zennd | 2026-11-24 22:43 | Corrige o clique que abre a tela do Dock (perguntas 2122 e 2335). |
 | Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
