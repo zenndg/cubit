@@ -6,19 +6,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 class DeskOrderGateTest {
-  /** An order starts only with the recipe released and the materials of one (answer 1991). */
+  /** An order starts with the materials of one, without any progression (answers 1984, 2400). */
   @Test
-  void anOrderStartsOnlyReleasedAndWithMaterials() {
-    assertTrue(new DeskOrderGate(true, true).allows(false));
-    assertFalse(new DeskOrderGate(true, false).allows(false));
-    assertFalse(new DeskOrderGate(false, true).allows(false));
-    assertFalse(new DeskOrderGate(false, false).allows(false));
+  void anOrderStartsOnlyWithMaterials() {
+    assertTrue(new DeskOrderGate(true).allows(false));
+    assertFalse(new DeskOrderGate(false).allows(false));
   }
 
   /** Only the start is held, so an order on its way can always grow (answers 1984 and 1985). */
   @Test
   void anActiveOrderIsNeverHeld() {
-    assertTrue(new DeskOrderGate(true, false).allows(true));
-    assertTrue(new DeskOrderGate(false, false).allows(true));
+    assertTrue(new DeskOrderGate(false).allows(true));
   }
 }

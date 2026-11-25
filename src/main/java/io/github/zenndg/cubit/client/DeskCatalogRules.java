@@ -21,6 +21,6 @@ interface DeskCatalogRules {
 
   Look look(RecipeHolder<CraftingRecipe> recipe);
 
-  /** The lines under the name, with why it is locked. */
+  /** The lines under the name, with why it has a padlock. */
   List<Component> hints(RecipeHolder<CraftingRecipe> recipe);
 }
