@@ -6,7 +6,6 @@ public enum CascadeStart {
   TIER,
   NO_AMOUNT,
   NO_PLAN,
-  LOCKED,
   MISSING,
   ORDER_ACTIVE,
   STOCK_LEFT;
@@ -25,9 +24,6 @@ public enum CascadeStart {
     }
     if (!check.plan()) {
       return NO_PLAN;
-    }
-    if (!check.released()) {
-      return LOCKED;
     }
     if (!check.materials()) {
       return MISSING;

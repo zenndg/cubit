@@ -226,12 +226,17 @@ public final class ShockGameTests {
     });
   }
 
+  /**
+   * With the panel off, because the light under a new roof updates later and 1 FE of sun would pay
+   * the shock.
+   */
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT, batch = SHOCK_NO_CHARGE_BATCH)
   public static void withoutChargeForTheCostThereIsNoShock(GameTestHelper helper) {
     Player owner = ownerBeside(helper);
-    roof(helper);
     RobotEntity robot =
         GameTestRobots.placeRobot(helper, owner, item(RobotTier.ELITE, BELOW_COST), FLOOR);
+    robot.solar().toggle();
+    helper.assertFalse(robot.solar().isOn(), WRONG_CHARGE);
     robot.defense().choose(owner, DefenseMode.AGGRESSIVE);
     Mob husk = still(helper.spawn(EntityType.HUSK, NEAR));
 

@@ -20,7 +20,7 @@ As prévias da tela real, aprovadas na pergunta 2044, são a referência do cód
 
 ### Passo 1: escolher
 
-- **Catálogo:** os 28 itens de receita fixa da mesa, sem o upgrade de Power Bank, o religar e o conserto. A Power Bank sai pela carcaça com a célula. Só pode ser escolhido o item com ele e **toda a cadeia dele** liberados para o player, e o resto aparece com cadeado e a dica do que falta liberar. Um item liberado aparece normal, também sem materiais, porque a mesa faz as peças (perguntas 1991, 2009 e 2038).
+- **Catálogo:** os 28 itens de receita fixa da mesa, sem o upgrade de Power Bank, o religar e o conserto. A Power Bank sai pela carcaça com a célula. Todos podem ser escolhidos e aparecem normais, também sem materiais, porque a mesa faz as peças (perguntas 2038 e 2400).
 - **Packs:** com duas receitas para o mesmo item, vale a primeira na ordem do catálogo, sem as com estado. Com material alternativo, como uma tag, o plano pede o que houver mais na entrada e, sem nenhum, o primeiro da lista. Um item com receitas em ciclo aparece com cadeado e a dica do motivo, e nunca trava o jogo (perguntas 2032 a 2034).
 - **Quantidade:** − e +, com Shift de 8 em 8, de 0 ao maior pedido do tier, 256 (pergunta 2011). Ao escolher o item, começa em 0, sem slots, com `Press + to set the amount`, e o + leva a 1 e mostra os slots (perguntas 2053 e 2054).
 - **Materiais:** um slot por item vanilla de base da cascata, com a quantidade e um véu transparente, forte o bastante para as três cores se distinguirem sobre o azul (perguntas 2006 e 2045):
@@ -60,7 +60,7 @@ As prévias da tela real, aprovadas na pergunta 2044, são a referência do cód
 - **Pausa** sem FE ou com sinal de redstone, e volta sozinha (pergunta 2010).
 - **Saída cheia não pausa:** os itens finais que não couberem, como Cubits, que não empilham, esperam no estoque do plano até haver espaço (pergunta 2028).
 - **Automação:** os funis e canos continuam pondo na entrada e tirando da saída, sem tocar no plano (pergunta 2025).
-- **Quem inicia:** qualquer player, como os outros usos da mesa. A progressão é a de quem inicia (pergunta 2016).
+- **Quem inicia:** qualquer player, como os outros usos da mesa (pergunta 2016), sem depender de progressão (pergunta 2400).
 - **No mundo:** o brilho, o braço, os sons e o holograma de hoje, com o item da tarefa. O Jade mostra `Cascade: Cubit · 12/25`, e o comparador lê o que falta do plano, de 15 a 0 (pergunta 2022).
 
 ## Fim
@@ -107,6 +107,7 @@ Uma issue e dois PRs (pergunta 2026):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 12:27 | Deixa de exigir a cadeia liberada (pergunta 2400). |
 | Zennd | 2026-11-24 11:10 | Atualiza os exemplos com as peças compartilhadas (pergunta 2146). |
 | Zennd | 2026-11-23 16:54 | Começa a quantidade em 0 e mostra as peças prontas em slots (perguntas 2049 a 2054). |
 | Zennd | 2026-11-23 16:20 | Detalha a tela do PR 2, a dica do item e o passo 2 sem material (perguntas 2042 a 2046). |
