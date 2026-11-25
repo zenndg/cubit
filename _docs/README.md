@@ -46,6 +46,7 @@ Este é o mapa dos documentos do projeto. A apresentação do mod e o roadmap fi
 | Roteiro de teste manual no jogo | [`desenvolvimento/roteiro-manual.md`](desenvolvimento/roteiro-manual.md) |
 | Access Transformer | [`desenvolvimento/access-transformer.md`](desenvolvimento/access-transformer.md) |
 | Git hooks | [`desenvolvimento/hooks-do-git.md`](desenvolvimento/hooks-do-git.md) |
+| MCPs, as ferramentas do agente | [`desenvolvimento/mcps.md`](desenvolvimento/mcps.md) |
 | O que vem antes do PR e as provas na descrição | [`desenvolvimento/antes-do-pr.md`](desenvolvimento/antes-do-pr.md) |
 | Publicação no Modrinth e no CurseForge | [`desenvolvimento/publicacao.md`](desenvolvimento/publicacao.md) |
 | Descrição do mod no jogo e nas plataformas | [`desenvolvimento/descricao-das-plataformas.md`](desenvolvimento/descricao-das-plataformas.md) |
@@ -57,6 +58,7 @@ Os números ficam em [`tiers.md`](tiers.md). As outras páginas apontam para lá
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 10:12 | Aponta o documento dos MCPs (pergunta 2382). |
 | Zennd | 2026-11-25 09:41 | Atualiza a situação da Network e da Fase 5 (pergunta 2366). |
 | Zennd | 2026-11-24 22:26 | Cita o conceito da Network (pergunta 2320). |
 | Zennd | 2026-11-24 08:16 | Acrescenta o Access Transformer (pergunta 2068). |

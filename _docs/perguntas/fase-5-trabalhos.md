@@ -1323,13 +1323,23 @@ Não há perguntas pendentes nesta fase.
 | 2376 | Network, entrega 3: os 20 detalhes da seção Detalhes da Entrega 3 do `network.md` estão autorizados (regra 54)? | Sim ("1. sim autorizo"), sem veto, com a chave `chunk_resume_energy`. O código continua esperando a autorização própria (pergunta 2224) |
 | 2377 | Network, entrega 3: o texto da #265 no GitHub pode ser atualizado com as perguntas 2368 a 2375? | Sim ("2. sim"), com o texto mostrado antes |
 | 2378 | Network, entrega 3: criar a branch `feature/265-network-server` e para onde vão as entregas | "sim pode criar com base na branch integration/network esta branch é a centralizadora desta feature de network toda entrega é feita apontando para ela. Develop somente ira receber o PR de entrega completa da feature. Documente isso.": a branch de toda entrega sai da `integration/network`, o PR dela aponta para ela, e a `develop` só recebe o PR da feature completa. Confirma a 2203, a 2204 e a 2205. O commit é pedido à parte |
+| 2379 | Network, entrega 3: pesquisar o MCP do Blockbench ou seguir sem ele, antes do gabarito UV? | "vamos configurar este ambiente todo primeiro antes de avancarmos no projeto": o ambiente de ferramentas vem antes do resto da entrega 3. O aceite das geometrias, o texto da #265 e o commit dos documentos continuam pendentes |
+| 2380 | Network, entrega 3: abrir o Blockbench e conferir `Enable risky_eval` e `Disclose AI Usage`, e reiniciar a sessão para as ferramentas carregarem? | "1. ok 2. ok". O valor de cada opção não foi respondido: a recomendação, desligar o `risky_eval`, segue sem confirmação, e o `Disclose AI Usage`, em aberto |
+| 2381 | Network, entrega 3: onde ignorar a pasta `.serena/`? | No `.gitignore`. A recomendação, só no `.git/info/exclude`, foi recusada, e a linha local foi desfeita |
+| 2382 | Network, entrega 3: escrever o documento dos cinco MCPs em `_docs/desenvolvimento/` (regra 38) e o prompt de continuidade antes de reiniciar? | Sim, os dois ("4. sim. 5. sim"). Usar os MCPs no trabalho da entrega 3 espera o reinício |
+| 2383 | O `Enable risky_eval` do plugin MCP do Blockbench (2380) | "ja desliguei o enable risky_eval". A recomendação foi aceita. O `Disclose AI Usage` continua em aberto. Detalha a 2380 |
 | 2384 | Network, entrega 3: as geometrias do Servidor e do Solar Relay, sem textura, são aceitas? | Sim, com correções no Relay: o painel segue o sol até 11°, porque 12° ainda passam 0,05 px do bloco, só inclina depois de desdobrar, para a folha não atravessar a coluna, e o pescoço, o garfo e o braço da parabólica recuam, porque as folhas, a célula e o mastro eram invadidos. O Servidor fica como está, com a porta abrindo 20°. A prévia e as medidas são mostradas de novo antes do gabarito UV. A recomendação foi aceita |
 | 2385 | Network, entrega 3: como o painel do Solar Relay acompanha o sol com o bloco virado para leste ou oeste? | Por dois eixos: virado para norte ou sul, inclinado para a frente, gira 11° de lado. Para leste ou oeste, quase deitado, vai de 79° a 101° no eixo da frente, também 11° para cada lado. A recomendação foi aceita. Detalha a 2376, no detalhe 10 |
+| 2386 | O `Disclose AI Usage` do plugin MCP do Blockbench (2380) | Desligar, pelo desenvolvedor, no Blockbench. A recomendação foi aceita. Conferir antes de gravar um `.bbmodel`. Detalha a 2380 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 10:43 | Registra as respostas 2384 a 2386. |
+| Zennd | 2026-11-25 10:14 | Registra a resposta 2383. |
+| Zennd | 2026-11-25 10:12 | Registra as respostas 2380 a 2382. |
+| Zennd | 2026-11-25 10:04 | Registra a resposta 2379. |
 | Zennd | 2026-11-25 09:55 | Registra as respostas 2376 a 2378. |
 | Zennd | 2026-11-25 09:52 | Registra as respostas 2372 a 2375. |
 | Zennd | 2026-11-25 09:49 | Registra as respostas 2368 a 2371. |

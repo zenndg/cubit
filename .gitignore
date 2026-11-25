@@ -4,6 +4,9 @@ tmp/
 # Ferramentas de desenvolvimento baixadas por scripts/development/setup-dev.sh
 .tools/
 
+# Serena, o MCP de código: cache, memórias e projeto, só da máquina
+.serena/
+
 ### Gradle ###
 .gradle
 build/
