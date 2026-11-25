@@ -517,6 +517,35 @@ Use modo sobrevivência, com `/gamemode survival`. Para morrer, use `/kill @s`. 
 | 4 | Passe por um portal do Nether, sem morrer | Ele não vai junto |
 | 5 | Deixe um Cubit desligado longe, ligue outro para seguir, morra e renasça | O que seguia volta, e o desligado continua no lugar |
 | 6 | Chame o Cubit a um Dock e morra antes de ele chegar, perto do Dock | Ele continua indo ao Dock |
+| 7 | Com o Cubit seguindo, a 1000 blocos do spawn, morra, **espere 10 s na tela de morte** e renasça | Ele aparece com você, com a mesma carga e os mesmos itens, em até 10 s |
+| 8 | Repita, saindo do jogo na tela de morte e voltando | Como no passo 7 |
+| 9 | Repita no Nether, esperando 10 s | Ele aparece com você no mundo normal |
+| 10 | Com o Cubit numa área ou no Dock, longe, morra, espere 10 s e renasça | Ele fica onde está |
+
+## Chamar o Cubit
+
+As regras estão em [`movimento.md`](../funcionalidades/movimento.md#chamar-o-cubit) (issue #281). Use modo sobrevivência com comandos e três Cubits, um com nome. Guarde um item em cada um, para conferir que nada some nem se repete.
+
+| # | Passo | Resultado esperado |
+|---|---|---|
+| 1 | Rode `/cubit list` | Os três por nome, com os 8 caracteres, o estado e a dimensão |
+| 2 | Clique numa linha e use o Tab no `/cubit follow` | O comando aparece escrito, e o Tab sugere os seus Cubits |
+| 3 | Deixe um Cubit parado, vá com `/tp @s ~2000 ~ ~`, espere o chunk descarregar e rode `/cubit list` | Ele aparece como `Unloaded` |
+| 4 | Rode `/cubit follow` com os 8 caracteres dele | Ele aparece a até 4 blocos, num lugar seguro, e segue você, com o item e a carga |
+| 5 | Volte ao lugar antigo | Não há outro Cubit lá |
+| 6 | Rode de novo, em menos de 10 s | A mensagem pede para esperar |
+| 7 | Repita os passos 3 a 5 com o Cubit no Nether e você no mundo normal, e o contrário | Como antes |
+| 8 | Com o Cubit descarregado, abra-o no Tablet | Só o `Follow` e o `Voltar` acesos, com a dica `Calls it from anywhere` |
+| 9 | Use o `Follow` | `Calling...`, o Cubit chega e a tela dele abre |
+| 10 | Chame um Cubit sem bateria, com outro seguindo você | Vem desligado, e o outro continua seguindo |
+| 11 | Chame um Cubit que trabalha numa área e um que está no Dock | Vêm seguir você. A área se apaga, e o Dock fica livre |
+| 12 | Chame um Cubit a menos de 20 blocos | Vem andando |
+| 13 | Numa ilha de 1 bloco sobre a lava, chame um Cubit de longe | Ele fica onde está, com o aviso |
+| 14 | Chame um Cubit descarregado e troque de dimensão antes de ele chegar | Aparece onde você está |
+| 15 | Chame um Cubit descarregado e saia do jogo na hora. Volte e procure | Está num lugar só, com o item |
+| 16 | Guarde um Cubit no baú e rode `/cubit list` e o `/cubit follow` dele | Não está na lista, e o comando diz que não o achou |
+| 17 | Com o segundo player, rode o `/cubit follow` com os caracteres de um Cubit seu | Não acha |
+| 18 | Com o jogo em português | Tudo em português |
 
 ## Falas
 
@@ -1600,6 +1629,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 17:34 | Acrescenta o renascer com o chunk descarregado e chamar o Cubit (perguntas 2450 a 2500). |
 | Zennd | 2026-11-25 16:11 | Acrescenta a usabilidade da tela da Engineering Desk (perguntas 2470 a 2481 e 2492). |
 | Zennd | 2026-11-25 12:27 | Tira o bloqueio das receitas dos roteiros da mesa, das peças, da Power Bank e da cascata (pergunta 2400). |
 | Zennd | 2026-11-24 12:32 | Corrige as seções Receitas e Power Bank, que falavam do livro de receitas e da carcaça antiga (perguntas 2184, 2193 e 2195). |
