@@ -1291,11 +1291,13 @@ Não há perguntas pendentes nesta fase.
 | 2344 | Network: a base do Solar Relay, para o painel aberto caber em 16 px | 9 a 10 px. A recomendação foi aceita |
 | 2345 | Network: o formato das pranchas em `_docs/imagens/conceito/` | WebP, qualidade 92, 1,2 MB no total, com os originais em `tmp/`. A recomendação foi aceita |
 | 2346 | Network: medir os quadros por segundo na entrega 9, ao lado de 20 blocos da rede? | Sim. A recomendação foi aceita |
+| 2347 | O link quebrado `energia.md#dock-solar`, no `decisoes.md`, de antes da Network, é corrigido numa próxima tarefa ou agora? | Agora, com um commit a mais no PR da Entrega 1 e as provas refeitas. A recomendação, numa próxima tarefa, foi recusada |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 23:43 | Registra a resposta 2347. |
 | Zennd | 2026-11-24 23:37 | Registra as respostas 2345 a 2346. |
 | Zennd | 2026-11-24 23:32 | Registra as respostas 2341 a 2344. |
 | Zennd | 2026-11-24 22:58 | Registra as respostas 2337 a 2340. |
