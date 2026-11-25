@@ -214,6 +214,7 @@
   "gui.cubit.network.ups_value": "%s%%",
   "gui.cubit.network.used_slots": "%s de %s slots",
   "gui.cubit.network.view": "Ver",
+  "gui.cubit.network.view_tip": "Mostra o chunk com o Tablet na mão",
   "gui.cubit.redstone": "Redstone",
   "gui.cubit.robot.auto_return": "Retorno automático",
   "gui.cubit.robot.auto_return.detail": "Vai a um Dock com %s%% de bateria",

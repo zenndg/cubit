@@ -192,8 +192,18 @@ final class ServerEnergyTab {
         : Component.translatable(NetworkKeys.HOLDS_HOURS, time.hours(), time.minutes());
   }
 
-  /** What the row of the upkeep sums, when the mouse is on it (answer 2440). */
-  List<Component> costLines(double x, double y) {
+  /**
+   * What the mouse is on tells: the button that shows the chunk, which needs the Tablet in hand
+   * (answer 2512), or the parts the row of the upkeep sums (answer 2440).
+   */
+  List<Component> hoverLines(double x, double y) {
+    if (VIEW.contains((int) x, (int) y)) {
+      return List.of(Component.translatable(NetworkKeys.VIEW_TIP));
+    }
+    return costLines(x, y);
+  }
+
+  private List<Component> costLines(double x, double y) {
     if (x < NetworkScreen.ROW_LEFT || x >= NetworkScreen.ROW_RIGHT) {
       return List.of();
     }

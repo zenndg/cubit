@@ -26,6 +26,7 @@ final class NetworkScreenTexts {
   private static final String CHUNK = "Chunk";
   private static final String LOAD_CHUNK = "Load the chunk";
   private static final String VIEW = "View";
+  private static final String VIEW_TIP = "Shows the chunk with the Tablet in hand";
   private static final String HOLDING_WITHOUT_LIMIT = "Holding this chunk · %s of yours";
   private static final String UPS = "UPS";
   private static final String UPS_VALUE = "%s%%";
@@ -91,6 +92,7 @@ final class NetworkScreenTexts {
     add.accept(NetworkKeys.CHUNK, CHUNK);
     add.accept(NetworkKeys.LOAD_CHUNK, LOAD_CHUNK);
     add.accept(NetworkKeys.VIEW, VIEW);
+    add.accept(NetworkKeys.VIEW_TIP, VIEW_TIP);
     add.accept(NetworkKeys.HOLDING_WITHOUT_LIMIT, HOLDING_WITHOUT_LIMIT);
     add.accept(NetworkKeys.UPS, UPS);
     add.accept(NetworkKeys.UPS_VALUE, UPS_VALUE);

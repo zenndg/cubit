@@ -70,7 +70,7 @@ final class NetworkServerScreen extends NetworkScreen<NetworkServerMenu> {
         .ifPresent(under ->
             graphics.renderTooltip(font, Component.translatable(under.title()), mouseX, mouseY));
     if (!showsStorage() && !rename.isOpen()) {
-      List<Component> lines = energy.costLines(mouseX - leftPos, mouseY - topPos);
+      List<Component> lines = energy.hoverLines(mouseX - leftPos, mouseY - topPos);
       graphics.renderComponentTooltip(font, lines, mouseX, mouseY);
     }
   }
