@@ -1449,11 +1449,13 @@ Não há perguntas pendentes nesta fase.
 | 2502 | O teste manual da #280 e o da #281, e o PR da #281 | "ignore os testes antigos no final da entrega vou fazer teste completo. Pode avancar com commits, push e pr autorizado": o teste manual das duas fica para o fim da entrega, completo, e o PR da #281 abre antes dele, com isso dito na descrição. O `AGENTS.md` ganha a estrutura mostrada |
 | 2503 | O teste manual da `develop`, com a #280 e a #281, no `d749e7a` | "testes ok.": aprovado em 2026-11-25. Cumpre a parte da 2502 que cobre as duas |
 | 2504 | Ideia do desenvolvedor para o backlog: desmontar itens na Engineering Desk | "crie uma anotacao do backlog uma ideia que pode vim logo quando finalizar a network": uma aba `Desmontar`, do tier Elite, que desmonta os itens do mod feitos com outros itens do mod e devolve só esses, sem os do jogo, com o mesmo tempo e o mesmo FE de criar, na saída da mesa. Só anotada, em [`backlog.md`](../backlog.md), sem conceito nem autorização |
+| 2505 | Pedido do desenvolvedor: em qual entrega entra desmontar itens na mesa (2504)? | "acrescente na entrega 3 o item que falei sobre a mesa ter opcao desmontar apos item 3 luzes": na entrega 3 da Network, depois das luzes do Servidor. Muda a 2504, que o deixava no backlog. Precisa de rodada, conceito e autorização |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 19:44 | Registra a resposta 2505. |
 | Zennd | 2026-11-25 19:06 | Registra a resposta 2504. |
 | Zennd | 2026-11-25 19:01 | Registra a resposta 2503. |
 | Zennd | 2026-11-25 18:12 | Registra a resposta 2502. |

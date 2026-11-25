@@ -59,7 +59,7 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
    - **O que volta:** só os itens do próprio mod usados na receita. Os itens do jogo não voltam.
    - **Tempo e custo:** os mesmos de criar o item, em ticks e em FE.
    - **Por quê:** as peças do mod servem em receitas diferentes, e desmontar permite reutilizá-las.
-   - **Quando:** pode vir logo depois da Network. A ordem no roadmap não está decidida.
+   - **Quando:** na entrega 3 da Network (#265), depois das luzes do Servidor (pergunta 2505). Vai ao refinamento antes do código.
    - **Em aberto:**
      - um nível por vez ou até o fim da cascata, como o Cubit que vira as peças ou também as peças delas;
      - o item com estado, para nada se perder nem se repetir (pilar Segurança): o inventário, a energia, o XP, o nome, o card e as tochas de um Cubit, o estoque e os itens de um Dock, a carga de uma Power Bank, o que guarda o Network Server e a própria mesa. Recusar, esvaziar antes ou devolver;
@@ -104,6 +104,7 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 19:44 | Leva desmontar itens à entrega 3 da Network (pergunta 2505). |
 | Zennd | 2026-11-25 19:06 | Acrescenta desmontar itens na Engineering Desk (pergunta 2504). |
 | Zennd | 2026-11-25 17:33 | Tira o Cubit que se perde num teleporte longo, que chamar o Cubit resolve (pergunta 2461). |
 | Zennd | 2026-11-24 13:34 | Acrescenta o robô de transporte (pergunta 2197). |
