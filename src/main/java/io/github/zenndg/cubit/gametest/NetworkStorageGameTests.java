@@ -243,6 +243,25 @@ public final class NetworkStorageGameTests {
     helper.succeed();
   }
 
+  /** In the save and in the item that falls (answer 2448). */
+  @GameTest(template = NetworkScene.CHUNK)
+  public static void theWallIsKeptByTheSaveAndByTheItem(GameTestHelper helper) {
+    NetworkServerBlockEntity server = server(helper, RESERVE);
+    server.setShowWall(true);
+    CompoundTag saved = server.saveWithoutMetadata(helper.getLevel().registryAccess());
+    helper
+        .getLevel()
+        .destroyBlock(helper.absolutePos(NetworkScene.serverFloor(helper).above()), true);
+
+    NetworkServerBlockEntity placed =
+        NetworkScene.placeServer(helper, helper.makeMockPlayer(GameType.SURVIVAL), drop(helper));
+    helper.assertTrue(placed.showsWall(), LOST);
+    placed.setShowWall(false);
+    placed.loadWithComponents(saved, helper.getLevel().registryAccess());
+    helper.assertTrue(placed.showsWall(), LOST);
+    helper.succeed();
+  }
+
   /** One at a time, and never out of the reserve, without creating or losing FE (2373). */
   @GameTest(template = NetworkScene.CHUNK)
   public static void theBanksNeverTakeTheReserve(GameTestHelper helper) {

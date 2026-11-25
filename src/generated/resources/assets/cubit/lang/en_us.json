@@ -204,6 +204,7 @@
   "gui.cubit.network.ups": "UPS",
   "gui.cubit.network.ups_value": "%s%%",
   "gui.cubit.network.used_slots": "%s of %s slots",
+  "gui.cubit.network.view": "View",
   "gui.cubit.redstone": "Redstone",
   "gui.cubit.robot.auto_return": "Auto return",
   "gui.cubit.robot.auto_return.detail": "Goes to a Dock at %s%% battery",

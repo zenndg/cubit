@@ -55,7 +55,12 @@ public final class CubitClient {
     CubitNetwork.setDeathLogDisplay(TabletDeathLog::show);
     CubitNetwork.setAskNameDisplay(NameScreen::show, NameScreen::show);
     DeskClientTicks.set(BlockSoundLoops::tick);
-    NetworkClientTicks.set(BlockSoundLoops::tick, BlockSoundLoops::tick);
+    NetworkClientTicks.set(
+        server -> {
+          BlockSoundLoops.tick(server);
+          ChunkWalls.tick(server);
+        },
+        BlockSoundLoops::tick);
     event.enqueueWork(() ->
         ItemProperties.register(
             CubitItems.GENERAL_ROBOT.get(),

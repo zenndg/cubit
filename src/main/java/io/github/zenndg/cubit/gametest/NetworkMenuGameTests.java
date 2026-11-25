@@ -38,6 +38,7 @@ public final class NetworkMenuGameTests {
   private static final int KEY = 3;
   private static final int DROP_ALL = 1;
   private static final int DUST = 10;
+  private static final String WALL_KEY = "ShowWall";
   private static final UpsReserve STANDARD = new UpsReserve(25);
   private static final UpsReserve LESS = new UpsReserve(20);
   private static final Energy KEPT = new Energy(400_000);
@@ -87,6 +88,26 @@ public final class NetworkMenuGameTests {
     helper.assertFalse(server.chunkLoading(), WRONG_CHOICE);
     helper.assertFalse(menu.clickMenuButton(owner, NetworkServerMenu.UPS_LESS_BUTTON), PRESSED);
     helper.assertValueEqual(server.ups(), STANDARD, PRESSED);
+    helper.succeed();
+  }
+
+  /** Off at first, also with the chunk off, and only for the owner (answers 2446 and 2448). */
+  @GameTest(template = NetworkScene.CHUNK)
+  public static void theViewButtonShowsTheWall(GameTestHelper helper) {
+    ServerPlayer owner = owner(helper);
+    ServerPlayer stranger = owner(helper);
+    NetworkServerBlockEntity server = place(helper, owner);
+    server.setChunkLoading(false);
+    NetworkServerMenu menu = menu(owner, server);
+
+    helper.assertFalse(server.showsWall(), WRONG_CHOICE);
+    helper.assertFalse(menu.clickMenuButton(stranger, NetworkServerMenu.WALL_BUTTON), PRESSED);
+    helper.assertTrue(menu.clickMenuButton(owner, NetworkServerMenu.WALL_BUTTON), WRONG_CHOICE);
+    helper.assertTrue(server.showsWall(), WRONG_CHOICE);
+    helper.assertTrue(
+        server.getUpdateTag(helper.getLevel().registryAccess()).getBoolean(WALL_KEY), WRONG_CHOICE);
+    menu.clickMenuButton(owner, NetworkServerMenu.WALL_BUTTON);
+    helper.assertFalse(server.showsWall(), WRONG_CHOICE);
     helper.succeed();
   }
 

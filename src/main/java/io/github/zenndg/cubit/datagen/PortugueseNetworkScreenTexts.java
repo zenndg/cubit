@@ -25,6 +25,7 @@ final class PortugueseNetworkScreenTexts {
   private static final String NOTHING = "0 FE/t";
   private static final String CHUNK = "Chunk";
   private static final String LOAD_CHUNK = "Carregar o chunk";
+  private static final String VIEW = "Ver";
   private static final String HOLDING_WITHOUT_LIMIT = "Segurando este chunk · %s seus";
   private static final String UPS = "Nobreak";
   private static final String UPS_VALUE = "%s%%";
@@ -89,6 +90,7 @@ final class PortugueseNetworkScreenTexts {
     add.accept(NetworkKeys.NOTHING, NOTHING);
     add.accept(NetworkKeys.CHUNK, CHUNK);
     add.accept(NetworkKeys.LOAD_CHUNK, LOAD_CHUNK);
+    add.accept(NetworkKeys.VIEW, VIEW);
     add.accept(NetworkKeys.HOLDING_WITHOUT_LIMIT, HOLDING_WITHOUT_LIMIT);
     add.accept(NetworkKeys.UPS, UPS);
     add.accept(NetworkKeys.UPS_VALUE, UPS_VALUE);

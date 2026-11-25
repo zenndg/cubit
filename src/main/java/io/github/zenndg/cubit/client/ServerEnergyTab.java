@@ -25,7 +25,8 @@ final class ServerEnergyTab {
   private static final int SWITCH_HEIGHT = 13;
   private static final int SWITCH_X = 139;
   private static final int SWITCH_Y = 121;
-  private static final Box SWITCH_NAME = new Box(11, 124, 124, NetworkScreen.LINE);
+  private static final Box SWITCH_NAME = new Box(11, 124, 86, NetworkScreen.LINE);
+  private static final Box VIEW = new Box(100, 121, 35, 11);
   private static final Box CHUNK_LINE = new Box(11, 135, 156, NetworkScreen.DETAIL_LINE);
   private static final int UPS_ROW = 141;
   private static final int UPS_HEIGHT = 14;
@@ -59,6 +60,12 @@ final class ServerEnergyTab {
     screen.renderBattery(graphics, menu.chunkLoading() ? menu.ups() : UpsReserve.NONE);
     renderFlow(graphics);
     renderChunk(graphics);
+    FlatButton.paint(
+        graphics,
+        VIEW,
+        Component.translatable(NetworkKeys.VIEW),
+        !menu.showsWall(),
+        VIEW.contains(mouseX, mouseY));
     renderUps(graphics, mouseX, mouseY);
     screen.renderOwner(graphics);
   }
@@ -205,6 +212,9 @@ final class ServerEnergyTab {
 
   /** The button of the server under a point of the window, if it can be pressed. */
   OptionalInt buttonAt(double x, double y) {
+    if (VIEW.contains((int) x, (int) y)) {
+      return OptionalInt.of(NetworkServerMenu.WALL_BUTTON);
+    }
     if (locked()) {
       return OptionalInt.empty();
     }

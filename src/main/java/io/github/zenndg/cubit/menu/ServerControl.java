@@ -5,8 +5,8 @@ import io.github.zenndg.cubit.block.NetworkServerBlockEntity;
 
 /**
  * What the buttons of the Energy tab do on the server: the switch of the chunk, locked by the
- * config of the world, and the reserve, which only changes with the chunk on (answers 2213, 2214,
- * 2219).
+ * config of the world, the reserve, which only changes with the chunk on, and the wall, which works
+ * also with the chunks locked (answers 2213, 2214, 2219 and 2446).
  */
 final class ServerControl {
   static final ServerControl NONE = new ServerControl(null);
@@ -18,6 +18,10 @@ final class ServerControl {
   }
 
   boolean press(int button) {
+    if (server != null && button == NetworkServerMenu.WALL_BUTTON) {
+      server.setShowWall(!server.showsWall());
+      return true;
+    }
     if (server == null || !CubitMod.CONFIG.network().chunks().enabled()) {
       return false;
     }

@@ -18,6 +18,7 @@ import org.joml.Matrix4f;
 final class AreaLinePainter {
   private static final String SEEN_NAME = "cubit_area_line";
   private static final String HIDDEN_NAME = "cubit_area_line_hidden";
+  private static final String WALL_NAME = "cubit_chunk_wall";
   private static final int BUFFER_SIZE = 4096;
   private static final float HIDDEN_ALPHA = 0.28f;
   private static final float TOP = 1f;
@@ -32,6 +33,10 @@ final class AreaLinePainter {
   /** Only where something is in front. */
   private static final RenderType HIDDEN =
       type(HIDDEN_NAME, RenderStateShard.GREATER_DEPTH_TEST, RenderStateShard.COLOR_WRITE);
+
+  /** In sight, with what is behind still in sight through it. */
+  private static final RenderType WALL =
+      type(WALL_NAME, RenderStateShard.LEQUAL_DEPTH_TEST, RenderStateShard.COLOR_WRITE);
 
   private final MultiBufferSource.BufferSource buffers;
   private final Matrix4f pose;
@@ -61,6 +66,10 @@ final class AreaLinePainter {
 
   void seen(Iterable<AABB> boxes, Paint paint) {
     draw(SEEN, boxes, paint);
+  }
+
+  void wall(Iterable<AABB> boxes, Paint paint) {
+    draw(WALL, boxes, paint);
   }
 
   private void draw(RenderType type, Iterable<AABB> boxes, Paint paint) {
