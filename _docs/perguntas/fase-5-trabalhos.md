@@ -1345,11 +1345,14 @@ Não há perguntas pendentes nesta fase.
 | 2398 | Network, entrega 3: os três sons ajustados (2396), a partida, o upgrade e a trava, ficam assim? | Sim ("1 sim") |
 | 2399 | Network, entrega 3: o código está autorizado (2224)? | Sim ("2 sim"), só o da entrega 3, a #265, começando pela refatoração dos nomes neutros (2371). As outras entregas continuam esperando a autorização própria, e cada commit é pedido à parte |
 | 2400 | Network, entrega 3: antecipar o tanque e a aba XP do Servidor ou manter na entrega 7? | Manter na entrega 7 ("3 mantemos"). Confirma a 2370. A recomendação foi aceita |
+| 2401 | Network, entrega 3: o nome padrão do Servidor e do Solar Relay (2275), que nas prévias em português apareceram traduzidos | Igual ao Dock: `Server` e `Relay` com os 8 primeiros dígitos do UUID, gravados em inglês nos dois idiomas, e o player pode renomear. A recomendação foi aceita. Muda os nomes das prévias da 2397 |
+| 2402 | Network, entrega 3: quando atualizar a estrutura de pacotes do `AGENTS.md`, com as classes que mudaram de nome na refatoração (2371) e as novas? | Uma vez, no fim da entrega, num commit só de documentos antes das GameTests, com o texto mostrado antes. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 11:44 | Registra as respostas 2401 a 2402. |
 | Zennd | 2026-11-25 11:37 | Registra as respostas 2398 a 2400. |
 | Zennd | 2026-11-25 11:32 | Registra as respostas 2395 a 2397. |
 | Zennd | 2026-11-25 11:20 | Registra a resposta 2394. |
