@@ -1280,11 +1280,23 @@ Não há perguntas pendentes nesta fase.
 | 2333 | Network: o texto da `integration/{feature}` no Gitflow do `AGENTS.md` (2204) | Autorizado: duas linhas na tabela, a `integration/{feature}`, que sai da `develop` e volta para ela num PR final, e a `feature/{issue}-{slug}`, que sai da `develop` ou da `integration/{feature}` e volta para a mesma. A `integration/{feature}` entra na regra Proibido. Vale também no `fluxo-de-trabalho.md` |
 | 2334 | Network: os nomes do contrato, propostos pelo agente no `network.md` e nas chaves de `tiers.md`, estão autorizados? | Sim: "autorizo os nomes", sem mudança |
 | 2335 | O link quebrado do `inventario.md` e o clique antigo do Dock em "Quem abre", no `telas.md`, são corrigidos num commit à parte? | Sim. A recomendação foi aceita |
+| 2336 | CRÍTICO, pedido do desenvolvedor: a qualidade visual dos blocos da Network | "quero que anote é CRITICO: nao quero blocos quadrados com textura chapada. Quero a modelagem dos itens com profunidade, relevo coloracao, sobreamento quero realismo, animacoes, sons. Qualidade visual, Qualidade construcao, Qualidade UX." Lido "sobreamento" como sombreamento. Toca a 2281, com sons e movimento "poucos e discretos", que vai a outra pergunta |
+| 2337 | Network: a meta de construção dos modelos (2336) | Acima do Dock: Servidor com 90 a 120 cubos, Solar Relay e antena com 60 a 90, relevo real de 0,5 a 2 px, textura de 1024×1024 com sombra nas juntas, brilho nas quinas, desgaste leve e materiais distintos, e nenhuma face maior que 6×6 px sem relevo. A recomendação foi aceita |
+| 2338 | Network: as animações (2281) | Ricas, por estado. Servidor: ventoinhas atrás da grade, HDs piscando, barras que sobem, tranca e partida ao ligar, e queda de luz ao perder a energia. Relay: painel que se desdobra em etapas e acompanha o sol, e parabólica que se orienta. Antena: mastro que se ergue ao ser colocado, e parabólica que procura e trava o sinal. Parado, quase nada se move. A recomendação foi aceita. Muda a 2281 |
+| 2339 | Network: os sons (2281) | Um conjunto por bloco, 14. Servidor: partida, loop de ventoinha, queda, upgrade e aviso de UPS. Relay: painel abrindo, fechando, trava e loop de transmissão. Antena: erguer, travar sinal, perder sinal, voltar e ligar no Servidor. Baixos, com alcance curto, e os loops só por perto, por prompt e aceitos antes do código. A recomendação foi aceita. Muda a 2281 |
+| 2340 | Network: onde fica escrita a exigência da 2336 | No `network.md`, seção Visual, e no prompt. A frase da régua continua só no prompt (2312). A recomendação foi aceita |
+| 2341 | Network: as quatro pranchas de `tmp/arte/network/20261124_23h_imagegen` são aceitas como referência? | Sim, com as correções aplicadas no modelo: a base do Relay, o anel e a parabólica côncava da antena, as formas dos estados nas lâmpadas, o Ultimate em netherite visível, e 4 HDs, 2 antenas e 2 ventoinhas por lado no Servidor. A recomendação foi aceita |
+| 2342 | Network: a altura do anel da antena | Cerca de 1,4 bloco, logo abaixo da parabólica. A recomendação foi aceita |
+| 2343 | Network: o canal branco, que some com o fio branco (2270) | Fio escuro nas cores claras e branco nas escuras. A recomendação foi aceita. Muda a 2270 |
+| 2344 | Network: a base do Solar Relay, para o painel aberto caber em 16 px | 9 a 10 px. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 23:32 | Registra as respostas 2341 a 2344. |
+| Zennd | 2026-11-24 22:58 | Registra as respostas 2337 a 2340. |
+| Zennd | 2026-11-24 22:56 | Registra a resposta 2336. |
 | Zennd | 2026-11-24 22:43 | Registra as respostas 2334 a 2335. |
 | Zennd | 2026-11-24 22:39 | Registra as respostas 2330 a 2333. |
 | Zennd | 2026-11-24 22:35 | Registra as respostas 2326 a 2329. |

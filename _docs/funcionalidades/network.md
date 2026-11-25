@@ -1,6 +1,6 @@
 # Network
 
-A rede sem fio do mod: o Network Server, o Solar Relay e a Signal Antenna. O conceito é do desenvolvedor e foi refinado nas perguntas 2196 a 2333, citadas só pelo número. As respostas em [`perguntas/`](../perguntas/fase-5-trabalhos.md) prevalecem. As entregas estão no [`ROADMAP.md`](../../ROADMAP.md#network-a-rede-sem-fio-em-conceito).
+A rede sem fio do mod: o Network Server, o Solar Relay e a Signal Antenna. O conceito é do desenvolvedor e foi refinado nas perguntas 2196 a 2340, citadas só pelo número. As respostas em [`perguntas/`](../perguntas/fase-5-trabalhos.md) prevalecem. As entregas estão no [`ROADMAP.md`](../../ROADMAP.md#network-a-rede-sem-fio-em-conceito).
 
 **Situação:** conceito autorizado (pergunta 2325). O código espera a autorização própria do desenvolvedor (pergunta 2224). Os números entram em [`tiers.md`](../tiers.md) e no config na Entrega 1.
 
@@ -89,7 +89,7 @@ A reserva de bateria do Servidor e da antena, só para o próprio chunk. O playe
 
 ## Solar Relay
 
-Gera, transmite e guarda 300 mil FE e 32 baldes do que vai e vem (2289). O painel abre com o sol (2281). Segue o tier do Servidor, sem Module próprio (2217). Tela: geração de agora e máxima, motivo se parado, bateria, par e o slot de redstone (2280).
+Gera, transmite e guarda 300 mil FE e 32 baldes do que vai e vem (2289). O painel abre com o sol e o acompanha (2338). Segue o tier do Servidor, sem Module próprio (2217). Tela: geração de agora e máxima, motivo se parado, bateria, par e o slot de redstone (2280).
 
 ## Antena
 
@@ -150,7 +150,7 @@ O Dock ganha dois modos: enviar o excesso e enviar tudo ao Servidor (2261). O XP
 - **App Network:** rosa (2328).
 - **Jade,** curto: nome, canal, sinal, bateria e chave do chunk (2285).
 - **Operador:** `/cubit network list` e `release` (2286).
-- **Sons:** ligar, sinal perdido, sinal de volta e um zumbido baixo (2281).
+- **Sons:** 14, em [Sons](#sons) (2339).
 
 ## Receitas
 
@@ -171,7 +171,39 @@ Do rascunho do desenvolvedor, com as pranchas refeitas na Entrega 1:
 - **Servidor:** 2 blocos de altura, com 29 px de corpo e 3 px das antenas do topo, que fazem o enlace com o Relay. Faixa do tier no alto e na borda do topo, cinza, azul, roxa e dourada, e o Ultimate em netherite. Na frente, os 16 quadradinhos, a pilha ciano, o orbe verde e o baú laranja, com 10 traços cada, de 10% (2329). Um LED fica ciano com o par formado.
 - **Solar Relay:** 2 blocos de altura, com a base, a faixa do tier do Servidor, o painel inclinado, o mastro com a parabólica e a antena vertical com LED.
 - **Antena:** 2 blocos de altura, base de 6×6 px, mastro, parabólica e antena vertical com LED. A faixa inferior e o anel, na altura do olho do player, na cor do canal, e a outra faixa em cinza (2273).
-- **Movimento:** a parabólica da antena gira devagar ao transmitir, o LED pulsa, e o Servidor fica parado. As luzes são textura acesa, sem luz real (2281).
+- **Luzes:** textura acesa, sem luz real (2281).
+
+### Construção
+
+**Crítico (2336):** nenhum bloco quadrado com textura chapada. Os modelos têm profundidade, relevo, cor, sombreamento e realismo, acima do Dock de hoje (2337):
+
+| Meta | Network Server | Solar Relay | Signal Antenna |
+|---|---|---|---|
+| Cubos do modelo | 90 a 120 | 60 a 90 | 60 a 90 |
+| Textura | 1024×1024 | 1024×1024 | 1024×1024 |
+
+- **Relevo:** de 0,5 a 2 px, na geometria e não só pintado: grades, painéis recuados, parafusos, cabos, dobradiças e bordas.
+- **Faces:** nenhuma maior que 6×6 px sem relevo.
+- **Textura:** sombra nas juntas, brilho nas quinas, desgaste leve e materiais distintos, como metal escovado, plástico, vidro e borracha. Camada acesa para o que emite luz.
+- **Conferência:** prévia de todos os lados e em todos os estados, ao lado do Dock e da mesa, antes do teste no jogo.
+
+### Animações
+
+No GeckoLib, por estado, com o servidor decidindo o estado (2338). Parado, quase nada se move:
+
+- **Network Server:** tranca e partida ao ligar, ventoinhas atrás da grade, HDs piscando, barras que sobem e descem, e queda de luz ao perder a energia.
+- **Solar Relay:** o painel se desdobra em etapas, acompanha o sol e se guarda, e a parabólica se orienta ao transmitir.
+- **Signal Antenna:** o mastro se ergue ao ser colocada, e a parabólica procura e trava o sinal, e o perde.
+
+### Sons
+
+Por prompt, aceitos antes do código, baixos e com alcance curto. Os loops tocam só por perto (2339):
+
+| Bloco | Sons |
+|---|---|
+| Network Server | Partida, loop de ventoinha, queda, upgrade e aviso de UPS |
+| Solar Relay | Painel abrindo, painel fechando, trava e loop de transmissão |
+| Signal Antenna | Erguer, travar o sinal, perder o sinal, sinal de volta e ligar ao Servidor |
 
 ## Detalhes completados pelo agente
 
@@ -235,6 +267,7 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:58 | Acrescenta as metas de construção, as animações e os sons (perguntas 2336 a 2340). |
 | Zennd | 2026-11-24 22:42 | Escreve o contrato, com os nomes. |
 | Zennd | 2026-11-24 22:40 | Completa as taxas, a retomada, os estados, a cor do app e a última foto (perguntas 2326 a 2332). |
 | Zennd | 2026-11-24 22:26 | Cria o conceito da Network (perguntas 2196 a 2324). |

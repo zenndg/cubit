@@ -68,7 +68,7 @@ Entregue como um kanban, no GitHub Project "Cubit · Fase 5", um card por vez, e
 5. **Entregue:** Engineering Desk, com a fabricação em cascata, exclusiva do último tier, em dois PRs, com o conceito em [`cascata-da-mesa.md`](_docs/funcionalidades/cascata-da-mesa.md) na issue #253 (perguntas 1964 e 2006 a 2056).
 6. **Entregue:** XP Cubit e Dock, o XP do Cubit num tanque de líquido, passado ao tanque do Dock, de onde o player o puxa, na issue #244, em dois PRs: o Cubit, no #257, e o Dock, no #258 (perguntas 1762, 1787 a 1789, 1814 a 1851 e 2060 a 2130).
 7. **Entregue:** peças e crafting, com os itens do mod montados com peças compartilhadas, cada uma com uma função que vários itens têm em comum, na issue #259, com o conceito em [`pecas.md`](_docs/funcionalidades/pecas.md) (perguntas 2118 e 2131 a 2180).
-8. Network, a rede sem fio: o Servidor, o Solar Relay e a antena, com a energia, o carregamento de chunks, o log e o XP, depois das peças (perguntas 1777 a 1779, 1788, 2118 e 2196 a 2324). As 9 entregas estão em [Network](#network-a-rede-sem-fio-em-conceito).
+8. Network, a rede sem fio: o Servidor, o Solar Relay e a antena, com a energia, o carregamento de chunks, o log e o XP, depois das peças (perguntas 1777 a 1779, 1788, 2118 e 2196 a 2340). As 9 entregas estão em [Network](#network-a-rede-sem-fio-em-conceito).
 9. Robô de transporte, um segundo robô, em forma de caminhão, que só faz a logística: traz os recursos de cada farm para a base. Entra logo depois da Network, o Servidor e as Antenas, completa, e antes das outras profissões. A ideia está no [`backlog.md`](_docs/backlog.md#robô-de-transporte) e ainda vai ao refinamento (pergunta 2197).
 10. Storage wireless.
 
@@ -111,7 +111,8 @@ Em toda entrega:
 - [ ] bateria e tanque 4× o Dock, entrada por cabo e redstone, e upgrade pelos Modules
 - [ ] chave e UPS do chunk do Servidor, e inventário de 27 a 54 slots de 128, com as regras do Dock
 - [ ] as telas do Servidor, nas abas Energy e Storage, e do Solar Relay, com Rename
-- **Recursos:** 2 texturas do Servidor, 1 do Relay, 2 peças, ícones das abas e sons do Servidor
+- [ ] os modelos acima do Dock, com as animações por estado (perguntas 2336 a 2338)
+- **Recursos:** 2 texturas do Servidor, 1 do Relay, 2 peças, ícones das abas e 9 sons
 - **GameTests:** par, recusas, geração, tiers, quebrar e recolocar, chunk e UPS, slots de 128
 
 ### Entrega 4: Signal Antenna e chunks
@@ -122,7 +123,8 @@ Em toda entrega:
 - [ ] a energia até a antena e o chunk carregado, com 25 FE/t, o custo da distância, o UPS e a retomada uma a uma
 - [ ] os limites de 48 por player e 192 no mundo, o dono offline e o `/cubit network`
 - [ ] a parede do chunk, vista só pelo dono com o Tablet no app Network
-- **Recursos:** 1 textura da antena, 1 ícone de item e os sons de sinal
+- [ ] o modelo acima do Dock, com as animações do sinal (perguntas 2336 a 2338)
+- **Recursos:** 1 textura da antena, 1 ícone de item e 5 sons
 - **GameTests:** ligar, canais, limites, queda e volta de cada elo, dono offline, soma de FE
 
 ### Entrega 5: App Network, ligações e energia
