@@ -253,6 +253,13 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     return super.mouseReleased(mouseX, mouseY, button);
   }
 
+  /** The tabs are part of the window, so a click there never drops the carried item (#255). */
+  @Override
+  protected boolean hasClickedOutside(double mouseX, double mouseY, int left, int top, int button) {
+    return tabAt(mouseX, mouseY) == null
+        && super.hasClickedOutside(mouseX, mouseY, left, top, button);
+  }
+
   /** A plan on its way keeps the Cascade tab open, and a tier without it never opens it. */
   private void open(DeskTab wanted) {
     if (menu.cascade().locks()) {
