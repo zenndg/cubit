@@ -1,6 +1,6 @@
 # Network
 
-A rede sem fio do mod: o Network Server, o Solar Relay e a Signal Antenna. O conceito é do desenvolvedor e foi refinado nas perguntas 2196 a 2413, citadas só pelo número. As respostas em [`perguntas/`](../perguntas/fase-5-trabalhos.md) prevalecem. As entregas estão no [`ROADMAP.md`](../../ROADMAP.md#network-a-rede-sem-fio-em-andamento).
+A rede sem fio do mod: o Network Server, o Solar Relay e a Signal Antenna. O conceito é do desenvolvedor e foi refinado nas perguntas 2196 a 2425, citadas só pelo número. As respostas em [`perguntas/`](../perguntas/fase-5-trabalhos.md) prevalecem. As entregas estão no [`ROADMAP.md`](../../ROADMAP.md#network-a-rede-sem-fio-em-andamento).
 
 **Situação:** conceito autorizado (pergunta 2325). A Entrega 1, este conceito (PR #272), e a Entrega 2, a área desenhada (pergunta 2363, PR #274), já entraram na `integration/network`, a branch centralizadora, de onde sai e para onde vai toda entrega. A `develop` só recebe a feature completa (pergunta 2378). O código das outras espera a autorização própria do desenvolvedor (pergunta 2224). Os números estão em [`tiers.md`](../tiers.md#network), e cada chave entra no config com o código que a lê (pergunta 2349).
 
@@ -18,7 +18,7 @@ O player põe um Network Server e um Solar Relay na base e leva antenas aos luga
 | Transceiver | `cubit:transceiver` | Transceptor | Peça compartilhada |
 | Chunk Anchor | `cubit:chunk_anchor` | Âncora de Chunk | Peça compartilhada |
 
-Servidor, Relay e antena têm Rename e o nome padrão com 8 dígitos (2275). Todos só do dono, com o servidor do jogo conferindo (2259). Explosão e pistão não os afetam. Precisam de um topo sólido para ser colocados e não caem se ele sumir (2255).
+Servidor, Relay e antena têm Rename e o nome padrão com 8 dígitos (2275). Ao colocar um item novo de um deles, ou um Dock novo, abre a janela do nome, como a do Cubit: o nome padrão já vem no campo, e vazio, cancelar ou Esc o mantém. Recolocar não abre, porque o item guarda o ID, nem um item nomeado na bigorna (2420, 2422 e 2423). Todos só do dono, com o servidor do jogo conferindo (2259). Explosão e pistão não os afetam. Precisam de um topo sólido para ser colocados e não caem se ele sumir (2255).
 
 ## Regras da rede
 
@@ -102,7 +102,7 @@ Gera, transmite e guarda 300 mil FE e 32 baldes do que vai e vem (2289). O paine
 
 ## App Network
 
-Clique na antena, depois no Cubit, que fica ligado, e depois em cada Dock e baú, marcados para aquele Cubit. O Dock marcado já se liga à antena. Antena e Dock, sem Cubit, só liga a energia. Repetir o clique desfaz, e setas mostram tudo (2249). Os baús marcados fazem parte da rede (2249).
+Clique na antena, depois no Cubit, que fica ligado, e depois em cada Dock e baú, marcados para aquele Cubit. O Dock marcado já se liga à antena. Antena e Dock, sem Cubit, só liga a energia. Repetir o clique desfaz, e setas mostram tudo (2249). Os baús marcados fazem parte da rede (2249). Com o app selecionado, o nome do Dock, do Servidor, do Solar Relay e da antena do player aparece numa caixinha translúcida sobre cada um, a até 32 blocos, com a borda na cor do tier ou do canal, de frente para ele e mais fraca atrás dos blocos (2421, 2424 e 2425).
 
 | Por Cubit | Base | Advanced | Elite | Ultimate |
 |---|---|---|---|---|
@@ -308,6 +308,7 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 14:22 | Acrescenta a janela do nome e os nomes flutuantes do app Network (perguntas 2420 a 2425). |
 | Zennd | 2026-11-25 14:00 | Tira o bloqueio das receitas (pergunta 2419) e acompanha a numeração nova das respostas (pergunta 2418). |
 | Zennd | 2026-11-25 12:16 | Completa o contrato da Entrega 3, com as chaves dos saves e a volta do dono (perguntas 2410 a 2413). |
 | Zennd | 2026-11-25 11:32 | Detalha as telas da Entrega 3 (pergunta 2397). |

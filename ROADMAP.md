@@ -113,13 +113,14 @@ Em toda entrega:
 - [ ] chave e UPS do chunk do Servidor, com os limites de 48 por player e 192 no mundo, o dono offline e a retomada com 30 mil FE (perguntas 2369 e 2372)
 - [ ] inventário de 27 a 54 slots de 128, com as regras do Dock
 - [ ] as telas do Servidor, nas abas Energy e Storage, e do Solar Relay, com Rename
+- [ ] a janela do nome ao colocar o Dock, o Servidor e o Solar Relay (perguntas 2420, 2422 e 2423)
 - [ ] os modelos acima do Dock, com as animações por estado (perguntas 2336 a 2338)
 - **Recursos:** 2 texturas do Servidor, 1 do Relay, 2 peças, ícones das abas e 9 sons
 - **GameTests:** par, recusas, geração, tiers, quebrar e recolocar, chunk, UPS, limites, dono offline, slots de 128 e somas de FE
 
 ### Entrega 4: Signal Antenna e chunks
 
-- [ ] o item, a receita, o modelo, as 16 cores com o fio de contorno e a tela, com as três chaves
+- [ ] o item, a receita, o modelo, as 16 cores com o fio de contorno e a tela, com as três chaves e a janela do nome
 - [ ] a ligação ao Servidor, o canal escolhido pelo player, a ordem fixa em inglês e 4, 8, 12 e 16 por tier
 - [ ] um de cada bloco por chunk, de qualquer dono, e a reconexão ao mover o Servidor ou a antena
 - [ ] a energia até a antena e o chunk carregado, com 25 FE/t, o custo da distância, o UPS e a retomada uma a uma
@@ -136,6 +137,7 @@ Em toda entrega:
 - [ ] 1, 4 e 9 antenas por Cubit, em chunks vizinhos, e a área desenhada dentro deles
 - [ ] 1, 2, 4 e 6 baús e Docks por tier, e 12, 18 e 25 baús do Organizador, de qualquer storage, a qualquer distância nos chunks
 - [ ] a energia até o Dock, com a divisão por igual
+- [ ] os nomes flutuantes com o app Network, com a prévia antes (perguntas 2421, 2424 e 2425)
 - **Recursos:** 1 ícone do app
 - **GameTests:** ligações, recusas, vizinhança, energia curta e soma de FE
 
