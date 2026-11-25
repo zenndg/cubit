@@ -226,7 +226,8 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `network` | `release_when_owner_offline` | Solta os chunks com o dono offline | Ligado ou desligado |
 | `network` | `chunks_per_player` e `chunks_per_world` | Chunks por player e no mundo, com 0 para sem limite | 0 a 2147483647 |
 | `network` | `chunk_cost` | Chunk, por tick | 0 a 2147483647 |
-| `network` | `chunk_resume_energy` | Carga com que o Servidor zerado volta a segurar o chunk | 0 a 2147483647 |
+| `network` | `chunk_resume_energy` | Carga mínima com que o Servidor zerado volta a segurar o chunk | 0 a 2147483647 |
+| `network` | `chunk_resume_seconds` | Tempo do gasto inteiro que essa carga paga | 0 a 3600 |
 | `network` | `wake_interval_ticks` | Intervalo entre um chunk e outro quando o dono volta | 1 a 1200 |
 | `network` | `server_ups_percent` | UPS padrão do Servidor | 0 a 50 |
 | `network` | `relay_energy_capacity` e `relay_input_per_tick` | Solar Relay: bateria e entrada | 1 a 2147483647 |
@@ -236,6 +237,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `network.{tier}` | `input_per_tick` | Network Server, a entrada por cabo e redstone | 1 a 2147483647 |
 | `network.{tier}` | `storage_slots` | Network Server, os slots | 9 a 54 |
 | `network.{tier}` | `relay_solar_per_tick` e `relay_solar_night_per_tick` | Solar Relay, de dia e à noite | 0 a 2147483647 |
+| `network.{tier}` | `standby_per_tick` e `relay_standby_per_tick` | Gasto do Servidor ligado e do Solar Relay com par | 0 a 2147483647 |
 
 ## Por que esses limites
 
@@ -276,6 +278,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado, na seção `network` (pergunta 2442). |
 | Zennd | 2026-11-25 14:00 | Acompanha a numeração nova das respostas da Entrega 3 da Network (pergunta 2418). |
 | Zennd | 2026-11-25 12:34 | Acrescenta `wake_interval_ticks`, na seção `network` (perguntas 2330 e 2413). |
 | Zennd | 2026-11-25 11:58 | Acrescenta as chaves do Network Server e do Solar Relay (perguntas 2334, 2349 e 2376). |

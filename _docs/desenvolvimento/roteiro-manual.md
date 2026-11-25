@@ -1548,8 +1548,11 @@ Antes, apague o `config/cubit-common.toml` da instância de teste (pergunta 2324
 | 17 | Tire itens de um slot com 128, com clique, Shift + clique, tecla de atalho e soltar, e reabra o mundo | Sai no máximo uma pilha normal por vez, e os 128 continuam no slot ao voltar |
 | 18 | Quebre o Servidor com o Relay ao lado, e recoloque | O painel se guarda, e a faixa fica cinza, com o motivo na tela. Com o Servidor, tudo volta |
 | 19 | Num servidor, saia com o dono, e entre de novo | O chunk do Servidor sai, e volta quando ele entra |
-| 20 | Zere a bateria e devolva a energia aos poucos | O chunk sai, e volta com 30 mil FE |
+| 20 | Zere a bateria e devolva a energia aos poucos | O chunk sai, e volta com o que paga 60 s: 54 mil FE num Base sem Relay |
 | 21 | Coloque um Dock, um Servidor e um Solar Relay novos. Confirme um nome num, deixe vazio noutro e feche com Esc no terceiro. Quebre e recoloque | A janela abre com o nome padrão no campo. O primeiro fica com o nome dado, e os outros, com o padrão. Ao recolocar, não abre |
+| 22 | Com o Servidor Base cheio, sem sol, olhe o Fluxo, passe o mouse na linha `Server and chunk` e ponha o Relay | 45 FE/t, e 47 com o Relay. O mouse mostra as três partes, e o tempo do UPS conta com tudo |
+| 23 | Desligue a chave do chunk | O gasto do Servidor continua, sem os 25 do chunk |
+| 24 | Ligue o `View` e segure o Tablet, solte o Tablet, e olhe com outro player | A parede ciano, de 1 px, em volta do chunk, até 16 blocos acima. Sem o Tablet, some, e o outro player não vê. Reabrir o mundo e quebrar e recolocar a mantêm |
 
 ### Entrega 4: Signal Antenna e chunks
 
@@ -1713,6 +1716,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado e a parede do chunk à Entrega 3 da Network (perguntas 2438, 2440 e 2448). |
 | Zennd | 2026-11-25 14:30 | Acrescenta a janela do nome à Entrega 3 da Network (pergunta 2422). |
 | Zennd | 2026-11-25 14:00 | Tira o Advanced Module das receitas da Entrega 3 da Network (pergunta 2419). |
 | Zennd | 2026-11-25 12:27 | Tira o bloqueio das receitas dos roteiros da mesa, das peças, da Power Bank e da cascata (pergunta 2400). |

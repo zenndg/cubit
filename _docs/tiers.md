@@ -268,6 +268,8 @@ Planejado, na `0.2.0`, e ainda fora do código, menos o desenho da área, descri
 | Slots, de 128 itens cada, `storage_slots` (pergunta 2267) | 27 | 36 | 45 | 54 |
 | Solar Relay, de dia, `relay_solar_per_tick` (pergunta 2220) | 500 FE/t | 1.000 FE/t | 2.000 FE/t | 4.000 FE/t |
 | Solar Relay, à noite, `relay_solar_night_per_tick` (pergunta 2223) | — | — | — | 1.000 FE/t |
+| Servidor ligado, `standby_per_tick` (pergunta 2435) | 20 FE/t | 40 FE/t | 80 FE/t | 160 FE/t |
+| Solar Relay com par, pago pelo Servidor, `relay_standby_per_tick` (perguntas 2435 e 2436) | 2 FE/t | 5 FE/t | 15 FE/t | 40 FE/t |
 
 | Por Cubit, em `[general_robot.{tier}]` | Base | Avançado | Elite | Ultimate |
 |---|---|---|---|---|
@@ -284,7 +286,8 @@ Planejado, na `0.2.0`, e ainda fora do código, menos o desenho da área, descri
 | Chunk, por tick, `chunk_cost` (pergunta 2216) | 25 FE |
 | Distância: livre, passo e custo, `distance_free_blocks`, `distance_step_blocks` e `distance_cost` (pergunta 2310) | 100 blocos, 500 blocos e 1 FE/t |
 | Retomada, entre um chunk e outro do mesmo dono, `wake_interval_ticks` (perguntas 2330 e 2413) | 2 s (40 ticks) |
-| Carga com que o Servidor zerado volta a segurar o chunk, `chunk_resume_energy` (perguntas 2372 e 2376) | 30 mil FE |
+| Carga mínima com que o Servidor zerado volta a segurar o chunk, `chunk_resume_energy` (perguntas 2372, 2376 e 2438) | 30 mil FE |
+| Tempo do gasto inteiro que essa carga paga, `chunk_resume_seconds` (perguntas 2438 e 2442) | 60 s |
 | Antena sem sinal até parar, `signal_loss_ticks` (pergunta 2323) | 20 min (24.000 ticks) |
 | Antena: bateria e tanque, `antenna_energy_capacity` e `antenna_xp_tank_capacity` (pergunta 2273) | 600 mil FE e 64 baldes |
 | Antena: o que recebe da rede e por cabo, `antenna_input_per_tick` (perguntas 2276 e 2326) | 5.000 FE/t |
@@ -375,6 +378,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado do Servidor e do Solar Relay (perguntas 2435 a 2442). |
 | Zennd | 2026-11-25 14:00 | Acompanha a numeração nova das respostas da Entrega 3 da Network (pergunta 2418). |
 | Zennd | 2026-11-25 12:34 | Estende `wake_interval_ticks` aos chunks dos Servidores (pergunta 2413). |
 | Zennd | 2026-11-25 09:55 | Confirma o nome da chave da retomada (pergunta 2376). |
