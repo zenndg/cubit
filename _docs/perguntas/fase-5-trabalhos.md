@@ -1454,11 +1454,15 @@ Não há perguntas pendentes nesta fase.
 | 2507 | O gasto por ficar ligado, por tempo (2506) ou por tick? | "vamos manter entao por tique": continua por tick, com os números da 2435, depois de ver que 1 FE a cada X segundos faria o estoque durar dias ou anos. Desfaz a 2506 |
 | 2508 | Pedido do desenvolvedor: a Engineering Desk gasta por ficar ligada? | "a mesa nao tera gasto por de FE passivo ela somente gasta quando utilizada para crafting": não. A mesa só gasta no craft, 3.500 FE por item, também na cascata (2441). Confirma o que o conceito já dizia |
 | 2509 | Dock e mesa (#279): o conceito, com o Dock cheio quando só falta o gasto de um tick, a mesma regra nas barras do Servidor e o código estão autorizados (regra 54)? | Sim, como recomendado: o gasto do Dock por tick, a linha `Input +25 · Uses 3 FE/t`, 3.500 FE por craft também na cascata, o cheio com a margem de um tick no Dock e, num `fix:` à parte, nas barras do Servidor. Nenhum recurso novo (regra 59) |
+| 2510 | GameTests do gasto do Dock, do custo da mesa e das barras do Servidor: agora ou depois? | "vamos deixar o gametests quando for entregar a parte 3": só no fechamento da entrega 3, antes do PR, como manda a regra 57. Até lá, as GameTests do Dock que contam a energia exata ficam quebradas, e o ajuste delas entra no fechamento |
+| 2511 | A parede do chunk não apareceu ao pressionar `View`: é bug? | Não: "esta tudo ok era tablet fora da mao". Com o Tablet na mão, ela aparece, como decidido na 2448. O agente propôs uma dica no botão dizendo que é preciso o Tablet na mão, ainda sem resposta |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 20:21 | Registra a resposta 2511. |
+| Zennd | 2026-11-25 20:07 | Registra a resposta 2510. |
 | Zennd | 2026-11-25 19:52 | Registra a resposta 2509. |
 | Zennd | 2026-11-25 19:51 | Registra a resposta 2508. |
 | Zennd | 2026-11-25 19:50 | Registra a resposta 2507. |
