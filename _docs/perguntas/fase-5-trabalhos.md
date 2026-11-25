@@ -1331,11 +1331,28 @@ Não há perguntas pendentes nesta fase.
 | 2384 | Network, entrega 3: as geometrias do Servidor e do Solar Relay, sem textura, são aceitas? | Sim, com correções no Relay: o painel segue o sol até 11°, porque 12° ainda passam 0,05 px do bloco, só inclina depois de desdobrar, para a folha não atravessar a coluna, e o pescoço, o garfo e o braço da parabólica recuam, porque as folhas, a célula e o mastro eram invadidos. O Servidor fica como está, com a porta abrindo 20°. A prévia e as medidas são mostradas de novo antes do gabarito UV. A recomendação foi aceita |
 | 2385 | Network, entrega 3: como o painel do Solar Relay acompanha o sol com o bloco virado para leste ou oeste? | Por dois eixos: virado para norte ou sul, inclinado para a frente, gira 11° de lado. Para leste ou oeste, quase deitado, vai de 79° a 101° no eixo da frente, também 11° para cada lado. A recomendação foi aceita. Detalha a 2376, no detalhe 10 |
 | 2386 | O `Disclose AI Usage` do plugin MCP do Blockbench (2380) | Desligar, pelo desenvolvedor, no Blockbench. A recomendação foi aceita. Conferir antes de gravar um `.bbmodel`. Detalha a 2380 |
+| 2387 | Network, entrega 3: a prévia nova do Solar Relay, com as folhas girando pela frente, o painel 0,35 px à frente e o cabo do mastro 0,6 px mais curto (2384), está aprovada? | "ok", lido como sim para a prévia. O `Disclose AI Usage` (2386) segue sem confirmação. Não autoriza o código (pergunta 2224) |
+| 2388 | Network, entrega 3: a tonalidade do metal do Servidor e do Solar Relay, entre a atual, grafite, a média e a clara | A clara ("gostei da opcao mais clara"), um alumínio claro, perto do cinza do Dock, com o fundo das lâmpadas escuro e o Ultimate em netherite escuro. Pedido do desenvolvedor, e a recomendação foi aceita, com o desgaste em marcas mais escuras e a faixa do Base conferida em prévia. Muda a cor das pranchas da 2341 |
+| 2389 | Network, entrega 3: a textura clara do Servidor e do Solar Relay, com o desgaste escuro e as cores reais das faixas (2388), está como o desenvolvedor queria? | Sim: "1. aprovado a mais clara top". O caminho da textura final, por script ou por prompt, é pedido à parte |
+| 2390 | Network, entrega 3: como sai a textura final do Servidor e do Solar Relay? | Por script, refinando a versão clara aprovada (2389), com mais relevo pintado nas costas do painel do Relay e na caixa de junção do Servidor. A prévia é mostrada antes de valer. A recomendação foi aceita. Os prompts 1 a 3 ficam sem uso |
+| 2391 | Network, entrega 3: os tempos das animações do Servidor e do Solar Relay | Partida do Servidor em 3 s, queda em 1,5 s, e o painel do Relay abrindo em 4 s e fechando em 4 s. A recomendação foi aceita. Detalha a 2338 |
+| 2392 | Network, entrega 3: os prompts 4 a 15, das 2 peças, do ícone da aba Energy e dos 9 sons, estão aceitos para gerar os arquivos (regra 59)? | Sim, todos. A recomendação foi aceita |
+| 2393 | Network, entrega 3: o "ok" da 2387 valia para a prévia do Solar Relay corrigido? | Sim, aprovada. A recomendação foi aceita. Confirma a 2387 |
+| 2394 | Network, entrega 3: as texturas refinadas do Servidor e do Solar Relay (2390) são as finais? | Sim ("1 sim"), `network_server`, `network_server_ultimate` e `solar_relay`, com as camadas acesas delas. Entram no jar com o código, ainda sem autorização (pergunta 2224) |
+| 2395 | Network, entrega 3: quais imagens das peças e da aba entram? | O `energy_tab` como foi gerado e as versões ajustadas do `transceiver`, com o contorno que faltava, e da `chunk_anchor`, redesenhada com o bloco de obsidiana preso por grampos sobre a base, em `tmp/arte/network/entrega3/ajustadas/`. A recomendação foi aceita |
+| 2396 | Network, entrega 3: os nove sons, em `tmp/wav/network/`, estão aceitos? | Sim, com ajuste do agente, sem gerar de novo: o fim da partida e do upgrade suavizado e a trava do painel uns 6 dB mais alta, com as versões mostradas. A recomendação foi aceita |
+| 2397 | Network, entrega 3: as prévias das telas Energy e Storage do Servidor e da tela do Solar Relay estão aprovadas? | Sim, as três, com o Rename e o dono na aba Energy até a aba Network existir, as abas no lugar definitivo, com os vãos das outras, o tier do Relay na linha do par e a quantidade de 3 dígitos em letra menor. A recomendação foi aceita. Não autoriza o código (pergunta 2224) |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 11:32 | Registra as respostas 2395 a 2397. |
+| Zennd | 2026-11-25 11:20 | Registra a resposta 2394. |
+| Zennd | 2026-11-25 11:09 | Registra as respostas 2390 a 2393. |
+| Zennd | 2026-11-25 11:08 | Registra a resposta 2389. |
+| Zennd | 2026-11-25 11:06 | Registra a resposta 2388. |
+| Zennd | 2026-11-25 10:55 | Registra a resposta 2387. |
 | Zennd | 2026-11-25 10:43 | Registra as respostas 2384 a 2386. |
 | Zennd | 2026-11-25 10:14 | Registra a resposta 2383. |
 | Zennd | 2026-11-25 10:12 | Registra as respostas 2380 a 2382. |

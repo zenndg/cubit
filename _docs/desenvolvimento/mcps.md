@@ -36,7 +36,9 @@ Ficam em Settings > General, e as duas vêm ligadas de fábrica:
 | Opção | O que faz | Situação |
 |---|---|---|
 | Enable risky_eval | Executa qualquer JavaScript que um cliente MCP enviar, com as permissões do plugin | Desligado pelo desenvolvedor (pergunta 2383), conferido no servidor em 2026-11-25 |
-| Disclose AI Usage | Grava no `.bbmodel` quais clientes de IA o editaram | A desligar pelo desenvolvedor (pergunta 2386), ainda sem conferência |
+| Disclose AI Usage | Grava no `.bbmodel` quais clientes de IA o editaram | Desligado pelo desenvolvedor (pergunta 2386), conferido nas opções gravadas do Blockbench em 2026-11-25 |
+
+O `bbmodel` grava a mesma marca por conta própria, e a opção do Blockbench não o alcança: ele só para com `--no-ai-disclosure` no registro. O formato do GeckoLib, que vai ao jar, é escrito pelos scripts e não leva a marca.
 
 O servidor só aceita conexões da própria máquina. O `MCP Server Host` fica em `localhost`. Para conferir o `risky_eval`, peça a lista ao `get_capabilities`, com `include_tools`: ele deve aparecer com `enabled: false`. Sem projeto aberto, a maioria das ferramentas também aparece assim, e o `risky_eval` depende só da opção.
 
@@ -53,6 +55,8 @@ O servidor só aceita conexões da própria máquina. O `MCP Server Host` fica e
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 11:23 | Confere o `Disclose AI Usage` desligado no Blockbench (pergunta 2386). |
+| Zennd | 2026-11-25 11:10 | Explica que o `bbmodel` grava a marca de IA por conta própria (pergunta 2386). |
 | Zennd | 2026-11-25 10:43 | Decide desligar o `Disclose AI Usage` (pergunta 2386). |
 | Zennd | 2026-11-25 10:37 | Confere o `risky_eval` e diz como conferir (pergunta 2383). |
 | Zennd | 2026-11-25 10:14 | Registra o `risky_eval` desligado (pergunta 2383). |

@@ -1,6 +1,6 @@
 # Network
 
-A rede sem fio do mod: o Network Server, o Solar Relay e a Signal Antenna. O conceito é do desenvolvedor e foi refinado nas perguntas 2196 a 2385, citadas só pelo número. As respostas em [`perguntas/`](../perguntas/fase-5-trabalhos.md) prevalecem. As entregas estão no [`ROADMAP.md`](../../ROADMAP.md#network-a-rede-sem-fio-em-andamento).
+A rede sem fio do mod: o Network Server, o Solar Relay e a Signal Antenna. O conceito é do desenvolvedor e foi refinado nas perguntas 2196 a 2397, citadas só pelo número. As respostas em [`perguntas/`](../perguntas/fase-5-trabalhos.md) prevalecem. As entregas estão no [`ROADMAP.md`](../../ROADMAP.md#network-a-rede-sem-fio-em-andamento).
 
 **Situação:** conceito autorizado (pergunta 2325). A Entrega 1, este conceito (PR #272), e a Entrega 2, a área desenhada (pergunta 2363, PR #274), já entraram na `integration/network`, a branch centralizadora, de onde sai e para onde vai toda entrega. A `develop` só recebe a feature completa (pergunta 2378). O código das outras espera a autorização própria do desenvolvedor (pergunta 2224). Os números estão em [`tiers.md`](../tiers.md#network), e cada chave entra no config com o código que a lê (pergunta 2349).
 
@@ -176,6 +176,7 @@ Do rascunho do desenvolvedor, com as pranchas aceitas como referência na pergun
 - **Solar Relay:** 2 blocos de altura, com a base, a faixa do tier do Servidor, o painel inclinado, o mastro com a parabólica e a antena vertical com LED.
 - **Antena:** 2 blocos de altura, base de 6×6 px, mastro, parabólica e antena vertical com LED. A faixa inferior e o anel, a cerca de 1,4 bloco, logo abaixo da parabólica, na cor do canal, e a outra faixa em cinza (2273 e 2342). A parabólica é um prato côncavo, em degraus (2341).
 - **Correções das pranchas (2341 e 2344):** a base do Relay tem 9 a 10 px, para o painel aberto caber em 16. O Servidor tem 4 HDs, 2 antenas e 2 ventoinhas por lado, as lâmpadas acesas mostram a forma do estado, e o Ultimate se distingue em netherite.
+- **Cor do metal (2388):** alumínio claro no Servidor e no Relay, perto do cinza do Dock, no lugar do grafite das pranchas, com o desgaste em marcas mais escuras. O fundo das lâmpadas continua escuro, e o Ultimate, em netherite escuro.
 - **Luzes:** textura acesa, sem luz real (2281).
 
 ![O Network Server, as vistas, os tiers e a sequência](../imagens/conceito/network-server.webp)
@@ -204,6 +205,7 @@ Do rascunho do desenvolvedor, com as pranchas aceitas como referência na pergun
 
 No GeckoLib, por estado, com o servidor decidindo o estado (2338). Parado, quase nada se move. As ventoinhas giram só com FE entrando ou carregando Power Bank, e o Relay transmite enquanto o sol vai ao Servidor e, da Entrega 5 em diante, também às antenas, cada um com o seu loop de som (2375):
 
+- **Tempos (2391):** partida do Servidor em 3 s, queda em 1,5 s, e o painel do Relay abrindo em 4 s e fechando em 4 s.
 - **Network Server:** tranca e partida ao ligar, ventoinhas atrás da grade, HDs piscando, barras que sobem e descem, e queda de luz ao perder a energia.
 - **Solar Relay:** o painel se desdobra em etapas, acompanha o sol e se guarda, e a parabólica se orienta ao transmitir.
 - **Signal Antenna:** o mastro se ergue ao ser colocada, e a parabólica procura e trava o sinal, e o perde.
@@ -268,7 +270,7 @@ Propostos pelo agente, conferidos contra o código e autorizados em bloco, sem v
 14. **Limite de chunks:** acima dele, o Servidor funciona sem segurar o chunk, e a tela diz o motivo. Vale quem chegou primeiro.
 15. **Dono offline:** o chunk sai. Se outro player o mantém carregado, o Servidor continua gerando e carregando, sem pagar os 25 FE/t.
 16. **Estado no item:** o Servidor com itens ou energia não cabe num shulker nem num inventário do mod. Vazio, cabe.
-17. **Abas:** Energy e Storage, na ordem da 2277, com os lugares das outras livres. O ícone de Storage é o do Dock, e o de Energy é novo.
+17. **Abas:** Energy e Storage, na ordem da 2277, com os lugares das outras livres. O ícone de Storage é o do Dock, e o de Energy é novo. O Rename e o dono ficam na aba Energy até a aba Network existir, o tier do Relay aparece na linha do par, na tela dele, e a quantidade de 3 dígitos sai em letra menor (2397).
 18. **Receitas:** as duas peças em grade, como as outras peças, e os dois blocos sem forma, como o Dock.
 19. **Config:** `chunk_resume_energy`, em `[network]`, com 30.000. As outras chaves já estão em [`tiers.md`](../tiers.md#network) e entram com o código que as lê.
 20. **Saves:** nada do Dock muda. O formato do slot é uma lista com `Slot`, o item com 1 e `Amount`.
@@ -306,6 +308,9 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 11:32 | Detalha as telas da Entrega 3 (pergunta 2397). |
+| Zennd | 2026-11-25 11:10 | Acrescenta os tempos das animações da Entrega 3 (pergunta 2391). |
+| Zennd | 2026-11-25 11:07 | Troca o metal das pranchas pelo claro (pergunta 2388). |
 | Zennd | 2026-11-25 10:43 | Aceita as geometrias da Entrega 3 e detalha como o painel acompanha o sol (perguntas 2384 e 2385). |
 | Zennd | 2026-11-25 09:55 | Autoriza os detalhes da Entrega 3 e cita a branch centralizadora (perguntas 2376 e 2378). |
 | Zennd | 2026-11-25 09:52 | Fecha as lacunas da Entrega 3 e propõe os detalhes dela (perguntas 2368 a 2375). |
