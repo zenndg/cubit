@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.entity;
 
 import io.github.zenndg.cubit.CubitMod;
+import io.github.zenndg.cubit.domain.robot.AreaColumn;
 import io.github.zenndg.cubit.domain.robot.WorkArea;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
@@ -40,8 +41,8 @@ final class AreaReturn {
       reset();
       return;
     }
-    Vec3 center = new Vec3(area.centerX(), levelIn(area), area.centerZ());
-    double distance = robot.position().subtract(center).horizontalDistance();
+    Vec3 heart = heartOf(area);
+    double distance = robot.position().subtract(heart).horizontalDistance();
     if (distance < nearest - PROGRESS_BLOCKS) {
       nearest = distance;
       stuckTicks = 0;
@@ -51,7 +52,7 @@ final class AreaReturn {
     }
     if (--repathCountdown <= 0) {
       repathCountdown = CubitMod.CONFIG.followRepathTicks();
-      robot.getNavigation().moveTo(center.x, center.y, center.z, ROUTE_SPEED_MODIFIER);
+      robot.getNavigation().moveTo(heart.x, heart.y, heart.z, ROUTE_SPEED_MODIFIER);
     }
   }
 
@@ -66,11 +67,9 @@ final class AreaReturn {
   void appearInside(WorkArea area) {
     reset();
     for (int attempt = 0; attempt < TELEPORT_ATTEMPTS; attempt++) {
-      BlockPos target =
-          new BlockPos(
-              between(area.min().x(), area.max().x()),
-              between(area.min().y() + 1, area.max().y() + 1),
-              between(area.min().z(), area.max().z()));
+      AreaColumn column = area.column(robot.getRandom().nextInt(area.columnCount()));
+      int level = robot.getRandom().nextIntBetweenInclusive(area.min().y() + 1, area.max().y() + 1);
+      BlockPos target = new BlockPos(column.x(), level, column.z());
       if (FollowOwnerGoal.canStandAt(robot, target)) {
         Vec3 spot = Vec3.atBottomCenterOf(target);
         robot.moveTo(spot.x, spot.y, spot.z, robot.getYRot(), robot.getXRot());
@@ -85,7 +84,9 @@ final class AreaReturn {
     return Math.clamp(robot.getY(), area.min().y() + 1, area.max().y() + 1);
   }
 
-  private int between(int low, int high) {
-    return robot.getRandom().nextIntBetweenInclusive(low, high);
+  /** The middle of the area, at the height it walks. */
+  Vec3 heartOf(WorkArea area) {
+    WorkArea.Place heart = area.heart();
+    return new Vec3(heart.x(), levelIn(area), heart.z());
   }
 }

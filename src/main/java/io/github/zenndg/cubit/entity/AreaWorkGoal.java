@@ -91,7 +91,7 @@ final class AreaWorkGoal extends Goal {
       return;
     }
     boolean inside = area.contains(robot.getX(), robot.getY(), robot.getZ());
-    Vec3 target = inside ? spotOf(area, area.corner(corner)) : centerOf(area);
+    Vec3 target = inside ? spotOf(area, area.corner(corner)) : back.heartOf(area);
     double distance = robot.position().subtract(target).horizontalDistance();
     if (inside && distance < ARRIVED_BLOCKS) {
       reachedCorner();
@@ -185,9 +185,5 @@ final class AreaWorkGoal extends Goal {
    */
   private Vec3 spotOf(WorkArea area, AreaCorner corner) {
     return new Vec3(corner.x() + HALF, back.levelIn(area), corner.z() + HALF);
-  }
-
-  private Vec3 centerOf(WorkArea area) {
-    return new Vec3(area.centerX(), back.levelIn(area), area.centerZ());
   }
 }

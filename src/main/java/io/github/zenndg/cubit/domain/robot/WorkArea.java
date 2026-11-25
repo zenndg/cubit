@@ -8,7 +8,7 @@ import io.github.zenndg.cubit.domain.tier.AreaSpec;
  */
 public record WorkArea(AreaCorner min, AreaCorner max, String dimension) {
   /** The corners of the base, which the round walks in a loop. */
-  public static final int CORNERS = 4;
+  private static final int CORNERS = 4;
 
   /** How near both edges a place counts as at a corner, for the way out (answer 1626). */
   private static final double CORNER_REACH = 2;
@@ -140,19 +140,32 @@ public record WorkArea(AreaCorner min, AreaCorner max, String dimension) {
     return max.y() + 2;
   }
 
-  public double centerX() {
-    return (min.x() + max.x() + 1) * HALF;
+  /** A place on the ground, whatever the height. */
+  public record Place(double x, double z) {}
+
+  /** Where the Cubit heads to when it is outside: the middle of the area. */
+  public Place heart() {
+    return new Place((min.x() + max.x() + 1) * HALF, (min.z() + max.z() + 1) * HALF);
   }
 
-  public double centerZ() {
-    return (min.z() + max.z() + 1) * HALF;
+  /** How many columns of blocks the area has, numbered from zero for the scans. */
+  public int columnCount() {
+    return width() * depth();
+  }
+
+  public AreaColumn column(int index) {
+    return new AreaColumn(min.x() + index % width(), min.z() + index / width());
   }
 
   /** The center of the base within a radius of a point, as the reach of a tier (answer 1058). */
   public boolean centerWithin(double x, double z, int radius) {
-    double dx = centerX() - x;
-    double dz = centerZ() - z;
+    double dx = heart().x() - x;
+    double dz = heart().z() - z;
     return dx * dx + dz * dz <= (double) radius * radius;
+  }
+
+  public int cornerCount() {
+    return CORNERS;
   }
 
   /**
