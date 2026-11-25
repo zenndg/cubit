@@ -126,7 +126,7 @@ Entra com a coleta e o ímã, no item 9 da Fase 4.1 (perguntas 878 a 888). As re
 
 ### Quem abre
 
-- **Shift + clique direito**, como hoje. O clique continua chamando ou liberando o Cubit (pergunta 678).
+- **Clique direito**, também com um Cubit na base. O Shift + clique direito, com as duas mãos vazias, chama ou libera o Cubit, e os itens de [`energia.md`](energia.md#dono-e-tela) continuam fazendo o que faziam (perguntas 2122 a 2124, que mudam a 678).
 - **Só o dono**, validado no servidor (regra 20).
 
 ### Aba Storage
@@ -262,6 +262,7 @@ Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:43 | Corrige o clique que abre a tela do Dock (perguntas 2122 e 2335). |
 | Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-24 10:06 | Troca o clique que abre a tela do Dock (pergunta 2122). |
 | Zennd | 2026-11-24 09:56 | Acrescenta a aba XP do Dock (perguntas 1837 e 2114). |

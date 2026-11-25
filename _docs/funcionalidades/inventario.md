@@ -75,7 +75,7 @@ Entra com o item 14 da Fase 4.2, numa entrega só (perguntas 1086 a 1095).
 
 Vazios, os slots exclusivos mostram uma silhueta cinza do que vai neles, como os slots de armadura do jogo: uma bateria com um raio na energia, uma tocha, o cartão no slot do card e a farinha de osso no de fertilizante (perguntas 1256 e 1257).
 
-São quatro: tochas, energia, o card de Aprendizado de Máquina, que entra com a base do trabalho, descrita em [`trabalhos.md`](trabalhos.md#card-no-cubit) (pergunta 1162), e o fertilizante do Fazendeiro, que só aparece com o card dele, descrito em [`fazendeiro.md`](trabalhos/fazendeiro.md#fertilizante) (perguntas 1243 e 1244). O Tablet ativa ou desativa as tochas, na aba Recursos, e o slot de energia fica sempre ligado. A fornalha de minérios foi para o [Minerador](trabalhos.md#minerador), na Fase 5, e o carregador de ferramentas saiu do mod (pergunta 930).
+São quatro: tochas, energia, o card de Aprendizado de Máquina, que entra com a base do trabalho, descrita em [`trabalhos.md`](trabalhos.md#card-no-cubit) (pergunta 1162), e o fertilizante do Fazendeiro, que só aparece com o card dele, descrito em [`fazendeiro.md`](trabalhos/fazendeiro.md#fertilizante) (perguntas 1243 e 1244). O Tablet ativa ou desativa as tochas, na aba Recursos, e o slot de energia fica sempre ligado. A fornalha de minérios foi para o [Minerador](trabalhos/minerador.md), na Fase 5, e o carregador de ferramentas saiu do mod (pergunta 930).
 
 - **Fileira:** os slots exclusivos ficam numa fileira acima do inventário do Cubit, com o título `Exclusive slots` / `Slots exclusivos`. O slot de energia continua ao lado das barras (perguntas 980 e 984).
 - **Tochas automáticas:** do Advanced em diante, com tochas no slot, o Cubit as coloca sozinho onde mobs podem nascer. Veja [Tochas](#tochas).
@@ -104,6 +104,7 @@ Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-24 22:43 | Corrige o link do Minerador (pergunta 2335). |
 | Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-24 08:16 | Aponta para as bolinhas de XP (perguntas 1822 e 1850). |
 | Marcelo Fabiano | 2026-11-15 14:20 | Acrescenta os ícones dos slots exclusivos vazios e o slot de fertilizante (perguntas 1244, 1256 e 1257). |
