@@ -1456,11 +1456,22 @@ Não há perguntas pendentes nesta fase.
 | 2509 | Dock e mesa (#279): o conceito, com o Dock cheio quando só falta o gasto de um tick, a mesma regra nas barras do Servidor e o código estão autorizados (regra 54)? | Sim, como recomendado: o gasto do Dock por tick, a linha `Input +25 · Uses 3 FE/t`, 3.500 FE por craft também na cascata, o cheio com a margem de um tick no Dock e, num `fix:` à parte, nas barras do Servidor. Nenhum recurso novo (regra 59) |
 | 2510 | GameTests do gasto do Dock, do custo da mesa e das barras do Servidor: agora ou depois? | "vamos deixar o gametests quando for entregar a parte 3": só no fechamento da entrega 3, antes do PR, como manda a regra 57. Até lá, as GameTests do Dock que contam a energia exata ficam quebradas, e o ajuste delas entra no fechamento |
 | 2511 | A parede do chunk não apareceu ao pressionar `View`: é bug? | Não: "esta tudo ok era tablet fora da mao". Com o Tablet na mão, ela aparece, como decidido na 2448. O agente propôs uma dica no botão dizendo que é preciso o Tablet na mão, ainda sem resposta |
+| 2512 | O botão `View` da tela do Servidor ganha uma dica, já que a parede do chunk só aparece com o Tablet na mão (2511)? | Sim: ao passar o mouse, `Shows the chunk with the Tablet in hand`, em português `Mostra o chunk com o Tablet na mão`. A recomendação foi aceita |
+| 2513 | Nomes flutuantes (2469): a caixinha fica como na prévia `cena.png`? | Sim: o texto branco da fonte do jogo, 2 px de folga, o fundo escuro a 67% e 1 px de borda na cor do tier (`TierLook`), o Relay com a cor do tier do Servidor dele. A recomendação foi aceita |
+| 2514 | Nomes flutuantes: a que altura a caixinha fica acima do topo do bloco? | A 0,5 bloco do topo, e não a 1 bloco, como na prévia. A recomendação foi aceita |
+| 2515 | Nomes flutuantes: como a caixinha se comporta com a distância, até 32 blocos? | Encolhe com a distância, com tamanho fixo no mundo, como a placa de nome do jogo (`distancia.png`). A recomendação foi aceita |
+| 2516 | Nomes flutuantes: o que acontece com as caixinhas com uma tela aberta? | Somem com qualquer tela aberta e voltam ao fechá-la. A recomendação foi aceita |
+| 2517 | Os nomes flutuantes, com os quatro detalhes do agente (o nome só no pacote de atualização, sem mudar o save; a busca a cada 10 ticks; o topo do Dock no bloco de cima; somem com o F1), e a dica do `View` estão autorizados para o código (regra 54)? | Sim, como recomendado. Nenhum recurso novo (regra 59): a caixinha usa a fonte do jogo, e a prévia aceita vai para `_docs/imagens/conceito/nomes-flutuantes.png` |
+| 2518 | Pedido do desenvolvedor, ao testar os nomes flutuantes no jogo: como fica a caixinha? | "a caixinha poderia ser fundo transparente sem contorno com a fonte cor branca": sem fundo e sem borda, só o texto branco. A cor do tier sai do nome, e a cor do canal da antena, na entrega 5, também. Muda a 2513 e, na borda, a 2425 |
+| 2519 | Nomes flutuantes só com o texto branco (2518): o texto leva a sombra da fonte do jogo? | Sim, a sombra escura de 1 px da fonte do jogo, para ler contra céu claro e neve. Atrás de blocos, continua a 32%. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 20:45 | Registra as respostas 2518 a 2519. |
+| Zennd | 2026-11-25 20:31 | Registra a resposta 2517. |
+| Zennd | 2026-11-25 20:29 | Registra as respostas 2512 a 2516. |
 | Zennd | 2026-11-25 20:21 | Registra a resposta 2511. |
 | Zennd | 2026-11-25 20:07 | Registra a resposta 2510. |
 | Zennd | 2026-11-25 19:52 | Registra a resposta 2509. |

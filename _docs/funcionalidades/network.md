@@ -97,7 +97,27 @@ Gera, transmite e guarda 300 mil FE e 32 baldes do que vai e vem (2289). O paine
 
 ## Ver o chunk
 
-O botão `View`, na linha `Load the chunk`, mostra a parede em volta do chunk do Servidor: translúcida, ciano, de 1 px, do bloco de apoio até 16 blocos acima, até 128 blocos do player. Só o dono vê, com o Tablet na mão, em qualquer app até o app Network existir. Desligada por padrão, salva no Servidor e no item (2443 e 2446 a 2448).
+O botão `View`, na linha `Load the chunk`, mostra a parede em volta do chunk do Servidor: translúcida, ciano, de 1 px, do bloco de apoio até 16 blocos acima, até 128 blocos do player. Só o dono vê, com o Tablet na mão, em qualquer app até o app Network existir. Desligada por padrão, salva no Servidor e no item (2443 e 2446 a 2448). Ao passar o mouse, o botão diz `Shows the chunk with the Tablet in hand`, em português `Mostra o chunk com o Tablet na mão` (2512).
+
+## Nomes flutuantes
+
+Com o Tablet na mão, em qualquer app, o nome de cada Dock, Servidor e Solar Relay do player aparece sobre o bloco, a até 32 blocos. Na entrega 5, passa a valer só com o app Network, que soma a antena (2421, 2424, 2425 e 2469).
+
+![Nomes flutuantes](../imagens/conceito/nomes-flutuantes.png)
+
+1. **Texto:** só o nome, no branco da fonte do jogo, com a sombra dela, sem fundo e sem borda (2518 e 2519). A cor do tier e a do canal da antena não aparecem no nome.
+2. **Lugar:** a 0,5 bloco acima do topo do bloco, sempre de frente para o player (2514).
+3. **Distância:** tamanho fixo no mundo, como a placa de nome do jogo, então encolhe de longe (2515).
+4. **Atrás de blocos:** aparece através deles, mais fraca, a 32%, e forte na frente (2425).
+5. **Tela aberta:** com qualquer tela aberta, nenhum nome aparece. Voltam ao fechá-la (2516).
+6. **Só do dono:** um player nunca vê os nomes dos blocos de outro.
+
+Detalhes propostos pelo agente:
+
+1. **O nome no cliente:** o Dock, o Servidor e o Relay mandam o nome ao cliente junto do dono, só no pacote de atualização: o save não muda.
+2. **Busca:** a cada 10 ticks, o cliente procura esses blocos nos chunks já carregados a até 32 blocos, sem ler bloco a cada quadro (regra 21).
+3. **Dock com o painel:** o topo é o do bloco de cima do Dock, aberto ou não, para a caixinha não pular quando o painel se transforma.
+4. **F1:** com a interface escondida, os nomes somem, como a mira e a barra de itens.
 
 ## Antena
 
@@ -109,7 +129,7 @@ O botão `View`, na linha `Load the chunk`, mostra a parede em volta do chunk do
 
 ## App Network
 
-Clique na antena, depois no Cubit, que fica ligado, e depois em cada Dock e baú, marcados para aquele Cubit. O Dock marcado já se liga à antena. Antena e Dock, sem Cubit, só liga a energia. Repetir o clique desfaz, e setas mostram tudo (2249). Os baús marcados fazem parte da rede (2249). Com o app selecionado, o nome do Dock, do Servidor, do Solar Relay e da antena do player aparece numa caixinha translúcida sobre cada um, a até 32 blocos, com a borda na cor do tier ou do canal, de frente para ele e mais fraca atrás dos blocos (2421, 2424 e 2425).
+Clique na antena, depois no Cubit, que fica ligado, e depois em cada Dock e baú, marcados para aquele Cubit. O Dock marcado já se liga à antena. Antena e Dock, sem Cubit, só liga a energia. Repetir o clique desfaz, e setas mostram tudo (2249). Os baús marcados fazem parte da rede (2249). Com o app selecionado, o nome do Dock, do Servidor, do Solar Relay e da antena do player aparece sobre cada um, a até 32 blocos, de frente para ele e mais fraco atrás dos blocos (2421, 2424 e 2425), só com o texto branco e a sombra (2518 e 2519). Até esta entrega, os nomes aparecem com o Tablet na mão, em qualquer app, como em [Nomes flutuantes](#nomes-flutuantes) (2469).
 
 | Por Cubit | Base | Advanced | Elite | Ultimate |
 |---|---|---|---|---|
@@ -315,6 +335,7 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 20:30 | Acrescenta os nomes flutuantes da Entrega 3 e a dica do `View` (perguntas 2512 a 2519). |
 | Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado e a parede do chunk do Servidor (perguntas 2429 a 2448). |
 | Zennd | 2026-11-25 14:47 | Registra o código da Entrega 3 em andamento (pergunta 2399). |
 | Zennd | 2026-11-25 14:22 | Acrescenta a janela do nome e os nomes flutuantes do app Network (perguntas 2420 a 2425). |
