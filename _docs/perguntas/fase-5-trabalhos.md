@@ -1371,11 +1371,13 @@ Não há perguntas pendentes nesta fase.
 | 2424 | Nomes flutuantes (2421): sobre quais blocos, quem vê e até onde? | Dock, Servidor, Solar Relay e antena do próprio player, com o Tablet na mão e o app Network, a até 32 blocos. O Cubit já mostra o nome dele. Entram na entrega 5. A recomendação foi aceita |
 | 2425 | Nomes flutuantes (2421): como é a caixinha? | Só o nome, numa caixinha escura e translúcida, com a borda na cor do tier ou do canal, sempre de frente para o player e visível através de blocos, mais fraca atrás deles, com a prévia antes do código. A recomendação foi aceita |
 | 2426 | Network, entrega 3: o conceito da janela do nome do Dock, do Servidor e do Solar Relay (2420 a 2423) e o código dela estão autorizados (regra 54)? | Sim, para fazer agora, com GameTests, num commit à parte, antes das telas. Nenhum recurso novo (regra 59). A recomendação foi aceita |
+| 2427 | Depois do merge do #278: algum ajuste no roteiro (regra 53)? | Nenhum: a janela do nome, as telas do Servidor e do Solar Relay, as receitas com a dica, o Jade e o JEI, os documentos e, no fim, as GameTests, o teste manual e o PR. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 14:28 | Registra a resposta 2427. |
 | Zennd | 2026-11-25 14:22 | Registra a resposta 2426. |
 | Zennd | 2026-11-25 14:21 | Registra as respostas 2422 a 2425. |
 | Zennd | 2026-11-25 14:00 | Registra a resposta 2421. |
