@@ -7,7 +7,10 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-/** The low loop of a block that works, as a desk that crafts. It stops by itself with it (1452). */
+/**
+ * The low loop of a block that works: a desk that crafts, the fans of a server or a relay that
+ * transmits. It stops by itself when the block stops (answers 1452 and 2375).
+ */
 final class BlockLoopSound extends AbstractTickableSoundInstance {
   /** A short gap, as between two crafts, would otherwise restart the loop. */
   private static final int STOP_DELAY_TICKS = 5;

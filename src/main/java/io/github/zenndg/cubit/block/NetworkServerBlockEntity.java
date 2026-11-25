@@ -11,6 +11,7 @@ import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.ModuleItem;
 import io.github.zenndg.cubit.item.SavedNetwork;
 import io.github.zenndg.cubit.registry.CubitBlockEntities;
+import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -35,9 +36,11 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   private final BlockTier<ServerSpec> tier = NetworkParts.serverTier();
   private final ServerStorage storage = new ServerStorage(this::setChanged, this::storageSlots);
   private final IItemHandler itemHandler = InputFirstItems.of(energySlot(), storage.handler());
+  private final ServerShow show = new ServerShow();
   private UpsReserve ups = CubitMod.CONFIG.network().chunks().serverUps();
   private final ServerChunk chunk = new ServerChunk(this::setChanged);
   private boolean chunkLoading = true;
+  private Energy bankGiven = Energy.ZERO;
   private boolean first;
   private SolarRelayBlockEntity relay;
 
@@ -55,9 +58,25 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     BlockEnergy battery = server.battery();
     battery.tick();
     server.storage.dropRefused(level, pos);
-    Energy rate = server.bankRate().min(server.ups.spare(server.energy(), server.capacity()));
-    battery.set(server.storage.charge(battery.stock(), rate, server::setChanged));
+    server.chargeBanks();
     server.payChunk((ServerLevel) level);
+    server.show.passes(battery.enteredNow());
+    if (server.show.tick(level, pos, server.reading())) {
+      server.changeShown();
+    }
+  }
+
+  private ServerShow.Reading reading() {
+    return new ServerShow.Reading(energy(), ups, spec(), storage.used(), relay != null);
+  }
+
+  /** One at a time, with what passes the reserve (answer 2373). */
+  private void chargeBanks() {
+    Energy held = energy();
+    Energy rate = bankRate().min(ups.spare(held, capacity()));
+    battery().set(storage.charge(battery().stock(), rate, this::setChanged));
+    bankGiven = held.minus(energy());
+    show.passes(bankGiven);
   }
 
   /** The chunk pays last, so the banks of this tick never take what it needs. */
@@ -66,7 +85,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     battery().set(chunk.tick(level, worldPosition, asked, battery().stock()));
   }
 
-  /** At the speed of the Dock of its tier, and never out of the reserve (answer 2373). */
+  /** At the speed of the Dock of its tier (answer 2373). */
   private Energy bankRate() {
     return CubitMod.CONFIG.dockCatalog().dock(tier()).rechargePerTick();
   }
@@ -95,6 +114,16 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
 
   public Container storage() {
     return storage.container();
+  }
+
+  /** What the Power Banks took in the last tick, for the screen. */
+  public Energy bankGiven() {
+    return bankGiven;
+  }
+
+  /** What the client shows of it. */
+  public ServerClientView view() {
+    return show.view();
   }
 
   public UpsReserve ups() {
@@ -157,6 +186,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   Energy takeSun(Energy offered) {
     EnergyStock.Received received = battery().stock().receive(offered, offered);
     battery().set(received.stock());
+    show.passes(received.accepted());
     if (!received.accepted().isZero()) {
       setChanged();
     }
@@ -169,6 +199,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     battery().set(EnergyStock.of(capacity(), energy()));
     changeShown();
     if (level != null) {
+      ServerShow.play(level, worldPosition, CubitSounds.SERVER_UPGRADE.get());
       NetworkBlock.showTier(level, worldPosition, next);
       NetworkChunk.pair(level, worldPosition);
     }
@@ -228,10 +259,18 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     ups = tag.contains(UPS_KEY) ? UpsReserve.of(tag.getInt(UPS_KEY)) : ups;
     chunkLoading = !tag.contains(CHUNK_KEY) || tag.getBoolean(CHUNK_KEY);
     chunk.load(tag);
+    show.read(tag);
+  }
+
+  @Override
+  public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+    CompoundTag tag = super.getUpdateTag(registries);
+    show.write(tag);
+    return tag;
   }
 
   @Override
   public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-    // The animations come with the renderer.
+    NetworkAnimations.register(controllers, this);
   }
 }

@@ -27,7 +27,11 @@ import software.bernie.geckolib.animation.AnimatableManager;
  * server it keeps the battery and does nothing else (answer 2374).
  */
 public final class SolarRelayBlockEntity extends NetworkBlockEntity {
+  private static final String LINK_KEY = "Link";
+  private static final String TRANSMITS_KEY = "Transmits";
+
   private final RelayPanel panel = new RelayPanel();
+  private final RelayClientView view = new RelayClientView();
   private final IItemHandler itemHandler =
       InputFirstItems.of(energySlot(), (EmptyItemHandler) EmptyItemHandler.INSTANCE);
   private NetworkServerBlockEntity server;
@@ -71,6 +75,11 @@ public final class SolarRelayBlockEntity extends NetworkBlockEntity {
   /** The tier of its server, or the grey of the Base without one (answers 2217 and 2374). */
   public RobotTier tier() {
     return server().map(NetworkServerBlockEntity::tier).orElse(RobotTier.BASE);
+  }
+
+  /** What the client shows of it. */
+  public RelayClientView view() {
+    return view;
   }
 
   public SolarReading solar() {
@@ -129,17 +138,22 @@ public final class SolarRelayBlockEntity extends NetworkBlockEntity {
     super.loadAdditional(tag, registries);
     panel.load(tag);
     panel.read(tag);
+    Optional<BlockPos> link =
+        tag.contains(LINK_KEY) ? Optional.of(BlockPos.of(tag.getLong(LINK_KEY))) : Optional.empty();
+    view.receive(link, tag.getBoolean(TRANSMITS_KEY));
   }
 
   @Override
   public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
     CompoundTag tag = super.getUpdateTag(registries);
     panel.write(tag);
+    server().ifPresent(paired -> tag.putLong(LINK_KEY, paired.getBlockPos().asLong()));
+    tag.putBoolean(TRANSMITS_KEY, panel.isShining());
     return tag;
   }
 
   @Override
   public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-    // The animations come with the renderer.
+    NetworkAnimations.register(controllers, this);
   }
 }

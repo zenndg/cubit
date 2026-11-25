@@ -40,9 +40,12 @@ public final class NetworkServerBlock extends NetworkBlock {
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
       Level level, BlockState state, BlockEntityType<T> type) {
-    return level.isClientSide() || !isLower(state)
-        ? null
-        : createTickerHelper(
-            type, CubitBlockEntities.NETWORK_SERVER.get(), NetworkServerBlockEntity::serverTick);
+    if (!isLower(state)) {
+      return null;
+    }
+    return createTickerHelper(
+        type,
+        CubitBlockEntities.NETWORK_SERVER.get(),
+        level.isClientSide() ? NetworkClientTicks::tick : NetworkServerBlockEntity::serverTick);
   }
 }

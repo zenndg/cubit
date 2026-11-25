@@ -47,6 +47,11 @@ final class BlockEnergy implements EnergyInput {
     return meter.perTick();
   }
 
+  /** What entered so far in this tick. */
+  Energy enteredNow() {
+    return entered;
+  }
+
   /** Once per tick, before anything else: the input opens again, and the slot feeds the stock. */
   void tick() {
     inputLeft = inputPerTick.get();

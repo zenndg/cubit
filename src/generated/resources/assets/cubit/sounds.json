@@ -182,5 +182,59 @@
       "cubit:induction_dock/panel_retract"
     ],
     "subtitle": "subtitles.cubit.induction_dock.panel_retract"
+  },
+  "network_server.fans_loop": {
+    "sounds": [
+      "cubit:network_server/fans_loop"
+    ],
+    "subtitle": "subtitles.cubit.network_server.fans_loop"
+  },
+  "network_server.power_loss": {
+    "sounds": [
+      "cubit:network_server/power_loss"
+    ],
+    "subtitle": "subtitles.cubit.network_server.power_loss"
+  },
+  "network_server.startup": {
+    "sounds": [
+      "cubit:network_server/startup"
+    ],
+    "subtitle": "subtitles.cubit.network_server.startup"
+  },
+  "network_server.upgrade": {
+    "sounds": [
+      "cubit:network_server/upgrade"
+    ],
+    "subtitle": "subtitles.cubit.network_server.upgrade"
+  },
+  "network_server.ups_warning": {
+    "sounds": [
+      "cubit:network_server/ups_warning"
+    ],
+    "subtitle": "subtitles.cubit.network_server.ups_warning"
+  },
+  "solar_relay.panel_close": {
+    "sounds": [
+      "cubit:solar_relay/panel_close"
+    ],
+    "subtitle": "subtitles.cubit.solar_relay.panel_close"
+  },
+  "solar_relay.panel_lock": {
+    "sounds": [
+      "cubit:solar_relay/panel_lock"
+    ],
+    "subtitle": "subtitles.cubit.solar_relay.panel_lock"
+  },
+  "solar_relay.panel_open": {
+    "sounds": [
+      "cubit:solar_relay/panel_open"
+    ],
+    "subtitle": "subtitles.cubit.solar_relay.panel_open"
+  },
+  "solar_relay.transmit_loop": {
+    "sounds": [
+      "cubit:solar_relay/transmit_loop"
+    ],
+    "subtitle": "subtitles.cubit.solar_relay.transmit_loop"
   }
 }

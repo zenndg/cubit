@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.client;
 
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.DeskClientTicks;
+import io.github.zenndg.cubit.block.NetworkClientTicks;
 import io.github.zenndg.cubit.config.CubitConfig;
 import io.github.zenndg.cubit.item.RobotItem;
 import io.github.zenndg.cubit.item.TierLook;
@@ -54,6 +55,7 @@ public final class CubitClient {
     CubitNetwork.setDeathLogDisplay(TabletDeathLog::show);
     CubitNetwork.setAskNameDisplay(RobotNameScreen::show);
     DeskClientTicks.set(BlockSoundLoops::tick);
+    NetworkClientTicks.set(BlockSoundLoops::tick, BlockSoundLoops::tick);
     event.enqueueWork(() ->
         ItemProperties.register(
             CubitItems.GENERAL_ROBOT.get(),
@@ -97,6 +99,10 @@ public final class CubitClient {
     event.registerEntityRenderer(CubitEntities.LASER_ORB.get(), LaserOrbRenderer::new);
     event.registerBlockEntityRenderer(CubitBlockEntities.ENGINEERING_DESK.get(), DeskRenderer::new);
     event.registerBlockEntityRenderer(CubitBlockEntities.INDUCTION_DOCK.get(), DockRenderer::new);
+    event.registerBlockEntityRenderer(
+        CubitBlockEntities.NETWORK_SERVER.get(), NetworkServerRenderer::new);
+    event.registerBlockEntityRenderer(
+        CubitBlockEntities.SOLAR_RELAY.get(), SolarRelayRenderer::new);
   }
 
   /** The GeckoLib models of the desk and of the dock, and the fluid (1494, 1845 and 1860). */
@@ -104,6 +110,8 @@ public final class CubitClient {
   public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
     event.registerItem(DeskItemExtensions.INSTANCE, CubitItems.ENGINEERING_DESK.get());
     event.registerItem(DockItemExtensions.INSTANCE, CubitItems.INDUCTION_DOCK.get());
+    event.registerItem(NetworkItemExtensions.SERVER, CubitItems.NETWORK_SERVER.get());
+    event.registerItem(NetworkItemExtensions.RELAY, CubitItems.SOLAR_RELAY.get());
     event.registerFluidType(XpFluidLook.INSTANCE, CubitFluids.XP_FLUID_TYPE.get());
   }
 

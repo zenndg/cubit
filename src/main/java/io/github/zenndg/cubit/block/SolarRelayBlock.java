@@ -40,9 +40,12 @@ public final class SolarRelayBlock extends NetworkBlock {
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
       Level level, BlockState state, BlockEntityType<T> type) {
-    return level.isClientSide() || !isLower(state)
-        ? null
-        : createTickerHelper(
-            type, CubitBlockEntities.SOLAR_RELAY.get(), SolarRelayBlockEntity::serverTick);
+    if (!isLower(state)) {
+      return null;
+    }
+    return createTickerHelper(
+        type,
+        CubitBlockEntities.SOLAR_RELAY.get(),
+        level.isClientSide() ? NetworkClientTicks::tick : SolarRelayBlockEntity::serverTick);
   }
 }

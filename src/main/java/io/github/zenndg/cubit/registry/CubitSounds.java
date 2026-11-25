@@ -27,6 +27,15 @@ public final class CubitSounds {
   public static final String DESK_CRAFTING_NAME = "crafting";
   public static final String DESK_DONE_NAME = "done";
   public static final String DESK_STARTUP_NAME = "startup";
+  public static final String SERVER_STARTUP_NAME = "startup";
+  public static final String SERVER_FANS_NAME = "fans_loop";
+  public static final String SERVER_POWER_LOSS_NAME = "power_loss";
+  public static final String SERVER_UPGRADE_NAME = "upgrade";
+  public static final String SERVER_UPS_WARNING_NAME = "ups_warning";
+  public static final String RELAY_PANEL_OPEN_NAME = "panel_open";
+  public static final String RELAY_PANEL_CLOSE_NAME = "panel_close";
+  public static final String RELAY_PANEL_LOCK_NAME = "panel_lock";
+  public static final String RELAY_TRANSMIT_NAME = "transmit_loop";
   public static final String DOCK_PANEL_DEPLOY_NAME = "panel_deploy";
   public static final String DOCK_PANEL_LOCK_NAME = "panel_lock";
   public static final String DOCK_PANEL_RETRACT_NAME = "panel_retract";
@@ -43,6 +52,8 @@ public final class CubitSounds {
   public static final String PATROL_VISOR_UP_NAME = "visor_up";
   private static final String GENERAL_ROBOT_PREFIX = "general_robot.";
   private static final String PATROLLER_PREFIX = "patroller.";
+  private static final String SERVER_PREFIX = "network_server.";
+  private static final String RELAY_PREFIX = "solar_relay.";
   private static final String DESK_PREFIX = "engineering_desk.";
   private static final String DOCK_PREFIX = "induction_dock.";
   private static final DeferredRegister<SoundEvent> SOUNDS =
@@ -71,6 +82,18 @@ public final class CubitSounds {
 
   public static final Supplier<SoundEvent> DOCK_PANEL_LOCK = dock(DOCK_PANEL_LOCK_NAME);
   public static final Supplier<SoundEvent> DOCK_PANEL_RETRACT = dock(DOCK_PANEL_RETRACT_NAME);
+
+  /** The Network Server and the Solar Relay, in folders of their own (answer 2339). */
+  public static final Supplier<SoundEvent> SERVER_STARTUP = server(SERVER_STARTUP_NAME);
+
+  public static final Supplier<SoundEvent> SERVER_FANS = server(SERVER_FANS_NAME);
+  public static final Supplier<SoundEvent> SERVER_POWER_LOSS = server(SERVER_POWER_LOSS_NAME);
+  public static final Supplier<SoundEvent> SERVER_UPGRADE = server(SERVER_UPGRADE_NAME);
+  public static final Supplier<SoundEvent> SERVER_UPS_WARNING = server(SERVER_UPS_WARNING_NAME);
+  public static final Supplier<SoundEvent> RELAY_PANEL_OPEN = relay(RELAY_PANEL_OPEN_NAME);
+  public static final Supplier<SoundEvent> RELAY_PANEL_CLOSE = relay(RELAY_PANEL_CLOSE_NAME);
+  public static final Supplier<SoundEvent> RELAY_PANEL_LOCK = relay(RELAY_PANEL_LOCK_NAME);
+  public static final Supplier<SoundEvent> RELAY_TRANSMIT = relay(RELAY_TRANSMIT_NAME);
 
   /** The sounds of the Galactic Patroller, in a folder of their own (answers 1575 and 1791). */
   public static final Supplier<SoundEvent> PATROL_PISTOL_SHOT = patroller(PATROL_PISTOL_SHOT_NAME);
@@ -129,6 +152,14 @@ public final class CubitSounds {
 
   private static Supplier<SoundEvent> dock(String name) {
     return sound(DOCK_PREFIX + name);
+  }
+
+  private static Supplier<SoundEvent> server(String name) {
+    return sound(SERVER_PREFIX + name);
+  }
+
+  private static Supplier<SoundEvent> relay(String name) {
+    return sound(RELAY_PREFIX + name);
   }
 
   private static Supplier<SoundEvent> desk(String name) {

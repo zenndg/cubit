@@ -191,6 +191,8 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `ServerFront` | A frente do Servidor: as colunas de 10 traços, com ao menos um aceso acima de zero, e o estado de cada lâmpada |
 | `BigSlot` | Quantos itens um slot do Servidor guarda e dá: até o limite dele, de 1 a 999, 1 do que não empilha, e nunca mais que uma pilha normal por vez (perguntas 2263 e 2368) |
 | `SunTrack` | Para onde o painel do Solar Relay aponta, de −1, no leste, a 1, no oeste, e 0 ao meio-dia e com a lua (pergunta 2385) |
+| `PanelAim` | Os dois ângulos do painel aberto do Solar Relay, para onde o bloco olha e para o sol: até 11° para cada lado, e deitado com a lua (perguntas 2384 e 2385) |
+| `ServerLook` | O que a frente do Servidor mostra aos clientes: se tem energia, se passa energia, se tem par, as duas colunas e os canais. As ventoinhas giram só com energia passando (perguntas 2329 e 2375) |
 | `RobotClick` | O que o clique direito faz no robô: ignorar, recolher, subir o tier, pintar, escolher o minério, abrir ou ligar |
 | `InventoryFit` | Separa os itens que cabem nos slots do config dos que sobram |
 | `InventoryGrid` | Como o inventário aparece na tela: sempre 3 fileiras, com 9, 12, 15 e 18 colunas do Base ao Ultimate, a coluna e a fileira de cada slot e as colunas a mais, que alargam a tela (pergunta 1101) |
