@@ -1448,11 +1448,13 @@ Não há perguntas pendentes nesta fase.
 | 2501 | #281, chamar o Cubit: o conceito e o código estão autorizados (regra 54)? | Sim, com a tela do Cubit que abre quando ele chega pelo `Follow`, o pacote `cubit:call_robot`, o `Follow` e o comando que trazem o que já segue e ficou longe, e os nomes das traduções. Nenhum recurso novo (regra 59). Autorizado também o texto do Estado atual do `AGENTS.md`, sobre o teleporte longo |
 | 2502 | O teste manual da #280 e o da #281, e o PR da #281 | "ignore os testes antigos no final da entrega vou fazer teste completo. Pode avancar com commits, push e pr autorizado": o teste manual das duas fica para o fim da entrega, completo, e o PR da #281 abre antes dele, com isso dito na descrição. O `AGENTS.md` ganha a estrutura mostrada |
 | 2503 | O teste manual da `develop`, com a #280 e a #281, no `d749e7a` | "testes ok.": aprovado em 2026-11-25. Cumpre a parte da 2502 que cobre as duas |
+| 2504 | Ideia do desenvolvedor para o backlog: desmontar itens na Engineering Desk | "crie uma anotacao do backlog uma ideia que pode vim logo quando finalizar a network": uma aba `Desmontar`, do tier Elite, que desmonta os itens do mod feitos com outros itens do mod e devolve só esses, sem os do jogo, com o mesmo tempo e o mesmo FE de criar, na saída da mesa. Só anotada, em [`backlog.md`](../backlog.md), sem conceito nem autorização |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 19:06 | Registra a resposta 2504. |
 | Zennd | 2026-11-25 19:01 | Registra a resposta 2503. |
 | Zennd | 2026-11-25 18:05 | Registra a resposta 2502. |
 | Zennd | 2026-11-25 17:38 | Registra a resposta 2501. |
