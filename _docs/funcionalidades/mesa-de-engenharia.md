@@ -95,7 +95,8 @@ Quatro melhorias da tela, na issue #280, com a #255 (perguntas 2470 a 2481, 2492
 2. **Trocar a categoria ou a aba não cancela o craft** (perguntas 2471 e 2480). O que cancelava era o clique em outra receita, que a melhoria 1 trava.
 3. **O resultado se pega ao lado da grade** (perguntas 2473 e 2479). O quadro à direita da grade mostra o que há na saída da receita escolhida.
    - **O que mostra:** o primeiro item da saída do mesmo tipo do resultado, com o total de itens prontos. Sem nenhum, o desenho fraco do resultado.
-   - **O que entrega:** o clique pega até uma pilha para o cursor, e o Shift + clique manda ao inventário. O que sai é o item da saída, com os dados dele, como o nome e o inventário de um Cubit consertado.
+   - **O que entrega:** o clique pega até uma pilha para o cursor, e o Shift + clique manda ao inventário todos os que couberem. O que sai é o item da saída, com os dados dele, como o nome e o inventário de um Cubit consertado.
+   - **Cursor:** com o mesmo item no cursor, soma até uma pilha. Com outro, nada acontece.
    - **Só tira:** não aceita item. As sobras, como a Power Bank do religar, ficam na aba Estoque.
    - **Travado** durante a cascata, como a aba Estoque (pergunta 2015).
    - **Segurança:** o item existe só na saída, e o quadro é uma janela para ela. Dois players na mesma mesa nunca pegam o mesmo item, e o servidor confere tudo (regras 13 e 19).
@@ -239,6 +240,7 @@ Uma issue mãe e quatro PRs, em ordem, cada um testável no jogo (pergunta 1478)
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 16:17 | Detalha o cursor e o Shift + clique no resultado (pergunta 2479). |
 | Zennd | 2026-11-25 16:02 | Define as melhorias de usabilidade da tela (perguntas 2470 a 2481, 2492 e 2493). |
 | Zennd | 2026-11-25 12:27 | Tira o bloqueio por progressão das receitas (perguntas 2400 a 2403). |
 | Zennd | 2026-11-24 11:10 | Acrescenta a categoria das peças compartilhadas (perguntas 2141, 2159 e 2160). |
