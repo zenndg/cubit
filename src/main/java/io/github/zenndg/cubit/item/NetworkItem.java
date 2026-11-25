@@ -1,11 +1,14 @@
 package io.github.zenndg.cubit.item;
 
 import io.github.zenndg.cubit.block.NetworkPlacement;
+import java.util.List;
 import java.util.Optional;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import software.bernie.geckolib.animatable.GeoItem;
@@ -33,6 +36,13 @@ public class NetworkItem extends BlockItem implements GeoItem {
       player.displayClientMessage(refusal.get(), true);
     }
     return InteractionResult.FAIL;
+  }
+
+  /** The server replaces it with its own lines. */
+  @Override
+  public void appendHoverText(
+      ItemStack stack, TooltipContext context, List<Component> lines, TooltipFlag flag) {
+    NetworkTooltip.appendRelay(stack, lines);
   }
 
   @Override

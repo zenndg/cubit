@@ -60,6 +60,8 @@ final class CubitItemModelProvider extends ItemModelProvider {
     basicItem(CubitItems.INDUCTION_COIL.get());
     basicItem(CubitItems.NEURAL_CORE.get());
     basicItem(CubitItems.CIRCUIT_BOARD.get());
+    basicItem(CubitItems.TRANSCEIVER.get());
+    basicItem(CubitItems.CHUNK_ANCHOR.get());
   }
 
   private void cards() {

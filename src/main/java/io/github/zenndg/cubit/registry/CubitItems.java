@@ -41,6 +41,8 @@ public final class CubitItems {
   private static final String PATROLLER_CARD_ID = "ml_patroller";
   private static final String CARD_CASING_ID = "ml_card_casing";
   private static final String CIRCUIT_BOARD_ID = "circuit_board";
+  private static final String TRANSCEIVER_ID = "transceiver";
+  private static final String CHUNK_ANCHOR_ID = "chunk_anchor";
   private static final String NEURAL_CORE_ID = "neural_core";
   private static final String CASING_SUFFIX = "_casing";
   private static final String VISOR_SUFFIX = "_visor";
@@ -184,6 +186,11 @@ public final class CubitItems {
   public static final Supplier<Item> INDUCTION_COIL = part(INDUCTION_COIL_ID);
   public static final Supplier<Item> NEURAL_CORE = part(NEURAL_CORE_ID);
   public static final Supplier<Item> CIRCUIT_BOARD = part(CIRCUIT_BOARD_ID);
+
+  /** The radio and the hold of the chunk, shared by the blocks of the Network (answer 2282). */
+  public static final Supplier<Item> TRANSCEIVER = part(TRANSCEIVER_ID);
+
+  public static final Supplier<Item> CHUNK_ANCHOR = part(CHUNK_ANCHOR_ID);
 
   private CubitItems() {}
 

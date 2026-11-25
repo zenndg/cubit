@@ -193,6 +193,8 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `SunTrack` | Para onde o painel do Solar Relay aponta, de −1, no leste, a 1, no oeste, e 0 ao meio-dia e com a lua (pergunta 2385) |
 | `PanelAim` | Os dois ângulos do painel aberto do Solar Relay, para onde o bloco olha e para o sol: até 11° para cada lado, e deitado com a lua (perguntas 2384 e 2385) |
 | `ServerLook` | O que a frente do Servidor mostra aos clientes: se tem energia, se passa energia, se tem par, as duas colunas e os canais. As ventoinhas giram só com energia passando (perguntas 2329 e 2375) |
+| `ServerStatus` | O que o topo da tela do Servidor diz da energia: ligado, no Nobreak ou sem energia. Sem reserva, ou com a chave do chunk desligada, o Nobreak não conta (pergunta 2397) |
+| `HoldTime` | Quanto tempo a reserva segura o chunk: minutos até duas horas e, daí em diante, horas e minutos |
 | `RobotClick` | O que o clique direito faz no robô: ignorar, recolher, subir o tier, pintar, escolher o minério, abrir ou ligar |
 | `InventoryFit` | Separa os itens que cabem nos slots do config dos que sobram |
 | `InventoryGrid` | Como o inventário aparece na tela: sempre 3 fileiras, com 9, 12, 15 e 18 colunas do Base ao Ultimate, a coluna e a fileira de cada slot e as colunas a mais, que alargam a tela (pergunta 1101) |

@@ -1,0 +1,28 @@
+{
+  "type": "cubit:engineering",
+  "category": "misc",
+  "desk_category": "parts",
+  "key": {
+    "N": {
+      "item": "minecraft:ender_pearl"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "T": {
+      "item": "cubit:circuit_board"
+    },
+    "U": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "pattern": [
+    " N ",
+    "UTU",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "cubit:transceiver"
+  }
+}

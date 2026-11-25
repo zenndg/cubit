@@ -4,6 +4,8 @@ import io.github.zenndg.cubit.block.EngineeringDeskBlock;
 import io.github.zenndg.cubit.block.EngineeringDeskBlockEntity;
 import io.github.zenndg.cubit.block.InductionDockBlock;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
+import io.github.zenndg.cubit.block.NetworkBlock;
+import io.github.zenndg.cubit.block.NetworkBlockEntity;
 import io.github.zenndg.cubit.entity.RobotEntity;
 import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.IWailaCommonRegistration;
@@ -24,6 +26,7 @@ public final class CubitJadePlugin implements IWailaPlugin {
         DockJadeProvider.INSTANCE, InductionDockBlockEntity.class);
     registration.registerBlockDataProvider(
         DeskJadeProvider.INSTANCE, EngineeringDeskBlockEntity.class);
+    registration.registerBlockDataProvider(NetworkJadeProvider.INSTANCE, NetworkBlockEntity.class);
   }
 
   @Override
@@ -31,5 +34,6 @@ public final class CubitJadePlugin implements IWailaPlugin {
     registration.registerEntityComponent(RobotJadeProvider.INSTANCE, RobotEntity.class);
     registration.registerBlockComponent(DockJadeProvider.INSTANCE, InductionDockBlock.class);
     registration.registerBlockComponent(DeskJadeProvider.INSTANCE, EngineeringDeskBlock.class);
+    registration.registerBlockComponent(NetworkJadeProvider.INSTANCE, NetworkBlock.class);
   }
 }

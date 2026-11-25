@@ -46,7 +46,7 @@ final class DeskTexts {
   private static final String ROBOT_CATEGORY = "Cubit and parts";
   private static final String PARTS_CATEGORY = "Shared parts";
   private static final String ENERGY_CATEGORY = "Energy";
-  private static final String DOCK_CATEGORY = "Dock";
+  private static final String DOCK_CATEGORY = "Dock and Network";
   private static final String MODULES_CATEGORY = "Modules";
   private static final String CARDS_CATEGORY = "Cards";
   private static final String TOOLS_CATEGORY = "Tools";

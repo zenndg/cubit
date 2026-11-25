@@ -62,6 +62,8 @@ public final class CubitCreativeTabs {
                     output.accept(CubitItems.INDUCTION_COIL.get());
                     output.accept(CubitItems.NEURAL_CORE.get());
                     output.accept(CubitItems.CIRCUIT_BOARD.get());
+                    output.accept(CubitItems.TRANSCEIVER.get());
+                    output.accept(CubitItems.CHUNK_ANCHOR.get());
                   })
                   .build());
 

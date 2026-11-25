@@ -1,0 +1,23 @@
+{
+  "type": "cubit:engineering",
+  "category": "misc",
+  "desk_category": "dock",
+  "ingredients": [
+    {
+      "item": "cubit:solar_panel"
+    },
+    {
+      "item": "cubit:transceiver"
+    },
+    {
+      "item": "cubit:base_power_cell"
+    },
+    {
+      "item": "cubit:xp_tank"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "cubit:solar_relay"
+  }
+}

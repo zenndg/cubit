@@ -35,6 +35,10 @@ final class JadeTexts {
   private static final String DESK_CASCADE = "Cascade: %s · %s/%s";
   private static final String DESK_PAUSED = "Paused: %s";
   private static final String DESK_OPTION = "Engineering Desk";
+  private static final String CHUNK_ON = "Loads its chunk";
+  private static final String CHUNK_OFF = "Does not load its chunk";
+  private static final String PAIRED = "Paired";
+  private static final String NETWORK_OPTION = "Network";
 
   private JadeTexts() {}
 
@@ -63,5 +67,9 @@ final class JadeTexts {
     add.accept(JadeKeys.DESK_ORDER, DESK_ORDER);
     add.accept(JadeKeys.DESK_CASCADE, DESK_CASCADE);
     add.accept(JadeKeys.DESK_PAUSED, DESK_PAUSED);
+    add.accept(JadeKeys.CHUNK_ON, CHUNK_ON);
+    add.accept(JadeKeys.CHUNK_OFF, CHUNK_OFF);
+    add.accept(JadeKeys.PAIRED, PAIRED);
+    add.accept(JadeKeys.config(JadeKeys.NETWORK_UID), NETWORK_OPTION);
   }
 }
