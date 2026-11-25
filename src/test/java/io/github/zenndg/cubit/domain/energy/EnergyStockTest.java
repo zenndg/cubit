@@ -43,6 +43,16 @@ class EnergyStockTest {
     assertEquals(INPUT, received.stock().energy().charge());
   }
 
+  /** Never more than it has, and not one FE is lost (rule 13). */
+  @Test
+  void spendsOnlyWhatItHas() {
+    EnergyStock.Spent spent = stock(LITTLE).spend(RATE);
+    assertEquals(LITTLE, spent.paid());
+    assertEquals(Energy.ZERO, spent.stock().energy().charge());
+    EnergyStock.Spent whole = stock(CAPACITY).spend(RATE);
+    assertEquals(CAPACITY, whole.stock().energy().charge().plus(whole.paid()));
+  }
+
   @Test
   void receivesNothingWithoutInputLeft() {
     assertEquals(Energy.ZERO, stock(Energy.ZERO).receive(DUST, Energy.ZERO).accepted());

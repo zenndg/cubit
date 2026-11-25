@@ -39,6 +39,14 @@ public record EnergyStock(Battery energy) {
   /** What the stock kept from an offer, for the caller to report and to count against the input. */
   public record Received(EnergyStock stock, Energy accepted) {}
 
+  /** What the stock had of a cost, and it loses exactly that amount. */
+  public Spent spend(Energy cost) {
+    Battery.Consumed consumed = energy.consume(cost);
+    return new Spent(new EnergyStock(consumed.battery()), consumed.consumed());
+  }
+
+  public record Spent(EnergyStock stock, Energy paid) {}
+
   /** The result of one tick of charging. */
   public record Transfer(EnergyStock stock, Battery robot) {}
 }

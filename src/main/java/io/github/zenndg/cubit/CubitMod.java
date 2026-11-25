@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit;
 
+import io.github.zenndg.cubit.block.NetworkTickets;
 import io.github.zenndg.cubit.config.CubitConfig;
 import io.github.zenndg.cubit.network.CubitNetwork;
 import io.github.zenndg.cubit.player.TabletSelection;
@@ -38,6 +39,7 @@ public final class CubitMod {
     CubitSounds.register(modBus);
     CubitCreativeTabs.register(modBus);
     modBus.addListener(CubitNetwork::register);
+    modBus.addListener(NetworkTickets::register);
     CubitNetwork.setTabletRequests(TabletSelection.requests());
   }
 }

@@ -203,6 +203,7 @@ public abstract class NetworkBlock extends BaseEntityBlock {
     boolean gone = !state.is(newState.getBlock()) && isLower(state);
     if (gone && level.getBlockEntity(pos) instanceof NetworkBlockEntity network) {
       Containers.dropContents(level, pos, network.slot());
+      network.gone();
     }
     super.onRemove(state, level, pos, newState, movedByPiston);
     if (gone && !level.isClientSide()) {

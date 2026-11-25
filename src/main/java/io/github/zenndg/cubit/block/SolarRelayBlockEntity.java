@@ -104,6 +104,11 @@ public final class SolarRelayBlockEntity extends NetworkBlockEntity {
   }
 
   @Override
+  void gone() {
+    // It holds nothing outside of itself, and its pair is made again by the block.
+  }
+
+  @Override
   SavedNetwork kept() {
     return SavedNetwork.onlyEnergy(energy().amount());
   }

@@ -227,6 +227,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `network` | `chunks_per_player` e `chunks_per_world` | Chunks por player e no mundo, com 0 para sem limite | 0 a 2147483647 |
 | `network` | `chunk_cost` | Chunk, por tick | 0 a 2147483647 |
 | `network` | `chunk_resume_energy` | Carga com que o Servidor zerado volta a segurar o chunk | 0 a 2147483647 |
+| `network` | `wake_interval_ticks` | Intervalo entre um chunk e outro quando o dono volta | 1 a 1200 |
 | `network` | `server_ups_percent` | UPS padrão do Servidor | 0 a 50 |
 | `network` | `relay_energy_capacity` e `relay_input_per_tick` | Solar Relay: bateria e entrada | 1 a 2147483647 |
 | `network` | `storage_slot_limit` | Itens por slot do Servidor | 1 a 999 |
@@ -275,6 +276,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 12:34 | Acrescenta `wake_interval_ticks`, na seção `network` (perguntas 2330 e 2407). |
 | Zennd | 2026-11-25 11:58 | Acrescenta as chaves do Network Server e do Solar Relay (perguntas 2334, 2349 e 2376). |
 | Zennd | 2026-11-25 00:23 | Acrescenta as chaves do desenho da área, na seção `network` (perguntas 2287, 2311 e 2349). |
 | Zennd | 2026-11-24 12:32 | Atualiza o contrato das chaves, que vale a partir da `1.0.0` (perguntas 2189 e 2190). |

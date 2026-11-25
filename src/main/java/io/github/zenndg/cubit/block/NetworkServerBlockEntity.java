@@ -4,6 +4,7 @@ import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.EnergyStock;
 import io.github.zenndg.cubit.domain.energy.SolarOutput;
+import io.github.zenndg.cubit.domain.network.ChunkState;
 import io.github.zenndg.cubit.domain.network.ServerSpec;
 import io.github.zenndg.cubit.domain.network.UpsReserve;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
@@ -14,6 +15,7 @@ import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -34,6 +36,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   private final ServerStorage storage = new ServerStorage(this::setChanged, this::storageSlots);
   private final IItemHandler itemHandler = InputFirstItems.of(energySlot(), storage.handler());
   private UpsReserve ups = CubitMod.CONFIG.network().chunks().serverUps();
+  private final ServerChunk chunk = new ServerChunk(this::setChanged);
   private boolean chunkLoading = true;
   private boolean first;
   private SolarRelayBlockEntity relay;
@@ -54,6 +57,13 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     server.storage.dropRefused(level, pos);
     Energy rate = server.bankRate().min(server.ups.spare(server.energy(), server.capacity()));
     battery.set(server.storage.charge(battery.stock(), rate, server::setChanged));
+    server.payChunk((ServerLevel) level);
+  }
+
+  /** The chunk pays last, so the banks of this tick never take what it needs. */
+  private void payChunk(ServerLevel level) {
+    ServerChunk.Asked asked = new ServerChunk.Asked(owner(), chunkLoading && first);
+    battery().set(chunk.tick(level, worldPosition, asked, battery().stock()));
   }
 
   /** At the speed of the Dock of its tier, and never out of the reserve (answer 2373). */
@@ -101,9 +111,21 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     return chunkLoading;
   }
 
+  /** The switch of the owner (answer 2213). */
   public void setChunkLoading(boolean on) {
     chunkLoading = on;
+    chunk.recheck();
     setChanged();
+  }
+
+  /** Whether it holds its chunk, and why not. */
+  public ChunkState chunkState() {
+    return chunk.state();
+  }
+
+  /** What the chunk costs now per tick. */
+  public Energy chunkCost() {
+    return chunk.cost();
   }
 
   /** Whether it is the one that counts in its chunk (Delivery 3, detail 1). */
@@ -116,7 +138,10 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   }
 
   void pairWith(Optional<SolarRelayBlockEntity> next, boolean firstOfChunk) {
-    first = firstOfChunk;
+    if (first != firstOfChunk) {
+      first = firstOfChunk;
+      chunk.recheck();
+    }
     if (next.orElse(null) != relay) {
       relay = next.orElse(null);
       changeShown();
@@ -164,6 +189,13 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   }
 
   @Override
+  void gone() {
+    if (level instanceof ServerLevel server) {
+      chunk.release(server, worldPosition);
+    }
+  }
+
+  @Override
   SavedNetwork kept() {
     return new SavedNetwork(
         tier(), energy().amount(), storage.contents(), Optional.of(ups), chunkLoading);
@@ -184,6 +216,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     storage.save(tag, registries);
     tag.putInt(UPS_KEY, ups.percent());
     tag.putBoolean(CHUNK_KEY, chunkLoading);
+    chunk.save(tag);
   }
 
   /** The tier first, because it says how much the battery and the storage keep. */
@@ -194,6 +227,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     storage.load(tag, registries, worldPosition);
     ups = tag.contains(UPS_KEY) ? UpsReserve.of(tag.getInt(UPS_KEY)) : ups;
     chunkLoading = !tag.contains(CHUNK_KEY) || tag.getBoolean(CHUNK_KEY);
+    chunk.load(tag);
   }
 
   @Override

@@ -183,7 +183,9 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `ServerSpec` e `ServerCatalog` | Os números do Network Server em cada tier: a bateria, os canais, a entrada por cabo e redstone, os slots, em linhas inteiras da tela, e o que o Solar Relay dele gera de dia e à noite |
 | `UpsReserve` | A parte da bateria que é só do chunk, o Nobreak, de 0% a 50% em passos de 5, com o que sobra para o resto e quanto tempo ela segura. Um número salvo ou editado vai ao passo de baixo, dentro do limite (perguntas 2209, 2212 e 2221) |
 | `UpsWatch` | O aviso do Nobreak: uma vez ao descer para a reserva, e de novo só depois de sair dela |
-| `ChunkCall` e `ChunkState` | Se um bloco segura o chunk e por que não, com o motivo em que o player menos pode agir primeiro: o config, a chave, o dono offline, a energia e os limites. Quem zerou só volta com a carga da retomada (perguntas 2210 a 2215 e 2372) |
+| `ChunkCall` e `ChunkState` | Se um bloco segura o chunk e por que não, com o motivo em que o player menos pode agir primeiro: o config, a chave, o dono offline, a energia e os limites (perguntas 2210 a 2215) |
+| `ChunkCharge` | Se um bloco ficou sem energia para o chunk: zera sem o custo de um tick e só volta com a carga da retomada, também depois de um save. Um chunk de graça nunca zera (perguntas 2372 e 2404) |
+| `ChunkRoster` | Quais chunks o mod segura, de qual player, na ordem em que chegaram, e quais esperam o dono. Quem chegou primeiro fica dentro dos limites (perguntas 2210 e 2215) |
 | `ChunkLimits` | Quantos chunks o mod pode segurar, de um player e no mundo, com 0 para sem limite (pergunta 2215) |
 | `ServerPower` | O que a bateria fez num tick: ligou, caiu ou nada, para a partida e a queda |
 | `ServerFront` | A frente do Servidor: as colunas de 10 traços, com ao menos um aceso acima de zero, e o estado de cada lâmpada |

@@ -21,6 +21,7 @@ public final class NetworkConfigGameTests {
   private static final String CHUNKS_PER_WORLD_KEY = "network.chunks_per_world";
   private static final String CHUNK_COST_KEY = "network.chunk_cost";
   private static final String CHUNK_RESUME_ENERGY_KEY = "network.chunk_resume_energy";
+  private static final String WAKE_INTERVAL_TICKS_KEY = "network.wake_interval_ticks";
   private static final String SERVER_UPS_PERCENT_KEY = "network.server_ups_percent";
   private static final String RELAY_ENERGY_CAPACITY_KEY = "network.relay_energy_capacity";
   private static final String RELAY_INPUT_PER_TICK_KEY = "network.relay_input_per_tick";
@@ -36,17 +37,18 @@ public final class NetworkConfigGameTests {
   private static final String ULTIMATE_STORAGE_SLOTS_KEY = "network.ultimate.storage_slots";
   private static final String ULTIMATE_NIGHT_KEY = "network.ultimate.relay_solar_night_per_tick";
   private static final Map<String, Object> GENERAL_DEFAULTS =
-      Map.of(
-          CHUNK_LOADING_KEY, true,
-          OWNER_OFFLINE_KEY, true,
-          CHUNKS_PER_PLAYER_KEY, 48,
-          CHUNKS_PER_WORLD_KEY, 192,
-          CHUNK_COST_KEY, 25,
-          CHUNK_RESUME_ENERGY_KEY, 30_000,
-          SERVER_UPS_PERCENT_KEY, 25,
-          RELAY_ENERGY_CAPACITY_KEY, 300_000,
-          RELAY_INPUT_PER_TICK_KEY, 5_000,
-          STORAGE_SLOT_LIMIT_KEY, 128);
+      Map.ofEntries(
+          Map.entry(CHUNK_LOADING_KEY, true),
+          Map.entry(OWNER_OFFLINE_KEY, true),
+          Map.entry(CHUNKS_PER_PLAYER_KEY, 48),
+          Map.entry(CHUNKS_PER_WORLD_KEY, 192),
+          Map.entry(CHUNK_COST_KEY, 25),
+          Map.entry(CHUNK_RESUME_ENERGY_KEY, 30_000),
+          Map.entry(WAKE_INTERVAL_TICKS_KEY, 40),
+          Map.entry(SERVER_UPS_PERCENT_KEY, 25),
+          Map.entry(RELAY_ENERGY_CAPACITY_KEY, 300_000),
+          Map.entry(RELAY_INPUT_PER_TICK_KEY, 5_000),
+          Map.entry(STORAGE_SLOT_LIMIT_KEY, 128));
   private static final Map<String, Object> TIER_DEFAULTS =
       Map.of(
           BASE_ENERGY_CAPACITY_KEY, 1_200_000,

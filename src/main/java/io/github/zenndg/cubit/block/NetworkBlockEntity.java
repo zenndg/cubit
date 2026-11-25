@@ -69,6 +69,9 @@ public abstract class NetworkBlockEntity extends BlockEntity implements GeoBlock
   /** What the owner does with an item in the hand. False when it does nothing. */
   abstract boolean use(Player player, ItemStack stack);
 
+  /** The block was taken out of the world, and not only unloaded. */
+  abstract void gone();
+
   /** What the item keeps when the block breaks. */
   abstract SavedNetwork kept();
 
