@@ -53,7 +53,7 @@ public final class CubitClient {
     CubitNetwork.setDoorMarksDisplay(TabletDoorMarks::show);
     CubitNetwork.setDeathLogDisplay(TabletDeathLog::show);
     CubitNetwork.setAskNameDisplay(RobotNameScreen::show);
-    DeskClientTicks.set(DeskSoundLoops::tick);
+    DeskClientTicks.set(BlockSoundLoops::tick);
     event.enqueueWork(() ->
         ItemProperties.register(
             CubitItems.GENERAL_ROBOT.get(),

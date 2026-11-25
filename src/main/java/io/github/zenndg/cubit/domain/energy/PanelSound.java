@@ -1,15 +1,13 @@
-package io.github.zenndg.cubit.domain.dock;
+package io.github.zenndg.cubit.domain.energy;
 
-import io.github.zenndg.cubit.domain.energy.FoldingPanel;
-import io.github.zenndg.cubit.domain.energy.PanelState;
 import java.util.Optional;
 
 /**
- * The three sounds of the panel of the Dock, each at its moment of the motion: the deploy when the
- * arms start out, the lock when the two halves meet at the center, and the retract when the arms
- * start back (answers 1861 and 1921).
+ * The three sounds of a panel, of a Dock or of a Solar Relay, each at its moment of the motion: the
+ * deploy when it starts to open, the lock when its parts meet, and the retract when it starts back
+ * (answers 1861, 1921 and 2339).
  */
-public enum DockPanelSound {
+public enum PanelSound {
   DEPLOY,
   LOCK,
   RETRACT;
@@ -17,9 +15,9 @@ public enum DockPanelSound {
   /**
    * The sound a tick of the panel plays, if any.
    *
-   * @param lockTick the tick of the deploy at which the halves meet
+   * @param lockTick the tick of the deploy at which the parts meet
    */
-  public static Optional<DockPanelSound> between(
+  public static Optional<PanelSound> between(
       FoldingPanel before, FoldingPanel after, int lockTick) {
     if (after.state() == PanelState.DEPLOYING && before.state() != PanelState.DEPLOYING) {
       return Optional.of(DEPLOY);

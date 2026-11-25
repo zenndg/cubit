@@ -1,10 +1,10 @@
 package io.github.zenndg.cubit.block;
 
 import io.github.zenndg.cubit.CubitMod;
-import io.github.zenndg.cubit.domain.dock.DockPanelSound;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.EnergyStock;
 import io.github.zenndg.cubit.domain.energy.FoldingPanel;
+import io.github.zenndg.cubit.domain.energy.PanelSound;
 import io.github.zenndg.cubit.domain.energy.PanelState;
 import io.github.zenndg.cubit.domain.energy.SolarOutput;
 import io.github.zenndg.cubit.domain.energy.SolarPanel;
@@ -113,13 +113,13 @@ final class DockSolarPanel {
     if (step.worthSaving()) {
       changed.run();
     }
-    DockPanelSound.between(step.before(), step.after(), LOCK_TICK)
+    PanelSound.between(step.before(), step.after(), LOCK_TICK)
         .ifPresent(sound ->
             level.playSound(null, lower, eventOf(sound), SoundSource.BLOCKS, VOLUME, PITCH));
   }
 
   /** The server plays them, so everyone near hears them, as the Patroller (answer 1921). */
-  private static SoundEvent eventOf(DockPanelSound sound) {
+  private static SoundEvent eventOf(PanelSound sound) {
     return switch (sound) {
       case DEPLOY -> CubitSounds.DOCK_PANEL_DEPLOY.get();
       case LOCK -> CubitSounds.DOCK_PANEL_LOCK.get();
