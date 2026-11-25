@@ -12,9 +12,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
 /**
- * The order of the catalog of the desk: the order in which the recipes unlock, from the shared
- * parts and the Cubit to the chains of the Power Banks and the repair (answers 1498 and 1499). A
- * recipe out of this list, as one a pack added, comes last, in the order of its ID.
+ * The order of the catalog of the desk, from the shared parts and the Cubit to the chains of the
+ * Power Banks and the repair (answers 1498 and 1499). A recipe out of this list, as one a pack
+ * added, comes last, in the order of its ID.
  */
 final class DeskCatalogOrder {
   private static final String FROM_CASING = "_from_casing";
