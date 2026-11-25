@@ -36,7 +36,7 @@ Toda tarefa começa por uma issue, atribuída ao desenvolvedor e no milestone da
 
 ### 3. Branch
 
-Atualize a `develop` e crie a branch a partir dela, com o nome em inglês e em `kebab-case`:
+Atualize a `develop` e crie a branch a partir dela, com o nome em inglês e em `kebab-case`. Numa feature grande, como a Network, a branch sai da `integration/{feature}`, a centralizadora dela, e não da `develop` (pergunta 2378):
 
 ```bash
 git fetch origin
@@ -88,7 +88,7 @@ Use `git add` com os arquivos do plano, nunca `git add .`. Se um gate reprovar, 
 
 ### 9. Pull request
 
-Antes do push, atualize a branch com a de origem. Depois, execute e analise o que está em [`antes-do-pr.md`](antes-do-pr.md), com as GameTests, e só então abra o PR para a `develop` (regra 46). Numa feature grande, a branch sai da `integration/{feature}`, e o PR vai para ela, com `--base integration/{feature}`. A feature completa vai à `develop` num PR final, e só ele fecha as issues, porque a branch padrão é a `develop` (perguntas 2204, 2205 e 2333):
+Antes do push, atualize a branch com a de origem. Depois, execute e analise o que está em [`antes-do-pr.md`](antes-do-pr.md), com as GameTests, e só então abra o PR para a `develop` (regra 46). Numa feature grande, a branch sai da `integration/{feature}`, e o PR de toda entrega vai para ela, com `--base integration/{feature}`. A `develop` nunca recebe uma entrega: só o PR final, da feature completa, e só ele fecha as issues, porque a branch padrão é a `develop` (perguntas 2204, 2205, 2333 e 2378):
 
 ```bash
 git push -u origin feature/{issue}-{slug}
@@ -206,6 +206,7 @@ O primeiro passo, separando o que está decidido do que está pendente.
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 09:55 | Explica a branch centralizadora de uma feature grande (pergunta 2378). |
 | Zennd | 2026-11-24 22:40 | Acrescenta a `integration/{feature}` (pergunta 2333). |
 | Zennd | 2026-11-24 12:32 | Atualiza o cuidado com os saves (perguntas 2189 e 2190). |
 | Zennd | 2026-11-22 16:35 | Acrescenta o que vem antes do PR e a numeração nova das regras (perguntas 1715 e 1716). |

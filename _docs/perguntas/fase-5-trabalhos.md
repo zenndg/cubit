@@ -1310,11 +1310,16 @@ Não há perguntas pendentes nesta fase.
 | 2363 | Network, entrega 2: o código está autorizado (2224)? | Sim ("2 sim"), só o da entrega 2, a #264. As outras entregas continuam esperando a autorização própria |
 | 2364 | Network, entrega 2: quantos baús o Organizador marca no Advanced, em `organizer_chests`, até os 12, 18 e 25 da entrega 5 (2235)? | 4, cerca de metade do Elite, como as 4 marcas e os 2 fornos: 4, 9 e 18 até a entrega 5. A recomendação, 6, foi recusada |
 | 2365 | Network, entrega 2: com a área em L, como se comporta o caminho entre dois lugares da área? | Prefere dentro: contorna o canto por dentro e só passa por fora se não houver outro caminho, como hoje com um obstáculo. Ir ao Dock, ao baú e perseguir não mudam. A trava total vem na entrega 6, com os chunks (2201). A recomendação foi aceita |
+| 2366 | Network, entrega 3: as divergências dos documentos entram no PR da entrega 3, num commit à parte? | "comece corrigindo as divergencias deixe os documentos atualizados": corrigidas antes do resto da entrega 3, no `checklist.md`, no `network.md`, no `ROADMAP.md` e no `AGENTS.md`, com o que repetia o mesmo ponto em outros documentos. O robô de transporte fica fora do `checklist.md`, porque a 2198 adiou a ordem dele. O ajuste do roteiro e o acréscimo à entrega 3 (regras 51 e 53) seguem sem resposta |
+| 2367 | Network, entrega 3: algum ajuste no roteiro (regra 53) ou algo a acrescentar à entrega (regra 51)? | "vamos avancar": lido como nenhum ajuste e nada a acrescentar, e a entrega 3 segue com o escopo da #265. Não trata do commit, da branch nem do código, que continuam esperando a autorização própria (pergunta 2224) |
+| 2378 | Network, entrega 3: criar a branch `feature/265-network-server` e para onde vão as entregas | "sim pode criar com base na branch integration/network esta branch é a centralizadora desta feature de network toda entrega é feita apontando para ela. Develop somente ira receber o PR de entrega completa da feature. Documente isso.": a branch de toda entrega sai da `integration/network`, o PR dela aponta para ela, e a `develop` só recebe o PR da feature completa. Confirma a 2203, a 2204 e a 2205. O commit é pedido à parte |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 09:43 | Registra a resposta 2367. |
+| Zennd | 2026-11-25 09:41 | Registra a resposta 2366. |
 | Zennd | 2026-11-25 00:07 | Registra as respostas 2364 a 2365. |
 | Zennd | 2026-11-25 00:04 | Registra as respostas 2362 a 2363. |
 | Zennd | 2026-11-25 00:01 | Registra as respostas 2358 a 2361. |
