@@ -12,7 +12,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.items.IItemHandler;
 
 /**
@@ -21,7 +20,6 @@ import net.neoforged.neoforge.items.IItemHandler;
  */
 final class OrganizerPlanner {
   private static final String ITEMS = "#items";
-  private static final double EDGE = 1;
 
   private final RobotEntity robot;
   private final RobotOrganizing organizing;
@@ -102,17 +100,12 @@ final class OrganizerPlanner {
   }
 
   private Optional<OrganizerTask> nextItem(WorkArea area, String key) {
-    AABB box =
-        new AABB(
-            area.min().x(),
-            area.min().y(),
-            area.min().z(),
-            area.max().x() + EDGE,
-            area.max().y() + EDGE,
-            area.max().z() + EDGE);
     return robot
         .level()
-        .getEntitiesOfClass(ItemEntity.class, box, item -> !item.hasPickUpDelay())
+        .getEntitiesOfClass(
+            ItemEntity.class,
+            RobotPickup.boxOf(area),
+            item -> !item.hasPickUpDelay() && area.contains(item.getX(), item.getY(), item.getZ()))
         .stream()
         .filter(item -> RobotOrganizing.SPOTS.freeFor(key, item.getId(), robot.getUUID()))
         .min(Comparator.comparingDouble(robot::distanceToSqr))

@@ -35,7 +35,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `CookSpec` | Os fornos marcados, o custo por pilha movida, a pausa e o intervalo da varredura do Cozinheiro em cada tier (pergunta 1326) |
 | `OrganizerSpec` | Os baús, as marcas, o custo por pilha movida, a pausa e o intervalo da varredura do Organizador em cada tier (pergunta 1300) |
 | `UnloadSpec` | Os baús que um tier pode marcar e a distância até eles (pergunta 1094) |
-| `AreaSpec` | A maior área de um tier: o lado da base e a altura, com 0 para o tier sem modo área (perguntas 342 e 1050) |
+| `AreaSpec` | A maior área de um tier: o lado do retângulo em volta dela e a altura, com 0 para o tier sem modo área (perguntas 342, 1050 e 2350) |
 | `TorchRules` | Quando o robô põe uma tocha e quais lugares são perigosos |
 | `DoorRules` | Quando o Cubit abre uma porta marcada, com o custo dela, e quando a fecha de novo (perguntas 1366 a 1370) |
 | `TorchGrid` | O espaço em volta do robô, lido uma vez por varredura: o que para a luz, onde mob pode nascer e onde uma tocha cabe |
@@ -74,10 +74,21 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `RobotListing` | Um Cubit como a tela de seleção do Tablet o ordena: se segue o player, se está na mesma dimensão, se está carregado e a distância |
 | `RobotListings` | A ordem e a busca da tela de seleção do Tablet |
 | `TabletApps` | Os apps do Tablet que fazem sentido para o Cubit escolhido, a troca com Shift e a roda e a volta ao Open de um app que deixou de valer (perguntas 1006 e 1044). O Escort só entra com o card do Patrulheiro no Cubit escolhido (pergunta 1664) |
-| `WorkArea` | A área de um Cubit: um volume de blocos entre dois cantos, numa dimensão. Cabe no tier pela base e pela altura, conta o bloco acima do topo, onde os itens ficam, dá os cantos da base para a ronda, sabe se toca outra área, a distância de um ponto até a base, o canto mais perto e o lado de fora, para onde o Patrulheiro olha nas paradas das bordas (perguntas 342, 1051, 1062, 1625, 1626, 1636 e 1707) |
-| `AreaCorner` | Um bloco marcado como canto pelo app Área |
+| `WorkArea` | A área de um Cubit: uma forma desenhada, do bloco marcado mais baixo ao mais alto, numa dimensão. Cabe no tier pelo retângulo em volta e pela altura, conta o bloco acima do topo, onde os itens ficam, dá os cantos para a ronda, sabe se toca outra área, a distância de um ponto até a base, o canto mais perto, para onde ir primeiro e quanto falta do caminho por dentro (perguntas 1062, 1625, 1636, 1707, 2240, 2244 e 2365) |
+| `AreaShape` | A forma fechada no chão, só com ângulos retos. Lê as colunas uma vez, ao ser feita, e perguntar se um bloco está dentro não custa nada depois (perguntas 2243 e 2311) |
+| `AreaPath` | Os pontos na ordem em que foram marcados: se a próxima linha é reta, se passa por cima do desenho e se o caminho fecha (perguntas 2243 e 2354) |
+| `AreaSide` | Uma linha reta de blocos entre duas colunas |
+| `AreaColumn` | Uma coluna de blocos da área, ou um ponto do contorno, sem altura |
+| `AreaLoop` | Os cantos da forma numa ordem só, qualquer que seja o ponto em que o desenho começou. Um ponto no meio de um lado não é canto |
+| `AreaWays` | O caminho entre dois lugares da forma sem sair dela, pelos cantos de dentro (pergunta 2365) |
+| `AreaOutward` | O lado de fora, para onde o Patrulheiro olha nas paradas das bordas, também no canto de dentro de um L (perguntas 1626 e 1724) |
+| `AreaBounds` | O retângulo em volta dos pontos, com a largura, a altura, a profundidade e o centro |
+| `AreaDrawing` | O desenho pela metade: os pontos, se fechou, o que cada clique faz e por que é recusado (perguntas 2245, 2355 e 2356) |
+| `AreaDrawingSpec` | O mínimo e o máximo de pontos e o alcance da mira (perguntas 2287 e 2311) |
+| `AreaErase` | O primeiro dos dois cliques que apagam a área, com o tempo para confirmar (pergunta 2299) |
+| `AreaCorner` | Um bloco marcado como ponto pelo app Área |
 | `AreaCheck` | Se a área pode ser do Cubit, ou por quê não: sem modo área no tier, grande demais, em outra dimensão ou longe demais (perguntas 1050, 1054 e 1058) |
-| `AreaMarking` | A marcação pela metade do app Área: o Cubit e, depois, o primeiro canto, só na memória do servidor (perguntas 1054 e 1060) |
+| `AreaMarking` | A marcação pela metade do app Área: o Cubit, a dimensão e o desenho, só na memória do servidor (perguntas 1054, 1060 e 2357) |
 | `UnloadChest` e `UnloadChests` | Os baús de descarga de um Cubit, pelo bloco e pela dimensão, na ordem da marca. Um segundo clique desmarca, e o tier limita quantos (perguntas 1086 e 1088) |
 | `MarkedDoor` e `DoorMarks` | As portas, os alçapões e os portões de cerca que o dono marcou com o app Portas, pelo bloco e pela dimensão, para todos os Cubits dele. Um segundo clique desmarca, e o config limita quantas (perguntas 1364 e 1369) |
 | `UnloadCall` | Se o `Descarregar` do Tablet pode mandar o Cubit, ou por que não, e quando ele descarrega sozinho: só cheio, na área e com a chave ligada (perguntas 1087, 1089 e 1093) |
@@ -268,6 +279,9 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 - **Ronda de vigia:** o passo lento e as paradas valem só na ronda. Na perseguição, ele corre na velocidade normal, e qualquer parada, num ponto, num canto ou no caminho, zera a contagem de blocos, para as paradas não se amontoarem (perguntas 1614 a 1618).
 - **Desmarcar vem antes de recusar:** um ponto marcado sai mesmo fora da área nova, para o player limpar uma rota antiga sem marcar a área de novo (pergunta 1611).
 - **Rota só na área:** os pontos fora da área ou de outra dimensão não valem, mas ficam guardados no NBT, e voltam a valer quando a área os inclui de novo (perguntas 1599 e 1602).
+- **Forma calculada uma vez:** a área guarda as colunas dela num mapa de bits, com até 256 blocos de lado e 256 pontos, para um save quebrado não tomar a memória. Nenhuma conta de polígono roda por tick (regra 21 e detalhe 8 da Network).
+- **Mesma forma, mesma área:** os cantos têm uma ordem só, então dois Patrulheiros com o mesmo desenho, começado em pontos diferentes, dividem as mesmas bordas (perguntas 1646 e 1708).
+- **Progresso pelo caminho:** num L, contornar o corte afasta o Cubit do alvo em linha reta. O progresso conta o caminho que falta por dentro, para ele não desistir no meio (pergunta 2365).
 - **Esfera, não cubo:** o canto de um cubo fica a cerca de 1,7 vez o raio, então só conta o que está a até o raio em linha reta. Os dois scanners usam a mesma regra (perguntas 604 e 606).
 - **Varredura por número:** a área numera os blocos, então uma varredura em fatias só guarda um número entre os ticks, sem alocar nada (regra 21).
 - **Bloco pela subtag:** um bloco está em `c:ores` e nas subtags, e só elas dizem o que ele é. `c:ores` só vale para quem não tem subtag, então um filtro nele não pega todo minério (perguntas 546 e 566).

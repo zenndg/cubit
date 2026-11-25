@@ -1,7 +1,7 @@
 package io.github.zenndg.cubit.entity;
 
 import io.github.zenndg.cubit.CubitMod;
-import io.github.zenndg.cubit.domain.robot.AreaCorner;
+import io.github.zenndg.cubit.domain.robot.AreaColumn;
 import io.github.zenndg.cubit.domain.robot.WorkArea;
 import java.util.EnumSet;
 import java.util.Optional;
@@ -9,11 +9,11 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * The Cubit in its area, a volume between two corners: it walks there, or appears inside when
- * stuck, and then goes round the edges, from corner to corner, at the height it walks (answers 342,
- * 1058, 1059 and 1062). The Galactic Patroller walks them at the pace of a lookout, stopping at
- * each corner and every so many blocks to look around, out of the area (answers 1614, 1616 and
- * 1626). Fetching an item comes first, by its priority.
+ * The Cubit in its area, a drawn shape with a height: it walks there, or appears inside when stuck,
+ * and then goes round the edges, from corner to corner, at the height it walks (answers 342, 1058,
+ * 1059 and 1062). The Galactic Patroller walks them at the pace of a lookout, stopping at each
+ * corner and every so many blocks to look around, out of the area (answers 1614, 1616 and 1626).
+ * Fetching an item comes first, by its priority.
  */
 final class AreaWorkGoal extends Goal {
   /** The robot speed is already in its movement attribute, so the route does not change it. */
@@ -97,7 +97,7 @@ final class AreaWorkGoal extends Goal {
       reachedCorner();
       return;
     }
-    if (stuck(distance)) {
+    if (stuck(AreaWalk.left(robot, target))) {
       unstick(area, inside);
       return;
     }
@@ -183,7 +183,7 @@ final class AreaWorkGoal extends Goal {
    * The corner of the base at the height the Cubit is, within the area: the area is a volume, so
    * the round follows its edges on the level the Cubit walks, not under the ground.
    */
-  private Vec3 spotOf(WorkArea area, AreaCorner corner) {
+  private Vec3 spotOf(WorkArea area, AreaColumn corner) {
     return new Vec3(corner.x() + HALF, back.levelIn(area), corner.z() + HALF);
   }
 }

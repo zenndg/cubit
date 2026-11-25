@@ -10,6 +10,7 @@ import io.github.zenndg.cubit.domain.desk.DeskCatalog;
 import io.github.zenndg.cubit.domain.dock.DockCatalog;
 import io.github.zenndg.cubit.domain.energy.Percentage;
 import io.github.zenndg.cubit.domain.energy.PowerRules;
+import io.github.zenndg.cubit.domain.robot.AreaDrawingSpec;
 import io.github.zenndg.cubit.domain.robot.OreKind;
 import io.github.zenndg.cubit.domain.robot.OreSignals;
 import io.github.zenndg.cubit.domain.robot.RobotType;
@@ -56,14 +57,13 @@ public final class CubitConfig {
   private final SpeedControlSection speedControl;
   private final DoorSection doors;
   private final RechargeSplashSection rechargeSplash;
+  private final NetworkSection network;
   private final AtomicBoolean warnedRareTags = new AtomicBoolean();
   private final AtomicBoolean warnedLamp = new AtomicBoolean();
   private final NeoForgeTierCatalog tierCatalog;
 
   public CubitConfig() {
-    ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
-
-    builder.push(GENERAL_SECTION);
+    ModConfigSpec.Builder builder = new ModConfigSpec.Builder().push(GENERAL_SECTION);
     general = new GeneralSection(builder);
     damagedRobot = new DamagedRobotSection(builder);
     energySlot = new EnergySlotSection(builder);
@@ -86,7 +86,7 @@ public final class CubitConfig {
     rechargeSplash = new RechargeSplashSection(builder);
     engineeringDesk = new EngineeringDeskSection(builder);
     builder.pop();
-
+    network = NetworkSection.in(builder);
     tierCatalog = new NeoForgeTierCatalog(Map.of(GENERAL_ROBOT, tierSections(builder)));
     spec = builder.build();
   }
@@ -107,6 +107,11 @@ public final class CubitConfig {
 
   public ModConfigSpec spec() {
     return spec;
+  }
+
+  /** The numbers of the drawing of an area (answers 2287 and 2311). */
+  public AreaDrawingSpec areaDrawing() {
+    return network.drawing();
   }
 
   public int retaliateMemoryTicks() {

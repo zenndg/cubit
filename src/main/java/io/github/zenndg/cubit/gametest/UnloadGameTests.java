@@ -212,11 +212,7 @@ public final class UnloadGameTests {
   }
 
   private static void markArea(GameTestHelper helper, ServerPlayer owner, RobotEntity robot) {
-    ItemStack tablet = new ItemStack(CubitItems.TABLET.get());
-    TabletItem.setApp(tablet, TabletApp.AREA);
-    TabletUse.click(owner, tablet, new TabletUse.Living(robot));
-    TabletUse.click(owner, tablet, block(helper, FIRST_CORNER));
-    TabletUse.click(owner, tablet, block(helper, SECOND_CORNER));
+    AreaClicks.drawBox(helper, owner, robot, FIRST_CORNER, SECOND_CORNER);
   }
 
   private static void fill(Container container) {

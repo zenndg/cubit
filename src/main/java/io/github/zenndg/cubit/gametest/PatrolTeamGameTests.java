@@ -102,7 +102,7 @@ public final class PatrolTeamGameTests {
   private static WorkArea wholeArena(GameTestHelper helper, RobotEntity robot) {
     BlockPos first = helper.absolutePos(new BlockPos(0, FLOOR_Y, 0));
     BlockPos second = helper.absolutePos(new BlockPos(LAST_X, FLOOR_Y, LAST_Z));
-    return WorkArea.between(
+    return AreaBoxes.between(
         new AreaCorner(first.getX(), first.getY(), first.getZ()),
         new AreaCorner(second.getX(), second.getY(), second.getZ()),
         robot.level().dimension().location().toString());

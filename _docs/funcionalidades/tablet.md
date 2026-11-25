@@ -37,7 +37,7 @@ O Tablet funciona por apps, um ativo por vez, e o clique direito faz o que o app
 | Open | Num Cubit, abre a tela dele. Em qualquer outro lugar, abre a tela de seleção | Sempre | 1 |
 | Alvo | Marca o mob na mira, a até 32 blocos, como alvo do modo Focus do Cubit escolhido | Com o Cubit escolhido carregado e no modo Focus | 3 |
 | Dock | Num Dock do player, faz dele o Dock preferido do Cubit escolhido. No Dock que já é o preferido, tira a preferência | Sempre | 3 |
-| Área | Num Cubit seu, escolhe o Cubit. Depois, em dois blocos, marca os cantos da área, e o Cubit vai para ela ([`modo-area.md`](modo-area.md#marcar-a-área)) | Sempre | Item 13 |
+| Área | Num Cubit seu, escolhe o Cubit. Depois, cada bloco, de perto ou na mira a até 32 blocos, marca um ponto do desenho, em ângulo reto, que fecha no primeiro. Shift + clique desfaz o último ponto, aplica a forma fechada ou, sem desenho, apaga a área do Cubit, com confirmação ([`modo-area.md`](modo-area.md#marcar-a-área)) (perguntas 2240 a 2246 e 2352) | Sempre | Item 13 e #264 |
 | Descarga | Num bloco com inventário, marca um baú de descarga do Cubit escolhido. Num baú já marcado, manda o Cubit descarregar ali. Shift + clique desmarca o baú clicado, ou, em outro lugar, o último marcado (perguntas 1098 e 1099) ([`inventario.md`](inventario.md#descarregar-em-baú)) | Sempre | Item 14 |
 | Marcar | Num bloco com inventário dentro do alcance, marca o que o card do Cubit escolhido pede: uma máquina, no modo organizar do Organizador, ou um destino, com a face clicada, no modo abastecer. Shift + clique desmarca o bloco clicado, ou, em outro lugar, o último marcado. As marcas aparecem com setas, como os baús ([`organizador.md`](trabalhos/organizador.md)) (perguntas 1288, 1296 e 1297) | Com o card do Organizador, do Cozinheiro, que marca só fumeiros e fornalhas, ou do Patrulheiro, que marca os pontos da rota no topo de blocos sólidos dentro da área, com setas numeradas e uma linha ciano em laço ([`patrulheiro.md`](trabalhos/patrulheiro.md#a-rota)) (perguntas 1579, 1611 e 1612) | #196, #197 e #198 |
 | Escort (Escolta) | Num player ou num mob que o Patrulheiro escolhido nunca ataca, marca o escoltado, que ele segue e protege. No escoltado, ou com Shift + clique, desmarca. Num mob que ele ataca, ou num player ou mob de outra dimensão, avisa e não marca ([`patrulheiro.md`](trabalhos/patrulheiro.md#escolta-marcada)) (perguntas 1655 a 1661 e 1764) | Só com o card do Patrulheiro no Cubit escolhido. Sem ele, o app sai da troca, e o Tablet ativo nele volta ao Open (pergunta 1664) | #198 |
@@ -139,7 +139,7 @@ Fica fixo em todas as abas. `Voltar` fica no canto superior esquerdo, e os botõ
 | Local de morte | Advanced |
 | Velocidade, com − e + no lugar da chave (perguntas 1260 e 1269) | Base |
 
-  Com um Cubit numa área, a aba também mostra a área, com os cantos e o tamanho (item 13). O retorno automático entra com o item 15, antes do modo área (pergunta 1069), e a descarga em baú e o local de morte, com os itens 14 e 16 da Fase 4.2.
+  Com um Cubit numa área, a aba também mostra a área, com os cantos e o tamanho do retângulo em volta dela (item 13). O retorno automático entra com o item 15, antes do modo área (pergunta 1069), e a descarga em baú e o local de morte, com os itens 14 e 16 da Fase 4.2.
 - **Aba Inventário:** o slot de energia é o primeiro da fileira dos slots exclusivos, antes das tochas, e o slot vazio diz `Redstone` na dica (pergunta 1104). Mostra o inventário inteiro do Cubit, em 3 fileiras com as colunas do tier, como a tela do Cubit, mas não permite tirar, pôr nem mover itens. No Ultimate, a janela do Tablet alarga para caber as 18 colunas (pergunta 1101). A dica de cada item funciona.
 - **Inventário do player:** aparece só na aba Filtros.
 
@@ -183,11 +183,12 @@ Entra com o item 16 da Fase 4.2 (perguntas 1111 e 1119). As regras do histórico
 | Pacote do servidor | `cubit:ask_robot_name` | Abre a janela do nome de um Cubit colocado pela primeira vez, com o nome padrão no campo. A resposta volta por `cubit:robot_named`, aceita uma vez, só de quem o colocou e ao alcance (perguntas 1879 e 1880) |
 | Pacote do cliente | `cubit:rename_dock` | O nome digitado na tela do Dock, aceito só para o Dock da tela aberta, que só o dono abre ao alcance (pergunta 1868) |
 | Pacote do servidor | `cubit:escort_marks` | Os escoltados de cada Patrulheiro do player, para as setas douradas do app Escort (pergunta 1661) |
-| Pacote do servidor | `cubit:area_mark` | O primeiro canto da marcação, com os limites do Cubit, e a área do Cubit escolhido, para a caixa do app Área |
+| Pacote do servidor | `cubit:area_mark` | Os pontos do desenho e se ele está fechado, com os limites do Cubit e do config, e os cantos e as alturas da área do Cubit escolhido, para a linha do app Área |
 | Config | `tablet_target_reach_blocks`, em `general` | O alcance da mira do app Alvo, de 1 a 128, com 32 |
 | NBT da entidade | `UnloadChests` | Os baús de descarga, em ordem: `Block`, a posição num `long`, e `Dimension`. Sem a chave, o Cubit não tem baús |
 | Config | `unload_chests` e `unload_reach_blocks`, por tier | Os baús de descarga e a distância até eles |
-| NBT da entidade | `WorkArea` | A área do Cubit: `Min` e `Max`, os cantos em `long`, e `Dimension`. Sem a chave, o Cubit não tem área |
+| NBT da entidade | `DrawnArea` | A área do Cubit: `Points`, os cantos da forma numa lista de `long`, `Low` e `High`, a altura, e `Dimension`. Sem a chave, o Cubit não tem área. A chave antiga, `WorkArea`, é ignorada (pergunta 2283) |
+| Config | `area_min_points`, `area_max_points` e `area_reach_blocks`, em `network` | Os pontos e o alcance do desenho da área |
 | Config | `area_size_blocks` e `area_height_blocks`, por tier | O lado da base e a altura máxima da área, com 0 para bloqueado |
 | Attachment do player | `cubit:death_log` | O histórico de mortes, mantido na morte, com até `death_log_size` registros, cada um com `DayTime`, o tempo do mundo num `long`, `Block`, a posição num `long`, `Dimension` e `Cause`, o texto de morte do jogo. Sem o attachment, o histórico está vazio (pergunta 1114) |
 | Pacote do servidor | `cubit:death_log` | O histórico de mortes do dono, o que o botão de guiar pode fazer em cada linha, a morte que o Cubit escolhido está guiando e o primeiro tier que guia, ao abrir a tela do Cubit no Tablet e a cada mudança |
@@ -206,12 +207,13 @@ Os textos em inglês e português, como `Cubit Tablet` / `Tablet do Cubit`, `Tab
 
 ## Com a Network
 
-Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](network.md). Entram o app Network, rosa, a aba Network, entre Trabalho e XP, e o `Back to work`. O app Área passa a desenhar por pontos, a até 32 blocos. O app Dock e o Descarga ficam para quem segue (perguntas 2228, 2237, 2249, 2251, 2311, 2316, 2317 e 2328).
+Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](network.md). Entram o app Network, rosa, a aba Network, entre Trabalho e XP, e o `Back to work`. O desenho por pontos do app Área já entrou. O app Dock e o Descarga ficam para quem segue (perguntas 2228, 2237, 2249, 2251, 2311, 2316, 2317 e 2328).
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 00:23 | Atualiza o app Área, com o desenho por pontos, e o contrato (perguntas 2240 a 2246, 2283 e 2358). |
 | Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-24 10:06 | Cita o Shift + clique que chama o Cubit (pergunta 2122). |
 | Zennd | 2026-11-24 09:56 | Acrescenta a aba XP, o Descarregar XP e o XP da foto (perguntas 2075 a 2116). |

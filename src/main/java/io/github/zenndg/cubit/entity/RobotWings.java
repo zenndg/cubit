@@ -74,17 +74,22 @@ final class RobotWings {
     if (flying()) {
       return;
     }
-    robot.getNavigation().moveTo(target.x, target.y, target.z, speed);
+    Vec3 goal = chasing ? target : AreaWalk.next(robot, target);
+    if (chasing) {
+      robot.getNavigation().moveTo(goal.x, goal.y, goal.z, speed);
+    } else {
+      AreaWalk.to(robot, goal, speed);
+    }
     RobotPatrolCombat combat = robot.workArea().work().patrolCombat();
     if (!combat.armed() || !robot.onGround()) {
       return;
     }
     Path path = robot.getNavigation().getPath();
     boolean reaches = path != null && path.canReach();
-    double straight = robot.position().distanceTo(target);
+    double straight = robot.position().distanceTo(goal);
     double factor = CubitMod.CONFIG.patrol().wingDetourFactor();
     if (WingHop.worthHopping(reaches, length(path), straight, factor)) {
-      landingToward(target, chasing).ifPresent(this::takeOff);
+      landingToward(goal, chasing).ifPresent(this::takeOff);
     }
   }
 

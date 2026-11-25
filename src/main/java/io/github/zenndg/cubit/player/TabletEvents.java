@@ -97,6 +97,23 @@ public final class TabletEvents {
     }
   }
 
+  /** The line belongs to one dimension, so a drawing ends and the area shown changes. */
+  @SubscribeEvent
+  public static void onChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
+    if (event.getEntity() instanceof ServerPlayer player) {
+      TabletAreaApp.forget(player);
+      TabletAreaView.sync(player);
+    }
+  }
+
+  /** A respawn may also change the dimension, and the line shown with it. */
+  @SubscribeEvent
+  public static void onRespawn(PlayerEvent.PlayerRespawnEvent event) {
+    if (event.getEntity() instanceof ServerPlayer player) {
+      TabletAreaView.sync(player);
+    }
+  }
+
   /** A marking halfway lives only while the player plays (answer 1060). */
   @SubscribeEvent
   public static void onLogout(PlayerEvent.PlayerLoggedOutEvent event) {

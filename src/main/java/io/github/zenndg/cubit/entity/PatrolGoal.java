@@ -85,7 +85,7 @@ final class PatrolGoal extends Goal {
       patrol.arrived();
       return;
     }
-    if (stuck(distance)) {
+    if (stuck(AreaWalk.left(robot, target))) {
       skip(patrol);
       return;
     }

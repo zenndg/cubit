@@ -88,7 +88,7 @@ public final class PatrolRouteGameTests {
   private static WorkArea area(GameTestHelper helper, RobotEntity robot) {
     BlockPos first = helper.absolutePos(AREA_START);
     BlockPos second = helper.absolutePos(AREA_END);
-    return WorkArea.between(
+    return AreaBoxes.between(
         new AreaCorner(first.getX(), first.getY(), first.getZ()),
         new AreaCorner(second.getX(), second.getY(), second.getZ()),
         robot.level().dimension().location().toString());

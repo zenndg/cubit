@@ -2,11 +2,13 @@ package io.github.zenndg.cubit.menu;
 
 import io.github.zenndg.cubit.domain.dock.DockGoal;
 import io.github.zenndg.cubit.domain.dock.XpUnloadCall;
+import io.github.zenndg.cubit.domain.robot.AreaBounds;
 import io.github.zenndg.cubit.domain.robot.AreaCorner;
 import io.github.zenndg.cubit.domain.robot.FollowCall;
 import io.github.zenndg.cubit.domain.robot.UnloadCall;
 import io.github.zenndg.cubit.domain.robot.WorkArea;
 import io.github.zenndg.cubit.registry.CubitMenus;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -53,9 +55,8 @@ public final class TabletRobotMenu extends RobotMenu {
   private static final int HALF_MASK = 0xFFFF;
 
   /** The client shows only the corners and the size, so the dimension is not sent. */
-  private static final String SHOWN_DIMENSION = "shown";
-
   private final TabletOpening tablet;
+
   private final DockGoalControl dock;
   private final FollowControl follow;
   private final UnloadControl unload;
@@ -146,24 +147,26 @@ public final class TabletRobotMenu extends RobotMenu {
   /** Six whole numbers, each in two halves, because each value travels in 16 bits. */
   private void putArea(Optional<WorkArea> shown) {
     areaValues.set(HAS_AREA, shown.isPresent() ? 1 : 0);
-    shown.ifPresent(found -> {
-      int[] numbers = {
-        found.min().x(), found.min().y(), found.min().z(),
-        found.max().x(), found.max().y(), found.max().z()
-      };
-      for (int index = 0; index < numbers.length; index++) {
-        areaValues.set(FIRST_CORNER + 2 * index, numbers[index] & HALF_MASK);
-        areaValues.set(FIRST_CORNER + 2 * index + 1, numbers[index] >>> HALF_BITS);
-      }
-    });
+    shown
+        .map(WorkArea::bounds)
+        .ifPresent(found -> {
+          int[] numbers = {
+            found.min().x(), found.min().y(), found.min().z(),
+            found.max().x(), found.max().y(), found.max().z()
+          };
+          for (int index = 0; index < numbers.length; index++) {
+            areaValues.set(FIRST_CORNER + 2 * index, numbers[index] & HALF_MASK);
+            areaValues.set(FIRST_CORNER + 2 * index + 1, numbers[index] >>> HALF_BITS);
+          }
+        });
   }
 
   /** The area of the Cubit, for the Resources tab (answer 1051). */
-  public Optional<WorkArea> area() {
+  public Optional<AreaBounds> area() {
     if (areaValues.get(HAS_AREA) == 0) {
       return Optional.empty();
     }
-    return Optional.of(new WorkArea(corner(MIN_CORNER), corner(MAX_CORNER), SHOWN_DIMENSION));
+    return AreaBounds.around(List.of(corner(MIN_CORNER), corner(MAX_CORNER)));
   }
 
   private AreaCorner corner(int first) {

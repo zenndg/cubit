@@ -219,7 +219,7 @@ public final class JobBaseGameTests {
   private static WorkArea area(GameTestHelper helper, RobotEntity robot) {
     BlockPos first = helper.absolutePos(FIRST_CORNER);
     BlockPos second = helper.absolutePos(SECOND_CORNER);
-    return WorkArea.between(
+    return AreaBoxes.between(
         new AreaCorner(first.getX(), first.getY(), first.getZ()),
         new AreaCorner(second.getX(), second.getY(), second.getZ()),
         robot.level().dimension().location().toString());

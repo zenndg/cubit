@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.github.zenndg.cubit.domain.tier.AreaSpec;
+import io.github.zenndg.cubit.gametest.AreaBoxes;
 import org.junit.jupiter.api.Test;
 
 class WorkAreaTest {
@@ -14,7 +15,7 @@ class WorkAreaTest {
   private static final String BLANK = " ";
   private static final AreaCorner LOW = new AreaCorner(10, 64, -5);
   private static final AreaCorner HIGH = new AreaCorner(25, 71, 10);
-  private static final WorkArea AREA = WorkArea.between(HIGH, LOW, OVERWORLD);
+  private static final WorkArea AREA = AreaBoxes.between(HIGH, LOW, OVERWORLD);
   private static final int SIDE = 16;
   private static final int HEIGHT = 8;
   private static final AreaSpec ADVANCED = new AreaSpec(SIDE, HEIGHT);
@@ -29,12 +30,16 @@ class WorkAreaTest {
   private static final int REACH = 24;
   private static final int SHORT_REACH = 4;
   private static final WorkArea BESIDE =
-      WorkArea.between(new AreaCorner(26, 64, -5), new AreaCorner(30, 70, 0), OVERWORLD);
+      AreaBoxes.between(new AreaCorner(26, 64, -5), new AreaCorner(30, 70, 0), OVERWORLD);
   private static final WorkArea APART =
-      WorkArea.between(new AreaCorner(28, 64, -5), new AreaCorner(30, 70, 0), OVERWORLD);
+      AreaBoxes.between(new AreaCorner(28, 64, -5), new AreaCorner(30, 70, 0), OVERWORLD);
   private static final WorkArea OVERLAPPING =
-      WorkArea.between(new AreaCorner(20, 60, 0), new AreaCorner(40, 66, 20), OVERWORLD);
-  private static final WorkArea IN_THE_NETHER = WorkArea.between(HIGH, LOW, NETHER);
+      AreaBoxes.between(new AreaCorner(20, 60, 0), new AreaCorner(40, 66, 20), OVERWORLD);
+  private static final WorkArea IN_THE_NETHER = AreaBoxes.between(HIGH, LOW, NETHER);
+  private static final WorkArea ABOVE =
+      new WorkArea(AREA.shape(), HIGH.y() + 2, HIGH.y() + 2, OVERWORLD);
+  private static final WorkArea RIGHT_ABOVE =
+      new WorkArea(AREA.shape(), HIGH.y() + 1, HIGH.y() + 2, OVERWORLD);
   private static final double EAST_X = 30;
   private static final double SOUTH_Z = 15;
   private static final double EAST_GAP = 4;
@@ -48,12 +53,13 @@ class WorkAreaTest {
   private static final int IN = -1;
 
   @Test
-  void theCornersGoInAnyOrderAndMakeAVolume() {
-    assertEquals(LOW, AREA.min());
-    assertEquals(HIGH, AREA.max());
-    assertEquals(SIDE, AREA.width());
+  void theBoxAroundItGoesFromCornerToCorner() {
+    assertEquals(LOW, AREA.bounds().min());
+    assertEquals(HIGH, AREA.bounds().max());
+    assertEquals(SIDE, AREA.bounds().width());
     assertEquals(HEIGHT, AREA.height());
-    assertEquals(SIDE, AREA.depth());
+    assertEquals(HEIGHT, AREA.bounds().height());
+    assertEquals(SIDE, AREA.bounds().depth());
   }
 
   @Test
@@ -73,8 +79,8 @@ class WorkAreaTest {
 
   @Test
   void theRoundGoesAroundTheCornersOfTheBase() {
-    assertEquals(new AreaCorner(LOW.x(), LOW.y(), LOW.z()), AREA.corner(0));
-    assertEquals(new AreaCorner(LOW.x(), LOW.y(), HIGH.z()), AREA.corner(LAST_CORNER));
+    assertEquals(LOW.column(), AREA.corner(0));
+    assertEquals(new AreaColumn(LOW.x(), HIGH.z()), AREA.corner(LAST_CORNER));
     assertEquals(AREA.corner(0), AREA.corner(AROUND));
     assertEquals(AREA.corner(LAST_CORNER), AREA.corner(-1));
   }
@@ -92,9 +98,32 @@ class WorkAreaTest {
   }
 
   @Test
-  void anAreaNeedsADimensionAndCornersInOrder() {
-    assertThrows(IllegalArgumentException.class, () -> new WorkArea(HIGH, LOW, OVERWORLD));
-    assertThrows(IllegalArgumentException.class, () -> new WorkArea(LOW, HIGH, BLANK));
+  void anAreaNeedsADimensionAndHeightsInOrder() {
+    AreaShape shape = AREA.shape();
+
+    assertThrows(
+        IllegalArgumentException.class, () -> new WorkArea(shape, HIGH.y(), LOW.y(), OVERWORLD));
+    assertThrows(
+        IllegalArgumentException.class, () -> new WorkArea(shape, LOW.y(), HIGH.y(), BLANK));
+    assertThrows(IllegalArgumentException.class, () -> new AreaBounds(HIGH, LOW));
+  }
+
+  @Test
+  void theScansReadEveryColumnOfIt() {
+    assertEquals(SIDE * SIDE, AREA.columnCount());
+    assertEquals(LOW.column(), AREA.column(0));
+    assertEquals(HIGH.column(), AREA.column(AREA.columnCount() - 1));
+  }
+
+  @Test
+  void aCubitOutsideHeadsToTheMiddle() {
+    assertEquals(AREA.bounds().center(), AREA.heart());
+  }
+
+  @Test
+  void areasOneOverTheOtherApartAreNotOne() {
+    assertFalse(AREA.touches(ABOVE));
+    assertTrue(AREA.touches(RIGHT_ABOVE));
   }
 
   @Test
@@ -131,12 +160,12 @@ class WorkAreaTest {
 
   @Test
   void onAnEdgeTheOutsideIsAcrossIt() {
-    assertEquals(new WorkArea.Outward(IN, 0), AREA.outwardFrom(BY_THE_WEST, INSIDE_Z));
-    assertEquals(new WorkArea.Outward(0, OUT), AREA.outwardFrom(MID_X, BY_THE_SOUTH));
+    assertEquals(new AreaOutward(IN, 0), AREA.outwardFrom(BY_THE_WEST, INSIDE_Z));
+    assertEquals(new AreaOutward(0, OUT), AREA.outwardFrom(MID_X, BY_THE_SOUTH));
   }
 
   @Test
   void atACornerTheOutsideIsTheDiagonal() {
-    assertEquals(new WorkArea.Outward(OUT, OUT), AREA.outwardFrom(BY_THE_EAST, BY_THE_SOUTH));
+    assertEquals(new AreaOutward(OUT, OUT), AREA.outwardFrom(BY_THE_EAST, BY_THE_SOUTH));
   }
 }

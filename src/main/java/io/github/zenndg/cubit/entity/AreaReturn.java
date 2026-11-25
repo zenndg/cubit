@@ -68,7 +68,7 @@ final class AreaReturn {
     reset();
     for (int attempt = 0; attempt < TELEPORT_ATTEMPTS; attempt++) {
       AreaColumn column = area.column(robot.getRandom().nextInt(area.columnCount()));
-      int level = robot.getRandom().nextIntBetweenInclusive(area.min().y() + 1, area.max().y() + 1);
+      int level = robot.getRandom().nextIntBetweenInclusive(area.low() + 1, area.high() + 1);
       BlockPos target = new BlockPos(column.x(), level, column.z());
       if (FollowOwnerGoal.canStandAt(robot, target)) {
         Vec3 spot = Vec3.atBottomCenterOf(target);
@@ -81,7 +81,7 @@ final class AreaReturn {
 
   /** From standing on the lowest marked block to standing on the highest. */
   double levelIn(WorkArea area) {
-    return Math.clamp(robot.getY(), area.min().y() + 1, area.max().y() + 1);
+    return Math.clamp(robot.getY(), area.low() + 1, area.high() + 1);
   }
 
   /** The middle of the area, at the height it walks. */

@@ -1,12 +1,17 @@
 package io.github.zenndg.cubit.entity;
 
+import io.github.zenndg.cubit.domain.robot.WorkArea;
 import java.util.EnumSet;
+import java.util.Optional;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.PathNavigationRegion;
+import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.PathfindingContext;
+import net.minecraft.world.level.pathfinder.Target;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 
 /**
@@ -21,18 +26,58 @@ final class RobotNodeEvaluator extends WalkNodeEvaluator {
   private static final Set<PathType> TWO_HIGH =
       EnumSet.of(PathType.DOOR_WOOD_CLOSED, PathType.DOOR_IRON_CLOSED);
 
+  /** Enough for the way around inside to win over the cut through the outside. */
+  private static final float OUTSIDE_COST = 8;
+
   private Set<Long> passable = Set.of();
+  private Optional<WorkArea> area = Optional.empty();
 
   @Override
   public void prepare(PathNavigationRegion region, Mob mob) {
     super.prepare(region, mob);
-    passable = mob instanceof RobotEntity robot ? DoorPassage.passable(robot) : Set.of();
+    if (mob instanceof RobotEntity robot) {
+      passable = DoorPassage.passable(robot);
+      WorkArea.Place here = AreaWalk.placeOf(robot.position());
+      area =
+          ((RobotNavigation) robot.getNavigation()).kept().filter(found -> found.holds(here, here));
+    }
+  }
+
+  /** A way to a place out of the area costs the same everywhere. */
+  @Override
+  public Target getTarget(double x, double y, double z) {
+    WorkArea.Place goal = new WorkArea.Place(x, z);
+    area = area.filter(found -> found.holds(goal, goal));
+    return super.getTarget(x, y, z);
+  }
+
+  /** From a place of the area to another, the blocks outside are the last choice (2365). */
+  @Override
+  protected Node findAcceptedNode(
+      int x,
+      int y,
+      int z,
+      int verticalDeltaLimit,
+      double nodeFloorLevel,
+      Direction direction,
+      PathType pathType) {
+    Node node =
+        super.findAcceptedNode(x, y, z, verticalDeltaLimit, nodeFloorLevel, direction, pathType);
+    if (node != null && node.costMalus >= 0 && outside(node)) {
+      node.costMalus = Math.max(node.costMalus, OUTSIDE_COST);
+    }
+    return node;
+  }
+
+  private boolean outside(Node node) {
+    return area.isPresent() && !area.get().shape().has(node.x, node.z);
   }
 
   @Override
   public void done() {
     super.done();
     passable = Set.of();
+    area = Optional.empty();
   }
 
   @Override

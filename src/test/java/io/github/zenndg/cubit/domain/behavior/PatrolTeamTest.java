@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.github.zenndg.cubit.domain.robot.AreaCorner;
 import io.github.zenndg.cubit.domain.robot.WorkArea;
+import io.github.zenndg.cubit.gametest.AreaBoxes;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
@@ -26,9 +27,9 @@ class PatrolTeamTest {
   private static final double FAR = 100;
   private static final PatrolTeam TEAM = new PatrolTeam(CALL_RANGE, RESCUE_RADIUS, LOW_HEALTH);
   private static final WorkArea WEST =
-      WorkArea.between(new AreaCorner(0, 64, 0), new AreaCorner(63, 70, 63), OVERWORLD);
+      AreaBoxes.between(new AreaCorner(0, 64, 0), new AreaCorner(63, 70, 63), OVERWORLD);
   private static final WorkArea EAST =
-      WorkArea.between(new AreaCorner(64, 64, 0), new AreaCorner(127, 70, 63), OVERWORLD);
+      AreaBoxes.between(new AreaCorner(64, 64, 0), new AreaCorner(127, 70, 63), OVERWORLD);
 
   private static PatrolTeam.Member member(UUID owner, String dimension, double x, WorkArea area) {
     return new PatrolTeam.Member(owner, dimension, x, 0, 0, Optional.ofNullable(area));

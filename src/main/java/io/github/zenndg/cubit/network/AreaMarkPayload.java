@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.network;
 
 import io.github.zenndg.cubit.CubitMod;
+import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -10,45 +11,73 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 
 /**
- * What the client of the owner draws with the Area app: the first corner being marked, with the
- * limits of the Cubit, and the area of the chosen Cubit (answer 1056). The server sends it on each
- * change, never on every tick.
+ * What the client of the owner draws with the Area app: the drawing halfway, with the limits of its
+ * Cubit, and the area of the chosen Cubit (answers 2240 and 2358 to 2360). The server sends it on
+ * each change, never on every tick.
  */
-public record AreaMarkPayload(Optional<BlockPos> first, Limits limits, Optional<Box> area)
+public record AreaMarkPayload(Optional<Drawing> drawing, Optional<Area> area)
     implements CustomPacketPayload {
   private static final String PATH = "area_mark";
 
-  /** The base and the height the tier of the Cubit being marked allows. */
-  public record Limits(int size, int height) {
-    public static final Limits NONE = new Limits(0, 0);
+  /** The base and the height the tier allows, and the numbers of the drawing. */
+  public record Limits(int size, int height, int minPoints, int maxPoints, int reach) {
     static final StreamCodec<RegistryFriendlyByteBuf, Limits> CODEC =
         StreamCodec.composite(
             ByteBufCodecs.VAR_INT,
             Limits::size,
             ByteBufCodecs.VAR_INT,
             Limits::height,
+            ByteBufCodecs.VAR_INT,
+            Limits::minPoints,
+            ByteBufCodecs.VAR_INT,
+            Limits::maxPoints,
+            ByteBufCodecs.VAR_INT,
+            Limits::reach,
             Limits::new);
   }
 
-  /** The blocks of an area, from its lower corner to its upper one. */
-  public record Box(BlockPos min, BlockPos max) {
-    static final StreamCodec<RegistryFriendlyByteBuf, Box> CODEC =
+  /** The marked points, in order, and whether they close. */
+  public record Drawing(List<BlockPos> points, boolean closed, Limits limits) {
+    static final StreamCodec<RegistryFriendlyByteBuf, Drawing> CODEC =
         StreamCodec.composite(
-            BlockPos.STREAM_CODEC, Box::min, BlockPos.STREAM_CODEC, Box::max, Box::new);
+            BlockPos.STREAM_CODEC.apply(ByteBufCodecs.list()),
+            Drawing::points,
+            ByteBufCodecs.BOOL,
+            Drawing::closed,
+            Limits.CODEC,
+            Drawing::limits,
+            Drawing::new);
+
+    public Drawing {
+      points = List.copyOf(points);
+    }
+  }
+
+  /** The corners of an area, at its lowest blocks, and its highest height. */
+  public record Area(List<BlockPos> corners, int high) {
+    static final StreamCodec<RegistryFriendlyByteBuf, Area> CODEC =
+        StreamCodec.composite(
+            BlockPos.STREAM_CODEC.apply(ByteBufCodecs.list()),
+            Area::corners,
+            ByteBufCodecs.VAR_INT,
+            Area::high,
+            Area::new);
+
+    public Area {
+      corners = List.copyOf(corners);
+    }
   }
 
   public static final AreaMarkPayload NOTHING =
-      new AreaMarkPayload(Optional.empty(), Limits.NONE, Optional.empty());
+      new AreaMarkPayload(Optional.empty(), Optional.empty());
 
   public static final Type<AreaMarkPayload> TYPE =
       new Type<>(ResourceLocation.fromNamespaceAndPath(CubitMod.MOD_ID, PATH));
   public static final StreamCodec<RegistryFriendlyByteBuf, AreaMarkPayload> STREAM_CODEC =
       StreamCodec.composite(
-          ByteBufCodecs.optional(BlockPos.STREAM_CODEC),
-          AreaMarkPayload::first,
-          Limits.CODEC,
-          AreaMarkPayload::limits,
-          ByteBufCodecs.optional(Box.CODEC),
+          ByteBufCodecs.optional(Drawing.CODEC),
+          AreaMarkPayload::drawing,
+          ByteBufCodecs.optional(Area.CODEC),
           AreaMarkPayload::area,
           AreaMarkPayload::new);
 

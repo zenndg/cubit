@@ -4,13 +4,10 @@ import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.PowerState;
 import io.github.zenndg.cubit.domain.robot.RobotState;
-import io.github.zenndg.cubit.domain.robot.TabletApp;
 import io.github.zenndg.cubit.domain.robot.WorkArea;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.entity.RobotEntity;
 import io.github.zenndg.cubit.entity.RobotFollowCall;
-import io.github.zenndg.cubit.item.TabletItem;
-import io.github.zenndg.cubit.player.TabletUse;
 import io.github.zenndg.cubit.registry.CubitAttachments;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
 import io.github.zenndg.cubit.registry.CubitItems;
@@ -29,8 +26,8 @@ import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 /**
- * The area mode: the Area app marks the Cubit and the corners, the Cubit goes there, fetches the
- * items inside it and leaves it with `Follow` (answers 1051 to 1064 and 1080).
+ * The area mode: the Area app draws the area of a Cubit, which goes there, fetches the items inside
+ * it and leaves it with `Follow` (answers 1051 to 1064 and 1080).
  */
 @GameTestHolder(CubitMod.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -47,7 +44,6 @@ public final class AreaModeGameTests {
   private static final BlockPos FIRST_CORNER = new BlockPos(14, FLOOR_Y, 0);
   private static final BlockPos WIDE_FIRST_CORNER = new BlockPos(6, FLOOR_Y, 0);
   private static final BlockPos SECOND_CORNER = new BlockPos(20, FLOOR_Y, 4);
-  private static final BlockPos FAR_CORNER = new BlockPos(40, FLOOR_Y, 4);
   private static final BlockPos ITEM_SPOT = new BlockPos(17, FLOOR_Y + 1, 2);
   private static final Energy CHARGE = new Energy(300_000);
   private static final float HEALTH = 50f;
@@ -66,7 +62,7 @@ public final class AreaModeGameTests {
     ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
     RobotEntity robot = robot(helper, owner, RobotTier.ADVANCED);
 
-    mark(helper, owner, robot, SECOND_CORNER);
+    AreaClicks.drawBox(helper, owner, robot, FIRST_CORNER, SECOND_CORNER);
 
     helper.assertTrue(robot.workArea().area().isPresent(), NO_AREA);
     helper.assertTrue(follower(owner).isEmpty(), STILL_FOLLOWS);
@@ -82,39 +78,7 @@ public final class AreaModeGameTests {
     ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
     RobotEntity robot = robot(helper, owner, RobotTier.BASE);
 
-    mark(helper, owner, robot, SECOND_CORNER);
-
-    helper.assertTrue(robot.workArea().area().isEmpty(), HAS_AREA);
-    helper.succeed();
-  }
-
-  /** Too wide for the Advanced, so the first corner stays and only the second is clicked again. */
-  @GameTest(template = ARENA)
-  public static void anAreaTooBigIsRefusedAndKeepsTheFirstCorner(GameTestHelper helper) {
-    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
-    RobotEntity robot = robot(helper, owner, RobotTier.ADVANCED);
-    ItemStack tablet = tablet();
-
-    mark(helper, owner, robot, FAR_CORNER);
-    helper.assertTrue(robot.workArea().area().isEmpty(), HAS_AREA);
-    TabletUse.click(owner, tablet, block(helper, SECOND_CORNER));
-
-    helper.assertTrue(robot.workArea().area().isPresent(), NO_AREA);
-    helper.succeed();
-  }
-
-  @GameTest(template = ARENA)
-  public static void shiftAndTheClickCancelTheMarking(GameTestHelper helper) {
-    ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
-    RobotEntity robot = robot(helper, owner, RobotTier.ADVANCED);
-    ItemStack tablet = tablet();
-    TabletUse.click(owner, tablet, new TabletUse.Living(robot));
-    TabletUse.click(owner, tablet, block(helper, FIRST_CORNER));
-
-    owner.setShiftKeyDown(true);
-    TabletUse.click(owner, tablet, block(helper, SECOND_CORNER));
-    owner.setShiftKeyDown(false);
-    TabletUse.click(owner, tablet, block(helper, SECOND_CORNER));
+    AreaClicks.drawBox(helper, owner, robot, FIRST_CORNER, SECOND_CORNER);
 
     helper.assertTrue(robot.workArea().area().isEmpty(), HAS_AREA);
     helper.succeed();
@@ -130,10 +94,7 @@ public final class AreaModeGameTests {
     ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
     RobotEntity robot = robot(helper, owner, RobotTier.ADVANCED);
     robot.pickup().setSettings(robot.pickup().settings().toggledFetch().toggledMagnet());
-    ItemStack tablet = tablet();
-    TabletUse.click(owner, tablet, new TabletUse.Living(robot));
-    TabletUse.click(owner, tablet, block(helper, WIDE_FIRST_CORNER));
-    TabletUse.click(owner, tablet, block(helper, SECOND_CORNER));
+    AreaClicks.drawBox(helper, owner, robot, WIDE_FIRST_CORNER, SECOND_CORNER);
     ItemEntity[] item = new ItemEntity[1];
 
     helper
@@ -152,7 +113,7 @@ public final class AreaModeGameTests {
   public static void theFetchSeesTheItemsOnTopOfTheMarkedFloor(GameTestHelper helper) {
     ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
     RobotEntity robot = robot(helper, owner, RobotTier.ADVANCED);
-    mark(helper, owner, robot, SECOND_CORNER);
+    AreaClicks.drawBox(helper, owner, robot, FIRST_CORNER, SECOND_CORNER);
     ItemEntity item = dropItem(helper);
 
     helper.runAfterDelay(
@@ -185,7 +146,7 @@ public final class AreaModeGameTests {
   public static void followTakesTheCubitOutOfItsArea(GameTestHelper helper) {
     ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
     RobotEntity robot = robot(helper, owner, RobotTier.ADVANCED);
-    mark(helper, owner, robot, SECOND_CORNER);
+    AreaClicks.drawBox(helper, owner, robot, FIRST_CORNER, SECOND_CORNER);
 
     helper.assertTrue(new RobotFollowCall(robot).call(owner), NOT_FOLLOWING);
 
@@ -198,7 +159,7 @@ public final class AreaModeGameTests {
   public static void theAreaIsSavedWithTheCubit(GameTestHelper helper) {
     ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
     RobotEntity robot = robot(helper, owner, RobotTier.ADVANCED);
-    mark(helper, owner, robot, SECOND_CORNER);
+    AreaClicks.drawBox(helper, owner, robot, FIRST_CORNER, SECOND_CORNER);
 
     CompoundTag saved = robot.saveWithoutId(new CompoundTag());
     RobotEntity loaded = GameTestRobots.loadRobot(helper, saved);
@@ -212,7 +173,7 @@ public final class AreaModeGameTests {
   public static void leavingTheDockTheCubitGoesBackToItsArea(GameTestHelper helper) {
     ServerPlayer owner = GameTestRobots.onlinePlayer(helper);
     RobotEntity robot = robot(helper, owner, RobotTier.ADVANCED);
-    mark(helper, owner, robot, SECOND_CORNER);
+    AreaClicks.drawBox(helper, owner, robot, FIRST_CORNER, SECOND_CORNER);
 
     robot.releaseFromDock();
 
@@ -226,29 +187,10 @@ public final class AreaModeGameTests {
         });
   }
 
-  /** The three clicks of the Area app: the Cubit, the first corner and the second (1054). */
-  private static void mark(
-      GameTestHelper helper, ServerPlayer owner, RobotEntity robot, BlockPos second) {
-    ItemStack tablet = tablet();
-    TabletUse.click(owner, tablet, new TabletUse.Living(robot));
-    TabletUse.click(owner, tablet, block(helper, FIRST_CORNER));
-    TabletUse.click(owner, tablet, block(helper, second));
-  }
-
-  private static TabletUse.Block block(GameTestHelper helper, BlockPos pos) {
-    return new TabletUse.Block(helper.absolutePos(pos), Optional.empty());
-  }
-
   private static RobotEntity robot(GameTestHelper helper, ServerPlayer owner, RobotTier tier) {
     ItemStack item = new ItemStack(CubitItems.GENERAL_ROBOT.get());
     item.set(CubitDataComponents.ROBOT_STATE.get(), new RobotState(tier, CHARGE, HEALTH));
     return GameTestRobots.placeRobot(helper, owner, item, ROBOT_FLOOR);
-  }
-
-  private static ItemStack tablet() {
-    ItemStack tablet = new ItemStack(CubitItems.TABLET.get());
-    TabletItem.setApp(tablet, TabletApp.AREA);
-    return tablet;
   }
 
   private static Optional<UUID> follower(ServerPlayer owner) {

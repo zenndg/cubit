@@ -51,7 +51,7 @@ final class FarmingScan {
 
   private BlockPos posAt(long index) {
     AreaColumn column = area.column((int) (index % area.columnCount()));
-    int level = area.min().y() + (int) (index / area.columnCount());
+    int level = area.low() + (int) (index / area.columnCount());
     return new BlockPos(column.x(), level, column.z());
   }
 }

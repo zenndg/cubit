@@ -80,7 +80,7 @@ final class FishingGoal extends Goal {
       return;
     }
     fishing().setFishing(false);
-    walkTo(stand, distance, area.get());
+    walkTo(stand, area.get());
   }
 
   private void fishAt(FishingSpot spot) {
@@ -90,8 +90,8 @@ final class FishingGoal extends Goal {
     fishing().fish();
   }
 
-  private void walkTo(Vec3 stand, double distance, WorkArea area) {
-    if (stuck(distance)) {
+  private void walkTo(Vec3 stand, WorkArea area) {
+    if (stuck(AreaWalk.left(robot, stand))) {
       fishing().giveUp();
       back.onStuck(area);
       resetProgress();
@@ -99,7 +99,7 @@ final class FishingGoal extends Goal {
     }
     if (--repathCountdown <= 0) {
       repathCountdown = CubitMod.CONFIG.followRepathTicks();
-      robot.getNavigation().moveTo(stand.x, stand.y, stand.z, ROUTE_SPEED_MODIFIER);
+      AreaWalk.to(robot, stand, ROUTE_SPEED_MODIFIER);
     }
   }
 

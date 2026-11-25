@@ -59,7 +59,7 @@ final class FishingScan {
   /** The feet of the Cubit, one block over each marked block, as it stands in its area. */
   private BlockPos standAt(long index) {
     AreaColumn column = area.column((int) (index % area.columnCount()));
-    int level = area.min().y() + (int) (index / area.columnCount()) + 1;
+    int level = area.low() + (int) (index / area.columnCount()) + 1;
     return new BlockPos(column.x(), level, column.z());
   }
 

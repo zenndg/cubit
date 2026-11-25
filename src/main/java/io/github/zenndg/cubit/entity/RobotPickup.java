@@ -265,12 +265,12 @@ public final class RobotPickup implements PickupControl {
 
   static AABB boxOf(WorkArea area) {
     return new AABB(
-        area.min().x(),
-        area.min().y(),
-        area.min().z(),
-        area.max().x() + 1,
+        area.shape().min().x(),
+        area.low(),
+        area.shape().min().z(),
+        area.shape().max().x() + 1,
         area.top(),
-        area.max().z() + 1);
+        area.shape().max().z() + 1);
   }
 
   /** The robot did not reach the item in time or found no route, so it leaves it for a while. */

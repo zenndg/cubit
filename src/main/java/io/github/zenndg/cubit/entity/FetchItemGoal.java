@@ -107,7 +107,10 @@ final class FetchItemGoal extends Goal {
       return;
     }
     repathCountdown = adjustedTickDelay(CubitMod.CONFIG.followRepathTicks());
-    noRoute = !robot.getNavigation().moveTo(target, ROUTE_SPEED_MODIFIER);
+    noRoute =
+        workingArea().isPresent()
+            ? !AreaWalk.to(robot, target.position(), ROUTE_SPEED_MODIFIER)
+            : !robot.getNavigation().moveTo(target, ROUTE_SPEED_MODIFIER);
   }
 
   /** Only a robot that gave up or found no route ignores the item. One that lost it does not. */

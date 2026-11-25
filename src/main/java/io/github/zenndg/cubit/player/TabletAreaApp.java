@@ -1,8 +1,10 @@
 package io.github.zenndg.cubit.player;
 
+import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.ownership.Ownership;
 import io.github.zenndg.cubit.domain.robot.AreaCheck;
 import io.github.zenndg.cubit.domain.robot.AreaCorner;
+import io.github.zenndg.cubit.domain.robot.AreaDrawing;
 import io.github.zenndg.cubit.domain.robot.AreaMarking;
 import io.github.zenndg.cubit.domain.robot.WorkArea;
 import io.github.zenndg.cubit.entity.RobotEntity;
@@ -16,11 +18,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 /**
- * The Area app: a click on an own Cubit chooses it, and two blocks after it are the corners of its
- * area, which it goes to at once (answers 1051, 1054 and 1060). Shift and the click cancel a
- * marking halfway, which lives only in the memory of the server.
+ * The Area app: a click on an own Cubit chooses it, and the blocks after it are the points of a
+ * drawing in right angles, which the first point closes. Shift and the click take out the last
+ * point, or apply the closed drawing, and, with no drawing, erase the area of the Cubit in the
+ * second click (answers 2240 to 2246, 2299 and 2352). A drawing lives only in the memory of the
+ * server.
  */
 public final class TabletAreaApp {
   private static final Map<UUID, AreaMarking> MARKING = new ConcurrentHashMap<>();
@@ -28,36 +34,63 @@ public final class TabletAreaApp {
   private TabletAreaApp() {}
 
   static void click(ServerPlayer player, TabletUse.Click click) {
+    dropFromElsewhere(player);
     if (player.isShiftKeyDown()) {
-      cancel(player);
+      shiftClick(player, click);
     } else if (click instanceof TabletUse.Living living) {
       pick(player, living.entity());
-    } else if (click instanceof TabletUse.Block block) {
-      corner(player, block.pos());
     } else {
-      say(player, Component.translatable(hintOf(MARKING.get(player.getUUID()))));
+      mark(player, click);
     }
     TabletAreaView.sync(player);
   }
 
-  /** The marking halfway, for the box the client draws (answer 1056). */
+  /** The drawing halfway, for the line the client draws (answer 2358). */
   static Optional<AreaMarking> marking(ServerPlayer player) {
     return Optional.ofNullable(MARKING.get(player.getUUID()));
   }
 
-  /** Switching the app or leaving the game drops the marking halfway (answer 1060). */
+  /** Switching the app or leaving the game drops the drawing halfway (answers 1060 and 2245). */
   static void forget(ServerPlayer player) {
+    TabletAreaErase.forget(player);
     if (MARKING.remove(player.getUUID()) != null) {
       TabletAreaView.sync(player);
     }
   }
 
-  private static void cancel(ServerPlayer player) {
-    if (MARKING.remove(player.getUUID()) != null) {
+  /** A drawing stays in the dimension it started in. */
+  private static void dropFromElsewhere(ServerPlayer player) {
+    marking(player)
+        .filter(marking -> !marking.dimension().equals(dimensionOf(player)))
+        .ifPresent(marking -> MARKING.remove(player.getUUID()));
+  }
+
+  /** With a point marked, the drawing comes before the area of a Cubit in the aim (2352). */
+  private static void shiftClick(ServerPlayer player, TabletUse.Click click) {
+    Optional<AreaMarking> drawn =
+        marking(player).filter(marking -> !marking.drawing().points().isEmpty());
+    if (drawn.isPresent()) {
+      if (drawn.get().drawing().closed()) {
+        apply(player, drawn.get());
+      } else {
+        undo(player, drawn.get());
+      }
+    } else if (click instanceof TabletUse.Living living) {
+      TabletAreaErase.click(player, living.entity());
+    } else if (MARKING.remove(player.getUUID()) != null) {
       say(player, Component.translatable(TabletKeys.AREA_CANCELLED));
+    } else {
+      say(player, Component.translatable(TabletKeys.AREA_PICK_CUBIT));
     }
   }
 
+  private static void undo(ServerPlayer player, AreaMarking marking) {
+    AreaDrawing left = marking.drawing().undo();
+    MARKING.put(player.getUUID(), marking.with(left));
+    say(player, Component.translatable(TabletKeys.AREA_UNDONE, left.points().size()));
+  }
+
+  /** The Cubit of the drawing keeps it; another one starts over (answer 2357). */
   private static void pick(ServerPlayer player, Entity entity) {
     if (!(entity instanceof RobotEntity robot)
         || !Ownership.owns(robot.ownerId(), player.getUUID())) {
@@ -69,11 +102,13 @@ public final class TabletAreaApp {
       return;
     }
     TabletSelection.choose(player, robot.getUUID());
-    MARKING.put(player.getUUID(), AreaMarking.of(robot.getUUID()));
-    say(player, Component.translatable(TabletKeys.AREA_FIRST_CORNER, robot.getDisplayName()));
+    if (marking(player).filter(marking -> marking.robot().equals(robot.getUUID())).isEmpty()) {
+      MARKING.put(player.getUUID(), AreaMarking.of(robot.getUUID(), dimensionOf(player)));
+    }
+    say(player, Component.translatable(TabletKeys.AREA_FIRST_POINT, robot.getDisplayName()));
   }
 
-  private static void corner(ServerPlayer player, BlockPos pos) {
+  private static void mark(ServerPlayer player, TabletUse.Click click) {
     AreaMarking marking = MARKING.get(player.getUUID());
     if (marking == null) {
       say(player, Component.translatable(TabletKeys.AREA_PICK_CUBIT));
@@ -85,69 +120,63 @@ public final class TabletAreaApp {
       say(player, Component.translatable(TabletKeys.AREA_CUBIT_GONE));
       return;
     }
-    AreaCorner corner = new AreaCorner(pos.getX(), pos.getY(), pos.getZ());
-    if (marking.first().isEmpty()) {
-      MARKING.put(player.getUUID(), marking.withFirst(corner));
-      say(
-          player,
-          Component.translatable(
-              TabletKeys.AREA_SECOND_CORNER, pos.getX(), pos.getY(), pos.getZ()));
+    Optional<BlockPos> block = blockOf(player, click);
+    if (block.isEmpty()) {
+      int reach = CubitMod.CONFIG.areaDrawing().reachBlocks();
+      say(player, Component.translatable(TabletKeys.AREA_NO_BLOCK, reach));
       return;
     }
-    close(
-        player, robot.get(), WorkArea.between(marking.first().get(), corner, dimensionOf(player)));
+    draw(player, robot.get(), marking, block.get());
   }
 
-  /** A refused area keeps the first corner, so only the second one is clicked again. */
-  private static void close(ServerPlayer player, RobotEntity robot, WorkArea area) {
-    AreaCheck check = RobotTablet.checkArea(robot, area);
+  private static void draw(
+      ServerPlayer player, RobotEntity robot, AreaMarking marking, BlockPos pos) {
+    AreaDrawing.Click click =
+        marking
+            .drawing()
+            .click(
+                new AreaCorner(pos.getX(), pos.getY(), pos.getZ()),
+                CubitMod.CONFIG.areaDrawing(),
+                RobotTablet.areaOf(robot));
+    MARKING.put(player.getUUID(), marking.with(click.drawing()));
+    say(player, TabletAreaTexts.of(click, robot));
+  }
+
+  /** The block clicked, or the one in the aim up to the reach of the config (answer 2311). */
+  private static Optional<BlockPos> blockOf(ServerPlayer player, TabletUse.Click click) {
+    if (click instanceof TabletUse.Block block) {
+      return Optional.of(block.pos());
+    }
+    HitResult hit = player.pick(CubitMod.CONFIG.areaDrawing().reachBlocks(), 1, false);
+    return hit instanceof BlockHitResult block && hit.getType() == HitResult.Type.BLOCK
+        ? Optional.of(block.getBlockPos())
+        : Optional.empty();
+  }
+
+  /** A refused area keeps the drawing, so only what is wrong is drawn again. */
+  private static void apply(ServerPlayer player, AreaMarking marking) {
+    Optional<RobotEntity> robot = RobotTablet.find(player, marking.robot());
+    Optional<WorkArea> area = marking.drawing().area(marking.dimension());
+    if (robot.isEmpty() || area.isEmpty()) {
+      MARKING.remove(player.getUUID());
+      say(player, Component.translatable(TabletKeys.AREA_CUBIT_GONE));
+      return;
+    }
+    AreaCheck check = RobotTablet.checkArea(robot.get(), area.get());
     if (check != AreaCheck.OK) {
-      say(player, refusal(check, robot, area));
+      say(player, TabletAreaTexts.refusal(check, robot.get()));
       return;
     }
-    robot.workArea().assign(area, player);
+    robot.get().workArea().assign(area.get(), player);
     MARKING.remove(player.getUUID());
-    say(
-        player,
-        Component.translatable(
-            TabletKeys.AREA_SET,
-            robot.getDisplayName(),
-            area.width(),
-            area.height(),
-            area.depth()));
-  }
-
-  private static Component refusal(AreaCheck check, RobotEntity robot, WorkArea area) {
-    return switch (check) {
-      case TOO_BIG ->
-          Component.translatable(
-              TabletKeys.AREA_TOO_BIG,
-              area.width(),
-              area.height(),
-              area.depth(),
-              RobotTablet.areaOf(robot).sizeBlocks(),
-              RobotTablet.areaOf(robot).heightBlocks());
-      case OTHER_DIMENSION ->
-          Component.translatable(TabletKeys.AREA_OTHER_DIMENSION, robot.getDisplayName());
-      case OUT_OF_REACH ->
-          Component.translatable(
-              TabletKeys.AREA_OUT_OF_REACH, robot.getDisplayName(), robot.dockCallRadius());
-      case LOCKED, OK -> Component.translatable(TabletKeys.AREA_LOCKED, robot.getDisplayName());
-    };
-  }
-
-  private static String hintOf(AreaMarking marking) {
-    if (marking == null) {
-      return TabletKeys.AREA_PICK_CUBIT;
-    }
-    return marking.first().isEmpty() ? TabletKeys.AREA_FIRST_HINT : TabletKeys.AREA_SECOND_HINT;
+    say(player, TabletAreaTexts.applied(area.get(), robot.get()));
   }
 
   static String dimensionOf(ServerPlayer player) {
     return player.level().dimension().location().toString();
   }
 
-  private static void say(ServerPlayer player, Component text) {
+  static void say(ServerPlayer player, Component text) {
     player.displayClientMessage(text, true);
   }
 }
