@@ -58,13 +58,14 @@ public final class JobBaseGameTests {
 
   private JobBaseGameTests() {}
 
-  /** Base none, then each tier adds its jobs (answers 1145 and 1163). */
+  /** Base none, then each tier adds its jobs (answers 1145, 1163, 2235 and 2236). */
   @GameTest(template = EMPTY_TEMPLATE)
   public static void eachTierReadsItsJobsFromTheConfig(GameTestHelper helper) {
     helper.assertTrue(jobsOf(RobotTier.BASE).isEmpty(), WRONG_JOBS);
     helper.assertValueEqual(
         jobsOf(RobotTier.ADVANCED),
-        Set.of(RobotJob.FISHER, RobotJob.FARMER, RobotJob.RANCHER),
+        Set.of(
+            RobotJob.FISHER, RobotJob.FARMER, RobotJob.RANCHER, RobotJob.ORGANIZER, RobotJob.COOK),
         WRONG_JOBS);
     helper.assertTrue(jobsOf(RobotTier.ELITE).contains(RobotJob.MINER), WRONG_JOBS);
     helper.assertValueEqual(

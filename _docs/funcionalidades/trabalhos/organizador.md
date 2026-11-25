@@ -2,7 +2,7 @@
 
 Conceito do trabalho de Organizador, da Fase 5.2, entregue no card #196. O documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui.
 
-**Situação:** decidido. O comportamento base vem das [perguntas 208, 212, 215, 249 e 250](../../perguntas/fase-5-trabalhos.md), o tier mínimo, o Elite, da pergunta 1145, e o refinamento do card, das perguntas 1285 a 1300. Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
+**Situação:** decidido. O comportamento base vem das [perguntas 208, 212, 215, 249 e 250](../../perguntas/fase-5-trabalhos.md), o tier mínimo, o Advanced, da pergunta 2235, que muda a 1145, e o refinamento do card, das perguntas 1285 a 1300. Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
 
 ## A ideia
 
@@ -20,7 +20,7 @@ Aceita na pergunta 1311. No mod, o livro e pena é o item do jogo.
 |---|---|---|
 | Machine Learning: Organizer | `cubit:ml_organizer` | Card de Aprendizado de Máquina do trabalho de Organizador |
 
-Segue as regras dos outros cards: slot exclusivo, um por Cubit, sai sem perda e só age em área marcada. Disponível a partir do Elite, e fica na aba do mod no criativo, como os outros cards.
+Segue as regras dos outros cards: slot exclusivo, um por Cubit, sai sem perda e só age em área marcada. Disponível a partir do Advanced, com a receita liberada pelo Advanced Module, e fica na aba do mod no criativo, como os outros cards.
 
 ### Receita
 
@@ -65,16 +65,16 @@ Só o Organizador mexe em blocos com dados, e só assim: tira pela face de baixo
 
 ## Evolução por tier
 
-Decidida na pergunta 1300, com os valores no config:
+Decidida nas perguntas 1300, 2242 e 2364, com os valores no config:
 
-| Recurso | Elite | Ultimate |
-|---|---|---|
-| Modo organizar e modo abastecer | ✔ | ✔ |
-| Baús marcados, `organizer_chests` | 9 | 18 |
-| Máquinas ou destinos marcados, `organizer_marks` | 8 | 16 |
-| Custo por pilha movida, `organizer_action_cost` | 50 FE | 50 FE |
-| Pausa entre ações, `organizer_action_pause_ticks` | 12 ticks | 6 ticks |
-| Intervalo da varredura, `organizer_scan_interval_ticks` | 100 ticks | 40 ticks |
+| Recurso | Advanced | Elite | Ultimate |
+|---|---|---|---|
+| Modo organizar e modo abastecer | ✔ | ✔ | ✔ |
+| Baús marcados, `organizer_chests` (pergunta 2364) | 4 | 9 | 18 |
+| Máquinas ou destinos marcados, `organizer_marks` | 4 | 8 | 16 |
+| Custo por pilha movida, `organizer_action_cost` | 50 FE | 50 FE | 50 FE |
+| Pausa entre ações, `organizer_action_pause_ticks` | 20 ticks | 12 ticks | 6 ticks |
+| Intervalo da varredura, `organizer_scan_interval_ticks` | 160 ticks | 100 ticks | 40 ticks |
 
 ## Visual
 
@@ -105,12 +105,13 @@ As marcas não vão para o item: recolher o Cubit as apaga, como a área e os ba
 
 ## Com a Network
 
-Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](../network.md). O card passa a valer a partir do Advanced, com 4 máquinas ou destinos, e os baús passam a 12, 18 e 25, nos chunks das antenas do Cubit (perguntas 2235 e 2242).
+Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](../network.md). Os baús passam a 12, 18 e 25, nos chunks das antenas do Cubit (pergunta 2235).
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 00:23 | Leva o Organizador ao Advanced (perguntas 2235, 2242 e 2364). |
 | Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-21 21:21 | Troca a receita do card pela receita comum dos cards (perguntas 1540 a 1545). |

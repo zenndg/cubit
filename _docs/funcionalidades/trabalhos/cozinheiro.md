@@ -2,7 +2,7 @@
 
 Conceito do trabalho de Cozinheiro, da Fase 5.2, entregue no card #197. O documentado pode mudar se aparecer um impedimento técnico (regra 49 do `AGENTS.md`). Ele complementa [`trabalhos.md`](../trabalhos.md), cujas regras de toda área e a [base do trabalho](../trabalhos.md#base-do-trabalho) valem aqui.
 
-**Situação:** decidido. O comportamento base vem da [pergunta 247](../../perguntas/fase-5-trabalhos.md), o tier mínimo, o Elite, da pergunta 1145, e o refinamento do card, das perguntas 1314 a 1326. Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
+**Situação:** decidido. O comportamento base vem da [pergunta 247](../../perguntas/fase-5-trabalhos.md), o tier mínimo, o Advanced, da pergunta 2236, que muda a 1145, e o refinamento do card, das perguntas 1314 a 1326. Os números ficam em [`tiers.md`](../../tiers.md#trabalhos).
 
 ## A ideia
 
@@ -20,7 +20,7 @@ Aceita na pergunta 1328. No mod, a tigela é o item do jogo.
 |---|---|---|
 | Machine Learning: Cook | `cubit:ml_cook` | Card de Aprendizado de Máquina do trabalho de Cozinheiro |
 
-Segue as regras dos outros cards: slot exclusivo, um por Cubit, sai sem perda e só age em área marcada. Disponível a partir do Elite, e fica na aba do mod no criativo.
+Segue as regras dos outros cards: slot exclusivo, um por Cubit, sai sem perda e só age em área marcada. Disponível a partir do Advanced, com a receita liberada pelo Advanced Module, e fica na aba do mod no criativo.
 
 ### Receita
 
@@ -56,15 +56,15 @@ Como o Organizador, o Cozinheiro é uma exceção à regra de que o Cubit nunca 
 
 ## Evolução por tier
 
-Decidida na pergunta 1326, com os valores no config:
+Decidida nas perguntas 1326, 2236 e 2242, com os valores no config:
 
-| Recurso | Elite | Ultimate |
-|---|---|---|
-| Cozinhar em fumeiros e fornalhas | ✔ | ✔ |
-| Fornos marcados, `cook_ovens` | 4 | 8 |
-| Custo por pilha movida, `cook_action_cost` | 50 FE | 50 FE |
-| Pausa entre ações, `cook_action_pause_ticks` | 12 ticks | 6 ticks |
-| Intervalo da varredura, `cook_scan_interval_ticks` | 100 ticks | 40 ticks |
+| Recurso | Advanced | Elite | Ultimate |
+|---|---|---|---|
+| Cozinhar em fumeiros e fornalhas | ✔ | ✔ | ✔ |
+| Fornos marcados, `cook_ovens` | 2 | 4 | 8 |
+| Custo por pilha movida, `cook_action_cost` | 50 FE | 50 FE | 50 FE |
+| Pausa entre ações, `cook_action_pause_ticks` | 20 ticks | 12 ticks | 6 ticks |
+| Intervalo da varredura, `cook_scan_interval_ticks` | 160 ticks | 100 ticks | 40 ticks |
 
 ## Visual
 
@@ -91,12 +91,13 @@ A reserva dos fornos fica só na memória do servidor e não vai para o save.
 
 ## Com a Network
 
-Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](../network.md). O card passa a valer a partir do Advanced, com 2, 4 e 8 fornos, nos chunks das antenas do Cubit (perguntas 2236 e 2242).
+Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](../network.md). Os fornos passam a ser só os dos chunks das antenas do Cubit (pergunta 2236).
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 00:23 | Leva o Cozinheiro ao Advanced (perguntas 2236 e 2242). |
 | Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-22 16:30 | Atualiza a numeração das regras do `AGENTS.md` (pergunta 1716). |
 | Zennd | 2026-11-21 21:21 | Troca a receita do card pela receita comum dos cards (perguntas 1540 a 1545). |

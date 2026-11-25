@@ -18,14 +18,13 @@ final class JobDefaults {
    * takes them all and only improves each card (answers 1145 and 1598).
    */
   private static final Set<RobotJob> ADVANCED_JOB_SET =
-      EnumSet.of(RobotJob.FISHER, RobotJob.FARMER, RobotJob.RANCHER);
+      EnumSet.of(
+          RobotJob.FISHER, RobotJob.FARMER, RobotJob.RANCHER, RobotJob.ORGANIZER, RobotJob.COOK);
 
   private static final Set<RobotJob> ELITE_JOB_SET =
       union(
           ADVANCED_JOB_SET,
           EnumSet.of(
-              RobotJob.ORGANIZER,
-              RobotJob.COOK,
               RobotJob.PATROLLER,
               RobotJob.MINER,
               RobotJob.BUILDER,
@@ -47,17 +46,21 @@ final class JobDefaults {
   private static final FarmerSpec ULTIMATE_FARMER =
       new FarmerSpec(new Energy(100), 6, true, true, 2);
 
-  /** 9 and 18 chests, 8 and 16 marks, 50 FE a stack, faster on the Ultimate (answer 1300). */
+  /** 4, 9 and 18 chests, 4, 8 and 16 marks, 50 FE a stack, faster on each tier (1300, 2364). */
   private static final Energy ORGANIZER_ACTION_COST = new Energy(50);
+
+  private static final OrganizerSpec ADVANCED_ORGANIZER =
+      new OrganizerSpec(4, 4, ORGANIZER_ACTION_COST, 20, 160);
 
   private static final OrganizerSpec ELITE_ORGANIZER =
       new OrganizerSpec(9, 8, ORGANIZER_ACTION_COST, 12, 100);
   private static final OrganizerSpec ULTIMATE_ORGANIZER =
       new OrganizerSpec(18, 16, ORGANIZER_ACTION_COST, 6, 40);
 
-  /** 4 and 8 ovens, 50 FE a stack, faster on the Ultimate (answer 1326). */
+  /** 2, 4 and 8 ovens, 50 FE a stack, faster on each tier (answers 1326, 2236 and 2242). */
   private static final Energy COOK_ACTION_COST = new Energy(50);
 
+  private static final CookSpec ADVANCED_COOK = new CookSpec(2, COOK_ACTION_COST, 20, 160);
   private static final CookSpec ELITE_COOK = new CookSpec(4, COOK_ACTION_COST, 12, 100);
   private static final CookSpec ULTIMATE_COOK = new CookSpec(8, COOK_ACTION_COST, 6, 40);
   static final JobSpec ADVANCED =
@@ -65,8 +68,8 @@ final class JobDefaults {
           ADVANCED_JOB_SET,
           ADVANCED_FISHER,
           ADVANCED_FARMER,
-          OrganizerSpec.NONE,
-          CookSpec.NONE,
+          ADVANCED_ORGANIZER,
+          ADVANCED_COOK,
           PatrollerSpec.NONE);
   static final JobSpec ELITE =
       new JobSpec(

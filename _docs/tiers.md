@@ -275,9 +275,6 @@ Planejado, na `0.2.0`, e ainda fora do código, descrito em [`network.md`](funci
 | Baús, `network_chests` (pergunta 2232) | 1 | 2 | 4 | 6 |
 | Docks, `network_docks` (pergunta 2233) | 1 | 2 | 4 | 6 |
 | Baús do Organizador, `network_organizer_chests` (pergunta 2235) | — | 12 | 18 | 25 |
-| Organizador: máquinas ou destinos, `organizer_marks` (perguntas 1300 e 2242) | — | 4 | 8 | 16 |
-| Cozinheiro: fornos, `cook_ovens` (pergunta 2236) | — | 2 | 4 | 8 |
-| Organizador e Cozinheiro: custo por pilha, pausa e varredura (pergunta 2242) | — | 50 FE, 20 e 160 ticks | 50 FE, 12 e 100 ticks | 50 FE, 6 e 40 ticks |
 
 | Valor geral, em `[network]` | Padrão |
 |---|---|
@@ -313,7 +310,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Recurso | Base | Avançado | Elite | Ultimate |
 |---|---|---|---|---|
-| Cards de Aprendizado de Máquina, `allowed_jobs` no config (perguntas 1145, 1163 e 1598) | Bloqueado | Pescador, Fazendeiro e Pecuarista | + Organizador, Cozinheiro, Patrulheiro Galático, Minerador, Construtor, Mecânico e Alquimista | Os mesmos do Elite |
+| Cards de Aprendizado de Máquina, `allowed_jobs` no config (perguntas 1145, 1163, 1598, 2235 e 2236) | Bloqueado | Pescador, Fazendeiro, Pecuarista, Organizador e Cozinheiro | + Patrulheiro Galático, Minerador, Construtor, Mecânico e Alquimista | Os mesmos do Elite |
 | Minerador equivale a picareta de (pergunta 1149) | — | — | Diamante | Diamante |
 | Minerador: Eficiência | — | — | III | V |
 | Minerador: Fortuna | — | — | II | III |
@@ -344,15 +341,15 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 | Fazendeiro: plantas de colheita especial, `farmer_special_crops` (pergunta 1219) | — | — | ✔ | ✔ |
 | Fazendeiro: slot de fertilizante, `farmer_bone_meal` (perguntas 1244 e 1248) | — | ✔ | ✔ | ✔ |
 | Fazendeiro: Fortuna, `farmer_fortune_level` (pergunta 1221) | — | — | — | II |
-| Organizador: baús marcados, `organizer_chests` (pergunta 1300) | — | — | 9 | 18 |
-| Organizador: máquinas ou destinos marcados, `organizer_marks` (pergunta 1300) | — | — | 8 | 16 |
-| Organizador: custo por pilha movida, `organizer_action_cost` (pergunta 1300) | — | — | 50 FE | 50 FE |
-| Organizador: pausa entre ações, `organizer_action_pause_ticks` (pergunta 1300) | — | — | 12 ticks | 6 ticks |
-| Organizador: intervalo da varredura, `organizer_scan_interval_ticks` (pergunta 1300) | — | — | 100 ticks | 40 ticks |
-| Cozinheiro: fornos marcados, `cook_ovens` (pergunta 1326) | — | — | 4 | 8 |
-| Cozinheiro: custo por pilha movida, `cook_action_cost` (pergunta 1326) | — | — | 50 FE | 50 FE |
-| Cozinheiro: pausa entre ações, `cook_action_pause_ticks` (pergunta 1326) | — | — | 12 ticks | 6 ticks |
-| Cozinheiro: intervalo da varredura, `cook_scan_interval_ticks` (pergunta 1326) | — | — | 100 ticks | 40 ticks |
+| Organizador: baús marcados, `organizer_chests` (perguntas 1300 e 2364) | — | 4 | 9 | 18 |
+| Organizador: máquinas ou destinos marcados, `organizer_marks` (perguntas 1300 e 2242) | — | 4 | 8 | 16 |
+| Organizador: custo por pilha movida, `organizer_action_cost` (perguntas 1300 e 2242) | — | 50 FE | 50 FE | 50 FE |
+| Organizador: pausa entre ações, `organizer_action_pause_ticks` (perguntas 1300 e 2242) | — | 20 ticks | 12 ticks | 6 ticks |
+| Organizador: intervalo da varredura, `organizer_scan_interval_ticks` (perguntas 1300 e 2242) | — | 160 ticks | 100 ticks | 40 ticks |
+| Cozinheiro: fornos marcados, `cook_ovens` (perguntas 1326 e 2236) | — | 2 | 4 | 8 |
+| Cozinheiro: custo por pilha movida, `cook_action_cost` (perguntas 1326 e 2242) | — | 50 FE | 50 FE | 50 FE |
+| Cozinheiro: pausa entre ações, `cook_action_pause_ticks` (perguntas 1326 e 2242) | — | 20 ticks | 12 ticks | 6 ticks |
+| Cozinheiro: intervalo da varredura, `cook_scan_interval_ticks` (perguntas 1326 e 2242) | — | 160 ticks | 100 ticks | 40 ticks |
 | Storage wireless | — | — | — | ✔ |
 
 | Valor geral | Valor |
@@ -377,6 +374,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 00:23 | Leva o Organizador e o Cozinheiro ao Advanced, com os números (perguntas 2235, 2236, 2242 e 2364). |
 | Zennd | 2026-11-24 22:42 | Acrescenta os números da Network e tira o limite de Cubits por área, que não existe no código (perguntas 2196 a 2333). |
 | Zennd | 2026-11-24 09:36 | Troca a parte guardada no Dock pela distância do aviso (perguntas 2100 e 2103). |
 | Zennd | 2026-11-24 08:37 | Troca o teleporte ao Dock pela desistência (perguntas 2091 e 2095). |
