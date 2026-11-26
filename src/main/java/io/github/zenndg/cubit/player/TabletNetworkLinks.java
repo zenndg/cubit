@@ -156,7 +156,7 @@ final class TabletNetworkLinks {
   }
 
   private static void sayNamed(ServerPlayer player, String key, String name, RobotEntity robot) {
-    sayNamed(player, key, name, robot);
+    TabletNetworkApp.say(player, key, name, robot.getDisplayName());
   }
 
   static void forget(ServerPlayer player) {

@@ -26,7 +26,10 @@ public final class NetworkLinksChannel {
     display = shown;
   }
 
+  /** Only to a connection that took the channel, as the other packets of the mod. */
   public static void send(ServerPlayer player, NetworkLinksPayload links) {
-    PacketDistributor.sendToPlayer(player, links);
+    if (player.connection.hasChannel(links.type())) {
+      PacketDistributor.sendToPlayer(player, links);
+    }
   }
 }
