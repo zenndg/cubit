@@ -138,7 +138,7 @@ Em toda entrega:
 - [ ] 1, 2, 4 e 6 baús e Docks por tier, e 12, 18 e 25 baús do Organizador, de qualquer storage, a qualquer distância nos chunks
 - [ ] a energia até o Dock, com a divisão por igual
 - [ ] os nomes flutuantes com o app Network, com a prévia antes (perguntas 2421, 2424 e 2425)
-- **Recursos:** 1 ícone do app
+- **Recursos:** nenhum ícone, só a cor rosa do app (pergunta 2591), e as prévias das setas e das linhas `Links` e `Network` (perguntas 2592 e 2593)
 - **GameTests:** ligações, recusas, vizinhança, energia curta e soma de FE
 
 ### Entrega 6: A rede obrigatória e os trabalhos

@@ -1527,11 +1527,29 @@ Não há perguntas pendentes nesta fase.
 | 2580 | Em que ordem segue o fechamento da entrega 4? | Primeiro o teste do desenvolvedor no jogo, e depois o processo de abertura do PR, pelo `antes-do-pr.md`, onde as GameTests rodam. Muda a 2579 |
 | 2581 | O teste do desenvolvedor no jogo da entrega 4, a Signal Antenna, passou? | Sim: "teste ok". Segue o processo de abertura do PR pelo `antes-do-pr.md` |
 | 2582 | Com o teste aprovado, o que segue depois de as GameTests passarem? | Os commits dos arquivos pendentes, com o `AGENTS.md` (o estado e a estrutura de pacotes) e o roteiro alinhados, o push e a abertura do PR para a `integration/network`. Depois do merge, apagar as branches e reportar as próximas tarefas |
+| 2583 | Depois do merge da entrega 4 (#286), algum ajuste no roteiro, ou segue o alinhamento da entrega 5 (#267)? | Segue o alinhamento da entrega 5, sem ajuste no roteiro |
+| 2584 | O alinhamento da entrega 5 (#267), com o app Network, os limites por tier, a área nos chunks das antenas, a energia até o Dock, os nomes e a parede só com o app, a rede de teste das GameTests e o ícone do app, está completo? | Sim, sem nada a acrescentar. Segue a rodada de decisões |
+| 2585 | O que os Docks e baús marcados para um Cubit no app Network já fazem na entrega 5? | Ficam no Cubit e aparecem nas setas, e o Dock marcado já recebe energia da antena. O Cubit usar só os marcados entra na entrega 6, com a regra obrigatória. Até lá, a descarga e as marcas de hoje continuam. A recomendação foi aceita |
+| 2586 | A área desenhada já fica presa aos chunks das antenas do Cubit na entrega 5? | Só para o Cubit com ao menos uma antena: ele desenha só dentro dos chunks delas, com o ponto ou a linha de fora recusados na hora, e os limites de tamanho e altura de hoje continuam. Sem antena, desenha como hoje até a entrega 6. A recomendação foi aceita |
+| 2587 | Quanto a antena dá aos Docks ligados a ela? | Só o que passa do próprio UPS, como o Servidor com as antenas (2550). Com UPS 0%, ela pode esvaziar. O passo 10 do roteiro da entrega 5 passa a dizer que ela para no UPS escolhido. A recomendação foi aceita |
+| 2588 | Como funcionam os cliques do app Network? | Pelo Cubit escolhido no Tablet: clicar num Cubit do dono o escolhe; clicar numa antena a liga ou desliga daquele Cubit; clicar num Dock ou baú o marca ou desmarca para ele. Cada Dock recebe energia da antena do chunk dele. Sem Cubit escolhido, clicar na antena e depois num Dock só liga a energia. A recomendação foi aceita. Detalha a 2249 |
+| 2589 | Como vive a ligação de energia de um Dock com a antena do chunk dele? | Numa lista própria na antena, a chave nova `Docks` do NBT dela. Marcar um Dock para um Cubit também o liga à energia, e desmarcá-lo do Cubit mantém a energia. Só o clique na antena e no Dock, sem Cubit escolhido, desliga a energia, com confirmação se algum Cubit ainda usa o Dock. A recomendação foi aceita |
+| 2590 | O que acontece ao desligar uma antena do meio, que separaria as outras do Cubit em dois grupos? | É recusado, com o motivo, dizendo para tirar antes as das pontas. As das pontas saem com a confirmação de 5 s (2299 e 2300). A recomendação foi aceita |
+| 2591 | O que vale para o "1 ícone do app" do `ROADMAP.md` na entrega 5, se os apps do Tablet só têm a cor da faixa e o nome (1084)? | Só a cor rosa (2328), sem ícone, como os outros apps. O recurso sai do `ROADMAP.md` e da #267. A recomendação foi aceita |
+| 2592 | Como o app Network mostra as ligações do Cubit escolhido? | Com as setas dos apps Descarga e Marcar: sobre cada antena do Cubit, na cor do canal; sobre cada Dock marcado, no vermelho do app Dock; sobre cada baú, no laranja do app Descarga; e sobre os Docks só com energia da antena clicada, em cinza. Com a prévia antes do código. A recomendação foi aceita. Detalha a 2249 |
+| 2593 | As telas mostram as ligações e a energia da rede já na entrega 5? | Sim, uma linha em cada: na tela da antena, `Links`, com quantos Cubits e Docks ela alimenta, no lugar reservado (2297 e 2548); na aba do Dock, `Network`, com o que entrou pela rede no tick. As duas com prévia antes do código. A recomendação foi aceita |
+| 2594 | O conceito da entrega 5 (#267), com os Detalhes da Entrega 5 (1 a 18) no `network.md`, está autorizado, com a branch `feature/267-network-app` e o commit dos documentos, sem push? | Sim, autorizado. O código segue para depois das prévias das setas e das linhas `Links` e `Network` (regra 59) |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 08:53 | Registra a resposta 2594. |
+| Zennd | 2026-11-26 08:51 | Registra as respostas 2591 a 2593. |
+| Zennd | 2026-11-26 08:48 | Registra as respostas 2589 a 2590. |
+| Zennd | 2026-11-26 08:46 | Registra as respostas 2585 a 2588. |
+| Zennd | 2026-11-26 08:41 | Registra a resposta 2584. |
+| Zennd | 2026-11-26 08:23 | Registra a resposta 2583. |
 | Zennd | 2026-11-26 08:16 | Registra a resposta 2582. |
 | Zennd | 2026-11-26 08:00 | Registra a resposta 2581. |
 | Zennd | 2026-11-26 07:49 | Registra a resposta 2580. |

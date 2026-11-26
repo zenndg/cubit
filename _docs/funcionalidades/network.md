@@ -333,6 +333,32 @@ Propostos pelo agente:
 21. **Outro dono:** a antena ligada a um Servidor de outro player é recusada ao colocar, com `This Server belongs to another player` (2569).
 22. **Chunk da antena:** no chunk que o Servidor dela segura, ela não segura de novo e mostra `Held by its Server`. Parada sem sinal, ela solta o chunk, mas fica esperando na fila, e o Servidor, com energia e com o Relay, a chama de volta, uma a cada 2 s (2264 e 2553).
 
+## Detalhes da Entrega 5
+
+Decididos nas perguntas 2585 a 2593. O código da entrega espera a autorização própria (pergunta 2224).
+
+1. **Marcados:** os Docks e baús marcados para um Cubit ficam nele e aparecem nas setas, e o Dock marcado já recebe energia da antena. O Cubit usar só os marcados entra na entrega 6, com a regra obrigatória. Até lá, a descarga e as marcas de hoje continuam (2585).
+2. **Área:** um Cubit com ao menos uma antena só desenha dentro dos chunks delas, com o ponto ou a linha de fora recusados na hora, e os limites de tamanho e altura de hoje continuam. Sem antena, desenha como hoje até a entrega 6 (2586).
+3. **Reserva da antena:** ela só dá aos Docks o que passa do próprio UPS, como o Servidor com as antenas (2550). Com UPS 0%, pode esvaziar (2587).
+4. **Cliques:** pelo Cubit escolhido no Tablet. Clicar num Cubit do dono o escolhe, clicar numa antena a liga ou desliga daquele Cubit, e clicar num Dock ou baú o marca ou desmarca para ele. Cada Dock recebe energia da antena do chunk dele. Sem Cubit escolhido, clicar na antena e depois num Dock só liga a energia (2588).
+5. **Energia do Dock:** a antena guarda os Docks que alimenta, na chave nova `Docks`. Marcar um Dock para um Cubit também o liga à energia, e desmarcá-lo do Cubit mantém a energia. Só o clique na antena e no Dock, sem Cubit escolhido, desliga a energia, com confirmação se algum Cubit ainda usa o Dock (2589).
+6. **Antena do meio:** desligar uma antena que separaria as outras do Cubit em dois grupos é recusado, com o motivo. As das pontas saem com a confirmação de 5 s (2590).
+7. **Ícone:** o app Network não tem ícone, como os outros: só a faixa e o nome em rosa (2591).
+8. **Setas:** sobre cada antena do Cubit, na cor do canal; sobre cada Dock marcado, no vermelho do app Dock; sobre cada baú, no laranja do app Descarga; e sobre os Docks só com energia da antena clicada, em cinza, com prévia antes do código (2592).
+9. **Telas:** a linha `Links` na tela da antena, com quantos Cubits e Docks ela alimenta, e a linha `Network` na aba do Dock, com o que entrou pela rede no tick, com prévia antes do código (2593).
+
+Propostos pelo agente:
+
+10. **Recusas no clique:** um Dock ou baú fora dos chunks das antenas do Cubit; uma antena de outro dono, de outro Servidor que não o das outras antenas do Cubit ou fora da vizinhança pelo lado; e qualquer marca além do limite do tier, sempre com o motivo e o número do limite na barra de ação.
+11. **Baú:** qualquer bloco com a capability de itens do NeoForge, do jogo ou de mods, que o player consegue abrir (2259).
+12. **Energia:** a cada tick, depois do próprio gasto, a antena manda aos Docks dela só o que passa do UPS, primeiro aos com Cubit carregando e depois por igual, cada um até o que ainda cabe na entrada de 5.000 FE/t, depois do sol (detalhe 19). Ela perde exatamente o que os Docks guardam. Desligada, não manda nada.
+13. **Antena quebrada:** as ligações ficam no Cubit e na lista dela. Recolocada no mesmo lugar, tudo volta, e a regra de perder a última antena fica para a entrega 6 (2298).
+14. **Recolher e morrer:** apagam as antenas, os Docks e os baús do Cubit (2251 e 2304).
+15. **Nomes e parede:** os nomes flutuantes e a parede passam a aparecer só com o app Network (2425 e 2542).
+16. **Saves:** o Cubit guarda `NetworkAntennas`, `NetworkDocks` e `NetworkChests`, cada um com `Dimension` e `Pos`, e a antena, `Docks`, com `Pos`. Chaves novas e opcionais.
+17. **Rede de teste:** um cenário das GameTests com o Servidor, o Relay, as antenas, o Cubit e os Docks prontos, usado por todas as de área daqui em diante.
+18. **GameTests:** ligações, recusas, vizinhança, a antena do meio, a energia curta, a soma de FE e a reserva.
+
 ## Contrato
 
 Os nomes foram propostos pelo agente, a partir do padrão do mod, e autorizados (2334). Entram no código com cada entrega. Os números estão em [`tiers.md`](../tiers.md#network).
@@ -343,7 +369,7 @@ Os nomes foram propostos pelo agente, a partir do padrão do mod, e autorizados 
 | Dados do mundo | `cubit_network` | Servidores, antenas, canais, vínculos, a última foto e o Log, por dono. Na Entrega 3, só a lista `Chunks`, com `Owner`, `Dimension`, `Pos` e `Waiting` (2413). Na Entrega 4, as listas `Servers`, com `Id`, `Owner`, `Dimension`, `Pos` e `Tier`, `Antennas`, com `Owner`, `Dimension`, `Pos`, `Server` e `Channel`, e `Released`, com `Dimension` e `Pos`, dos blocos soltos pelo operador enquanto descarregados (2578) |
 | Ticket | `cubit:network` | Os chunks, conferidos ao abrir o mundo |
 | NBT dos blocos | `NetworkId`, `Owner`, `CustomName`, `Energy`, `XpTank`, `Slot`, `Ups` e `ChunkLoading` | Comuns aos três, com o `Tier`, os `Items`, o `Drained` e o `ShowWall` no Servidor e o `SolarPanel` no Relay (2410 e 2448) |
-| NBT da antena | `Server`, `ServerName`, `Channel`, `NoSignalTicks`, `ChunkLoading`, `Drained`, `Enabled`, `ShowWall` e `Ups` | O Servidor, o nome dele no clique, o canal, o tempo sem sinal, a chave e a carga do chunk, como no Servidor, e as outras chaves |
+| NBT da antena | `Server`, `ServerName`, `Channel`, `NoSignalTicks`, `ChunkLoading`, `Drained`, `Enabled`, `ShowWall`, `Ups` e `Docks` | O Servidor, o nome dele no clique, o canal, o tempo sem sinal, a chave e a carga do chunk, como no Servidor, as outras chaves e, na entrega 5, os Docks que ela alimenta (2589) |
 | Item | `cubit:network_id` e `cubit:network_state` | O ID e o estado guardado, como o do Dock: `tier`, `energy`, `items` (`slot`, `item` e `amount`), `ups`, `chunk_loading` e `show_wall`. O Relay grava só `energy` (2410, 2411 e 2448), e a antena grava `energy`, `ups`, `chunk_loading`, `show_wall`, `server`, `server_name` e `channel` (2566 e 2567). A chave geral da antena não vai ao item, e ela volta ligada |
 | NBT do Cubit | `NetworkAntennas`, `NetworkDocks`, `NetworkChests`, `NetworkPaused` e `DrawnArea` | `DrawnArea` tem os pontos, a altura e a dimensão. A chave antiga `WorkArea` é ignorada (2283) |
 | NBT do Cubit | `HibernationReason`: `no_network` e `owner_offline` | Os motivos novos |
@@ -366,6 +392,7 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 08:52 | Acrescenta os detalhes da Entrega 5 e a chave `Docks` da antena (perguntas 2585 a 2593). |
 | Zennd | 2026-11-26 07:43 | Registra o `release`, que desliga a chave do chunk, e a lista `Released` (pergunta 2578). |
 | Zennd | 2026-11-26 07:10 | Registra o `Ups` no NBT da antena e as chaves no item dela, com a tela. |
 | Zennd | 2026-11-25 23:59 | Registra o chunk da antena e as chaves dele no NBT (perguntas 2264 e 2553). |
