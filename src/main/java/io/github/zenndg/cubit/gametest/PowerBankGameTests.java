@@ -86,7 +86,8 @@ public final class PowerBankGameTests {
     helper.succeedWhen(() -> {
       Energy inBank = PowerBankItem.batteryOf(dock.storage().getItem(SLOT)).charge();
       helper.assertFalse(inBank.isZero(), NOT_CHARGED);
-      helper.assertValueEqual(inBank.plus(dock.energy()), PLENTY, LOST);
+      DockScene.assertOnlyStandbyLost(
+          helper, PLENTY.amount(), inBank.plus(dock.energy()).amount(), LOST);
     });
   }
 
@@ -101,7 +102,7 @@ public final class PowerBankGameTests {
       ItemStack inSlot = dock.slot().getItem(SLOT);
       helper.assertTrue(PowerBankItem.is(inSlot), NOT_IN_SLOT);
       helper.assertTrue(PowerBankItem.batteryOf(inSlot).isEmpty(), NOT_CHARGED);
-      helper.assertValueEqual(dock.energy(), PLENTY, LOST);
+      DockScene.assertOnlyStandbyLost(helper, PLENTY.amount(), dock.energy().amount(), LOST);
     });
   }
 

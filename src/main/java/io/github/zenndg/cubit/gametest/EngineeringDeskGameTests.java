@@ -47,7 +47,6 @@ public final class EngineeringDeskGameTests {
   private static final int TWO = 2;
   private static final int FULL_SIGNAL = 15;
   private static final long ENERGY = 50_000;
-  private static final long COST_OF_TWO = 7_000;
   private static final BlockPos FLOOR = new BlockPos(START_X, FLOOR_Y, MIDDLE_Z);
   static final BlockPos DESK = FLOOR.above();
   private static final String TOOLBOX_PATH = "toolbox";
@@ -72,6 +71,11 @@ public final class EngineeringDeskGameTests {
   private static final int DRIVE_SLOT = 3;
 
   private EngineeringDeskGameTests() {}
+
+  /** What a craft costs, from the config of the test server (answers 2441 and 2468). */
+  static long craftEnergy() {
+    return CubitMod.CONFIG.engineeringDesk().craftEnergy().amount();
+  }
 
   static EngineeringDeskBlockEntity place(GameTestHelper helper, long energy) {
     Player owner = helper.makeMockPlayer(GameType.SURVIVAL);
@@ -120,7 +124,7 @@ public final class EngineeringDeskGameTests {
         () -> {
           helper.assertTrue(desk.output().countItem(CubitItems.TOOLBOX.get()) == TWO, WRONG_OUTPUT);
           helper.assertTrue(desk.input().isEmpty(), WRONG_OUTPUT);
-          helper.assertTrue(desk.energy().amount() == ENERGY - COST_OF_TWO, WRONG_ENERGY);
+          helper.assertTrue(desk.energy().amount() == ENERGY - TWO * craftEnergy(), WRONG_ENERGY);
           helper.assertTrue(desk.status() == DeskStatus.IDLE, WRONG_STATUS);
           helper.succeed();
         });

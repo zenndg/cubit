@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit.gametest;
 
+import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.robot.RobotState;
@@ -112,5 +113,18 @@ final class DockScene {
     player.setShiftKeyDown(true);
     click(helper, player, position);
     player.setShiftKeyDown(false);
+  }
+
+  /**
+   * Nothing is created nor lost but what a Base dock spends for being on (answer 2466): a whole
+   * number of its ticks, up to the ticks of the test and one more, for the order of the ticks.
+   */
+  static void assertOnlyStandbyLost(
+      GameTestHelper helper, long expected, long actual, String message) {
+    long standby = CubitMod.CONFIG.dockCatalog().dock(RobotTier.BASE).standbyPerTick().amount();
+    long lost = expected - actual;
+    boolean whole = standby == 0 ? lost == 0 : lost % standby == 0;
+    long ticks = standby == 0 ? 0 : lost / standby;
+    helper.assertTrue(lost >= 0 && whole && ticks <= helper.getTick() + 1, message);
   }
 }

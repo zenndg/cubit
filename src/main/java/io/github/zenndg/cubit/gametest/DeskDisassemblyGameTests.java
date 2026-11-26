@@ -36,7 +36,6 @@ public final class DeskDisassemblyGameTests {
   private static final int SOME_TICKS = 20;
   private static final int FULL_STACK = 64;
   private static final long ENERGY = 50_000;
-  private static final long COST_OF_ONE = 3_500;
   private static final String WRONG_REFUSAL = "Wrong reason of the desk";
   private static final String WRONG_OUTPUT = "Wrong items in the output";
   private static final String WRONG_SLOT = "Wrong item left in the slot";
@@ -77,7 +76,9 @@ public final class DeskDisassemblyGameTests {
           Item panel = CubitItems.DISPLAY_PANEL.get();
           helper.assertTrue(desk.output().countItem(panel) == 1, WRONG_OUTPUT);
           helper.assertTrue(desk.disassembly().item().isEmpty(), WRONG_SLOT);
-          helper.assertTrue(desk.energy().amount() == ENERGY - COST_OF_ONE, WRONG_ENERGY);
+          helper.assertTrue(
+              desk.energy().amount() == ENERGY - EngineeringDeskGameTests.craftEnergy(),
+              WRONG_ENERGY);
           helper.assertTrue(!desk.disassembly().isRunning(), WRONG_STATUS);
           helper.succeed();
         });

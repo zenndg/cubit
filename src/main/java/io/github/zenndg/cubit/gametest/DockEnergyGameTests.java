@@ -128,7 +128,7 @@ public final class DockEnergyGameTests {
     helper.runAfterDelay(
         NEXT_TICK,
         () -> {
-          helper.assertValueEqual(dock.energy(), new Energy(ONE_DUST), WRONG_ENERGY);
+          DockScene.assertOnlyStandbyLost(helper, ONE_DUST, dock.energy().amount(), WRONG_ENERGY);
           helper.assertTrue(dock.slot().isEmpty(), WRONG_SLOT);
           helper.succeed();
         });
@@ -150,16 +150,16 @@ public final class DockEnergyGameTests {
 
   @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
   public static void anItemThatDoesNotFitStaysInTheSlot(GameTestHelper helper) {
-    Energy almostFull = new Energy(CAPACITY - ONE_DUST + 1);
-    InductionDockBlockEntity dock =
-        place(helper, helper.makeMockPlayer(GameType.SURVIVAL), almostFull);
+    Energy full = new Energy(CAPACITY);
+    InductionDockBlockEntity dock = place(helper, helper.makeMockPlayer(GameType.SURVIVAL), full);
     dock.slot().setItem(0, new ItemStack(Items.REDSTONE, SOME_DUSTS));
 
     helper.runAfterDelay(
         NEXT_TICK,
         () -> {
           helper.assertValueEqual(dock.slot().getItem(0).getCount(), SOME_DUSTS, WRONG_SLOT);
-          helper.assertValueEqual(dock.energy(), almostFull, WRONG_ENERGY);
+          DockScene.assertOnlyStandbyLost(
+              helper, full.amount(), dock.energy().amount(), WRONG_ENERGY);
           helper.succeed();
         });
   }
@@ -184,7 +184,8 @@ public final class DockEnergyGameTests {
           helper.runAfterDelay(
               HOPPER_TICKS,
               () -> {
-                helper.assertValueEqual(dock.energy(), new Energy(ONE_DUST), WRONG_ENERGY);
+                DockScene.assertOnlyStandbyLost(
+                    helper, ONE_DUST, dock.energy().amount(), WRONG_ENERGY);
                 helper.succeed();
               });
         });
