@@ -22,10 +22,13 @@ final class AntennaScreenValues extends NetworkScreenValues {
   static final int CHUNKS_HELD = 17;
   static final int UPS = 18;
   static final int SERVER_TIER = 19;
-  static final int COUNT = 20;
+  static final int LINKED_CUBITS = 20;
+  static final int LINKED_DOCKS = 21;
+  static final int COUNT = 22;
   static final int NONE = 0;
 
   private final SignalAntennaBlockEntity antenna;
+  private final AntennaCubits cubits = new AntennaCubits();
 
   AntennaScreenValues(SignalAntennaBlockEntity antenna) {
     super(COUNT, antenna);
@@ -46,6 +49,8 @@ final class AntennaScreenValues extends NetworkScreenValues {
     put(CHUNK_STATE, antenna.chunkState().ordinal());
     put(CHUNKS_HELD, antenna.chunksHeld());
     put(UPS, antenna.ups().percent());
+    put(LINKED_CUBITS, cubits.count(antenna));
+    put(LINKED_DOCKS, antenna.fedDocks().size());
     put(
         SERVER_TIER,
         AntennaPlacing.serverOf(antenna).map(server -> server.tier().ordinal() + 1).orElse(NONE));

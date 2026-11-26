@@ -23,10 +23,17 @@ class TabletAppsTest {
             TabletApp.DOCK,
             TabletApp.AREA,
             TabletApp.UNLOAD,
-            TabletApp.DOORS),
+            TabletApp.DOORS,
+            TabletApp.NETWORK),
         WITH_TARGET.available());
     assertEquals(
-        List.of(TabletApp.OPEN, TabletApp.DOCK, TabletApp.AREA, TabletApp.UNLOAD, TabletApp.DOORS),
+        List.of(
+            TabletApp.OPEN,
+            TabletApp.DOCK,
+            TabletApp.AREA,
+            TabletApp.UNLOAD,
+            TabletApp.DOORS,
+            TabletApp.NETWORK),
         WITHOUT_TARGET.available());
   }
 
@@ -43,8 +50,9 @@ class TabletAppsTest {
     assertEquals(TabletApp.AREA, WITH_TARGET.next(TabletApp.DOCK, FORWARD));
     assertEquals(TabletApp.UNLOAD, WITH_TARGET.next(TabletApp.AREA, FORWARD));
     assertEquals(TabletApp.DOORS, WITH_TARGET.next(TabletApp.UNLOAD, FORWARD));
-    assertEquals(TabletApp.OPEN, WITH_TARGET.next(TabletApp.DOORS, FORWARD));
-    assertEquals(TabletApp.DOORS, WITH_TARGET.next(TabletApp.OPEN, BACKWARD));
+    assertEquals(TabletApp.NETWORK, WITH_TARGET.next(TabletApp.DOORS, FORWARD));
+    assertEquals(TabletApp.OPEN, WITH_TARGET.next(TabletApp.NETWORK, FORWARD));
+    assertEquals(TabletApp.NETWORK, WITH_TARGET.next(TabletApp.OPEN, BACKWARD));
     assertEquals(TabletApp.DOCK, WITHOUT_TARGET.next(TabletApp.OPEN, FORWARD));
   }
 
@@ -65,7 +73,8 @@ class TabletAppsTest {
             TabletApp.AREA,
             TabletApp.UNLOAD,
             TabletApp.MARK,
-            TabletApp.DOORS),
+            TabletApp.DOORS,
+            TabletApp.NETWORK),
         organizer.available());
     assertEquals(TabletApp.OPEN, WITHOUT_TARGET.effective(TabletApp.MARK));
     assertEquals(TabletApp.MARK, organizer.effective(TabletApp.MARK));

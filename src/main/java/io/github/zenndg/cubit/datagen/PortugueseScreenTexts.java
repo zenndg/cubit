@@ -26,6 +26,8 @@ final class PortugueseScreenTexts {
   private static final String USES = "%s · Gasta %s FE/t";
   private static final String NO_INPUT = "Sem entrada";
   private static final String LIMIT = "Cabos ou redstone · até %s FE/t";
+  private static final String DOCK_NETWORK = "Rede +%s FE/t";
+  private static final String DOCK_NETWORK_IDLE = "Rede · 0 FE/t";
   private static final String DOCKED = "Cubit na base";
   private static final String ROBOT_BATTERY = "Cubit · Bateria";
   private static final String CHARGING_LINE = "+%s FE/t · %s";
@@ -244,6 +246,8 @@ final class PortugueseScreenTexts {
     add.accept(ScreenKeys.DOCK_NO_INPUT, NO_INPUT);
     add.accept(ScreenKeys.DOCK_USES, USES);
     add.accept(ScreenKeys.DOCK_LIMIT, LIMIT);
+    add.accept(ScreenKeys.DOCK_NETWORK, DOCK_NETWORK);
+    add.accept(ScreenKeys.DOCK_NETWORK_IDLE, DOCK_NETWORK_IDLE);
     add.accept(ScreenKeys.DOCK_DOCKED, DOCKED);
     add.accept(ScreenKeys.DOCK_ROBOT_BATTERY, ROBOT_BATTERY);
     addDockedRobot(add);

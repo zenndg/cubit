@@ -29,6 +29,8 @@ class WorkAreaTest {
   private static final double PAST_X = 26.0;
   private static final int REACH = 24;
   private static final int SHORT_REACH = 4;
+  private static final int CHUNK = 16;
+  private static final int FAR_CHUNK = 32;
   private static final WorkArea BESIDE =
       AreaBoxes.between(new AreaCorner(26, 64, -5), new AreaCorner(30, 70, 0), OVERWORLD);
   private static final WorkArea APART =
@@ -167,5 +169,14 @@ class WorkAreaTest {
   @Test
   void atACornerTheOutsideIsTheDiagonal() {
     assertEquals(new AreaOutward(OUT, OUT), AREA.outwardFrom(BY_THE_EAST, BY_THE_SOUTH));
+  }
+
+  @Test
+  void itCrossesTheChunksItPassesThrough() {
+    assertTrue(AREA.crosses(0, 0, CHUNK));
+    assertTrue(AREA.crosses(0, -CHUNK, CHUNK));
+    assertTrue(AREA.crosses(CHUNK, 0, CHUNK));
+    assertFalse(AREA.crosses(FAR_CHUNK, 0, CHUNK));
+    assertFalse(AREA.crosses(0, CHUNK, CHUNK));
   }
 }

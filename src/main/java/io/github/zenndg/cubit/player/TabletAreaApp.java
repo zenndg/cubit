@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.player;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.ownership.Ownership;
 import io.github.zenndg.cubit.domain.robot.AreaCheck;
+import io.github.zenndg.cubit.domain.robot.AreaChunks;
 import io.github.zenndg.cubit.domain.robot.AreaCorner;
 import io.github.zenndg.cubit.domain.robot.AreaDrawing;
 import io.github.zenndg.cubit.domain.robot.AreaMarking;
@@ -137,7 +138,8 @@ public final class TabletAreaApp {
             .click(
                 new AreaCorner(pos.getX(), pos.getY(), pos.getZ()),
                 CubitMod.CONFIG.areaDrawing(),
-                RobotTablet.areaOf(robot));
+                RobotTablet.areaOf(robot),
+                reachOf(robot, marking.dimension()));
     MARKING.put(player.getUUID(), marking.with(click.drawing()));
     say(player, TabletAreaTexts.of(click, robot));
   }
@@ -162,6 +164,10 @@ public final class TabletAreaApp {
       say(player, Component.translatable(TabletKeys.AREA_CUBIT_GONE));
       return;
     }
+    if (!reachOf(robot.get(), marking.dimension()).holdsShape(area.get().shape())) {
+      say(player, Component.translatable(NetworkAppKeys.OUTSIDE, robot.get().getDisplayName()));
+      return;
+    }
     AreaCheck check = RobotTablet.checkArea(robot.get(), area.get());
     if (check != AreaCheck.OK) {
       say(player, TabletAreaTexts.refusal(check, robot.get()));
@@ -170,6 +176,14 @@ public final class TabletAreaApp {
     robot.get().workArea().assign(area.get(), player);
     MARKING.remove(player.getUUID());
     say(player, TabletAreaTexts.applied(area.get(), robot.get()));
+  }
+
+  /**
+   * The chunks of the antennas of the Cubit, checked again when the area is applied, for an antenna
+   * unlinked after the drawing closed (answers 2586 and 2601).
+   */
+  private static AreaChunks reachOf(RobotEntity robot, String dimension) {
+    return AreaChunks.of(dimension, robot.docking().network().links().chunks());
   }
 
   static String dimensionOf(ServerPlayer player) {

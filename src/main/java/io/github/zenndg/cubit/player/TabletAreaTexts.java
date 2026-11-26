@@ -36,6 +36,7 @@ final class TabletAreaTexts {
       case FULL -> refused(TabletKeys.AREA_FULL, spec.maxPoints());
       case NOT_STRAIGHT -> refused(TabletKeys.AREA_NOT_STRAIGHT);
       case TOO_BIG -> tooBig(robot);
+      case OUTSIDE -> refused(NetworkAppKeys.OUTSIDE, robot.getDisplayName());
       case TOO_HIGH ->
           refused(
               TabletKeys.AREA_TOO_HIGH,

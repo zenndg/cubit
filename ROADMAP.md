@@ -120,13 +120,13 @@ Em toda entrega:
 
 ### Entrega 4: Signal Antenna e chunks
 
-- [ ] o item, a receita, o modelo, as 16 cores com o fio de contorno e a tela, com as três chaves e a janela do nome
-- [ ] a ligação ao Servidor, o canal escolhido pelo player, a ordem fixa em inglês e 4, 8, 12 e 16 por tier
-- [ ] um de cada bloco por chunk, de qualquer dono, e a reconexão ao mover o Servidor ou a antena
-- [ ] a energia até a antena e o chunk carregado, com 25 FE/t, o custo da distância, o UPS e a retomada uma a uma
-- [ ] as antenas nos limites de chunks e no dono offline, que entram na entrega 3 (pergunta 2369), e o `/cubit network`
-- [ ] a parede do chunk, vista só pelo dono com o Tablet no app Network
-- [ ] o modelo acima do Dock, com as animações do sinal (perguntas 2336 a 2338)
+- [x] o item, a receita, o modelo, as 16 cores com o fio de contorno e a tela, com as três chaves e a janela do nome
+- [x] a ligação ao Servidor, o canal escolhido pelo player, a ordem fixa em inglês e 4, 8, 12 e 16 por tier
+- [x] um de cada bloco por chunk, de qualquer dono, e a reconexão ao mover o Servidor ou a antena
+- [x] a energia até a antena e o chunk carregado, com 25 FE/t, o custo da distância, o UPS e a retomada uma a uma
+- [x] as antenas nos limites de chunks e no dono offline, que entram na entrega 3 (pergunta 2369), e o `/cubit network`
+- [x] a parede do chunk, vista só pelo dono com o Tablet no app Network
+- [x] o modelo acima do Dock, com as animações do sinal (perguntas 2336 a 2338)
 - **Recursos:** 1 textura da antena, 1 ícone de item e 5 sons
 - **GameTests:** ligar, canais, limites, queda e volta de cada elo, dono offline, soma de FE
 
@@ -138,7 +138,7 @@ Em toda entrega:
 - [ ] 1, 2, 4 e 6 baús e Docks por tier, e 12, 18 e 25 baús do Organizador, de qualquer storage, a qualquer distância nos chunks
 - [ ] a energia até o Dock, com a divisão por igual
 - [ ] os nomes flutuantes com o app Network, com a prévia antes (perguntas 2421, 2424 e 2425)
-- **Recursos:** 1 ícone do app
+- **Recursos:** nenhum ícone, só a cor rosa do app (pergunta 2591), e as prévias das setas e das linhas `Links` e `Network` (perguntas 2592 e 2593)
 - **GameTests:** ligações, recusas, vizinhança, energia curta e soma de FE
 
 ### Entrega 6: A rede obrigatória e os trabalhos

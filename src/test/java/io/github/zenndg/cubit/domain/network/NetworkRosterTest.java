@@ -76,6 +76,15 @@ class NetworkRosterTest {
   }
 
   @Test
+  void findsAnAntennaByItsPlace() {
+    NetworkRoster.Antenna<String> farm =
+        new NetworkRoster.Antenna<>(FARM, ANNA, SERVER, AntennaChannel.values()[0]);
+    roster.putAntenna(farm);
+    assertEquals(Optional.of(farm), roster.antenna(FARM));
+    assertEquals(Optional.empty(), roster.antenna(MINE));
+  }
+
+  @Test
   void refusesAnEntryWithoutItsParts() {
     assertThrows(
         NullPointerException.class,

@@ -166,7 +166,7 @@ São as partes da aba Dock.
 
 | Parte | O que mostra |
 |---|---|
-| Topo | O nome do Dock, como `Dock 3f9a2c1b`, no lugar de `Induction Dock`, com o botão `Rename` ao lado (perguntas 1867 a 1870), o estado, a torre com a luz do estado, `Stored energy 64k / 100k FE`, com a barra laranja, a linha de entrada e `Cables or redstone · up to 5,000 FE/t` |
+| Topo | O nome do Dock, como `Dock 3f9a2c1b`, no lugar de `Induction Dock`, com o botão `Rename` ao lado (perguntas 1867 a 1870), o estado, a torre com a luz do estado, `Stored energy 64k / 100k FE`, com a barra laranja, a linha de entrada e `Cables or redstone · up to 5,000 FE/t`. Com uma antena alimentando o Dock, a linha `Network +2,400 FE/t`, em verde, com o que entrou pela rede no tick, ou `Network · 0 FE/t`, em cinza, sem a linha quando nenhuma antena o alimenta (perguntas 2593 e 2595) |
 | Slot | O slot de entrada, com o rótulo `Redstone`. O slot de carga saiu (pergunta 950), e o espaço dele, de 27 px, sai da aba Dock |
 | Docked Cubit | Com Cubit: o retrato, `Cubit · Battery 165k / 300k FE`, `Health 23 / 25` e a linha de recarga e vida. Sem Cubit: `No Cubit docked` e as frases das imagens |
 | Queue | `Empty`, ou `1 Cubit waiting` |
@@ -257,13 +257,13 @@ Pergunta 691.
 
 ## Com a Network
 
-As regras estão em [`network.md`](network.md), e as medidas, nas prévias aprovadas (pergunta 2397). Já no código, as telas do Servidor e do Solar Relay. O resto é planejado, na `0.2.0`. A tela do Cubit ganha a aba Network, entre Work e XP, e os estados `Hibernating · No network` e `Hibernating · Owner offline`, em azul, e `Waiting for area`, em roxo. Entra a tela da antena, com prévia antes do código (perguntas 2277, 2280, 2315, 2316 e 2331).
+As regras estão em [`network.md`](network.md), e as medidas, nas prévias aprovadas (pergunta 2397). Já no código, as telas do Servidor, do Solar Relay e da antena, que, na entrega 5, ganha a linha `Links`, abaixo de `Spending`, com `Cubits: N · Docks: M`, os Cubits carregados ligados a ela e os Docks que ela alimenta, ou `none`, em cinza (perguntas 2593 e 2595). O resto é planejado, na `0.2.0`. A tela do Cubit ganha a aba Network, entre Work e XP, e os estados `Hibernating · No network` e `Hibernating · Owner offline`, em azul, e `Waiting for area`, em roxo. Entra a tela da antena, com prévia antes do código (perguntas 2277, 2280, 2315, 2316 e 2331).
 
 ### Tela do Network Server
 
 Só o dono abre, e o servidor confere o dono, a distância e o config em cada botão (regra 20). Duas abas, com o lugar das outras livre (pergunta 2277):
 
-- **Energy:** o nome, o tier e o estado, `On`, `On UPS` ou `No energy`; a bateria, com a marca da reserva, a entrada e o slot de redstone; o fluxo, com o Solar Relay, a linha `Server and chunk`, que soma o chunk, o Servidor e o Relay e mostra as três partes ao passar o mouse, e as Power Banks; a chave do chunk, com o motivo de ele estar solto, e o botão `View`, que mostra a parede do chunk com o Tablet na mão e diz isso ao passar o mouse (perguntas 2440, 2448 e 2512); o UPS, com − e + e o tempo que segura; o dono e o Rename. Sem limite de chunks por player no config, a linha diz só quantos são seus.
+- **Energy:** o nome, o tier e o estado, `On`, `On UPS` ou `No energy`; a bateria, com a marca da reserva, a entrada e o slot de redstone; o fluxo, com o Solar Relay, a linha `Server and chunk`, que soma o chunk, o Servidor e o Relay e mostra as três partes ao passar o mouse, e as Power Banks; a chave do chunk, com o motivo de ele estar solto, e o botão `View`, que mostra a parede do chunk ao dono, com qualquer coisa na mão, sem dica ao passar o mouse (perguntas 2440, 2448, 2622 e 2625); o UPS, com − e + e o tempo que segura; o dono e o Rename. Sem limite de chunks por player no config, a linha diz só quantos são seus.
 - **Storage:** as fileiras do tier, os slots usados, a regra e se uma Power Bank carrega ou espera a reserva. A quantidade de 3 dígitos sai em letra menor.
 
 **Slots de 128:** clique, metade, Shift + clique, tecla de atalho e soltar tiram no máximo uma pilha normal, e uma pilha acima disso nunca troca de lugar com outro item (pergunta 2368).
@@ -280,6 +280,8 @@ Sem abas: o nome e o estado, `Generating`, `Stopped` ou `No pair`; a bateria e o
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 15:00 | Tira o Tablet e a dica do botão `View` (perguntas 2622 e 2625). |
+| Zennd | 2026-11-26 09:52 | Acrescenta as linhas `Network` do Dock e `Links` da antena (entrega 5 da Network). |
 | Zennd | 2026-11-25 22:02 | Acrescenta a linha `Server and chunk`, o botão `View` e a aba Desmontar da mesa (perguntas 2440, 2512 e 2535). |
 | Zennd | 2026-11-25 19:45 | Acrescenta o gasto à linha de entrada do Dock (pergunta 2467). |
 | Zennd | 2026-11-25 14:47 | Acrescenta as telas do Network Server e do Solar Relay (pergunta 2397). |

@@ -281,7 +281,7 @@ Planejado, na `0.2.0`, e ainda fora do código, menos o desenho da área, descri
 | Antenas, `network_antennas` (pergunta 2226) | 0 | 1 | 4 | 9 |
 | Baús, `network_chests` (pergunta 2232) | 1 | 2 | 4 | 6 |
 | Docks, `network_docks` (pergunta 2233) | 1 | 2 | 4 | 6 |
-| Baús do Organizador, `network_organizer_chests` (pergunta 2235) | — | 12 | 18 | 25 |
+| Baús do Organizador no app Network, `network_organizer_chests`, no lugar de `network_chests` (perguntas 2235 e 2602) | — | 12 | 18 | 25 |
 
 | Valor geral, em `[network]` | Padrão |
 |---|---|
@@ -296,7 +296,7 @@ Planejado, na `0.2.0`, e ainda fora do código, menos o desenho da área, descri
 | Antena sem sinal até parar, `signal_loss_ticks` (pergunta 2323) | 20 min (24.000 ticks) |
 | Antena: bateria e tanque, `antenna_energy_capacity` e `antenna_xp_tank_capacity` (pergunta 2273) | 600 mil FE e 64 baldes |
 | Antena: o que recebe da rede e por cabo, `antenna_input_per_tick` (perguntas 2276 e 2326) | 5.000 FE/t |
-| Antena: bateria que nenhum Dock tira, `antenna_floor_percent` (pergunta 2322) | 5% |
+| Antena: bateria que nenhum Dock tira, mesmo com o UPS em 0%, `antenna_floor_percent` (perguntas 2322 e 2599) | 5% |
 | Antena ligada, por tick, além do chunk, `antenna_standby_per_tick` (pergunta 2435) | 1 FE/t |
 | Solar Relay: bateria, tanque e entrada, `relay_energy_capacity`, `relay_xp_tank_capacity` e `relay_input_per_tick` (perguntas 2289 e 2326) | 300 mil FE, 32 baldes e 5.000 FE/t |
 | UPS padrão, `server_ups_percent` e `antenna_ups_percent`, de 0 a 50, de 5 em 5 (pergunta 2221) | 25% e 50% |
@@ -384,6 +384,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 09:15 | Cita as perguntas 2599 e 2602 nos limites do app Network e no piso da antena. |
 | Zennd | 2026-11-25 22:39 | Acrescenta o gasto da antena por ficar ligada (pergunta 2435). |
 | Zennd | 2026-11-25 21:20 | Acrescenta a chave de desmontar na mesa (pergunta 2531). |
 | Zennd | 2026-11-25 19:45 | Acrescenta o gasto do Dock e sobe o custo por craft da mesa (perguntas 2435, 2441 e 2468). |

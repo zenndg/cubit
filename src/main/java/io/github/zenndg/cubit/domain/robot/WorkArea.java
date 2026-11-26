@@ -115,6 +115,25 @@ public record WorkArea(AreaShape shape, int low, int high, String dimension) {
     return shape.heart();
   }
 
+  /**
+   * Whether a column of the area falls in a square of columns, as a chunk the area passes through
+   * (answer 2600). Only the part of the square inside the box of the area is looked at.
+   */
+  public boolean crosses(int minX, int minZ, int side) {
+    int fromX = Math.max(minX, shape.min().x());
+    int toX = Math.min(minX + side - 1, shape.max().x());
+    int fromZ = Math.max(minZ, shape.min().z());
+    int toZ = Math.min(minZ + side - 1, shape.max().z());
+    for (int x = fromX; x <= toX; x++) {
+      for (int z = fromZ; z <= toZ; z++) {
+        if (shape.has(x, z)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   /** How many columns of blocks the area has, numbered from zero for the scans. */
   public int columnCount() {
     return shape.columnCount();

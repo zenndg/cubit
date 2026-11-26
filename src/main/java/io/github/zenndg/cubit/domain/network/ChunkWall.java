@@ -1,8 +1,9 @@
 package io.github.zenndg.cubit.domain.network;
 
 /**
- * The wall around the chunk of a Network Server, which its owner sees with the Tablet in hand: from
- * the support block up to 16 blocks above it, around the 16 blocks of the chunk (answer 2448).
+ * The wall around the chunk of a Network Server or of an antenna, which its owner sees while its
+ * `View` key is on, with anything or nothing in hand (answer 2622): from the support block up to 16
+ * blocks above it, around the 16 blocks of the chunk (answer 2448).
  */
 public record ChunkWall(int minX, int minZ, int bottom, int top) {
   public static final int SIDE = 16;
@@ -34,9 +35,9 @@ public record ChunkWall(int minX, int minZ, int bottom, int top) {
     return minZ + SIDE;
   }
 
-  /** Whether a viewer sees it: the owner, with a Tablet in a hand, within reach of the wall. */
+  /** Whether a viewer sees it: the owner, within reach of the wall (answer 2623). */
   public boolean seenBy(Viewer viewer) {
-    return viewer.owner() && viewer.tablet() && distanceTo(viewer) <= REACH;
+    return viewer.owner() && distanceTo(viewer) <= REACH;
   }
 
   /** To the nearest point of the wall, or zero within the chunk and the height. */
@@ -51,6 +52,6 @@ public record ChunkWall(int minX, int minZ, int bottom, int top) {
     return Math.max(0, Math.max(low - value, value - high));
   }
 
-  /** Who looks: whether they own the server, whether they hold the Tablet, and from where. */
-  public record Viewer(boolean owner, boolean tablet, double x, double y, double z) {}
+  /** Who looks: whether they own the block, and from where. */
+  public record Viewer(boolean owner, double x, double y, double z) {}
 }

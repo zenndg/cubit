@@ -13,7 +13,7 @@ class ChunkWallTest {
   private static final ChunkWall WALL = ChunkWall.around(MIDDLE, FLOOR + 1, MIDDLE);
 
   private static ChunkWall.Viewer at(double x) {
-    return new ChunkWall.Viewer(true, true, x, FLOOR + 1, MIDDLE);
+    return new ChunkWall.Viewer(true, x, FLOOR + 1, MIDDLE);
   }
 
   @Test
@@ -32,7 +32,7 @@ class ChunkWallTest {
   }
 
   @Test
-  void theOwnerWithTheTabletSeesItWithinReach() {
+  void theOwnerSeesItWithinReach() {
     assertTrue(WALL.seenBy(at(MIDDLE)));
     assertTrue(WALL.seenBy(at(ChunkWall.SIDE + ChunkWall.REACH)));
     assertFalse(WALL.seenBy(at(ChunkWall.SIDE + ChunkWall.REACH + 1)));
@@ -42,13 +42,12 @@ class ChunkWallTest {
   @Test
   void theHeightCountsToo() {
     double far = FLOOR - ChunkWall.REACH - 1;
-    assertFalse(WALL.seenBy(new ChunkWall.Viewer(true, true, MIDDLE, far, MIDDLE)));
+    assertFalse(WALL.seenBy(new ChunkWall.Viewer(true, MIDDLE, far, MIDDLE)));
   }
 
   @Test
-  void nobodyElseSeesItNorTheOwnerWithoutTheTablet() {
-    assertFalse(WALL.seenBy(new ChunkWall.Viewer(false, true, MIDDLE, FLOOR, MIDDLE)));
-    assertFalse(WALL.seenBy(new ChunkWall.Viewer(true, false, MIDDLE, FLOOR, MIDDLE)));
+  void nobodyElseSeesIt() {
+    assertFalse(WALL.seenBy(new ChunkWall.Viewer(false, MIDDLE, FLOOR, MIDDLE)));
   }
 
   @Test

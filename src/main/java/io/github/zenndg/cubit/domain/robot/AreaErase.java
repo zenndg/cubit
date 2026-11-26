@@ -9,10 +9,10 @@ import java.util.UUID;
  * @param tick the game time of the first click
  */
 public record AreaErase(UUID robot, long tick) {
-  /** Five seconds. */
-  public static final int CONFIRM_TICKS = 100;
+  /** Five seconds, as every second click of the Tablet. */
+  public static final int CONFIRM_TICKS = SecondClick.CONFIRM_TICKS;
 
   public boolean confirmedBy(UUID clicked, long now) {
-    return robot.equals(clicked) && now >= tick && now - tick <= CONFIRM_TICKS;
+    return new SecondClick<>(robot, tick).confirmedBy(clicked, now);
   }
 }

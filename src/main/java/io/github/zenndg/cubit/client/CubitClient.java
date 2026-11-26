@@ -7,6 +7,7 @@ import io.github.zenndg.cubit.config.CubitConfig;
 import io.github.zenndg.cubit.item.RobotItem;
 import io.github.zenndg.cubit.item.TierLook;
 import io.github.zenndg.cubit.network.CubitNetwork;
+import io.github.zenndg.cubit.network.NetworkLinksChannel;
 import io.github.zenndg.cubit.registry.CubitBlockEntities;
 import io.github.zenndg.cubit.registry.CubitEntities;
 import io.github.zenndg.cubit.registry.CubitFluids;
@@ -51,6 +52,7 @@ public final class CubitClient {
     CubitNetwork.setOrganizerMarksDisplay(TabletChestMarks::showMarks);
     CubitNetwork.setPatrolRouteDisplay(TabletRouteMarks::show);
     CubitNetwork.setEscortMarksDisplay(TabletEscortMarks::show);
+    NetworkLinksChannel.setDisplay(TabletNetworkMarks::show);
     CubitNetwork.setDoorMarksDisplay(TabletDoorMarks::show);
     CubitNetwork.setDeathLogDisplay(TabletDeathLog::show);
     CubitNetwork.setAskNameDisplay(NameScreen::show, NameScreen::show);

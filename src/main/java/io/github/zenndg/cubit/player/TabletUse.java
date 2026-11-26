@@ -63,6 +63,7 @@ public final class TabletUse {
       case MARK -> TabletMarkApp.click(player, chosen, click);
       case DOORS -> TabletDoorApp.click(player, click);
       case ESCORT -> TabletEscortApp.click(player, chosen.orElseThrow(), click);
+      case NETWORK -> TabletNetworkApp.click(player, tablet, chosen, click);
     }
   }
 
@@ -97,6 +98,7 @@ public final class TabletUse {
         TabletItem.setApp(held, next);
         player.displayClientMessage(TabletAppLook.label(next), true);
         TabletAreaApp.forget(player);
+        TabletNetworkApp.forget(player);
         TabletChestView.send(player);
         return;
       }

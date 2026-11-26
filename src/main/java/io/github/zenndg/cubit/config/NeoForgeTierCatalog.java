@@ -5,6 +5,8 @@ import io.github.zenndg.cubit.domain.desk.DeskCatalog;
 import io.github.zenndg.cubit.domain.desk.DeskSpec;
 import io.github.zenndg.cubit.domain.dock.DockCatalog;
 import io.github.zenndg.cubit.domain.dock.DockSpec;
+import io.github.zenndg.cubit.domain.network.LinkCatalog;
+import io.github.zenndg.cubit.domain.network.LinkLimits;
 import io.github.zenndg.cubit.domain.robot.RobotType;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.domain.tier.TierCatalog;
@@ -15,10 +17,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 
 /**
- * Reads the robot numbers, and the ones of the Induction Dock and of the Engineering Desk of each
- * tier, from the config.
+ * Reads the robot numbers, and the ones of the Induction Dock, of the Engineering Desk and of the
+ * links of the Network of each tier, from the config.
  */
-public final class NeoForgeTierCatalog implements TierCatalog, DockCatalog, DeskCatalog {
+public final class NeoForgeTierCatalog
+    implements TierCatalog, DockCatalog, DeskCatalog, LinkCatalog {
   private static final Logger LOGGER = LogUtils.getLogger();
   private static final String UNKNOWN_TYPE_MESSAGE = "Robot type without config: ";
   private static final String MISSING_TIER_MESSAGE = "No config for {} at {}. Using the base tier.";
@@ -50,16 +53,23 @@ public final class NeoForgeTierCatalog implements TierCatalog, DockCatalog, Desk
   /** The dock keys live in the sections of the Cubit, so a dock follows the tiers of the robot. */
   @Override
   public DockSpec dock(RobotTier tier) {
-    Map<RobotTier, TierSection> tiers = sections.get(CubitConfig.GENERAL_ROBOT);
-    TierSection section = tiers.getOrDefault(tier, tiers.get(RobotTier.BASE));
-    return section.readDock();
+    return generalSection(tier).readDock();
   }
 
   /** The desk keys also live in the sections of the Cubit, so a desk follows the same tiers. */
   @Override
   public DeskSpec desk(RobotTier tier) {
+    return generalSection(tier).readDesk();
+  }
+
+  /** The links live in the sections of the Cubit too, in `[general_robot.{tier}]` (2334). */
+  @Override
+  public LinkLimits links(RobotTier tier) {
+    return generalSection(tier).readLinks();
+  }
+
+  private TierSection generalSection(RobotTier tier) {
     Map<RobotTier, TierSection> tiers = sections.get(CubitConfig.GENERAL_ROBOT);
-    TierSection section = tiers.getOrDefault(tier, tiers.get(RobotTier.BASE));
-    return section.readDesk();
+    return tiers.getOrDefault(tier, tiers.get(RobotTier.BASE));
   }
 }

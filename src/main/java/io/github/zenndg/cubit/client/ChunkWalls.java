@@ -7,7 +7,6 @@ import io.github.zenndg.cubit.block.NetworkBlockEntity;
 import io.github.zenndg.cubit.block.NetworkServerBlockEntity;
 import io.github.zenndg.cubit.block.SignalAntennaBlockEntity;
 import io.github.zenndg.cubit.domain.network.ChunkWall;
-import io.github.zenndg.cubit.registry.CubitItems;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,6 @@ import java.util.Map;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -27,9 +25,10 @@ import org.joml.Matrix4fStack;
 
 /**
  * The walls around the chunks of the servers and the antennas of the player: translucent, one
- * pixel, in a light cyan for a server and in the color of the channel for an antenna, only with the
- * Tablet in a hand (answers 2447, 2448 and 2542). The blocks tell they are there on each of their
- * ticks, so no block is ever searched.
+ * pixel, in a light cyan for a server and in the color of the channel for an antenna, while their
+ * `View` key is on, whatever the player holds (answers 2447, 2448 and 2622), and the one around the
+ * chunk of the player, only in the Network app, which follows them (answers 2608 to 2616). The
+ * blocks tell they are there on each of their ticks, so no block is ever searched.
  */
 @EventBusSubscriber(modid = CubitMod.MOD_ID, value = Dist.CLIENT)
 public final class ChunkWalls {
@@ -78,6 +77,11 @@ public final class ChunkWalls {
         walls.computeIfAbsent(paint, each -> new ArrayList<>()).addAll(sides(wallOf(block)));
       }
     });
+    PlayerChunkWall.of(player)
+        .ifPresent(shown ->
+            walls
+                .computeIfAbsent(shown.paint(), each -> new ArrayList<>())
+                .addAll(sides(shown.wall())));
     if (!walls.isEmpty()) {
       draw(event, walls);
     }
@@ -86,17 +90,7 @@ public final class ChunkWalls {
   private static boolean sees(LocalPlayer player, NetworkBlockEntity block) {
     Vec3 eyes = player.getEyePosition();
     return wallOf(block)
-        .seenBy(
-            new ChunkWall.Viewer(
-                block.isOwner(player),
-                holdsTablet(player.getMainHandItem()) || holdsTablet(player.getOffhandItem()),
-                eyes.x,
-                eyes.y,
-                eyes.z));
-  }
-
-  private static boolean holdsTablet(ItemStack stack) {
-    return stack.is(CubitItems.TABLET.get());
+        .seenBy(new ChunkWall.Viewer(block.isOwner(player), eyes.x, eyes.y, eyes.z));
   }
 
   private static ChunkWall wallOf(NetworkBlockEntity block) {

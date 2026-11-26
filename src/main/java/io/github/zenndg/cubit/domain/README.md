@@ -73,8 +73,8 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `TabletApp` | Os apps do Tablet, um ativo por vez. A `key` é o nome no componente do item, e uma chave desconhecida vale Open |
 | `RobotListing` | Um Cubit como a tela de seleção do Tablet o ordena: se segue o player, se está na mesma dimensão, se está carregado e a distância |
 | `RobotListings` | A ordem e a busca da tela de seleção do Tablet |
-| `TabletApps` | Os apps do Tablet que fazem sentido para o Cubit escolhido, a troca com Shift e a roda e a volta ao Open de um app que deixou de valer (perguntas 1006 e 1044). O Escort só entra com o card do Patrulheiro no Cubit escolhido (pergunta 1664) |
-| `WorkArea` | A área de um Cubit: uma forma desenhada, do bloco marcado mais baixo ao mais alto, numa dimensão. Cabe no tier pelo retângulo em volta e pela altura, conta o bloco acima do topo, onde os itens ficam, dá os cantos para a ronda, sabe se toca outra área, a distância de um ponto até a base, o canto mais perto, para onde ir primeiro e quanto falta do caminho por dentro (perguntas 1062, 1625, 1636, 1707, 2240, 2244 e 2365) |
+| `TabletApps` | Os apps do Tablet que fazem sentido para o Cubit escolhido, a troca com Shift e a roda e a volta ao Open de um app que deixou de valer (perguntas 1006 e 1044). O Escort só entra com o card do Patrulheiro no Cubit escolhido (pergunta 1664), e o Network fica sempre, por último, também sem Cubit escolhido (pergunta 2588) |
+| `WorkArea` | A área de um Cubit: uma forma desenhada, do bloco marcado mais baixo ao mais alto, numa dimensão. Cabe no tier pelo retângulo em volta e pela altura, conta o bloco acima do topo, onde os itens ficam, dá os cantos para a ronda, sabe se toca outra área, a distância de um ponto até a base, o canto mais perto, para onde ir primeiro e quanto falta do caminho por dentro (perguntas 1062, 1625, 1636, 1707, 2240, 2244 e 2365). Sabe também se passa por um chunk, para a antena que sai levar a área junto (pergunta 2600) |
 | `AreaShape` | A forma fechada no chão, só com ângulos retos. Lê as colunas uma vez, ao ser feita, e perguntar se um bloco está dentro não custa nada depois (perguntas 2243 e 2311) |
 | `AreaPath` | Os pontos na ordem em que foram marcados: se a próxima linha é reta, se passa por cima do desenho e se o caminho fecha (perguntas 2243 e 2354) |
 | `AreaSide` | Uma linha reta de blocos entre duas colunas |
@@ -83,9 +83,11 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `AreaWays` | O caminho entre dois lugares da forma sem sair dela, pelos cantos de dentro (pergunta 2365) |
 | `AreaOutward` | O lado de fora, para onde o Patrulheiro olha nas paradas das bordas, também no canto de dentro de um L (perguntas 1626 e 1724) |
 | `AreaBounds` | O retângulo em volta dos pontos, com a largura, a altura, a profundidade e o centro |
-| `AreaDrawing` | O desenho pela metade: os pontos, se fechou, o que cada clique faz e por que é recusado (perguntas 2245, 2355 e 2356) |
+| `AreaDrawing` | O desenho pela metade: os pontos, se fechou, o que cada clique faz e por que é recusado, também fora dos chunks das antenas (perguntas 2245, 2355, 2356, 2586 e 2601) |
+| `AreaChunks` | Onde um desenho pode ir: em qualquer lugar, para o Cubit sem antena, ou só nos chunks das antenas dele, com os pontos, as linhas e o interior da forma (perguntas 2586 e 2601) |
 | `AreaDrawingSpec` | O mínimo e o máximo de pontos e o alcance da mira (perguntas 2287 e 2311) |
 | `AreaErase` | O primeiro dos dois cliques que apagam a área, com o tempo para confirmar (pergunta 2299) |
+| `SecondClick` | O primeiro de dois cliques do Tablet que confirmam algo que se perde: o segundo, no mesmo alvo e em até 5 s, confirma. Vale para apagar a área e desligar uma antena ou a energia de um Dock (perguntas 2299 e 2589) |
 | `AreaCorner` | Um bloco marcado como ponto pelo app Área |
 | `AreaCheck` | Se a área pode ser do Cubit, ou por quê não: sem modo área no tier, grande demais, em outra dimensão ou longe demais (perguntas 1050, 1054 e 1058) |
 | `AreaMarking` | A marcação pela metade do app Área: o Cubit, a dimensão e o desenho, só na memória do servidor (perguntas 1054, 1060 e 2357) |
@@ -184,7 +186,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `PanelSound` | O som de cada momento de um painel, o do Dock ou o do Solar Relay: a abertura quando ele começa a abrir, a trava quando as partes se encontram e o fechamento quando ele começa a voltar (perguntas 1861, 1921 e 2339) |
 | `DockDoorLight` | A luz na borda das folhas das portas: vermelha com o painel guardado, verde com ele montado e amarela, piscando, durante o movimento (perguntas 1853 e 1863) |
 | `BlockName` | O nome de um bloco com dono, como o Dock: o dado pelo dono, com as regras do nome do Cubit, ou o padrão, o começo do tipo dele (`Dock`, `Server` ou `Relay`) e os 8 primeiros dígitos do UUID, para ele nunca ficar sem nome (perguntas 1867 a 1869) |
-| `FloatingName` | O nome sobre o Dock, o Servidor e o Relay: a 0,5 bloco do topo, no meio do bloco, e quem o vê: o dono, com o Tablet na mão, sem tela aberta e sem o F1, a até 32 blocos. O cliente procura os blocos a cada 10 ticks (perguntas 2512 a 2517) |
+| `FloatingName` | O nome sobre o Dock, o Servidor e o Relay: a 0,5 bloco do topo, no meio do bloco, e quem o vê: o dono, com o Tablet na mão e o app Network, sem tela aberta e sem o F1, a até 32 blocos. O cliente procura os blocos a cada 10 ticks (perguntas 2425 e 2512 a 2517) |
 | `ServerSpec` e `ServerCatalog` | Os números do Network Server em cada tier: a bateria, os canais, a entrada por cabo e redstone, os slots, em linhas inteiras da tela, e o que o Solar Relay dele gera de dia e à noite |
 | `UpsReserve` | A parte da bateria que é só do chunk, o Nobreak, de 0% a 50% em passos de 5, com o que sobra para o resto e quanto tempo ela segura. Um número salvo ou editado vai ao passo de baixo, dentro do limite (perguntas 2209, 2212 e 2221) |
 | `UpsWatch` | O aviso do Nobreak: uma vez ao descer para a reserva, e de novo só depois de sair dela |
@@ -192,15 +194,21 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `ChunkCharge` | Se um bloco ficou sem energia para o chunk: zera sem o custo de um tick e só volta com a carga da retomada, também depois de um save. Um chunk de graça nunca zera (perguntas 2372 e 2410) |
 | `ChunkRoster` | Quais chunks o mod segura, de qual player, na ordem em que chegaram, e quais esperam o dono. Quem chegou primeiro fica dentro dos limites (perguntas 2210 e 2215) |
 | `Standby` | O gasto por ficar ligado, do Servidor e do Relay com par, que o Servidor paga (perguntas 2435 e 2436) |
-| `ChunkWall` | A parede em volta do chunk do Servidor, do bloco de apoio até 16 blocos acima, e quem a vê: o dono, com o Tablet na mão, a até 128 blocos (pergunta 2448) |
+| `WallColors` | Qual das seis cores a parede do chunk do player toma ao entrar num chunk novo: uma ao acaso, nunca a do chunk anterior, com o número sorteado passado de fora (perguntas 2613 e 2614) |
+| `ChunkWall` | A parede em volta do chunk do Servidor, do bloco de apoio até 16 blocos acima, e quem a vê: o dono, com a chave `View` ligada e qualquer coisa na mão, a até 128 blocos (perguntas 2448 e 2622) |
 | `AntennaChannel` | Os 16 canais, na ordem fixa dos IDs em inglês, os abertos pelo tier, o último canal que volta se livre e as setas que pulam os ocupados (perguntas 2269, 2309 e 2547) |
 | `AntennaSignal` | O sinal da antena e o tempo sem ele: ligada, sem sinal ou parada depois de 20 minutos, e a volta sozinha (perguntas 2323, 2552 e 2553) |
 | `SignalSound` | O som da antena quando o sinal muda: trava na primeira vez depois de colocada, volta depois de perdido e se ouve ao perder. Parar depois do tempo sem sinal não toca nada (perguntas 2552, 2553 e 2561) |
 | `AntennaPlacement` | Por que a antena não é colocada: sem ligação, sem Servidor, Servidor de outro dono, outra dimensão, chunk ocupado ou canais cheios (perguntas 2271, 2301, 2546 e 2569) |
-| `NetworkRoster` | Os Servidores e as antenas do mundo, conhecidos também com o chunk descarregado: onde cada Servidor está, com o tier que abre os canais, e o canal que cada antena toma do seu Servidor, o último se livre ou o primeiro livre (detalhes 6, 14 e 19 da Entrega 4) |
-| `AntennaSpec` | Os números da antena, sem tier, e o que ela gasta: ligada, a distância e o chunk (perguntas 2273, 2321 e 2435) |
+| `NetworkRoster` | Os Servidores e as antenas do mundo, conhecidos também com o chunk descarregado: onde cada Servidor está, com o tier que abre os canais, e o canal que cada antena toma do seu Servidor, o último se livre ou o primeiro livre (detalhes 6, 14 e 19 da Entrega 4). Acha uma antena pelo lugar, para o app Network saber o Servidor das antenas de um Cubit (pergunta 2258) |
+| `AntennaSpec` | Os números da antena, sem tier, o que ela gasta, ligada, a distância e o chunk, e o que pode dar aos Docks acima do UPS e do piso (perguntas 2273, 2321, 2435 e 2599) |
 | `SignalDistance` | O custo da distância até o Servidor, no plano: 1 FE/t por 500 blocos completos além dos 100 (pergunta 2310) |
 | `EnergyShare` | Como o Servidor reparte a energia entre as antenas: primeiro o chunk de cada uma, na ordem dos canais, e o resto por igual, sem criar nem perder FE (perguntas 2302 e 2551) |
+| `LinkSpot` e `LinkChunk` | Um bloco ligado a um Cubit pelo app Network, antena, Dock ou baú, pela dimensão e pelo lugar, e o chunk dele. Dois chunks são vizinhos só quando dividem um lado (pergunta 2257) |
+| `LinkLimits` e `LinkCatalog` | Quantas antenas, Docks e baús o tier do Cubit liga, com nenhuma antena no Base e mais baús para o Organizador, e a interface que o config serve (perguntas 2226, 2232, 2233, 2235 e 2602) |
+| `NetworkLinks` | As ligações de um Cubit: as antenas, de um Servidor só e vizinhas pelo lado, e os Docks e baús marcados nos chunks delas. A antena do meio, que separaria as outras, é recusada, e a que sai leva os Docks e baús do chunk dela (perguntas 2258, 2588, 2590 e 2600) |
+| `FedDocks` | Os Docks que uma antena alimenta, a chave `Docks` dela: marcar para um Cubit também alimenta, e só o clique na antena e no Dock, sem Cubit, tira (pergunta 2589) |
+| `DockFeed` | Como a antena alimenta os Docks: só o que passa do maior entre o UPS e o piso de 5%, primeiro os que carregam um Cubit e depois por igual, cada um até o que cabe, sem criar nem perder FE (perguntas 2302, 2322 e 2599) |
 | `ChunkLimits` | Quantos chunks o mod pode segurar, de um player e no mundo, com 0 para sem limite (pergunta 2215) |
 | `ServerPower` | O que a bateria fez num tick: ligou, caiu ou nada, para a partida e a queda |
 | `ServerFront` | A frente do Servidor: as colunas de 10 traços, com ao menos um aceso acima de zero, e o estado de cada lâmpada |
@@ -313,6 +321,8 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 - **Ronda de vigia:** o passo lento e as paradas valem só na ronda. Na perseguição, ele corre na velocidade normal, e qualquer parada, num ponto, num canto ou no caminho, zera a contagem de blocos, para as paradas não se amontoarem (perguntas 1614 a 1618).
 - **Desmarcar vem antes de recusar:** um ponto marcado sai mesmo fora da área nova, para o player limpar uma rota antiga sem marcar a área de novo (pergunta 1611).
 - **Rota só na área:** os pontos fora da área ou de outra dimensão não valem, mas ficam guardados no NBT, e voltam a valer quando a área os inclui de novo (perguntas 1599 e 1602).
+- **Vizinhas pelo lado:** as antenas de um Cubit formam um bloco só de chunks que dividem um lado, então tirar a do meio é recusado, e o player tira antes as das pontas (perguntas 2257 e 2590).
+- **Piso da antena:** nenhum Dock tira os últimos 5% da bateria dela, mesmo com o UPS em 0%, para o chunk não cair por causa dos Docks (perguntas 2322 e 2599).
 - **Forma calculada uma vez:** a área guarda as colunas dela num mapa de bits, com até 256 blocos de lado e 256 pontos, para um save quebrado não tomar a memória. Nenhuma conta de polígono roda por tick (regra 21 e detalhe 8 da Network).
 - **Mesma forma, mesma área:** os cantos têm uma ordem só, então dois Patrulheiros com o mesmo desenho, começado em pontos diferentes, dividem as mesmas bordas (perguntas 1646 e 1708).
 - **Progresso pelo caminho:** num L, contornar o corte afasta o Cubit do alvo em linha reta. O progresso conta o caminho que falta por dentro, para ele não desistir no meio (pergunta 2365).

@@ -11,6 +11,7 @@ import io.github.zenndg.cubit.domain.desk.DeskCatalog;
 import io.github.zenndg.cubit.domain.dock.DockCatalog;
 import io.github.zenndg.cubit.domain.energy.Percentage;
 import io.github.zenndg.cubit.domain.energy.PowerRules;
+import io.github.zenndg.cubit.domain.network.LinkCatalog;
 import io.github.zenndg.cubit.domain.robot.AreaDrawingSpec;
 import io.github.zenndg.cubit.domain.robot.OreKind;
 import io.github.zenndg.cubit.domain.robot.OreSignals;
@@ -97,10 +98,7 @@ public final class CubitConfig {
     Map<RobotTier, TierSection> sections = new EnumMap<>(RobotTier.class);
     for (RobotTier tier : RobotTier.values()) {
       builder.push(List.of(GENERAL_ROBOT.id(), tier.key()));
-      sections.put(
-          tier,
-          new TierSection(
-              builder, TierDefaults.of(tier), DockDefaults.of(tier), DeskDefaults.of(tier)));
+      sections.put(tier, new TierSection(builder, tier));
       builder.pop(TIER_SECTION_DEPTH);
     }
     return sections;
@@ -110,12 +108,10 @@ public final class CubitConfig {
     return spec;
   }
 
-  /** The numbers of the drawing of an area (answers 2287 and 2311). */
   public AreaDrawingSpec areaDrawing() {
     return network.drawing();
   }
 
-  /** The keys of the Network, with the server at each tier. */
   public NetworkSection network() {
     return network;
   }
@@ -180,6 +176,10 @@ public final class CubitConfig {
   }
 
   public TierCatalog tierCatalog() {
+    return tierCatalog;
+  }
+
+  public LinkCatalog linkCatalog() {
     return tierCatalog;
   }
 

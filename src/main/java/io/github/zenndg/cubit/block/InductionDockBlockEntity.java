@@ -74,6 +74,8 @@ public final class InductionDockBlockEntity extends BlockEntity
   private final BlockOwner owner = new BlockOwner();
   private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
   private final DockPresence presence = new DockPresence();
+  private final DockNetworkInput network =
+      new DockNetworkInput(energy, () -> isOccupied() && !presence.robotFull());
 
   public InductionDockBlockEntity(BlockPos pos, BlockState state) {
     super(CubitBlockEntities.INDUCTION_DOCK.get(), pos, state);
@@ -132,6 +134,7 @@ public final class InductionDockBlockEntity extends BlockEntity
   static void serverTick(
       Level level, BlockPos pos, BlockState state, InductionDockBlockEntity dock) {
     dock.energy.tick();
+    dock.network.tick();
     dock.payStandby();
     dock.storage.dropRefused(level, pos);
     boolean chargesBanks =
@@ -170,6 +173,10 @@ public final class InductionDockBlockEntity extends BlockEntity
   public DockStatus status() {
     return DockStatus.decide(
         energy.stock().energy().isEmpty(), isOccupied(), isOccupied() && presence.robotFull());
+  }
+
+  public DockNetworkInput network() {
+    return network;
   }
 
   /** What entered by cables and redstone, per tick, on average over the last second. */

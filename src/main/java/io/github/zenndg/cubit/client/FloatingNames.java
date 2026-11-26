@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.ShowsName;
 import io.github.zenndg.cubit.domain.ownership.FloatingName;
-import io.github.zenndg.cubit.registry.CubitItems;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -38,7 +37,7 @@ public final class FloatingNames {
   @SubscribeEvent
   public static void onTick(ClientTickEvent.Post event) {
     Minecraft game = Minecraft.getInstance();
-    if (game.player == null || game.level == null || !holdsTablet(game.player)) {
+    if (game.player == null || game.level == null || !NetworkAppHeld.by(game.player)) {
       FOUND.clear();
       return;
     }
@@ -88,16 +87,22 @@ public final class FloatingNames {
   /** The ones the player sees, the farthest first, so the nearer ones are drawn over them. */
   private static List<ShowsName> seen(Minecraft game, LocalPlayer player) {
     Vec3 eyes = player.getEyePosition();
-    boolean tablet = holdsTablet(player);
+    boolean tablet = NetworkAppHeld.by(player);
     boolean screen = game.screen != null;
     boolean hidden = game.options.hideGui;
     return FOUND.stream()
         .filter(named -> !named.isRemoved())
+        .filter(named -> !covered(named))
         .filter(named ->
             named.nameSpot().seenBy(viewer(named.isOwner(player), tablet, screen, hidden, eyes)))
         .sorted(Comparator.comparingDouble((ShowsName named) -> squaredDistance(named, eyes)))
         .toList()
         .reversed();
+  }
+
+  /** A block with an arrow of the Network app, which already shows its name. */
+  private static boolean covered(ShowsName named) {
+    return named instanceof BlockEntity block && TabletNetworkMarks.covers(block.getBlockPos());
   }
 
   private static FloatingName.Viewer viewer(
@@ -125,10 +130,5 @@ public final class FloatingNames {
     }
     view.popMatrix();
     RenderSystem.applyModelViewMatrix();
-  }
-
-  private static boolean holdsTablet(LocalPlayer player) {
-    return player.getMainHandItem().is(CubitItems.TABLET.get())
-        || player.getOffhandItem().is(CubitItems.TABLET.get());
   }
 }

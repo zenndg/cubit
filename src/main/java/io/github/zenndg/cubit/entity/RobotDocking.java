@@ -36,6 +36,7 @@ public final class RobotDocking {
   private final RobotXpReturn xpReturn;
   private final RobotDockReach reach;
   private final RobotUnload unload;
+  private final RobotNetwork network;
   private final RobotDeathGuide deathGuide;
   private BlockPos docked;
   private BlockPos trip;
@@ -51,6 +52,7 @@ public final class RobotDocking {
     this.reach = new RobotDockReach(robot);
     this.xpReturn = new RobotXpReturn(robot, preferred);
     this.unload = new RobotUnload(robot);
+    this.network = new RobotNetwork(robot);
     this.deathGuide = new RobotDeathGuide(robot);
   }
 
@@ -67,6 +69,11 @@ public final class RobotDocking {
   /** The chests of the Cubit and the trips to them (answers 1086 to 1095). */
   public RobotUnload unload() {
     return unload;
+  }
+
+  /** The antennas, Docks and chests of the Network app (answer 2588). */
+  public RobotNetwork network() {
+    return network;
   }
 
   /** The death point and the guide to it, which a trip to a Dock cancels (answer 1121). */
@@ -294,11 +301,13 @@ public final class RobotDocking {
     }
     preferred.save(tag);
     unload.save(tag);
+    network.save(tag);
   }
 
   void load(CompoundTag tag) {
     docked = tag.contains(DOCK_POSITION_KEY) ? BlockPos.of(tag.getLong(DOCK_POSITION_KEY)) : null;
     preferred.load(tag);
     unload.load(tag);
+    network.load(tag);
   }
 }

@@ -2,8 +2,9 @@ package io.github.zenndg.cubit.domain.ownership;
 
 /**
  * The name over a block of the player, as a Dock or a Network Server: half a block above its top,
- * over its middle, for its owner with the Tablet in a hand, up to 32 blocks away, and never with a
- * screen open or the interface hidden (answers 2469 and 2512 to 2517).
+ * over its middle, for its owner with the Tablet in a hand in the Network app (answer 2425), up to
+ * 32 blocks away, and never with a screen open or the interface hidden (answers 2469 and 2512 to
+ * 2517).
  */
 public record FloatingName(double x, double y, double z) {
   public static final int REACH = 32;

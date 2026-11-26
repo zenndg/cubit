@@ -1527,11 +1527,78 @@ Não há perguntas pendentes nesta fase.
 | 2580 | Em que ordem segue o fechamento da entrega 4? | Primeiro o teste do desenvolvedor no jogo, e depois o processo de abertura do PR, pelo `antes-do-pr.md`, onde as GameTests rodam. Muda a 2579 |
 | 2581 | O teste do desenvolvedor no jogo da entrega 4, a Signal Antenna, passou? | Sim: "teste ok". Segue o processo de abertura do PR pelo `antes-do-pr.md` |
 | 2582 | Com o teste aprovado, o que segue depois de as GameTests passarem? | Os commits dos arquivos pendentes, com o `AGENTS.md` (o estado e a estrutura de pacotes) e o roteiro alinhados, o push e a abertura do PR para a `integration/network`. Depois do merge, apagar as branches e reportar as próximas tarefas |
+| 2583 | Depois do merge da entrega 4 (#286), algum ajuste no roteiro, ou segue o alinhamento da entrega 5 (#267)? | Segue o alinhamento da entrega 5, sem ajuste no roteiro |
+| 2584 | O alinhamento da entrega 5 (#267), com o app Network, os limites por tier, a área nos chunks das antenas, a energia até o Dock, os nomes e a parede só com o app, a rede de teste das GameTests e o ícone do app, está completo? | Sim, sem nada a acrescentar. Segue a rodada de decisões |
+| 2585 | O que os Docks e baús marcados para um Cubit no app Network já fazem na entrega 5? | Ficam no Cubit e aparecem nas setas, e o Dock marcado já recebe energia da antena. O Cubit usar só os marcados entra na entrega 6, com a regra obrigatória. Até lá, a descarga e as marcas de hoje continuam. A recomendação foi aceita |
+| 2586 | A área desenhada já fica presa aos chunks das antenas do Cubit na entrega 5? | Só para o Cubit com ao menos uma antena: ele desenha só dentro dos chunks delas, com o ponto ou a linha de fora recusados na hora, e os limites de tamanho e altura de hoje continuam. Sem antena, desenha como hoje até a entrega 6. A recomendação foi aceita |
+| 2587 | Quanto a antena dá aos Docks ligados a ela? | Só o que passa do próprio UPS, como o Servidor com as antenas (2550). Com UPS 0%, ela pode esvaziar. O passo 10 do roteiro da entrega 5 passa a dizer que ela para no UPS escolhido. A recomendação foi aceita |
+| 2588 | Como funcionam os cliques do app Network? | Pelo Cubit escolhido no Tablet: clicar num Cubit do dono o escolhe; clicar numa antena a liga ou desliga daquele Cubit; clicar num Dock ou baú o marca ou desmarca para ele. Cada Dock recebe energia da antena do chunk dele. Sem Cubit escolhido, clicar na antena e depois num Dock só liga a energia. A recomendação foi aceita. Detalha a 2249 |
+| 2589 | Como vive a ligação de energia de um Dock com a antena do chunk dele? | Numa lista própria na antena, a chave nova `Docks` do NBT dela. Marcar um Dock para um Cubit também o liga à energia, e desmarcá-lo do Cubit mantém a energia. Só o clique na antena e no Dock, sem Cubit escolhido, desliga a energia, com confirmação se algum Cubit ainda usa o Dock. A recomendação foi aceita |
+| 2590 | O que acontece ao desligar uma antena do meio, que separaria as outras do Cubit em dois grupos? | É recusado, com o motivo, dizendo para tirar antes as das pontas. As das pontas saem com a confirmação de 5 s (2299 e 2300). A recomendação foi aceita |
+| 2591 | O que vale para o "1 ícone do app" do `ROADMAP.md` na entrega 5, se os apps do Tablet só têm a cor da faixa e o nome (1084)? | Só a cor rosa (2328), sem ícone, como os outros apps. O recurso sai do `ROADMAP.md` e da #267. A recomendação foi aceita |
+| 2592 | Como o app Network mostra as ligações do Cubit escolhido? | Com as setas dos apps Descarga e Marcar: sobre cada antena do Cubit, na cor do canal; sobre cada Dock marcado, no vermelho do app Dock; sobre cada baú, no laranja do app Descarga; e sobre os Docks só com energia da antena clicada, em cinza. Com a prévia antes do código. A recomendação foi aceita. Detalha a 2249 |
+| 2593 | As telas mostram as ligações e a energia da rede já na entrega 5? | Sim, uma linha em cada: na tela da antena, `Links`, com quantos Cubits e Docks ela alimenta, no lugar reservado (2297 e 2548); na aba do Dock, `Network`, com o que entrou pela rede no tick. As duas com prévia antes do código. A recomendação foi aceita |
+| 2594 | O conceito da entrega 5 (#267), com os Detalhes da Entrega 5 (1 a 18) no `network.md`, está autorizado, com a branch `feature/267-network-app` e o commit dos documentos, sem push? | Sim, autorizado. O código segue para depois das prévias das setas e das linhas `Links` e `Network` (regra 59) |
+| 2595 | As prévias da entrega 5 estão aprovadas: a linha `Links` na tela da antena (`Cubits: N · Docks: M`, ou `none`), a linha `Network` na aba do Dock e as setas do app Network, com as duas linhas de texto sobre cada uma? | Sim, aprovadas (`tmp/arte/network/entrega5/previa/`) |
+| 2596 | O código da entrega 5 (#267) está autorizado (2224), com cada commit mostrado antes? | Sim, autorizado, a começar pelo domínio, com testes, em commits mostrados antes e sem push. A recomendação foi aceita |
+| 2597 | O código da entrega 5 segue nesta sessão ou numa nova? | Numa sessão nova, a partir do prompt de continuidade em `tmp/prompt/`. A recomendação foi aceita |
+| 2598 | O texto da #267 no GitHub troca o "1 ícone do app" pelas prévias (2591)? | Sim: só a linha dos recursos muda, para nenhum ícone, só a cor rosa, e as prévias das setas e das linhas `Links` e `Network`. A recomendação foi aceita |
+| 2599 | A reserva da antena para os Docks: vale o piso de 5% da 2322 (`antenna_floor_percent`) ou a 2587, em que o UPS 0% esvazia? | O piso de 5% sempre: a antena dá aos Docks só o que passa do maior entre o UPS e os 5%, e com UPS 0% desce até 5%, sem zerar. Muda a 2587 e o passo 10 do roteiro da entrega 5, e confirma a 2322. A recomendação foi aceita |
+| 2600 | Ao desligar uma antena do Cubit, o que acontece com os Docks e baús marcados no chunk dela? | Saem sempre do Cubit, porque só podem ficar nos chunks das antenas (detalhe 10 da entrega 5), e a energia do Dock continua (2589). Toda antena pede o segundo clique em 5 s (detalhe 6), e a área some se passava por ali. Detalha a 2300. A recomendação foi aceita |
+| 2601 | Uma área com os pontos e as linhas nos chunks das antenas, mas com o interior cobrindo um chunk sem antena, é aceita? | Não: o clique que fecha a forma é recusado, com o motivo, e o desenho continua aberto, para o Cubit nunca ter área fora dos chunks ativos (detalhe 2). Detalha a 2586. A recomendação foi aceita |
+| 2602 | Onde valem os 12, 18 e 25 baús do Organizador (`network_organizer_chests`) na entrega 5? | Só no app Network: o Cubit com o card do Organizador marca até 12, 18 e 25 baús, e os outros ficam com `network_chests` (1, 2, 4 e 6). As marcas do app Marcar seguem com 4, 9 e 18 até a entrega 6 (2364). Se o card sair, ficam os primeiros baús, até o limite. A recomendação foi aceita |
+| 2603 | A lista `Docks` da antena sobrevive quando ela é quebrada e recolocada? | Sim: o item da antena guarda os Docks num campo novo, `docks`, do `cubit:network_state`. Recolocada no mesmo chunk, eles voltam; em outro chunk, a lista é descartada, porque cada Dock recebe da antena do chunk dele (2588). Detalha o detalhe 13 da entrega 5. A recomendação foi aceita |
+| 2604 | Quando o corte da energia de um Dock no app Network, pela antena e depois pelo Dock, sem Cubit, pede o segundo clique? | Sempre, em 5 s, com o texto dizendo quantos Cubits carregados usam o Dock, porque o servidor não enxerga as ligações de um Cubit descarregado. Muda a 2589 na confirmação. A recomendação foi aceita |
+| 2605 | Na linha `Links` da tela da antena, o `Cubits: N` conta só os Cubits carregados ligados a ela? | Sim: o servidor não enxerga as ligações de um Cubit descarregado, como na 2604. Os Docks são contados todos, pela lista da própria antena. A contagem roda no menu, uma vez por segundo, só com a tela aberta. Detalha a 2593. A recomendação foi aceita |
+| 2606 | A dica do botão `View`, `Shows the chunk with the Tablet in hand` (2512), muda agora que a parede só aparece com o app Network? | Sim: `Shows the chunk with the Network app`, em português `Mostra o chunk com o app Rede`. Muda a 2512. A recomendação foi aceita |
+| 2607 | O nome flutuante continua sobre um bloco que já tem seta do app Network? | Não: sobre um bloco com seta, o nome flutuante some, porque a primeira linha da seta já traz o nome dele, e os dois textos ficariam um sobre o outro. Nos blocos sem seta, o nome continua. Detalha a 2425 e a 2592. A recomendação foi aceita |
+| 2608 | O app Network ganha um uso para o Shift + clique? | Sim: liga e desliga uma parede em volta do chunk onde o player está, no estilo da parede do Servidor e da antena, mas do player. A ideia é do desenvolvedor |
+| 2609 | A parede do chunk do player entra na entrega 5 (#267) ou numa issue à parte? | Na entrega 5, na mesma branch, antes do teste no jogo, em mais um commit mostrado antes, com um passo novo no roteiro. A recomendação foi aceita |
+| 2610 | Qual chunk e qual altura a parede do player mostra? | Sempre o chunk onde o player está agora, trocando ao cruzar a borda, do bloco embaixo dos pés dele até 16 blocos acima, como a do Servidor. A recomendação foi aceita |
+| 2611 | Qual a cor da parede do chunk do player? | Seis cores, e ao entrar num chunk novo a parede sorteia uma delas. A recomendação, o rosa do app, foi recusada. As cores e o sorteio vão a outra pergunta |
+| 2612 | Onde fica guardado se a parede do player está ligada? | No item do Tablet, num componente novo, `cubit:tablet_chunk_wall`, como o app ativo: continua ligada ao sair e voltar, cada Tablet guarda a sua, e ela aparece só com esse Tablet na mão e no app Network. A recomendação foi aceita |
+| 2613 | Quais são as seis cores da parede do chunk do player? | Rosa `#EE6FB5`, amarelo `#F2C94C`, lima `#8BD35A`, azul `#4FA3FF`, roxo `#9966F2` e branco `#F0F0F0`, sem o vermelho, o laranja e o cinza das setas do app nem o ciano da parede do Servidor. Detalha a 2611. A recomendação foi aceita |
+| 2614 | Como a cor é sorteada ao entrar num chunk novo? | Uma das seis ao acaso, nunca a mesma do chunk de onde o player veio, para a troca sempre aparecer. Voltar a um chunk sorteia de novo. Detalha a 2611. A recomendação foi aceita |
+| 2615 | A parede do player tem prévia em imagem antes do código? | Não: vai direto ao código, e o desenvolvedor confere as cores no teste no jogo. A recomendação, a prévia, foi recusada |
+| 2616 | O conceito da parede do chunk do player, com os detalhes 26 a 31 da entrega 5 (Shift + clique em qualquer lugar só liga e desliga, o aviso na barra de ação, a base fixa ao entrar no chunk, só o próprio player vê, a cor só no cliente, os testes), está autorizado, com o código num commit mostrado antes? | Sim, autorizado. A recomendação foi aceita |
+| 2617 | O teste no jogo da entrega 5 (#267), pelo roteiro da Entrega 5, passos 1 a 14, com a parede do chunk do player, passou? | Sim, os testes passaram, e o fechamento segue: o `AGENTS.md`, o `ROADMAP.md`, o `checklist.md` e o processo do PR (2580) |
+| 2618 | A mudança no `AGENTS.md`, com o Estado atual citando as entregas 4 (PR #286) e 5 (#267) da Network e a estrutura de pacotes com as classes novas da entrega 5, e o commit de documentos com o `ROADMAP.md`, que marca a entrega 4, e o `checklist.md`, que cita o PR #286, estão autorizados? | Sim, autorizados, com o diff e a mensagem mostrados antes do commit. A recomendação foi aceita |
+| 2619 | O teste no jogo da entrega 5 foi completo, com a antena ligada a um Cubit escolhido e o Dock marcado, que o erro corrigido em `aec9610e` teria derrubado? | Não: o teste ainda não foi completo. Primeiro as GameTests fecham, e antes do PR o desenvolvedor refaz o roteiro inteiro da Entrega 5, com os passos 1 a 14 e a parede do chunk do player. Muda a 2617 |
+| 2620 | Depois do ajuste da GameTest da troca de apps, as GameTests rodam de novo agora ou só depois do teste completo no jogo? | Só depois: o ajuste é commitado agora, o desenvolvedor refaz o roteiro inteiro no jogo, os ajustes que aparecerem entram em commits mostrados antes, e uma rodada só das GameTests, sobre o último commit, fecha a entrega antes do PR. A recomendação foi aceita |
+| 2621 | Qual a ordem do fechamento da entrega 5 depois do ajuste da GameTest? | Primeiro as GameTests sobre o último commit, com o build e o datagen sem cache, e o teste completo do desenvolvedor no jogo fica como o último passo antes do PR. Se o teste pedir um ajuste, as GameTests rodam de novo sobre o commit dele. Muda a 2620 na ordem |
+| 2622 | A parede do chunk do Servidor e da antena continua pedindo o Tablet no app Network, ou só a chave `View` da tela decide? | Só a chave `View` decide, com qualquer coisa na mão ou nada, na antena e no Servidor, com uma regra só no `ChunkWall`. Ideia do desenvolvedor no teste da entrega 5. Muda a 2542 e a 2606 na parede |
+| 2623 | Com a chave `View` ligada, quem vê a parede e até onde? | Só o dono, até 128 blocos, como na 2447 e na 2448. Sai apenas a exigência do Tablet |
+| 2624 | Os nomes flutuantes e a parede do chunk do player também deixam de pedir o app Network? | Não. Continuam só com o Tablet na mão no app Network (2542 e 2616). Muda só a parede do `View` |
+| 2625 | A dica do botão `View`, `Shows the chunk with the Network app` (2606), continua agora que a parede vale sem o Tablet (2622)? | Não: a dica sai, com a chave `gui.cubit.network.view_tip` dos dois idiomas, porque sem a condição do Tablet o `View` já se explica. Muda a 2512 e a 2606. A recomendação foi aceita |
+| 2626 | Qual o resultado do teste completo da entrega 5 no jogo, antes do PR? | Aprovado: o desenvolvedor fez o roteiro da Entrega 5, os passos 1 a 15, com a parede do `View` sem o Tablet, e tudo passou. O PR segue para a `integration/network`. Completa a 2617 e a 2619 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 14:41 | Registra a resposta 2626. |
+| Zennd | 2026-11-26 13:54 | Registra a resposta 2625. |
+| Zennd | 2026-11-26 13:53 | Registra as respostas 2622 a 2624. |
+| Zennd | 2026-11-26 12:08 | Registra a resposta 2621. |
+| Zennd | 2026-11-26 12:03 | Registra a resposta 2620. |
+| Zennd | 2026-11-26 11:45 | Registra a resposta 2619. |
+| Zennd | 2026-11-26 11:28 | Registra a resposta 2618. |
+| Zennd | 2026-11-26 11:24 | Registra a resposta 2617. |
+| Zennd | 2026-11-26 11:15 | Registra a resposta 2616. |
+| Zennd | 2026-11-26 11:14 | Registra as respostas 2613 a 2615. |
+| Zennd | 2026-11-26 11:13 | Registra as respostas 2608 a 2612. |
+| Zennd | 2026-11-26 10:33 | Registra as respostas 2606 a 2607. |
+| Zennd | 2026-11-26 10:15 | Registra a resposta 2605. |
+| Zennd | 2026-11-26 09:25 | Registra as respostas 2603 a 2604. |
+| Zennd | 2026-11-26 09:06 | Registra as respostas 2599 a 2602. |
+| Zennd | 2026-11-26 08:58 | Registra as respostas 2596 a 2598. |
+| Zennd | 2026-11-26 08:56 | Registra a resposta 2595. |
+| Zennd | 2026-11-26 08:53 | Registra a resposta 2594. |
+| Zennd | 2026-11-26 08:51 | Registra as respostas 2591 a 2593. |
+| Zennd | 2026-11-26 08:48 | Registra as respostas 2589 a 2590. |
+| Zennd | 2026-11-26 08:46 | Registra as respostas 2585 a 2588. |
+| Zennd | 2026-11-26 08:41 | Registra a resposta 2584. |
+| Zennd | 2026-11-26 08:23 | Registra a resposta 2583. |
 | Zennd | 2026-11-26 08:16 | Registra a resposta 2582. |
 | Zennd | 2026-11-26 08:00 | Registra a resposta 2581. |
 | Zennd | 2026-11-26 07:49 | Registra a resposta 2580. |
