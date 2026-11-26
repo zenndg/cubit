@@ -263,10 +263,14 @@ As regras estão em [`network.md`](network.md), e as medidas, nas prévias aprov
 
 Só o dono abre, e o servidor confere o dono, a distância e o config em cada botão (regra 20). Duas abas, com o lugar das outras livre (pergunta 2277):
 
-- **Energy:** o nome, o tier e o estado, `On`, `On UPS` ou `No energy`; a bateria, com a marca da reserva, a entrada e o slot de redstone; o fluxo, com o Solar Relay, o chunk e as Power Banks; a chave do chunk, com o motivo de ele estar solto; o UPS, com − e + e o tempo que segura; o dono e o Rename. Sem limite de chunks por player no config, a linha diz só quantos são seus.
+- **Energy:** o nome, o tier e o estado, `On`, `On UPS` ou `No energy`; a bateria, com a marca da reserva, a entrada e o slot de redstone; o fluxo, com o Solar Relay, a linha `Server and chunk`, que soma o chunk, o Servidor e o Relay e mostra as três partes ao passar o mouse, e as Power Banks; a chave do chunk, com o motivo de ele estar solto, e o botão `View`, que mostra a parede do chunk com o Tablet na mão e diz isso ao passar o mouse (perguntas 2440, 2448 e 2512); o UPS, com − e + e o tempo que segura; o dono e o Rename. Sem limite de chunks por player no config, a linha diz só quantos são seus.
 - **Storage:** as fileiras do tier, os slots usados, a regra e se uma Power Bank carrega ou espera a reserva. A quantidade de 3 dígitos sai em letra menor.
 
 **Slots de 128:** clique, metade, Shift + clique, tecla de atalho e soltar tiram no máximo uma pilha normal, e uma pilha acima disso nunca troca de lugar com outro item (pergunta 2368).
+
+### Aba Desmontar da Engineering Desk
+
+A terceira aba da mesa, entre Estoque e Cascade, com cadeado abaixo do Elite. O slot do item, a seta do progresso, o que volta em slots só de leitura, com os Modules na borda do tier, o custo de uma unidade, o aviso do que se perde ou o motivo da recusa, `Faltam N` durante a desmontagem e os botões Iniciar e Cancelar, como na prévia aprovada (perguntas 2533 a 2535). As regras estão em [`desmontar-na-mesa.md`](desmontar-na-mesa.md).
 
 ### Tela do Solar Relay
 
@@ -276,6 +280,7 @@ Sem abas: o nome e o estado, `Generating`, `Stopped` ou `No pair`; a bateria e o
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 22:02 | Acrescenta a linha `Server and chunk`, o botão `View` e a aba Desmontar da mesa (perguntas 2440, 2512 e 2535). |
 | Zennd | 2026-11-25 19:45 | Acrescenta o gasto à linha de entrada do Dock (pergunta 2467). |
 | Zennd | 2026-11-25 14:47 | Acrescenta as telas do Network Server e do Solar Relay (pergunta 2397). |
 | Zennd | 2026-11-24 22:43 | Corrige o clique que abre a tela do Dock (perguntas 2122 e 2335). |

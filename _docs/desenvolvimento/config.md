@@ -138,6 +138,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `engineering_desk_storage_slots` | Engineering Desk: slots da entrada | 1 a 36 |
 | `general_robot.base` | `engineering_desk_max_order` | Engineering Desk: maior pedido | 1 a 4096 |
 | `general_robot.base` | `engineering_desk_cascade` | Engineering Desk: se a mesa desse tier fabrica em cascata (pergunta 2020) | `true` ou `false` |
+| `general_robot.base` | `engineering_desk_disassembly` | Engineering Desk: se a mesa desse tier desmonta itens (pergunta 2531) | `true` ou `false` |
 | `general_robot.base` | `allowed_jobs` | Cards de Aprendizado de Máquina que o tier aceita: `fisher`, `farmer`, `rancher`, `organizer`, `cook`, `patroller`, `miner`, `builder`, `mechanic` e `alchemist`. Um nome inválido é ignorado e vai para o log | Lista com esses nomes |
 | `general_robot.base` | `fisher_lure_level` | Pescador: Isca | 0 a 3 |
 | `general_robot.base` | `fisher_luck_level` | Pescador: Sorte do Mar | 0 a 3 |
@@ -282,6 +283,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 22:02 | Acrescenta a chave `engineering_desk_disassembly` (pergunta 2531). |
 | Zennd | 2026-11-25 19:45 | Acrescenta o gasto do Dock e o custo novo da mesa (perguntas 2441 e 2468). |
 | Zennd | 2026-11-25 17:33 | Acrescenta as chaves de chamar o Cubit (perguntas 2464 e 2482). |
 | Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado, na seção `network` (pergunta 2442). |
