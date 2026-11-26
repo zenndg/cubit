@@ -8,8 +8,8 @@ import net.minecraft.network.chat.Component;
 
 /**
  * The color of each app of the Tablet, in the action bar and in the strip on the item, so the
- * player sees at once which app is active (answers 1082 to 1084 and 1096). Only visual, so it stays
- * here.
+ * player sees at once which app is active (answers 1082 to 1084, 1096 and 2328). Only visual, so it
+ * stays here.
  */
 public final class TabletAppLook {
   private static final int OPEN_BLUE = 0x4FA3FF;
@@ -20,6 +20,7 @@ public final class TabletAppLook {
   private static final int MARK_TEAL = 0x3CC8B4;
   private static final int DOORS_AMBER = 0xD9A441;
   private static final int ESCORT_GOLD = 0xF2C94C;
+  private static final int NETWORK_PINK = 0xEE6FB5;
 
   private TabletAppLook() {}
 
@@ -34,6 +35,7 @@ public final class TabletAppLook {
       case MARK -> MARK_TEAL;
       case DOORS -> DOORS_AMBER;
       case ESCORT -> ESCORT_GOLD;
+      case NETWORK -> NETWORK_PINK;
     };
   }
 

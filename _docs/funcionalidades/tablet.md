@@ -42,8 +42,9 @@ O Tablet funciona por apps, um ativo por vez, e o clique direito faz o que o app
 | Marcar | Num bloco com inventário dentro do alcance, marca o que o card do Cubit escolhido pede: uma máquina, no modo organizar do Organizador, ou um destino, com a face clicada, no modo abastecer. Shift + clique desmarca o bloco clicado, ou, em outro lugar, o último marcado. As marcas aparecem com setas, como os baús ([`organizador.md`](trabalhos/organizador.md)) (perguntas 1288, 1296 e 1297) | Com o card do Organizador, do Cozinheiro, que marca só fumeiros e fornalhas, ou do Patrulheiro, que marca os pontos da rota no topo de blocos sólidos dentro da área, com setas numeradas e uma linha ciano em laço ([`patrulheiro.md`](trabalhos/patrulheiro.md#a-rota)) (perguntas 1579, 1611 e 1612) | #196, #197 e #198 |
 | Escort (Escolta) | Num player ou num mob que o Patrulheiro escolhido nunca ataca, marca o escoltado, que ele segue e protege. No escoltado, ou com Shift + clique, desmarca. Num mob que ele ataca, ou num player ou mob de outra dimensão, avisa e não marca ([`patrulheiro.md`](trabalhos/patrulheiro.md#escolta-marcada)) (perguntas 1655 a 1661 e 1764) | Só com o card do Patrulheiro no Cubit escolhido. Sem ele, o app sai da troca, e o Tablet ativo nele volta ao Open (pergunta 1664) | #198 |
 | Portas | Numa porta, num alçapão ou num portão de cerca, marca o bloco para todos os Cubits do player abrirem. Numa porta já marcada, desmarca. Shift + clique desmarca a clicada, ou, em outro lugar, a última marcada ([`portas.md`](portas.md)) | Sempre | Portas (#223) |
+| Network (Rede) | Num Cubit seu, escolhe o Cubit. Com ele escolhido, numa antena sua, liga a antena ao Cubit, ou, já ligada, desliga no segundo clique em 5 s, e num Dock ou num bloco com inventário dos chunks das antenas dele, marca ou desmarca para ele. O Dock marcado passa a receber energia da antena do chunk dele. Sem Cubit escolhido, numa antena e depois num Dock do chunk dela, liga a energia do Dock, ou corta no segundo clique ([`network.md`](network.md#app-network)) (perguntas 2588 a 2604) | Sempre, também sem Cubit escolhido, por último na troca | Entrega 5 da Network (#267) |
 
-- **Trocar de app:** com o Tablet na mão, Shift + roda do mouse troca o app. No macOS, o Shift faz a roda de um mouse rolar para o lado, e essa rolagem também troca o app, como a hotbar do jogo faz. O app atual aparece na barra de ação, como `Cubit Tablet · Alvo`, em negrito e com a cor do app: Open em azul, Alvo em verde, Dock em vermelho, Área em roxo, Descarga em laranja, Marcar em verde-água, Portas em âmbar e Escort em dourado (perguntas 1096 e 1662). O nome do item fica só `Cubit Tablet`, e uma faixa fina com a cor do app fica na parte de baixo do ícone, na hotbar e nos inventários, como a barra de durabilidade (perguntas 1082 a 1084). Só entram na troca os apps que fazem sentido para o Cubit escolhido. O app ativo fica no item, no componente `cubit:tablet_app` (perguntas 1006 e 1026).
+- **Trocar de app:** com o Tablet na mão, Shift + roda do mouse troca o app. No macOS, o Shift faz a roda de um mouse rolar para o lado, e essa rolagem também troca o app, como a hotbar do jogo faz. O app atual aparece na barra de ação, como `Cubit Tablet · Alvo`, em negrito e com a cor do app: Open em azul, Alvo em verde, Dock em vermelho, Área em roxo, Descarga em laranja, Marcar em verde-água, Portas em âmbar, Escort em dourado e Network em rosa (perguntas 1096, 1662 e 2328). O nome do item fica só `Cubit Tablet`, e uma faixa fina com a cor do app fica na parte de baixo do ícone, na hotbar e nos inventários, como a barra de durabilidade (perguntas 1082 a 1084). Só entram na troca os apps que fazem sentido para o Cubit escolhido. O app ativo fica no item, no componente `cubit:tablet_app` (perguntas 1006 e 1026).
 - **Prioridade do Tablet:** no app Open, clicar num bloco ou numa entidade com ação própria, como um baú, uma porta, um aldeão ou um Dock, abre a tela de seleção e não aciona o bloco nem a entidade (pergunta 1007).
 - **App inválido:** se o app ativo deixa de fazer sentido, como o Alvo com o Cubit escolhido fora do Focus, o próximo clique faz o que o Open faz, o item volta a Open e a barra de ação avisa (pergunta 1044).
 - **Alvo:** o mob na mira, a até `tablet_target_reach_blocks` blocos, 32 por padrão, a distância em que o Focus esquece o alvo. Valem as regras do Focus: só mob hostil ou neutro. Sem o Cubit escolhido carregado e no Focus, a barra de ação diz o motivo. Sem mob na mira, a barra de ação avisa, e nada abre. No mob que já é o alvo, nada muda (perguntas 1043 e 1047).
@@ -172,9 +173,10 @@ Entra com o item 16 da Fase 4.2 (perguntas 1111 e 1119). As regras do histórico
 |---|---|---|
 | Item | `cubit:tablet` | O Tablet |
 | Receita | `cubit:tablet` | A receita com forma |
-| Componente do item | `cubit:tablet_app` | O app ativo: `open`, `target`, `dock`, `area`, `unload`, `mark`, `doors` ou `escort`. Sem o componente, vale `open` (pergunta 1128) |
+| Componente do item | `cubit:tablet_app` | O app ativo: `open`, `target`, `dock`, `area`, `unload`, `mark`, `doors`, `escort` ou `network`. Sem o componente, vale `open` (pergunta 1128) |
 | Attachment do player | `cubit:chosen_robot` | O UUID do Cubit escolhido |
 | NBT da entidade | `PreferredDock` | O Dock preferido: `Block`, a posição num `long`, e `Dimension`. Sem a chave, o Cubit não tem Dock preferido |
+| NBT da entidade | `NetworkAntennas`, `NetworkDocks` e `NetworkChests` | As antenas, os Docks e os baús do app Network, cada um com `Dimension` e `Pos`, a posição num `long`. Recolher e morrer os apagam (perguntas 2251 e 2304) |
 | Menu | `cubit:tablet_robot` | A tela do Cubit no Tablet, com a cor, o lugar e a chave geral nos valores do menu |
 | Pacotes do cliente | `cubit:choose_robot`, `cubit:robot_list_request`, `cubit:rename_robot`, `cubit:switch_tablet_app`, `cubit:robot_named` e `cubit:rename_dock` | Escolher e abrir, voltar para a seleção, renomear e trocar de app, todos conferidos no servidor |
 | Pacote do servidor | `cubit:unload_chests` | Os baús marcados dos Cubits do player, com o nome do Cubit e os slots, a cada segundo com o Tablet na mão |
@@ -207,12 +209,13 @@ Os textos em inglês e português, como `Cubit Tablet` / `Tablet do Cubit`, `Tab
 
 ## Com a Network
 
-Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](network.md). Entram o app Network, rosa, a aba Network, entre Trabalho e XP, e o `Back to work`. O desenho por pontos do app Área já entrou. O app Dock e o Descarga ficam para quem segue (perguntas 2228, 2237, 2249, 2251, 2311, 2316, 2317 e 2328).
+Planejado, na `0.2.0`. As regras estão em [`network.md`](network.md). O app Network, rosa, entrou na entrega 5. Faltam a aba Network, entre Trabalho e XP, e o `Back to work`. O desenho por pontos do app Área já entrou. O app Dock e o Descarga ficam para quem segue (perguntas 2228, 2237, 2249, 2251, 2311, 2316, 2317 e 2328).
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 09:34 | Acrescenta o app Network, o valor `network` e as ligações no NBT do Cubit (entrega 5 da Network). |
 | Zennd | 2026-11-25 17:33 | Estende o `Follow` a qualquer lugar (perguntas 2450, 2457, 2463 e 2483). |
 | Zennd | 2026-11-25 00:23 | Atualiza o app Área, com o desenho por pontos, e o contrato (perguntas 2240 a 2246, 2283 e 2358). |
 | Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |

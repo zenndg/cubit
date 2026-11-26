@@ -48,6 +48,11 @@ public final class NetworkRoster<P> {
     return antennas.remove(place) != null;
   }
 
+  /** The antenna at this place, known also with its chunk unloaded. */
+  public Optional<Antenna<P>> antenna(P place) {
+    return Optional.ofNullable(antennas.get(place));
+  }
+
   public Collection<Antenna<P>> antennas() {
     return Collections.unmodifiableCollection(antennas.values());
   }

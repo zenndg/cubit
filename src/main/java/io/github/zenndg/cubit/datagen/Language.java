@@ -39,7 +39,8 @@ enum Language {
           DeskTexts::addTo,
           NetworkTexts::addTo,
           NetworkScreenTexts::addTo,
-          AntennaScreenTexts::addTo),
+          AntennaScreenTexts::addTo,
+          NetworkAppTexts::addTo),
       ChatPhrases::of),
   PT_BR(
       Locales.PORTUGUESE,
@@ -69,7 +70,8 @@ enum Language {
           PortugueseDeskTexts::addTo,
           PortugueseNetworkTexts::addTo,
           PortugueseNetworkScreenTexts::addTo,
-          PortugueseAntennaScreenTexts::addTo),
+          PortugueseAntennaScreenTexts::addTo,
+          PortugueseNetworkAppTexts::addTo),
       PortugueseChatPhrases::of);
 
   private final String locale;

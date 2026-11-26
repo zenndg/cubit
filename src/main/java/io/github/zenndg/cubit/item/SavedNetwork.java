@@ -16,8 +16,9 @@ import org.slf4j.Logger;
 
 /**
  * What a block of the Network keeps in its item, a contract with the saves (answers 2410, 2411 and
- * 2448). The Solar Relay only keeps its energy, and the Signal Antenna its energy, its reserve and
- * its link (answer 2566). Without a reserve, the one of the config applies.
+ * 2448). The Solar Relay only keeps its energy, and the Signal Antenna its energy, its reserve, its
+ * link and the Docks it feeds (answers 2566 and 2603). Without a reserve, the one of the config
+ * applies.
  */
 public record SavedNetwork(
     RobotTier tier,
@@ -26,7 +27,8 @@ public record SavedNetwork(
     Optional<UpsReserve> ups,
     boolean chunkLoading,
     boolean showWall,
-    SavedLink link) {
+    SavedLink link,
+    List<Long> docks) {
   private static final Logger LOGGER = LogUtils.getLogger();
   private static final String TIER_FIELD = "tier";
   private static final String ENERGY_FIELD = "energy";
@@ -34,6 +36,7 @@ public record SavedNetwork(
   private static final String UPS_FIELD = "ups";
   private static final String CHUNK_FIELD = "chunk_loading";
   private static final String WALL_FIELD = "show_wall";
+  private static final String DOCKS_FIELD = "docks";
   private static final String BROKEN_ITEM = "Skipping a broken item of a Network Server: {}";
   private static final String UNKNOWN_TIER = "Unknown tier {} in a Network item. Using Base.";
 
@@ -62,11 +65,32 @@ public record SavedNetwork(
                       .optionalFieldOf(CHUNK_FIELD, true)
                       .forGetter(SavedNetwork::chunkLoading),
                   Codec.BOOL.optionalFieldOf(WALL_FIELD, false).forGetter(SavedNetwork::showWall),
-                  SavedLink.MAP_CODEC.forGetter(SavedNetwork::link))
+                  SavedLink.MAP_CODEC.forGetter(SavedNetwork::link),
+                  Codec.LONG
+                      .listOf()
+                      .optionalFieldOf(DOCKS_FIELD, List.of())
+                      .forGetter(SavedNetwork::docks))
               .apply(instance, SavedNetwork::new));
 
   public static final StreamCodec<RegistryFriendlyByteBuf, SavedNetwork> STREAM_CODEC =
       ByteBufCodecs.fromCodecWithRegistries(CODEC);
+
+  public SavedNetwork {
+    items = List.copyOf(items);
+    docks = List.copyOf(docks);
+  }
+
+  /** A block that feeds no Dock: the Server, the Relay, or an antenna before Delivery 5. */
+  public SavedNetwork(
+      RobotTier tier,
+      long energy,
+      List<SavedBigStack> items,
+      Optional<UpsReserve> ups,
+      boolean chunkLoading,
+      boolean showWall,
+      SavedLink link) {
+    this(tier, energy, items, ups, chunkLoading, showWall, link, List.of());
+  }
 
   public static SavedNetwork onlyEnergy(long energy) {
     return new SavedNetwork(
@@ -80,7 +104,7 @@ public record SavedNetwork(
 
   /** The same, linked to another Server or with another channel. */
   public SavedNetwork withLink(SavedLink next) {
-    return new SavedNetwork(tier, energy, items, ups, chunkLoading, showWall, next);
+    return new SavedNetwork(tier, energy, items, ups, chunkLoading, showWall, next, docks);
   }
 
   public boolean holdsAnything() {

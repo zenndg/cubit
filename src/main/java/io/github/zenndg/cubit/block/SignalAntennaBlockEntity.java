@@ -46,6 +46,7 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
   private final HeldChunk chunk = new HeldChunk(this::setChanged);
   private final AntennaSettings settings = new AntennaSettings();
   private final AntennaClientView view = new AntennaClientView();
+  private final AntennaDocks docks = new AntennaDocks(this::setChanged);
   private SavedLink link = SavedLink.NONE;
   private long placedAt = Long.MIN_VALUE;
 
@@ -259,6 +260,26 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
     }
   }
 
+  /** Whether it feeds the Dock at this place, of its own chunk (answer 2589). */
+  public boolean feeds(BlockPos dock) {
+    return docks.feeds(dock);
+  }
+
+  /** The Docks it feeds, in the order they came. */
+  public List<BlockPos> fedDocks() {
+    return docks.docks();
+  }
+
+  /** True when it changed. */
+  public boolean feed(BlockPos dock) {
+    return level != null && docks.feed(level, dock);
+  }
+
+  /** True when it changed. */
+  public boolean unfeed(BlockPos dock) {
+    return level != null && docks.unfeed(level, dock);
+  }
+
   /** What the client shows of it. */
   public AntennaClientView view() {
     return view;
@@ -287,13 +308,15 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
         settings.kept(),
         settings.chunkLoading(),
         settings.showWall(),
-        link);
+        link,
+        docks.kept());
   }
 
   @Override
   void restore(SavedNetwork saved) {
     link = saved.link();
     settings.restore(saved);
+    docks.restore(saved.docks(), worldPosition);
   }
 
   @Override
@@ -305,6 +328,7 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
     uplink.save(tag);
     settings.save(tag);
     chunk.save(tag);
+    docks.save(tag);
   }
 
   /** A broken channel is dropped, and the antenna takes the first free one again (rule 17). */
@@ -321,6 +345,7 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
     uplink.load(tag);
     settings.load(tag);
     chunk.load(tag);
+    docks.load(tag);
     view.read(tag);
   }
 

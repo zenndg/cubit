@@ -103,7 +103,10 @@ public final class NetworkSection implements ServerCatalog {
     return new BigSlot(slotLimit.get());
   }
 
-  /** With the limits reversed, the fewest points win, so the area can still be closed (rule 17). */
+  /**
+   * The numbers of the drawing of an area (answers 2287 and 2311). With the limits reversed, the
+   * fewest points win, so the area can still be closed (rule 17).
+   */
   AreaDrawingSpec drawing() {
     return new AreaDrawingSpec(
         minPoints.get(), Math.max(minPoints.get(), maxPoints.get()), reach.get());
