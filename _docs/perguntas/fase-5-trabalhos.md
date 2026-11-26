@@ -1563,11 +1563,15 @@ Não há perguntas pendentes nesta fase.
 | 2616 | O conceito da parede do chunk do player, com os detalhes 26 a 31 da entrega 5 (Shift + clique em qualquer lugar só liga e desliga, o aviso na barra de ação, a base fixa ao entrar no chunk, só o próprio player vê, a cor só no cliente, os testes), está autorizado, com o código num commit mostrado antes? | Sim, autorizado. A recomendação foi aceita |
 | 2617 | O teste no jogo da entrega 5 (#267), pelo roteiro da Entrega 5, passos 1 a 14, com a parede do chunk do player, passou? | Sim, os testes passaram, e o fechamento segue: o `AGENTS.md`, o `ROADMAP.md`, o `checklist.md` e o processo do PR (2580) |
 | 2618 | A mudança no `AGENTS.md`, com o Estado atual citando as entregas 4 (PR #286) e 5 (#267) da Network e a estrutura de pacotes com as classes novas da entrega 5, e o commit de documentos com o `ROADMAP.md`, que marca a entrega 4, e o `checklist.md`, que cita o PR #286, estão autorizados? | Sim, autorizados, com o diff e a mensagem mostrados antes do commit. A recomendação foi aceita |
+| 2619 | O teste no jogo da entrega 5 foi completo, com a antena ligada a um Cubit escolhido e o Dock marcado, que o erro corrigido em `aec9610e` teria derrubado? | Não: o teste ainda não foi completo. Primeiro as GameTests fecham, e antes do PR o desenvolvedor refaz o roteiro inteiro da Entrega 5, com os passos 1 a 14 e a parede do chunk do player. Muda a 2617 |
+| 2620 | Depois do ajuste da GameTest da troca de apps, as GameTests rodam de novo agora ou só depois do teste completo no jogo? | Só depois: o ajuste é commitado agora, o desenvolvedor refaz o roteiro inteiro no jogo, os ajustes que aparecerem entram em commits mostrados antes, e uma rodada só das GameTests, sobre o último commit, fecha a entrega antes do PR. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 12:03 | Registra a resposta 2620. |
+| Zennd | 2026-11-26 11:45 | Registra a resposta 2619. |
 | Zennd | 2026-11-26 11:28 | Registra a resposta 2618. |
 | Zennd | 2026-11-26 11:24 | Registra a resposta 2617. |
 | Zennd | 2026-11-26 11:15 | Registra a resposta 2616. |

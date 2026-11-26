@@ -191,6 +191,8 @@ public final class TabletAppGameTests {
     TabletUse.switchApp(owner, FORWARD);
     TabletUse.switchApp(owner, FORWARD);
     TabletUse.switchApp(owner, FORWARD);
+    helper.assertValueEqual(TabletItem.appOf(tablet), TabletApp.NETWORK, WRONG_APP);
+    TabletUse.switchApp(owner, FORWARD);
     TabletUse.switchApp(owner, FORWARD);
 
     helper.assertValueEqual(TabletItem.appOf(tablet), TabletApp.TARGET, WRONG_APP);
