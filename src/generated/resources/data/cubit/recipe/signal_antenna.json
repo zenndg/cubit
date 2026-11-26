@@ -1,0 +1,29 @@
+{
+  "type": "cubit:engineering",
+  "category": "misc",
+  "desk_category": "dock",
+  "ingredients": [
+    {
+      "item": "minecraft:lightning_rod"
+    },
+    {
+      "item": "cubit:transceiver"
+    },
+    {
+      "item": "cubit:chunk_anchor"
+    },
+    {
+      "item": "cubit:induction_coil"
+    },
+    {
+      "item": "cubit:base_power_cell"
+    },
+    {
+      "item": "cubit:xp_tank"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "cubit:signal_antenna"
+  }
+}

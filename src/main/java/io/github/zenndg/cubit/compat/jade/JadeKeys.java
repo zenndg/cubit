@@ -22,6 +22,7 @@ public final class JadeKeys {
   public static final String CHUNK_ON = "jade.cubit.chunk_on";
   public static final String CHUNK_OFF = "jade.cubit.chunk_off";
   public static final String PAIRED = "jade.cubit.paired";
+  public static final String CHANNEL = "jade.cubit.channel";
   private static final String TIER_NAME = "jade.cubit.tier.%s";
   private static final String STATE = "jade.cubit.state.%s";
   private static final String DOCK_STATUS = "jade.cubit.dock_status.%s";

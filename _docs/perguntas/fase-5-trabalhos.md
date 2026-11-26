@@ -1520,11 +1520,13 @@ Não há perguntas pendentes nesta fase.
 | 2573 | Com o chunk da antena commitado e a sessão longa, a tela da antena segue nesta sessão ou numa nova? | Numa nova: o agente deixa o prompt de continuidade em `tmp/prompt/`, com o estado e o desenho do resto da entrega |
 | 2574 | Depois do prompt de continuidade, a tela da antena segue nesta sessão? | Sim: o desenvolvedor pediu para continuar nesta sessão. Muda a 2573 |
 | 2575 | Depois da tela, segue o commit do visual da antena: o modelo, as texturas, as animações, os renderers, os sons, a parede do chunk na cor do canal e o nome flutuante? | Sim, como recomendado |
+| 2576 | Depois do visual, segue o commit da receita e do Jade da antena? | Sim, como recomendado |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 07:23 | Registra a resposta 2576. |
 | Zennd | 2026-11-26 07:14 | Registra a resposta 2575. |
 | Zennd | 2026-11-26 07:12 | Registra a resposta 2574. |
 | Zennd | 2026-11-26 00:51 | Registra a resposta 2573. |

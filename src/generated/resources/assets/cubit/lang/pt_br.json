@@ -608,6 +608,7 @@
   "item.cubit.xp_tank": "Tanque de XP",
   "itemGroup.cubit.main": "Cubit",
   "jade.cubit.battery": "Bateria: %s%% (%s / %s FE)",
+  "jade.cubit.channel": "Canal: %s",
   "jade.cubit.chunk_off": "Não carrega o chunk",
   "jade.cubit.chunk_on": "Carrega o chunk",
   "jade.cubit.desk_cascade": "Cascata: %s · %s/%s",

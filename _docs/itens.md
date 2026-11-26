@@ -57,6 +57,7 @@
 | Chunk Anchor | `cubit:chunk_anchor` | [Abaixo](#peças-compartilhadas) |
 | Network Server | `cubit:network_server` | [Abaixo](#network-server-e-solar-relay) |
 | Solar Relay | `cubit:solar_relay` | [Abaixo](#network-server-e-solar-relay) |
+| Signal Antenna | `cubit:signal_antenna` | [Abaixo](#network-server-e-solar-relay) |
 | Card Casing | `cubit:ml_card_casing` | [Abaixo](#cards-de-trabalho) |
 | Recharge Splash | `cubit:recharge_splash` | [Abaixo](#recharge-splash) |
 | Engineering Desk | `cubit:engineering_desk` | [Abaixo](#engineering-desk) |
@@ -106,8 +107,9 @@ Na Engineering Desk, sem forma e sem bloqueio por progressão, na categoria `Doc
 
 - **Network Server:** bloco de ferro, Hard Drive, XP Tank, Base Power Cell, Neural Core, Chunk Anchor, Transceiver e Display Panel.
 - **Solar Relay:** Solar Panel, Transceiver, Base Power Cell e XP Tank.
+- **Signal Antenna:** para-raios, Transceiver, Chunk Anchor, Induction Coil, Base Power Cell e XP Tank.
 
-O Servidor sai Base e sobe com os Modules, e o Relay segue o tier dele. A dica do Servidor mostra o tier, a energia e quantos itens guarda, e a do Relay, só a energia, com as linhas só quando há o que mostrar (pergunta 2416).
+O Servidor sai Base e sobe com os Modules, e o Relay segue o tier dele. A antena não tem tier e se liga a um Servidor por clique (pergunta 2546). A dica do Servidor mostra o tier, a energia e quantos itens guarda, a do Relay, só a energia, e a da antena, o Servidor ligado e a energia, com as linhas só quando há o que mostrar (perguntas 2416 e 2567).
 
 ### Cubit Tablet
 
@@ -262,7 +264,6 @@ Nomes aprovados nas perguntas 256, 1146, 1147 e 2275. Viram contrato só quando 
 
 | Nome | ID | Descrição |
 |---|---|---|
-| Signal Antenna | `cubit:signal_antenna` | Carrega o chunk onde está e liga os Cubits, os Docks e os baús |
 | Wireless Chest | `cubit:wireless_chest` | Acessa um canal do storage wireless |
 | Wireless Storage Upgrade | A definir | Liga o Cubit Ultimate a um canal |
 | Machine Learning: Miner | `cubit:ml_miner` | Card de Aprendizado de Máquina do trabalho de Minerador |
@@ -322,7 +323,7 @@ A partir da `1.0.0`, estes nomes não mudam sem migração (regra 18 do `AGENTS.
 | Dados do player | `cubit:following_robot` | `robot`: o UUID do robô que segue, ou nada |
 | Item | `cubit:general_robot_casing`, `cubit:general_robot_visor`, `cubit:general_robot_treads`, `cubit:power_bank_casing` e `cubit:{tier}_power_cell` | As peças de montagem, sem data components (pergunta 1349) |
 | Item | `cubit:xp_tank`, `cubit:hard_drive`, `cubit:solar_panel`, `cubit:display_panel`, `cubit:servo_motor`, `cubit:induction_coil`, `cubit:neural_core`, `cubit:circuit_board`, `cubit:transceiver` e `cubit:chunk_anchor` | As peças compartilhadas, sem data components, com a receita de mesmo ID (perguntas 2149 e 2166) |
-| Bloco e item | `cubit:network_server` e `cubit:solar_relay` | O Network Server e o Solar Relay, com a receita de mesmo ID. O NBT, os data components `cubit:network_id` e `cubit:network_state`, o ticket e os dados do mundo estão em [`network.md`](funcionalidades/network.md#contrato) (perguntas 2334, 2410, 2411 e 2413) |
+| Bloco e item | `cubit:network_server`, `cubit:solar_relay` e `cubit:signal_antenna` | O Network Server, o Solar Relay e a Signal Antenna, com a receita de mesmo ID. O NBT, os data components `cubit:network_id` e `cubit:network_state`, o ticket e os dados do mundo estão em [`network.md`](funcionalidades/network.md#contrato) (perguntas 2334, 2410, 2411 e 2413) |
 | Item | `cubit:ml_card_casing` | A carcaça de todo card, sem data components (perguntas 1541 e 1542) |
 | Receita | `cubit:ml_card_casing` | A receita da carcaça dos cards, em [Cards de trabalho](#cards-de-trabalho) (pergunta 1542) |
 | Item | `cubit:ml_fisher` | O card do Pescador. Na base, só por `/give`, sem receita (perguntas 1161 e 1172). A receita entra no card do Pescador (pergunta 1192) |
@@ -364,6 +365,7 @@ O estado salvo é validado ao entrar no jogo, sem derrubá-lo (regra 17 do `AGEN
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 07:23 | Acrescenta a Signal Antenna, com a receita e o contrato (pergunta 2576). |
 | Zennd | 2026-11-25 14:47 | Acrescenta o Network Server, o Solar Relay, o Transceiver e a Chunk Anchor (perguntas 2282, 2416 e 2419). |
 | Zennd | 2026-11-25 12:27 | Tira o bloqueio por progressão das receitas (pergunta 2400). |
 | Zennd | 2026-11-24 22:42 | Atualiza os itens previstos da Network (perguntas 2275 e 2282). |
