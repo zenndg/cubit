@@ -225,6 +225,11 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
   }
 
   @Override
+  void switchChunkOff() {
+    setChunkLoading(false);
+  }
+
+  @Override
   public IItemHandler itemHandler() {
     return itemHandler;
   }

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
@@ -87,5 +88,16 @@ class ChunkRosterTest {
             new ChunkRoster.Entry<>(FIRST, ANNA, true),
             new ChunkRoster.Entry<>(SECOND, BEN, false)),
         loaded.entries());
+  }
+
+  /** The command of the operator releases all or the ones of a player (answers 2286 and 2578). */
+  @Test
+  void findsThePlacesOfAPlayerOrOfAll() {
+    roster.hold(FIRST, ANNA);
+    roster.hold(SECOND, BEN);
+    roster.hold(THIRD, ANNA);
+    roster.await(THIRD);
+    assertEquals(List.of(FIRST, THIRD), roster.placesOf(Optional.of(ANNA)));
+    assertEquals(List.of(FIRST, SECOND, THIRD), roster.placesOf(Optional.empty()));
   }
 }

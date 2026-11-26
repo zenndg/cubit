@@ -1521,11 +1521,15 @@ Não há perguntas pendentes nesta fase.
 | 2574 | Depois do prompt de continuidade, a tela da antena segue nesta sessão? | Sim: o desenvolvedor pediu para continuar nesta sessão. Muda a 2573 |
 | 2575 | Depois da tela, segue o commit do visual da antena: o modelo, as texturas, as animações, os renderers, os sons, a parede do chunk na cor do canal e o nome flutuante? | Sim, como recomendado |
 | 2576 | Depois do visual, segue o commit da receita e do Jade da antena? | Sim, como recomendado |
+| 2577 | Depois da receita e do Jade, segue o commit do comando `/cubit network list` e `release`, só para operador? | Sim, como recomendado |
+| 2578 | O que o `/cubit network release` faz com os blocos depois de soltar os chunks, se um Servidor ou uma antena carregados pedem o chunk de volta a cada segundo? | Solta os tickets e a lista e desliga a chave `Load the chunk` de cada bloco solto: na hora, nos carregados, e, nos descarregados, quando carregarem, por uma marca no `cubit_network`. O dono religa pela tela. A recomendação foi aceita. Detalha a 2286 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 07:41 | Registra a resposta 2578. |
+| Zennd | 2026-11-26 07:34 | Registra a resposta 2577. |
 | Zennd | 2026-11-26 07:23 | Registra a resposta 2576. |
 | Zennd | 2026-11-26 07:14 | Registra a resposta 2575. |
 | Zennd | 2026-11-26 07:12 | Registra a resposta 2574. |

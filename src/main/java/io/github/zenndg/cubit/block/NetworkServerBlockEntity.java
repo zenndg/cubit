@@ -291,6 +291,11 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   }
 
   @Override
+  void switchChunkOff() {
+    setChunkLoading(false);
+  }
+
+  @Override
   public IItemHandler itemHandler() {
     return itemHandler;
   }

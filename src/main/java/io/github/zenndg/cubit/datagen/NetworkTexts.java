@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.datagen;
 
 import io.github.zenndg.cubit.block.AntennaLinking;
 import io.github.zenndg.cubit.block.AntennaPlacing;
+import io.github.zenndg.cubit.block.NetworkCommands;
 import io.github.zenndg.cubit.block.NetworkPlacement;
 import io.github.zenndg.cubit.block.NetworkUpgrade;
 import io.github.zenndg.cubit.domain.ownership.BlockName;
@@ -49,6 +50,13 @@ final class NetworkTexts {
   private static final String ANTENNA_MOVED = "Channel %s is taken, so it took %s";
   private static final String ANTENNA_LINKED = "Linked to %s";
   private static final String NAME_ANTENNA = "Name your Signal Antenna";
+  private static final String COMMAND_NONE = "The Network holds no chunk";
+  private static final String COMMAND_TITLE = "The Network holds %s chunks:";
+  private static final String COMMAND_PLAYER = "%s · %s chunks";
+  private static final String COMMAND_ENTRY = "  %s · %s %s %s %s · %s";
+  private static final String COMMAND_HOLDING = "holding";
+  private static final String COMMAND_WAITING = "waiting for its owner";
+  private static final String COMMAND_RELEASED = "Released %s chunks of the Network";
 
   private NetworkTexts() {}
 
@@ -69,6 +77,7 @@ final class NetworkTexts {
     add.accept(ScreenKeys.blockNameTitle(BlockName.Kind.ANTENNA), NAME_ANTENNA);
     addAntenna(add);
     addAntennaSounds(add);
+    addCommands(add);
   }
 
   private static void addAntenna(BiConsumer<String, String> add) {
@@ -81,6 +90,16 @@ final class NetworkTexts {
     add.accept(AntennaPlacing.CHANNELS_FULL_KEY, ANTENNA_CHANNELS_FULL);
     add.accept(AntennaPlacing.CHANNEL_MOVED_KEY, ANTENNA_MOVED);
     add.accept(AntennaLinking.LINKED_KEY, ANTENNA_LINKED);
+  }
+
+  private static void addCommands(BiConsumer<String, String> add) {
+    add.accept(NetworkCommands.NONE_KEY, COMMAND_NONE);
+    add.accept(NetworkCommands.TITLE_KEY, COMMAND_TITLE);
+    add.accept(NetworkCommands.PLAYER_KEY, COMMAND_PLAYER);
+    add.accept(NetworkCommands.ENTRY_KEY, COMMAND_ENTRY);
+    add.accept(NetworkCommands.HOLDING_KEY, COMMAND_HOLDING);
+    add.accept(NetworkCommands.WAITING_KEY, COMMAND_WAITING);
+    add.accept(NetworkCommands.RELEASED_KEY, COMMAND_RELEASED);
   }
 
   private static void addAntennaSounds(BiConsumer<String, String> add) {

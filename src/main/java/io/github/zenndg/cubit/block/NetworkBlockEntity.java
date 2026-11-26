@@ -11,6 +11,7 @@ import io.github.zenndg.cubit.registry.CubitDataComponents;
 import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentType;
@@ -76,6 +77,11 @@ public abstract class NetworkBlockEntity extends BlockEntity
 
   /** What the owner does with an item in the hand. False when it does nothing. */
   abstract boolean use(Player player, ItemStack stack);
+
+  /** The operator released its chunk, so it does not ask for it again (answer 2578). */
+  void switchChunkOff() {
+    // A block that holds no chunk has nothing to switch off.
+  }
 
   /** Its owner has just placed it, after its item gave back what it keeps. */
   void placed(Player player) {
@@ -182,8 +188,13 @@ public abstract class NetworkBlockEntity extends BlockEntity
   @Override
   public void onLoad() {
     super.onLoad();
-    if (level != null && !level.isClientSide()) {
+    if (level instanceof ServerLevel server) {
       NetworkChunk.pair(level, worldPosition);
+      NetworkData data = NetworkData.of(server.getServer());
+      if (data.takeReleased(GlobalPos.of(level.dimension(), worldPosition))) {
+        data.setDirty();
+        switchChunkOff();
+      }
     }
   }
 
