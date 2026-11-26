@@ -166,7 +166,7 @@ São as partes da aba Dock.
 
 | Parte | O que mostra |
 |---|---|
-| Topo | O nome do Dock, como `Dock 3f9a2c1b`, no lugar de `Induction Dock`, com o botão `Rename` ao lado (perguntas 1867 a 1870), o estado, a torre com a luz do estado, `Stored energy 64k / 100k FE`, com a barra laranja, a linha de entrada e `Cables or redstone · up to 5,000 FE/t` |
+| Topo | O nome do Dock, como `Dock 3f9a2c1b`, no lugar de `Induction Dock`, com o botão `Rename` ao lado (perguntas 1867 a 1870), o estado, a torre com a luz do estado, `Stored energy 64k / 100k FE`, com a barra laranja, a linha de entrada e `Cables or redstone · up to 5,000 FE/t`. Com uma antena alimentando o Dock, a linha `Network +2,400 FE/t`, em verde, com o que entrou pela rede no tick, ou `Network · 0 FE/t`, em cinza, sem a linha quando nenhuma antena o alimenta (perguntas 2593 e 2595) |
 | Slot | O slot de entrada, com o rótulo `Redstone`. O slot de carga saiu (pergunta 950), e o espaço dele, de 27 px, sai da aba Dock |
 | Docked Cubit | Com Cubit: o retrato, `Cubit · Battery 165k / 300k FE`, `Health 23 / 25` e a linha de recarga e vida. Sem Cubit: `No Cubit docked` e as frases das imagens |
 | Queue | `Empty`, ou `1 Cubit waiting` |
@@ -257,7 +257,7 @@ Pergunta 691.
 
 ## Com a Network
 
-As regras estão em [`network.md`](network.md), e as medidas, nas prévias aprovadas (pergunta 2397). Já no código, as telas do Servidor e do Solar Relay. O resto é planejado, na `0.2.0`. A tela do Cubit ganha a aba Network, entre Work e XP, e os estados `Hibernating · No network` e `Hibernating · Owner offline`, em azul, e `Waiting for area`, em roxo. Entra a tela da antena, com prévia antes do código (perguntas 2277, 2280, 2315, 2316 e 2331).
+As regras estão em [`network.md`](network.md), e as medidas, nas prévias aprovadas (pergunta 2397). Já no código, as telas do Servidor, do Solar Relay e da antena, que, na entrega 5, ganha a linha `Links`, abaixo de `Spending`, com `Cubits: N · Docks: M`, os Cubits carregados ligados a ela e os Docks que ela alimenta, ou `none`, em cinza (perguntas 2593 e 2595). O resto é planejado, na `0.2.0`. A tela do Cubit ganha a aba Network, entre Work e XP, e os estados `Hibernating · No network` e `Hibernating · Owner offline`, em azul, e `Waiting for area`, em roxo. Entra a tela da antena, com prévia antes do código (perguntas 2277, 2280, 2315, 2316 e 2331).
 
 ### Tela do Network Server
 
@@ -280,6 +280,7 @@ Sem abas: o nome e o estado, `Generating`, `Stopped` ou `No pair`; a bateria e o
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 09:52 | Acrescenta as linhas `Network` do Dock e `Links` da antena (entrega 5 da Network). |
 | Zennd | 2026-11-25 22:02 | Acrescenta a linha `Server and chunk`, o botão `View` e a aba Desmontar da mesa (perguntas 2440, 2512 e 2535). |
 | Zennd | 2026-11-25 19:45 | Acrescenta o gasto à linha de entrada do Dock (pergunta 2467). |
 | Zennd | 2026-11-25 14:47 | Acrescenta as telas do Network Server e do Solar Relay (pergunta 2397). |

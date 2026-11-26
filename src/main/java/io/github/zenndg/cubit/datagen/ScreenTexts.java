@@ -26,6 +26,8 @@ final class ScreenTexts {
   private static final String USES = "%s · Uses %s FE/t";
   private static final String NO_INPUT = "No input";
   private static final String LIMIT = "Cables or redstone · up to %s FE/t";
+  private static final String DOCK_NETWORK = "Network +%s FE/t";
+  private static final String DOCK_NETWORK_IDLE = "Network · 0 FE/t";
   private static final String DOCKED = "Docked Cubit";
   private static final String ROBOT_BATTERY = "Cubit · Battery";
   private static final String CHARGING_LINE = "+%s FE/t · %s";
@@ -244,6 +246,8 @@ final class ScreenTexts {
     add.accept(ScreenKeys.DOCK_NO_INPUT, NO_INPUT);
     add.accept(ScreenKeys.DOCK_USES, USES);
     add.accept(ScreenKeys.DOCK_LIMIT, LIMIT);
+    add.accept(ScreenKeys.DOCK_NETWORK, DOCK_NETWORK);
+    add.accept(ScreenKeys.DOCK_NETWORK_IDLE, DOCK_NETWORK_IDLE);
     add.accept(ScreenKeys.DOCK_DOCKED, DOCKED);
     add.accept(ScreenKeys.DOCK_ROBOT_BATTERY, ROBOT_BATTERY);
     addDockedRobot(add);

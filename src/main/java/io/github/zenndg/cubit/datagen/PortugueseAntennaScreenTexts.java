@@ -22,6 +22,9 @@ final class PortugueseAntennaScreenTexts {
   private static final String SPEND_NONE = "%s blocos · 0 FE/t";
   private static final String ON = "Ligada";
   private static final String SHOW_WALL = "Mostrar a parede";
+  private static final String LINKS = "Ligações";
+  private static final String LINKS_VALUE = "Cubits: %s · Docks: %s";
+  private static final String LINKS_NONE = "nenhuma";
   private static final String ANTENNA_OFF = "Solto: antena desligada";
 
   private PortugueseAntennaScreenTexts() {}
@@ -44,6 +47,9 @@ final class PortugueseAntennaScreenTexts {
     add.accept(AntennaScreenKeys.SPEND_NONE, SPEND_NONE);
     add.accept(AntennaScreenKeys.ON, ON);
     add.accept(AntennaScreenKeys.SHOW_WALL, SHOW_WALL);
+    add.accept(AntennaScreenKeys.LINKS, LINKS);
+    add.accept(AntennaScreenKeys.LINKS_VALUE, LINKS_VALUE);
+    add.accept(AntennaScreenKeys.LINKS_NONE, LINKS_NONE);
     add.accept(AntennaScreenKeys.ANTENNA_OFF, ANTENNA_OFF);
   }
 }

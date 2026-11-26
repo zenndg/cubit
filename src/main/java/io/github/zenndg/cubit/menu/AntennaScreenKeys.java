@@ -1,6 +1,6 @@
 package io.github.zenndg.cubit.menu;
 
-/** The translation keys of the screen of the Signal Antenna (answers 2548 and 2559). */
+/** The translation keys of the screen of the Signal Antenna (answers 2548, 2559 and 2593). */
 public final class AntennaScreenKeys {
   private static final String PREFIX = "gui.cubit.antenna.";
 
@@ -19,6 +19,9 @@ public final class AntennaScreenKeys {
   public static final String SPENDING = PREFIX + "spending";
   public static final String SPEND_VALUE = PREFIX + "spend_value";
   public static final String SPEND_NONE = PREFIX + "spend_none";
+  public static final String LINKS = PREFIX + "links";
+  public static final String LINKS_VALUE = PREFIX + "links_value";
+  public static final String LINKS_NONE = PREFIX + "links_none";
   public static final String ON = PREFIX + "on";
   public static final String SHOW_WALL = PREFIX + "show_wall";
   public static final String ANTENNA_OFF = PREFIX + "antenna_off";

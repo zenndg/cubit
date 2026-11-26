@@ -25,6 +25,8 @@ public final class ScreenKeys {
   public static final String DOCK_NO_INPUT = DOCK + "no_input";
   public static final String DOCK_USES = DOCK + "uses";
   public static final String DOCK_LIMIT = DOCK + "limit";
+  public static final String DOCK_NETWORK = DOCK + "network";
+  public static final String DOCK_NETWORK_IDLE = DOCK + "network_idle";
   public static final String DOCK_DOCKED = DOCK + "docked";
   public static final String DOCK_TAB_DOCK = DOCK + "tab_dock";
   public static final String DOCK_TAB_STORAGE = DOCK + "tab_storage";

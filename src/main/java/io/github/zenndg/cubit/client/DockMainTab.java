@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.client;
 import io.github.zenndg.cubit.client.ScreenPainter.Box;
 import io.github.zenndg.cubit.client.ScreenPainter.Colors;
 import io.github.zenndg.cubit.domain.dock.DockStatus;
+import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.EnergyFormat;
 import io.github.zenndg.cubit.item.TierLook;
 import io.github.zenndg.cubit.menu.InductionDockMenu;
@@ -27,6 +28,7 @@ final class DockMainTab {
   private static final Box STOCK_BAR = new Box(50, 26, 96, 7);
   private static final Box INPUT = new Box(50, 36, 100, DETAIL_LINE);
   private static final Box LIMIT = new Box(50, 43, 100, DETAIL_LINE);
+  private static final Box NETWORK = new Box(50, 50, 100, DETAIL_LINE);
   private static final int BOLT_X = 156;
   private static final int BOLT_Y = 18;
   private static final int SLOT_FRAME_X = InductionDockMenu.SLOT_X - 1;
@@ -141,6 +143,17 @@ final class DockMainTab {
     Component limit =
         Component.translatable(ScreenKeys.DOCK_LIMIT, EnergyFormat.rate(menu.inputLimit()));
     painter.text(graphics, limit, LIMIT, ScreenPainter.DETAIL, ScreenPainter.DETAIL_SCALE);
+    menu.network().ifPresent(given -> renderNetwork(graphics, given));
+  }
+
+  /** In green with what entered, or in gray with nothing (answer 2593). */
+  private void renderNetwork(GuiGraphics graphics, Energy given) {
+    Component line =
+        given.isZero()
+            ? Component.translatable(ScreenKeys.DOCK_NETWORK_IDLE)
+            : Component.translatable(ScreenKeys.DOCK_NETWORK, EnergyFormat.rate(given));
+    int color = given.isZero() ? ScreenPainter.DETAIL : ScreenPainter.STATUS_GREEN;
+    painter.text(graphics, line, NETWORK, color, ScreenPainter.DETAIL_SCALE);
   }
 
   private void renderRedstoneLabel(GuiGraphics graphics) {

@@ -168,6 +168,13 @@ public final class InductionDockMenu extends AbstractContainerMenu implements Re
     return DockScreenValues.energy(values, DockScreenValues.STANDBY);
   }
 
+  /** What entered from the antenna in the last tick, only while one feeds it (answer 2593). */
+  public Optional<Energy> network() {
+    return DockScreenValues.isTrue(values, DockScreenValues.NETWORK_LINKED)
+        ? Optional.of(DockScreenValues.energy(values, DockScreenValues.NETWORK))
+        : Optional.empty();
+  }
+
   public boolean isFull() {
     return DockScreenValues.isTrue(values, DockScreenValues.FULL);
   }

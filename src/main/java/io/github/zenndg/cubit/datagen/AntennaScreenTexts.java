@@ -22,6 +22,9 @@ final class AntennaScreenTexts {
   private static final String SPEND_NONE = "%s blocks · 0 FE/t";
   private static final String ON = "On";
   private static final String SHOW_WALL = "Show the wall";
+  private static final String LINKS = "Links";
+  private static final String LINKS_VALUE = "Cubits: %s · Docks: %s";
+  private static final String LINKS_NONE = "none";
   private static final String ANTENNA_OFF = "Released: antenna off";
 
   private AntennaScreenTexts() {}
@@ -44,6 +47,9 @@ final class AntennaScreenTexts {
     add.accept(AntennaScreenKeys.SPEND_NONE, SPEND_NONE);
     add.accept(AntennaScreenKeys.ON, ON);
     add.accept(AntennaScreenKeys.SHOW_WALL, SHOW_WALL);
+    add.accept(AntennaScreenKeys.LINKS, LINKS);
+    add.accept(AntennaScreenKeys.LINKS_VALUE, LINKS_VALUE);
+    add.accept(AntennaScreenKeys.LINKS_NONE, LINKS_NONE);
     add.accept(AntennaScreenKeys.ANTENNA_OFF, ANTENNA_OFF);
   }
 }

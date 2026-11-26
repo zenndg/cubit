@@ -1549,11 +1549,13 @@ Não há perguntas pendentes nesta fase.
 | 2602 | Onde valem os 12, 18 e 25 baús do Organizador (`network_organizer_chests`) na entrega 5? | Só no app Network: o Cubit com o card do Organizador marca até 12, 18 e 25 baús, e os outros ficam com `network_chests` (1, 2, 4 e 6). As marcas do app Marcar seguem com 4, 9 e 18 até a entrega 6 (2364). Se o card sair, ficam os primeiros baús, até o limite. A recomendação foi aceita |
 | 2603 | A lista `Docks` da antena sobrevive quando ela é quebrada e recolocada? | Sim: o item da antena guarda os Docks num campo novo, `docks`, do `cubit:network_state`. Recolocada no mesmo chunk, eles voltam; em outro chunk, a lista é descartada, porque cada Dock recebe da antena do chunk dele (2588). Detalha o detalhe 13 da entrega 5. A recomendação foi aceita |
 | 2604 | Quando o corte da energia de um Dock no app Network, pela antena e depois pelo Dock, sem Cubit, pede o segundo clique? | Sempre, em 5 s, com o texto dizendo quantos Cubits carregados usam o Dock, porque o servidor não enxerga as ligações de um Cubit descarregado. Muda a 2589 na confirmação. A recomendação foi aceita |
+| 2605 | Na linha `Links` da tela da antena, o `Cubits: N` conta só os Cubits carregados ligados a ela? | Sim: o servidor não enxerga as ligações de um Cubit descarregado, como na 2604. Os Docks são contados todos, pela lista da própria antena. A contagem roda no menu, uma vez por segundo, só com a tela aberta. Detalha a 2593. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 10:15 | Registra a resposta 2605. |
 | Zennd | 2026-11-26 09:25 | Registra as respostas 2603 a 2604. |
 | Zennd | 2026-11-26 09:06 | Registra as respostas 2599 a 2602. |
 | Zennd | 2026-11-26 08:58 | Registra as respostas 2596 a 2598. |

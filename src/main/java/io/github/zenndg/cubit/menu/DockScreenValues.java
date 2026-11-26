@@ -30,7 +30,9 @@ final class DockScreenValues extends ScreenValues {
   static final int SOLAR_NIGHT = 27;
   static final int STANDBY = 28;
   static final int FULL = 30;
-  static final int COUNT = 31;
+  static final int NETWORK_LINKED = 31;
+  static final int NETWORK = 32;
+  static final int COUNT = 34;
 
   private final InductionDockBlockEntity dock;
 
@@ -46,6 +48,9 @@ final class DockScreenValues extends ScreenValues {
     put(INPUT, dock.inputShown());
     put(STANDBY, dock.standbyCost());
     put(FULL, dock.isFull());
+    long now = dock.getLevel() == null ? Long.MIN_VALUE : dock.getLevel().getGameTime();
+    put(NETWORK_LINKED, dock.network().isLinked(now));
+    put(NETWORK, dock.network().shown());
     SolarReading solar = dock.solar();
     put(SOLAR, solar.given());
     put(SUN_STATE, solar.state().ordinal());

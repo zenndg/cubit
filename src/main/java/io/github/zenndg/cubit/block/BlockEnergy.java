@@ -79,6 +79,18 @@ final class BlockEnergy implements EnergyInput {
     }
   }
 
+  /**
+   * Energy of the Network, within the same input as the cables, which the line of the cables on the
+   * screen leaves out, so it shows only once (answer 2593).
+   */
+  Energy receiveFromNetwork(Energy offered) {
+    EnergyStock.Received received = stock.receive(offered, inputLeft);
+    stock = received.stock();
+    inputLeft = inputLeft.minus(received.accepted());
+    changed.run();
+    return received.accepted();
+  }
+
   @Override
   public Energy receive(Energy offered, boolean simulate) {
     EnergyStock.Received received = stock.receive(offered, inputLeft);

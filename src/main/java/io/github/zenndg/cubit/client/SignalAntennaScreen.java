@@ -25,29 +25,30 @@ import net.minecraft.world.item.DyeColor;
  * its Server, its signal and what it spends, the three switches, the chunk and the reserve.
  */
 final class SignalAntennaScreen extends NetworkScreen<SignalAntennaMenu> {
-  private static final int HEIGHT = 276;
-  private static final int OWNER_Y = 167;
+  private static final int HEIGHT = 287;
+  private static final int OWNER_Y = 178;
   private static final Box TITLE = new Box(8, 6, 90, LINE);
   private static final int CHANNEL_Y = 59;
   private static final int SERVER_Y = 70;
   private static final int SIGNAL_Y = 81;
   private static final int SPEND_Y = 92;
-  private static final int DIVIDER_Y = 104;
+  private static final int LINKS_Y = 103;
+  private static final int DIVIDER_Y = 115;
   private static final int SWITCH_HEIGHT = 12;
-  private static final int ON_Y = 107;
-  private static final int CHUNK_Y = 119;
-  private static final int WALL_Y = 131;
+  private static final int ON_Y = 118;
+  private static final int CHUNK_Y = 130;
+  private static final int WALL_Y = 142;
   private static final int SWITCH_X = 139;
   private static final int SWITCH_LABEL_X = 11;
-  private static final Box CHUNK_LINE = new Box(11, 145, 156, DETAIL_LINE);
-  private static final int UPS_ROW = 152;
+  private static final Box CHUNK_LINE = new Box(11, 156, 156, DETAIL_LINE);
+  private static final int UPS_ROW = 163;
   private static final int UPS_HEIGHT = 14;
-  private static final Box UPS_NAME = new Box(11, 156, 40, LINE);
-  private static final Box LESS = new Box(52, 153, 12, 12);
-  private static final Box MORE = new Box(90, 153, 12, 12);
+  private static final Box UPS_NAME = new Box(11, 167, 40, LINE);
+  private static final Box LESS = new Box(52, 164, 12, 12);
+  private static final Box MORE = new Box(90, 164, 12, 12);
   private static final int UPS_CENTER = 77;
-  private static final int UPS_TEXT = 156;
-  private static final Box UPS_TIME = new Box(105, 157, 60, DETAIL_LINE);
+  private static final int UPS_TEXT = 167;
+  private static final Box UPS_TIME = new Box(105, 168, 60, DETAIL_LINE);
   private static final Box FORWARD = new Box(153, CHANNEL_Y, 12, ROW_HEIGHT);
   private static final int NAME_RIGHT = 149;
   private static final int SWATCH = 7;
@@ -82,6 +83,7 @@ final class SignalAntennaScreen extends NetworkScreen<SignalAntennaMenu> {
     inputFrames(graphics, left, top);
     row(graphics, left, top + CHANNEL_Y, ROW_HEIGHT);
     row(graphics, left, top + SIGNAL_Y, ROW_HEIGHT);
+    row(graphics, left, top + LINKS_Y, ROW_HEIGHT);
     graphics.fill(
         left + ROW_LEFT,
         top + DIVIDER_Y,
@@ -109,6 +111,7 @@ final class SignalAntennaScreen extends NetworkScreen<SignalAntennaMenu> {
     rowPair(graphics, SERVER_Y, AntennaScreenKeys.SERVER, server(), serverColor());
     rowPair(graphics, SIGNAL_Y, AntennaScreenKeys.SIGNAL, AntennaTexts.signal(menu), color);
     renderSpending(graphics);
+    renderLinks(graphics);
     renderSwitch(graphics, ON_Y, AntennaScreenKeys.ON, menu.enabled(), true);
     renderSwitch(graphics, CHUNK_Y, NetworkKeys.LOAD_CHUNK, menu.chunkLoading(), !locked());
     renderSwitch(graphics, WALL_Y, AntennaScreenKeys.SHOW_WALL, menu.showsWall(), true);
@@ -186,6 +189,19 @@ final class SignalAntennaScreen extends NetworkScreen<SignalAntennaMenu> {
                 AntennaScreenKeys.SPEND_VALUE, blocks, EnergyFormat.rate(spent));
     int color = spent.isZero() ? ScreenPainter.DETAIL : ScreenPainter.STATUS_ORANGE;
     rowPair(graphics, SPEND_Y, AntennaScreenKeys.SPENDING, value, color);
+  }
+
+  /** The loaded Cubits linked to it and the Docks it feeds, or none in gray (answer 2593). */
+  private void renderLinks(GuiGraphics graphics) {
+    int cubits = menu.linkedCubits();
+    int docks = menu.linkedDocks();
+    boolean none = cubits == 0 && docks == 0;
+    Component value =
+        none
+            ? Component.translatable(AntennaScreenKeys.LINKS_NONE)
+            : Component.translatable(AntennaScreenKeys.LINKS_VALUE, cubits, docks);
+    int color = none ? ScreenPainter.DETAIL : ScreenPainter.TEXT;
+    rowPair(graphics, LINKS_Y, AntennaScreenKeys.LINKS, value, color);
   }
 
   private void renderSwitch(GuiGraphics graphics, int y, String key, boolean on, boolean free) {

@@ -67,6 +67,7 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
       antenna.follow(server, pos);
     }
     antenna.work(server);
+    antenna.battery().set(AntennaDockFeed.tick(server, antenna, antenna.battery().stock()));
   }
 
   /** The signal, with its sound, heard by everyone near (answers 2552, 2553 and 2561). */
@@ -268,6 +269,11 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
   /** The Docks it feeds, in the order they came. */
   public List<BlockPos> fedDocks() {
     return docks.docks();
+  }
+
+  /** On and working, it gives its Docks what passes its reserve (detail 12 of Delivery 5). */
+  boolean givesToDocks() {
+    return settings.enabled() && uplink.state().works();
   }
 
   /** True when it changed. */

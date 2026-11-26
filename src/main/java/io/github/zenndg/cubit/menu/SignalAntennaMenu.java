@@ -29,7 +29,7 @@ import net.minecraft.world.item.ItemStack;
  * and the distance of every press (rule 20).
  */
 public final class SignalAntennaMenu extends NetworkMenu {
-  public static final int PLAYER_Y = 194;
+  public static final int PLAYER_Y = 205;
   public static final int ENABLE_BUTTON = 0;
   public static final int CHUNK_BUTTON = 1;
   public static final int WALL_BUTTON = 2;
@@ -168,6 +168,15 @@ public final class SignalAntennaMenu extends NetworkMenu {
 
   public ChunkState chunkState() {
     return ScreenEnums.of(ChunkState.values(), values().get(AntennaScreenValues.CHUNK_STATE));
+  }
+
+  /** The loaded Cubits linked to it and the Docks it feeds (answer 2593). */
+  public int linkedCubits() {
+    return values().get(AntennaScreenValues.LINKED_CUBITS);
+  }
+
+  public int linkedDocks() {
+    return values().get(AntennaScreenValues.LINKED_DOCKS);
   }
 
   public int chunksHeld() {
