@@ -57,6 +57,7 @@ A mesa sobe de tier com os mesmos Modules do Cubit e do Dock (perguntas 1433 a 1
 |---|---|---|---|---|
 | Tempo por craft | 5 s | 4 s | 2,5 s | 1,5 s |
 | Maior pedido | 8 | 32 | 64 | 256 |
+| Desmontar, `engineering_desk_disassembly` (pergunta 2531) | — | — | ✔ | ✔ |
 | Fabricação em cascata, `engineering_desk_cascade` (pergunta 2020) | — | — | — | ✔ |
 | Bateria | 100 mil FE | 400 mil FE | 2 mi FE | 8 mi FE |
 | Slots do inventário de entrada e do de saída, cada um (pergunta 1505) | 12 | 18 | 27 | 36 |
@@ -382,6 +383,7 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 21:20 | Acrescenta a chave de desmontar na mesa (pergunta 2531). |
 | Zennd | 2026-11-25 19:45 | Acrescenta o gasto do Dock e sobe o custo por craft da mesa (perguntas 2435, 2441 e 2468). |
 | Zennd | 2026-11-25 17:33 | Acrescenta os números de chamar o Cubit (perguntas 2450, 2460 e 2464). |
 | Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado do Servidor e do Solar Relay (perguntas 2435 a 2442). |

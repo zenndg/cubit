@@ -53,25 +53,7 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 ## Engineering Desk
 
-1. **Desmontar itens do mod** (pergunta 2504).
-   - **A ideia:** uma aba nova na mesa, `Desmontar`, com uma tela própria, liberada no tier Elite. O player põe de um lado o item do mod que quer desmontar, e o outro lado mostra o que ele recupera. Ele pede para iniciar, e os itens vão para a saída da mesa.
-   - **O que desmonta:** todo item do mod cuja receita usa outros itens do mod.
-   - **O que volta:** só os itens do próprio mod usados na receita. Os itens do jogo não voltam.
-   - **Tempo e custo:** os mesmos de criar o item, em ticks e em FE.
-   - **Por quê:** as peças do mod servem em receitas diferentes, e desmontar permite reutilizá-las.
-   - **Quando:** na entrega 3 da Network (#265), depois das luzes do Servidor (pergunta 2505). Vai ao refinamento antes do código.
-   - **Em aberto:**
-     - um nível por vez ou até o fim da cascata, como o Cubit que vira as peças ou também as peças delas;
-     - o item com estado, para nada se perder nem se repetir (pilar Segurança): o inventário, a energia, o XP, o nome, o card e as tochas de um Cubit, o estoque e os itens de um Dock, a carga de uma Power Bank, o que guarda o Network Server e a própria mesa. Recusar, esvaziar antes ou devolver;
-     - o item que subiu de tier, e se o Module volta;
-     - o item que tem mais de uma receita, como as Power Banks, que se fazem pela carcaça ou pelo upgrade, e qual delas vale;
-     - as receitas especiais, do conserto e do religar, e o Damaged Cubit;
-     - as receitas mudadas por um pack, para montar e desmontar em ciclo nunca criar itens (regra 4);
-     - a marca que aceita vários itens, e o que volta no lugar dela;
-     - um por vez ou uma quantidade, como no pedido, com a saída cheia, sem energia e com o sinal de redstone;
-     - como convive com um pedido e com a cascata, que hoje travam as abas, e onde fica o item enquanto desmonta, na entrada ou num espaço próprio, também ao quebrar a mesa;
-     - a automação pelas faces, o comparador, o Jade e o JEI;
-     - os números no config (regra 3), o visual, os sons e a animação.
+1. **Desmontar itens do mod** (perguntas 2504 e 2505): saiu do backlog, com o conceito em [`desmontar-na-mesa.md`](funcionalidades/desmontar-na-mesa.md) (pergunta 2535).
 
 ## Robô de transporte
 
@@ -104,6 +86,7 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 21:20 | Leva desmontar na mesa ao conceito próprio (pergunta 2535). |
 | Zennd | 2026-11-25 19:44 | Leva desmontar itens à entrega 3 da Network (pergunta 2505). |
 | Zennd | 2026-11-25 19:06 | Acrescenta desmontar itens na Engineering Desk (pergunta 2504). |
 | Zennd | 2026-11-25 17:33 | Tira o Cubit que se perde num teleporte longo, que chamar o Cubit resolve (pergunta 2461). |

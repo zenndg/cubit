@@ -1464,11 +1464,36 @@ Não há perguntas pendentes nesta fase.
 | 2517 | Os nomes flutuantes, com os quatro detalhes do agente (o nome só no pacote de atualização, sem mudar o save; a busca a cada 10 ticks; o topo do Dock no bloco de cima; somem com o F1), e a dica do `View` estão autorizados para o código (regra 54)? | Sim, como recomendado. Nenhum recurso novo (regra 59): a caixinha usa a fonte do jogo, e a prévia aceita vai para `_docs/imagens/conceito/nomes-flutuantes.png` |
 | 2518 | Pedido do desenvolvedor, ao testar os nomes flutuantes no jogo: como fica a caixinha? | "a caixinha poderia ser fundo transparente sem contorno com a fonte cor branca": sem fundo e sem borda, só o texto branco. A cor do tier sai do nome, e a cor do canal da antena, na entrega 5, também. Muda a 2513 e, na borda, a 2425 |
 | 2519 | Nomes flutuantes só com o texto branco (2518): o texto leva a sombra da fonte do jogo? | Sim, a sombra escura de 1 px da fonte do jogo, para ler contra céu claro e neve. Atrás de blocos, continua a 32%. A recomendação foi aceita |
+| 2520 | Com os nomes flutuantes aprovados no jogo, o PR da entrega 3 abre agora ou depois dos pendentes? | Depois: primeiro as luzes do Servidor sem energia (2494 e 2496) e o desmontar na mesa (2505), depois o fechamento, com as GameTests do Dock ajustadas, o `AGENTS.md`, o `telas.md`, as verificações e o teste completo do desenvolvedor. A autorização de abrir o PR fica para esse momento. A recomendação foi aceita |
+| 2521 | Luzes do Servidor acesas sem energia (2494 e 2496): em que situação apareceram e o que estava aceso? | "ja resolvido": o desenvolvedor não vê mais o problema no jogo. O que ele tinha visto eram as barras e os LEDs das gavetas, fortes. O item sai do fechamento da entrega 3 sem mudança de código |
+| 2522 | Alinhamento do desmontar itens na mesa (2504 e 2505, regra 51): algo a acrescentar ou tirar do escopo antes das rodadas? | "vamos seguir": nada a acrescentar. O escopo é o da ideia anotada no backlog, com os pontos em aberto decididos nas rodadas |
+| 2523 | Desmontar (2504 e 2505): até onde vai cada desmontagem? | Um nível: o item volta às peças da receita dele, e o player desmonta cada peça para ir mais fundo. A recomendação foi aceita |
+| 2524 | Desmontar um item que guarda coisas: o Cubit com inventário, XP, card ou tochas, o Dock ou o Servidor com itens, XP ou energia, a Power Bank carregada? | Recusa enquanto houver itens, XP, card ou tochas dentro, com o motivo na tela. A energia, o nome e a cor se perdem, com um aviso na tela antes de iniciar. A recomendação foi aceita |
+| 2525 | Desmontar um item que subiu de tier com Modules: os Modules voltam? | Voltam todos: um Module de cada tier aplicado até o atual. Um Cubit Elite devolve as peças, o Advanced Module e o Elite Module. A recomendação foi aceita |
+| 2526 | Qual receita vale para desmontar? | Só as receitas da mesa, `cubit:engineering`: a Power Bank volta à carcaça e à célula. O upgrade, o conserto e o religar nunca valem, e o Damaged Cubit não desmonta. A recomendação foi aceita |
+| 2527 | Desmontar: onde o player põe o item e quantos desmonta? | Num slot próprio da aba Desmontar, como o de redstone. A mesa desmonta um por vez tudo o que estiver nele, até esvaziar. O item fica no slot até ser desmontado e, ao quebrar a mesa, vai junto no item dela, como o estoque. A automação não põe nesse slot. A recomendação foi aceita |
+| 2528 | Desmontar, o pedido e a cascata: como convivem? | Um trabalho por vez: desmontar só inicia sem pedido e sem cascata, e o pedido e a cascata não iniciam durante a desmontagem, com o motivo na tela. A desmontagem pode ser cancelada, e o item em andamento fica no slot sem gasto, porque o FE sai só ao terminar. A recomendação foi aceita |
+| 2529 | Desmontar com a saída sem espaço, sem energia ou com sinal de redstone? | Pausa, como o pedido: as peças só saem se couberem todas na saída. Sem espaço, sem energia ou com sinal, pausa sem perder o progresso, mostra o motivo e volta sozinha. A recomendação foi aceita |
+| 2530 | Receitas de um pack (regra 4): duas receitas da mesa para o mesmo item, uma receita que rende 2 ou mais, ou uma marca que aceita vários itens? | Como na cascata (2032): vale a primeira receita na ordem do catálogo. Uma receita que rende N só desmonta com N itens no slot, e numa marca com vários itens volta o primeiro da lista que for do mod. Montar e desmontar nunca criam itens. A recomendação foi aceita |
+| 2531 | Desmontar: em quais tiers da mesa a aba fica liberada? | No Elite e no Ultimate, por uma chave por tier no config, `engineering_desk_disassembly`, ligada nesses dois por padrão (regra 3). Abaixo deles, a aba aparece com cadeado e a dica do tier, como a Cascade. A recomendação foi aceita |
+| 2532 | Desmontar no mundo, no Jade e no comparador: como aparece? | Como o craft: o brilho, o braço e os sons de hoje, com o holograma do item que está sendo desmontado. O Jade mostra `Disassemble: Cubit · 3 left`, e o comparador lê o que falta, de 15 a 0, como no pedido. O JEI não muda. Nenhum som novo. A recomendação foi aceita |
+| 2533 | Nome e ícone da aba de desmontar? | `Disassemble`, em português `Desmontar`, com um ícone novo de 16×16 no estilo das outras abas e o prompt escrito antes do código (regra 59). A recomendação foi aceita |
+| 2534 | A tela da aba Desmontar tem prévia antes do código? | Sim: uma prévia no azul de prancheta, em `tmp/arte/desmontar/`, com o slot do item, a seta de progresso, o que volta, o aviso da energia, do nome e da cor, o motivo da recusa, os botões Iniciar e Cancelar, a barra de energia, o slot de redstone e o inventário do player, para aprovação antes do código. A recomendação foi aceita |
+| 2535 | O conceito de desmontar na mesa, com os seis detalhes do agente (a ordem das abas, o slot que aceita só o que desmonta, o slot travado durante a desmontagem, a unidade atômica, a desmontagem no item da mesa e o que volta em slots só de leitura), e a prévia da tela estão autorizados (regra 54)? | Sim, como recomendado. O código começa depois do ícone da aba gerado pelo prompt de `tmp/arte/desmontar/prompt.md` e aceito (regra 59) |
+| 2536 | O ícone da aba Disassemble, gerado pelo prompt e reduzido a 16×16, está aceito? | Sim: vai para `textures/gui/disassemble_tab.png`, e o código de desmontar na mesa pode começar (2535 e regra 59). A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 21:20 | Registra a resposta 2536. |
+| Zennd | 2026-11-25 21:19 | Registra a resposta 2535. |
+| Zennd | 2026-11-25 21:14 | Registra as respostas 2531 a 2534. |
+| Zennd | 2026-11-25 21:13 | Registra as respostas 2527 a 2530. |
+| Zennd | 2026-11-25 21:08 | Registra as respostas 2523 a 2526. |
+| Zennd | 2026-11-25 21:04 | Registra a resposta 2522. |
+| Zennd | 2026-11-25 21:02 | Registra a resposta 2521. |
+| Zennd | 2026-11-25 20:58 | Registra a resposta 2520. |
 | Zennd | 2026-11-25 20:45 | Registra as respostas 2518 a 2519. |
 | Zennd | 2026-11-25 20:31 | Registra a resposta 2517. |
 | Zennd | 2026-11-25 20:29 | Registra as respostas 2512 a 2516. |
