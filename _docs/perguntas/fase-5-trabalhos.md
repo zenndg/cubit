@@ -1570,11 +1570,13 @@ Não há perguntas pendentes nesta fase.
 | 2623 | Com a chave `View` ligada, quem vê a parede e até onde? | Só o dono, até 128 blocos, como na 2447 e na 2448. Sai apenas a exigência do Tablet |
 | 2624 | Os nomes flutuantes e a parede do chunk do player também deixam de pedir o app Network? | Não. Continuam só com o Tablet na mão no app Network (2542 e 2616). Muda só a parede do `View` |
 | 2625 | A dica do botão `View`, `Shows the chunk with the Network app` (2606), continua agora que a parede vale sem o Tablet (2622)? | Não: a dica sai, com a chave `gui.cubit.network.view_tip` dos dois idiomas, porque sem a condição do Tablet o `View` já se explica. Muda a 2512 e a 2606. A recomendação foi aceita |
+| 2626 | Qual o resultado do teste completo da entrega 5 no jogo, antes do PR? | Aprovado: o desenvolvedor fez o roteiro da Entrega 5, os passos 1 a 15, com a parede do `View` sem o Tablet, e tudo passou. O PR segue para a `integration/network`. Completa a 2617 e a 2619 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 14:41 | Registra a resposta 2626. |
 | Zennd | 2026-11-26 13:54 | Registra a resposta 2625. |
 | Zennd | 2026-11-26 13:53 | Registra as respostas 2622 a 2624. |
 | Zennd | 2026-11-26 12:08 | Registra a resposta 2621. |
