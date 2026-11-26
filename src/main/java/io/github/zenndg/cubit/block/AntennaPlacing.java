@@ -126,6 +126,39 @@ public final class AntennaPlacing {
     }
   }
 
+  /**
+   * The arrows of the screen: the next free open channel to one side, which its Server knows at
+   * once (answer 2309). False when nothing changed.
+   */
+  static boolean step(SignalAntennaBlockEntity antenna, int direction) {
+    if (!(antenna.getLevel() instanceof ServerLevel level)) {
+      return false;
+    }
+    SavedLink link = antenna.link();
+    NetworkRoster<GlobalPos> roster = roster(level);
+    Optional<NetworkRoster.Server<GlobalPos>> server = link.server().flatMap(roster::server);
+    if (server.isEmpty() || link.channel().isEmpty()) {
+      return false;
+    }
+    int open = CubitMod.CONFIG.network().server(server.get().tier()).channels();
+    AntennaChannel now = link.channel().get();
+    AntennaChannel next = now.step(direction, open, roster.taken(server.get().id()));
+    if (next == now) {
+      return false;
+    }
+    antenna.take(next);
+    listed(antenna);
+    return true;
+  }
+
+  /** The Server of the antenna as the data of the world knows it, also far away. */
+  public static Optional<NetworkRoster.Server<GlobalPos>> serverOf(
+      SignalAntennaBlockEntity antenna) {
+    return antenna.getLevel() instanceof ServerLevel level
+        ? antenna.link().server().flatMap(roster(level)::server)
+        : Optional.empty();
+  }
+
   /** The tier of the Server, known also with its chunk unloaded, opens its channels. */
   private static Optional<AntennaChannel> channelFor(
       NetworkRoster<GlobalPos> roster, NetworkRoster.Server<GlobalPos> server, SavedLink link) {

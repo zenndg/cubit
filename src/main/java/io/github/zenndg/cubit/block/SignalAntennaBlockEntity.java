@@ -6,6 +6,7 @@ import io.github.zenndg.cubit.domain.network.AntennaChannel;
 import io.github.zenndg.cubit.domain.network.AntennaSignal;
 import io.github.zenndg.cubit.domain.network.ChunkCall;
 import io.github.zenndg.cubit.domain.network.ChunkState;
+import io.github.zenndg.cubit.domain.network.UpsReserve;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.EnergySlotItems;
 import io.github.zenndg.cubit.item.SavedLink;
@@ -28,7 +29,8 @@ import software.bernie.geckolib.animation.AnimatableManager;
 /**
  * The Signal Antenna: the Network Server it was linked to, with the name it had then, and the
  * channel it takes there, also in the data of the world, so a Server far away knows its antennas
- * (Delivery 4, details 6 and 19). Its battery has no tier (answer 2199).
+ * (Delivery 4, details 6 and 19). Its battery has no tier (answer 2199). Switched off, it neither
+ * follows the signal nor spends, and lets its chunk go (answer 2548).
  */
 public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
   private static final String SERVER_KEY = "Server";
@@ -37,11 +39,9 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
 
   private final IItemHandler itemHandler =
       InputFirstItems.of(energySlot(), (EmptyItemHandler) EmptyItemHandler.INSTANCE);
-  private static final String CHUNK_KEY = "ChunkLoading";
-
   private final AntennaUplink uplink = new AntennaUplink();
   private final HeldChunk chunk = new HeldChunk(this::setChanged);
-  private boolean chunkLoading = true;
+  private final AntennaSettings settings = new AntennaSettings();
   private SavedLink link = SavedLink.NONE;
 
   public SignalAntennaBlockEntity(BlockPos pos, BlockState state) {
@@ -57,7 +57,7 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
       Level level, BlockPos pos, BlockState state, SignalAntennaBlockEntity antenna) {
     antenna.battery().tick();
     ServerLevel server = (ServerLevel) level;
-    if (antenna.uplink.tick(server, pos, antenna.link)) {
+    if (antenna.settings.enabled() && antenna.uplink.tick(server, pos, antenna.link)) {
       antenna.chunk.recheck();
       antenna.changeShown();
     }
@@ -66,20 +66,39 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
 
   /**
    * The chunk is paid first, and then what it spends for being on and for the distance, while it
-   * works. Stopped, it lets the chunk go and spends nothing (answers 2435, 2439 and 2553).
+   * works. Stopped or switched off, it lets the chunk go and spends nothing (answers 2435, 2439 and
+   * 2553).
    */
   private void work(ServerLevel level) {
+    boolean on = settings.enabled();
     boolean works = uplink.state().works();
     Energy upkeep =
-        NetworkParts.antenna().spending(true, works, false, Energy.ZERO, uplink.distanceCost());
+        NetworkParts.antenna().spending(on, works, false, Energy.ZERO, uplink.distanceCost());
     ChunkCall.Reach reach = new ChunkCall.Reach(uplink.sharesChunk(worldPosition), works);
-    HeldChunk.Asked asked = new HeldChunk.Asked(owner(), chunkLoading, upkeep, reach);
+    HeldChunk.Asked asked =
+        new HeldChunk.Asked(owner(), on && settings.chunkLoading(), upkeep, reach);
     EnergyStock left = chunk.tick(level, worldPosition, asked, battery().stock());
     EnergyStock.Spent spent = left.spend(upkeep);
     battery().set(spent.stock());
     if (!spent.paid().isZero()) {
       setChanged();
     }
+  }
+
+  /** What it spends now, with its chunk, for the screen (answers 2321 and 2435). */
+  public Energy spending() {
+    return NetworkParts.antenna()
+        .spending(
+            settings.enabled(),
+            uplink.state().works(),
+            chunk.state().holds(),
+            chunk.cost(),
+            uplink.distanceCost());
+  }
+
+  /** The blocks to its Server on the plane, for the screen (answer 2310). */
+  public long distance() {
+    return uplink.distance();
   }
 
   /** Whether it holds its chunk, and why not. */
@@ -92,14 +111,9 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
     return chunk.cost();
   }
 
-  /** The switch of the owner, as in the Server (answer 2213). */
-  public boolean chunkLoading() {
-    return chunkLoading;
-  }
-
-  /** Only an antenna with signal takes energy from its Server (Delivery 4, detail 16). */
+  /** Only an antenna on, with signal, takes energy from its Server (Delivery 4, detail 16). */
   boolean receivesFromNetwork() {
-    return !isRemoved() && uplink.state() == AntennaSignal.State.LINKED;
+    return !isRemoved() && settings.enabled() && uplink.state() == AntennaSignal.State.LINKED;
   }
 
   /** What it can still take in this tick, from the network and the cables together (2551). */
@@ -121,6 +135,47 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
     return uplink.minutesLeft();
   }
 
+  public boolean enabled() {
+    return settings.enabled();
+  }
+
+  /** The general switch of the screen (answer 2548). */
+  public void setEnabled(boolean on) {
+    settings.setEnabled(on);
+    chunk.recheck();
+    changeShown();
+  }
+
+  /** The switch of the owner, as in the Server (answer 2213). */
+  public boolean chunkLoading() {
+    return settings.chunkLoading();
+  }
+
+  public void setChunkLoading(boolean on) {
+    settings.setChunkLoading(on);
+    chunk.recheck();
+    setChanged();
+  }
+
+  /** Whether its owner sees the wall around its chunk (Delivery 4, detail 1). */
+  public boolean showsWall() {
+    return settings.showWall();
+  }
+
+  public void setShowWall(boolean shown) {
+    settings.setShowWall(shown);
+    changeShown();
+  }
+
+  public UpsReserve ups() {
+    return settings.ups();
+  }
+
+  public void setUps(UpsReserve chosen) {
+    settings.setUps(chosen);
+    setChanged();
+  }
+
   @Override
   public Energy capacity() {
     return NetworkParts.antenna().capacity();
@@ -136,6 +191,11 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
     return link;
   }
 
+  /** The arrows of the screen: the next free channel to one side. False when none is free. */
+  public boolean stepChannel(int direction) {
+    return AntennaPlacing.step(this, direction);
+  }
+
   /** The channel it takes now, which the item keeps as the last one. */
   void take(AntennaChannel channel) {
     link = link.withChannel(channel);
@@ -147,10 +207,9 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
     return itemHandler;
   }
 
-  /** Its screen comes with its menu, later in this delivery (Delivery 4, detail 7). */
   @Override
   void openScreen(Player player) {
-    // Nothing opens yet.
+    NetworkMenus.open(this, player);
   }
 
   @Override
@@ -181,13 +240,19 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
   @Override
   SavedNetwork kept() {
     return new SavedNetwork(
-        RobotTier.BASE, energy().amount(), List.of(), Optional.empty(), chunkLoading, false, link);
+        RobotTier.BASE,
+        energy().amount(),
+        List.of(),
+        settings.kept(),
+        settings.chunkLoading(),
+        settings.showWall(),
+        link);
   }
 
   @Override
   void restore(SavedNetwork saved) {
     link = saved.link();
-    chunkLoading = saved.chunkLoading();
+    settings.restore(saved);
   }
 
   @Override
@@ -197,7 +262,7 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
     link.serverName().ifPresent(name -> tag.putString(SERVER_NAME_KEY, name));
     link.channel().ifPresent(channel -> tag.putString(CHANNEL_KEY, channel.key()));
     uplink.save(tag);
-    tag.putBoolean(CHUNK_KEY, chunkLoading);
+    settings.save(tag);
     chunk.save(tag);
   }
 
@@ -213,7 +278,7 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
                 : Optional.empty(),
             AntennaChannel.of(tag.getString(CHANNEL_KEY)));
     uplink.load(tag);
-    chunkLoading = !tag.contains(CHUNK_KEY) || tag.getBoolean(CHUNK_KEY);
+    settings.load(tag);
     chunk.load(tag);
   }
 

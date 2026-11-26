@@ -27,6 +27,7 @@ final class AntennaUplink {
   private AntennaSignal signal = AntennaSignal.LINKED;
   private NetworkServerBlockEntity server;
   private Energy distance = Energy.ZERO;
+  private long blocks;
   private int untilLook;
 
   /** One tick of the signal. True when its state changed, for the clients and the save. */
@@ -49,13 +50,12 @@ final class AntennaUplink {
     Optional<NetworkRoster.Server<GlobalPos>> listed =
         link.server().flatMap(NetworkData.of(level.getServer()).roster()::server);
     server = listed.map(found -> loaded(level, found)).orElse(null);
-    distance =
+    blocks =
         listed
             .map(found -> found.place().pos())
-            .map(at ->
-                distance()
-                    .cost(SignalDistance.blocks(pos.getX(), pos.getZ(), at.getX(), at.getZ())))
-            .orElse(Energy.ZERO);
+            .map(at -> SignalDistance.blocks(pos.getX(), pos.getZ(), at.getX(), at.getZ()))
+            .orElse(0L);
+    distance = listed.isPresent() ? signalDistance().cost(blocks) : Energy.ZERO;
   }
 
   private static NetworkServerBlockEntity loaded(
@@ -98,6 +98,11 @@ final class AntennaUplink {
     return signal.minutesLeft(lossTicks());
   }
 
+  /** The blocks to its Server on the plane, as last looked. */
+  long distance() {
+    return blocks;
+  }
+
   /** What the distance to its Server costs per tick, while it works (answer 2310). */
   Energy distanceCost() {
     return distance;
@@ -117,7 +122,7 @@ final class AntennaUplink {
     return CubitMod.CONFIG.network().antennas().spec().signalLossTicks();
   }
 
-  private static SignalDistance distance() {
+  private static SignalDistance signalDistance() {
     return CubitMod.CONFIG.network().antennas().distance();
   }
 }

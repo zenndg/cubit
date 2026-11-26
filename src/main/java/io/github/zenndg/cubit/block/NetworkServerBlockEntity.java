@@ -220,13 +220,6 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     return chunk.state();
   }
 
-  /** How many chunks its owner holds now, with this one. */
-  public int chunksHeld() {
-    return level instanceof ServerLevel server
-        ? owner().map(NetworkData.of(server.getServer()).chunks()::heldBy).orElse(0)
-        : 0;
-  }
-
   /** What the chunk costs now per tick. */
   public Energy chunkCost() {
     return chunk.cost();

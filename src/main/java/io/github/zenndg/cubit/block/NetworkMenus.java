@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.block;
 
 import io.github.zenndg.cubit.menu.NetworkServerMenu;
+import io.github.zenndg.cubit.menu.SignalAntennaMenu;
 import io.github.zenndg.cubit.menu.SolarRelayMenu;
 import java.util.function.Consumer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -27,6 +28,14 @@ final class NetworkMenus {
         player,
         (id, inventory, opener) -> SolarRelayMenu.onServer(id, inventory, relay),
         data -> SolarRelayMenu.writeOpening(data, relay));
+  }
+
+  static void open(SignalAntennaBlockEntity antenna, Player player) {
+    open(
+        antenna,
+        player,
+        (id, inventory, opener) -> SignalAntennaMenu.onServer(id, inventory, antenna),
+        data -> SignalAntennaMenu.writeOpening(data, antenna));
   }
 
   private static void open(

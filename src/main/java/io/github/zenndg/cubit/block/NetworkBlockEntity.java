@@ -19,6 +19,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -131,6 +132,13 @@ public abstract class NetworkBlockEntity extends BlockEntity
 
   public Optional<String> ownerName() {
     return owner.name(level, worldPosition);
+  }
+
+  /** How many chunks its owner holds now, with this one, for the screens. */
+  public int chunksHeld() {
+    return level instanceof ServerLevel server
+        ? owner().map(NetworkData.of(server.getServer()).chunks()::heldBy).orElse(0)
+        : 0;
   }
 
   @Override

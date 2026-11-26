@@ -1517,11 +1517,15 @@ Não há perguntas pendentes nesta fase.
 | 2570 | Depois do bloco, do item e dos canais, segue o commit da energia e do sinal: o sinal e o gasto da antena, o UPS dela, a repartição pelo Servidor, a linha `Antennas` da aba Energy e a transmissão do Relay? | Sim, como recomendado |
 | 2571 | Com pouca energia acima do UPS do Servidor, quem recebe primeiro no tick, as antenas ou as Power Banks do storage? | As antenas, porque seguram chunks e alimentam a rede, e as Power Banks carregam com o que sobrar acima do UPS. A recomendação foi aceita. Detalha a 2373 e a 2550 |
 | 2572 | Depois da energia e do sinal, segue o commit dos chunks da antena: o `HeldChunk`, a mesma fila e os limites, a antena parada que solta o chunk, o gasto do chunk e a chave `ChunkLoading`? | Sim, como recomendado |
+| 2573 | Com o chunk da antena commitado e a sessão longa, a tela da antena segue nesta sessão ou numa nova? | Numa nova: o agente deixa o prompt de continuidade em `tmp/prompt/`, com o estado e o desenho do resto da entrega |
+| 2574 | Depois do prompt de continuidade, a tela da antena segue nesta sessão? | Sim: o desenvolvedor pediu para continuar nesta sessão. Muda a 2573 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 07:12 | Registra a resposta 2574. |
+| Zennd | 2026-11-26 00:51 | Registra a resposta 2573. |
 | Zennd | 2026-11-25 23:56 | Registra a resposta 2572. |
 | Zennd | 2026-11-25 23:51 | Registra a resposta 2571. |
 | Zennd | 2026-11-25 23:49 | Registra a resposta 2570. |
