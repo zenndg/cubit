@@ -48,6 +48,7 @@ public final class CubitDataComponents {
   private static final String DESK_DISASSEMBLY_ID = "engineering_desk_disassembly";
   private static final String POWER_BANK_ENERGY_ID = "power_bank_energy";
   private static final String TABLET_APP_ID = "tablet_app";
+  private static final String TABLET_CHUNK_WALL_ID = "tablet_chunk_wall";
   private static final DeferredRegister.DataComponents COMPONENTS =
       DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, CubitMod.MOD_ID);
 
@@ -230,6 +231,12 @@ public final class CubitDataComponents {
           TABLET_APP_ID,
           builder ->
               builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8));
+
+  /** Whether the wall around the chunk of the player shows with this Tablet (answer 2612). */
+  public static final Supplier<DataComponentType<Boolean>> TABLET_CHUNK_WALL =
+      COMPONENTS.registerComponentType(
+          TABLET_CHUNK_WALL_ID,
+          builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
 
   public static final Supplier<DataComponentType<Long>> POWER_BANK_ENERGY =
       COMPONENTS.registerComponentType(

@@ -17,7 +17,8 @@ final class NetworkAppHeld {
     return inNetworkApp(player.getMainHandItem()) || inNetworkApp(player.getOffhandItem());
   }
 
-  private static boolean inNetworkApp(ItemStack stack) {
+  /** Whether this stack is a Tablet in the Network app. */
+  static boolean inNetworkApp(ItemStack stack) {
     return stack.is(CubitItems.TABLET.get()) && TabletItem.appOf(stack) == TabletApp.NETWORK;
   }
 }

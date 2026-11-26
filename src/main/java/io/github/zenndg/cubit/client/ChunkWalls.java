@@ -26,8 +26,9 @@ import org.joml.Matrix4fStack;
 /**
  * The walls around the chunks of the servers and the antennas of the player: translucent, one
  * pixel, in a light cyan for a server and in the color of the channel for an antenna, only with the
- * Tablet in a hand (answers 2447, 2448 and 2542). The blocks tell they are there on each of their
- * ticks, so no block is ever searched.
+ * Tablet in a hand in the Network app (answers 2447, 2448 and 2542), and the one around the chunk
+ * of the player, which follows him (answers 2608 to 2616). The blocks tell they are there on each
+ * of their ticks, so no block is ever searched.
  */
 @EventBusSubscriber(modid = CubitMod.MOD_ID, value = Dist.CLIENT)
 public final class ChunkWalls {
@@ -76,6 +77,11 @@ public final class ChunkWalls {
         walls.computeIfAbsent(paint, each -> new ArrayList<>()).addAll(sides(wallOf(block)));
       }
     });
+    PlayerChunkWall.of(player)
+        .ifPresent(shown ->
+            walls
+                .computeIfAbsent(shown.paint(), each -> new ArrayList<>())
+                .addAll(sides(shown.wall())));
     if (!walls.isEmpty()) {
       draw(event, walls);
     }

@@ -33,6 +33,8 @@ public final class NetworkAppKeys {
   public static final String FEED_CONFIRM = PREFIX + "feed_confirm";
   public static final String UNFED = PREFIX + "unfed";
   public static final String NOT_IN_CHUNK = PREFIX + "not_in_chunk";
+  public static final String WALL_ON = PREFIX + "wall_on";
+  public static final String WALL_OFF = PREFIX + "wall_off";
   public static final String ARROW_CHANNEL = PREFIX + "arrow_channel";
   public static final String ARROW_OF = PREFIX + "arrow_of";
   public static final String ARROW_FREE_SLOTS = PREFIX + "arrow_free_slots";

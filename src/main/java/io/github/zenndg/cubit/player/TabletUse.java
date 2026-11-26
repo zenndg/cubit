@@ -63,7 +63,7 @@ public final class TabletUse {
       case MARK -> TabletMarkApp.click(player, chosen, click);
       case DOORS -> TabletDoorApp.click(player, click);
       case ESCORT -> TabletEscortApp.click(player, chosen.orElseThrow(), click);
-      case NETWORK -> TabletNetworkApp.click(player, chosen, click);
+      case NETWORK -> TabletNetworkApp.click(player, tablet, chosen, click);
     }
   }
 

@@ -33,6 +33,8 @@ final class PortugueseNetworkAppTexts {
   private static final String FED = "%s agora alimenta %s";
   private static final String FEED_CONFIRM = "Clique em %s de novo e corte a energia: %s Cubits";
   private static final String UNFED = "%s não alimenta mais %s";
+  private static final String WALL_ON = "Parede do chunk ligada";
+  private static final String WALL_OFF = "Parede do chunk desligada";
   private static final String ARROW_CHANNEL = "canal %s";
   private static final String ARROW_OF = "do %s";
   private static final String ARROW_FREE_SLOTS = "%s slots livres";
@@ -74,6 +76,8 @@ final class PortugueseNetworkAppTexts {
     add.accept(NetworkAppKeys.FEED_CONFIRM, FEED_CONFIRM);
     add.accept(NetworkAppKeys.UNFED, UNFED);
     add.accept(NetworkAppKeys.NOT_IN_CHUNK, NOT_IN_CHUNK);
+    add.accept(NetworkAppKeys.WALL_ON, WALL_ON);
+    add.accept(NetworkAppKeys.WALL_OFF, WALL_OFF);
     add.accept(NetworkAppKeys.ARROW_CHANNEL, ARROW_CHANNEL);
     add.accept(NetworkAppKeys.ARROW_OF, ARROW_OF);
     add.accept(NetworkAppKeys.ARROW_FREE_SLOTS, ARROW_FREE_SLOTS);

@@ -24,6 +24,13 @@ final class NetworkAppClicks {
     TabletUse.click(owner, tablet(), new TabletUse.Living(robot));
   }
 
+  /** Shift and a click, which only switch the wall around the chunk of the player (2608). */
+  static void shiftClick(ServerPlayer owner, ItemStack tablet, TabletUse.Click click) {
+    owner.setShiftKeyDown(true);
+    TabletUse.click(owner, tablet, click);
+    owner.setShiftKeyDown(false);
+  }
+
   static void click(ServerPlayer owner, BlockPos absolute) {
     TabletUse.click(owner, tablet(), new TabletUse.Block(absolute, Optional.empty()));
   }

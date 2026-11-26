@@ -507,6 +507,8 @@
   "gui.cubit.tablet.network.pick": "Clique no seu Cubit, ou numa antena e depois num Dock",
   "gui.cubit.tablet.network.splits": "Desligue antes as antenas das pontas",
   "gui.cubit.tablet.network.unfed": "%s não alimenta mais %s",
+  "gui.cubit.tablet.network.wall_off": "Parede do chunk desligada",
+  "gui.cubit.tablet.network.wall_on": "Parede do chunk ligada",
   "gui.cubit.tablet.no_mob": "Nenhum mob na mira",
   "gui.cubit.tablet.not_a_target": "Isto não pode ser alvo do Focus",
   "gui.cubit.tablet.not_escortable": "%s ataca este mob, então não pode escoltá-lo",

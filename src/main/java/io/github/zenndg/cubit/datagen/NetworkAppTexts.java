@@ -33,6 +33,8 @@ final class NetworkAppTexts {
   private static final String FED = "%s now feeds %s";
   private static final String FEED_CONFIRM = "Click %s again to cut its energy: %s loaded Cubits";
   private static final String UNFED = "%s no longer feeds %s";
+  private static final String WALL_ON = "Chunk wall on";
+  private static final String WALL_OFF = "Chunk wall off";
   private static final String ARROW_CHANNEL = "%s channel";
   private static final String ARROW_OF = "of %s";
   private static final String ARROW_FREE_SLOTS = "%s free slots";
@@ -74,6 +76,8 @@ final class NetworkAppTexts {
     add.accept(NetworkAppKeys.FEED_CONFIRM, FEED_CONFIRM);
     add.accept(NetworkAppKeys.UNFED, UNFED);
     add.accept(NetworkAppKeys.NOT_IN_CHUNK, NOT_IN_CHUNK);
+    add.accept(NetworkAppKeys.WALL_ON, WALL_ON);
+    add.accept(NetworkAppKeys.WALL_OFF, WALL_OFF);
     add.accept(NetworkAppKeys.ARROW_CHANNEL, ARROW_CHANNEL);
     add.accept(NetworkAppKeys.ARROW_OF, ARROW_OF);
     add.accept(NetworkAppKeys.ARROW_FREE_SLOTS, ARROW_FREE_SLOTS);

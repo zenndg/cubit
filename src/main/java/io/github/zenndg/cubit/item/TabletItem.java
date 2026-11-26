@@ -35,6 +35,18 @@ public final class TabletItem extends Item {
     stack.set(CubitDataComponents.TABLET_APP.get(), app.key());
   }
 
+  /** Off without the component, as a Tablet made before it (answer 2612). */
+  public static boolean showsChunkWall(ItemStack stack) {
+    return stack.getOrDefault(CubitDataComponents.TABLET_CHUNK_WALL.get(), false);
+  }
+
+  /** The wall goes on or off, and the new state comes back. */
+  public static boolean toggleChunkWall(ItemStack stack) {
+    boolean shown = !showsChunkWall(stack);
+    stack.set(CubitDataComponents.TABLET_CHUNK_WALL.get(), shown);
+    return shown;
+  }
+
   public static String appKey(TabletApp app) {
     return APP_PREFIX + app.key();
   }

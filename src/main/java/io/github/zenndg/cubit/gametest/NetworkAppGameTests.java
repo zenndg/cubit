@@ -6,6 +6,9 @@ import io.github.zenndg.cubit.domain.robot.RobotState;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.entity.RobotEntity;
 import io.github.zenndg.cubit.gametest.NetworkScene.TestNetwork;
+import io.github.zenndg.cubit.item.TabletItem;
+import io.github.zenndg.cubit.player.TabletUse;
+import io.github.zenndg.cubit.registry.CubitAttachments;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
 import io.github.zenndg.cubit.registry.CubitItems;
 import net.minecraft.core.BlockPos;
@@ -38,6 +41,8 @@ public final class NetworkAppGameTests {
   private static final String NO_ENERGY = "The Dock should get energy from its antenna";
   private static final String FROM_RESERVE = "The antenna should keep its reserve from the Docks";
   private static final String NOT_FORGOTTEN = "Picking up the Cubit should forget its links";
+  private static final String WALL = "Shift and a click should switch the wall of the player";
+  private static final String NOT_CHOSEN = "Shift and a click should not choose the Cubit";
 
   private NetworkAppGameTests() {}
 
@@ -156,6 +161,22 @@ public final class NetworkAppGameTests {
           helper.assertTrue(network.dock().network().shown().isZero(), FROM_RESERVE);
           helper.succeed();
         });
+  }
+
+  /** Shift and a click anywhere only switch the wall, kept in the Tablet (2608 and 2612). */
+  @GameTest(template = NetworkScene.CHUNK)
+  public static void shiftAndAClickSwitchTheWallOfThePlayer(GameTestHelper helper) {
+    ServerPlayer owner = owner(helper);
+    RobotEntity robot = robot(helper, owner, RobotTier.ADVANCED);
+    ItemStack tablet = NetworkAppClicks.tablet();
+
+    NetworkAppClicks.shiftClick(owner, tablet, new TabletUse.Living(robot));
+    helper.assertTrue(TabletItem.showsChunkWall(tablet), WALL);
+    helper.assertTrue(owner.getData(CubitAttachments.CHOSEN_ROBOT).robot().isEmpty(), NOT_CHOSEN);
+    NetworkAppClicks.shiftClick(owner, tablet, new TabletUse.Air());
+
+    helper.assertFalse(TabletItem.showsChunkWall(tablet), WALL);
+    helper.succeed();
   }
 
   /** Picking up the Cubit leaves its links behind (answer 2251). */

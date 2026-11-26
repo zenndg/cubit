@@ -5,28 +5,42 @@ import io.github.zenndg.cubit.block.InductionDockBlockEntity;
 import io.github.zenndg.cubit.block.SignalAntennaBlockEntity;
 import io.github.zenndg.cubit.domain.ownership.Ownership;
 import io.github.zenndg.cubit.entity.RobotEntity;
+import io.github.zenndg.cubit.item.TabletItem;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 
 /**
  * The Network app, by the chosen Cubit: a click on an own Cubit chooses it, on an antenna links or
  * unlinks it, and on a Dock or a chest marks or unmarks it for that Cubit. Without a chosen Cubit,
- * an antenna and then a Dock of its chunk only feed that Dock (answers 2588 and 2589).
+ * an antenna and then a Dock of its chunk only feed that Dock (answers 2588 and 2589). Shift and a
+ * click anywhere switch the wall around the chunk of the player (answers 2608 and 2616).
  */
 final class TabletNetworkApp {
   private TabletNetworkApp() {}
 
-  static void click(ServerPlayer player, Optional<RobotEntity> chosen, TabletUse.Click click) {
+  static void click(
+      ServerPlayer player, ItemStack tablet, Optional<RobotEntity> chosen, TabletUse.Click click) {
+    if (player.isShiftKeyDown()) {
+      toggleWall(player, tablet);
+      return;
+    }
     switch (click) {
       case TabletUse.Living living -> pick(player, living);
       case TabletUse.Block block -> onBlock(player, chosen, block.pos());
       case TabletUse.Air air -> say(player, NetworkAppKeys.PICK);
     }
     TabletChestView.send(player);
+  }
+
+  /** Shift and a click anywhere only switch the wall around the chunk of the player (2608). */
+  private static void toggleWall(ServerPlayer player, ItemStack tablet) {
+    boolean shown = TabletItem.toggleChunkWall(tablet);
+    say(player, shown ? NetworkAppKeys.WALL_ON : NetworkAppKeys.WALL_OFF);
   }
 
   /** Switching the app or leaving the game drops what waits for a second click. */

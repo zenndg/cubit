@@ -1668,6 +1668,7 @@ Antes, apague o `config/cubit-common.toml` da instância de teste (pergunta 2324
 | 11 | Desligue uma antena da ponta com um Dock e um baú no chunk dela | O segundo clique em 5 s confirma, os dois saem do Cubit, e o Dock continua recebendo energia (2600) |
 | 12 | Com 8 antenas em anel, desenhe uma área em volta do chunk do meio | O fechamento é recusado, com o motivo, e o desenho continua aberto (2601) |
 | 13 | No app Network, marque baús para um Organizador e para outro Cubit | O Organizador vai até 12, 18 e 25, e o outro, até 1, 2, 4 e 6 (2602) |
+| 14 | No app Network, Shift + clique, ande por alguns chunks, saia e volte ao mundo | A parede em volta do seu chunk liga, troca de cor a cada chunk, sem repetir a anterior, continua ligada depois de voltar e desliga no outro Shift + clique, sem escolher Cubit nem marcar nada (2608 a 2616) |
 
 ### Entrega 6: a rede obrigatória e os trabalhos
 
@@ -1795,6 +1796,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 11:18 | Acrescenta a parede do chunk do player na entrega 5 da Network. |
 | Zennd | 2026-11-26 09:06 | Acrescenta as decisões 2599 a 2602 na entrega 5 da Network. |
 | Zennd | 2026-11-26 08:52 | Ajusta a reserva da antena na entrega 5 da Network (pergunta 2587). |
 | Zennd | 2026-11-26 08:16 | Alinha o teste da entrega 4 da Network com as respostas 2542 a 2578. |

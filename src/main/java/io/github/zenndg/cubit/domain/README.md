@@ -194,6 +194,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `ChunkCharge` | Se um bloco ficou sem energia para o chunk: zera sem o custo de um tick e só volta com a carga da retomada, também depois de um save. Um chunk de graça nunca zera (perguntas 2372 e 2410) |
 | `ChunkRoster` | Quais chunks o mod segura, de qual player, na ordem em que chegaram, e quais esperam o dono. Quem chegou primeiro fica dentro dos limites (perguntas 2210 e 2215) |
 | `Standby` | O gasto por ficar ligado, do Servidor e do Relay com par, que o Servidor paga (perguntas 2435 e 2436) |
+| `WallColors` | Qual das seis cores a parede do chunk do player toma ao entrar num chunk novo: uma ao acaso, nunca a do chunk anterior, com o número sorteado passado de fora (perguntas 2613 e 2614) |
 | `ChunkWall` | A parede em volta do chunk do Servidor, do bloco de apoio até 16 blocos acima, e quem a vê: o dono, com o Tablet na mão e o app Network, a até 128 blocos (perguntas 2448 e 2542) |
 | `AntennaChannel` | Os 16 canais, na ordem fixa dos IDs em inglês, os abertos pelo tier, o último canal que volta se livre e as setas que pulam os ocupados (perguntas 2269, 2309 e 2547) |
 | `AntennaSignal` | O sinal da antena e o tempo sem ele: ligada, sem sinal ou parada depois de 20 minutos, e a volta sozinha (perguntas 2323, 2552 e 2553) |
