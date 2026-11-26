@@ -1483,11 +1483,46 @@ Não há perguntas pendentes nesta fase.
 | 2536 | O ícone da aba Disassemble, gerado pelo prompt e reduzido a 16×16, está aceito? | Sim: vai para `textures/gui/disassemble_tab.png`, e o código de desmontar na mesa pode começar (2535 e regra 59). A recomendação foi aceita |
 | 2537 | Com o código do desmontar na mesa pronto e o `make check` passando, o teste no jogo vem antes ou depois dos três commits? | Antes: o desenvolvedor testa com o roteiro, e os commits saem depois, com o que o teste mostrar. A recomendação foi aceita |
 | 2538 | O `AGENTS.md` ganha, na estrutura de pacotes, as 23 classes da entrega 3, dos nomes flutuantes, do desmontar e de chamar o Cubit que faltavam (regra 46)? | Sim, com o texto mostrado, só somado ao fim das linhas de `domain/desk`, `domain/network`, `domain/ownership`, `block`, `menu`, `client` e `datagen`. A recomendação foi aceita |
+| 2539 | Pedido do desenvolvedor: ignorar a pasta `.codex` no `.gitignore` e commitar. Por onde vai o commit, já que a `integration/network` e a `develop` não recebem commit direto? | Na branch da entrega 4, `feature/266-signal-antenna`, criada da `integration/network`, como o primeiro commit dela, sem push até o PR. A recomendação foi aceita |
+| 2540 | Depois do merge do #285 (regra 53), há ajuste no roteiro: entrega 4 da Network (#266), entregas 5 a 9, o PR final para a `develop` na `0.2.0`, o robô de transporte e as profissões? | "siga": nenhum ajuste. Começa o alinhamento da entrega 4 |
+| 2541 | Alinhamento da entrega 4 da Network (#266, regra 51): algo a acrescentar ou tirar? | "nao siga": nada a acrescentar nem tirar. Seguem as rodadas de decisão |
+| 2542 | Entrega 4: a parede do chunk da antena, que o conceito liga ao app Network (2238), da entrega 5? | Com o Tablet na mão, em qualquer app, na cor do canal, como a parede do Servidor (2448) e os nomes (2469). A entrega 5 troca para o app Network. A recomendação foi aceita. Muda a 2238 na entrega |
+| 2543 | Entrega 4: a antena entra agora nos nomes flutuantes? | Sim, como o Dock, o Servidor e o Relay: só o texto branco com a sombra (2518), a 0,5 bloco do topo, com o Tablet na mão, em qualquer app. A recomendação foi aceita. Muda a 2424 na entrega |
+| 2544 | Entrega 4: quando a chave geral da antena entra na tela do Servidor (2297)? | Na aba Network do Servidor, com a árvore de antenas, Docks, baús e Cubits (2277), quando essa aba entrar. Na entrega 4, a chave fica só na tela da antena. A recomendação foi aceita |
+| 2545 | Entrega 4: a aba Energy do Servidor ganha uma linha para a energia que vai às antenas? | Sim: `Antennas −X FE/t`, com o que saiu para elas no tick, e, ao passar o mouse, quantas recebem e quantas estão sem energia ou sem sinal. A recomendação foi aceita |
+| 2546 | Entrega 4: colocar uma antena que ainda não foi ligada a um Servidor? | É recusado, com `Link it to a Server first`, e o item fica na mão, como a recusa com os canais cheios (2301). A recomendação foi aceita |
+| 2547 | Entrega 4: o canal ao recolocar uma antena que já teve canal? | O item guarda o último canal, e a antena volta a ele se estiver livre. Senão, pega o primeiro livre, com aviso. A recomendação foi aceita |
+| 2548 | Entrega 4: o que a tela da antena mostra, se o XP chega na entrega 7 e as ligações na 5 (2280)? | Só o que já funciona: nome, canal, sinal, bateria, redstone, UPS, as três chaves e o Servidor ligado. O XP e as ligações entram nas entregas delas, nos lugares já reservados. A recomendação foi aceita |
+| 2549 | Entrega 4: quando o Solar Relay começa a transmitir para as antenas, com a animação e o loop (2375)? | Na entrega 4, junto da energia: enquanto o Relay manda FE a uma antena, ele transmite. A recomendação foi aceita. Muda a 2375 na entrega |
+| 2550 | Entrega 4: o Servidor manda energia às antenas também de dentro da reserva do UPS? | Só acima da reserva, como as Power Banks no Servidor (2373): a reserva fica para o chunk e o gasto dele, e cada antena tem o próprio UPS. A recomendação foi aceita |
+| 2551 | Entrega 4: a entrada da antena pela rede (2276) e por cabo e redstone (2326) somam? | Sim: um limite só de 5.000 FE/t, como no Dock (detalhe 19). O cabo entra primeiro, e a rede completa. A recomendação foi aceita |
+| 2552 | Entrega 4: quando a antena tem sinal? | Com o Servidor dela na mesma dimensão, num chunk carregado, com energia e com o Solar Relay do par, que é o rádio (regra 2). Sem algum deles, `No signal`, e o tempo de 20 minutos (2323) começa a contar. A recomendação foi aceita |
+| 2553 | Entrega 4: a antena que parou depois de 20 minutos sem sinal (2323) volta quando o sinal volta? | Volta sozinha: parada, ela solta o chunk e não gasta nada. Com o sinal de volta, religa na fila de uma a cada 2 s (2330), com o som do sinal de volta. A recomendação foi aceita |
+| 2554 | Os detalhes da entrega 4 no `network.md`, os 12 das respostas 2542 a 2553 e os 8 do agente (ligar, recusas, sinal na tela, repartir, fila de volta, comando, saves e GameTests), estão autorizados como conceito? | Sim, como recomendado. Seguem os recursos, com a geometria da antena primeiro. O código continua esperando a autorização própria (2224) |
+| 2555 | A geometria da Signal Antenna, sem textura, com 66 cubos, o mastro telescópico de três seções e a parabólica de dois eixos, está aceita (prévias em `tmp/arte/network/entrega4/previa/`)? | Sim, como recomendado. Seguem a textura por script e os prompts do ícone e dos 5 sons |
+| 2556 | A textura da Signal Antenna, por script, no metal claro, com a faixa e o anel tingidos pelo canal e o LED que apaga sem sinal, está aceita? | Sim, como recomendado |
+| 2557 | Os tempos das animações da antena: erguer em 2,5 s, busca de 1,5 s por varredura e travar em 0,6 s? | Como proposto. Os 5 prompts de som em `tmp/arte/network/entrega4/prompt.md` seguem esses tempos |
+| 2558 | O item da antena precisa de um ícone 2D, que a #266 cita? | Não: o item se desenha com o próprio modelo, como o do Servidor e o do Relay. Os recursos da entrega 4 são a textura e os 5 sons. A recomendação foi aceita |
+| 2559 | A prévia da tela da antena, com 276 px de altura, o estado no título, o canal com ◄ ►, o Servidor, o sinal com o tempo, o gasto com a distância, as três chaves, a linha do chunk, o UPS e o dono, está aprovada? | Sim, como recomendado (`tmp/arte/network/entrega4/previa/tela_antena.png`) |
+| 2560 | A prévia da aba Energy do Servidor com a linha `Antennas`, com o título "Chunk" trocado por uma linha divisória para caber, está aprovada? | Sim, como recomendado (`tmp/arte/network/entrega4/previa/tela_server_antenas.png`) |
+| 2561 | Os 5 sons da antena, gerados pelos prompts de `tmp/arte/network/entrega4/prompt.md` e convertidos em Ogg mono de 48 kHz, estão aceitos? | Sim, depois de ouvi-los. Entram em `sounds/signal_antenna/` com o código |
+| 2562 | O código da entrega 4 (#266) e o commit dos documentos estão autorizados (2224 e regra 54)? | Sim, os dois: o commit dos documentos, sem push, e o código, pelo domínio com testes, com cada commit mostrado antes. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 22:36 | Registra as respostas 2561 a 2562. |
+| Zennd | 2026-11-25 22:36 | Registra as respostas 2559 a 2560. |
+| Zennd | 2026-11-25 22:29 | Registra as respostas 2556 a 2558. |
+| Zennd | 2026-11-25 22:26 | Registra a resposta 2555. |
+| Zennd | 2026-11-25 22:24 | Registra a resposta 2554. |
+| Zennd | 2026-11-25 22:21 | Registra as respostas 2550 a 2553. |
+| Zennd | 2026-11-25 22:16 | Registra as respostas 2546 a 2549. |
+| Zennd | 2026-11-25 22:14 | Registra as respostas 2542 a 2545. |
+| Zennd | 2026-11-25 22:12 | Registra a resposta 2541. |
+| Zennd | 2026-11-25 22:11 | Registra a resposta 2540. |
+| Zennd | 2026-11-25 22:10 | Registra a resposta 2539. |
 | Zennd | 2026-11-25 22:03 | Registra a resposta 2538. |
 | Zennd | 2026-11-25 21:34 | Registra a resposta 2537. |
 | Zennd | 2026-11-25 21:20 | Registra a resposta 2536. |
