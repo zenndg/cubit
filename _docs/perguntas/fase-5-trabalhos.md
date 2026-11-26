@@ -1481,11 +1481,13 @@ Não há perguntas pendentes nesta fase.
 | 2534 | A tela da aba Desmontar tem prévia antes do código? | Sim: uma prévia no azul de prancheta, em `tmp/arte/desmontar/`, com o slot do item, a seta de progresso, o que volta, o aviso da energia, do nome e da cor, o motivo da recusa, os botões Iniciar e Cancelar, a barra de energia, o slot de redstone e o inventário do player, para aprovação antes do código. A recomendação foi aceita |
 | 2535 | O conceito de desmontar na mesa, com os seis detalhes do agente (a ordem das abas, o slot que aceita só o que desmonta, o slot travado durante a desmontagem, a unidade atômica, a desmontagem no item da mesa e o que volta em slots só de leitura), e a prévia da tela estão autorizados (regra 54)? | Sim, como recomendado. O código começa depois do ícone da aba gerado pelo prompt de `tmp/arte/desmontar/prompt.md` e aceito (regra 59) |
 | 2536 | O ícone da aba Disassemble, gerado pelo prompt e reduzido a 16×16, está aceito? | Sim: vai para `textures/gui/disassemble_tab.png`, e o código de desmontar na mesa pode começar (2535 e regra 59). A recomendação foi aceita |
+| 2537 | Com o código do desmontar na mesa pronto e o `make check` passando, o teste no jogo vem antes ou depois dos três commits? | Antes: o desenvolvedor testa com o roteiro, e os commits saem depois, com o que o teste mostrar. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 21:34 | Registra a resposta 2537. |
 | Zennd | 2026-11-25 21:20 | Registra a resposta 2536. |
 | Zennd | 2026-11-25 21:19 | Registra a resposta 2535. |
 | Zennd | 2026-11-25 21:14 | Registra as respostas 2531 a 2534. |
