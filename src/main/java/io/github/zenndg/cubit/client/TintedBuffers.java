@@ -22,7 +22,7 @@ final class TintedBuffers implements MultiBufferSource {
 
   @Override
   public VertexConsumer getBuffer(RenderType type) {
-    return new Tinted(source.getBuffer(translucent(type)), argb);
+    return new Tinted(source, translucent(type), argb);
   }
 
   private static RenderType translucent(RenderType type) {
@@ -35,17 +35,26 @@ final class TintedBuffers implements MultiBufferSource {
     return blockSheet ? Sheets.translucentCullBlockSheet() : type;
   }
 
+  /**
+   * The buffer is asked again at each vertex: a layer of an item, as the lights of the Network
+   * Server, may draw with another type in the middle, which closes the buffer of the body. The game
+   * gives back the same one while nothing changed, and a new one after.
+   */
   private static final class Tinted implements VertexConsumer {
-    private final VertexConsumer target;
+    private final MultiBufferSource source;
+    private final RenderType type;
     private final int argb;
+    private VertexConsumer target;
 
-    Tinted(VertexConsumer target, int argb) {
-      this.target = target;
+    Tinted(MultiBufferSource source, RenderType type, int argb) {
+      this.source = source;
+      this.type = type;
       this.argb = argb;
     }
 
     @Override
     public VertexConsumer addVertex(float x, float y, float z) {
+      target = source.getBuffer(type);
       target.addVertex(x, y, z);
       return this;
     }
