@@ -17,6 +17,7 @@ final class ServerKeys {
   private static final String CAPACITY = "energy_capacity";
   private static final String CHANNELS = "channels";
   private static final String INPUT = "input_per_tick";
+  private static final String OUTPUT = "output_per_tick";
   private static final String SLOTS = "storage_slots";
   private static final String SOLAR = "relay_solar_per_tick";
   private static final String SOLAR_NIGHT = "relay_solar_night_per_tick";
@@ -30,6 +31,7 @@ final class ServerKeys {
   private final ModConfigSpec.IntValue capacity;
   private final ModConfigSpec.IntValue channels;
   private final ModConfigSpec.IntValue input;
+  private final ModConfigSpec.IntValue output;
   private final ModConfigSpec.IntValue slots;
   private final ModConfigSpec.IntValue solar;
   private final ModConfigSpec.IntValue solarNight;
@@ -41,6 +43,7 @@ final class ServerKeys {
     channels =
         builder.defineInRange(CHANNELS, defaults.channels(), MIN_POSITIVE, ServerSpec.MAX_CHANNELS);
     input = energy(builder, INPUT, defaults.inputPerTick(), MIN_POSITIVE);
+    output = energy(builder, OUTPUT, defaults.outputPerTick(), MIN_ZERO);
     slots =
         builder.defineInRange(SLOTS, defaults.storageSlots(), ServerSpec.ROW, ServerSpec.MAX_SLOTS);
     solar = energy(builder, SOLAR, defaults.relay().dayPerTick(), MIN_ZERO);
@@ -60,6 +63,7 @@ final class ServerKeys {
         new Energy(capacity.get()),
         channels.get(),
         new Energy(input.get()),
+        new Energy(output.get()),
         rows,
         new SolarOutput(new Energy(solar.get()), new Energy(solarNight.get())),
         new Standby(new Energy(standby.get()), new Energy(relayStandby.get())));

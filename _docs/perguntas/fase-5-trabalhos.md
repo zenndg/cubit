@@ -1514,11 +1514,15 @@ Não há perguntas pendentes nesta fase.
 | 2567 | A dica do item ligado mostra qual Servidor? | `Linked to {nome}`, com o nome que o Servidor tinha no clique, num campo `server_name` do `cubit:network_state`. Renomeado o Servidor, o item mostra o nome antigo até ser ligado de novo. A recomendação foi aceita |
 | 2568 | O bloco, o item, o registro, o config e os dados do mundo (`Servers` e `Antennas` no `cubit_network`) entram num commit só? | Sim, juntos, para as cinco recusas ao colocar entrarem inteiras e testáveis. A recomendação foi aceita |
 | 2569 | Ao colocar uma antena ligada a um Servidor de outro dono, como um item dado ou achado num baú, o que acontece? | É recusada, com a recusa nova `OTHER_OWNER` no `AntennaPlacement`, logo depois de `NO_SERVER`, com `This Server belongs to another player` na barra de ação e o item na mão. Quem a recebeu liga a antena a um Servidor seu. A recomendação foi aceita |
+| 2570 | Depois do bloco, do item e dos canais, segue o commit da energia e do sinal: o sinal e o gasto da antena, o UPS dela, a repartição pelo Servidor, a linha `Antennas` da aba Energy e a transmissão do Relay? | Sim, como recomendado |
+| 2571 | Com pouca energia acima do UPS do Servidor, quem recebe primeiro no tick, as antenas ou as Power Banks do storage? | As antenas, porque seguram chunks e alimentam a rede, e as Power Banks carregam com o que sobrar acima do UPS. A recomendação foi aceita. Detalha a 2373 e a 2550 |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 23:51 | Registra a resposta 2571. |
+| Zennd | 2026-11-25 23:49 | Registra a resposta 2570. |
 | Zennd | 2026-11-25 23:40 | Registra a resposta 2569. |
 | Zennd | 2026-11-25 23:30 | Registra as respostas 2565 a 2568. |
 | Zennd | 2026-11-25 22:42 | Registra a resposta 2564. |

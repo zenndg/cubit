@@ -207,6 +207,20 @@ public final class NetworkServerMenu extends NetworkMenu {
     return ScreenValues.energy(values(), ServerScreenValues.BANKS);
   }
 
+  /** What its antennas kept in the last tick (answer 2545). */
+  public Energy antennas() {
+    return ScreenValues.energy(values(), ServerScreenValues.ANTENNAS);
+  }
+
+  public int antennasReceiving() {
+    return values().get(ServerScreenValues.ANTENNAS_RECEIVING);
+  }
+
+  /** The antennas that took nothing, without energy or without signal. */
+  public int antennasWaiting() {
+    return Math.max(0, values().get(ServerScreenValues.ANTENNAS_LISTED) - antennasReceiving());
+  }
+
   public Energy chunkCost() {
     return ScreenValues.energy(values(), ServerScreenValues.CHUNK_COST);
   }

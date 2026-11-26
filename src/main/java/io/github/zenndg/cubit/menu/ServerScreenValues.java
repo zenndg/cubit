@@ -19,7 +19,10 @@ final class ServerScreenValues extends NetworkScreenValues {
   static final int STANDBY = 18;
   static final int RELAY_COST = 20;
   static final int WALL = 22;
-  static final int COUNT = 23;
+  static final int ANTENNAS = 23;
+  static final int ANTENNAS_RECEIVING = 25;
+  static final int ANTENNAS_LISTED = 26;
+  static final int COUNT = 27;
 
   private final NetworkServerBlockEntity server;
 
@@ -43,5 +46,8 @@ final class ServerScreenValues extends NetworkScreenValues {
     put(STANDBY, server.standbyCost());
     put(RELAY_COST, server.relayCost());
     put(WALL, server.showsWall());
+    put(ANTENNAS, server.antennasSent());
+    put(ANTENNAS_RECEIVING, server.antennasReceiving());
+    put(ANTENNAS_LISTED, server.antennasListed());
   }
 }

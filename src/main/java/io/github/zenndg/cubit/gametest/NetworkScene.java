@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.gametest;
 
 import io.github.zenndg.cubit.block.NetworkServerBlockEntity;
+import io.github.zenndg.cubit.block.SignalAntennaBlockEntity;
 import io.github.zenndg.cubit.block.SolarRelayBlockEntity;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
@@ -80,6 +81,14 @@ final class NetworkScene {
     ItemStack item = new ItemStack(CubitItems.SOLAR_RELAY.get());
     GameTestRobots.use(helper, owner, item, relayFloor(helper));
     return helper.getBlockEntity(relayFloor(helper).above());
+  }
+
+  /** An antenna linked to the server of the scene, in the same chunk. */
+  static SignalAntennaBlockEntity placeAntenna(GameTestHelper helper, Player owner) {
+    ItemStack item = new ItemStack(CubitItems.SIGNAL_ANTENNA.get());
+    clickServer(helper, owner, item);
+    GameTestRobots.use(helper, owner, item, otherFloor(helper));
+    return helper.getBlockEntity(otherFloor(helper).above());
   }
 
   static void clickServer(GameTestHelper helper, Player player, ItemStack stack) {

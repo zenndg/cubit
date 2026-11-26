@@ -43,6 +43,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   private final ServerShow show = new ServerShow();
   private UpsReserve ups = CubitMod.CONFIG.network().chunks().serverUps();
   private final HeldChunk chunk = new HeldChunk(this::setChanged);
+  private final AntennaFeed antennas = new AntennaFeed();
   private boolean chunkLoading = true;
   private boolean showWall;
   private Energy bankGiven = Energy.ZERO;
@@ -63,6 +64,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     BlockEnergy battery = server.battery();
     battery.tick();
     server.storage.dropRefused(level, pos);
+    server.feedAntennas((ServerLevel) level);
     server.chargeBanks();
     server.payUpkeep((ServerLevel) level);
     server.show.passes(battery.enteredNow());
@@ -74,6 +76,39 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   private ServerShow.Reading reading() {
     Energy upkeep = chunkCost().plus(standbyCost()).plus(relayCost());
     return new ServerShow.Reading(energy(), ups, spec(), storage.used(), relay != null, upkeep);
+  }
+
+  /**
+   * Through its relay, up to what it sends per tick and only above its reserve, before the Power
+   * Banks (answers 2276, 2550 and 2571).
+   */
+  private void feedAntennas(ServerLevel level) {
+    Energy offered =
+        relay == null ? Energy.ZERO : spec().outputPerTick().min(ups.spare(energy(), capacity()));
+    battery().set(antennas.tick(level, identity().id(), battery().stock(), offered));
+    Energy sent = antennas.sent();
+    show.passes(sent);
+    if (!sent.isZero()) {
+      setChanged();
+    }
+    if (relay != null) {
+      relay.sends(!sent.isZero());
+    }
+  }
+
+  /** What its antennas kept in the last tick, for the screen (answer 2545). */
+  public Energy antennasSent() {
+    return antennas.sent();
+  }
+
+  /** How many of its antennas took energy in the last tick. */
+  public int antennasReceiving() {
+    return antennas.receiving();
+  }
+
+  /** How many antennas it has, wherever they are. */
+  public int antennasListed() {
+    return antennas.listed();
   }
 
   /** One at a time, with what passes the reserve (answer 2373). */

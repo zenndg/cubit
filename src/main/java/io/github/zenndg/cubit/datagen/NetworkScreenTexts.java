@@ -23,7 +23,8 @@ final class NetworkScreenTexts {
   private static final String GAIN = "+%s FE/t";
   private static final String LOSS = "−%s FE/t";
   private static final String NOTHING = "0 FE/t";
-  private static final String CHUNK = "Chunk";
+  private static final String ANTENNAS = "Antennas";
+  private static final String ANTENNAS_TIP = "%s receiving · %s without energy or signal";
   private static final String LOAD_CHUNK = "Load the chunk";
   private static final String VIEW = "View";
   private static final String VIEW_TIP = "Shows the chunk with the Tablet in hand";
@@ -86,10 +87,11 @@ final class NetworkScreenTexts {
     add.accept(NetworkKeys.COST_SERVER, COST_SERVER);
     add.accept(NetworkKeys.COST_RELAY, COST_RELAY);
     add.accept(NetworkKeys.BANKS, BANKS);
+    add.accept(NetworkKeys.ANTENNAS, ANTENNAS);
+    add.accept(NetworkKeys.ANTENNAS_TIP, ANTENNAS_TIP);
     add.accept(NetworkKeys.GAIN, GAIN);
     add.accept(NetworkKeys.LOSS, LOSS);
     add.accept(NetworkKeys.NOTHING, NOTHING);
-    add.accept(NetworkKeys.CHUNK, CHUNK);
     add.accept(NetworkKeys.LOAD_CHUNK, LOAD_CHUNK);
     add.accept(NetworkKeys.VIEW, VIEW);
     add.accept(NetworkKeys.VIEW_TIP, VIEW_TIP);

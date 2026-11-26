@@ -1,7 +1,9 @@
 package io.github.zenndg.cubit.block;
 
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.EnergyStock;
 import io.github.zenndg.cubit.domain.network.AntennaChannel;
+import io.github.zenndg.cubit.domain.network.AntennaSignal;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.EnergySlotItems;
 import io.github.zenndg.cubit.item.SavedLink;
@@ -12,6 +14,7 @@ import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -32,6 +35,7 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
 
   private final IItemHandler itemHandler =
       InputFirstItems.of(energySlot(), (EmptyItemHandler) EmptyItemHandler.INSTANCE);
+  private final AntennaUplink uplink = new AntennaUplink();
   private SavedLink link = SavedLink.NONE;
 
   public SignalAntennaBlockEntity(BlockPos pos, BlockState state) {
@@ -46,6 +50,49 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
   static void serverTick(
       Level level, BlockPos pos, BlockState state, SignalAntennaBlockEntity antenna) {
     antenna.battery().tick();
+    if (antenna.uplink.tick((ServerLevel) level, pos, antenna.link)) {
+      antenna.changeShown();
+    }
+    antenna.spend();
+  }
+
+  /**
+   * What it spends for being on and for the distance, while it works; stopped, nothing (answers
+   * 2435 and 2553). Its chunk comes later in this delivery.
+   */
+  private void spend() {
+    Energy cost =
+        NetworkParts.antenna()
+            .spending(true, uplink.state().works(), false, Energy.ZERO, uplink.distanceCost());
+    EnergyStock.Spent spent = battery().stock().spend(cost);
+    battery().set(spent.stock());
+    if (!spent.paid().isZero()) {
+      setChanged();
+    }
+  }
+
+  /** Only an antenna with signal takes energy from its Server (Delivery 4, detail 16). */
+  boolean receivesFromNetwork() {
+    return !isRemoved() && uplink.state() == AntennaSignal.State.LINKED;
+  }
+
+  /** What it can still take in this tick, from the network and the cables together (2551). */
+  Energy roomFromNetwork() {
+    return battery().receive(inputPerTick(), true);
+  }
+
+  /** What it kept of a share of its Server, which loses exactly that. */
+  Energy takeFromNetwork(Energy share) {
+    return battery().receive(share, false);
+  }
+
+  public AntennaSignal.State signal() {
+    return uplink.state();
+  }
+
+  /** The whole minutes left without signal before it stops (answer 2552). */
+  public int minutesLeft() {
+    return uplink.minutesLeft();
   }
 
   @Override
@@ -119,6 +166,7 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
     link.server().ifPresent(server -> tag.putUUID(SERVER_KEY, server));
     link.serverName().ifPresent(name -> tag.putString(SERVER_NAME_KEY, name));
     link.channel().ifPresent(channel -> tag.putString(CHANNEL_KEY, channel.key()));
+    uplink.save(tag);
   }
 
   /** A broken channel is dropped, and the antenna takes the first free one again (rule 17). */
@@ -132,6 +180,7 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
                 ? Optional.of(tag.getString(SERVER_NAME_KEY))
                 : Optional.empty(),
             AntennaChannel.of(tag.getString(CHANNEL_KEY)));
+    uplink.load(tag);
   }
 
   @Override

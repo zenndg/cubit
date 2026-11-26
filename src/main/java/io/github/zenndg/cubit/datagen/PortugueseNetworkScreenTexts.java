@@ -23,7 +23,8 @@ final class PortugueseNetworkScreenTexts {
   private static final String GAIN = "+%s FE/t";
   private static final String LOSS = "−%s FE/t";
   private static final String NOTHING = "0 FE/t";
-  private static final String CHUNK = "Chunk";
+  private static final String ANTENNAS = "Antenas";
+  private static final String ANTENNAS_TIP = "%s recebendo · %s sem energia ou sinal";
   private static final String LOAD_CHUNK = "Carregar o chunk";
   private static final String VIEW = "Ver";
   private static final String VIEW_TIP = "Mostra o chunk com o Tablet na mão";
@@ -86,10 +87,11 @@ final class PortugueseNetworkScreenTexts {
     add.accept(NetworkKeys.COST_SERVER, COST_SERVER);
     add.accept(NetworkKeys.COST_RELAY, COST_RELAY);
     add.accept(NetworkKeys.BANKS, BANKS);
+    add.accept(NetworkKeys.ANTENNAS, ANTENNAS);
+    add.accept(NetworkKeys.ANTENNAS_TIP, ANTENNAS_TIP);
     add.accept(NetworkKeys.GAIN, GAIN);
     add.accept(NetworkKeys.LOSS, LOSS);
     add.accept(NetworkKeys.NOTHING, NOTHING);
-    add.accept(NetworkKeys.CHUNK, CHUNK);
     add.accept(NetworkKeys.LOAD_CHUNK, LOAD_CHUNK);
     add.accept(NetworkKeys.VIEW, VIEW);
     add.accept(NetworkKeys.VIEW_TIP, VIEW_TIP);

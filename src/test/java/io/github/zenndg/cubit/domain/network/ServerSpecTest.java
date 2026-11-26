@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 class ServerSpecTest {
   private static final Energy BATTERY = new Energy(1_200_000);
   private static final Energy INPUT = new Energy(20_000);
+  private static final Energy OUTPUT = new Energy(20_000);
   private static final SolarOutput RELAY = new SolarOutput(new Energy(500), Energy.ZERO);
   private static final int CHANNELS = 4;
   private static final int SLOTS = 27;
@@ -18,7 +19,7 @@ class ServerSpecTest {
   private static final int TOO_MANY_CHANNELS = 17;
 
   private static ServerSpec spec(Energy battery, int channels, Energy input, int slots) {
-    return new ServerSpec(battery, channels, input, slots, RELAY, Standby.NONE);
+    return new ServerSpec(battery, channels, input, OUTPUT, slots, RELAY, Standby.NONE);
   }
 
   @Test
@@ -26,6 +27,15 @@ class ServerSpecTest {
     ServerSpec spec = spec(BATTERY, CHANNELS, INPUT, SLOTS);
     assertEquals(BATTERY, spec.capacity());
     assertEquals(SLOTS, spec.storageSlots());
+    assertEquals(OUTPUT, spec.outputPerTick());
+  }
+
+  /** A server that sends nothing to its antennas is allowed by the config. */
+  @Test
+  void aServerMaySendNothing() {
+    ServerSpec spec =
+        new ServerSpec(BATTERY, CHANNELS, INPUT, Energy.ZERO, SLOTS, RELAY, Standby.NONE);
+    assertEquals(Energy.ZERO, spec.outputPerTick());
   }
 
   @Test

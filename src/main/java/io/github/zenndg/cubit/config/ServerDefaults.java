@@ -8,7 +8,7 @@ import io.github.zenndg.cubit.domain.tier.RobotTier;
 
 /**
  * The default numbers of the Network Server at each tier, from _docs/tiers.md (answers 2220 to
- * 2223, 2267, 2269, 2326 and 2435).
+ * 2223, 2267, 2269, 2276, 2326 and 2435). It sends to its antennas as much as it takes by cables.
  */
 final class ServerDefaults {
   private static final long NO_NIGHT = 0;
@@ -41,41 +41,34 @@ final class ServerDefaults {
   static ServerSpec of(RobotTier tier) {
     return switch (tier) {
       case BASE ->
-          new ServerSpec(
-              new Energy(BASE_CAPACITY),
-              BASE_CHANNELS,
-              new Energy(BASE_INPUT),
-              BASE_SLOTS,
-              BASE_RELAY,
-              BASE_STANDBY);
+          spec(BASE_CAPACITY, BASE_CHANNELS, BASE_INPUT, BASE_SLOTS, BASE_RELAY, BASE_STANDBY);
       case ADVANCED ->
-          new ServerSpec(
-              new Energy(ADVANCED_CAPACITY),
+          spec(
+              ADVANCED_CAPACITY,
               ADVANCED_CHANNELS,
-              new Energy(ADVANCED_INPUT),
+              ADVANCED_INPUT,
               ADVANCED_SLOTS,
               ADVANCED_RELAY,
               ADVANCED_STANDBY);
       case ELITE ->
-          new ServerSpec(
-              new Energy(ELITE_CAPACITY),
-              ELITE_CHANNELS,
-              new Energy(ELITE_INPUT),
-              ELITE_SLOTS,
-              ELITE_RELAY,
-              ELITE_STANDBY);
-      case ULTIMATE -> ultimate();
+          spec(
+              ELITE_CAPACITY, ELITE_CHANNELS, ELITE_INPUT, ELITE_SLOTS, ELITE_RELAY, ELITE_STANDBY);
+      case ULTIMATE ->
+          spec(
+              ULTIMATE_CAPACITY,
+              ServerSpec.MAX_CHANNELS,
+              ULTIMATE_INPUT,
+              ServerSpec.MAX_SLOTS,
+              ULTIMATE_RELAY,
+              ULTIMATE_STANDBY);
     };
   }
 
-  private static ServerSpec ultimate() {
+  /** What it sends to its antennas is what it takes by cables (answers 2276 and 2326). */
+  private static ServerSpec spec(
+      long capacity, int channels, long flow, int slots, SolarOutput relay, Standby standby) {
     return new ServerSpec(
-        new Energy(ULTIMATE_CAPACITY),
-        ServerSpec.MAX_CHANNELS,
-        new Energy(ULTIMATE_INPUT),
-        ServerSpec.MAX_SLOTS,
-        ULTIMATE_RELAY,
-        ULTIMATE_STANDBY);
+        new Energy(capacity), channels, new Energy(flow), new Energy(flow), slots, relay, standby);
   }
 
   private static Standby standby(long server, long relay) {
