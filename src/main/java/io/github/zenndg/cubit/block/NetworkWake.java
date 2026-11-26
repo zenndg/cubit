@@ -40,6 +40,16 @@ final class NetworkWake {
     line.addAll(data.chunks().waitingOf(owner));
   }
 
+  /**
+   * An antenna stopped without signal, whose chunk waits, comes back in the line once its Server
+   * has signal to give again (answer 2553).
+   */
+  void signalBack(GlobalPos place) {
+    if (waitingOwner(place).isPresent()) {
+      line.add(place);
+    }
+  }
+
   /** With the chunks kept while the owner is away, all of them come back with the world. */
   void worldOpened() {
     ChunkKeys keys = CubitMod.CONFIG.network().chunks();

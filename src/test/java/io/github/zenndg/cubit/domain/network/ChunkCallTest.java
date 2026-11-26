@@ -11,6 +11,8 @@ class ChunkCallTest {
   private static final ChunkCall.Room FREE = new ChunkCall.Room(true, true);
   private static final ChunkCall.Room PLAYER_FULL = new ChunkCall.Room(false, false);
   private static final ChunkCall.Room WORLD_FULL = new ChunkCall.Room(true, false);
+  private static final ChunkCall.Reach SHARED = new ChunkCall.Reach(true, true);
+  private static final ChunkCall.Reach STOPPED = new ChunkCall.Reach(false, false);
 
   @Test
   void holdsWhileItPays() {
@@ -34,6 +36,32 @@ class ChunkCallTest {
         ChunkState.SWITCHED_OFF, new ChunkCall(true, false, false, PLAYER_FULL).decide(DRAINED));
     assertEquals(
         ChunkState.OWNER_OFFLINE, new ChunkCall(true, true, false, PLAYER_FULL).decide(DRAINED));
+  }
+
+  /** An antenna in the chunk its Server holds pays nothing for it again (answer 2264). */
+  @Test
+  void anAntennaInTheChunkOfItsServerSharesIt() {
+    assertEquals(
+        ChunkState.SHARED, new ChunkCall(true, true, false, PLAYER_FULL, SHARED).decide(DRAINED));
+    assertEquals(
+        ChunkState.SWITCHED_OFF,
+        new ChunkCall(true, false, true, FREE, SHARED).decide(ChunkCharge.CHARGED));
+    assertFalse(ChunkState.SHARED.holds());
+    assertFalse(ChunkState.SHARED.waits());
+  }
+
+  /** Stopped without signal, it waits in the line and holds nothing (answer 2553). */
+  @Test
+  void aStoppedAntennaWaitsForTheSignal() {
+    assertEquals(
+        ChunkState.NO_SIGNAL, new ChunkCall(true, true, true, FREE, STOPPED).decide(DRAINED));
+    assertEquals(
+        ChunkState.OWNER_OFFLINE,
+        new ChunkCall(true, true, false, FREE, STOPPED).decide(ChunkCharge.CHARGED));
+    assertTrue(ChunkState.NO_SIGNAL.waits());
+    assertTrue(ChunkState.OWNER_OFFLINE.waits());
+    assertFalse(ChunkState.NO_SIGNAL.holds());
+    assertFalse(ChunkState.NO_ENERGY.waits());
   }
 
   @Test

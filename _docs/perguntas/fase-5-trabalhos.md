@@ -1516,11 +1516,13 @@ Não há perguntas pendentes nesta fase.
 | 2569 | Ao colocar uma antena ligada a um Servidor de outro dono, como um item dado ou achado num baú, o que acontece? | É recusada, com a recusa nova `OTHER_OWNER` no `AntennaPlacement`, logo depois de `NO_SERVER`, com `This Server belongs to another player` na barra de ação e o item na mão. Quem a recebeu liga a antena a um Servidor seu. A recomendação foi aceita |
 | 2570 | Depois do bloco, do item e dos canais, segue o commit da energia e do sinal: o sinal e o gasto da antena, o UPS dela, a repartição pelo Servidor, a linha `Antennas` da aba Energy e a transmissão do Relay? | Sim, como recomendado |
 | 2571 | Com pouca energia acima do UPS do Servidor, quem recebe primeiro no tick, as antenas ou as Power Banks do storage? | As antenas, porque seguram chunks e alimentam a rede, e as Power Banks carregam com o que sobrar acima do UPS. A recomendação foi aceita. Detalha a 2373 e a 2550 |
+| 2572 | Depois da energia e do sinal, segue o commit dos chunks da antena: o `HeldChunk`, a mesma fila e os limites, a antena parada que solta o chunk, o gasto do chunk e a chave `ChunkLoading`? | Sim, como recomendado |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 23:56 | Registra a resposta 2572. |
 | Zennd | 2026-11-25 23:51 | Registra a resposta 2571. |
 | Zennd | 2026-11-25 23:49 | Registra a resposta 2570. |
 | Zennd | 2026-11-25 23:40 | Registra a resposta 2569. |

@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.ChunkPos;
 
 /**
  * What a Signal Antenna knows of its Network Server: whether it reaches it, how long it has been
@@ -78,6 +79,14 @@ final class AntennaUplink {
         && !server.isRemoved()
         && !server.energy().isZero()
         && server.relay().isPresent();
+  }
+
+  /** Whether its Server holds the chunk the antenna is in, so it does not pay again (2264). */
+  boolean sharesChunk(BlockPos pos) {
+    return server != null
+        && !server.isRemoved()
+        && server.chunkState().holds()
+        && new ChunkPos(server.getBlockPos()).equals(new ChunkPos(pos));
   }
 
   AntennaSignal.State state() {

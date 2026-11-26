@@ -156,9 +156,9 @@ final class ServerEnergyTab {
 
   private static int colorOf(ChunkState state) {
     return switch (state) {
-      case HOLDING -> ScreenPainter.STATUS_GREEN;
+      case HOLDING, SHARED -> ScreenPainter.STATUS_GREEN;
       case NO_ENERGY -> ScreenPainter.STATUS_RED;
-      case PLAYER_LIMIT, WORLD_LIMIT, OWNER_OFFLINE -> ScreenPainter.STATUS_ORANGE;
+      case PLAYER_LIMIT, WORLD_LIMIT, OWNER_OFFLINE, NO_SIGNAL -> ScreenPainter.STATUS_ORANGE;
       case LOCKED, SWITCHED_OFF -> ScreenPainter.DETAIL;
     };
   }

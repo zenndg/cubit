@@ -58,6 +58,8 @@ final class NetworkScreenTexts {
   private static final String CHUNK_LOCKED = "Locked by the world config";
   private static final String CHUNK_SWITCHED_OFF = "Released: switched off";
   private static final String CHUNK_OWNER_OFFLINE = "Released: owner offline";
+  private static final String CHUNK_SHARED = "Held by its Server";
+  private static final String CHUNK_NO_SIGNAL = "Released: no signal for %s min";
   private static final String CHUNK_NO_ENERGY = "Released: no energy. Back at %s FE";
   private static final String CHUNK_PLAYER_LIMIT = "Released: you already hold %s chunks";
   private static final String CHUNK_WORLD_LIMIT = "Released: the world is at its limit";
@@ -136,6 +138,8 @@ final class NetworkScreenTexts {
     add.accept(NetworkKeys.chunk(ChunkState.NO_ENERGY), CHUNK_NO_ENERGY);
     add.accept(NetworkKeys.chunk(ChunkState.PLAYER_LIMIT), CHUNK_PLAYER_LIMIT);
     add.accept(NetworkKeys.chunk(ChunkState.WORLD_LIMIT), CHUNK_WORLD_LIMIT);
+    add.accept(NetworkKeys.chunk(ChunkState.SHARED), CHUNK_SHARED);
+    add.accept(NetworkKeys.chunk(ChunkState.NO_SIGNAL), CHUNK_NO_SIGNAL);
     add.accept(NetworkKeys.sky(SunState.GENERATING), SKY_GENERATING);
     add.accept(NetworkKeys.sky(SunState.NIGHT), SKY_NIGHT);
     add.accept(NetworkKeys.sky(SunState.RAIN), SKY_RAIN);

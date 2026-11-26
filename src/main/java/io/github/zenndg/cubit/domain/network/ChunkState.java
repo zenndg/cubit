@@ -9,9 +9,18 @@ public enum ChunkState {
   OWNER_OFFLINE,
   NO_ENERGY,
   PLAYER_LIMIT,
-  WORLD_LIMIT;
+  WORLD_LIMIT,
+  /** An antenna in the chunk its Server holds, which it does not pay again (answer 2264). */
+  SHARED,
+  /** An antenna stopped without signal, which waits to come back with it (answer 2553). */
+  NO_SIGNAL;
 
   public boolean holds() {
     return this == HOLDING;
+  }
+
+  /** Nothing is held, and the place in the line is kept, to come back by itself. */
+  public boolean waits() {
+    return this == OWNER_OFFLINE || this == NO_SIGNAL;
   }
 }

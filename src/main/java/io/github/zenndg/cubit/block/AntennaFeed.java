@@ -27,17 +27,18 @@ final class AntennaFeed {
   private int untilLook;
 
   /** The stock after this tick, with what the antennas kept taken from it. */
-  EnergyStock tick(ServerLevel level, UUID server, EnergyStock stock, Energy offered) {
+  EnergyStock tick(
+      ServerLevel level, UUID server, EnergyStock stock, Energy offered, boolean reaches) {
     if (untilLook <= 0) {
       untilLook = LOOK_TICKS;
-      look(level, server);
+      look(level, server, reaches);
     }
     untilLook--;
     List<SignalAntennaBlockEntity> live =
         antennas.stream().filter(SignalAntennaBlockEntity::receivesFromNetwork).toList();
     List<EnergyShare.Need> needs = new ArrayList<>(live.size());
     live.forEach(
-        antenna -> needs.add(new EnergyShare.Need(Energy.ZERO, antenna.roomFromNetwork())));
+        antenna -> needs.add(new EnergyShare.Need(antenna.chunkCost(), antenna.roomFromNetwork())));
     List<Energy> shares = EnergyShare.of(offered.min(stock.energy().charge()), needs);
     Energy kept = Energy.ZERO;
     int fed = 0;
@@ -51,10 +52,14 @@ final class AntennaFeed {
     return stock.spend(kept).stock();
   }
 
-  /** Its antennas of the same dimension, loaded, by the order of their channels. */
-  private void look(ServerLevel level, UUID server) {
+  /**
+   * Its antennas of the same dimension, loaded, by the order of their channels. With signal to
+   * give, the ones stopped without it come back in the line of the chunks (answer 2553).
+   */
+  private void look(ServerLevel level, UUID server, boolean reaches) {
+    NetworkData data = NetworkData.of(level.getServer());
     List<NetworkRoster.Antenna<GlobalPos>> mine =
-        NetworkData.of(level.getServer()).roster().antennas().stream()
+        data.roster().antennas().stream()
             .filter(antenna -> antenna.server().equals(server))
             .sorted(Comparator.comparing(NetworkRoster.Antenna::channel))
             .toList();
@@ -66,6 +71,8 @@ final class AntennaFeed {
           && level.isLoaded(place.pos())
           && level.getBlockEntity(place.pos()) instanceof SignalAntennaBlockEntity block) {
         found.add(block);
+      } else if (reaches) {
+        data.wake().signalBack(place);
       }
     }
     antennas = List.copyOf(found);

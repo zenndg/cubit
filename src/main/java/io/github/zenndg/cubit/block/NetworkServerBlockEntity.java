@@ -85,7 +85,8 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   private void feedAntennas(ServerLevel level) {
     Energy offered =
         relay == null ? Energy.ZERO : spec().outputPerTick().min(ups.spare(energy(), capacity()));
-    battery().set(antennas.tick(level, identity().id(), battery().stock(), offered));
+    boolean reaches = relay != null && !energy().isZero();
+    battery().set(antennas.tick(level, identity().id(), battery().stock(), offered, reaches));
     Energy sent = antennas.sent();
     show.passes(sent);
     if (!sent.isZero()) {

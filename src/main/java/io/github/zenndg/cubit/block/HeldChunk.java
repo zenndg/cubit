@@ -76,30 +76,32 @@ final class HeldChunk {
     state =
         asked
             .owner()
-            .map(owner -> decide(level, place, owner, asked.on()))
+            .map(owner -> decide(level, place, owner, asked))
             .orElse(ChunkState.OWNER_OFFLINE);
     apply(level, data, place, asked.owner());
   }
 
-  private ChunkState decide(ServerLevel level, GlobalPos place, UUID owner, boolean on) {
+  private ChunkState decide(ServerLevel level, GlobalPos place, UUID owner, Asked asked) {
     ChunkKeys keys = keys();
     boolean here =
         !keys.releasesWithOwnerOffline()
             || level.getServer().getPlayerList().getPlayer(owner) != null;
     ChunkCall.Room room =
         NetworkData.of(level.getServer()).chunks().room(place, owner, keys.limits());
-    return new ChunkCall(keys.enabled(), on, here, room).decide(charge);
+    return new ChunkCall(keys.enabled(), asked.on(), here, room, asked.reach()).decide(charge);
   }
 
   /** The data and the ticket follow the state; both do nothing when nothing changes. */
   private void apply(ServerLevel level, NetworkData data, GlobalPos place, Optional<UUID> owner) {
     ChunkRoster<GlobalPos> chunks = data.chunks();
-    boolean listed =
-        switch (state) {
-          case HOLDING -> chunks.hold(place, owner.orElseThrow());
-          case OWNER_OFFLINE -> chunks.await(place);
-          default -> chunks.release(place);
-        };
+    boolean listed;
+    if (state.holds()) {
+      listed = chunks.hold(place, owner.orElseThrow());
+    } else if (state.waits()) {
+      listed = chunks.await(place);
+    } else {
+      listed = chunks.release(place);
+    }
     if (listed) {
       data.setDirty();
     }
@@ -128,6 +130,14 @@ final class HeldChunk {
     return CubitMod.CONFIG.network().chunks();
   }
 
-  /** Who the block belongs to, whether the chunk is asked for and what the block spends. */
-  record Asked(Optional<UUID> owner, boolean on, Energy standby) {}
+  /**
+   * Who the block belongs to, whether the chunk is asked for, what the block spends and, for an
+   * antenna, whether its Server holds the chunk and whether it still has signal.
+   */
+  record Asked(Optional<UUID> owner, boolean on, Energy standby, ChunkCall.Reach reach) {
+    /** A block that holds its own chunk, as the Network Server. */
+    Asked(Optional<UUID> owner, boolean on, Energy standby) {
+      this(owner, on, standby, ChunkCall.Reach.OWN);
+    }
+  }
 }

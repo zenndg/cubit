@@ -58,6 +58,8 @@ final class PortugueseNetworkScreenTexts {
   private static final String CHUNK_LOCKED = "Travado pelo config do mundo";
   private static final String CHUNK_SWITCHED_OFF = "Solto: chave desligada";
   private static final String CHUNK_OWNER_OFFLINE = "Solto: dono offline";
+  private static final String CHUNK_SHARED = "Segurado pelo Servidor dela";
+  private static final String CHUNK_NO_SIGNAL = "Solto: sem sinal há %s min";
   private static final String CHUNK_NO_ENERGY = "Solto: sem energia. Volta com %s FE";
   private static final String CHUNK_PLAYER_LIMIT = "Solto: você já segura %s chunks";
   private static final String CHUNK_WORLD_LIMIT = "Solto: o mundo está no limite";
@@ -136,6 +138,8 @@ final class PortugueseNetworkScreenTexts {
     add.accept(NetworkKeys.chunk(ChunkState.NO_ENERGY), CHUNK_NO_ENERGY);
     add.accept(NetworkKeys.chunk(ChunkState.PLAYER_LIMIT), CHUNK_PLAYER_LIMIT);
     add.accept(NetworkKeys.chunk(ChunkState.WORLD_LIMIT), CHUNK_WORLD_LIMIT);
+    add.accept(NetworkKeys.chunk(ChunkState.SHARED), CHUNK_SHARED);
+    add.accept(NetworkKeys.chunk(ChunkState.NO_SIGNAL), CHUNK_NO_SIGNAL);
     add.accept(NetworkKeys.sky(SunState.GENERATING), SKY_GENERATING);
     add.accept(NetworkKeys.sky(SunState.NIGHT), SKY_NIGHT);
     add.accept(NetworkKeys.sky(SunState.RAIN), SKY_RAIN);
