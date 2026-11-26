@@ -31,6 +31,11 @@ final class NetworkTexts {
   private static final String RELAY_PANEL_CLOSE_SOUND = "Solar Relay closes";
   private static final String RELAY_PANEL_LOCK_SOUND = "Solar Relay locks";
   private static final String RELAY_TRANSMIT_SOUND = "Solar Relay transmits";
+  private static final String ANTENNA_RAISE_SOUND = "Signal Antenna rises";
+  private static final String ANTENNA_LOCK_SOUND = "Signal Antenna locks on";
+  private static final String ANTENNA_LOST_SOUND = "Signal Antenna loses signal";
+  private static final String ANTENNA_REGAINED_SOUND = "Signal Antenna gets signal back";
+  private static final String ANTENNA_LINK_SOUND = "Signal Antenna links";
   private static final String NAME_DOCK = "Name your Dock";
   private static final String NAME_SERVER = "Name your Server";
   private static final String NAME_RELAY = "Name your Solar Relay";
@@ -63,6 +68,7 @@ final class NetworkTexts {
     add.accept(ScreenKeys.blockNameTitle(BlockName.Kind.RELAY), NAME_RELAY);
     add.accept(ScreenKeys.blockNameTitle(BlockName.Kind.ANTENNA), NAME_ANTENNA);
     addAntenna(add);
+    addAntennaSounds(add);
   }
 
   private static void addAntenna(BiConsumer<String, String> add) {
@@ -75,6 +81,20 @@ final class NetworkTexts {
     add.accept(AntennaPlacing.CHANNELS_FULL_KEY, ANTENNA_CHANNELS_FULL);
     add.accept(AntennaPlacing.CHANNEL_MOVED_KEY, ANTENNA_MOVED);
     add.accept(AntennaLinking.LINKED_KEY, ANTENNA_LINKED);
+  }
+
+  private static void addAntennaSounds(BiConsumer<String, String> add) {
+    add.accept(
+        CubitSoundProvider.antennaSubtitleKey(CubitSounds.ANTENNA_RAISE_NAME), ANTENNA_RAISE_SOUND);
+    add.accept(
+        CubitSoundProvider.antennaSubtitleKey(CubitSounds.ANTENNA_LOCK_NAME), ANTENNA_LOCK_SOUND);
+    add.accept(
+        CubitSoundProvider.antennaSubtitleKey(CubitSounds.ANTENNA_LOST_NAME), ANTENNA_LOST_SOUND);
+    add.accept(
+        CubitSoundProvider.antennaSubtitleKey(CubitSounds.ANTENNA_REGAINED_NAME),
+        ANTENNA_REGAINED_SOUND);
+    add.accept(
+        CubitSoundProvider.antennaSubtitleKey(CubitSounds.ANTENNA_LINK_NAME), ANTENNA_LINK_SOUND);
   }
 
   private static void addSounds(BiConsumer<String, String> add) {

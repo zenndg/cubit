@@ -60,7 +60,8 @@ public final class CubitClient {
           BlockSoundLoops.tick(server);
           ChunkWalls.tick(server);
         },
-        BlockSoundLoops::tick);
+        BlockSoundLoops::tick,
+        ChunkWalls::tick);
     event.enqueueWork(() ->
         ItemProperties.register(
             CubitItems.GENERAL_ROBOT.get(),
@@ -108,6 +109,8 @@ public final class CubitClient {
         CubitBlockEntities.NETWORK_SERVER.get(), NetworkServerRenderer::new);
     event.registerBlockEntityRenderer(
         CubitBlockEntities.SOLAR_RELAY.get(), SolarRelayRenderer::new);
+    event.registerBlockEntityRenderer(
+        CubitBlockEntities.SIGNAL_ANTENNA.get(), SignalAntennaRenderer::new);
   }
 
   /** The GeckoLib models of the desk and of the dock, and the fluid (1494, 1845 and 1860). */
@@ -117,6 +120,7 @@ public final class CubitClient {
     event.registerItem(DockItemExtensions.INSTANCE, CubitItems.INDUCTION_DOCK.get());
     event.registerItem(NetworkItemExtensions.SERVER, CubitItems.NETWORK_SERVER.get());
     event.registerItem(NetworkItemExtensions.RELAY, CubitItems.SOLAR_RELAY.get());
+    event.registerItem(NetworkItemExtensions.ANTENNA, CubitItems.SIGNAL_ANTENNA.get());
     event.registerFluidType(XpFluidLook.INSTANCE, CubitFluids.XP_FLUID_TYPE.get());
   }
 

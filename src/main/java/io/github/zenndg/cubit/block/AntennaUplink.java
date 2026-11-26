@@ -5,6 +5,7 @@ import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.network.AntennaSignal;
 import io.github.zenndg.cubit.domain.network.NetworkRoster;
 import io.github.zenndg.cubit.domain.network.SignalDistance;
+import io.github.zenndg.cubit.domain.network.SignalSound;
 import io.github.zenndg.cubit.item.SavedLink;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,14 +25,30 @@ final class AntennaUplink {
   private static final String NO_SIGNAL_KEY = "NoSignalTicks";
   private static final int LOOK_TICKS = 20;
 
+  /** A placed antenna looks for its Server once its mast is up, after its 2.5 s (answer 2557). */
+  private static final int RAISE_TICKS = 50;
+
+  /** One tick without signal, so a placed antenna seeks until it finds its Server. */
+  private static final AntennaSignal SEEKING = new AntennaSignal(1);
+
   private AntennaSignal signal = AntennaSignal.LINKED;
   private NetworkServerBlockEntity server;
   private Energy distance = Energy.ZERO;
   private long blocks;
   private int untilLook;
+  private boolean first;
 
-  /** One tick of the signal. True when its state changed, for the clients and the save. */
-  boolean tick(ServerLevel level, BlockPos pos, SavedLink link) {
+  /** Just placed: it seeks while its mast rises, and its first signal locks. */
+  void placed() {
+    signal = SEEKING;
+    untilLook = RAISE_TICKS;
+    first = true;
+  }
+
+  /**
+   * One tick of the signal: whether its state changed, for the clients and the save, and the sound.
+   */
+  Change tick(ServerLevel level, BlockPos pos, SavedLink link) {
     if (server != null && server.isRemoved()) {
       server = null;
     }
@@ -43,8 +60,14 @@ final class AntennaUplink {
     int loss = lossTicks();
     AntennaSignal.State before = signal.state(loss);
     signal = signal.next(reaches(), loss);
-    return signal.state(loss) != before;
+    AntennaSignal.State after = signal.state(loss);
+    Optional<SignalSound> sound = SignalSound.between(before, after, first);
+    first = first && after != AntennaSignal.State.LINKED;
+    return new Change(after != before, sound);
   }
+
+  /** Whether the state of the signal changed in a tick, and what it plays. */
+  record Change(boolean changed, Optional<SignalSound> sound) {}
 
   private void look(ServerLevel level, BlockPos pos, SavedLink link) {
     Optional<NetworkRoster.Server<GlobalPos>> listed =

@@ -2,12 +2,16 @@ package io.github.zenndg.cubit.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.zenndg.cubit.CubitMod;
+import io.github.zenndg.cubit.block.AntennaClientView;
+import io.github.zenndg.cubit.block.NetworkBlockEntity;
 import io.github.zenndg.cubit.block.NetworkServerBlockEntity;
+import io.github.zenndg.cubit.block.SignalAntennaBlockEntity;
 import io.github.zenndg.cubit.domain.network.ChunkWall;
 import io.github.zenndg.cubit.registry.CubitItems;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -22,9 +26,10 @@ import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import org.joml.Matrix4fStack;
 
 /**
- * The walls around the chunks of the servers of the player: translucent, one pixel, in a light
- * cyan, only with the Tablet in a hand (answers 2447 and 2448). The servers tell they are there on
- * each of their ticks, so no block is ever searched.
+ * The walls around the chunks of the servers and the antennas of the player: translucent, one
+ * pixel, in a light cyan for a server and in the color of the channel for an antenna, only with the
+ * Tablet in a hand (answers 2447, 2448 and 2542). The blocks tell they are there on each of their
+ * ticks, so no block is ever searched.
  */
 @EventBusSubscriber(modid = CubitMod.MOD_ID, value = Dist.CLIENT)
 public final class ChunkWalls {
@@ -34,15 +39,24 @@ public final class ChunkWalls {
   private static final AreaLinePainter.Paint CYAN =
       new AreaLinePainter.Paint(0.55f, 0.92f, 0.98f, 0.22f);
 
-  private static final Set<NetworkServerBlockEntity> SHOWN = new HashSet<>();
+  private static final Map<NetworkBlockEntity, AreaLinePainter.Paint> SHOWN = new HashMap<>();
 
   private ChunkWalls() {}
 
   static void tick(NetworkServerBlockEntity server) {
     if (server.showsWall()) {
-      SHOWN.add(server);
+      SHOWN.put(server, CYAN);
     } else {
       SHOWN.remove(server);
+    }
+  }
+
+  static void tick(SignalAntennaBlockEntity antenna) {
+    AntennaClientView view = antenna.view();
+    if (view.showsWall() && view.channel().isPresent()) {
+      SHOWN.put(antenna, ChannelTint.wall(view.channel().get()));
+    } else {
+      SHOWN.remove(antenna);
     }
   }
 
@@ -57,23 +71,24 @@ public final class ChunkWalls {
     if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_LEVEL || player == null) {
       return;
     }
-    SHOWN.removeIf(server -> server.isRemoved() || server.getLevel() != player.level());
-    List<AABB> walls =
-        SHOWN.stream()
-            .filter(server -> sees(player, server))
-            .flatMap(server -> sides(wallOf(server)).stream())
-            .toList();
+    SHOWN.keySet().removeIf(block -> block.isRemoved() || block.getLevel() != player.level());
+    Map<AreaLinePainter.Paint, List<AABB>> walls = new HashMap<>();
+    SHOWN.forEach((block, paint) -> {
+      if (sees(player, block)) {
+        walls.computeIfAbsent(paint, each -> new ArrayList<>()).addAll(sides(wallOf(block)));
+      }
+    });
     if (!walls.isEmpty()) {
       draw(event, walls);
     }
   }
 
-  private static boolean sees(LocalPlayer player, NetworkServerBlockEntity server) {
+  private static boolean sees(LocalPlayer player, NetworkBlockEntity block) {
     Vec3 eyes = player.getEyePosition();
-    return wallOf(server)
+    return wallOf(block)
         .seenBy(
             new ChunkWall.Viewer(
-                server.isOwner(player),
+                block.isOwner(player),
                 holdsTablet(player.getMainHandItem()) || holdsTablet(player.getOffhandItem()),
                 eyes.x,
                 eyes.y,
@@ -84,8 +99,8 @@ public final class ChunkWalls {
     return stack.is(CubitItems.TABLET.get());
   }
 
-  private static ChunkWall wallOf(NetworkServerBlockEntity server) {
-    BlockPos pos = server.getBlockPos();
+  private static ChunkWall wallOf(NetworkBlockEntity block) {
+    BlockPos pos = block.getBlockPos();
     return ChunkWall.around(pos.getX(), pos.getY(), pos.getZ());
   }
 
@@ -107,14 +122,17 @@ public final class ChunkWalls {
     return new AABB(x - HALF_PIXEL, low, wall.minZ(), x + HALF_PIXEL, high, wall.maxZ());
   }
 
-  private static void draw(RenderLevelStageEvent event, List<AABB> walls) {
+  private static void draw(
+      RenderLevelStageEvent event, Map<AreaLinePainter.Paint, List<AABB>> walls) {
     Matrix4fStack view = RenderSystem.getModelViewStack();
     view.pushMatrix();
     view.mul(event.getModelViewMatrix());
     RenderSystem.applyModelViewMatrix();
-    new AreaLinePainter(
-            Minecraft.getInstance().renderBuffers().bufferSource(), event.getCamera().getPosition())
-        .wall(walls, CYAN);
+    AreaLinePainter painter =
+        new AreaLinePainter(
+            Minecraft.getInstance().renderBuffers().bufferSource(),
+            event.getCamera().getPosition());
+    walls.forEach((paint, sides) -> painter.wall(sides, paint));
     view.popMatrix();
     RenderSystem.applyModelViewMatrix();
   }

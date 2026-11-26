@@ -6,18 +6,21 @@ import io.github.zenndg.cubit.domain.network.AntennaChannel;
 import io.github.zenndg.cubit.domain.network.AntennaSignal;
 import io.github.zenndg.cubit.domain.network.ChunkCall;
 import io.github.zenndg.cubit.domain.network.ChunkState;
+import io.github.zenndg.cubit.domain.network.SignalSound;
 import io.github.zenndg.cubit.domain.network.UpsReserve;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.EnergySlotItems;
 import io.github.zenndg.cubit.item.SavedLink;
 import io.github.zenndg.cubit.item.SavedNetwork;
 import io.github.zenndg.cubit.registry.CubitBlockEntities;
+import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -42,7 +45,9 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
   private final AntennaUplink uplink = new AntennaUplink();
   private final HeldChunk chunk = new HeldChunk(this::setChanged);
   private final AntennaSettings settings = new AntennaSettings();
+  private final AntennaClientView view = new AntennaClientView();
   private SavedLink link = SavedLink.NONE;
+  private long placedAt = Long.MIN_VALUE;
 
   public SignalAntennaBlockEntity(BlockPos pos, BlockState state) {
     super(
@@ -57,11 +62,28 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
       Level level, BlockPos pos, BlockState state, SignalAntennaBlockEntity antenna) {
     antenna.battery().tick();
     ServerLevel server = (ServerLevel) level;
-    if (antenna.settings.enabled() && antenna.uplink.tick(server, pos, antenna.link)) {
-      antenna.chunk.recheck();
-      antenna.changeShown();
+    if (antenna.settings.enabled()) {
+      antenna.follow(server, pos);
     }
     antenna.work(server);
+  }
+
+  /** The signal, with its sound, heard by everyone near (answers 2552, 2553 and 2561). */
+  private void follow(ServerLevel level, BlockPos pos) {
+    AntennaUplink.Change change = uplink.tick(level, pos, link);
+    change.sound().ifPresent(sound -> ServerShow.play(level, pos, soundOf(sound)));
+    if (change.changed()) {
+      chunk.recheck();
+      changeShown();
+    }
+  }
+
+  private static SoundEvent soundOf(SignalSound sound) {
+    return switch (sound) {
+      case LOCK -> CubitSounds.ANTENNA_LOCK.get();
+      case LOST -> CubitSounds.ANTENNA_LOST.get();
+      case REGAINED -> CubitSounds.ANTENNA_REGAINED.get();
+    };
   }
 
   /**
@@ -217,10 +239,24 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
     return EnergySlotItems.insert(energySlot(), stack);
   }
 
-  /** Its channel goes back to its Server, and it is listed again when placed (answer 2547). */
+  /**
+   * Its channel goes back to its Server, and it is listed again when placed (answer 2547). Its mast
+   * rises, and it seeks until it finds its Server (answer 2557).
+   */
   @Override
   void placed(Player player) {
     AntennaPlacing.placed(this, player);
+    uplink.placed();
+    if (level != null) {
+      placedAt = level.getGameTime();
+      ServerShow.play(level, worldPosition, CubitSounds.ANTENNA_RAISE.get());
+      changeShown();
+    }
+  }
+
+  /** What the client shows of it. */
+  public AntennaClientView view() {
+    return view;
   }
 
   @Override
@@ -280,10 +316,18 @@ public final class SignalAntennaBlockEntity extends NetworkBlockEntity {
     uplink.load(tag);
     settings.load(tag);
     chunk.load(tag);
+    view.read(tag);
+  }
+
+  @Override
+  public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+    CompoundTag tag = super.getUpdateTag(registries);
+    AntennaClientView.write(tag, this, placedAt, settings.showWall());
+    return tag;
   }
 
   @Override
   public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-    // The animations come with its model, later in this delivery.
+    NetworkAnimations.register(controllers, this);
   }
 }

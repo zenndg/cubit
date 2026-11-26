@@ -21,8 +21,8 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 @GameTestHolder(CubitMod.MOD_ID)
 @PrefixGameTestTemplate(false)
 public final class NetworkAntennaEnergyGameTests {
-  /** More than one look of the antenna for its server, once a second. */
-  private static final int SETTLE_TICKS = 45;
+  /** The mast rises in 2.5 s before the first look, and then the server shares once a second. */
+  private static final int SETTLE_TICKS = 85;
 
   private static final Energy FULL = new Energy(1_200_000);
   private static final Energy LOW = new Energy(100_000);

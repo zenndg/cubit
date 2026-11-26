@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.block;
 
 import io.github.zenndg.cubit.item.SavedNetwork;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
+import io.github.zenndg.cubit.registry.CubitSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -40,5 +41,6 @@ public final class AntennaLinking {
         CubitDataComponents.NETWORK_STATE.get(),
         saved.withLink(saved.link().linkedTo(server.identity().id(), name)));
     player.displayClientMessage(Component.translatable(LINKED_KEY, name), true);
+    ServerShow.play(player.level(), server.getBlockPos(), CubitSounds.ANTENNA_LINK.get());
   }
 }

@@ -52,10 +52,12 @@ public final class SignalAntennaBlock extends NetworkBlock {
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
       Level level, BlockState state, BlockEntityType<T> type) {
-    if (!isLower(state) || level.isClientSide()) {
+    if (!isLower(state)) {
       return null;
     }
     return createTickerHelper(
-        type, CubitBlockEntities.SIGNAL_ANTENNA.get(), SignalAntennaBlockEntity::serverTick);
+        type,
+        CubitBlockEntities.SIGNAL_ANTENNA.get(),
+        level.isClientSide() ? NetworkClientTicks::tick : SignalAntennaBlockEntity::serverTick);
   }
 }

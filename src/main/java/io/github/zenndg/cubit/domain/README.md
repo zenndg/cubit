@@ -195,6 +195,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `ChunkWall` | A parede em volta do chunk do Servidor, do bloco de apoio até 16 blocos acima, e quem a vê: o dono, com o Tablet na mão, a até 128 blocos (pergunta 2448) |
 | `AntennaChannel` | Os 16 canais, na ordem fixa dos IDs em inglês, os abertos pelo tier, o último canal que volta se livre e as setas que pulam os ocupados (perguntas 2269, 2309 e 2547) |
 | `AntennaSignal` | O sinal da antena e o tempo sem ele: ligada, sem sinal ou parada depois de 20 minutos, e a volta sozinha (perguntas 2323, 2552 e 2553) |
+| `SignalSound` | O som da antena quando o sinal muda: trava na primeira vez depois de colocada, volta depois de perdido e se ouve ao perder. Parar depois do tempo sem sinal não toca nada (perguntas 2552, 2553 e 2561) |
 | `AntennaPlacement` | Por que a antena não é colocada: sem ligação, sem Servidor, Servidor de outro dono, outra dimensão, chunk ocupado ou canais cheios (perguntas 2271, 2301, 2546 e 2569) |
 | `NetworkRoster` | Os Servidores e as antenas do mundo, conhecidos também com o chunk descarregado: onde cada Servidor está, com o tier que abre os canais, e o canal que cada antena toma do seu Servidor, o último se livre ou o primeiro livre (detalhes 6, 14 e 19 da Entrega 4) |
 | `AntennaSpec` | Os números da antena, sem tier, e o que ela gasta: ligada, a distância e o chunk (perguntas 2273, 2321 e 2435) |
