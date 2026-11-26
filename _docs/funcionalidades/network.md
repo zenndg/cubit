@@ -98,7 +98,7 @@ Gera, transmite e guarda 300 mil FE e 32 baldes do que vai e vem (2289). O paine
 
 ## Ver o chunk
 
-O botão `View`, na linha `Load the chunk`, mostra a parede em volta do chunk do Servidor: translúcida, ciano, de 1 px, do bloco de apoio até 16 blocos acima, até 128 blocos do player. Só o dono vê, com o Tablet na mão e o app Network, desde a entrega 5. Desligada por padrão, salva no Servidor e no item (2443 e 2446 a 2448). Ao passar o mouse, o botão diz `Shows the chunk with the Network app`, em português `Mostra o chunk com o app Rede` (2512 e 2606).
+O botão `View`, na linha `Load the chunk`, mostra a parede em volta do chunk do Servidor: translúcida, ciano, de 1 px, do bloco de apoio até 16 blocos acima, até 128 blocos do player. Só o dono vê, com qualquer coisa na mão ou nada, enquanto a chave estiver ligada (2622 e 2623). Desligada por padrão, salva no Servidor e no item (2443 e 2446 a 2448). O botão não tem dica ao passar o mouse (2625).
 
 ## Nomes flutuantes
 
@@ -126,7 +126,7 @@ Detalhes propostos pelo agente:
 - **Ligar:** com o clique no Servidor, a antena fica ligada a ele, também numa pilha, até 16. Com os canais cheios, colocar é recusado, com o motivo (2301 e 2307). Não precisa de céu (2306).
 - **Tela:** nome, canal, sinal, bateria, XP, slot de redstone, UPS, o que está ligado, na linha `Links`, com os Cubits carregados ligados a ela e os Docks que ela alimenta, contados uma vez por segundo com a tela aberta, só os Cubits carregados, e três chaves: a geral, a do chunk e a da parede (2280, 2297, 2593 e 2605). A geral, desligada, para tudo, e os Cubits hibernam.
 - **Cor:** faixa inferior e anel na cor do canal, com um fio em volta, escuro nas cores claras e branco nas escuras, e o preto mais opaco (2270 e 2343).
-- **Parede:** translúcida, de 1 px, na cor do canal, do bloco de apoio até 16 blocos acima, em volta do chunk. Só o dono vê, com o Tablet na mão e o app Network. Desligada por padrão, e várias podem ficar ligadas ao mesmo tempo (2225 e 2238). A altura é só ilustrativa (2241).
+- **Parede:** translúcida, de 1 px, na cor do canal, do bloco de apoio até 16 blocos acima, em volta do chunk. Só o dono vê, com qualquer coisa na mão ou nada, enquanto a chave estiver ligada (2622). Desligada por padrão, e várias podem ficar ligadas ao mesmo tempo (2225 e 2238). A altura é só ilustrativa (2241).
 
 ## App Network
 
@@ -354,7 +354,7 @@ Propostos pelo agente:
 12. **Energia:** a cada tick, depois do próprio gasto, a antena manda aos Docks dela só o que passa do UPS, primeiro aos com Cubit carregando e depois por igual, cada um até o que ainda cabe na entrada de 5.000 FE/t, depois do sol (detalhe 19). Ela perde exatamente o que os Docks guardam. Desligada, não manda nada.
 13. **Antena quebrada:** as ligações ficam no Cubit e na lista dela. Recolocada no mesmo lugar, tudo volta, e a regra de perder a última antena fica para a entrega 6 (2298).
 14. **Recolher e morrer:** apagam as antenas, os Docks e os baús do Cubit (2251 e 2304).
-15. **Nomes e parede:** os nomes flutuantes e a parede passam a aparecer só com o app Network (2425 e 2542).
+15. **Nomes e parede:** os nomes flutuantes passam a aparecer só com o app Network (2425 e 2542). A parede do Servidor e da antena, depois, deixa de pedir o Tablet (detalhe 32).
 16. **Saves:** o Cubit guarda `NetworkAntennas`, `NetworkDocks` e `NetworkChests`, cada um com `Dimension` e `Pos`, e a antena, `Docks`, com `Pos`. Chaves novas e opcionais.
 17. **Rede de teste:** um cenário das GameTests com o Servidor, o Relay, as antenas, o Cubit e os Docks prontos, usado por todas as de área daqui em diante.
 18. **GameTests:** ligações, recusas, vizinhança, a antena do meio, a energia curta, a soma de FE e a reserva.
@@ -377,6 +377,10 @@ A parede do chunk do player, ideia do desenvolvedor, decidida nas perguntas 2608
 29. **Save:** o componente `cubit:tablet_chunk_wall` no item do Tablet. Cada Tablet guarda a sua, e ela continua ligada ao sair e voltar (2612).
 30. **Quem vê:** só o próprio player, com aquele Tablet na mão e no app Network, em qualquer chunk e dimensão, com ou sem rede, junto das paredes do Servidor e das antenas (2616).
 31. **Testes:** o sorteio sem repetir no domínio, uma GameTest do Shift + clique e um passo no roteiro manual, sem prévia em imagem (2615 e 2616).
+
+A parede do `View`, ideia do desenvolvedor no teste da entrega, decidida nas perguntas 2622 a 2625:
+
+32. **Parede sem o Tablet:** a parede do chunk do Servidor e da antena aparece só pela chave `View` da tela, com qualquer coisa na mão ou nada, para o dono, até 128 blocos. Os nomes flutuantes e a parede do chunk do player continuam só com o app Network, e o botão `View` perde a dica (2622 a 2625). Muda a 2542 e a 2606 na parede.
 
 ## Contrato
 
@@ -412,6 +416,7 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 15:00 | Tira o Tablet da parede do `View` do Servidor e da antena, detalhe 32 da Entrega 5 (perguntas 2622 a 2625). |
 | Zennd | 2026-11-26 11:15 | Acrescenta a parede do chunk do player, detalhes 26 a 31 da Entrega 5 (perguntas 2608 a 2616). |
 | Zennd | 2026-11-26 10:20 | Passa os nomes, a parede e as setas ao app Network (entrega 5). |
 | Zennd | 2026-11-26 09:52 | Detalha a linha `Links` da tela da antena. |

@@ -1565,11 +1565,19 @@ Não há perguntas pendentes nesta fase.
 | 2618 | A mudança no `AGENTS.md`, com o Estado atual citando as entregas 4 (PR #286) e 5 (#267) da Network e a estrutura de pacotes com as classes novas da entrega 5, e o commit de documentos com o `ROADMAP.md`, que marca a entrega 4, e o `checklist.md`, que cita o PR #286, estão autorizados? | Sim, autorizados, com o diff e a mensagem mostrados antes do commit. A recomendação foi aceita |
 | 2619 | O teste no jogo da entrega 5 foi completo, com a antena ligada a um Cubit escolhido e o Dock marcado, que o erro corrigido em `aec9610e` teria derrubado? | Não: o teste ainda não foi completo. Primeiro as GameTests fecham, e antes do PR o desenvolvedor refaz o roteiro inteiro da Entrega 5, com os passos 1 a 14 e a parede do chunk do player. Muda a 2617 |
 | 2620 | Depois do ajuste da GameTest da troca de apps, as GameTests rodam de novo agora ou só depois do teste completo no jogo? | Só depois: o ajuste é commitado agora, o desenvolvedor refaz o roteiro inteiro no jogo, os ajustes que aparecerem entram em commits mostrados antes, e uma rodada só das GameTests, sobre o último commit, fecha a entrega antes do PR. A recomendação foi aceita |
+| 2621 | Qual a ordem do fechamento da entrega 5 depois do ajuste da GameTest? | Primeiro as GameTests sobre o último commit, com o build e o datagen sem cache, e o teste completo do desenvolvedor no jogo fica como o último passo antes do PR. Se o teste pedir um ajuste, as GameTests rodam de novo sobre o commit dele. Muda a 2620 na ordem |
+| 2622 | A parede do chunk do Servidor e da antena continua pedindo o Tablet no app Network, ou só a chave `View` da tela decide? | Só a chave `View` decide, com qualquer coisa na mão ou nada, na antena e no Servidor, com uma regra só no `ChunkWall`. Ideia do desenvolvedor no teste da entrega 5. Muda a 2542 e a 2606 na parede |
+| 2623 | Com a chave `View` ligada, quem vê a parede e até onde? | Só o dono, até 128 blocos, como na 2447 e na 2448. Sai apenas a exigência do Tablet |
+| 2624 | Os nomes flutuantes e a parede do chunk do player também deixam de pedir o app Network? | Não. Continuam só com o Tablet na mão no app Network (2542 e 2616). Muda só a parede do `View` |
+| 2625 | A dica do botão `View`, `Shows the chunk with the Network app` (2606), continua agora que a parede vale sem o Tablet (2622)? | Não: a dica sai, com a chave `gui.cubit.network.view_tip` dos dois idiomas, porque sem a condição do Tablet o `View` já se explica. Muda a 2512 e a 2606. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 13:54 | Registra a resposta 2625. |
+| Zennd | 2026-11-26 13:53 | Registra as respostas 2622 a 2624. |
+| Zennd | 2026-11-26 12:08 | Registra a resposta 2621. |
 | Zennd | 2026-11-26 12:03 | Registra a resposta 2620. |
 | Zennd | 2026-11-26 11:45 | Registra a resposta 2619. |
 | Zennd | 2026-11-26 11:28 | Registra a resposta 2618. |

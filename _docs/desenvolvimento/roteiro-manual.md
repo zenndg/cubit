@@ -1669,6 +1669,7 @@ Antes, apague o `config/cubit-common.toml` da instância de teste (pergunta 2324
 | 12 | Com 8 antenas em anel, desenhe uma área em volta do chunk do meio | O fechamento é recusado, com o motivo, e o desenho continua aberto (2601) |
 | 13 | No app Network, marque baús para um Organizador e para outro Cubit | O Organizador vai até 12, 18 e 25, e o outro, até 1, 2, 4 e 6 (2602) |
 | 14 | No app Network, Shift + clique, ande por alguns chunks, saia e volte ao mundo | A parede em volta do seu chunk liga, troca de cor a cada chunk, sem repetir a anterior, continua ligada depois de voltar e desliga no outro Shift + clique, sem escolher Cubit nem marcar nada (2608 a 2616) |
+| 15 | Ligue o `View` do Servidor e o de uma antena, e olhe com o Tablet em outro app, com outro item e de mão vazia | A parede aparece nos três casos, só para o dono, e o `View` não tem dica ao passar o mouse (2622 a 2625) |
 
 ### Entrega 6: a rede obrigatória e os trabalhos
 
@@ -1796,6 +1797,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 15:00 | Acrescenta o passo 15 da Entrega 5, a parede do `View` sem o Tablet (perguntas 2622 a 2625). |
 | Zennd | 2026-11-26 11:18 | Acrescenta a parede do chunk do player na entrega 5 da Network. |
 | Zennd | 2026-11-26 09:06 | Acrescenta as decisões 2599 a 2602 na entrega 5 da Network. |
 | Zennd | 2026-11-26 08:52 | Ajusta a reserva da antena na entrega 5 da Network (pergunta 2587). |
