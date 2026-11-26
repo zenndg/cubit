@@ -22,7 +22,7 @@ public final class EnergyShare {
   public static List<Energy> of(Energy offered, List<Need> needs) {
     long[] given = new long[needs.size()];
     long left = chunksFirst(offered.amount(), needs, given);
-    left = evenly(left, needs, given);
+    evenly(left, needs.stream().mapToLong(need -> need.room().amount()).toArray(), given);
     List<Energy> shares = new ArrayList<>(needs.size());
     for (long amount : given) {
       shares.add(new Energy(amount));
@@ -40,19 +40,23 @@ public final class EnergyShare {
     return left;
   }
 
-  /** Equal parts in rounds, so what a full antenna leaves goes to the others. */
-  private static long evenly(long left, List<Need> needs, long[] given) {
+  /**
+   * Equal parts in rounds, each up to its room, so what a full one leaves goes to the others. It
+   * adds to what was already given and returns what is left (rule 13).
+   */
+  static long evenly(long offered, long[] rooms, long[] given) {
+    long left = offered;
     while (left > 0) {
       int hungry = 0;
-      for (int index = 0; index < needs.size(); index++) {
-        hungry += given[index] < needs.get(index).room().amount() ? 1 : 0;
+      for (int index = 0; index < rooms.length; index++) {
+        hungry += given[index] < rooms[index] ? 1 : 0;
       }
       if (hungry == 0) {
         return left;
       }
       long part = Math.max(1, left / hungry);
-      for (int index = 0; index < needs.size() && left > 0; index++) {
-        long take = Math.min(part, Math.min(left, needs.get(index).room().amount() - given[index]));
+      for (int index = 0; index < rooms.length && left > 0; index++) {
+        long take = Math.min(part, Math.min(left, Math.max(0, rooms[index] - given[index])));
         given[index] += take;
         left -= take;
       }

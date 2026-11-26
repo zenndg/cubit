@@ -86,6 +86,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `AreaDrawing` | O desenho pela metade: os pontos, se fechou, o que cada clique faz e por que é recusado (perguntas 2245, 2355 e 2356) |
 | `AreaDrawingSpec` | O mínimo e o máximo de pontos e o alcance da mira (perguntas 2287 e 2311) |
 | `AreaErase` | O primeiro dos dois cliques que apagam a área, com o tempo para confirmar (pergunta 2299) |
+| `SecondClick` | O primeiro de dois cliques do Tablet que confirmam algo que se perde: o segundo, no mesmo alvo e em até 5 s, confirma. Vale para apagar a área e desligar uma antena ou a energia de um Dock (perguntas 2299 e 2589) |
 | `AreaCorner` | Um bloco marcado como ponto pelo app Área |
 | `AreaCheck` | Se a área pode ser do Cubit, ou por quê não: sem modo área no tier, grande demais, em outra dimensão ou longe demais (perguntas 1050, 1054 e 1058) |
 | `AreaMarking` | A marcação pela metade do app Área: o Cubit, a dimensão e o desenho, só na memória do servidor (perguntas 1054, 1060 e 2357) |
@@ -201,6 +202,11 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `AntennaSpec` | Os números da antena, sem tier, e o que ela gasta: ligada, a distância e o chunk (perguntas 2273, 2321 e 2435) |
 | `SignalDistance` | O custo da distância até o Servidor, no plano: 1 FE/t por 500 blocos completos além dos 100 (pergunta 2310) |
 | `EnergyShare` | Como o Servidor reparte a energia entre as antenas: primeiro o chunk de cada uma, na ordem dos canais, e o resto por igual, sem criar nem perder FE (perguntas 2302 e 2551) |
+| `LinkSpot` e `LinkChunk` | Um bloco ligado a um Cubit pelo app Network, antena, Dock ou baú, pela dimensão e pelo lugar, e o chunk dele. Dois chunks são vizinhos só quando dividem um lado (pergunta 2257) |
+| `LinkLimits` | Quantas antenas, Docks e baús o tier do Cubit liga, com nenhuma antena no Base (perguntas 2226, 2232, 2233 e 2602) |
+| `NetworkLinks` | As ligações de um Cubit: as antenas, de um Servidor só e vizinhas pelo lado, e os Docks e baús marcados nos chunks delas. A antena do meio, que separaria as outras, é recusada, e a que sai leva os Docks e baús do chunk dela (perguntas 2258, 2588, 2590 e 2600) |
+| `FedDocks` | Os Docks que uma antena alimenta, a chave `Docks` dela: marcar para um Cubit também alimenta, e só o clique na antena e no Dock, sem Cubit, tira (pergunta 2589) |
+| `DockFeed` | Como a antena alimenta os Docks: só o que passa do maior entre o UPS e o piso de 5%, primeiro os que carregam um Cubit e depois por igual, cada um até o que cabe, sem criar nem perder FE (perguntas 2302, 2322 e 2599) |
 | `ChunkLimits` | Quantos chunks o mod pode segurar, de um player e no mundo, com 0 para sem limite (pergunta 2215) |
 | `ServerPower` | O que a bateria fez num tick: ligou, caiu ou nada, para a partida e a queda |
 | `ServerFront` | A frente do Servidor: as colunas de 10 traços, com ao menos um aceso acima de zero, e o estado de cada lâmpada |
@@ -313,6 +319,8 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 - **Ronda de vigia:** o passo lento e as paradas valem só na ronda. Na perseguição, ele corre na velocidade normal, e qualquer parada, num ponto, num canto ou no caminho, zera a contagem de blocos, para as paradas não se amontoarem (perguntas 1614 a 1618).
 - **Desmarcar vem antes de recusar:** um ponto marcado sai mesmo fora da área nova, para o player limpar uma rota antiga sem marcar a área de novo (pergunta 1611).
 - **Rota só na área:** os pontos fora da área ou de outra dimensão não valem, mas ficam guardados no NBT, e voltam a valer quando a área os inclui de novo (perguntas 1599 e 1602).
+- **Vizinhas pelo lado:** as antenas de um Cubit formam um bloco só de chunks que dividem um lado, então tirar a do meio é recusado, e o player tira antes as das pontas (perguntas 2257 e 2590).
+- **Piso da antena:** nenhum Dock tira os últimos 5% da bateria dela, mesmo com o UPS em 0%, para o chunk não cair por causa dos Docks (perguntas 2322 e 2599).
 - **Forma calculada uma vez:** a área guarda as colunas dela num mapa de bits, com até 256 blocos de lado e 256 pontos, para um save quebrado não tomar a memória. Nenhuma conta de polígono roda por tick (regra 21 e detalhe 8 da Network).
 - **Mesma forma, mesma área:** os cantos têm uma ordem só, então dois Patrulheiros com o mesmo desenho, começado em pontos diferentes, dividem as mesmas bordas (perguntas 1646 e 1708).
 - **Progresso pelo caminho:** num L, contornar o corte afasta o Cubit do alvo em linha reta. O progresso conta o caminho que falta por dentro, para ele não desistir no meio (pergunta 2365).
