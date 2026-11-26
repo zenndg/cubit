@@ -4,6 +4,7 @@ import io.github.zenndg.cubit.domain.desk.CascadeStart;
 import io.github.zenndg.cubit.domain.desk.CascadeTaskStatus;
 import io.github.zenndg.cubit.domain.desk.DeskCategory;
 import io.github.zenndg.cubit.domain.desk.DeskStatus;
+import io.github.zenndg.cubit.domain.desk.DisassemblyRefusal;
 import java.util.Locale;
 
 /** The translation keys of the Engineering Desk screen, shared by the screen and the datagen. */
@@ -42,6 +43,17 @@ public final class DeskScreenKeys {
   public static final String CASCADE_STATUS_COLUMN = PREFIX + "cascade_column.status";
   private static final String CASCADE_STATUS = PREFIX + "cascade_status.";
   private static final String CASCADE_REASON = PREFIX + "cascade_reason.";
+  public static final String DISASSEMBLE = PREFIX + "disassemble";
+  public static final String DISASSEMBLE_LOCKED = PREFIX + "disassemble_locked";
+  public static final String DISASSEMBLE_ITEM = PREFIX + "disassemble_item";
+  public static final String DISASSEMBLE_RETURNS = PREFIX + "disassemble_returns";
+  public static final String DISASSEMBLE_EACH = PREFIX + "disassemble_each";
+  public static final String DISASSEMBLE_LOST = PREFIX + "disassemble_lost";
+  public static final String DISASSEMBLE_EMPTY = PREFIX + "disassemble_empty";
+  public static final String DISASSEMBLE_LEFT = PREFIX + "disassemble_left";
+  public static final String DISASSEMBLE_START = PREFIX + "disassemble_start";
+  public static final String DISASSEMBLE_RUNS = PREFIX + "disassemble_runs";
+  private static final String DISASSEMBLE_REASON = PREFIX + "disassemble_reason.";
   public static final String CATALOG = PREFIX + "catalog";
   public static final String SEARCH = PREFIX + "search";
   public static final String STORAGE_ARROW = PREFIX + "storage_arrow";
@@ -62,6 +74,11 @@ public final class DeskScreenKeys {
   /** What a task of the plan is doing (answer 2012). */
   public static String cascadeStatus(CascadeTaskStatus status) {
     return CASCADE_STATUS + status.name().toLowerCase(Locale.ROOT);
+  }
+
+  /** Why the desk does not take an item apart (answer 2524). */
+  public static String disassemblyRefusal(DisassemblyRefusal refusal) {
+    return DISASSEMBLE_REASON + refusal.name().toLowerCase(Locale.ROOT);
   }
 
   /** Why a plan may or may not start. */

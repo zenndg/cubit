@@ -2,6 +2,7 @@ package io.github.zenndg.cubit.block;
 
 import com.mojang.logging.LogUtils;
 import io.github.zenndg.cubit.CubitMod;
+import io.github.zenndg.cubit.domain.desk.DeskJobs;
 import io.github.zenndg.cubit.domain.desk.DeskLook;
 import io.github.zenndg.cubit.domain.desk.DeskOrder;
 import io.github.zenndg.cubit.domain.desk.DeskSpec;
@@ -56,6 +57,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   private final DeskBattery battery = new DeskBattery(spec().capacity(), this::setChanged);
   private final DeskJob job = new DeskJob();
   private final CascadeState cascade = new CascadeState();
+  private final DeskDisassembly disassembly = new DeskDisassembly(this::setChanged);
   private DeskStatus status = DeskStatus.IDLE;
   private int signal;
 
@@ -69,13 +71,20 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     desk.battery.useSlot(desk.items.energySlot());
     desk.show.beforeWork(desk, level.getGameTime());
     boolean redstone = EngineeringDeskBlock.hasSignal(level, pos, state);
-    desk.status =
-        desk.cascade.isRunning()
-            ? CascadeWork.tick(desk, level, redstone)
-            : DeskWork.tick(desk, level, redstone);
+    desk.status = desk.work(level, redstone);
     CascadeWork.unload(desk, level);
     desk.showWork(level, pos, state);
     desk.show.afterWork(desk, level, pos, state, DeskLook.of(desk.status));
+  }
+
+  /** Only one work runs at a time (answer 2528). */
+  private DeskStatus work(Level level, boolean redstone) {
+    if (cascade.isRunning()) {
+      return CascadeWork.tick(this, level, redstone);
+    }
+    return disassembly.isRunning()
+        ? DisassemblyWork.tick(this, level, redstone)
+        : DeskWork.tick(this, level, redstone);
   }
 
   private void showWork(Level level, BlockPos pos, BlockState state) {
@@ -131,8 +140,20 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     return cascade;
   }
 
-  /** A plan started or ended, and the craft begins again from zero. */
-  void cascadeChanged() {
+  public DeskDisassembly disassembly() {
+    return disassembly;
+  }
+
+  /** The order, the plan and the disassembly, of which only one runs (answer 2528). */
+  public DeskJobs jobs() {
+    return new DeskJobs(
+        job.order().isActive(),
+        cascade.isRunning() || cascade.holdsItems(),
+        disassembly.isRunning());
+  }
+
+  /** A plan or a disassembly started or ended, and the craft begins again from zero. */
+  void workChanged() {
     job.restart();
     tellClients();
   }
@@ -160,6 +181,9 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
 
   /** The item being made, of the plan or the order. Special recipes have none (1509, 2022). */
   public ItemStack shownResult() {
+    if (disassembly.isRunning()) {
+      return disassembly.item().copyWithCount(1);
+    }
     ResourceLocation shown = cascade.currentRecipe().or(job::recipe).orElse(null);
     return level == null ? ItemStack.EMPTY : DeskRecipes.result(level, shown);
   }
@@ -204,14 +228,18 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   }
 
   void craftedInCascade() {
+    cascade.crafted();
+    disassembled();
+  }
+
+  /** A task of a plan or a unit taken apart costs as a craft, outside the order (2523). */
+  void disassembled() {
     battery.pay(CubitMod.CONFIG.engineeringDesk().craftEnergy());
     job.restart();
-    cascade.crafted();
     showCrafted();
   }
 
   private void showCrafted() {
-    setChanged();
     if (level != null) {
       show.crafted(this, level, worldPosition, getBlockState());
     }
@@ -228,7 +256,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
 
   /** The minus and plus buttons. Without an order, plus starts one for the chosen recipe. */
   public void adjustOrder(int delta) {
-    if (job.adjust(delta, spec().maxOrder())) {
+    if (jobs().allowsOrder() && job.adjust(delta, spec().maxOrder())) {
       tellClients();
     }
   }
@@ -271,6 +299,9 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   }
 
   public int signal() {
+    if (disassembly.isRunning()) {
+      return disassembly.units().comparatorSignal();
+    }
     return cascade.isRunning()
         ? cascade.run().orElseThrow().comparatorSignal()
         : job.order().comparatorSignal();
@@ -285,6 +316,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     items.save(tag, registries);
     job.save(tag, job.saved());
     DeskSaves.saveCascade(tag, cascade.saved(), registries);
+    disassembly.save(tag, registries);
   }
 
   @Override
@@ -296,6 +328,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     items.load(tag, registries);
     job.load(tag, worldPosition, spec().maxOrder());
     cascade.load(DeskSaves.loadCascade(tag, registries, worldPosition));
+    disassembly.load(tag, registries, worldPosition);
     if (level != null && level.isClientSide()) {
       clientView.receive(tag, level.getGameTime());
     }
@@ -314,6 +347,8 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
         Optional.ofNullable(components.get(CubitDataComponents.DESK_ORDER.get())),
         spec().maxOrder());
     cascade.load(Optional.ofNullable(components.get(CubitDataComponents.DESK_CASCADE.get())));
+    disassembly.use(
+        Optional.ofNullable(components.get(CubitDataComponents.DESK_DISASSEMBLY.get())));
   }
 
   @Override
@@ -326,6 +361,9 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     cascade
         .saved()
         .ifPresent(saved -> components.set(CubitDataComponents.DESK_CASCADE.get(), saved));
+    disassembly
+        .saved()
+        .ifPresent(saved -> components.set(CubitDataComponents.DESK_DISASSEMBLY.get(), saved));
   }
 
   /**
@@ -339,6 +377,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     owner.save(tag);
     tier.save(tag);
     job.save(tag, cascade.shownOrder().or(job::saved));
+    disassembly.save(tag, registries);
     show.write(tag);
     return tag;
   }

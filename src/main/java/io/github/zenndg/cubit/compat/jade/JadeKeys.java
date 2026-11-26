@@ -17,6 +17,7 @@ public final class JadeKeys {
   public static final String OWNER = "jade.cubit.owner";
   public static final String DESK_ORDER = "jade.cubit.desk_order";
   public static final String DESK_CASCADE = "jade.cubit.desk_cascade";
+  public static final String DESK_DISASSEMBLY = "jade.cubit.desk_disassembly";
   public static final String DESK_PAUSED = "jade.cubit.desk_paused";
   public static final String CHUNK_ON = "jade.cubit.chunk_on";
   public static final String CHUNK_OFF = "jade.cubit.chunk_off";

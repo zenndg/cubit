@@ -5,10 +5,15 @@ import io.github.zenndg.cubit.domain.energy.Energy;
 /**
  * The numbers of an Engineering Desk at a tier: its battery, the ticks of one craft, the slots of
  * each inventory, up to 36, the largest order and whether it makes in cascade (answers 1433, 1434,
- * 1505 and 2020).
+ * 1505 and 2020), and whether it takes items apart (answer 2531).
  */
 public record DeskSpec(
-    Energy capacity, int craftTicks, int storageSlots, int maxOrder, boolean cascade) {
+    Energy capacity,
+    int craftTicks,
+    int storageSlots,
+    int maxOrder,
+    boolean cascade,
+    boolean disassembly) {
   public static final int MAX_SLOTS = 36;
   private static final String NO_CAPACITY = "A desk needs a battery";
   private static final String NO_TIME = "A craft needs at least one tick: ";

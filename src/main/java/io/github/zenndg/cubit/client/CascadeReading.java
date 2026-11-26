@@ -75,6 +75,7 @@ final class CascadeReading {
                 plan.isPresent(),
                 plan.map(found -> CascadeLaunch.hasBase(found, input)).orElse(false),
                 menu.total() > menu.done(),
+                menu.disassembly().running(),
                 menu.cascade().holdsItems()));
   }
 

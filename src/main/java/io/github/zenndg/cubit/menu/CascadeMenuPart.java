@@ -83,6 +83,11 @@ public final class CascadeMenuPart {
     return data;
   }
 
+  /** Whether a button of the menu is one of this tab. */
+  static boolean owns(int id) {
+    return id >= MINUS && id <= NEW_PLAN || id >= CHOOSE_FIRST;
+  }
+
   public static int choose(int recipeIndex) {
     return CHOOSE_FIRST + recipeIndex;
   }

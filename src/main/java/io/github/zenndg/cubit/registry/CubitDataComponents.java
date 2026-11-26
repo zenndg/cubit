@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.SavedCascade;
 import io.github.zenndg.cubit.block.SavedDeskOrder;
+import io.github.zenndg.cubit.block.SavedDisassembly;
 import io.github.zenndg.cubit.domain.robot.RobotState;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.EnergySlotContents;
@@ -44,6 +45,7 @@ public final class CubitDataComponents {
   private static final String DESK_OUTPUT_ID = "engineering_desk_output";
   private static final String DESK_CASCADE_ID = "engineering_desk_cascade";
   private static final String DESK_ORDER_ID = "engineering_desk_order";
+  private static final String DESK_DISASSEMBLY_ID = "engineering_desk_disassembly";
   private static final String POWER_BANK_ENERGY_ID = "power_bank_energy";
   private static final String TABLET_APP_ID = "tablet_app";
   private static final DeferredRegister.DataComponents COMPONENTS =
@@ -211,6 +213,15 @@ public final class CubitDataComponents {
               builder
                   .persistent(SavedCascade.CODEC)
                   .networkSynchronized(SavedCascade.STREAM_CODEC));
+
+  /** The item and the units of the Disassemble tab of a desk (answer 2535, detail 5). */
+  public static final Supplier<DataComponentType<SavedDisassembly>> DESK_DISASSEMBLY =
+      COMPONENTS.registerComponentType(
+          DESK_DISASSEMBLY_ID,
+          builder ->
+              builder
+                  .persistent(SavedDisassembly.CODEC)
+                  .networkSynchronized(SavedDisassembly.STREAM_CODEC));
 
   /** The charge of a Power Bank, a contract with the saves (answer 903). */
   /** The active app of the Tablet, by its key, a contract with the saves (answer 1026). */

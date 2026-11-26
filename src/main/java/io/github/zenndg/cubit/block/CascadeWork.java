@@ -32,7 +32,7 @@ final class CascadeWork {
     if (craft.isEmpty()) {
       LOGGER.warn(IMPOSSIBLE, desk.getBlockPos(), cascade.currentRecipe().orElse(null));
       cascade.abort();
-      desk.cascadeChanged();
+      desk.workChanged();
       return DeskStatus.IDLE;
     }
     DeskCheck check = new DeskCheck(true, redstone, true, true, desk.canPayCraft(), true);

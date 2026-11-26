@@ -40,6 +40,7 @@ final class CascadeTexts {
   private static final String REASON_NO_PLAN = "No plan for this item";
   private static final String REASON_MISSING = "Missing materials in the input";
   private static final String REASON_ORDER_ACTIVE = "An order is active";
+  private static final String REASON_DISASSEMBLING = "A disassembly is running";
   private static final String REASON_STOCK_LEFT = "The last plan still has items";
 
   private CascadeTexts() {}
@@ -85,6 +86,7 @@ final class CascadeTexts {
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.NO_PLAN), REASON_NO_PLAN);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.MISSING), REASON_MISSING);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.ORDER_ACTIVE), REASON_ORDER_ACTIVE);
+    add.accept(DeskScreenKeys.cascadeStart(CascadeStart.DISASSEMBLING), REASON_DISASSEMBLING);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.STOCK_LEFT), REASON_STOCK_LEFT);
   }
 }

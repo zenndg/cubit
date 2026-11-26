@@ -25,8 +25,9 @@ import snownee.jade.api.ui.IElementHelper;
 
 /**
  * The Engineering Desk in Jade: the progress of the craft with the item it delivers, the order or
- * the plan, the energy, the tier, the owner and, in a pause, its cause (1468, 1472 and 2022). All
- * but the tier live on the server, and the tier is in the block state the client already has.
+ * the plan or the disassembly, the energy, the tier, the owner and, in a pause, its cause (1468,
+ * 1472, 2022 and 2532). All but the tier live on the server, and the tier is in the block state the
+ * client already has.
  */
 enum DeskJadeProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
   INSTANCE;
@@ -38,6 +39,8 @@ enum DeskJadeProvider implements IBlockComponentProvider, IServerDataProvider<Bl
   private static final String PLAN = "Plan";
   private static final String PLAN_DONE = "PlanDone";
   private static final String PLAN_TOTAL = "PlanTotal";
+  private static final String TAKING = "Taking";
+  private static final String TAKING_LEFT = "TakingLeft";
   private static final String STOCK = "Stock";
   private static final String CAPACITY = "Capacity";
   private static final String OWNER = "Owner";
@@ -60,6 +63,9 @@ enum DeskJadeProvider implements IBlockComponentProvider, IServerDataProvider<Bl
     }
     if (desk.cascade().isRunning()) {
       putPlan(data, desk.cascade());
+    } else if (desk.disassembly().isRunning()) {
+      data.putString(TAKING, CascadeRecipes.idOf(desk.disassembly().item().getItem()));
+      data.putInt(TAKING_LEFT, desk.disassembly().units().remaining());
     } else {
       data.putInt(DONE, desk.order().done());
       data.putInt(TOTAL, desk.order().total());
@@ -116,6 +122,13 @@ enum DeskJadeProvider implements IBlockComponentProvider, IServerDataProvider<Bl
               CascadeRecipes.itemOf(data.getString(PLAN)).getDescription(),
               data.getInt(PLAN_DONE),
               data.getInt(PLAN_TOTAL)));
+    }
+    if (data.contains(TAKING)) {
+      tooltip.add(
+          Component.translatable(
+              JadeKeys.DESK_DISASSEMBLY,
+              CascadeRecipes.itemOf(data.getString(TAKING)).getDescription(),
+              data.getInt(TAKING_LEFT)));
     }
     if (data.getInt(TOTAL) > 0) {
       tooltip.add(
