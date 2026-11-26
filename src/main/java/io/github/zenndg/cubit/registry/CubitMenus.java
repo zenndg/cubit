@@ -3,7 +3,9 @@ package io.github.zenndg.cubit.registry;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.menu.EngineeringDeskMenu;
 import io.github.zenndg.cubit.menu.InductionDockMenu;
+import io.github.zenndg.cubit.menu.NetworkServerMenu;
 import io.github.zenndg.cubit.menu.RobotMenu;
+import io.github.zenndg.cubit.menu.SolarRelayMenu;
 import io.github.zenndg.cubit.menu.TabletRobotMenu;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
@@ -36,6 +38,16 @@ public final class CubitMenus {
       MENUS.register(
           CubitBlocks.ENGINEERING_DESK_ID,
           () -> IMenuTypeExtension.create(EngineeringDeskMenu::onClient));
+
+  /** The screens of the blocks of the Network (answers 2277 and 2280). */
+  public static final Supplier<MenuType<NetworkServerMenu>> NETWORK_SERVER =
+      MENUS.register(
+          CubitBlocks.NETWORK_SERVER_ID,
+          () -> IMenuTypeExtension.create(NetworkServerMenu::onClient));
+
+  public static final Supplier<MenuType<SolarRelayMenu>> SOLAR_RELAY =
+      MENUS.register(
+          CubitBlocks.SOLAR_RELAY_ID, () -> IMenuTypeExtension.create(SolarRelayMenu::onClient));
 
   private CubitMenus() {}
 

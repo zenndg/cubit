@@ -40,6 +40,7 @@ final class PortugueseCascadeTexts {
   private static final String REASON_NO_PLAN = "Sem plano para este item";
   private static final String REASON_MISSING = "Faltam materiais na entrada";
   private static final String REASON_ORDER_ACTIVE = "Há um pedido ativo";
+  private static final String REASON_DISASSEMBLING = "Há uma desmontagem rodando";
   private static final String REASON_STOCK_LEFT = "O último plano ainda tem itens";
 
   private PortugueseCascadeTexts() {}
@@ -85,6 +86,7 @@ final class PortugueseCascadeTexts {
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.NO_PLAN), REASON_NO_PLAN);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.MISSING), REASON_MISSING);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.ORDER_ACTIVE), REASON_ORDER_ACTIVE);
+    add.accept(DeskScreenKeys.cascadeStart(CascadeStart.DISASSEMBLING), REASON_DISASSEMBLING);
     add.accept(DeskScreenKeys.cascadeStart(CascadeStart.STOCK_LEFT), REASON_STOCK_LEFT);
   }
 }

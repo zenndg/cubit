@@ -66,6 +66,11 @@ Funciona como um carregador solar real.
 - **Tela:** desligada, sem energia e sem Cubit; ociosa, com energia e sem Cubit; carregando, com o Cubit recebendo; completa, com a bateria dele cheia; sem energia, com o Cubit na base e o estoque zerado.
 - **Energia:** recebe por cabos de outros mods, em **FE**, em qualquer face, ou com redstone em um slot próprio, também por funil. Nenhuma energia sai por cabo. Pelos funis, só sai o que a [automação do inventário](#inventário-do-dock) permite.
 - **Estoque:** guarda a energia do tier do Dock, de 300 mil a 16 mi FE (pergunta 1374). Um item de redstone só vira energia quando couber inteiro no estoque. Sem FE, o Cubit fica hibernando.
+- **Gasto por ficar ligado:** 3, 8, 25 ou 60 FE/t, pelo tier do Dock, sempre que o estoque tem energia e o chunk está carregado, com ou sem Cubit na base e com o dono fora do jogo (issue #279, perguntas 2435 e 2466). **Situação:** autorizado (pergunta 2509).
+  - **No zero:** gasta o que sobrou e desliga, como já mostra hoje, e o painel solar continua gerando. Com energia de novo, liga sozinho.
+  - **Ordem:** o gasto sai no começo do tick, antes do sol, do XP e das Power Banks, e nunca cria nem perde FE (regra 13).
+  - **Cheio:** com a energia entrando, o Dock continua mostrando `Full`: vale como cheio quando só falta o gasto de um tick.
+  - **Sem sol nem cabo:** um Dock Base cheio dura 83 min, o Advanced, 125, o Elite, 200, e o Ultimate, 222. Com sol, o painel paga o gasto e sobra: no Base, 25 FE/t de dia contra 3.
 - **Slot de entrada:** aceita redstone, que vira estoque, ou uma Power Bank, que descarrega no estoque pelo mesmo limite de entrada dos cabos e aparece em `Input +X FE/t`. Vazia, ela fica parada no slot (perguntas 919, 920 e 923). O slot de carga saiu, e o inventário assumiu o papel dele (pergunta 950).
 - **Clique:** o clique direito com redstone na mão a põe no slot de entrada. Com uma Power Bank, uma Toolbox ou um Damaged Cubit na mão, o item vai para o inventário, juntando nas pilhas e nos slots livres, e o que não couber fica na mão. Com o item do Cubit, o robô vai para a base, como sempre. Só o dono (perguntas 959 e 968, que mudam a 924).
 - **Inventário:** guarda os itens do mod e carrega as Power Banks. Veja [Inventário do Dock](#inventário-do-dock).
@@ -261,6 +266,7 @@ Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 19:45 | Define o gasto do Dock por ficar ligado (perguntas 2435 e 2466 a 2468). |
 | Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |
 | Zennd | 2026-11-24 10:03 | Troca o clique direito e o Shift + clique do Dock (perguntas 2122 a 2124). |
 | Zennd | 2026-11-24 09:56 | Cita a conversão do XP em energia no Dock (perguntas 1831 e 2111). |

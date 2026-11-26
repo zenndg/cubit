@@ -44,6 +44,7 @@ O Dock sobe de tier com os mesmos Modules do Cubit (perguntas 1373 a 1380). Os n
 | Recarga do Cubit e da Power Bank guardada | 500 FE/t | 1.000 FE/t | 2.500 FE/t | 5.000 FE/t |
 | Slots do inventário | 27 | 36 | 45 | 54 |
 | Entrada, por cabos e redstone | 5.000 FE/t | 5.000 FE/t | 5.000 FE/t | 5.000 FE/t |
+| Gasto por ficar ligado, em `dock_standby_per_tick` (perguntas 2435, 2466 e 2468) | 3 FE/t | 8 FE/t | 25 FE/t | 60 FE/t |
 | Geração do painel do Dock, de dia, a céu aberto e sem chuva, com o painel montado, em `dock_solar_per_tick` (perguntas 1385 e 1855) | 25 FE/t | 100 FE/t | 500 FE/t | 1.400 FE/t |
 | Geração do painel do Dock à noite, a céu aberto e sem chuva, com o painel montado, em `dock_solar_night_per_tick` (perguntas 1943 e 1955) | — | — | — | 350 FE/t |
 | Faixa, em volta do topo da torre (perguntas 1389 e 1918) | Cinza | Azul | Roxa | Dourada, com o corpo em netherite |
@@ -56,10 +57,11 @@ A mesa sobe de tier com os mesmos Modules do Cubit e do Dock (perguntas 1433 a 1
 |---|---|---|---|---|
 | Tempo por craft | 5 s | 4 s | 2,5 s | 1,5 s |
 | Maior pedido | 8 | 32 | 64 | 256 |
+| Desmontar, `engineering_desk_disassembly` (pergunta 2531) | — | — | ✔ | ✔ |
 | Fabricação em cascata, `engineering_desk_cascade` (pergunta 2020) | — | — | — | ✔ |
 | Bateria | 100 mil FE | 400 mil FE | 2 mi FE | 8 mi FE |
 | Slots do inventário de entrada e do de saída, cada um (pergunta 1505) | 12 | 18 | 27 | 36 |
-| Custo por craft | 2.500 FE | 2.500 FE | 2.500 FE | 2.500 FE |
+| Custo por craft (pergunta 2441) | 3.500 FE | 3.500 FE | 3.500 FE | 3.500 FE |
 | Entrada, por cabos e redstone | 5.000 FE/t | 5.000 FE/t | 5.000 FE/t | 5.000 FE/t |
 | Luz da luminária, enquanto cria | 7 | 7 | 7 | 7 |
 | Faixa, na borda do tampo (pergunta 1439) | Cinza | Azul | Roxa | Dourada, com o corpo em netherite |
@@ -271,6 +273,8 @@ Planejado, na `0.2.0`, e ainda fora do código, menos o desenho da área, descri
 | Slots, de 128 itens cada, `storage_slots` (pergunta 2267) | 27 | 36 | 45 | 54 |
 | Solar Relay, de dia, `relay_solar_per_tick` (pergunta 2220) | 500 FE/t | 1.000 FE/t | 2.000 FE/t | 4.000 FE/t |
 | Solar Relay, à noite, `relay_solar_night_per_tick` (pergunta 2223) | — | — | — | 1.000 FE/t |
+| Servidor ligado, `standby_per_tick` (pergunta 2435) | 20 FE/t | 40 FE/t | 80 FE/t | 160 FE/t |
+| Solar Relay com par, pago pelo Servidor, `relay_standby_per_tick` (perguntas 2435 e 2436) | 2 FE/t | 5 FE/t | 15 FE/t | 40 FE/t |
 
 | Por Cubit, em `[general_robot.{tier}]` | Base | Avançado | Elite | Ultimate |
 |---|---|---|---|---|
@@ -286,7 +290,9 @@ Planejado, na `0.2.0`, e ainda fora do código, menos o desenho da área, descri
 | Chunks por player e no mundo, `chunks_per_player` e `chunks_per_world`, com 0 para sem limite (pergunta 2215) | 48 e 192 |
 | Chunk, por tick, `chunk_cost` (pergunta 2216) | 25 FE |
 | Distância: livre, passo e custo, `distance_free_blocks`, `distance_step_blocks` e `distance_cost` (pergunta 2310) | 100 blocos, 500 blocos e 1 FE/t |
-| Retomada, entre uma antena e outra, `wake_interval_ticks` (pergunta 2330) | 2 s (40 ticks) |
+| Retomada, entre um chunk e outro do mesmo dono, `wake_interval_ticks` (perguntas 2330 e 2413) | 2 s (40 ticks) |
+| Carga mínima com que o Servidor zerado volta a segurar o chunk, `chunk_resume_energy` (perguntas 2372, 2376 e 2438) | 30 mil FE |
+| Tempo do gasto inteiro que essa carga paga, `chunk_resume_seconds` (perguntas 2438 e 2442) | 60 s |
 | Antena sem sinal até parar, `signal_loss_ticks` (pergunta 2323) | 20 min (24.000 ticks) |
 | Antena: bateria e tanque, `antenna_energy_capacity` e `antenna_xp_tank_capacity` (pergunta 2273) | 600 mil FE e 64 baldes |
 | Antena: o que recebe da rede e por cabo, `antenna_input_per_tick` (perguntas 2276 e 2326) | 5.000 FE/t |
@@ -377,7 +383,14 @@ Planejado para a Fase 5. O tier Base não aceita cards, e cada card tem o seu ti
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 21:20 | Acrescenta a chave de desmontar na mesa (pergunta 2531). |
+| Zennd | 2026-11-25 19:45 | Acrescenta o gasto do Dock e sobe o custo por craft da mesa (perguntas 2435, 2441 e 2468). |
 | Zennd | 2026-11-25 17:33 | Acrescenta os números de chamar o Cubit (perguntas 2450, 2460 e 2464). |
+| Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado do Servidor e do Solar Relay (perguntas 2435 a 2442). |
+| Zennd | 2026-11-25 14:00 | Acompanha a numeração nova das respostas da Entrega 3 da Network (pergunta 2418). |
+| Zennd | 2026-11-25 12:34 | Estende `wake_interval_ticks` aos chunks dos Servidores (pergunta 2413). |
+| Zennd | 2026-11-25 09:55 | Confirma o nome da chave da retomada (pergunta 2376). |
+| Zennd | 2026-11-25 09:52 | Acrescenta a retomada do chunk do Servidor (pergunta 2372). |
 | Zennd | 2026-11-25 00:26 | Marca o desenho da área no código (perguntas 2287 e 2311). |
 | Zennd | 2026-11-25 00:23 | Leva o Organizador e o Cozinheiro ao Advanced, com os números (perguntas 2235, 2236, 2242 e 2364). |
 | Zennd | 2026-11-24 22:42 | Acrescenta os números da Network e tira o limite de Cubits por área, que não existe no código (perguntas 2196 a 2333). |

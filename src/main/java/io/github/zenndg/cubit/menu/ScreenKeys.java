@@ -1,8 +1,9 @@
 package io.github.zenndg.cubit.menu;
 
-import io.github.zenndg.cubit.domain.dock.DockPanelState;
 import io.github.zenndg.cubit.domain.dock.DockStatus;
-import io.github.zenndg.cubit.domain.dock.DockSunState;
+import io.github.zenndg.cubit.domain.energy.PanelState;
+import io.github.zenndg.cubit.domain.energy.SunState;
+import io.github.zenndg.cubit.domain.ownership.BlockName;
 import java.util.Locale;
 
 /** The translation keys of the screens, shared by the screens and the language file. */
@@ -22,6 +23,7 @@ public final class ScreenKeys {
   public static final String DOCK_INPUT = DOCK + "input";
   public static final String DOCK_FULL = DOCK + "full";
   public static final String DOCK_NO_INPUT = DOCK + "no_input";
+  public static final String DOCK_USES = DOCK + "uses";
   public static final String DOCK_LIMIT = DOCK + "limit";
   public static final String DOCK_DOCKED = DOCK + "docked";
   public static final String DOCK_TAB_DOCK = DOCK + "tab_dock";
@@ -60,6 +62,7 @@ public final class ScreenKeys {
 
   private static final String DOCK_STATUS = DOCK + "status.";
   private static final String ROBOT = PREFIX + "robot.";
+  private static final String BLOCK_NAME_TITLE = PREFIX + "block_name_title.";
   public static final String ROBOT_NAME_TITLE = ROBOT + "name_title";
   private static final String ROBOT_STATUS = ROBOT + "status.";
   private static final String RECHARGE = ROBOT + "recharge.";
@@ -114,17 +117,17 @@ public final class ScreenKeys {
   public static final String FOLLOWING_NOBODY = ROBOT + "following_nobody";
 
   /** The state of the panel of a Solar Dock, as `gui.cubit.dock.sun.night` (answer 1396). */
-  public static String dockSun(DockSunState state) {
+  public static String dockSun(SunState state) {
     return DOCK + SUN_PREFIX + state.name().toLowerCase(Locale.ROOT);
   }
 
   /** Where the panel of the Dock is, as `gui.cubit.dock.panel.deployed` (answer 1865). */
-  public static String dockPanel(DockPanelState state) {
+  public static String dockPanel(PanelState state) {
     return DOCK + PANEL_PREFIX + state.name().toLowerCase(Locale.ROOT);
   }
 
   /** Why the panel stops, as `gui.cubit.dock.sun_reason.night` (answer 1396). */
-  public static String dockSunReason(DockSunState state) {
+  public static String dockSunReason(SunState state) {
     return DOCK + SUN_REASON_PREFIX + state.name().toLowerCase(Locale.ROOT);
   }
 
@@ -172,5 +175,10 @@ public final class ScreenKeys {
     public static final String COMPLETE = "complete";
 
     private DockStatusName() {}
+  }
+
+  /** The title of the window of the name of a new block (answer 2422). */
+  public static String blockNameTitle(BlockName.Kind kind) {
+    return BLOCK_NAME_TITLE + kind.name().toLowerCase(Locale.ROOT);
   }
 }

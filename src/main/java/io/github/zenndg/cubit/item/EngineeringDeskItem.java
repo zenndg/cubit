@@ -45,7 +45,8 @@ public final class EngineeringDeskItem extends BlockItem implements GeoItem {
   public static boolean holdsItems(ItemStack stack) {
     return count(stack.get(CubitDataComponents.DESK_INPUT.get())) > 0
         || count(stack.get(CubitDataComponents.DESK_OUTPUT.get())) > 0
-        || holdsPlan(stack);
+        || holdsPlan(stack)
+        || stack.has(CubitDataComponents.DESK_DISASSEMBLY.get());
   }
 
   private static boolean holdsPlan(ItemStack stack) {

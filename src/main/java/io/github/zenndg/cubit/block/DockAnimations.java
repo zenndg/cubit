@@ -1,6 +1,6 @@
 package io.github.zenndg.cubit.block;
 
-import io.github.zenndg.cubit.domain.dock.DockPanelState;
+import io.github.zenndg.cubit.domain.energy.PanelState;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.RawAnimation;
@@ -41,7 +41,7 @@ public final class DockAnimations {
             state -> state.setAndContinue(pose(dock.solar().panel()))));
   }
 
-  private static RawAnimation pose(DockPanelState panel) {
+  private static RawAnimation pose(PanelState panel) {
     return switch (panel) {
       case STORED -> STORED;
       case DEPLOYING -> DEPLOY;

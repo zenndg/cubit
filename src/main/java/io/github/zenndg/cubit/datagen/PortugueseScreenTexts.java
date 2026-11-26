@@ -23,6 +23,7 @@ final class PortugueseScreenTexts {
   private static final String STORED_ENERGY = "Energia guardada";
   private static final String INPUT = "Entrada +%s FE/t";
   private static final String FULL = "Cheia";
+  private static final String USES = "%s · Gasta %s FE/t";
   private static final String NO_INPUT = "Sem entrada";
   private static final String LIMIT = "Cabos ou redstone · até %s FE/t";
   private static final String DOCKED = "Cubit na base";
@@ -241,6 +242,7 @@ final class PortugueseScreenTexts {
     add.accept(ScreenKeys.DOCK_INPUT, INPUT);
     add.accept(ScreenKeys.DOCK_FULL, FULL);
     add.accept(ScreenKeys.DOCK_NO_INPUT, NO_INPUT);
+    add.accept(ScreenKeys.DOCK_USES, USES);
     add.accept(ScreenKeys.DOCK_LIMIT, LIMIT);
     add.accept(ScreenKeys.DOCK_DOCKED, DOCKED);
     add.accept(ScreenKeys.DOCK_ROBOT_BATTERY, ROBOT_BATTERY);

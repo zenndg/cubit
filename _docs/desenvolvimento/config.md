@@ -86,6 +86,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `dock_energy_capacity` | Estoque do Induction Dock desse tier. Troca a chave geral de mesmo nome (pergunta 1381) | 1 a 2147483647 |
 | `general_robot.base` | `dock_recharge_per_tick` | Recarga do Cubit e da Power Bank guardada no Dock desse tier | 1 a 2147483647 |
 | `general_robot.base` | `dock_storage_slots` | Slots do inventário do Dock desse tier | 9 a 54, em múltiplos de 9 |
+| `general_robot.base` | `dock_standby_per_tick` | Gasto do Dock desse tier por ficar ligado (perguntas 2435 e 2468) | 0 a 2147483647 |
 | `general_robot.base` | `dock_solar_per_tick` | Geração do painel do Dock desse tier, com o painel montado (perguntas 1385 e 1855) | 0 a 2147483647 |
 | `general_robot.base` | `xp_tank_capacity` | Tanque de XP do Cubit desse tier, em mB (pergunta 1826) | 1 a 2147483647 |
 | `general_robot.base` | `dock_xp_tank_capacity` | Tanque de XP do Dock desse tier, em mB (pergunta 1833) | 1 a 2147483647 |
@@ -137,6 +138,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `engineering_desk_storage_slots` | Engineering Desk: slots da entrada | 1 a 36 |
 | `general_robot.base` | `engineering_desk_max_order` | Engineering Desk: maior pedido | 1 a 4096 |
 | `general_robot.base` | `engineering_desk_cascade` | Engineering Desk: se a mesa desse tier fabrica em cascata (pergunta 2020) | `true` ou `false` |
+| `general_robot.base` | `engineering_desk_disassembly` | Engineering Desk: se a mesa desse tier desmonta itens (pergunta 2531) | `true` ou `false` |
 | `general_robot.base` | `allowed_jobs` | Cards de Aprendizado de Máquina que o tier aceita: `fisher`, `farmer`, `rancher`, `organizer`, `cook`, `patroller`, `miner`, `builder`, `mechanic` e `alchemist`. Um nome inválido é ignorado e vai para o log | Lista com esses nomes |
 | `general_robot.base` | `fisher_lure_level` | Pescador: Isca | 0 a 3 |
 | `general_robot.base` | `fisher_luck_level` | Pescador: Sorte do Mar | 0 a 3 |
@@ -180,7 +182,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general` | `speed_control_step_percent` | Velocidade: o passo dos botões − e + | 1 a 50 |
 | `general` | `door_open_cost` | Custo de abrir uma porta marcada | 0 a 10000 |
 | `general` | `door_marks_limit` | Portas marcadas por dono | 1 a 256 |
-| `general` | `engineering_desk_craft_energy` | Engineering Desk: custo de cada craft | 0 a 2147483647 |
+| `general` | `engineering_desk_craft_energy` | Engineering Desk: custo de cada craft, com 3.500 (pergunta 2441) | 0 a 2147483647 |
 | `general` | `engineering_desk_input_per_tick` | Engineering Desk: energia que a mesa recebe por tick | 1 a 2147483647 |
 | `general` | `unload_interval_default_minutes` | Intervalo de descarga na área, padrão de um Cubit novo, com 0 para só quando cheio | 0 a 1440 |
 | `general` | `unload_interval_max_minutes` | Intervalo de descarga na área, o maior que a aba Trabalho oferece | 1 a 1440 |
@@ -225,6 +227,22 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `network` | `area_min_points` | Desenho da área, o mínimo de pontos | 4 a 32 |
 | `network` | `area_max_points` | Desenho da área, o máximo de pontos | 4 a 256 |
 | `network` | `area_reach_blocks` | Desenho da área, o alcance da mira | 1 a 128 |
+| `network` | `chunk_loading_enabled` | Carregamento de chunks do mod | Ligado ou desligado |
+| `network` | `release_when_owner_offline` | Solta os chunks com o dono offline | Ligado ou desligado |
+| `network` | `chunks_per_player` e `chunks_per_world` | Chunks por player e no mundo, com 0 para sem limite | 0 a 2147483647 |
+| `network` | `chunk_cost` | Chunk, por tick | 0 a 2147483647 |
+| `network` | `chunk_resume_energy` | Carga mínima com que o Servidor zerado volta a segurar o chunk | 0 a 2147483647 |
+| `network` | `chunk_resume_seconds` | Tempo do gasto inteiro que essa carga paga | 0 a 3600 |
+| `network` | `wake_interval_ticks` | Intervalo entre um chunk e outro quando o dono volta | 1 a 1200 |
+| `network` | `server_ups_percent` | UPS padrão do Servidor | 0 a 50 |
+| `network` | `relay_energy_capacity` e `relay_input_per_tick` | Solar Relay: bateria e entrada | 1 a 2147483647 |
+| `network` | `storage_slot_limit` | Itens por slot do Servidor | 1 a 999 |
+| `network.{tier}` | `energy_capacity` | Network Server, a bateria | 1 a 2147483647 |
+| `network.{tier}` | `channels` | Network Server, os canais | 1 a 16 |
+| `network.{tier}` | `input_per_tick` | Network Server, a entrada por cabo e redstone | 1 a 2147483647 |
+| `network.{tier}` | `storage_slots` | Network Server, os slots | 9 a 54 |
+| `network.{tier}` | `relay_solar_per_tick` e `relay_solar_night_per_tick` | Solar Relay, de dia e à noite | 0 a 2147483647 |
+| `network.{tier}` | `standby_per_tick` e `relay_standby_per_tick` | Gasto do Servidor ligado e do Solar Relay com par | 0 a 2147483647 |
 
 ## Por que esses limites
 
@@ -249,6 +267,10 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 | Situação | O que acontece |
 |---|---|
 | `area_max_points` menor que `area_min_points` | O mínimo vale também como máximo, para o desenho ainda fechar |
+| `server_ups_percent` fora dos passos de 5 | Vale o passo de baixo |
+| `chunk_resume_energy` menor que `chunk_cost` | Vale o custo, para o chunk não piscar |
+| `storage_slot_limit` abaixo da pilha normal do item | O slot guarda a pilha normal |
+| `storage_slots` da rede que não fecha uma linha de 9 | Vale a linha de baixo, e o mod registra no log |
 | Número fora dos limites | O NeoForge usa o limite mais próximo e registra no log |
 | Chave ausente ou valor que não é número | O NeoForge volta ao padrão da chave e registra no log |
 | `lamp_off_from_light` menor que `lamp_on_below_light` | A lanterna apaga a partir do maior dos dois, e o mod registra no log uma vez |
@@ -261,7 +283,13 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 22:02 | Acrescenta a chave `engineering_desk_disassembly` (pergunta 2531). |
+| Zennd | 2026-11-25 19:45 | Acrescenta o gasto do Dock e o custo novo da mesa (perguntas 2441 e 2468). |
 | Zennd | 2026-11-25 17:33 | Acrescenta as chaves de chamar o Cubit (perguntas 2464 e 2482). |
+| Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado, na seção `network` (pergunta 2442). |
+| Zennd | 2026-11-25 14:00 | Acompanha a numeração nova das respostas da Entrega 3 da Network (pergunta 2418). |
+| Zennd | 2026-11-25 12:34 | Acrescenta `wake_interval_ticks`, na seção `network` (perguntas 2330 e 2413). |
+| Zennd | 2026-11-25 11:58 | Acrescenta as chaves do Network Server e do Solar Relay (perguntas 2334, 2349 e 2376). |
 | Zennd | 2026-11-25 00:23 | Acrescenta as chaves do desenho da área, na seção `network` (perguntas 2287, 2311 e 2349). |
 | Zennd | 2026-11-24 12:32 | Atualiza o contrato das chaves, que vale a partir da `1.0.0` (perguntas 2189 e 2190). |
 | Zennd | 2026-11-24 09:56 | Acrescenta as chaves do XP do Dock (perguntas 1942 e 2103). |

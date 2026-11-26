@@ -16,6 +16,8 @@ final class CubitSoundProvider extends SoundDefinitionsProvider {
   private static final String ROBOT = "general_robot";
   private static final String DESK = "engineering_desk";
   private static final String DOCK = "induction_dock";
+  private static final String SERVER = "network_server";
+  private static final String RELAY = "solar_relay";
   private static final String PATROLLER = "patroller";
   private static final String SUBTITLE_PREFIX = "subtitles.cubit.";
   private static final char FOLDER_END = '/';
@@ -46,6 +48,14 @@ final class CubitSoundProvider extends SoundDefinitionsProvider {
     return SUBTITLE_PREFIX + DOCK + KEY_END + name;
   }
 
+  static String serverSubtitleKey(String name) {
+    return SUBTITLE_PREFIX + SERVER + KEY_END + name;
+  }
+
+  static String relaySubtitleKey(String name) {
+    return SUBTITLE_PREFIX + RELAY + KEY_END + name;
+  }
+
   static String deskSubtitleKey(String name) {
     return SUBTITLE_PREFIX + DESK + KEY_END + name;
   }
@@ -70,6 +80,27 @@ final class CubitSoundProvider extends SoundDefinitionsProvider {
     addDockSound(CubitSounds.DOCK_PANEL_LOCK, CubitSounds.DOCK_PANEL_LOCK_NAME);
     addDockSound(CubitSounds.DOCK_PANEL_RETRACT, CubitSounds.DOCK_PANEL_RETRACT_NAME);
     registerPatrolSounds();
+    registerNetworkSounds();
+  }
+
+  private void registerNetworkSounds() {
+    addServerSound(CubitSounds.SERVER_STARTUP, CubitSounds.SERVER_STARTUP_NAME);
+    addServerSound(CubitSounds.SERVER_FANS, CubitSounds.SERVER_FANS_NAME);
+    addServerSound(CubitSounds.SERVER_POWER_LOSS, CubitSounds.SERVER_POWER_LOSS_NAME);
+    addServerSound(CubitSounds.SERVER_UPGRADE, CubitSounds.SERVER_UPGRADE_NAME);
+    addServerSound(CubitSounds.SERVER_UPS_WARNING, CubitSounds.SERVER_UPS_WARNING_NAME);
+    addRelaySound(CubitSounds.RELAY_PANEL_OPEN, CubitSounds.RELAY_PANEL_OPEN_NAME);
+    addRelaySound(CubitSounds.RELAY_PANEL_CLOSE, CubitSounds.RELAY_PANEL_CLOSE_NAME);
+    addRelaySound(CubitSounds.RELAY_PANEL_LOCK, CubitSounds.RELAY_PANEL_LOCK_NAME);
+    addRelaySound(CubitSounds.RELAY_TRANSMIT, CubitSounds.RELAY_TRANSMIT_NAME);
+  }
+
+  private void addServerSound(Supplier<SoundEvent> event, String name) {
+    add(event, SERVER, name, serverSubtitleKey(name));
+  }
+
+  private void addRelaySound(Supplier<SoundEvent> event, String name) {
+    add(event, RELAY, name, relaySubtitleKey(name));
   }
 
   private void registerPatrolSounds() {

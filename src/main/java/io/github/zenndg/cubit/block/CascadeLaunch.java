@@ -41,11 +41,12 @@ public final class CascadeLaunch {
                 plan.isPresent(),
                 plan.map(found -> hasBase(found, input)).orElse(false),
                 desk.order().isActive(),
+                desk.disassembly().isRunning(),
                 desk.cascade().isRunning() || desk.cascade().holdsItems()));
     if (start == CascadeStart.READY) {
       reserve(desk, plan.orElseThrow());
       desk.cascade().start(item, plan.orElseThrow());
-      desk.cascadeChanged();
+      desk.workChanged();
     }
     return start;
   }

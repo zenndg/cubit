@@ -1,0 +1,35 @@
+{
+  "type": "cubit:engineering",
+  "category": "misc",
+  "desk_category": "dock",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_block"
+    },
+    {
+      "item": "cubit:hard_drive"
+    },
+    {
+      "item": "cubit:xp_tank"
+    },
+    {
+      "item": "cubit:base_power_cell"
+    },
+    {
+      "item": "cubit:neural_core"
+    },
+    {
+      "item": "cubit:chunk_anchor"
+    },
+    {
+      "item": "cubit:transceiver"
+    },
+    {
+      "item": "cubit:display_panel"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "cubit:network_server"
+  }
+}

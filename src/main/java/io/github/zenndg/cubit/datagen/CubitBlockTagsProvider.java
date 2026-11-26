@@ -12,8 +12,9 @@ import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 /**
- * The block tags of the mod: the Dock, and the plants the Farmer adds or leaves out, which a pack
- * may edit (answer 1222). The stems give fruit, and the berry bush would be broken.
+ * The block tags of the mod: the Dock, the blocks of the Network, and the plants the Farmer adds or
+ * leaves out, which a pack may edit (answer 1222). The stems give fruit, and the berry bush would
+ * be broken.
  */
 final class CubitBlockTagsProvider extends BlockTagsProvider {
   CubitBlockTagsProvider(
@@ -25,7 +26,11 @@ final class CubitBlockTagsProvider extends BlockTagsProvider {
 
   @Override
   protected void addTags(HolderLookup.Provider lookup) {
-    tag(BlockTags.MINEABLE_WITH_PICKAXE).add(CubitBlocks.INDUCTION_DOCK.get());
+    tag(BlockTags.MINEABLE_WITH_PICKAXE)
+        .add(
+            CubitBlocks.INDUCTION_DOCK.get(),
+            CubitBlocks.NETWORK_SERVER.get(),
+            CubitBlocks.SOLAR_RELAY.get());
     tag(FarmPlants.CROPS);
     tag(FarmPlants.IGNORED)
         .addTag(BlockTags.SAPLINGS)

@@ -22,6 +22,8 @@ final class PortuguesePartTexts {
   private static final String DISPLAY_PANEL = "Tela";
   private static final String SERVO_MOTOR = "Servomotor";
   private static final String INDUCTION_COIL = "Bobina de Indução";
+  private static final String TRANSCEIVER = "Transceptor";
+  private static final String CHUNK_ANCHOR = "Âncora de Chunk";
 
   private PortuguesePartTexts() {}
 
@@ -47,5 +49,7 @@ final class PortuguesePartTexts {
     add.accept(CubitItems.DISPLAY_PANEL.get().getDescriptionId(), DISPLAY_PANEL);
     add.accept(CubitItems.SERVO_MOTOR.get().getDescriptionId(), SERVO_MOTOR);
     add.accept(CubitItems.INDUCTION_COIL.get().getDescriptionId(), INDUCTION_COIL);
+    add.accept(CubitItems.TRANSCEIVER.get().getDescriptionId(), TRANSCEIVER);
+    add.accept(CubitItems.CHUNK_ANCHOR.get().getDescriptionId(), CHUNK_ANCHOR);
   }
 }

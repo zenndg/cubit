@@ -186,7 +186,9 @@ public final class SharedPartsGameTests {
         CubitItems.SERVO_MOTOR.get(),
         CubitItems.INDUCTION_COIL.get(),
         CubitItems.NEURAL_CORE.get(),
-        CubitItems.CIRCUIT_BOARD.get());
+        CubitItems.CIRCUIT_BOARD.get(),
+        CubitItems.TRANSCEIVER.get(),
+        CubitItems.CHUNK_ANCHOR.get());
   }
 
   private static List<ItemStack> tankGrid() {

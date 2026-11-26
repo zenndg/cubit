@@ -122,7 +122,8 @@ public final class DockUseGameTests {
         () -> {
           long charge = robot.state().energy().amount();
           helper.assertTrue(charge > LOW.amount(), NOT_CHARGED);
-          helper.assertValueEqual(dock.energy().amount() + charge, total, LOST_ENERGY);
+          DockScene.assertOnlyStandbyLost(
+              helper, total, dock.energy().amount() + charge, LOST_ENERGY);
           helper.assertBlockProperty(DOCK, InductionDockBlock.STATUS, DockStatusProperty.CHARGING);
           helper.succeed();
         });

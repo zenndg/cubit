@@ -51,8 +51,12 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
   private static final int SLOTS_PER_ROW = 9;
   private static final int INPUT_FIRST = 1;
 
+  public static final int DISASSEMBLY_X = 9;
+  public static final int DISASSEMBLY_Y = 37;
+
   private static final int OUTPUT_FIRST = INPUT_FIRST + DeskSpec.MAX_SLOTS;
-  private static final int DESK_SLOTS = OUTPUT_FIRST + DeskSpec.MAX_SLOTS;
+  private static final int DISASSEMBLY_SLOT = OUTPUT_FIRST + DeskSpec.MAX_SLOTS;
+  private static final int DESK_SLOTS = DISASSEMBLY_SLOT + 1;
 
   private final Predicate<Player> stillValid;
   private final ContainerData values;
@@ -62,7 +66,9 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
       NonNullList.withSize(DeskGrid.CELLS, ItemStack.EMPTY);
   private final Containers containers;
   private final CascadeMenuPart cascade;
+  private final DisassemblyMenuPart disassembly;
   private boolean storageShown;
+  private boolean disassemblyShown;
 
   private EngineeringDeskMenu(
       int containerId,
@@ -75,6 +81,8 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
     this.values = values;
     this.containers = containers;
     this.cascade = desk == null ? CascadeMenuPart.onClient() : CascadeMenuPart.onServer(desk);
+    this.disassembly =
+        desk == null ? DisassemblyMenuPart.onClient() : DisassemblyMenuPart.onServer(desk);
     this.stillValid =
         desk == null
             ? player -> true
@@ -86,8 +94,12 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
     addSlot(new EnergySlot(containers.energySlot()));
     addStorage(containers.input(), INPUT_X, true, playerInventory.player);
     addStorage(containers.output(), OUTPUT_X, false, playerInventory.player);
+    addSlot(
+        new DisassemblySlot(
+            disassembly, cascade, playerInventory.player.level(), () -> disassemblyShown));
     addDataSlots(values);
     addDataSlots(cascade.data());
+    addDataSlots(disassembly.data());
     addPlayerSlots(playerInventory);
   }
 
@@ -151,6 +163,7 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
   public void broadcastChanges() {
     refresh.run();
     cascade.refresh();
+    disassembly.refresh();
     super.broadcastChanges();
   }
 
@@ -159,9 +172,11 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
     if (desk == null || !(player instanceof ServerPlayer server) || !stillValid(player)) {
       return false;
     }
-    if (id >= CascadeMenuPart.MINUS && id <= CascadeMenuPart.NEW_PLAN
-        || id >= CascadeMenuPart.CHOOSE_FIRST) {
+    if (CascadeMenuPart.owns(id)) {
       return !cascade.locks() && cascade.click(server, id);
+    }
+    if (DisassemblyMenuPart.owns(id)) {
+      return !cascade.locks() && disassembly.click(server, id);
     }
     return !cascade.locks() && (take(server, id) || DeskControl.click(desk, server, marks, id));
   }
@@ -179,7 +194,7 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
 
   /** What does not fit in the inventory stays in the output. */
   private void takeAll(ServerPlayer player, ItemStack result) {
-    for (int index = OUTPUT_FIRST; index < DESK_SLOTS; index++) {
+    for (int index = OUTPUT_FIRST; index < DISASSEMBLY_SLOT; index++) {
       if (DeskResult.matches(slots.get(index).getItem(), result)) {
         quickMoveStack(player, index);
       }
@@ -206,8 +221,9 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
   }
 
   /** The tab the client shows. Only the slots of that tab can be clicked. */
-  public void showStorage(boolean shown) {
-    storageShown = shown;
+  public void showTab(boolean storage, boolean disassemble) {
+    storageShown = storage;
+    disassemblyShown = disassemble;
   }
 
   public boolean storageShown() {
@@ -236,6 +252,10 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
 
   public CascadeMenuPart cascade() {
     return cascade;
+  }
+
+  public DisassemblyMenuPart disassembly() {
+    return disassembly;
   }
 
   /** What the input and the output have, for the plan the client shows (answer 2021). */
@@ -312,10 +332,14 @@ public final class EngineeringDeskMenu extends AbstractContainerMenu {
     return before;
   }
 
-  /** Materials go to the input, and redstone that is not a material goes to the energy slot. */
+  /**
+   * On the Disassemble tab, an item that comes apart goes to its slot. Materials go to the input,
+   * and redstone that is not a material goes to the energy slot.
+   */
   private boolean moveIntoDesk(ItemStack stack) {
     int activeEnd = INPUT_FIRST + Math.max(slots(), 0);
-    return !cascade.locks() && moveItemStackTo(stack, INPUT_FIRST, activeEnd, false)
+    return disassemblyShown && moveItemStackTo(stack, DISASSEMBLY_SLOT, DESK_SLOTS, false)
+        || !cascade.locks() && moveItemStackTo(stack, INPUT_FIRST, activeEnd, false)
         || moveItemStackTo(stack, 0, INPUT_FIRST, false);
   }
 

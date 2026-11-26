@@ -1170,7 +1170,7 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 10 | Na aba Estoque, ponha 7 ferros, 1 redstone e 1 obsidiana na entrada; ponha terra | Os materiais entram, e a terra não |
 | 11 | Sem energia | `No energy`, e nada sai da entrada |
 | 12 | Ponha redstone no slot de energia | A barra sobe 5k por pó, e começa `Crafting` |
-| 13 | Espere 5 s | Sai uma `Toolbox` na saída, e a energia cai 2.500 FE |
+| 13 | Espere 5 s | Sai uma `Toolbox` na saída, e a energia cai 3.500 FE |
 | 14 | Esvazie a entrada no meio do pedido | `Missing materials`, e o progresso continua quando os materiais voltam |
 | 15 | Ponha um bloco de redstone ao lado | `Redstone signal`, e a mesa pausa |
 | 16 | Ligue um comparador | O sinal acompanha o que falta do pedido, de 15 a 0 |
@@ -1185,6 +1185,20 @@ As regras estão em [`mesa-de-engenharia.md`](../funcionalidades/mesa-de-engenha
 | 25 | Peça 2 Cubits, com as peças de só um na saída | Ela faz um Cubit, puxa as peças e pausa em `Missing materials` até as peças do segundo chegarem |
 | 26 | Com o jogo em português | `Mesa de Engenharia`, `Projeto`, `Estoque` e os estados em português |
 | 27 | Na aba Projeto, compare `0 / 0` com o maior pedido, `256 / 256` no Ultimate | O −, o + e o `Cancel` alinhados às bordas do quadro dos slots, com um vão pequeno ao lado dos números, que encolhem quando não cabem |
+
+### Gasto do Dock
+
+As regras estão em [`energia.md`](../funcionalidades/energia.md#induction-dock) (issue #279). Use um config novo.
+
+| # | Faça | Espere |
+|---|---|---|
+| 1 | Ponha um Dock Base com energia, sem sol e sem Cubit, e abra a tela | `No input · Uses 3 FE/t`, e o estoque cai 60 FE por segundo |
+| 2 | Suba o Dock de tier | `Uses 8`, `25` e `60 FE/t` |
+| 3 | Deixe o estoque zerar | A tela do Dock desliga, sem gasto na linha, e nada fica negativo |
+| 4 | Ponha 1 redstone | Liga de novo |
+| 5 | Com um Cubit carregando e sol | Recarrega como antes, e o gasto aparece na linha |
+| 6 | Encha o estoque com cabo ou sol, e espere | `Full · Uses 3 FE/t`, sem piscar |
+| 7 | Com o jogo em português | `Sem entrada · Gasta 3 FE/t` |
 
 ### Usabilidade da tela
 
@@ -1585,7 +1599,7 @@ Antes, apague o `config/cubit-common.toml` da instância de teste (pergunta 2324
 
 | # | Faça | Espere |
 |---|---|---|
-| 1 | Faça as peças e os dois blocos na mesa, com o Advanced Module | Na categoria `Dock and Network`, e o Transceptor e a Âncora em Shared parts |
+| 1 | Faça as peças e os dois blocos na mesa, num mundo novo, sem nenhum Module | Na categoria `Dock and Network`, e o Transceptor e a Âncora em Shared parts |
 | 2 | Coloque o Servidor e o Relay no mesmo chunk | Pareiam sozinhos, e o LED fica ciano |
 | 3 | Coloque um segundo Servidor e um segundo Relay no chunk, também com outro player | Recusados, com o motivo |
 | 4 | Olhe os dois de dia, à noite, na chuva e cobertos | O painel abre com o sol. Só o Ultimate gera à noite, e nenhum na chuva |
@@ -1601,6 +1615,14 @@ Antes, apague o `config/cubit-common.toml` da instância de teste (pergunta 2324
 | 14 | Olhe o Relay do amanhecer ao anoitecer | O painel se desdobra em etapas, acompanha o sol e se guarda, com os sons |
 | 15 | Afaste-se uns 20 blocos | Os loops somem |
 | 16 | Em português | Textos sem sobreposição |
+| 17 | Tire itens de um slot com 128, com clique, Shift + clique, tecla de atalho e soltar, e reabra o mundo | Sai no máximo uma pilha normal por vez, e os 128 continuam no slot ao voltar |
+| 18 | Quebre o Servidor com o Relay ao lado, e recoloque | O painel se guarda, e a faixa fica cinza, com o motivo na tela. Com o Servidor, tudo volta |
+| 19 | Num servidor, saia com o dono, e entre de novo | O chunk do Servidor sai, e volta quando ele entra |
+| 20 | Zere a bateria e devolva a energia aos poucos | O chunk sai, e volta com o que paga 60 s: 54 mil FE num Base sem Relay |
+| 21 | Coloque um Dock, um Servidor e um Solar Relay novos. Confirme um nome num, deixe vazio noutro e feche com Esc no terceiro. Quebre e recoloque | A janela abre com o nome padrão no campo. O primeiro fica com o nome dado, e os outros, com o padrão. Ao recolocar, não abre |
+| 22 | Com o Servidor Base cheio, sem sol, olhe o Fluxo, passe o mouse na linha `Server and chunk` e ponha o Relay | 45 FE/t, e 47 com o Relay. O mouse mostra as três partes, e o tempo do UPS conta com tudo |
+| 23 | Desligue a chave do chunk | O gasto do Servidor continua, sem os 25 do chunk |
+| 24 | Ligue o `View` e segure o Tablet, solte o Tablet, e olhe com outro player | A parede ciano, de 1 px, em volta do chunk, até 16 blocos acima. Sem o Tablet, some, e o outro player não vê. Reabrir o mundo e quebrar e recolocar a mantêm |
 
 ### Entrega 4: Signal Antenna e chunks
 
@@ -1764,9 +1786,14 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 19:45 | Acrescenta o gasto do Dock e o custo novo da mesa (perguntas 2435, 2441 e 2467). |
 | Zennd | 2026-11-25 17:34 | Acrescenta o renascer com o chunk descarregado e chamar o Cubit (perguntas 2450 a 2500). |
 | Zennd | 2026-11-25 16:11 | Acrescenta a usabilidade da tela da Engineering Desk (perguntas 2470 a 2481 e 2492). |
+| Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado e a parede do chunk à Entrega 3 da Network (perguntas 2438, 2440 e 2448). |
+| Zennd | 2026-11-25 14:30 | Acrescenta a janela do nome à Entrega 3 da Network (pergunta 2422). |
+| Zennd | 2026-11-25 14:00 | Tira o Advanced Module das receitas da Entrega 3 da Network (pergunta 2419). |
 | Zennd | 2026-11-25 12:27 | Tira o bloqueio das receitas dos roteiros da mesa, das peças, da Power Bank e da cascata (pergunta 2400). |
+| Zennd | 2026-11-25 09:52 | Leva o dono offline e os slots de 128 à Entrega 3 da Network (perguntas 2368, 2369 e 2374). |
 | Zennd | 2026-11-25 00:02 | Completa o teste da área desenhada da Network (perguntas 2350 a 2361). |
 | Zennd | 2026-11-24 23:38 | Acrescenta a medida dos quadros por segundo da Network (pergunta 2346). |
 | Zennd | 2026-11-24 22:44 | Escreve o roteiro das entregas da Network (perguntas 2293 e 2318). |

@@ -1,7 +1,7 @@
 package io.github.zenndg.cubit.block;
 
 import io.github.zenndg.cubit.CubitMod;
-import io.github.zenndg.cubit.domain.dock.DockName;
+import io.github.zenndg.cubit.domain.ownership.BlockName;
 import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
@@ -17,7 +17,7 @@ public final class DockXpTelling {
   private DockXpTelling() {}
 
   /** False when the owner is not there to read it, so it waits for them. */
-  public static boolean tell(Level level, BlockPos dock, Optional<UUID> owner, DockName name) {
+  public static boolean tell(Level level, BlockPos dock, Optional<UUID> owner, BlockName name) {
     int blocks = CubitMod.CONFIG.xp().dockNoticeBlocks();
     Player player = owner.map(level::getPlayerByUUID).orElse(null);
     if (player == null || !player.position().closerThan(Vec3.atCenterOf(dock), blocks)) {

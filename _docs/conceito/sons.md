@@ -36,6 +36,22 @@ Os arquivos ficam em `src/main/resources/assets/cubit/sounds/induction_dock/`, a
 | `panel_lock.ogg` | As duas metades se unindo no centro, com a trava (passo 6). Toca aos 5,3 s da montagem | Menos de 0,5 s. Um clique metálico firme e satisfatório, com um bipe curto de confirmação, da família dos bipes do Cubit |
 | `panel_retract.ogg` | A desmontagem do painel, do destravar ao fechar das portas. Toca quando o painel começa a guardar | Cerca de 6 s. O giro do painel deixando de inclinar e o destravar curto (pergunta 1922), as lâminas se fechando em sanfona com os estalos ao contrário, o zumbido dos servos descendo de tom e o deslize das portas fechando, terminando num assentar macio (perguntas 1894 e 1895) |
 
+## Network Server e Solar Relay
+
+Os arquivos ficam em `src/main/resources/assets/cubit/sounds/network_server/` e `solar_relay/`, a partir dos `.wav` gerados por prompt e aceitos, três deles ajustados, convertidos para Ogg, mono e 48 kHz, com os originais em `tmp/wav/network/` (perguntas 2339, 2392, 2396 e 2398). Os IDs são `cubit:network_server.{nome}` e `cubit:solar_relay.{nome}`, com as legendas em inglês e português, ouvidos até 16 blocos. O servidor toca os sons de cada momento, e o cliente, os loops, só com o bloco em uso. Ao carregar o mundo, nenhum toca.
+
+| Arquivo | Para que é usado | Duração |
+|---|---|---|
+| `network_server/startup.ogg` | A partida, quando a bateria sai de zero | 3 s |
+| `network_server/fans_loop.ogg` | As ventoinhas, em loop, só com energia passando (pergunta 2375) | 4 s |
+| `network_server/power_loss.ogg` | A queda, quando a bateria zera | 1,5 s |
+| `network_server/upgrade.ogg` | Ao subir o tier com um Module | 1,2 s |
+| `network_server/ups_warning.ogg` | O aviso de UPS, uma vez ao descer para a reserva | 0,9 s |
+| `solar_relay/panel_open.ogg` | O painel abrindo | 4 s |
+| `solar_relay/panel_close.ogg` | O painel fechando | 4 s |
+| `solar_relay/panel_lock.ogg` | A trava, aos 3,2 s da abertura | 0,4 s |
+| `solar_relay/transmit_loop.ogg` | A transmissão, em loop, enquanto o sol vai ao Servidor (pergunta 2375) | 4 s |
+
 ## Patrulheiro Galático
 
 Os arquivos ficam em `src/main/resources/assets/cubit/sounds/general_robot/patroller/`, a partir dos `.wav` fornecidos pelo desenvolvedor, convertidos para Ogg, com os originais em `tmp/wav/patrulheiro/` (pergunta 1575). O card tem a prioridade mais alta, e os sons seguem o mesmo cuidado do visual (pergunta 1560). Todos têm o tom de ficção científica alegre do Cubit: nada de tiro realista nem de zumbido que lembre o sabre de luz.
@@ -63,6 +79,7 @@ Os arquivos ficam em `src/main/resources/assets/cubit/sounds/general_robot/patro
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 14:47 | Acrescenta os sons do Network Server e do Solar Relay (pergunta 2339). |
 | Zennd | 2026-11-23 03:03 | Ajusta os sons do painel do Dock à animação e diz quando tocam (perguntas 1920 a 1922). |
 | Zennd | 2026-11-23 01:17 | Ajusta os sons do painel do Dock à transformação em sanfona de cerca de 6 s (perguntas 1894 e 1895). |
 | Zennd | 2026-11-22 23:45 | Descreve os três sons do painel do Dock (perguntas 1853 e 1861). |

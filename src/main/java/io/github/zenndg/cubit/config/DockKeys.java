@@ -20,6 +20,7 @@ final class DockKeys {
   private static final String SLOTS = "dock_storage_slots";
   private static final String SOLAR = "dock_solar_per_tick";
   private static final String SOLAR_NIGHT = "dock_solar_night_per_tick";
+  private static final String STANDBY = "dock_standby_per_tick";
   private static final String XP_TANK = "dock_xp_tank_capacity";
   private static final String XP_TRANSFER = "dock_xp_transfer_per_tick";
   private static final int MIN_ZERO = 0;
@@ -32,6 +33,7 @@ final class DockKeys {
   private final ModConfigSpec.IntValue slots;
   private final ModConfigSpec.IntValue solar;
   private final ModConfigSpec.IntValue solarNight;
+  private final ModConfigSpec.IntValue standby;
   private final ModConfigSpec.IntValue xpTank;
   private final ModConfigSpec.IntValue xpTransfer;
 
@@ -51,6 +53,9 @@ final class DockKeys {
     solarNight =
         builder.defineInRange(
             SOLAR_NIGHT, (int) defaults.solar().nightPerTick().amount(), MIN_ZERO, MAX_ENERGY);
+    standby =
+        builder.defineInRange(
+            STANDBY, (int) defaults.standbyPerTick().amount(), MIN_ZERO, MAX_ENERGY);
     xpTank = fluid(builder, XP_TANK, defaults.xp().tankCapacity());
     xpTransfer = fluid(builder, XP_TRANSFER, defaults.xp().transferPerTick());
   }
@@ -67,7 +72,8 @@ final class DockKeys {
         new Energy(recharge.get()),
         rows,
         new SolarOutput(new Energy(solar.get()), new Energy(solarNight.get())),
-        new DockXpSpec(xpTank.get(), xpTransfer.get()));
+        new DockXpSpec(xpTank.get(), xpTransfer.get()),
+        new Energy(standby.get()));
   }
 
   private static ModConfigSpec.IntValue fluid(

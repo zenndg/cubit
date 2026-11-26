@@ -51,6 +51,10 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
      - como convivem com as asas do Patrulheiro, que já fazem voos curtos;
      - o estado no save e no item (regra 18).
 
+## Engineering Desk
+
+1. **Desmontar itens do mod** (perguntas 2504 e 2505): saiu do backlog, com o conceito em [`desmontar-na-mesa.md`](funcionalidades/desmontar-na-mesa.md) (pergunta 2535).
+
 ## Robô de transporte
 
 1. **Um segundo robô, o caminhão** (pergunta 2197).
@@ -82,6 +86,9 @@ Uma ideia que já tem documento próprio só aparece aqui com o link, para ter u
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 21:20 | Leva desmontar na mesa ao conceito próprio (pergunta 2535). |
+| Zennd | 2026-11-25 19:44 | Leva desmontar itens à entrega 3 da Network (pergunta 2505). |
+| Zennd | 2026-11-25 19:06 | Acrescenta desmontar itens na Engineering Desk (pergunta 2504). |
 | Zennd | 2026-11-25 17:33 | Tira o Cubit que se perde num teleporte longo, que chamar o Cubit resolve (pergunta 2461). |
 | Zennd | 2026-11-24 13:34 | Acrescenta o robô de transporte (pergunta 2197). |
 | Zennd | 2026-11-24 08:35 | Acrescenta os acessórios do Cubit (pergunta 2096). |

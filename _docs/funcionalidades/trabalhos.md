@@ -132,7 +132,7 @@ A Fase 5 é entregue como um kanban, no GitHub Project "Cubit · Fase 5", um car
 6. Cozinheiro (#197)
 7. Patrulheiro Galático, no lugar do Defensor (#198)
 8. XP Cubit e Dock, o XP como fluido no tanque do Cubit e do Dock (#244, [`xp.md`](xp.md))
-9. Network, a rede sem fio, em 9 entregas ([`network.md`](network.md), #205, #206 e #263)
+9. Network, a rede sem fio, em 9 entregas ([`network.md`](network.md), #263 a #271, no lugar das #205 e #206, pergunta 2292)
 10. Lenhador, uma profissão nova, ainda sem issue
 11. Pecuarista (#201)
 12. Mecânico (#203)
@@ -143,7 +143,7 @@ A Fase 5 é entregue como um kanban, no GitHub Project "Cubit · Fase 5", um car
 17. Construtor (#200)
 18. Storage wireless (#207)
 
-A ordem segue a pergunta 251, mudada na 1666, na 1777 e na 1788: depois do Patrulheiro, o XP Cubit e Dock, que vai ao refinamento quando começar (perguntas 1787 a 1789), o Servidor e as Antenas, com a energia sem fio, que ainda vai ao refinamento, e o carregamento de chunks (perguntas 1777 a 1779), e então o Lenhador, o Pecuarista, o Mecânico, o Trader, o Explorador e o Alquimista, e só então o Minerador e o Construtor (perguntas 1666, 1669 e 1927). Toda profissão entra com o seu visual, no próprio card, e a personalização visual por card (#202) saiu do roteiro (pergunta 1930).
+A ordem segue a pergunta 251, mudada na 1666, na 1777 e na 1788: depois do Patrulheiro, o XP Cubit e Dock, já entregue (perguntas 1787 a 1789), a Network, com o Servidor, o Solar Relay e a antena, em andamento (perguntas 1777 a 1779 e 2196 a 2366), e então o Lenhador, o Pecuarista, o Mecânico, o Trader, o Explorador e o Alquimista, e só então o Minerador e o Construtor (perguntas 1666, 1669 e 1927). Toda profissão entra com o seu visual, no próprio card, e a personalização visual por card (#202) saiu do roteiro (pergunta 1930).
 
 ## Pendente
 
@@ -155,6 +155,7 @@ A ordem segue a pergunta 251, mudada na 1666, na 1777 e na 1788: depois do Patru
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 09:41 | Atualiza a Network na ordem de entrega, com as issues novas (perguntas 2292 e 2366). |
 | Zennd | 2026-11-25 00:23 | Leva o Organizador e o Cozinheiro ao Advanced e cita a área desenhada (perguntas 2235, 2236, 2240 e 2365). |
 | Zennd | 2026-11-24 22:42 | Troca o Servidor, a antena e a viagem até o Dock pelo `network.md` (pergunta 2325). |
 | Zennd | 2026-11-23 03:25 | Põe o Trader depois do Mecânico e tira a personalização visual por card do roteiro (perguntas 1927 e 1930). |

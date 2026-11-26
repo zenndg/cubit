@@ -1,0 +1,118 @@
+package io.github.zenndg.cubit.block;
+
+import io.github.zenndg.cubit.domain.ownership.BlockName;
+import io.github.zenndg.cubit.domain.robot.RobotName;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.function.Supplier;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+
+/**
+ * Who a block with an owner is: its own id, drawn when it is placed or, for an old one, when it
+ * loads, and the name the owner gave it, shown as its kind and eight digits without one (answers
+ * 1867 to 1870). The id never changes when the block is broken and placed again.
+ */
+public final class BlockIdentity {
+  private static final String NAME_KEY = "CustomName";
+  private static final String NO_NAME = "";
+
+  private final Kept kept;
+  private final Runnable changed;
+  private UUID id;
+  private Optional<String> given = Optional.empty();
+
+  BlockIdentity(Kept kept, Runnable changed) {
+    this.kept = kept;
+    this.changed = changed;
+  }
+
+  /** An old block without an id draws one now, and changes nothing else (rule 18). */
+  public UUID id() {
+    if (id == null) {
+      id = UUID.randomUUID();
+    }
+    return id;
+  }
+
+  /** What it is, for the title of the window of its name. */
+  BlockName.Kind kind() {
+    return kept.kind();
+  }
+
+  /** Where the item keeps the id. */
+  DataComponentType<UUID> component() {
+    return kept.component().get();
+  }
+
+  public BlockName name() {
+    return BlockName.of(kept.kind(), id(), given.flatMap(RobotName::typed));
+  }
+
+  /** The rules of the name of the Cubit; an empty name goes back to the standard (1868). */
+  public boolean rename(String typed) {
+    Optional<RobotName> name = RobotName.typed(typed);
+    if (name.isEmpty()) {
+      return false;
+    }
+    given = BlockName.kept(name);
+    changed.run();
+    return true;
+  }
+
+  /** The name tag of the game names the block too, and is used up, as on a mob (answer 1868). */
+  boolean renameByTag(Player player, ItemStack stack) {
+    Component tagged = stack.get(DataComponents.CUSTOM_NAME);
+    if (!stack.is(Items.NAME_TAG) || tagged == null || !rename(tagged.getString())) {
+      return false;
+    }
+    stack.consume(1, player);
+    return true;
+  }
+
+  void save(CompoundTag tag) {
+    tag.putUUID(kept.idKey(), id());
+    given.ifPresent(name -> tag.putString(NAME_KEY, name));
+  }
+
+  /**
+   * The id and the name the client shows over the block (answer 2517). An empty name travels too,
+   * so a name taken away goes back to the standard there, and the save never changes.
+   */
+  void show(CompoundTag tag) {
+    save(tag);
+    if (given.isEmpty()) {
+      tag.putString(NAME_KEY, NO_NAME);
+    }
+  }
+
+  void load(CompoundTag tag) {
+    id = tag.hasUUID(kept.idKey()) ? tag.getUUID(kept.idKey()) : id;
+    given =
+        tag.contains(NAME_KEY) ? BlockName.kept(RobotName.typed(tag.getString(NAME_KEY))) : given;
+  }
+
+  /** The item gives back the id and the name it kept, as an anvil name does. */
+  void apply(UUID saved, Component name) {
+    if (saved != null) {
+      id = saved;
+    }
+    if (name != null) {
+      given = BlockName.kept(RobotName.typed(name.getString()));
+    }
+  }
+
+  void collect(DataComponentMap.Builder components) {
+    components.set(kept.component().get(), id());
+    given.ifPresent(name -> components.set(DataComponents.CUSTOM_NAME, Component.literal(name)));
+  }
+
+  /** What each block calls its id: the start of the name, the key of the save and the component. */
+  record Kept(BlockName.Kind kind, String idKey, Supplier<DataComponentType<UUID>> component) {}
+}

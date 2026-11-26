@@ -1,5 +1,6 @@
 package io.github.zenndg.cubit.domain.dock;
 
+import io.github.zenndg.cubit.domain.energy.EnergyStock;
 import io.github.zenndg.cubit.domain.xp.XpConversion;
 import io.github.zenndg.cubit.domain.xp.XpTank;
 
@@ -12,7 +13,7 @@ public final class DockXpRules {
   private DockXpRules() {}
 
   /** The tank and the stock after it, and the points that became energy or were deleted. */
-  public record Received(XpTank tank, DockStock stock, int converted, int deleted, boolean full) {
+  public record Received(XpTank tank, EnergyStock stock, int converted, int deleted, boolean full) {
     /** More came than fit, which the owner is told of (answer 2103). */
     public boolean overflowed() {
       return full && converted + deleted > 0;
@@ -20,11 +21,11 @@ public final class DockXpRules {
   }
 
   /** The tank and the stock after it, and the points that became energy. */
-  public record Converted(XpTank tank, DockStock stock, int points) {}
+  public record Converted(XpTank tank, EnergyStock stock, int points) {}
 
   /** The Dock always takes all of it: what fits nowhere is deleted (answers 1831 and 2061). */
   public static Received receive(
-      DockXpMode mode, XpTank tank, DockStock stock, int points, XpConversion conversion) {
+      DockXpMode mode, XpTank tank, EnergyStock stock, int points, XpConversion conversion) {
     if (mode == DockXpMode.DELETE_ALL) {
       return new Received(tank, stock, 0, points, false);
     }
@@ -41,7 +42,7 @@ public final class DockXpRules {
 
   /** Only Convert all spends what is stored, and waits while the battery is full (1935, 2101). */
   public static Converted convert(
-      DockXpMode mode, XpTank tank, DockStock stock, int budget, XpConversion conversion) {
+      DockXpMode mode, XpTank tank, EnergyStock stock, int budget, XpConversion conversion) {
     if (mode != DockXpMode.CONVERT_ALL) {
       return new Converted(tank, stock, 0);
     }

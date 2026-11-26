@@ -16,40 +16,43 @@ class DeskSpecTest {
 
   @Test
   void acceptsTheBaseNumbers() {
-    assertDoesNotThrow(() -> new DeskSpec(CAPACITY, CRAFT_TICKS, SLOTS, MAX_ORDER, false));
+    assertDoesNotThrow(() -> new DeskSpec(CAPACITY, CRAFT_TICKS, SLOTS, MAX_ORDER, false, false));
   }
 
   @Test
   void rejectsAnEmptyBattery() {
     assertThrows(
         IllegalArgumentException.class,
-        () -> new DeskSpec(Energy.ZERO, CRAFT_TICKS, SLOTS, MAX_ORDER, false));
+        () -> new DeskSpec(Energy.ZERO, CRAFT_TICKS, SLOTS, MAX_ORDER, false, false));
   }
 
   @Test
   void rejectsACraftWithoutTime() {
     assertThrows(
-        IllegalArgumentException.class, () -> new DeskSpec(CAPACITY, 0, SLOTS, MAX_ORDER, false));
+        IllegalArgumentException.class,
+        () -> new DeskSpec(CAPACITY, 0, SLOTS, MAX_ORDER, false, false));
   }
 
   @Test
   void acceptsSlotsOutOfWholeRows() {
-    assertDoesNotThrow(() -> new DeskSpec(CAPACITY, CRAFT_TICKS, BASE_SLOTS, MAX_ORDER, false));
+    assertDoesNotThrow(
+        () -> new DeskSpec(CAPACITY, CRAFT_TICKS, BASE_SLOTS, MAX_ORDER, false, false));
   }
 
   @Test
   void rejectsNoSlotsAndTooMany() {
     assertThrows(
         IllegalArgumentException.class,
-        () -> new DeskSpec(CAPACITY, CRAFT_TICKS, 0, MAX_ORDER, false));
+        () -> new DeskSpec(CAPACITY, CRAFT_TICKS, 0, MAX_ORDER, false, false));
     assertThrows(
         IllegalArgumentException.class,
-        () -> new DeskSpec(CAPACITY, CRAFT_TICKS, TOO_MANY, MAX_ORDER, false));
+        () -> new DeskSpec(CAPACITY, CRAFT_TICKS, TOO_MANY, MAX_ORDER, false, false));
   }
 
   @Test
   void rejectsAnOrderOfNothing() {
     assertThrows(
-        IllegalArgumentException.class, () -> new DeskSpec(CAPACITY, CRAFT_TICKS, SLOTS, 0, false));
+        IllegalArgumentException.class,
+        () -> new DeskSpec(CAPACITY, CRAFT_TICKS, SLOTS, 0, false, false));
   }
 }

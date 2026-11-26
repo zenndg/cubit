@@ -1,8 +1,8 @@
 package io.github.zenndg.cubit.menu;
 
-import io.github.zenndg.cubit.domain.dock.DockPanelState;
-import io.github.zenndg.cubit.domain.dock.DockSunState;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.PanelState;
+import io.github.zenndg.cubit.domain.energy.SunState;
 import net.minecraft.world.inventory.ContainerData;
 
 /** The numbers of the Solar tab of the dock screen (answers 1391, 1396, 1865 and 1949). */
@@ -22,12 +22,12 @@ public record DockSolarView(ContainerData values) {
     return DockScreenValues.isTrue(values, DockScreenValues.SOLAR_NIGHT);
   }
 
-  public DockSunState sun() {
-    return ScreenEnums.of(DockSunState.values(), values.get(DockScreenValues.SUN_STATE));
+  public SunState sun() {
+    return ScreenEnums.of(SunState.values(), values.get(DockScreenValues.SUN_STATE));
   }
 
   /** Where the panel is: in the cabinet, on its way or on the tower (answer 1865). */
-  public DockPanelState panel() {
-    return ScreenEnums.of(DockPanelState.values(), values.get(DockScreenValues.PANEL));
+  public PanelState panel() {
+    return ScreenEnums.of(PanelState.values(), values.get(DockScreenValues.PANEL));
   }
 }

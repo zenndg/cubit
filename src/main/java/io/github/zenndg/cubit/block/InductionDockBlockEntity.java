@@ -1,17 +1,17 @@
 package io.github.zenndg.cubit.block;
 
 import io.github.zenndg.cubit.CubitMod;
-import io.github.zenndg.cubit.domain.dock.DockInputMeter;
+import io.github.zenndg.cubit.domain.dock.DockSpec;
 import io.github.zenndg.cubit.domain.dock.DockStatus;
-import io.github.zenndg.cubit.domain.dock.DockStock;
 import io.github.zenndg.cubit.domain.dock.DockStorageRules;
 import io.github.zenndg.cubit.domain.energy.Battery;
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.EnergyStock;
 import io.github.zenndg.cubit.domain.energy.SolarOutput;
+import io.github.zenndg.cubit.domain.ownership.BlockName;
+import io.github.zenndg.cubit.domain.ownership.FloatingName;
 import io.github.zenndg.cubit.domain.ownership.Ownership;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
-import io.github.zenndg.cubit.item.EnergySlotItems;
-import io.github.zenndg.cubit.item.PowerBankItem;
 import io.github.zenndg.cubit.item.SavedDockXp;
 import io.github.zenndg.cubit.item.SavedEnergy;
 import io.github.zenndg.cubit.registry.CubitBlockEntities;
@@ -21,6 +21,7 @@ import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -28,7 +29,6 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
@@ -48,53 +48,40 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * The state of a dock: its owner, its energy, its input slot and its storage. The rules live in the
  * domain.
  */
-public final class InductionDockBlockEntity extends BlockEntity implements GeoBlockEntity {
+public final class InductionDockBlockEntity extends BlockEntity
+    implements GeoBlockEntity, NamedBlock, ShowsName {
   private static final String ENERGY_KEY = "Energy";
   private static final String SLOT_KEY = "Slot";
   private static final int SLOT = 0;
-  private static final int SLOT_SIZE = 1;
-  private static final int ONE_ITEM = 1;
 
-  private final SimpleContainer slot =
-      new SimpleContainer(SLOT_SIZE) {
-        @Override
-        public boolean canPlaceItem(int index, ItemStack stack) {
-          return EnergySlotItems.accepts(stack);
-        }
-
-        @Override
-        public void setChanged() {
-          InductionDockBlockEntity.this.setChanged();
-        }
-      };
-
-  private final DockTier tier = new DockTier();
+  private final EnergySlot slot = new EnergySlot(this::setChanged);
+  private final BlockTier<DockSpec> tier = DockParts.tier();
   private final DockSolarPanel panel = new DockSolarPanel();
-  private final DockIdentity identity = new DockIdentity(this::setChanged);
+  private final BlockIdentity identity = DockParts.identity(this::changeShown);
   private final DockXp xp = new DockXp(this::setChanged, () -> tier.spec().xp(), this::isOwner);
 
   /** The Toolbox and the Power Banks, which the stock charges (answers 947 to 959). */
   private final DockStorage storage =
       new DockStorage(this::setChanged, () -> tier.spec().storageSlots());
 
-  private final IEnergyStorage energyStorage = new DockEnergyStorage(this);
+  private final BlockEnergy energy =
+      new BlockEnergy(start(), InductionDockBlockEntity::inputPerTick, slot, this::setChanged);
 
-  private final IItemHandler itemHandler = DockItemHandler.of(slot, storage.handler());
+  private final IEnergyStorage energyStorage = new InputOnlyEnergy(energy);
 
-  private final DockOwner owner = new DockOwner();
+  private final IItemHandler itemHandler = InputFirstItems.of(slot, storage.handler());
+
+  private final BlockOwner owner = new BlockOwner();
   private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
   private final DockPresence presence = new DockPresence();
-  private DockStock stock = emptyStock();
-  private Energy inputLeft = inputPerTick();
-  private final DockInputMeter inputMeter = new DockInputMeter();
-  private Energy entered = Energy.ZERO;
 
   public InductionDockBlockEntity(BlockPos pos, BlockState state) {
     super(CubitBlockEntities.INDUCTION_DOCK.get(), pos, state);
   }
 
-  private static DockStock emptyStock() {
-    return DockStock.of(CubitMod.CONFIG.dockCatalog().dock(RobotTier.BASE).capacity(), Energy.ZERO);
+  private static BlockEnergy.Start start() {
+    Energy capacity = CubitMod.CONFIG.dockCatalog().dock(RobotTier.BASE).capacity();
+    return new BlockEnergy.Start(capacity, inputPerTick());
   }
 
   public Energy capacity() {
@@ -110,12 +97,13 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     return tier.spec().rechargePerTick();
   }
 
-  public DockSolarReading solar() {
+  public SolarReading solar() {
     return panel.reading(tier.spec().solar());
   }
 
   /** Its own id and the name the owner gave it (answers 1867 to 1870). */
-  public DockIdentity identity() {
+  @Override
+  public BlockIdentity identity() {
     return identity;
   }
 
@@ -130,7 +118,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
   /** The stock keeps its energy and grows to the new tier, and both halves show it (1373). */
   void upgradeTo(RobotTier next) {
     tier.set(next);
-    stock = DockStock.of(capacity(), energy());
+    energy.set(EnergyStock.of(capacity(), energy()));
     setChanged();
     if (level != null) {
       DockTierStates.show(level, worldPosition, next);
@@ -143,51 +131,50 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
 
   static void serverTick(
       Level level, BlockPos pos, BlockState state, InductionDockBlockEntity dock) {
-    dock.inputLeft = inputPerTick();
-    dock.inputMeter.record(dock.entered);
-    dock.entered = Energy.ZERO;
-    dock.useSlot();
+    dock.energy.tick();
+    dock.payStandby();
     dock.storage.dropRefused(level, pos);
     boolean chargesBanks =
         DockStorageRules.chargesBanks(dock.isOccupied(), dock.presence.robotFull());
-    dock.stock =
-        dock.storage.charge(dock.stock, chargesBanks, dock.rechargePerTick(), dock::setChanged);
+    EnergyStock stock =
+        dock.storage.charge(
+            dock.energy.stock(), chargesBanks, dock.rechargePerTick(), dock::setChanged);
     SolarOutput rates = dock.tier.spec().solar();
-    dock.stock = dock.panel.generate(level, pos, dock.stock, rates, dock::setChanged);
-    dock.stock = dock.xp.convert(dock.stock);
+    stock = dock.panel.generate(level, pos, stock, rates, dock::setChanged);
+    dock.energy.set(dock.xp.convert(stock));
     if (dock.panel.switched()) {
       level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
     }
     DockStatusProperty.show(level, pos, state, dock.status());
   }
 
-  /**
-   * Redstone becomes stock whole. A Power Bank empties into the stock like the cables, within the
-   * same input per tick, and stays in the slot when empty (answer 920).
-   */
-  private void useSlot() {
-    ItemStack stack = slot.getItem(SLOT);
-    if (PowerBankItem.is(stack)) {
-      DockPowerBanks.discharge(stack, offered -> receive(offered, false));
-      return;
-    }
-    Energy itemEnergy = EnergySlotItems.energyOf(stack);
-    if (stock.canTake(itemEnergy)) {
-      stack.shrink(ONE_ITEM);
-      stock = stock.take(itemEnergy);
-      entered = entered.plus(itemEnergy);
+  /** First in the tick, before the sun, the XP and the banks, so a full dock still shows it. */
+  private void payStandby() {
+    EnergyStock.Spent spent = energy.stock().spend(tier.spec().standby(energy()));
+    energy.set(spent.stock());
+    if (!spent.paid().isZero()) {
       setChanged();
     }
   }
 
+  /** What it spends for being on now, and nothing at zero (answer 2466). */
+  public Energy standbyCost() {
+    return tier.spec().standby(energy());
+  }
+
+  /** Full also when only the spending of a tick is missing (answer 2509). */
+  public boolean isFull() {
+    return tier.spec().isFull(energy());
+  }
+
   public DockStatus status() {
     return DockStatus.decide(
-        stock.energy().isEmpty(), isOccupied(), isOccupied() && presence.robotFull());
+        energy.stock().energy().isEmpty(), isOccupied(), isOccupied() && presence.robotFull());
   }
 
   /** What entered by cables and redstone, per tick, on average over the last second. */
   public Energy inputShown() {
-    return inputMeter.perTick();
+    return energy.inputShown();
   }
 
   public int waitingCount() {
@@ -222,16 +209,39 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     return owner.get();
   }
 
+  @Override
+  public DataComponentType<UUID> idComponent() {
+    return identity.component();
+  }
+
+  @Override
   public boolean isOwner(Player player) {
     return Ownership.owns(owner(), player.getUUID());
   }
 
   void setOwner(Player player) {
     owner.set(player.getUUID());
+    changeShown();
+  }
+
+  /** Saved, and told to the clients, which show the owner and the name. */
+  private void changeShown() {
     setChanged();
     if (level != null) {
       level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
     }
+  }
+
+  @Override
+  public BlockName shownName() {
+    return identity.name();
+  }
+
+  /** Over the third block, with the panel out or not, so the name never jumps (2517). */
+  @Override
+  public FloatingName nameSpot() {
+    BlockPos pos = worldPosition;
+    return FloatingName.over(pos.getX(), pos.getY(), pos.getZ(), DockTop.DOCK_BLOCKS);
   }
 
   public void reportRobot(UUID robot, boolean full) {
@@ -255,16 +265,16 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
   }
 
   public Battery charge(Battery robot, Energy rate) {
-    DockStock.Transfer transfer = stock.charge(robot, rate);
-    stock = transfer.stock();
+    EnergyStock.Transfer transfer = energy.stock().charge(robot, rate);
+    energy.set(transfer.stock());
     setChanged();
     return transfer.robot();
   }
 
   /** The XP of the Cubit in the dock, which always takes all of it (answer 1831). */
   public void receiveXp(int points) {
-    DockXp.Taken taken = xp.take(stock, points);
-    stock = taken.stock();
+    DockXp.Taken taken = xp.take(energy.stock(), points);
+    energy.set(taken.stock());
     if (taken.tells() && DockXpTelling.tell(level, worldPosition, owner(), identity.name())) {
       xp.told();
     }
@@ -275,7 +285,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
   }
 
   public Energy energy() {
-    return stock.energy().charge();
+    return energy.energy();
   }
 
   public Container storage() {
@@ -295,26 +305,11 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
   }
 
   public int energyLevel(int steps) {
-    return stock.energy().level(steps);
+    return energy.stock().energy().level(steps);
   }
 
   boolean insert(ItemStack stack) {
     return storage.insertByClick(stack, slot);
-  }
-
-  Energy receive(Energy offered, boolean simulate) {
-    DockStock.Received received = stock.receive(offered, inputLeft);
-    if (!simulate) {
-      stock = received.stock();
-      inputLeft = inputLeft.minus(received.accepted());
-      entered = entered.plus(received.accepted());
-      setChanged();
-    }
-    return received.accepted();
-  }
-
-  long capacityAmount() {
-    return stock.energy().capacity().amount();
   }
 
   @Override
@@ -342,7 +337,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     panel.readSun(tag);
     identity.load(tag);
     xp.load(tag);
-    stock = DockStock.of(capacity(), SavedEnergy.of(tag.getLong(ENERGY_KEY)));
+    energy.set(EnergyStock.of(capacity(), SavedEnergy.of(tag.getLong(ENERGY_KEY))));
     slot.setItem(SLOT, DockShapes.savedStack(tag, SLOT_KEY, registries));
     storage.load(tag, registries, worldPosition);
   }
@@ -352,7 +347,7 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
     super.applyImplicitComponents(input);
     tier.set(input.getOrDefault(CubitDataComponents.DOCK_TIER.get(), RobotTier.BASE));
     long saved = input.getOrDefault(CubitDataComponents.DOCK_ENERGY.get(), 0L);
-    stock = DockStock.of(capacity(), SavedEnergy.of(saved));
+    energy.set(EnergyStock.of(capacity(), SavedEnergy.of(saved)));
     storage.apply(
         input.getOrDefault(CubitDataComponents.DOCK_STORAGE.get(), ItemContainerContents.EMPTY),
         worldPosition);
@@ -365,18 +360,19 @@ public final class InductionDockBlockEntity extends BlockEntity implements GeoBl
   protected void collectImplicitComponents(DataComponentMap.Builder components) {
     super.collectImplicitComponents(components);
     components.set(CubitDataComponents.DOCK_ENERGY.get(), energy().amount());
-    tier.collect(components);
+    components.set(CubitDataComponents.DOCK_TIER.get(), tier());
     components.set(CubitDataComponents.DOCK_STORAGE.get(), storage.contents());
     identity.collect(components);
     xp.collect(components);
   }
 
-  /** The owner, who decides who can break the block, and the panel travel to the client. */
+  /** The owner, who decides who can break the block, the panel and the name go to the client. */
   @Override
   public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
     CompoundTag tag = new CompoundTag();
     owner.save(tag);
     panel.writeSun(tag);
+    identity.show(tag);
     return tag;
   }
 

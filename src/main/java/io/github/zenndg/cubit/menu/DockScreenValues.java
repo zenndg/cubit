@@ -1,19 +1,13 @@
 package io.github.zenndg.cubit.menu;
 
 import io.github.zenndg.cubit.CubitMod;
-import io.github.zenndg.cubit.block.DockSolarReading;
 import io.github.zenndg.cubit.block.DockedRobot;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
-import io.github.zenndg.cubit.domain.energy.Energy;
-import io.github.zenndg.cubit.domain.energy.EnergyHalves;
+import io.github.zenndg.cubit.block.SolarReading;
 import io.github.zenndg.cubit.domain.robot.HealTime;
-import net.minecraft.world.inventory.ContainerData;
 
-/**
- * The numbers of the dock screen. The server reads them once per tick, and the menu copies them to
- * the client. Energy takes two values, because each one travels in 16 bits.
- */
-final class DockScreenValues implements ContainerData {
+/** The numbers of the dock screen, with the ones of the robot in the base. */
+final class DockScreenValues extends ScreenValues {
   static final int STOCK = 0;
   static final int CAPACITY = 2;
   static final int INPUT = 4;
@@ -34,73 +28,48 @@ final class DockScreenValues implements ContainerData {
   static final int SOLAR_MAX = 24;
   static final int PANEL = 26;
   static final int SOLAR_NIGHT = 27;
-  static final int COUNT = 28;
-  private static final int TRUE_VALUE = 1;
+  static final int STANDBY = 28;
+  static final int FULL = 30;
+  static final int COUNT = 31;
 
   private final InductionDockBlockEntity dock;
-  private final int[] values = new int[COUNT];
 
   DockScreenValues(InductionDockBlockEntity dock) {
+    super(COUNT);
     this.dock = dock;
   }
 
-  /** Reads the dock and the robot in it once, so the data slots do not read them each. */
+  @Override
   void refresh() {
-    putEnergy(STOCK, dock.energy());
-    putEnergy(CAPACITY, dock.capacity());
-    putEnergy(INPUT, dock.inputShown());
-    DockSolarReading solar = dock.solar();
-    putEnergy(SOLAR, solar.given());
-    values[SUN_STATE] = solar.state().ordinal();
-    putEnergy(SOLAR_MAX, solar.max());
-    values[PANEL] = solar.panel().ordinal();
-    values[SOLAR_NIGHT] = solar.givesAtNight() ? TRUE_VALUE : 0;
-    values[STATUS] = dock.status().ordinal();
-    values[WAITING] = dock.waitingCount();
-    values[ROBOT_PRESENT] = 0;
+    put(STOCK, dock.energy());
+    put(CAPACITY, dock.capacity());
+    put(INPUT, dock.inputShown());
+    put(STANDBY, dock.standbyCost());
+    put(FULL, dock.isFull());
+    SolarReading solar = dock.solar();
+    put(SOLAR, solar.given());
+    put(SUN_STATE, solar.state().ordinal());
+    put(SOLAR_MAX, solar.max());
+    put(PANEL, solar.panel().ordinal());
+    put(SOLAR_NIGHT, solar.givesAtNight());
+    put(STATUS, dock.status().ordinal());
+    put(WAITING, dock.waitingCount());
+    put(ROBOT_PRESENT, false);
     dock.dockedRobot().ifPresent(this::putRobot);
   }
 
   private void putRobot(DockedRobot robot) {
-    values[ROBOT_PRESENT] = TRUE_VALUE;
-    putEnergy(ROBOT_CHARGE, robot.battery().charge());
-    putEnergy(ROBOT_CAPACITY, robot.battery().capacity());
-    values[ROBOT_HEALTH] = (int) Math.ceil(robot.health());
-    values[ROBOT_MAX_HEALTH] = (int) Math.ceil(robot.maxHealth());
-    putEnergy(ROBOT_RECHARGE, dock.rechargePerTick());
+    put(ROBOT_PRESENT, true);
+    put(ROBOT_CHARGE, robot.battery().charge());
+    put(ROBOT_CAPACITY, robot.battery().capacity());
+    put(ROBOT_HEALTH, (int) Math.ceil(robot.health()));
+    put(ROBOT_MAX_HEALTH, (int) Math.ceil(robot.maxHealth()));
+    put(ROBOT_RECHARGE, dock.rechargePerTick());
     HealTime heal =
         HealTime.of(robot.health(), robot.maxHealth(), CubitMod.CONFIG.dock().fullHealTicks());
-    values[HEAL_KIND] = heal.kind().ordinal();
-    values[HEAL_MINUTES] = heal.minutes();
-    values[EXPRESSION] = robot.expression().ordinal();
-    values[TIER] = robot.tier().ordinal();
-  }
-
-  private void putEnergy(int index, Energy energy) {
-    values[index] = EnergyHalves.low(energy);
-    values[index + 1] = EnergyHalves.high(energy);
-  }
-
-  /** On either side: the client gets the halves back from its own copy. */
-  static Energy energy(ContainerData data, int index) {
-    return EnergyHalves.join(data.get(index), data.get(index + 1));
-  }
-
-  static boolean isTrue(ContainerData data, int index) {
-    return data.get(index) == TRUE_VALUE;
-  }
-
-  @Override
-  public int get(int index) {
-    return values[index];
-  }
-
-  /** The server never takes values from the client. */
-  @Override
-  public void set(int index, int value) {}
-
-  @Override
-  public int getCount() {
-    return COUNT;
+    put(HEAL_KIND, heal.kind().ordinal());
+    put(HEAL_MINUTES, heal.minutes());
+    put(EXPRESSION, robot.expression().ordinal());
+    put(TIER, robot.tier().ordinal());
   }
 }

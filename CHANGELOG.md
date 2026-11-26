@@ -4,6 +4,13 @@ All notable changes to Cubit are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- **Induction Dock:** while it has energy, a Dock spends 3, 8, 25 or 60 FE/t by tier for being on, also with no Cubit docked. **A Dock without sun or cables slowly runs out of energy**: a full Base Dock lasts about 83 minutes. Its panel pays for it by day. At zero it switches off and turns on again with energy. The input line shows the spending, as `Input +25 · Uses 3 FE/t`.
+- **Engineering Desk:** each craft costs 3,500 FE, up from 2,500, also in a cascade. A config file created before keeps 2,500 until it is edited or deleted.
+
 ## [0.1.1] - 2026-11-12
 
 Cubit grows up: three new tiers, a shock to defend its owner, four defense modes and new switches on its screen. Robots and items from 0.1.0 load as before, Peaceful and with the solar panel on.

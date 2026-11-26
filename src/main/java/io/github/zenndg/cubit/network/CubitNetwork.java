@@ -1,8 +1,11 @@
 package io.github.zenndg.cubit.network;
 
-import io.github.zenndg.cubit.menu.InductionDockMenu;
+import io.github.zenndg.cubit.domain.ownership.BlockName;
+import io.github.zenndg.cubit.menu.RenamableMenu;
 import java.util.UUID;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,6 +33,8 @@ public final class CubitNetwork {
   private static Consumer<OrganizerMarksPayload> organizerMarksDisplay = marks -> {};
   private static Consumer<DeathLogPayload> deathLogDisplay = log -> {};
   private static Consumer<AskRobotNamePayload> askNameDisplay = ask -> {};
+  private static Consumer<AskBlockNamePayload> askBlockNameDisplay = ask -> {};
+  private static BiConsumer<ServerPlayer, BlockNamedPayload> blockNamed = (player, answer) -> {};
   private static Consumer<DoorMarksPayload> doorMarksDisplay = doors -> {};
   private static Consumer<PatrolRoutePayload> patrolRouteDisplay = route -> {};
   private static Consumer<EscortMarksPayload> escortMarksDisplay = marks -> {};
@@ -136,7 +141,7 @@ public final class CubitNetwork {
     registerNames(registrar);
   }
 
-  /** The window of the name of a new Cubit and the Rename of the Dock (1868, 1879). */
+  /** The windows of the name of a new Cubit and block, and the Rename of a block (1868, 1879). */
   private static void registerNames(PayloadRegistrar registrar) {
     registrar
         .playToClient(
@@ -148,10 +153,18 @@ public final class CubitNetwork {
             RobotNamedPayload.STREAM_CODEC,
             (payload, context) ->
                 onServer(context, player -> tabletRequests.named().accept(player, payload)))
+        .playToClient(
+            AskBlockNamePayload.TYPE,
+            AskBlockNamePayload.STREAM_CODEC,
+            (payload, context) -> askBlockNameDisplay.accept(payload))
         .playToServer(
-            RenameDockPayload.TYPE,
-            RenameDockPayload.STREAM_CODEC,
-            (payload, context) -> onServer(context, player -> renameDock(player, payload)));
+            BlockNamedPayload.TYPE,
+            BlockNamedPayload.STREAM_CODEC,
+            (payload, context) -> onServer(context, player -> blockNamed.accept(player, payload)))
+        .playToServer(
+            RenameBlockPayload.TYPE,
+            RenameBlockPayload.STREAM_CODEC,
+            (payload, context) -> onServer(context, player -> renameBlock(player, payload)));
   }
 
   /** The buttons of the Deaths tab and the call of an unloaded Cubit (answers 1111 and 2463). */
@@ -288,17 +301,17 @@ public final class CubitNetwork {
     PacketDistributor.sendToServer(new SwitchTabletAppPayload(direction));
   }
 
-  /** Only the Dock of the screen the player has open, which checks the owner and the reach. */
-  private static void renameDock(ServerPlayer player, RenameDockPayload payload) {
-    if (player.containerMenu instanceof InductionDockMenu menu
-        && menu.containerId == payload.containerId()) {
+  /** Only the block of the screen the player has open, which checks the owner and the reach. */
+  private static void renameBlock(ServerPlayer player, RenameBlockPayload payload) {
+    if (player.containerMenu instanceof RenamableMenu menu
+        && player.containerMenu.containerId == payload.containerId()) {
       menu.rename(player, payload.name());
     }
   }
 
-  /** On the client: asks the server to name the Dock of the open screen (answer 1868). */
-  public static void renameDock(int containerId, String name) {
-    PacketDistributor.sendToServer(new RenameDockPayload(containerId, name));
+  /** On the client: asks the server to name the block of the open screen (answer 1868). */
+  public static void renameBlock(int containerId, String name) {
+    PacketDistributor.sendToServer(new RenameBlockPayload(containerId, name));
   }
 
   /**
@@ -317,8 +330,27 @@ public final class CubitNetwork {
     PacketDistributor.sendToServer(new RobotNamedPayload(robot, name));
   }
 
-  public static void setAskNameDisplay(Consumer<AskRobotNamePayload> display) {
-    askNameDisplay = display;
+  /** On the server: opens the window of the name of a block placed for the first time (2422). */
+  public static void askBlockName(
+      ServerPlayer player, BlockPos pos, BlockName.Kind kind, String standard) {
+    if (player.connection.hasChannel(AskBlockNamePayload.TYPE)) {
+      PacketDistributor.sendToPlayer(player, new AskBlockNamePayload(pos, kind, standard));
+    }
+  }
+
+  /** On the client: the answer of the window of a block, the name typed or nothing (2422). */
+  public static void answerBlockName(BlockPos pos, String name) {
+    PacketDistributor.sendToServer(new BlockNamedPayload(pos, name));
+  }
+
+  public static void setBlockNamed(BiConsumer<ServerPlayer, BlockNamedPayload> handler) {
+    blockNamed = handler;
+  }
+
+  public static void setAskNameDisplay(
+      Consumer<AskRobotNamePayload> robots, Consumer<AskBlockNamePayload> blocks) {
+    askNameDisplay = robots;
+    askBlockNameDisplay = blocks;
   }
 
   /** On the client: asks the server to name a Cubit. */

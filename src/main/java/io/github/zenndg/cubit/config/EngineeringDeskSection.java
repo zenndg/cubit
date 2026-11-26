@@ -9,7 +9,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
  */
 public final class EngineeringDeskSection {
   private static final String CRAFT_ENERGY = "engineering_desk_craft_energy";
-  private static final int CRAFT_ENERGY_DEFAULT = 2_500;
+  private static final int CRAFT_ENERGY_DEFAULT = 3_500;
   private static final String INPUT = "engineering_desk_input_per_tick";
   private static final int INPUT_DEFAULT = 5_000;
   private static final int MIN_ZERO = 0;

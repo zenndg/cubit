@@ -49,7 +49,7 @@ A redstone que entra pelos lados ou por trás vai para o inventário de entrada,
 
 - **Bateria interna:** como no Induction Dock, alimentada por cabos FE ou por redstone, em pó e em bloco, no slot de energia (pergunta 1425). Um item de redstone só vira energia quando couber inteiro na bateria.
 - **Entrada:** 5.000 FE/t, igual em todos os tiers, como no Dock.
-- **Custo:** cada craft pronto desconta 2.500 FE, igual em todas as receitas e em todos os tiers (perguntas 1435 e 1460).
+- **Custo:** cada craft pronto desconta 3.500 FE, igual em todas as receitas e em todos os tiers, também na fabricação em cascata (perguntas 1435, 1460 e 2441). Um config já criado guarda os 2.500 de antes até ser editado ou apagado (pergunta 2468). A mesa não gasta por ficar ligada: só o craft custa energia (pergunta 2508).
 
 ## Receita e pedido
 
@@ -190,8 +190,9 @@ Uma prancheta de projetista: fundo azul quadriculado, como o forro, a grade de m
 
 - **Aba Projeto:** o catálogo, a grade com a quantidade, os botões − e + e o de cancelar, a seta de progresso, o slot de saída da receita, a barra de energia, o slot de redstone e o tier na cor dele (pergunta 1473). Ao passar o mouse sobre um item da receita, na grade ou no resultado, aparece o tooltip dele (pergunta 1548).
 - **Aba Estoque:** os dois inventários lado a lado, a entrada à esquerda e a saída à direita, como na mesa.
+- **Aba Desmontar:** devolve as peças do mod de um item, liberada no Elite e descrita em [`desmontar-na-mesa.md`](desmontar-na-mesa.md) (pergunta 2535).
 - **Aba Cascata:** a fabricação em cascata, liberada no último tier e descrita em [`cascata-da-mesa.md`](cascata-da-mesa.md).
-- **As três abas** mostram o inventário do player.
+- **As quatro abas** mostram o inventário do player.
 
 ## Jade
 
@@ -240,6 +241,8 @@ Uma issue mãe e quatro PRs, em ordem, cada um testável no jogo (pergunta 1478)
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 21:20 | Aponta a aba Desmontar (pergunta 2535). |
+| Zennd | 2026-11-25 19:45 | Sobe o custo por craft para 3.500 FE (perguntas 2441 e 2468). |
 | Zennd | 2026-11-25 16:17 | Detalha o cursor e o Shift + clique no resultado (pergunta 2479). |
 | Zennd | 2026-11-25 16:02 | Define as melhorias de usabilidade da tela (perguntas 2470 a 2481, 2492 e 2493). |
 | Zennd | 2026-11-25 12:27 | Tira o bloqueio por progressão das receitas (perguntas 2400 a 2403). |

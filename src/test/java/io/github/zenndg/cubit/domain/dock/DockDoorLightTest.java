@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import io.github.zenndg.cubit.domain.energy.PanelState;
 import org.junit.jupiter.api.Test;
 
 class DockDoorLightTest {
@@ -12,19 +13,19 @@ class DockDoorLightTest {
 
   @Test
   void theLightIsRedWithThePanelStored() {
-    assertEquals(DockDoorLight.RED, DockDoorLight.of(DockPanelState.STORED));
+    assertEquals(DockDoorLight.RED, DockDoorLight.of(PanelState.STORED));
   }
 
   @Test
   void theLightIsGreenWithThePanelDeployed() {
-    assertEquals(DockDoorLight.GREEN, DockDoorLight.of(DockPanelState.DEPLOYED));
+    assertEquals(DockDoorLight.GREEN, DockDoorLight.of(PanelState.DEPLOYED));
   }
 
   /** A third color only for the motion, as a machine at work (answer 1863). */
   @Test
   void theLightIsYellowWhileThePanelMoves() {
-    assertEquals(DockDoorLight.YELLOW, DockDoorLight.of(DockPanelState.DEPLOYING));
-    assertEquals(DockDoorLight.YELLOW, DockDoorLight.of(DockPanelState.RETRACTING));
+    assertEquals(DockDoorLight.YELLOW, DockDoorLight.of(PanelState.DEPLOYING));
+    assertEquals(DockDoorLight.YELLOW, DockDoorLight.of(PanelState.RETRACTING));
   }
 
   @Test

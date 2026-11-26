@@ -36,7 +36,7 @@ public final class CascadeGameTests {
   private static final String ARENA = "arena";
   private static final int TIMEOUT = 600;
   private static final long ENERGY = 1_000_000;
-  private static final long COST_OF_THE_CHAIN = 27_500;
+  private static final int CRAFTS_OF_THE_CHAIN = 11;
   private static final int CHAIN_TICKS = 400;
   private static final int SOME_TICKS = 20;
   private static final int MANY = 64;
@@ -130,7 +130,10 @@ public final class CascadeGameTests {
               count(desk.output(), CubitItems.GENERAL_ROBOT.get()), 1, NOT_MADE);
           helper.assertFalse(desk.cascade().isRunning(), RUNNING);
           helper.assertFalse(desk.cascade().holdsItems(), HOLDS);
-          helper.assertValueEqual(desk.energy().amount(), ENERGY - COST_OF_THE_CHAIN, WRONG_ENERGY);
+          helper.assertValueEqual(
+              desk.energy().amount(),
+              ENERGY - CRAFTS_OF_THE_CHAIN * EngineeringDeskGameTests.craftEnergy(),
+              WRONG_ENERGY);
           helper.succeed();
         });
   }

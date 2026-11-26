@@ -29,6 +29,8 @@ public final class CubitCreativeTabs {
                     output.accept(CubitItems.DAMAGED_GENERAL_ROBOT.get());
                     output.accept(CubitItems.TOOLBOX.get());
                     output.accept(CubitItems.INDUCTION_DOCK.get());
+                    output.accept(CubitItems.NETWORK_SERVER.get());
+                    output.accept(CubitItems.SOLAR_RELAY.get());
                     output.accept(CubitItems.TABLET.get());
                     output.accept(CubitItems.RECHARGE_SPLASH.get());
                     output.accept(CubitItems.ADVANCED_MODULE.get());
@@ -60,6 +62,8 @@ public final class CubitCreativeTabs {
                     output.accept(CubitItems.INDUCTION_COIL.get());
                     output.accept(CubitItems.NEURAL_CORE.get());
                     output.accept(CubitItems.CIRCUIT_BOARD.get());
+                    output.accept(CubitItems.TRANSCEIVER.get());
+                    output.accept(CubitItems.CHUNK_ANCHOR.get());
                   })
                   .build());
 

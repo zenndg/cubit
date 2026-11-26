@@ -19,8 +19,8 @@ public final class DockStorageRules {
 
   private DockStorageRules() {}
 
-  public static boolean accepts(DockStoredKind kind) {
-    return kind != DockStoredKind.OTHER;
+  public static boolean accepts(StoredKind kind) {
+    return kind != StoredKind.OTHER;
   }
 
   /** The robot comes first: the banks wait while a docked robot still charges (answer 952). */
@@ -44,7 +44,7 @@ public final class DockStorageRules {
   }
 
   /** Every item of the mod leaves at any time, and a bank only when full (953, 967 and 1361). */
-  public static boolean releases(DockStoredKind kind, boolean bankFull) {
+  public static boolean releases(StoredKind kind, boolean bankFull) {
     return switch (kind) {
       case TOOLBOX, ROBOT, MOD_ITEM -> true;
       case POWER_BANK -> bankFull;

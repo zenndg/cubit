@@ -59,7 +59,7 @@ Dividida em três partes, na ordem em que uma depende da outra.
 
 ## Fase 5: Trabalhos (em andamento)
 
-Entregue como um kanban, no GitHub Project "Cubit · Fase 5", um card por vez, e cada card é uma issue e um PR (perguntas 1137, 1138 e 1156). A ordem segue a pergunta 251, com a base e os trabalhos primeiro e a infraestrutura no fim.
+Entregue como um kanban, no GitHub Project "Cubit · Fase 5", um card por vez, e cada card é uma issue e um PR (perguntas 1137, 1138 e 1156). A ordem partiu da pergunta 251, com a base e os trabalhos primeiro e a infraestrutura no fim, e mudou: a Network passou à frente das profissões que faltam (perguntas 1777 a 1779 e 1788).
 
 1. **Entregue:** consolidar o conceito da Fase 5.
 2. **Entregue:** base do trabalho, com o slot do card, o tier mínimo, o estado de trabalho, a aba Trabalho e a hibernação fora do Dock.
@@ -68,15 +68,15 @@ Entregue como um kanban, no GitHub Project "Cubit · Fase 5", um card por vez, e
 5. **Entregue:** Engineering Desk, com a fabricação em cascata, exclusiva do último tier, em dois PRs, com o conceito em [`cascata-da-mesa.md`](_docs/funcionalidades/cascata-da-mesa.md) na issue #253 (perguntas 1964 e 2006 a 2056).
 6. **Entregue:** XP Cubit e Dock, o XP do Cubit num tanque de líquido, passado ao tanque do Dock, de onde o player o puxa, na issue #244, em dois PRs: o Cubit, no #257, e o Dock, no #258 (perguntas 1762, 1787 a 1789, 1814 a 1851 e 2060 a 2130).
 7. **Entregue:** peças e crafting, com os itens do mod montados com peças compartilhadas, cada uma com uma função que vários itens têm em comum, na issue #259, com o conceito em [`pecas.md`](_docs/funcionalidades/pecas.md) (perguntas 2118 e 2131 a 2180).
-8. Network, a rede sem fio: o Servidor, o Solar Relay e a antena, com a energia, o carregamento de chunks, o log e o XP, depois das peças (perguntas 1777 a 1779, 1788, 2118 e 2196 a 2340). As 9 entregas estão em [Network](#network-a-rede-sem-fio-em-conceito).
+8. Network, a rede sem fio: o Servidor, o Solar Relay e a antena, com a energia, o carregamento de chunks, o log e o XP, depois das peças (perguntas 1777 a 1779, 1788, 2118 e 2196 a 2378). As 9 entregas estão em [Network](#network-a-rede-sem-fio-em-andamento). **Entregues na `integration/network`:** a 1, o conceito (#263, PR #272), e a 2, a área desenhada (#264, PR #274).
 9. Robô de transporte, um segundo robô, em forma de caminhão, que só faz a logística: traz os recursos de cada farm para a base. Entra logo depois da Network, o Servidor e as Antenas, completa, e antes das outras profissões. A ideia está no [`backlog.md`](_docs/backlog.md#robô-de-transporte) e ainda vai ao refinamento (pergunta 2197).
 10. Storage wireless.
 
-## Network: a rede sem fio (em conceito)
+## Network: a rede sem fio (em andamento)
 
 O Network Server, o Solar Relay e a Signal Antenna levam energia até os Cubits longe da base, trazem o XP de volta e mantêm os chunks de trabalho carregados. É o item 8 da Fase 5 (pergunta 2196).
 
-Cada entrega é um PR para a branch `integration/network`, e só a feature completa, testada e aprovada vai à `develop`, num PR final (perguntas 2203 a 2205, 2288 e 2318). Nenhum código começa sem a autorização do desenvolvedor, com o conceito fechado (pergunta 2224). A versão é a `0.2.0` (pergunta 2314).
+A `integration/network` é a branch centralizadora da feature: a branch de toda entrega sai dela, e o PR de toda entrega aponta para ela. A `develop` só recebe o PR da feature completa, testada e aprovada, e nunca o de uma entrega (perguntas 2203 a 2205, 2288, 2318 e 2378). Nenhum código começa sem a autorização do desenvolvedor, com o conceito fechado (pergunta 2224). A versão é a `0.2.0` (pergunta 2314).
 
 Em toda entrega:
 
@@ -95,11 +95,11 @@ Em toda entrega:
 
 ### Entrega 2: Área desenhada
 
-- [ ] o app Área por pontos, em ângulo reto, de 4 a 32, a até 32 blocos, com a linha de 3 px, vermelha e verde ao fechar
-- [ ] Shift + clique desfaz o último ponto ou aplica, e apaga a área, com confirmação
-- [ ] a altura do ponto mais baixo ao mais alto, até o limite do tier
-- [ ] todos os trabalhos, a ronda e a volta à área com a forma nova, e a área antiga apagada
-- [ ] o Organizador e o Cozinheiro no Advanced, com a receita liberada pelo Advanced Module
+- [x] o app Área por pontos, em ângulo reto, de 4 a 32, a até 32 blocos, com a linha de 3 px, vermelha e verde ao fechar
+- [x] Shift + clique desfaz o último ponto ou aplica, e apaga a área, com confirmação
+- [x] a altura do ponto mais baixo ao mais alto, até o limite do tier
+- [x] todos os trabalhos, a ronda e a volta à área com a forma nova, e a área antiga apagada
+- [x] o Organizador e o Cozinheiro no Advanced, com a receita liberada pelo Advanced Module
 - **Recursos:** nenhum, só prévia da linha
 - **GameTests:** formas, bordas, recusas, L, altura e cada trabalho dentro da forma
 
@@ -108,20 +108,23 @@ Em toda entrega:
 - [ ] Transceptor, Âncora de Chunk e as receitas dos dois blocos, na categoria `Dock and Network`
 - [ ] modelos, texturas, a frente com os 16 quadradinhos, ainda sem canais, e as 3 colunas, e as luzes
 - [ ] par no mesmo chunk, geração de 500 a 4.000 FE/t, com a noite só no Ultimate
-- [ ] bateria e tanque 4× o Dock, entrada por cabo e redstone, e upgrade pelos Modules
-- [ ] chave e UPS do chunk do Servidor, e inventário de 27 a 54 slots de 128, com as regras do Dock
+- [ ] refatoração antes, com nomes neutros no que serve ao Dock e ao Servidor, sem mudar o jogo (pergunta 2371)
+- [ ] bateria 4× o Dock, entrada por cabo e redstone, e upgrade pelos Modules, com o tanque na entrega 7 (pergunta 2370)
+- [ ] chave e UPS do chunk do Servidor, com os limites de 48 por player e 192 no mundo, o dono offline e a retomada com 30 mil FE (perguntas 2369 e 2372)
+- [ ] inventário de 27 a 54 slots de 128, com as regras do Dock
 - [ ] as telas do Servidor, nas abas Energy e Storage, e do Solar Relay, com Rename
+- [ ] a janela do nome ao colocar o Dock, o Servidor e o Solar Relay (perguntas 2420, 2422 e 2423)
 - [ ] os modelos acima do Dock, com as animações por estado (perguntas 2336 a 2338)
 - **Recursos:** 2 texturas do Servidor, 1 do Relay, 2 peças, ícones das abas e 9 sons
-- **GameTests:** par, recusas, geração, tiers, quebrar e recolocar, chunk e UPS, slots de 128
+- **GameTests:** par, recusas, geração, tiers, quebrar e recolocar, chunk, UPS, limites, dono offline, slots de 128 e somas de FE
 
 ### Entrega 4: Signal Antenna e chunks
 
-- [ ] o item, a receita, o modelo, as 16 cores com o fio de contorno e a tela, com as três chaves
+- [ ] o item, a receita, o modelo, as 16 cores com o fio de contorno e a tela, com as três chaves e a janela do nome
 - [ ] a ligação ao Servidor, o canal escolhido pelo player, a ordem fixa em inglês e 4, 8, 12 e 16 por tier
 - [ ] um de cada bloco por chunk, de qualquer dono, e a reconexão ao mover o Servidor ou a antena
 - [ ] a energia até a antena e o chunk carregado, com 25 FE/t, o custo da distância, o UPS e a retomada uma a uma
-- [ ] os limites de 48 por player e 192 no mundo, o dono offline e o `/cubit network`
+- [ ] as antenas nos limites de chunks e no dono offline, que entram na entrega 3 (pergunta 2369), e o `/cubit network`
 - [ ] a parede do chunk, vista só pelo dono com o Tablet no app Network
 - [ ] o modelo acima do Dock, com as animações do sinal (perguntas 2336 a 2338)
 - **Recursos:** 1 textura da antena, 1 ícone de item e 5 sons
@@ -134,6 +137,7 @@ Em toda entrega:
 - [ ] 1, 4 e 9 antenas por Cubit, em chunks vizinhos, e a área desenhada dentro deles
 - [ ] 1, 2, 4 e 6 baús e Docks por tier, e 12, 18 e 25 baús do Organizador, de qualquer storage, a qualquer distância nos chunks
 - [ ] a energia até o Dock, com a divisão por igual
+- [ ] os nomes flutuantes com o app Network, com a prévia antes (perguntas 2421, 2424 e 2425)
 - **Recursos:** 1 ícone do app
 - **GameTests:** ligações, recusas, vizinhança, energia curta e soma de FE
 

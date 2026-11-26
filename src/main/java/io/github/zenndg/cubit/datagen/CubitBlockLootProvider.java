@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.datagen;
 import io.github.zenndg.cubit.block.DeskPart;
 import io.github.zenndg.cubit.block.EngineeringDeskBlock;
 import io.github.zenndg.cubit.block.InductionDockBlock;
+import io.github.zenndg.cubit.block.NetworkBlock;
 import io.github.zenndg.cubit.registry.CubitBlocks;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
 import java.util.List;
@@ -21,7 +22,10 @@ import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
-/** The dock and the desk keep their energy and items as an item, so breaking never loses any. */
+/**
+ * The dock, the desk and the blocks of the Network keep their energy and items as an item, so
+ * breaking never loses any.
+ */
 final class CubitBlockLootProvider extends BlockLootSubProvider {
   private static final float ONE_ROLL = 1f;
 
@@ -33,6 +37,8 @@ final class CubitBlockLootProvider extends BlockLootSubProvider {
   protected void generate() {
     dockLoot(CubitBlocks.INDUCTION_DOCK.get());
     deskLoot(CubitBlocks.ENGINEERING_DESK.get());
+    networkLoot(CubitBlocks.NETWORK_SERVER.get());
+    networkLoot(CubitBlocks.SOLAR_RELAY.get());
   }
 
   /** Only the lower half drops the dock, with its energy, storage and tier (answer 1373). */
@@ -59,6 +65,29 @@ final class CubitBlockLootProvider extends BlockLootSubProvider {
                                     .include(CubitDataComponents.DOCK_STORAGE.get())
                                     .include(CubitDataComponents.DOCK_TIER.get())
                                     .include(CubitDataComponents.DOCK_ID.get())
+                                    .include(DataComponents.CUSTOM_NAME)))));
+  }
+
+  /** Only the lower half drops the block, with its id and all it keeps (answer 2254). */
+  private void networkLoot(Block block) {
+    add(
+        block,
+        LootTable.lootTable()
+            .withPool(
+                LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(ONE_ROLL))
+                    .add(
+                        LootItem.lootTableItem(block)
+                            .when(
+                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                    .setProperties(
+                                        StatePropertiesPredicate.Builder.properties()
+                                            .hasProperty(NetworkBlock.HALF, DoubleBlockHalf.LOWER)))
+                            .apply(
+                                CopyComponentsFunction.copyComponents(
+                                        CopyComponentsFunction.Source.BLOCK_ENTITY)
+                                    .include(CubitDataComponents.NETWORK_STATE.get())
+                                    .include(CubitDataComponents.NETWORK_ID.get())
                                     .include(DataComponents.CUSTOM_NAME)))));
   }
 
@@ -89,6 +118,10 @@ final class CubitBlockLootProvider extends BlockLootSubProvider {
 
   @Override
   protected Iterable<Block> getKnownBlocks() {
-    return List.of(CubitBlocks.INDUCTION_DOCK.get(), CubitBlocks.ENGINEERING_DESK.get());
+    return List.of(
+        CubitBlocks.INDUCTION_DOCK.get(),
+        CubitBlocks.ENGINEERING_DESK.get(),
+        CubitBlocks.NETWORK_SERVER.get(),
+        CubitBlocks.SOLAR_RELAY.get());
   }
 }

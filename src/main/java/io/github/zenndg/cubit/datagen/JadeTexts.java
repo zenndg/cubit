@@ -33,8 +33,13 @@ final class JadeTexts {
   private static final String OWNER = "Owner: %s";
   private static final String DESK_ORDER = "Order: %s / %s";
   private static final String DESK_CASCADE = "Cascade: %s · %s/%s";
+  private static final String DESK_DISASSEMBLY = "Disassemble: %s · %s left";
   private static final String DESK_PAUSED = "Paused: %s";
   private static final String DESK_OPTION = "Engineering Desk";
+  private static final String CHUNK_ON = "Loads its chunk";
+  private static final String CHUNK_OFF = "Does not load its chunk";
+  private static final String PAIRED = "Paired";
+  private static final String NETWORK_OPTION = "Network";
 
   private JadeTexts() {}
 
@@ -60,8 +65,18 @@ final class JadeTexts {
     add.accept(JadeKeys.config(JadeKeys.DOCK_UID), DOCK_OPTION);
     add.accept(JadeKeys.config(JadeKeys.DESK_UID), DESK_OPTION);
     add.accept(JadeKeys.OWNER, OWNER);
+    addDesk(add);
+    add.accept(JadeKeys.CHUNK_ON, CHUNK_ON);
+    add.accept(JadeKeys.CHUNK_OFF, CHUNK_OFF);
+    add.accept(JadeKeys.PAIRED, PAIRED);
+    add.accept(JadeKeys.config(JadeKeys.NETWORK_UID), NETWORK_OPTION);
+  }
+
+  /** The work of the Engineering Desk. */
+  private static void addDesk(BiConsumer<String, String> add) {
     add.accept(JadeKeys.DESK_ORDER, DESK_ORDER);
     add.accept(JadeKeys.DESK_CASCADE, DESK_CASCADE);
+    add.accept(JadeKeys.DESK_DISASSEMBLY, DESK_DISASSEMBLY);
     add.accept(JadeKeys.DESK_PAUSED, DESK_PAUSED);
   }
 }

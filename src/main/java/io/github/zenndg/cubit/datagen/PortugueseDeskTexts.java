@@ -48,7 +48,7 @@ final class PortugueseDeskTexts {
   private static final String ROBOT_CATEGORY = "Cubit e peças";
   private static final String PARTS_CATEGORY = "Peças compartilhadas";
   private static final String ENERGY_CATEGORY = "Energia";
-  private static final String DOCK_CATEGORY = "Dock";
+  private static final String DOCK_CATEGORY = "Dock e Rede";
   private static final String MODULES_CATEGORY = "Modules";
   private static final String CARDS_CATEGORY = "Cards";
   private static final String TOOLS_CATEGORY = "Ferramentas";
@@ -91,6 +91,7 @@ final class PortugueseDeskTexts {
     add.accept(EngineeringDeskItem.ITEMS_KEY, TOOLTIP_ITEMS);
     addScreen(add);
     PortugueseCascadeTexts.addTo(add);
+    PortugueseDisassemblyTexts.addTo(add);
   }
 
   /** The screen of the desk, with the categories of the catalog (answer 1474). */

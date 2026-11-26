@@ -56,8 +56,8 @@ public final class EngineeringDeskBlock extends BaseEntityBlock {
   private static final String LOOK_NAME = "status";
   public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
   public static final EnumProperty<DeskPart> PART = EnumProperty.create(PART_NAME, DeskPart.class);
-  public static final EnumProperty<DockTierProperty> TIER =
-      EnumProperty.create(TIER_NAME, DockTierProperty.class);
+  public static final EnumProperty<TierProperty> TIER =
+      EnumProperty.create(TIER_NAME, TierProperty.class);
 
   /** What the desk shows, read by the client for the light, the sound and the animations. */
   public static final EnumProperty<DeskLookProperty> LOOK =
@@ -83,7 +83,7 @@ public final class EngineeringDeskBlock extends BaseEntityBlock {
             .any()
             .setValue(FACING, Direction.NORTH)
             .setValue(PART, DeskPart.LEFT)
-            .setValue(TIER, DockTierProperty.BASE)
+            .setValue(TIER, TierProperty.BASE)
             .setValue(LOOK, DeskLookProperty.IDLE));
   }
 
@@ -179,7 +179,7 @@ public final class EngineeringDeskBlock extends BaseEntityBlock {
   public void setPlacedBy(
       Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
     RobotTier tier = stack.getOrDefault(CubitDataComponents.DESK_TIER.get(), RobotTier.BASE);
-    BlockState placed = state.setValue(TIER, DockTierProperty.of(tier));
+    BlockState placed = state.setValue(TIER, TierProperty.of(tier));
     level.setBlock(pos, placed, UPDATE_ALL);
     level.setBlock(
         pos.relative(towardRight(state)), placed.setValue(PART, DeskPart.RIGHT), UPDATE_ALL);
@@ -261,7 +261,7 @@ public final class EngineeringDeskBlock extends BaseEntityBlock {
 
   /** Both halves show the tier, which picks the band and the body (answer 1439). */
   static void showTier(Level level, BlockPos left, BlockState state, RobotTier tier) {
-    showOnBoth(level, left, state, TIER, DockTierProperty.of(tier), UPDATE_ALL);
+    showOnBoth(level, left, state, TIER, TierProperty.of(tier), UPDATE_ALL);
   }
 
   /**

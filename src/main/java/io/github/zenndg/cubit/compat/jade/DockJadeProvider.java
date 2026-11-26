@@ -2,11 +2,11 @@ package io.github.zenndg.cubit.compat.jade;
 
 import io.github.zenndg.cubit.block.InductionDockBlock;
 import io.github.zenndg.cubit.block.InductionDockBlockEntity;
-import io.github.zenndg.cubit.domain.dock.DockPanelState;
-import io.github.zenndg.cubit.domain.dock.DockSunState;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.EnergyFormat;
 import io.github.zenndg.cubit.domain.energy.EnergyReading;
+import io.github.zenndg.cubit.domain.energy.PanelState;
+import io.github.zenndg.cubit.domain.energy.SunState;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.TierLook;
 import io.github.zenndg.cubit.menu.ScreenKeys;
@@ -42,7 +42,7 @@ enum DockJadeProvider implements IBlockComponentProvider, IServerDataProvider<Bl
       data.putLong(STOCK, dock.energy().amount());
       data.putLong(CAPACITY, dock.capacity().amount());
       data.putLong(SOLAR, dock.solar().given().amount());
-      data.putBoolean(MOONLIGHT, dock.solar().state() == DockSunState.MOONLIGHT);
+      data.putBoolean(MOONLIGHT, dock.solar().state() == SunState.MOONLIGHT);
       data.putString(NAME, dock.identity().name().value());
       data.putInt(PANEL, dock.solar().panel().ordinal());
     }
@@ -86,9 +86,9 @@ enum DockJadeProvider implements IBlockComponentProvider, IServerDataProvider<Bl
 
   /** An unknown state, as from a newer server, shows the panel in the cabinet. */
   private static Component panelLine(int ordinal) {
-    DockPanelState[] states = DockPanelState.values();
-    DockPanelState state =
-        ordinal >= 0 && ordinal < states.length ? states[ordinal] : DockPanelState.STORED;
+    PanelState[] states = PanelState.values();
+    PanelState state =
+        ordinal >= 0 && ordinal < states.length ? states[ordinal] : PanelState.STORED;
     return Component.translatable(ScreenKeys.DOCK_SOLAR_PANEL)
         .append(SEPARATOR)
         .append(Component.translatable(ScreenKeys.dockPanel(state)));

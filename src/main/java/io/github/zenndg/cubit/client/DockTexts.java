@@ -17,9 +17,17 @@ final class DockTexts {
         ScreenKeys.ENERGY_AMOUNT, EnergyFormat.compact(value), EnergyFormat.compact(max));
   }
 
-  /** A full stock takes nothing in, so it says so before the input. */
+  /** The input, with what the dock spends for being on while it has energy (answer 2467). */
   static Component input(InductionDockMenu menu) {
-    if (menu.stock().amount() >= menu.capacity().amount()) {
+    Component input = received(menu);
+    return menu.standby().isZero()
+        ? input
+        : Component.translatable(ScreenKeys.DOCK_USES, input, EnergyFormat.rate(menu.standby()));
+  }
+
+  /** A full stock takes nothing in, so it says so before the input. */
+  private static Component received(InductionDockMenu menu) {
+    if (menu.isFull()) {
       return Component.translatable(ScreenKeys.DOCK_FULL);
     }
     if (menu.input().isZero()) {

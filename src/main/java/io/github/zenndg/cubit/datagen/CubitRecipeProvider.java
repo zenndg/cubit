@@ -60,6 +60,8 @@ final class CubitRecipeProvider extends RecipeProvider {
     CubitPartRecipes.save(desk);
     robot(desk);
     dock(desk);
+    networkServer(desk);
+    solarRelay(desk);
     tablet(desk);
     modules(desk);
     powerBanks(desk);
@@ -230,6 +232,31 @@ final class CubitRecipeProvider extends RecipeProvider {
         .requires(CubitItems.DISPLAY_PANEL.get())
         .requires(CubitItems.SERVO_MOTOR.get())
         .requires(CubitItems.SOLAR_PANEL.get())
+        .unlockedBy(HAS_ROBOT, has(CubitItems.GENERAL_ROBOT.get()))
+        .save(output);
+  }
+
+  /** An iron block as the cabinet and the parts, without a shape, as the dock (answer 2282). */
+  private void networkServer(RecipeOutput output) {
+    ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, CubitItems.NETWORK_SERVER.get())
+        .requires(Items.IRON_BLOCK)
+        .requires(CubitItems.HARD_DRIVE.get())
+        .requires(CubitItems.XP_TANK.get())
+        .requires(CubitItems.BASE_POWER_CELL.get())
+        .requires(CubitItems.NEURAL_CORE.get())
+        .requires(CubitItems.CHUNK_ANCHOR.get())
+        .requires(CubitItems.TRANSCEIVER.get())
+        .requires(CubitItems.DISPLAY_PANEL.get())
+        .unlockedBy(HAS_ROBOT, has(CubitItems.GENERAL_ROBOT.get()))
+        .save(output);
+  }
+
+  private void solarRelay(RecipeOutput output) {
+    ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, CubitItems.SOLAR_RELAY.get())
+        .requires(CubitItems.SOLAR_PANEL.get())
+        .requires(CubitItems.TRANSCEIVER.get())
+        .requires(CubitItems.BASE_POWER_CELL.get())
+        .requires(CubitItems.XP_TANK.get())
         .unlockedBy(HAS_ROBOT, has(CubitItems.GENERAL_ROBOT.get()))
         .save(output);
   }

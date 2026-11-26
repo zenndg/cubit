@@ -30,11 +30,11 @@ class DockStorageRulesTest {
 
   @Test
   void onlyTheToolboxThePowerBankAndTheRobotItemsAreStored() {
-    assertTrue(DockStorageRules.accepts(DockStoredKind.TOOLBOX));
-    assertTrue(DockStorageRules.accepts(DockStoredKind.POWER_BANK));
-    assertTrue(DockStorageRules.accepts(DockStoredKind.ROBOT));
-    assertTrue(DockStorageRules.accepts(DockStoredKind.MOD_ITEM));
-    assertFalse(DockStorageRules.accepts(DockStoredKind.OTHER));
+    assertTrue(DockStorageRules.accepts(StoredKind.TOOLBOX));
+    assertTrue(DockStorageRules.accepts(StoredKind.POWER_BANK));
+    assertTrue(DockStorageRules.accepts(StoredKind.ROBOT));
+    assertTrue(DockStorageRules.accepts(StoredKind.MOD_ITEM));
+    assertFalse(DockStorageRules.accepts(StoredKind.OTHER));
   }
 
   @Test
@@ -67,12 +67,12 @@ class DockStorageRulesTest {
 
   @Test
   void automationTakesTheToolboxTheRobotItemsAndOnlyAFullBank() {
-    assertTrue(DockStorageRules.releases(DockStoredKind.TOOLBOX, false));
-    assertTrue(DockStorageRules.releases(DockStoredKind.ROBOT, false));
-    assertTrue(DockStorageRules.releases(DockStoredKind.POWER_BANK, true));
-    assertFalse(DockStorageRules.releases(DockStoredKind.POWER_BANK, false));
-    assertTrue(DockStorageRules.releases(DockStoredKind.MOD_ITEM, false));
-    assertFalse(DockStorageRules.releases(DockStoredKind.OTHER, true));
+    assertTrue(DockStorageRules.releases(StoredKind.TOOLBOX, false));
+    assertTrue(DockStorageRules.releases(StoredKind.ROBOT, false));
+    assertTrue(DockStorageRules.releases(StoredKind.POWER_BANK, true));
+    assertFalse(DockStorageRules.releases(StoredKind.POWER_BANK, false));
+    assertTrue(DockStorageRules.releases(StoredKind.MOD_ITEM, false));
+    assertFalse(DockStorageRules.releases(StoredKind.OTHER, true));
   }
 
   /** The container always has the slots of the Ultimate, and the tier opens the first ones. */

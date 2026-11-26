@@ -103,8 +103,8 @@ public final class DeskUsabilityGameTests {
         SOME_TICKS,
         () -> {
           int before = desk.progressPercent();
-          menu.showStorage(true);
-          menu.showStorage(false);
+          menu.showTab(true, false);
+          menu.showTab(false, false);
           menu.clickMenuButton(player, choose(helper, TABLET));
 
           helper.assertTrue(makes(desk, EngineeringDeskGameTests.TOOLBOX), CHANGED);

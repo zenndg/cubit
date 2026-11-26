@@ -31,6 +31,14 @@ final class SharedPartRecipes {
   private static final String CORE_MIDDLE_ROW = "RDR";
   private static final String BOARD_TOP_ROW = "EKE";
   private static final String BOARD_BOTTOM_ROW = "AAA";
+  private static final String RADIO_TOP_ROW = " N ";
+  private static final String RADIO_MIDDLE_ROW = "UTU";
+  private static final String RADIO_BOTTOM_ROW = " R ";
+  private static final String ANCHOR_TOP_ROW = "NNN";
+  private static final String ANCHOR_MIDDLE_ROW = "ADA";
+  private static final String ANCHOR_BOTTOM_ROW = "OOO";
+  private static final char PEARL = 'N';
+  private static final char BOARD = 'T';
   private static final char GLASS = 'G';
   private static final char IRON = 'I';
   private static final char BUCKET = 'B';
@@ -57,6 +65,8 @@ final class SharedPartRecipes {
     coil().save(output);
     core().save(output);
     board().save(output);
+    transceiver().save(output);
+    anchor().save(output);
   }
 
   private static ShapedRecipeBuilder tank() {
@@ -143,6 +153,30 @@ final class SharedPartRecipes {
         .define(EMERALD, Items.EMERALD)
         .define(COMPARATOR, Items.COMPARATOR)
         .define(GOLD, Items.GOLD_INGOT);
+  }
+
+  /** The board as the radio, with the pearl that reaches far (answer 2282). */
+  private static ShapedRecipeBuilder transceiver() {
+    return withCubit(CubitItems.TRANSCEIVER.get())
+        .pattern(RADIO_TOP_ROW)
+        .pattern(RADIO_MIDDLE_ROW)
+        .pattern(RADIO_BOTTOM_ROW)
+        .define(PEARL, Items.ENDER_PEARL)
+        .define(COPPER, Items.COPPER_INGOT)
+        .define(BOARD, CubitItems.CIRCUIT_BOARD.get())
+        .define(REDSTONE, Items.REDSTONE);
+  }
+
+  /** Obsidian under the diamond, clamped by gold (answer 2282). */
+  private static ShapedRecipeBuilder anchor() {
+    return withCubit(CubitItems.CHUNK_ANCHOR.get())
+        .pattern(ANCHOR_TOP_ROW)
+        .pattern(ANCHOR_MIDDLE_ROW)
+        .pattern(ANCHOR_BOTTOM_ROW)
+        .define(PEARL, Items.ENDER_PEARL)
+        .define(GOLD, Items.GOLD_INGOT)
+        .define(DIAMOND, Items.DIAMOND)
+        .define(OBSIDIAN, Items.OBSIDIAN);
   }
 
   private static ShapedRecipeBuilder withCubit(ItemLike result) {

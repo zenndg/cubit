@@ -75,7 +75,8 @@ public final class DockStorageGameTests {
         () -> {
           helper.assertFalse(chargeAt(dock, FIRST).isZero(), WRONG_CHARGE);
           helper.assertTrue(chargeAt(dock, SECOND).isZero(), WRONG_CHARGE);
-          helper.assertValueEqual(chargeAt(dock, FIRST).plus(dock.energy()), PLENTY, LOST);
+          DockScene.assertOnlyStandbyLost(
+              helper, PLENTY.amount(), chargeAt(dock, FIRST).plus(dock.energy()).amount(), LOST);
           helper.succeed();
         });
   }

@@ -11,7 +11,6 @@ import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
@@ -24,7 +23,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -59,8 +57,8 @@ public final class InductionDockBlock extends BaseEntityBlock {
   public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
   public static final EnumProperty<DockStatusProperty> STATUS =
       EnumProperty.create(STATUS_NAME, DockStatusProperty.class);
-  public static final EnumProperty<DockTierProperty> TIER =
-      EnumProperty.create(TIER_NAME, DockTierProperty.class);
+  public static final EnumProperty<TierProperty> TIER =
+      EnumProperty.create(TIER_NAME, TierProperty.class);
 
   private static final MapCodec<InductionDockBlock> CODEC = simpleCodec(InductionDockBlock::new);
   private static final float CANNOT_BREAK = 0f;
@@ -75,7 +73,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
             .setValue(FACING, Direction.NORTH)
             .setValue(HALF, DoubleBlockHalf.LOWER)
             .setValue(STATUS, DockStatusProperty.OFF)
-            .setValue(TIER, DockTierProperty.BASE));
+            .setValue(TIER, TierProperty.BASE));
   }
 
   @Override
@@ -150,7 +148,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
   public void setPlacedBy(
       Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
     RobotTier tier = stack.getOrDefault(CubitDataComponents.DOCK_TIER.get(), RobotTier.BASE);
-    BlockState placed = state.setValue(TIER, DockTierProperty.of(tier));
+    BlockState placed = state.setValue(TIER, TierProperty.of(tier));
     level.setBlock(pos, placed, UPDATE_ALL);
     level.setBlock(pos.above(), placed.setValue(HALF, DoubleBlockHalf.UPPER), UPDATE_ALL);
     DockTop.place(level, pos);
@@ -158,6 +156,7 @@ public final class InductionDockBlock extends BaseEntityBlock {
         && level.getBlockEntity(pos) instanceof InductionDockBlockEntity dock) {
       dock.setOwner(player);
     }
+    BlockNaming.placed(level, pos, placer, stack);
   }
 
   /** Each part only exists with the other, as in a door. */
@@ -200,26 +199,13 @@ public final class InductionDockBlock extends BaseEntityBlock {
       DockUpgrade.apply(dock, player, stack);
       return ItemInteractionResult.CONSUME;
     }
-    if (renamedByTag(dock, player, stack)) {
+    if (dock.identity().renameByTag(player, stack)) {
       return ItemInteractionResult.CONSUME;
     }
     if (dock.insert(stack)) {
       return ItemInteractionResult.CONSUME;
     }
     return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-  }
-
-  /** The name tag of the game names the Dock too, and is used up, as on a mob (answer 1868). */
-  private static boolean renamedByTag(
-      InductionDockBlockEntity dock, Player player, ItemStack stack) {
-    Component tagged = stack.get(DataComponents.CUSTOM_NAME);
-    if (!stack.is(Items.NAME_TAG)
-        || tagged == null
-        || !dock.identity().rename(tagged.getString())) {
-      return false;
-    }
-    stack.consume(1, player);
-    return true;
   }
 
   /** The screen, and the sneaking click calls a robot or lets the one in the dock go (2122). */

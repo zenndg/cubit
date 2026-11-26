@@ -166,7 +166,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `RechargeSplashReception` | O que uma mistura faz com um Cubit: começa, se ele for de quem arremessou e estiver no raio; não dá nada e avisa, se ele ainda recebe a anterior; ou ignora |
 | `WakeRecharge` | Religar um Cubit guardado com uma Power Bank na grade: só abaixo da carga de religar, só o que falta e só se a Power Bank tiver tudo |
 | `PowerBankUpgrade` | A Power Bank encadeada leva a carga da anterior, e a receita não vale se a carga não couber |
-| `DockStock` | Estoque de energia de um Induction Dock e as transferências dele, sem criar nem perder FE |
+| `EnergyStock` | Estoque de energia de um bloco do mod, como o Induction Dock, e as transferências dele, sem criar nem perder FE |
 | `DockStatus` | O que a tela de um Dock mostra |
 | `DockStay` | Vida recuperada por tick e quando o robô sai da base |
 | `DockQueue` | Robôs aguardando um Dock ocupado, por ordem de chegada |
@@ -176,14 +176,32 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `AutoReturn` | Quando o Cubit volta sozinho a um Dock: com a chave ligada, ativo, seguindo o dono e com a bateria do retorno do tier ou menos, a não ser que já esteja a caminho (perguntas 1065 a 1068). Em guarda (`onGuard`), o Patrulheiro espera o fim do combate e um raio de procura sem hostil, sem conferir o dono nem investigar (perguntas 1689 e 1763) |
 | `DockRemoval` | Quem pode quebrar um Dock |
 | `DockStorageRules` | O inventário do Dock: o que ele guarda, quais slots o tier abre, quando e qual Power Bank ele carrega, e o que a automação tira (perguntas 1361 e 1374) |
-| `DockStoredKind` | O que um item é para o inventário do Dock: Toolbox, Power Bank, Cubit, outro item do mod ou um item de fora |
+| `StoredKind` | O que um item é para o inventário do Dock e do Network Server: Toolbox, Power Bank, Cubit, outro item do mod ou um item de fora |
 | `DockSpec` e `DockCatalog` | Os números do Dock em cada tier: o estoque, a recarga do Cubit e da Power Bank guardada, os slots, em linhas inteiras de 9, e a geração do painel, de dia e à noite. O config os serve (perguntas 1374, 1381, 1385 e 1944) |
-| `DockSun` | O que o painel do Dock vê: dia, céu aberto, chuva, um mundo com sol e o 3º bloco, onde o painel fica. Só gera com tudo a favor, e sem sol é um Dock normal. Um Dock de antes, sem espaço para o 3º bloco, fica sem o painel, e só um mundo sem sol é um motivo mais duradouro. No tier que gera à noite, a noite não para o painel, que fica em `MOONLIGHT`, e a chuva o para como de dia (perguntas 1384, 1897 e 1943) |
-| `DockPanel` | O painel solar de todo Dock: sai do armário depois de um tempo seguido com sol e volta depois do mesmo tempo sem sol, também à noite, menos no tier que gera à noite (pergunta 1943); o movimento dos braços vai até o fim, qualquer que seja o céu; só o painel montado por completo gera; e só o destino do movimento é salvo (`Timings`: a espera e o movimento) (perguntas 1856, 1859, 1862 e 1864) |
-| `DockPanelState` | Onde o painel está: guardado, montando, montado ou guardando, para a aba Solar e a luz das portas (perguntas 1863 e 1865) |
-| `DockPanelSound` | O som de cada momento do painel: a montagem quando os braços começam a sair, a trava quando as metades se encontram no centro e a desmontagem quando os braços começam a voltar (perguntas 1861 e 1921) |
+| `SkySun` | O que um painel vê, o do Dock ou o do Solar Relay: dia, céu aberto, chuva, um mundo com sol e o espaço do painel, que no Dock é o 3º bloco. Só gera com tudo a favor, e sem sol é um Dock normal. Um Dock de antes, sem espaço para o 3º bloco, fica sem o painel, e só um mundo sem sol é um motivo mais duradouro. No tier que gera à noite, a noite não para o painel, que fica em `MOONLIGHT`, e a chuva o para como de dia (perguntas 1384, 1897 e 1943) |
+| `FoldingPanel` | Um painel solar que se dobra, o do Dock ou o do Solar Relay: abre depois de um tempo seguido com sol e volta depois do mesmo tempo sem sol, também à noite, menos no tier que gera à noite (pergunta 1943); o movimento dos braços vai até o fim, qualquer que seja o céu; só o painel montado por completo gera; e só o destino do movimento é salvo (`Timings`: a espera e o movimento) (perguntas 1856, 1859, 1862 e 1864) |
+| `PanelState` | Onde um painel está: guardado, montando, montado ou guardando, para a aba Solar e a luz das portas (perguntas 1863 e 1865) |
+| `PanelSound` | O som de cada momento de um painel, o do Dock ou o do Solar Relay: a abertura quando ele começa a abrir, a trava quando as partes se encontram e o fechamento quando ele começa a voltar (perguntas 1861, 1921 e 2339) |
 | `DockDoorLight` | A luz na borda das folhas das portas: vermelha com o painel guardado, verde com ele montado e amarela, piscando, durante o movimento (perguntas 1853 e 1863) |
-| `DockName` | O nome de um Dock: o dado pelo dono, com as regras do nome do Cubit, ou o padrão `Dock` e os 8 primeiros dígitos do UUID dele, para o Dock nunca ficar sem nome (perguntas 1867 a 1869) |
+| `BlockName` | O nome de um bloco com dono, como o Dock: o dado pelo dono, com as regras do nome do Cubit, ou o padrão, o começo do tipo dele (`Dock`, `Server` ou `Relay`) e os 8 primeiros dígitos do UUID, para ele nunca ficar sem nome (perguntas 1867 a 1869) |
+| `FloatingName` | O nome sobre o Dock, o Servidor e o Relay: a 0,5 bloco do topo, no meio do bloco, e quem o vê: o dono, com o Tablet na mão, sem tela aberta e sem o F1, a até 32 blocos. O cliente procura os blocos a cada 10 ticks (perguntas 2512 a 2517) |
+| `ServerSpec` e `ServerCatalog` | Os números do Network Server em cada tier: a bateria, os canais, a entrada por cabo e redstone, os slots, em linhas inteiras da tela, e o que o Solar Relay dele gera de dia e à noite |
+| `UpsReserve` | A parte da bateria que é só do chunk, o Nobreak, de 0% a 50% em passos de 5, com o que sobra para o resto e quanto tempo ela segura. Um número salvo ou editado vai ao passo de baixo, dentro do limite (perguntas 2209, 2212 e 2221) |
+| `UpsWatch` | O aviso do Nobreak: uma vez ao descer para a reserva, e de novo só depois de sair dela |
+| `ChunkCall` e `ChunkState` | Se um bloco segura o chunk e por que não, com o motivo em que o player menos pode agir primeiro: o config, a chave, o dono offline, a energia e os limites (perguntas 2210 a 2215) |
+| `ChunkCharge` | Se um bloco ficou sem energia para o chunk: zera sem o custo de um tick e só volta com a carga da retomada, também depois de um save. Um chunk de graça nunca zera (perguntas 2372 e 2410) |
+| `ChunkRoster` | Quais chunks o mod segura, de qual player, na ordem em que chegaram, e quais esperam o dono. Quem chegou primeiro fica dentro dos limites (perguntas 2210 e 2215) |
+| `Standby` | O gasto por ficar ligado, do Servidor e do Relay com par, que o Servidor paga (perguntas 2435 e 2436) |
+| `ChunkWall` | A parede em volta do chunk do Servidor, do bloco de apoio até 16 blocos acima, e quem a vê: o dono, com o Tablet na mão, a até 128 blocos (pergunta 2448) |
+| `ChunkLimits` | Quantos chunks o mod pode segurar, de um player e no mundo, com 0 para sem limite (pergunta 2215) |
+| `ServerPower` | O que a bateria fez num tick: ligou, caiu ou nada, para a partida e a queda |
+| `ServerFront` | A frente do Servidor: as colunas de 10 traços, com ao menos um aceso acima de zero, e o estado de cada lâmpada |
+| `BigSlot` | Quantos itens um slot do Servidor guarda e dá: até o limite dele, de 1 a 999, 1 do que não empilha, e nunca mais que uma pilha normal por vez (perguntas 2263 e 2368) |
+| `SunTrack` | Para onde o painel do Solar Relay aponta, de −1, no leste, a 1, no oeste, e 0 ao meio-dia e com a lua (pergunta 2385) |
+| `PanelAim` | Os dois ângulos do painel aberto do Solar Relay, para onde o bloco olha e para o sol: até 11° para cada lado, e deitado com a lua (perguntas 2384 e 2385) |
+| `ServerLook` | O que a frente do Servidor mostra aos clientes: se tem energia, se passa energia, se tem par, as duas colunas e os canais. As ventoinhas giram só com energia passando (perguntas 2329 e 2375) |
+| `ServerStatus` | O que o topo da tela do Servidor diz da energia: ligado, no Nobreak ou sem energia. Sem reserva, ou com a chave do chunk desligada, o Nobreak não conta (pergunta 2397) |
+| `HoldTime` | Quanto tempo a reserva segura o chunk: minutos até duas horas e, daí em diante, horas e minutos |
 | `RobotClick` | O que o clique direito faz no robô: ignorar, recolher, subir o tier, pintar, escolher o minério, abrir ou ligar |
 | `InventoryFit` | Separa os itens que cabem nos slots do config dos que sobram |
 | `InventoryGrid` | Como o inventário aparece na tela: sempre 3 fileiras, com 9, 12, 15 e 18 colunas do Base ao Ultimate, a coluna e a fileira de cada slot e as colunas a mais, que alargam a tela (pergunta 1101) |
@@ -198,10 +216,13 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `EnergyUseCause` | Por que o robô gastou energia no tick, na ordem que a tela lista |
 | `RechargeSource` | De onde a bateria recebeu energia no último tick: Dock, slot, painel ou nada |
 | `HealTime` | Quanto tempo a base leva para encher a vida, em minutos |
-| `DockInputMeter` | A média do que entrou num Dock por tick, no último segundo |
+| `InputMeter` | A média do que entrou num bloco do mod por tick, no último segundo |
 | `DeskSpec` | Os números da Engineering Desk num tier: bateria, ticks de um craft, slots de cada inventário e maior pedido |
 | `DeskCatalog` | Interface que dá o `DeskSpec` de um tier, servida pelo config |
 | `DeskOrder` | O pedido da mesa: quantos itens foram pedidos e quantos estão prontos, com o sinal do comparador |
+| `DisassemblyReturn` | O que um item desmontado devolve: só as peças do mod da receita dele, um nível abaixo, a primeira do mod numa marca de vários itens, e um Module de cada tier aplicado (perguntas 2523, 2525, 2526 e 2530) |
+| `DisassemblyRefusal` | Por que a mesa não desmonta: o tier, o slot vazio, o item sem peças do mod, menos itens que a receita rende, o item com conteúdo ou outro trabalho rodando (perguntas 2524, 2528 e 2531) |
+| `DeskJobs` | O pedido, a cascata e a desmontagem: só um roda por vez (perguntas 2015 e 2528). A desmontagem conta as unidades num `DeskOrder` e pausa pelo `DeskStatus`, como o pedido |
 | `CascadeRecipe` e `CascadeBook` | Uma receita como a cascata a vê, e a receita de cada item, a primeira na ordem do catálogo (perguntas 2009 e 2032) |
 | `CascadePlanner`, `CascadePlan` e `CascadeTask` | O plano de um item: as tarefas em série, com as peças antes, os materiais de base e as peças aproveitadas. Um ciclo não tem plano (perguntas 2006, 2008, 2012 e 2034) |
 | `CascadeRun` e `CascadeTaskStatus` | O plano em andamento, uma tarefa por vez, que nunca volta, com o status de cada uma e o sinal do comparador |

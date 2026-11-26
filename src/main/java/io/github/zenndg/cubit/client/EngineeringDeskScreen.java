@@ -13,8 +13,9 @@ import net.minecraft.world.entity.player.Inventory;
 import org.lwjgl.glfw.GLFW;
 
 /**
- * The screen of the Engineering Desk, a designer's board with the Project, Storage and Cascade tabs
- * (answers 1467, 1473, 1524 and 2017). It only shows and asks: the server decides (rule 19).
+ * The screen of the Engineering Desk, a designer's board with the Project, Storage, Disassemble and
+ * Cascade tabs (answers 1467, 1473, 1524, 2017 and 2535). It only shows and asks: the server
+ * decides (rule 19).
  */
 final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDeskMenu> {
   static final int HEIGHT = 258;
@@ -30,6 +31,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
   private final DeskCatalog cascadeCatalog;
   private final ProjectTab project;
   private final CascadeTab cascade;
+  private final DisassembleTab disassemble;
   private DeskTab tab = DeskTab.PROJECT;
   private EditBox search;
 
@@ -40,6 +42,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     cascadeCatalog = new DeskCatalog(rules);
     project = new ProjectTab(menu, catalog, this::send, this::reveal);
     cascade = new CascadeTab(menu, cascadeCatalog, rules, this::send);
+    disassemble = new DisassembleTab(menu, this::send);
     imageWidth = EngineeringDeskMenu.WIDTH;
     imageHeight = HEIGHT;
     inventoryLabelX = MARGIN;
@@ -51,6 +54,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     super.init();
     project.init(leftPos, topPos, this::addRenderableWidget);
     cascade.init(leftPos, topPos, this::addRenderableWidget);
+    disassemble.init(leftPos, topPos, this::addRenderableWidget);
     search = searchBox();
     catalog.showCategoryOf(menu.recipeIndex());
     showTab();
@@ -102,9 +106,10 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
   }
 
   private void showTab() {
-    menu.showStorage(storageOpen());
+    menu.showTab(storageOpen(), tab == DeskTab.DISASSEMBLE);
     project.show(tab == DeskTab.PROJECT);
     cascade.show(tab == DeskTab.CASCADE);
+    disassemble.show(tab == DeskTab.DISASSEMBLE);
     showSearch();
   }
 
@@ -133,6 +138,8 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     }
     if (tab == DeskTab.PROJECT) {
       project.tooltips(graphics, font, mouseX, mouseY);
+    } else if (tab == DeskTab.DISASSEMBLE) {
+      disassemble.tooltips(graphics, font, mouseX, mouseY, leftPos, topPos);
     }
     List<Component> lines = hint(mouseX, mouseY);
     if (!lines.isEmpty()) {
@@ -146,10 +153,20 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     if (over == DeskTab.CASCADE) {
       return List.of(cascade.name());
     }
-    if (over != null && over.isLocked(menu.cascade())) {
+    if (over == DeskTab.DISASSEMBLE && !menu.cascade().locks()) {
+      return List.of(disassemblyName());
+    }
+    if (over != null && over.isLocked(menu.cascade(), menu.disassembly())) {
       return List.of(Component.translatable(DeskScreenKeys.CASCADE_LOCKS));
     }
     return tab == DeskTab.CASCADE ? cascade.hint(mouseX - leftPos, mouseY - topPos) : List.of();
+  }
+
+  private Component disassemblyName() {
+    return Component.translatable(
+        menu.disassembly().allowed()
+            ? DeskScreenKeys.DISASSEMBLE
+            : DeskScreenKeys.DISASSEMBLE_LOCKED);
   }
 
   private DeskTab tabAt(double mouseX, double mouseY) {
@@ -163,7 +180,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     ScreenTabStrip.renderBehind(graphics, tabsLeft, topPos, DeskTab.TOPS, openTop);
     BlueprintPainter.sheet(graphics, leftPos, topPos, imageWidth, imageHeight);
     ScreenTabStrip.renderOpen(graphics, tabsLeft, topPos, openTop);
-    DeskTab.renderIcons(graphics, tabsLeft, topPos, menu.cascade());
+    DeskTab.renderIcons(graphics, tabsLeft, topPos, menu.cascade(), menu.disassembly());
     DeskScreenFrames.player(graphics, leftPos, topPos);
     if (storageOpen()) {
       DeskScreenFrames.storage(graphics, leftPos, topPos, menu.slots());
@@ -180,6 +197,8 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     }
     if (tab == DeskTab.PROJECT) {
       project.render(graphics);
+    } else if (tab == DeskTab.DISASSEMBLE) {
+      disassemble.render(graphics, leftPos, topPos);
     }
     DeskEnergyBar.render(graphics, menu, leftPos, topPos);
   }
@@ -203,6 +222,8 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
     DeskEnergyBar.renderLabels(graphics, font, menu);
     if (tab == DeskTab.PROJECT) {
       project.renderLabels(graphics, font);
+    } else if (tab == DeskTab.DISASSEMBLE) {
+      disassemble.renderLabels(graphics, font);
     } else {
       cascade.renderLabels(graphics, font);
     }
@@ -260,14 +281,22 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
         && super.hasClickedOutside(mouseX, mouseY, left, top, button);
   }
 
-  /** A plan on its way keeps the Cascade tab open, and a tier without it never opens it. */
+  /** A plan on its way keeps the Cascade tab open, and a tier without a tab never opens it. */
   private void open(DeskTab wanted) {
     if (menu.cascade().locks()) {
       tab = DeskTab.CASCADE;
-    } else if (wanted != DeskTab.CASCADE || menu.cascade().allowed()) {
+    } else if (opens(wanted)) {
       tab = wanted;
     }
     showTab();
+  }
+
+  private boolean opens(DeskTab wanted) {
+    return switch (wanted) {
+      case CASCADE -> menu.cascade().allowed();
+      case DISASSEMBLE -> menu.disassembly().allowed();
+      default -> true;
+    };
   }
 
   @Override
@@ -277,6 +306,7 @@ final class EngineeringDeskScreen extends AbstractContainerScreen<EngineeringDes
       open(DeskTab.CASCADE);
     }
     cascade.tick();
+    disassemble.tick();
     project.tick();
     showSearch();
   }

@@ -4,11 +4,13 @@ import com.mojang.serialization.Codec;
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.block.SavedCascade;
 import io.github.zenndg.cubit.block.SavedDeskOrder;
+import io.github.zenndg.cubit.block.SavedDisassembly;
 import io.github.zenndg.cubit.domain.robot.RobotState;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.EnergySlotContents;
 import io.github.zenndg.cubit.item.RobotStateComponent;
 import io.github.zenndg.cubit.item.SavedDockXp;
+import io.github.zenndg.cubit.item.SavedNetwork;
 import java.util.UUID;
 import java.util.function.Supplier;
 import net.minecraft.core.GlobalPos;
@@ -35,12 +37,15 @@ public final class CubitDataComponents {
   private static final String DOCK_TIER_ID = "dock_tier";
   private static final String DOCK_XP_ID = "dock_xp";
   private static final String DOCK_ID_ID = "dock_id";
+  private static final String NETWORK_ID_ID = "network_id";
+  private static final String NETWORK_STATE_ID = "network_state";
   private static final String DESK_TIER_ID = "engineering_desk_tier";
   private static final String DESK_ENERGY_ID = "engineering_desk_energy";
   private static final String DESK_INPUT_ID = "engineering_desk_input";
   private static final String DESK_OUTPUT_ID = "engineering_desk_output";
   private static final String DESK_CASCADE_ID = "engineering_desk_cascade";
   private static final String DESK_ORDER_ID = "engineering_desk_order";
+  private static final String DESK_DISASSEMBLY_ID = "engineering_desk_disassembly";
   private static final String POWER_BANK_ENERGY_ID = "power_bank_energy";
   private static final String TABLET_APP_ID = "tablet_app";
   private static final DeferredRegister.DataComponents COMPONENTS =
@@ -144,6 +149,21 @@ public final class CubitDataComponents {
                   .persistent(ItemContainerContents.CODEC)
                   .networkSynchronized(ItemContainerContents.STREAM_CODEC));
 
+  /** The own id of a block of the Network, kept in its item (answers 2254 and 2334). */
+  public static final Supplier<DataComponentType<UUID>> NETWORK_ID =
+      COMPONENTS.registerComponentType(
+          NETWORK_ID_ID,
+          builder -> builder.persistent(UUIDUtil.CODEC).networkSynchronized(UUIDUtil.STREAM_CODEC));
+
+  /** What a block of the Network keeps in its item when it breaks (answers 2254 and 2410). */
+  public static final Supplier<DataComponentType<SavedNetwork>> NETWORK_STATE =
+      COMPONENTS.registerComponentType(
+          NETWORK_STATE_ID,
+          builder ->
+              builder
+                  .persistent(SavedNetwork.CODEC)
+                  .networkSynchronized(SavedNetwork.STREAM_CODEC));
+
   /** The tier of an Engineering Desk, kept in its item when it breaks (answer 1492). */
   public static final Supplier<DataComponentType<RobotTier>> DESK_TIER =
       COMPONENTS.registerComponentType(
@@ -193,6 +213,15 @@ public final class CubitDataComponents {
               builder
                   .persistent(SavedCascade.CODEC)
                   .networkSynchronized(SavedCascade.STREAM_CODEC));
+
+  /** The item and the units of the Disassemble tab of a desk (answer 2535, detail 5). */
+  public static final Supplier<DataComponentType<SavedDisassembly>> DESK_DISASSEMBLY =
+      COMPONENTS.registerComponentType(
+          DESK_DISASSEMBLY_ID,
+          builder ->
+              builder
+                  .persistent(SavedDisassembly.CODEC)
+                  .networkSynchronized(SavedDisassembly.STREAM_CODEC));
 
   /** The charge of a Power Bank, a contract with the saves (answer 903). */
   /** The active app of the Tablet, by its key, a contract with the saves (answer 1026). */

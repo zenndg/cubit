@@ -1,5 +1,7 @@
 package io.github.zenndg.cubit.domain.dock;
 
+import io.github.zenndg.cubit.domain.energy.PanelState;
+
 /**
  * The small light on the edge of each door of the cabinet: red with the panel stored, green with it
  * deployed, and yellow, blinking, while the arms move it (answers 1853 and 1863).
@@ -18,7 +20,7 @@ public enum DockDoorLight {
     this.blinks = blinks;
   }
 
-  public static DockDoorLight of(DockPanelState panel) {
+  public static DockDoorLight of(PanelState panel) {
     return switch (panel) {
       case STORED -> RED;
       case DEPLOYED -> GREEN;

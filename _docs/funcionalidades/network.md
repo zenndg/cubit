@@ -1,8 +1,8 @@
 # Network
 
-A rede sem fio do mod: o Network Server, o Solar Relay e a Signal Antenna. O conceito é do desenvolvedor e foi refinado nas perguntas 2196 a 2365, citadas só pelo número. As respostas em [`perguntas/`](../perguntas/fase-5-trabalhos.md) prevalecem. As entregas estão no [`ROADMAP.md`](../../ROADMAP.md#network-a-rede-sem-fio-em-conceito).
+A rede sem fio do mod: o Network Server, o Solar Relay e a Signal Antenna. O conceito é do desenvolvedor e foi refinado nas perguntas 2196 a 2448, citadas só pelo número. As respostas em [`perguntas/`](../perguntas/fase-5-trabalhos.md) prevalecem. As entregas estão no [`ROADMAP.md`](../../ROADMAP.md#network-a-rede-sem-fio-em-andamento).
 
-**Situação:** conceito autorizado (pergunta 2325). O código da Entrega 2, a área desenhada, foi autorizado (pergunta 2363), e o das outras espera a autorização própria do desenvolvedor (pergunta 2224). Os números entram em [`tiers.md`](../tiers.md) e no config na Entrega 1.
+**Situação:** conceito autorizado (pergunta 2325). A Entrega 1, este conceito (PR #272), e a Entrega 2, a área desenhada (pergunta 2363, PR #274), já entraram na `integration/network`, a branch centralizadora, de onde sai e para onde vai toda entrega. A `develop` só recebe a feature completa (pergunta 2378). O código da Entrega 3, o Network Server e o Solar Relay, está autorizado e em andamento (pergunta 2399), e o das outras espera a autorização própria do desenvolvedor (pergunta 2224). Os números estão em [`tiers.md`](../tiers.md#network), e cada chave entra no config com o código que a lê (pergunta 2349).
 
 ## A ideia
 
@@ -18,7 +18,7 @@ O player põe um Network Server e um Solar Relay na base e leva antenas aos luga
 | Transceiver | `cubit:transceiver` | Transceptor | Peça compartilhada |
 | Chunk Anchor | `cubit:chunk_anchor` | Âncora de Chunk | Peça compartilhada |
 
-Servidor, Relay e antena têm Rename e o nome padrão com 8 dígitos (2275). Todos só do dono, com o servidor do jogo conferindo (2259). Explosão e pistão não os afetam. Precisam de um topo sólido para ser colocados e não caem se ele sumir (2255).
+Servidor, Relay e antena têm Rename e o nome padrão com 8 dígitos (2275). Ao colocar um item novo de um deles, ou um Dock novo, abre a janela do nome, como a do Cubit: o nome padrão já vem no campo, e vazio, cancelar ou Esc o mantém. Recolocar não abre, porque o item guarda o ID, nem um item nomeado na bigorna (2420, 2422 e 2423). Todos só do dono, com o servidor do jogo conferindo (2259). Explosão e pistão não os afetam. Precisam de um topo sólido para ser colocados e não caem se ele sumir (2255).
 
 ## Regras da rede
 
@@ -38,10 +38,13 @@ Servidor, Relay e antena têm Rename e o nome padrão com 8 dígitos (2275). Tod
 | Bateria do Servidor | 1,2, 4,8, 24 e 64 milhões de FE (2222) |
 | Bateria do Relay e da antena | 300 mil e 600 mil FE (2289 e 2273) |
 | Chunk, por tick, no Servidor e na antena | 25 FE (2216) |
+| Servidor ligado, por tick e por tier, além do chunk | 20, 40, 80 e 160 FE (2435) |
+| Solar Relay com par, por tick e por tier, pago pelo Servidor | 2, 5, 15 e 40 FE (2435 e 2436) |
 | Distância do Servidor à antena, por tick | 1 FE por 500 blocos completos além dos 100, também com a chave do chunk desligada (2310 e 2321) |
 | Servidor, distribuindo | 20, 40, 80 e 160 mil FE/t. Cada antena, até 5.000 (2276) |
 | Entrada por cabo e redstone | Servidor: 20, 40, 80 e 160 mil FE/t. Solar Relay e antena: 5.000 FE/t (2326) |
 
+- **Ligado:** o Servidor gasta sempre que tem energia e o chunk está carregado, também com a chave do chunk desligada ou o dono offline. O chunk é pago primeiro. Zerado, ele desliga e não gasta, e o Relay do par continua gerando, para ele voltar (2439).
 - **Entrada:** sol, redstone, Power Bank e cabo, em todos os três blocos (2256 e 2263). Nenhuma energia sai por cabo.
 - **Caminho:** sol e Servidor, Solar Relay, antena, Dock, Cubit. O sol vai direto ao Servidor, para a energia não ir e voltar (detalhe 18).
 - **Energia curta:** primeiro o gasto do chunk de cada antena, na ordem dos canais, e o resto por igual. Em cada antena, os Docks com Cubit carregando antes dos vazios (2302).
@@ -58,10 +61,11 @@ Servidor, Relay e antena têm Rename e o nome padrão com 8 dígitos (2275). Tod
 
 ### UPS / Nobreak
 
-A reserva de bateria do Servidor e da antena, só para o próprio chunk. O player escolhe de 0% a 50%, de 5 em 5, e vê o tempo que ela segura. Padrão: 25% no Servidor e 50% na antena. Em 0%, avisa que o chunk pode cair (2209, 2212, 2219 e 2221). O nome é UPS em inglês e Nobreak em português (2218). Dentro da reserva, a antena segura o chunk e para de alimentar os Docks (detalhe 23). Além disso, a antena sempre guarda 5% da bateria, 30 mil FE, que nenhum Dock tira (2322).
+A reserva de bateria do Servidor e da antena, para o próprio chunk e, no Servidor, para o gasto por ficar ligado, que conta no tempo da tela (2437). O player escolhe de 0% a 50%, de 5 em 5, e vê o tempo que ela segura. Padrão: 25% no Servidor e 50% na antena. Em 0%, avisa que o chunk pode cair (2209, 2212, 2219 e 2221). O nome é UPS em inglês e Nobreak em português (2218). Dentro da reserva, a antena segura o chunk e para de alimentar os Docks (detalhe 23). Além disso, a antena sempre guarda 5% da bateria, 30 mil FE, que nenhum Dock tira (2322).
 
 ### Queda e volta
 
+- **Servidor zerado:** solta o chunk e volta a segurá-lo com o que paga 60 s do chunk, dele e do Relay, 56,4, 84, 144 e 270 mil FE com o par, com 30 mil como mínimo, tudo no config (2372 e 2438).
 - **Elo caído:** cada peça usa a bateria e só solta o chunk quando zera, com aviso (2208). A antena sem sinal com o Servidor por mais de 20 minutos para, mesmo recarregada com redstone (2323).
 - **Para o Cubit,** a rede só cai com a antena zerada, desligada ou sem sinal por mais de 20 minutos (2296 e 2323).
 - **Volta:** as antenas religam uma por vez, a cada 2 s, 40 ticks, no config (2209 e 2330).
@@ -83,13 +87,37 @@ A reserva de bateria do Servidor e da antena, só para o próprio chunk. O playe
 | Escuro e preto | Canal livre e canal fechado |
 
   Vence o pior: cinza, vermelho, amarelo, verde. Cada estado tem um ícone além da cor (2277).
-- **Inventário:** 27, 36, 45 e 54 slots por tier, com 128 por slot, só itens do mod. Um item sem pilha ocupa 1 por slot. Entra e sai com as regras do Dock, e as Power Banks se carregam. A Power Bank no slot de redstone descarrega (2263 e 2267).
-- **XP:** tanque de 128, 256, 512 e 1.024 baldes. Tira e envia um nível por clique, só o dono, com o total e os canos. Modos: Armazenar, o padrão, Armazenar e converter o excesso, e Converter tudo, com 9 FE por ponto (2222, 2262 e 2266). Cheio no Armazenar, o XP espera nos Docks. O que vira FE não volta a ser XP (regra 58).
+- **Inventário:** 27, 36, 45 e 54 slots por tier, com 128 por slot, só itens do mod. Um item sem pilha ocupa 1 por slot. Cada slot grava o item e a quantidade num formato próprio, porque o jogo só grava pilhas de 1 a 99, e sai no máximo uma pilha normal por vez (2368). Entra e sai com as regras do Dock, e as Power Banks se carregam, uma por vez, à velocidade do Dock do tier, até a reserva do UPS (2373). A Power Bank no slot de redstone descarrega (2263 e 2267).
+- **XP:** tanque de 128, 256, 512 e 1.024 baldes, que entra na Entrega 7, com a coluna da frente apagada até lá (2370). Tira e envia um nível por clique, só o dono, com o total e os canos. Modos: Armazenar, o padrão, Armazenar e converter o excesso, e Converter tudo, com 9 FE por ponto (2222, 2262 e 2266). Cheio no Armazenar, o XP espera nos Docks. O que vira FE não volta a ser XP (regra 58).
 - **Tela:** abas Network, Energy, XP, Storage e Log (2277). O Log guarda 100 eventos, no config (2278). Uma antena sem sinal ou descarregada aparece apagada, com a última foto e a hora do jogo (2332).
 
 ## Solar Relay
 
-Gera, transmite e guarda 300 mil FE e 32 baldes do que vai e vem (2289). O painel abre com o sol e o acompanha (2338). Segue o tier do Servidor, sem Module próprio (2217). Tela: geração de agora e máxima, motivo se parado, bateria, par e o slot de redstone (2280).
+Gera, transmite e guarda 300 mil FE e 32 baldes do que vai e vem (2289). O painel abre com o sol e o acompanha (2338). Segue o tier do Servidor, sem Module próprio (2217). Sem par, a faixa fica cinza, o painel, guardado, e ele não gera, com o motivo na tela e a bateria mantida (2374). Tela: geração de agora e máxima, motivo se parado, bateria, par e o slot de redstone (2280).
+
+## Ver o chunk
+
+O botão `View`, na linha `Load the chunk`, mostra a parede em volta do chunk do Servidor: translúcida, ciano, de 1 px, do bloco de apoio até 16 blocos acima, até 128 blocos do player. Só o dono vê, com o Tablet na mão, em qualquer app até o app Network existir. Desligada por padrão, salva no Servidor e no item (2443 e 2446 a 2448). Ao passar o mouse, o botão diz `Shows the chunk with the Tablet in hand`, em português `Mostra o chunk com o Tablet na mão` (2512).
+
+## Nomes flutuantes
+
+Com o Tablet na mão, em qualquer app, o nome de cada Dock, Servidor e Solar Relay do player aparece sobre o bloco, a até 32 blocos. Na entrega 5, passa a valer só com o app Network, que soma a antena (2421, 2424, 2425 e 2469).
+
+![Nomes flutuantes](../imagens/conceito/nomes-flutuantes.png)
+
+1. **Texto:** só o nome, no branco da fonte do jogo, com a sombra dela, sem fundo e sem borda (2518 e 2519). A cor do tier e a do canal da antena não aparecem no nome.
+2. **Lugar:** a 0,5 bloco acima do topo do bloco, sempre de frente para o player (2514).
+3. **Distância:** tamanho fixo no mundo, como a placa de nome do jogo, então encolhe de longe (2515).
+4. **Atrás de blocos:** aparece através deles, mais fraca, a 32%, e forte na frente (2425).
+5. **Tela aberta:** com qualquer tela aberta, nenhum nome aparece. Voltam ao fechá-la (2516).
+6. **Só do dono:** um player nunca vê os nomes dos blocos de outro.
+
+Detalhes propostos pelo agente:
+
+1. **O nome no cliente:** o Dock, o Servidor e o Relay mandam o nome ao cliente junto do dono, só no pacote de atualização: o save não muda.
+2. **Busca:** a cada 10 ticks, o cliente procura esses blocos nos chunks já carregados a até 32 blocos, sem ler bloco a cada quadro (regra 21).
+3. **Dock com o painel:** o topo é o do bloco de cima do Dock, aberto ou não, para a caixinha não pular quando o painel se transforma.
+4. **F1:** com a interface escondida, os nomes somem, como a mira e a barra de itens.
 
 ## Antena
 
@@ -101,7 +129,7 @@ Gera, transmite e guarda 300 mil FE e 32 baldes do que vai e vem (2289). O paine
 
 ## App Network
 
-Clique na antena, depois no Cubit, que fica ligado, e depois em cada Dock e baú, marcados para aquele Cubit. O Dock marcado já se liga à antena. Antena e Dock, sem Cubit, só liga a energia. Repetir o clique desfaz, e setas mostram tudo (2249). Os baús marcados fazem parte da rede (2249).
+Clique na antena, depois no Cubit, que fica ligado, e depois em cada Dock e baú, marcados para aquele Cubit. O Dock marcado já se liga à antena. Antena e Dock, sem Cubit, só liga a energia. Repetir o clique desfaz, e setas mostram tudo (2249). Os baús marcados fazem parte da rede (2249). Com o app selecionado, o nome do Dock, do Servidor, do Solar Relay e da antena do player aparece sobre cada um, a até 32 blocos, de frente para ele e mais fraco atrás dos blocos (2421, 2424 e 2425), só com o texto branco e a sombra (2518 e 2519). Até esta entrega, os nomes aparecem com o Tablet na mão, em qualquer app, como em [Nomes flutuantes](#nomes-flutuantes) (2469).
 
 | Por Cubit | Base | Advanced | Elite | Ultimate |
 |---|---|---|---|---|
@@ -157,7 +185,7 @@ O Dock ganha dois modos: enviar o excesso e enviar tudo ao Servidor (2261). O XP
 
 ## Receitas
 
-Na Engineering Desk, liberadas com o Advanced Module, na categoria `Dock and Network`. Transceptor e Âncora em Shared parts (2282 e 2305).
+Na Engineering Desk, sem bloqueio por progressão, na categoria `Dock and Network`. Transceptor e Âncora em Shared parts (2282, 2305 e 2419).
 
 | Item | Materiais |
 |---|---|
@@ -175,6 +203,7 @@ Do rascunho do desenvolvedor, com as pranchas aceitas como referência na pergun
 - **Solar Relay:** 2 blocos de altura, com a base, a faixa do tier do Servidor, o painel inclinado, o mastro com a parabólica e a antena vertical com LED.
 - **Antena:** 2 blocos de altura, base de 6×6 px, mastro, parabólica e antena vertical com LED. A faixa inferior e o anel, a cerca de 1,4 bloco, logo abaixo da parabólica, na cor do canal, e a outra faixa em cinza (2273 e 2342). A parabólica é um prato côncavo, em degraus (2341).
 - **Correções das pranchas (2341 e 2344):** a base do Relay tem 9 a 10 px, para o painel aberto caber em 16. O Servidor tem 4 HDs, 2 antenas e 2 ventoinhas por lado, as lâmpadas acesas mostram a forma do estado, e o Ultimate se distingue em netherite.
+- **Cor do metal (2388):** alumínio claro no Servidor e no Relay, perto do cinza do Dock, no lugar do grafite das pranchas, com o desgaste em marcas mais escuras. O fundo das lâmpadas continua escuro, e o Ultimate, em netherite escuro.
 - **Luzes:** textura acesa, sem luz real (2281).
 
 ![O Network Server, as vistas, os tiers e a sequência](../imagens/conceito/network-server.webp)
@@ -201,8 +230,9 @@ Do rascunho do desenvolvedor, com as pranchas aceitas como referência na pergun
 
 ### Animações
 
-No GeckoLib, por estado, com o servidor decidindo o estado (2338). Parado, quase nada se move:
+No GeckoLib, por estado, com o servidor decidindo o estado (2338). Parado, quase nada se move. As ventoinhas giram só com FE entrando ou carregando Power Bank, e o Relay transmite enquanto o sol vai ao Servidor e, da Entrega 5 em diante, também às antenas, cada um com o seu loop de som (2375):
 
+- **Tempos (2391):** partida do Servidor em 3 s, queda em 1,5 s, e o painel do Relay abrindo em 4 s e fechando em 4 s.
 - **Network Server:** tranca e partida ao ligar, ventoinhas atrás da grade, HDs piscando, barras que sobem e descem, e queda de luz ao perder a energia.
 - **Solar Relay:** o painel se desdobra em etapas, acompanha o sol e se guarda, e a parabólica se orienta ao transmitir.
 - **Signal Antenna:** o mastro se ergue ao ser colocada, e a parabólica procura e trava o sinal, e o perde.
@@ -247,6 +277,31 @@ Não foram perguntados um a um e foram autorizados em bloco com o conceito, sem 
 24. **Retorno do dono:** ao entrar, as antenas religam uma por vez, como depois de zerar (detalhe 6).
 25. **Abas:** a aba Network entra na tela do Cubit e no Tablet, com a altura conferida em prévia (2316 e 2317).
 
+## Detalhes da Entrega 3
+
+Propostos pelo agente, conferidos contra o código e autorizados em bloco, sem veto (pergunta 2376). O código da entrega espera a autorização própria (pergunta 2224).
+
+1. **Um por chunk:** ao colocar, o chunk é conferido pelos blocos dele, já carregado. Se um comando puser dois, só o primeiro, o de menor posição, forma o par e segura o chunk.
+2. **Par:** refeito ao colocar, quebrar e carregar, e nunca por varredura a cada tick.
+3. **Quebrar:** só o dono, um operador ou um player no criativo, como no Dock.
+4. **Módulos:** só no Servidor. Um Module no Relay fica na mão, com o aviso de que ele segue o tier do Servidor.
+5. **Mãos e automação:** o clique guarda a Power Bank, a Toolbox e o Damaged Cubit, e a redstone vai ao slot de energia. O funil segue as regras do Dock, com até 128 por slot.
+6. **Tirar do slot:** clique, metade, tecla de atalho, soltar e Shift + clique levam no máximo uma pilha normal.
+7. **Quantidade quebrada:** acima de 128 ou de um item que não cabe, o resto cai ao lado do bloco, com log (regra 17).
+8. **Relay por cabo e redstone:** enche só a própria bateria, que espera as antenas da Entrega 5. O sol nunca passa por ela.
+9. **Céu:** o Relay lê o céu acima do segundo bloco, no intervalo do Dock. O painel abre com 3 s de sol e fecha com 3 s sem ele, pela chave do Dock, `dock_solar_deploy_delay_ticks` (2412), também na chuva, e fica aberto à noite só com o Servidor Ultimate.
+10. **Acompanhar o sol:** de leste a oeste do mundo, não importa para onde o bloco olha, até 11° para cada lado, o que cabe no bloco (2384). Virado para norte ou sul, o painel fica inclinado para a frente e gira de lado. Para leste ou oeste, fica quase deitado e vai de 79° a 101° no eixo da frente (2385). Só inclina depois de desdobrar. Com a lua, fica nivelado.
+11. **Frente:** cada traço é 10%, com ao menos um aceso acima de zero. A coluna do inventário mede os slots ocupados. Os quadradinhos abertos pelo tier ficam como canal livre, e os outros, fechados. Sem energia, tudo apaga.
+12. **Ligado e caído:** a partida toca quando a bateria sai de zero, e a queda, quando zera. Ao carregar o mundo, nenhuma das duas toca.
+13. **UPS:** o aviso soa uma vez ao descer para a reserva e volta a valer ao sair dela. Em 0%, não soa. O tempo na tela é o da porcentagem escolhida.
+14. **Limite de chunks:** acima dele, o Servidor funciona sem segurar o chunk, e a tela diz o motivo. Vale quem chegou primeiro.
+15. **Dono offline:** o chunk sai. Se outro player o mantém carregado, o Servidor continua gerando e carregando, sem pagar os 25 FE/t. Quando o dono entra, os chunks dele voltam um a cada 2 s, com o primeiro na hora (2413).
+16. **Estado no item:** o Servidor com itens ou energia não cabe num shulker nem num inventário do mod. Vazio, cabe.
+17. **Abas:** Energy e Storage, na ordem da 2277, com os lugares das outras livres. O ícone de Storage é o do Dock, e o de Energy é novo. O Rename e o dono ficam na aba Energy até a aba Network existir, o tier do Relay aparece na linha do par, na tela dele, e a quantidade de 3 dígitos sai em letra menor (2397).
+18. **Receitas:** as duas peças em grade, como as outras peças, e os dois blocos sem forma, como o Dock.
+19. **Config:** `chunk_resume_energy`, em `[network]`, com 30.000, e a `wake_interval_ticks`, que vem da Entrega 4 (2413). As outras chaves já estão em [`tiers.md`](../tiers.md#network) e entram com o código que as lê.
+20. **Saves:** nada do Dock muda. O formato do slot é uma lista com `Slot`, o item com 1 e `Amount`.
+
 ## Contrato
 
 Os nomes foram propostos pelo agente, a partir do padrão do mod, e autorizados (2334). Entram no código com cada entrega. Os números estão em [`tiers.md`](../tiers.md#network).
@@ -254,11 +309,11 @@ Os nomes foram propostos pelo agente, a partir do padrão do mod, e autorizados 
 | Onde | Nome | Conteúdo |
 |---|---|---|
 | Blocos e itens | `cubit:network_server`, `cubit:solar_relay`, `cubit:signal_antenna`, `cubit:transceiver` e `cubit:chunk_anchor` | Cada um com a receita de mesmo ID |
-| Dados do mundo | `cubit_network` | Servidores, antenas, canais, vínculos, a última foto e o Log, por dono |
+| Dados do mundo | `cubit_network` | Servidores, antenas, canais, vínculos, a última foto e o Log, por dono. Na Entrega 3, só a lista `Chunks`, com `Owner`, `Dimension`, `Pos` e `Waiting` (2413) |
 | Ticket | `cubit:network` | Os chunks, conferidos ao abrir o mundo |
-| NBT dos blocos | `NetworkId`, `Owner`, `CustomName`, `Energy`, `XpTank`, `Slot`, `Ups` e `ChunkLoading` | Comuns aos três, com o `Tier` e os `Items` no Servidor |
+| NBT dos blocos | `NetworkId`, `Owner`, `CustomName`, `Energy`, `XpTank`, `Slot`, `Ups` e `ChunkLoading` | Comuns aos três, com o `Tier`, os `Items`, o `Drained` e o `ShowWall` no Servidor e o `SolarPanel` no Relay (2410 e 2448) |
 | NBT da antena | `Server`, `Channel`, `Enabled` e `ShowWall` | O Servidor, o canal e as chaves |
-| Item | `cubit:network_id` e `cubit:network_state` | O ID e o estado guardado, como o do Dock |
+| Item | `cubit:network_id` e `cubit:network_state` | O ID e o estado guardado, como o do Dock: `tier`, `energy`, `items` (`slot`, `item` e `amount`), `ups`, `chunk_loading` e `show_wall`. O Relay grava só `energy` (2410, 2411 e 2448) |
 | NBT do Cubit | `NetworkAntennas`, `NetworkDocks`, `NetworkChests`, `NetworkPaused` e `DrawnArea` | `DrawnArea` tem os pontos, a altura e a dimensão. A chave antiga `WorkArea` é ignorada (2283) |
 | NBT do Cubit | `HibernationReason`: `no_network` e `owner_offline` | Os motivos novos |
 | Modos do Dock | `XpMode`: `send_excess` e `send_all` | Os dois modos novos |
@@ -280,6 +335,19 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 20:30 | Acrescenta os nomes flutuantes da Entrega 3 e a dica do `View` (perguntas 2512 a 2519). |
+| Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado e a parede do chunk do Servidor (perguntas 2429 a 2448). |
+| Zennd | 2026-11-25 14:47 | Registra o código da Entrega 3 em andamento (pergunta 2399). |
+| Zennd | 2026-11-25 14:22 | Acrescenta a janela do nome e os nomes flutuantes do app Network (perguntas 2420 a 2425). |
+| Zennd | 2026-11-25 14:00 | Tira o bloqueio das receitas (pergunta 2419) e acompanha a numeração nova das respostas (pergunta 2418). |
+| Zennd | 2026-11-25 12:16 | Completa o contrato da Entrega 3, com as chaves dos saves e a volta do dono (perguntas 2410 a 2413). |
+| Zennd | 2026-11-25 11:32 | Detalha as telas da Entrega 3 (pergunta 2397). |
+| Zennd | 2026-11-25 11:10 | Acrescenta os tempos das animações da Entrega 3 (pergunta 2391). |
+| Zennd | 2026-11-25 11:07 | Troca o metal das pranchas pelo claro (pergunta 2388). |
+| Zennd | 2026-11-25 10:43 | Aceita as geometrias da Entrega 3 e detalha como o painel acompanha o sol (perguntas 2384 e 2385). |
+| Zennd | 2026-11-25 09:55 | Autoriza os detalhes da Entrega 3 e cita a branch centralizadora (perguntas 2376 e 2378). |
+| Zennd | 2026-11-25 09:52 | Fecha as lacunas da Entrega 3 e propõe os detalhes dela (perguntas 2368 a 2375). |
+| Zennd | 2026-11-25 09:41 | Atualiza a situação, com a Entrega 2 no código e as chaves entrando com o código que as lê (perguntas 2349 e 2366). |
 | Zennd | 2026-11-25 00:02 | Fecha as lacunas do desenho da área e a prévia da linha, e registra o código da Entrega 2 (perguntas 2350 a 2365). |
 | Zennd | 2026-11-24 23:33 | Acrescenta as pranchas aceitas e as correções delas (perguntas 2341 a 2344). |
 | Zennd | 2026-11-24 22:58 | Acrescenta as metas de construção, as animações e os sons (perguntas 2336 a 2340). |
