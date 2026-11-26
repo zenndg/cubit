@@ -24,7 +24,8 @@ import software.bernie.geckolib.animation.AnimatableManager;
 /**
  * The Solar Relay: it generates with the sun, straight to the server of its chunk, and follows its
  * tier. Its own battery, fed by cables and redstone, waits for the antennas (detail 18). Without a
- * server it keeps the battery and does nothing else (answer 2374).
+ * server it keeps the battery and does nothing else (answer 2374). It transmits while the sun or
+ * the energy of its server for the antennas passes (answers 2375 and 2549).
  */
 public final class SolarRelayBlockEntity extends NetworkBlockEntity {
   private static final String LINK_KEY = "Link";
@@ -35,6 +36,7 @@ public final class SolarRelayBlockEntity extends NetworkBlockEntity {
   private final IItemHandler itemHandler =
       InputFirstItems.of(energySlot(), (EmptyItemHandler) EmptyItemHandler.INSTANCE);
   private NetworkServerBlockEntity server;
+  private boolean sending;
 
   public SolarRelayBlockEntity(BlockPos pos, BlockState state) {
     super(
@@ -90,10 +92,22 @@ public final class SolarRelayBlockEntity extends NetworkBlockEntity {
   void pairWith(Optional<NetworkServerBlockEntity> next) {
     boolean changed = next.orElse(null) != server;
     server = next.orElse(null);
+    sending = sending && server != null;
     if (level != null) {
       NetworkBlock.showTier(level, worldPosition, tier());
     }
     if (changed) {
+      changeShown();
+    }
+  }
+
+  /**
+   * Its Server sends energy to an antenna through it in this tick, and it transmits as with the sun
+   * (answer 2549).
+   */
+  void sends(boolean now) {
+    if (now != sending) {
+      sending = now;
       changeShown();
     }
   }
@@ -153,7 +167,7 @@ public final class SolarRelayBlockEntity extends NetworkBlockEntity {
     CompoundTag tag = super.getUpdateTag(registries);
     panel.write(tag);
     server().ifPresent(paired -> tag.putLong(LINK_KEY, paired.getBlockPos().asLong()));
-    tag.putBoolean(TRANSMITS_KEY, panel.isShining());
+    tag.putBoolean(TRANSMITS_KEY, panel.isShining() || sending);
     return tag;
   }
 

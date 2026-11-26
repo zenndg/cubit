@@ -5,14 +5,16 @@ import io.github.zenndg.cubit.domain.energy.SolarOutput;
 
 /**
  * The numbers of a Network Server at a tier: the battery, the channels, what it takes per tick by
- * cables and redstone, the slots of the storage, in whole rows of the screen, what its Solar Relay
- * gives by day and at night, which may be zero, and what it spends for being on (answers 2220 to
- * 2223, 2267, 2269, 2326 and 2435).
+ * cables and redstone, what it sends per tick to all its antennas together (answer 2276), the slots
+ * of the storage, in whole rows of the screen, what its Solar Relay gives by day and at night,
+ * which may be zero, and what it spends for being on (answers 2220 to 2223, 2267, 2269, 2326 and
+ * 2435).
  */
 public record ServerSpec(
     Energy capacity,
     int channels,
     Energy inputPerTick,
+    Energy outputPerTick,
     int storageSlots,
     SolarOutput relay,
     Standby standby) {

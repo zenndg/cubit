@@ -188,11 +188,19 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `ServerSpec` e `ServerCatalog` | Os números do Network Server em cada tier: a bateria, os canais, a entrada por cabo e redstone, os slots, em linhas inteiras da tela, e o que o Solar Relay dele gera de dia e à noite |
 | `UpsReserve` | A parte da bateria que é só do chunk, o Nobreak, de 0% a 50% em passos de 5, com o que sobra para o resto e quanto tempo ela segura. Um número salvo ou editado vai ao passo de baixo, dentro do limite (perguntas 2209, 2212 e 2221) |
 | `UpsWatch` | O aviso do Nobreak: uma vez ao descer para a reserva, e de novo só depois de sair dela |
-| `ChunkCall` e `ChunkState` | Se um bloco segura o chunk e por que não, com o motivo em que o player menos pode agir primeiro: o config, a chave, o dono offline, a energia e os limites (perguntas 2210 a 2215) |
+| `ChunkCall` e `ChunkState` | Se um bloco segura o chunk e por que não, com o motivo em que o player menos pode agir primeiro: o config, a chave, o dono offline, a energia e os limites (perguntas 2210 a 2215). A antena também divide o chunk que o Servidor dela segura, sem pagar de novo, e, parada sem sinal, espera na fila para voltar com ele (perguntas 2264 e 2553) |
 | `ChunkCharge` | Se um bloco ficou sem energia para o chunk: zera sem o custo de um tick e só volta com a carga da retomada, também depois de um save. Um chunk de graça nunca zera (perguntas 2372 e 2410) |
 | `ChunkRoster` | Quais chunks o mod segura, de qual player, na ordem em que chegaram, e quais esperam o dono. Quem chegou primeiro fica dentro dos limites (perguntas 2210 e 2215) |
 | `Standby` | O gasto por ficar ligado, do Servidor e do Relay com par, que o Servidor paga (perguntas 2435 e 2436) |
 | `ChunkWall` | A parede em volta do chunk do Servidor, do bloco de apoio até 16 blocos acima, e quem a vê: o dono, com o Tablet na mão, a até 128 blocos (pergunta 2448) |
+| `AntennaChannel` | Os 16 canais, na ordem fixa dos IDs em inglês, os abertos pelo tier, o último canal que volta se livre e as setas que pulam os ocupados (perguntas 2269, 2309 e 2547) |
+| `AntennaSignal` | O sinal da antena e o tempo sem ele: ligada, sem sinal ou parada depois de 20 minutos, e a volta sozinha (perguntas 2323, 2552 e 2553) |
+| `SignalSound` | O som da antena quando o sinal muda: trava na primeira vez depois de colocada, volta depois de perdido e se ouve ao perder. Parar depois do tempo sem sinal não toca nada (perguntas 2552, 2553 e 2561) |
+| `AntennaPlacement` | Por que a antena não é colocada: sem ligação, sem Servidor, Servidor de outro dono, outra dimensão, chunk ocupado ou canais cheios (perguntas 2271, 2301, 2546 e 2569) |
+| `NetworkRoster` | Os Servidores e as antenas do mundo, conhecidos também com o chunk descarregado: onde cada Servidor está, com o tier que abre os canais, e o canal que cada antena toma do seu Servidor, o último se livre ou o primeiro livre (detalhes 6, 14 e 19 da Entrega 4) |
+| `AntennaSpec` | Os números da antena, sem tier, e o que ela gasta: ligada, a distância e o chunk (perguntas 2273, 2321 e 2435) |
+| `SignalDistance` | O custo da distância até o Servidor, no plano: 1 FE/t por 500 blocos completos além dos 100 (pergunta 2310) |
+| `EnergyShare` | Como o Servidor reparte a energia entre as antenas: primeiro o chunk de cada uma, na ordem dos canais, e o resto por igual, sem criar nem perder FE (perguntas 2302 e 2551) |
 | `ChunkLimits` | Quantos chunks o mod pode segurar, de um player e no mundo, com 0 para sem limite (pergunta 2215) |
 | `ServerPower` | O que a bateria fez num tick: ligou, caiu ou nada, para a partida e a queda |
 | `ServerFront` | A frente do Servidor: as colunas de 10 traços, com ao menos um aceso acima de zero, e o estado de cada lâmpada |

@@ -10,7 +10,8 @@ import net.minecraft.world.level.block.Block;
 
 /**
  * Why a block of the Network cannot be placed: another one in the chunk, of any owner, no solid top
- * below or no room above (answers 2255 and 2271).
+ * below or no room above (answers 2255 and 2271), after what is only of its kind, as the link of an
+ * antenna.
  */
 public final class NetworkPlacement {
   public static final String TAKEN_KEY = "notice.cubit.network_taken";
@@ -20,6 +21,12 @@ public final class NetworkPlacement {
   private NetworkPlacement() {}
 
   public static Optional<Component> refusal(Block block, BlockPlaceContext context) {
+    Optional<Component> own =
+        block instanceof NetworkBlock network ? network.ownRefusal(context) : Optional.empty();
+    return own.isPresent() ? own : common(block, context);
+  }
+
+  private static Optional<Component> common(Block block, BlockPlaceContext context) {
     Level level = context.getLevel();
     BlockPos pos = context.getClickedPos();
     if (NetworkChunk.has(level, pos, block)) {

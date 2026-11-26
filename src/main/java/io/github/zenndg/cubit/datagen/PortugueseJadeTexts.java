@@ -37,6 +37,7 @@ final class PortugueseJadeTexts {
   private static final String DESK_PAUSED = "Pausada: %s";
   private static final String DESK_OPTION = "Mesa de Engenharia";
   private static final String CHUNK_ON = "Carrega o chunk";
+  private static final String CHANNEL = "Canal: %s";
   private static final String CHUNK_OFF = "Não carrega o chunk";
   private static final String PAIRED = "Pareado";
   private static final String NETWORK_OPTION = "Rede";
@@ -67,6 +68,7 @@ final class PortugueseJadeTexts {
     add.accept(JadeKeys.OWNER, OWNER);
     addDesk(add);
     add.accept(JadeKeys.CHUNK_ON, CHUNK_ON);
+    add.accept(JadeKeys.CHANNEL, CHANNEL);
     add.accept(JadeKeys.CHUNK_OFF, CHUNK_OFF);
     add.accept(JadeKeys.PAIRED, PAIRED);
     add.accept(JadeKeys.config(JadeKeys.NETWORK_UID), NETWORK_OPTION);

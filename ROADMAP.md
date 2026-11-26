@@ -68,7 +68,7 @@ Entregue como um kanban, no GitHub Project "Cubit · Fase 5", um card por vez, e
 5. **Entregue:** Engineering Desk, com a fabricação em cascata, exclusiva do último tier, em dois PRs, com o conceito em [`cascata-da-mesa.md`](_docs/funcionalidades/cascata-da-mesa.md) na issue #253 (perguntas 1964 e 2006 a 2056).
 6. **Entregue:** XP Cubit e Dock, o XP do Cubit num tanque de líquido, passado ao tanque do Dock, de onde o player o puxa, na issue #244, em dois PRs: o Cubit, no #257, e o Dock, no #258 (perguntas 1762, 1787 a 1789, 1814 a 1851 e 2060 a 2130).
 7. **Entregue:** peças e crafting, com os itens do mod montados com peças compartilhadas, cada uma com uma função que vários itens têm em comum, na issue #259, com o conceito em [`pecas.md`](_docs/funcionalidades/pecas.md) (perguntas 2118 e 2131 a 2180).
-8. Network, a rede sem fio: o Servidor, o Solar Relay e a antena, com a energia, o carregamento de chunks, o log e o XP, depois das peças (perguntas 1777 a 1779, 1788, 2118 e 2196 a 2378). As 9 entregas estão em [Network](#network-a-rede-sem-fio-em-andamento). **Entregues na `integration/network`:** a 1, o conceito (#263, PR #272), e a 2, a área desenhada (#264, PR #274).
+8. Network, a rede sem fio: o Servidor, o Solar Relay e a antena, com a energia, o carregamento de chunks, o log e o XP, depois das peças (perguntas 1777 a 1779, 1788, 2118 e 2196 a 2378). As 9 entregas estão em [Network](#network-a-rede-sem-fio-em-andamento). **Entregues na `integration/network`:** a 1, o conceito (#263, PR #272), a 2, a área desenhada (#264, PR #274), e a 3, o Servidor e o Solar Relay (#265, PR #285).
 9. Robô de transporte, um segundo robô, em forma de caminhão, que só faz a logística: traz os recursos de cada farm para a base. Entra logo depois da Network, o Servidor e as Antenas, completa, e antes das outras profissões. A ideia está no [`backlog.md`](_docs/backlog.md#robô-de-transporte) e ainda vai ao refinamento (pergunta 2197).
 10. Storage wireless.
 
@@ -105,16 +105,16 @@ Em toda entrega:
 
 ### Entrega 3: Network Server e Solar Relay
 
-- [ ] Transceptor, Âncora de Chunk e as receitas dos dois blocos, na categoria `Dock and Network`
-- [ ] modelos, texturas, a frente com os 16 quadradinhos, ainda sem canais, e as 3 colunas, e as luzes
-- [ ] par no mesmo chunk, geração de 500 a 4.000 FE/t, com a noite só no Ultimate
-- [ ] refatoração antes, com nomes neutros no que serve ao Dock e ao Servidor, sem mudar o jogo (pergunta 2371)
-- [ ] bateria 4× o Dock, entrada por cabo e redstone, e upgrade pelos Modules, com o tanque na entrega 7 (pergunta 2370)
-- [ ] chave e UPS do chunk do Servidor, com os limites de 48 por player e 192 no mundo, o dono offline e a retomada com 30 mil FE (perguntas 2369 e 2372)
-- [ ] inventário de 27 a 54 slots de 128, com as regras do Dock
-- [ ] as telas do Servidor, nas abas Energy e Storage, e do Solar Relay, com Rename
-- [ ] a janela do nome ao colocar o Dock, o Servidor e o Solar Relay (perguntas 2420, 2422 e 2423)
-- [ ] os modelos acima do Dock, com as animações por estado (perguntas 2336 a 2338)
+- [x] Transceptor, Âncora de Chunk e as receitas dos dois blocos, na categoria `Dock and Network`
+- [x] modelos, texturas, a frente com os 16 quadradinhos, ainda sem canais, e as 3 colunas, e as luzes
+- [x] par no mesmo chunk, geração de 500 a 4.000 FE/t, com a noite só no Ultimate
+- [x] refatoração antes, com nomes neutros no que serve ao Dock e ao Servidor, sem mudar o jogo (pergunta 2371)
+- [x] bateria 4× o Dock, entrada por cabo e redstone, e upgrade pelos Modules, com o tanque na entrega 7 (pergunta 2370)
+- [x] chave e UPS do chunk do Servidor, com os limites de 48 por player e 192 no mundo, o dono offline e a retomada com 30 mil FE (perguntas 2369 e 2372)
+- [x] inventário de 27 a 54 slots de 128, com as regras do Dock
+- [x] as telas do Servidor, nas abas Energy e Storage, e do Solar Relay, com Rename
+- [x] a janela do nome ao colocar o Dock, o Servidor e o Solar Relay (perguntas 2420, 2422 e 2423)
+- [x] os modelos acima do Dock, com as animações por estado (perguntas 2336 a 2338)
 - **Recursos:** 2 texturas do Servidor, 1 do Relay, 2 peças, ícones das abas e 9 sons
 - **GameTests:** par, recusas, geração, tiers, quebrar e recolocar, chunk, UPS, limites, dono offline, slots de 128 e somas de FE
 

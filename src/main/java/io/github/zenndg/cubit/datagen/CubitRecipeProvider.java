@@ -62,6 +62,7 @@ final class CubitRecipeProvider extends RecipeProvider {
     dock(desk);
     networkServer(desk);
     solarRelay(desk);
+    signalAntenna(desk);
     tablet(desk);
     modules(desk);
     powerBanks(desk);
@@ -255,6 +256,19 @@ final class CubitRecipeProvider extends RecipeProvider {
     ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, CubitItems.SOLAR_RELAY.get())
         .requires(CubitItems.SOLAR_PANEL.get())
         .requires(CubitItems.TRANSCEIVER.get())
+        .requires(CubitItems.BASE_POWER_CELL.get())
+        .requires(CubitItems.XP_TANK.get())
+        .unlockedBy(HAS_ROBOT, has(CubitItems.GENERAL_ROBOT.get()))
+        .save(output);
+  }
+
+  /** A lightning rod as the mast, with the parts, without a shape (answer 2282). */
+  private void signalAntenna(RecipeOutput output) {
+    ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, CubitItems.SIGNAL_ANTENNA.get())
+        .requires(Items.LIGHTNING_ROD)
+        .requires(CubitItems.TRANSCEIVER.get())
+        .requires(CubitItems.CHUNK_ANCHOR.get())
+        .requires(CubitItems.INDUCTION_COIL.get())
         .requires(CubitItems.BASE_POWER_CELL.get())
         .requires(CubitItems.XP_TANK.get())
         .unlockedBy(HAS_ROBOT, has(CubitItems.GENERAL_ROBOT.get()))

@@ -9,6 +9,8 @@ final class NetworkItemExtensions implements IClientItemExtensions {
   static final NetworkItemExtensions SERVER =
       new NetworkItemExtensions(NetworkServerItemRenderer::new);
   static final NetworkItemExtensions RELAY = new NetworkItemExtensions(SolarRelayItemRenderer::new);
+  static final NetworkItemExtensions ANTENNA =
+      new NetworkItemExtensions(SignalAntennaItemRenderer::new);
 
   private final Supplier<BlockEntityWithoutLevelRenderer> maker;
   private BlockEntityWithoutLevelRenderer renderer;

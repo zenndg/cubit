@@ -5,6 +5,7 @@ import io.github.zenndg.cubit.block.EngineeringDeskBlock;
 import io.github.zenndg.cubit.block.InductionDockBlock;
 import io.github.zenndg.cubit.block.InductionDockTopBlock;
 import io.github.zenndg.cubit.block.NetworkServerBlock;
+import io.github.zenndg.cubit.block.SignalAntennaBlock;
 import io.github.zenndg.cubit.block.SolarRelayBlock;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
@@ -22,6 +23,7 @@ public final class CubitBlocks {
   public static final String ENGINEERING_DESK_ID = "engineering_desk";
   public static final String NETWORK_SERVER_ID = "network_server";
   public static final String SOLAR_RELAY_ID = "solar_relay";
+  public static final String SIGNAL_ANTENNA_ID = "signal_antenna";
   private static final float DOCK_HARDNESS = 3.5f;
 
   /** As strong as bedrock: no explosion breaks a block that only its owner may break. */
@@ -49,6 +51,10 @@ public final class CubitBlocks {
   /** The panel and the radio of the server of its chunk (answer 2268). */
   public static final Supplier<Block> SOLAR_RELAY =
       BLOCKS.register(SOLAR_RELAY_ID, () -> new SolarRelayBlock(dockProperties()));
+
+  /** The antenna that takes a channel of its server and holds its own chunk (answer 2199). */
+  public static final Supplier<Block> SIGNAL_ANTENNA =
+      BLOCKS.register(SIGNAL_ANTENNA_ID, () -> new SignalAntennaBlock(dockProperties()));
 
   private CubitBlocks() {}
 

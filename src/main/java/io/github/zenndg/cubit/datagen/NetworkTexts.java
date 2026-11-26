@@ -1,5 +1,8 @@
 package io.github.zenndg.cubit.datagen;
 
+import io.github.zenndg.cubit.block.AntennaLinking;
+import io.github.zenndg.cubit.block.AntennaPlacing;
+import io.github.zenndg.cubit.block.NetworkCommands;
 import io.github.zenndg.cubit.block.NetworkPlacement;
 import io.github.zenndg.cubit.block.NetworkUpgrade;
 import io.github.zenndg.cubit.domain.ownership.BlockName;
@@ -29,9 +32,31 @@ final class NetworkTexts {
   private static final String RELAY_PANEL_CLOSE_SOUND = "Solar Relay closes";
   private static final String RELAY_PANEL_LOCK_SOUND = "Solar Relay locks";
   private static final String RELAY_TRANSMIT_SOUND = "Solar Relay transmits";
+  private static final String ANTENNA_RAISE_SOUND = "Signal Antenna rises";
+  private static final String ANTENNA_LOCK_SOUND = "Signal Antenna locks on";
+  private static final String ANTENNA_LOST_SOUND = "Signal Antenna loses signal";
+  private static final String ANTENNA_REGAINED_SOUND = "Signal Antenna gets signal back";
+  private static final String ANTENNA_LINK_SOUND = "Signal Antenna links";
   private static final String NAME_DOCK = "Name your Dock";
   private static final String NAME_SERVER = "Name your Server";
   private static final String NAME_RELAY = "Name your Solar Relay";
+  private static final String ANTENNA = "Signal Antenna";
+  private static final String ANTENNA_NOT_LINKED = "Link it to a Server first";
+  private static final String ANTENNA_NO_SERVER = "Its Network Server is gone";
+  private static final String ANTENNA_OTHER_OWNER = "This Server belongs to another player";
+  private static final String ANTENNA_AWAY = "Its Network Server is in another dimension";
+  private static final String ANTENNA_CHUNK_TAKEN = "This chunk already has a Signal Antenna";
+  private static final String ANTENNA_CHANNELS_FULL = "Its Network Server has no free channel";
+  private static final String ANTENNA_MOVED = "Channel %s is taken, so it took %s";
+  private static final String ANTENNA_LINKED = "Linked to %s";
+  private static final String NAME_ANTENNA = "Name your Signal Antenna";
+  private static final String COMMAND_NONE = "The Network holds no chunk";
+  private static final String COMMAND_TITLE = "The Network holds %s chunks:";
+  private static final String COMMAND_PLAYER = "%s · %s chunks";
+  private static final String COMMAND_ENTRY = "  %s · %s %s %s %s · %s";
+  private static final String COMMAND_HOLDING = "holding";
+  private static final String COMMAND_WAITING = "waiting for its owner";
+  private static final String COMMAND_RELEASED = "Released %s chunks of the Network";
 
   private NetworkTexts() {}
 
@@ -49,6 +74,46 @@ final class NetworkTexts {
     add.accept(ScreenKeys.blockNameTitle(BlockName.Kind.DOCK), NAME_DOCK);
     add.accept(ScreenKeys.blockNameTitle(BlockName.Kind.SERVER), NAME_SERVER);
     add.accept(ScreenKeys.blockNameTitle(BlockName.Kind.RELAY), NAME_RELAY);
+    add.accept(ScreenKeys.blockNameTitle(BlockName.Kind.ANTENNA), NAME_ANTENNA);
+    addAntenna(add);
+    addAntennaSounds(add);
+    addCommands(add);
+  }
+
+  private static void addAntenna(BiConsumer<String, String> add) {
+    add.accept(CubitBlocks.SIGNAL_ANTENNA.get().getDescriptionId(), ANTENNA);
+    add.accept(AntennaPlacing.NOT_LINKED_KEY, ANTENNA_NOT_LINKED);
+    add.accept(AntennaPlacing.NO_SERVER_KEY, ANTENNA_NO_SERVER);
+    add.accept(AntennaPlacing.OTHER_OWNER_KEY, ANTENNA_OTHER_OWNER);
+    add.accept(AntennaPlacing.OTHER_DIMENSION_KEY, ANTENNA_AWAY);
+    add.accept(AntennaPlacing.CHUNK_TAKEN_KEY, ANTENNA_CHUNK_TAKEN);
+    add.accept(AntennaPlacing.CHANNELS_FULL_KEY, ANTENNA_CHANNELS_FULL);
+    add.accept(AntennaPlacing.CHANNEL_MOVED_KEY, ANTENNA_MOVED);
+    add.accept(AntennaLinking.LINKED_KEY, ANTENNA_LINKED);
+  }
+
+  private static void addCommands(BiConsumer<String, String> add) {
+    add.accept(NetworkCommands.NONE_KEY, COMMAND_NONE);
+    add.accept(NetworkCommands.TITLE_KEY, COMMAND_TITLE);
+    add.accept(NetworkCommands.PLAYER_KEY, COMMAND_PLAYER);
+    add.accept(NetworkCommands.ENTRY_KEY, COMMAND_ENTRY);
+    add.accept(NetworkCommands.HOLDING_KEY, COMMAND_HOLDING);
+    add.accept(NetworkCommands.WAITING_KEY, COMMAND_WAITING);
+    add.accept(NetworkCommands.RELEASED_KEY, COMMAND_RELEASED);
+  }
+
+  private static void addAntennaSounds(BiConsumer<String, String> add) {
+    add.accept(
+        CubitSoundProvider.antennaSubtitleKey(CubitSounds.ANTENNA_RAISE_NAME), ANTENNA_RAISE_SOUND);
+    add.accept(
+        CubitSoundProvider.antennaSubtitleKey(CubitSounds.ANTENNA_LOCK_NAME), ANTENNA_LOCK_SOUND);
+    add.accept(
+        CubitSoundProvider.antennaSubtitleKey(CubitSounds.ANTENNA_LOST_NAME), ANTENNA_LOST_SOUND);
+    add.accept(
+        CubitSoundProvider.antennaSubtitleKey(CubitSounds.ANTENNA_REGAINED_NAME),
+        ANTENNA_REGAINED_SOUND);
+    add.accept(
+        CubitSoundProvider.antennaSubtitleKey(CubitSounds.ANTENNA_LINK_NAME), ANTENNA_LINK_SOUND);
   }
 
   private static void addSounds(BiConsumer<String, String> add) {

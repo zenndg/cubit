@@ -3,6 +3,7 @@ package io.github.zenndg.cubit.compat.jade;
 import io.github.zenndg.cubit.block.NetworkBlock;
 import io.github.zenndg.cubit.block.NetworkBlockEntity;
 import io.github.zenndg.cubit.block.NetworkServerBlockEntity;
+import io.github.zenndg.cubit.block.SignalAntennaBlockEntity;
 import io.github.zenndg.cubit.block.SolarRelayBlockEntity;
 import io.github.zenndg.cubit.domain.energy.EnergyReading;
 import io.github.zenndg.cubit.menu.NetworkKeys;
@@ -17,7 +18,8 @@ import snownee.jade.api.config.IPluginConfig;
 
 /**
  * The blocks of the Network in Jade, short: the name, the battery, the tier, the switch of the
- * chunk of the server and whether they are paired (answer 2285).
+ * chunk of the server and whether they are paired, and the channel and the signal of the antenna
+ * (answer 2285).
  */
 enum NetworkJadeProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
   INSTANCE;
@@ -41,6 +43,8 @@ enum NetworkJadeProvider implements IBlockComponentProvider, IServerDataProvider
       data.putBoolean(PAIRED, server.relay().isPresent());
     } else if (block instanceof SolarRelayBlockEntity relay) {
       data.putBoolean(PAIRED, relay.server().isPresent());
+    } else if (block instanceof SignalAntennaBlockEntity antenna) {
+      AntennaJadeLines.write(data, antenna);
     }
   }
 
@@ -53,6 +57,10 @@ enum NetworkJadeProvider implements IBlockComponentProvider, IServerDataProvider
     tooltip.add(Component.literal(data.getString(NAME)));
     tooltip.add(
         JadeEnergyText.stock(EnergyReading.capped(data.getLong(ENERGY), data.getLong(CAPACITY))));
+    if (AntennaJadeLines.isAntenna(data)) {
+      AntennaJadeLines.append(tooltip, data);
+      return;
+    }
     if (accessor.getBlockState().hasProperty(NetworkBlock.TIER)) {
       tooltip.add(JadeTierLine.of(accessor.getBlockState().getValue(NetworkBlock.TIER).tier()));
     }

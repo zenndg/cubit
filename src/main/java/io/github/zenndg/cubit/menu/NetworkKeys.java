@@ -25,10 +25,11 @@ public final class NetworkKeys {
   public static final String COST_SERVER = PREFIX + "cost_server";
   public static final String COST_RELAY = PREFIX + "cost_relay";
   public static final String BANKS = PREFIX + "banks";
+  public static final String ANTENNAS = PREFIX + "antennas";
+  public static final String ANTENNAS_TIP = PREFIX + "antennas_tip";
   public static final String GAIN = PREFIX + "gain";
   public static final String LOSS = PREFIX + "loss";
   public static final String NOTHING = PREFIX + "nothing";
-  public static final String CHUNK = PREFIX + "chunk";
   public static final String LOAD_CHUNK = PREFIX + "load_chunk";
   public static final String VIEW = PREFIX + "view";
   public static final String VIEW_TIP = PREFIX + "view_tip";

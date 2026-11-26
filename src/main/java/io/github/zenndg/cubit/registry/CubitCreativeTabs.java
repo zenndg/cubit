@@ -31,6 +31,7 @@ public final class CubitCreativeTabs {
                     output.accept(CubitItems.INDUCTION_DOCK.get());
                     output.accept(CubitItems.NETWORK_SERVER.get());
                     output.accept(CubitItems.SOLAR_RELAY.get());
+                    output.accept(CubitItems.SIGNAL_ANTENNA.get());
                     output.accept(CubitItems.TABLET.get());
                     output.accept(CubitItems.RECHARGE_SPLASH.get());
                     output.accept(CubitItems.ADVANCED_MODULE.get());

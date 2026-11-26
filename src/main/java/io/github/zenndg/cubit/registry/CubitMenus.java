@@ -5,6 +5,7 @@ import io.github.zenndg.cubit.menu.EngineeringDeskMenu;
 import io.github.zenndg.cubit.menu.InductionDockMenu;
 import io.github.zenndg.cubit.menu.NetworkServerMenu;
 import io.github.zenndg.cubit.menu.RobotMenu;
+import io.github.zenndg.cubit.menu.SignalAntennaMenu;
 import io.github.zenndg.cubit.menu.SolarRelayMenu;
 import io.github.zenndg.cubit.menu.TabletRobotMenu;
 import java.util.function.Supplier;
@@ -48,6 +49,11 @@ public final class CubitMenus {
   public static final Supplier<MenuType<SolarRelayMenu>> SOLAR_RELAY =
       MENUS.register(
           CubitBlocks.SOLAR_RELAY_ID, () -> IMenuTypeExtension.create(SolarRelayMenu::onClient));
+
+  public static final Supplier<MenuType<SignalAntennaMenu>> SIGNAL_ANTENNA =
+      MENUS.register(
+          CubitBlocks.SIGNAL_ANTENNA_ID,
+          () -> IMenuTypeExtension.create(SignalAntennaMenu::onClient));
 
   private CubitMenus() {}
 

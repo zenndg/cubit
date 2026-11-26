@@ -45,6 +45,7 @@ final class DeskCatalogOrder {
           CubitItems.BASE_POWER_CELL,
           CubitItems.NETWORK_SERVER,
           CubitItems.SOLAR_RELAY,
+          CubitItems.SIGNAL_ANTENNA,
           CubitItems.ADVANCED_MODULE,
           CubitItems.CARD_CASING,
           CubitItems.FISHER_CARD,

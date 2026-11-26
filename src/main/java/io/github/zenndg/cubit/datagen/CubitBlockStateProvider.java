@@ -52,6 +52,7 @@ final class CubitBlockStateProvider extends BlockStateProvider {
     engineeringDesk();
     network(CubitBlocks.NETWORK_SERVER.get(), CubitBlocks.NETWORK_SERVER_ID);
     network(CubitBlocks.SOLAR_RELAY.get(), CubitBlocks.SOLAR_RELAY_ID);
+    network(CubitBlocks.SIGNAL_ANTENNA.get(), CubitBlocks.SIGNAL_ANTENNA_ID);
   }
 
   /**

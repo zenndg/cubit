@@ -237,9 +237,16 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `network` | `server_ups_percent` | UPS padrão do Servidor | 0 a 50 |
 | `network` | `relay_energy_capacity` e `relay_input_per_tick` | Solar Relay: bateria e entrada | 1 a 2147483647 |
 | `network` | `storage_slot_limit` | Itens por slot do Servidor | 1 a 999 |
+| `network` | `antenna_energy_capacity` | Signal Antenna, a bateria | 1 a 2147483647 |
+| `network` | `antenna_input_per_tick` | Signal Antenna, a entrada pela rede e por cabo, somadas | 0 a 2147483647 |
+| `network` | `antenna_standby_per_tick` | Gasto da antena ligada | 0 a 2147483647 |
+| `network` | `antenna_ups_percent` | UPS padrão da antena | 0 a 50 |
+| `network` | `signal_loss_ticks` | Tempo que a antena trabalha sem sinal antes de parar | 1 a 2147483647 |
+| `network` | `distance_free_blocks`, `distance_step_blocks` e `distance_cost` | Custo da distância da antena ao Servidor: os blocos sem custo, o passo e o custo de cada passo | 0 a 2147483647, com o passo de 1 em diante |
 | `network.{tier}` | `energy_capacity` | Network Server, a bateria | 1 a 2147483647 |
 | `network.{tier}` | `channels` | Network Server, os canais | 1 a 16 |
 | `network.{tier}` | `input_per_tick` | Network Server, a entrada por cabo e redstone | 1 a 2147483647 |
+| `network.{tier}` | `output_per_tick` | Network Server, o que manda às antenas por tick, somadas | 0 a 2147483647 |
 | `network.{tier}` | `storage_slots` | Network Server, os slots | 9 a 54 |
 | `network.{tier}` | `relay_solar_per_tick` e `relay_solar_night_per_tick` | Solar Relay, de dia e à noite | 0 a 2147483647 |
 | `network.{tier}` | `standby_per_tick` e `relay_standby_per_tick` | Gasto do Servidor ligado e do Solar Relay com par | 0 a 2147483647 |
@@ -283,6 +290,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 08:01 | Acrescenta as chaves da Signal Antenna e o `output_per_tick` do Servidor (entrega 4 da Network). |
 | Zennd | 2026-11-25 22:02 | Acrescenta a chave `engineering_desk_disassembly` (pergunta 2531). |
 | Zennd | 2026-11-25 19:45 | Acrescenta o gasto do Dock e o custo novo da mesa (perguntas 2441 e 2468). |
 | Zennd | 2026-11-25 17:33 | Acrescenta as chaves de chamar o Cubit (perguntas 2464 e 2482). |

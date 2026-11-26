@@ -42,6 +42,7 @@ public final class NetworkSection implements ServerCatalog {
   private final ModConfigSpec.IntValue relayInput;
   private final ModConfigSpec.IntValue slotLimit;
   private final ChunkKeys chunks;
+  private final AntennaKeys antennas;
   private final Map<RobotTier, ServerKeys> servers = new EnumMap<>(RobotTier.class);
 
   /** In a section of its own, out of the general one. */
@@ -61,6 +62,7 @@ public final class NetworkSection implements ServerCatalog {
             MAX_POINTS, MAX_POINTS_DEFAULT, AreaDrawingSpec.FEWEST_POINTS, AreaShape.MAX_POINTS);
     reach = builder.defineInRange(REACH, REACH_DEFAULT, MIN, REACH_MAX);
     chunks = new ChunkKeys(builder);
+    antennas = new AntennaKeys(builder);
     relayCapacity =
         builder.defineInRange(RELAY_CAPACITY, RELAY_CAPACITY_DEFAULT, MIN, Integer.MAX_VALUE);
     relayInput = builder.defineInRange(RELAY_INPUT, RELAY_INPUT_DEFAULT, MIN, Integer.MAX_VALUE);
@@ -80,6 +82,11 @@ public final class NetworkSection implements ServerCatalog {
   /** The keys of the chunks the mod holds. */
   public ChunkKeys chunks() {
     return chunks;
+  }
+
+  /** The keys of the Signal Antenna and of the cost of its distance. */
+  public AntennaKeys antennas() {
+    return antennas;
   }
 
   public Energy relayCapacity() {

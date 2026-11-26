@@ -6,6 +6,7 @@ tmp/
 
 # Serena, o MCP de código: cache, memórias e projeto, só da máquina
 .serena/
+.codex/
 
 ### Gradle ###
 .gradle

@@ -1,10 +1,12 @@
 package io.github.zenndg.cubit.gametest;
 
 import io.github.zenndg.cubit.block.NetworkServerBlockEntity;
+import io.github.zenndg.cubit.block.SignalAntennaBlockEntity;
 import io.github.zenndg.cubit.block.SolarRelayBlockEntity;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.SavedBigStack;
+import io.github.zenndg.cubit.item.SavedLink;
 import io.github.zenndg.cubit.item.SavedNetwork;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
 import io.github.zenndg.cubit.registry.CubitItems;
@@ -60,7 +62,8 @@ final class NetworkScene {
     ItemStack item = new ItemStack(CubitItems.NETWORK_SERVER.get());
     item.set(
         CubitDataComponents.NETWORK_STATE.get(),
-        new SavedNetwork(tier, energy.amount(), List.of(items), Optional.empty(), true, false));
+        new SavedNetwork(
+            tier, energy.amount(), List.of(items), Optional.empty(), true, false, SavedLink.NONE));
     return item;
   }
 
@@ -78,6 +81,14 @@ final class NetworkScene {
     ItemStack item = new ItemStack(CubitItems.SOLAR_RELAY.get());
     GameTestRobots.use(helper, owner, item, relayFloor(helper));
     return helper.getBlockEntity(relayFloor(helper).above());
+  }
+
+  /** An antenna linked to the server of the scene, in the same chunk. */
+  static SignalAntennaBlockEntity placeAntenna(GameTestHelper helper, Player owner) {
+    ItemStack item = new ItemStack(CubitItems.SIGNAL_ANTENNA.get());
+    clickServer(helper, owner, item);
+    GameTestRobots.use(helper, owner, item, otherFloor(helper));
+    return helper.getBlockEntity(otherFloor(helper).above());
   }
 
   static void clickServer(GameTestHelper helper, Player player, ItemStack stack) {

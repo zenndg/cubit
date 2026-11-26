@@ -18,6 +18,7 @@ final class CubitSoundProvider extends SoundDefinitionsProvider {
   private static final String DOCK = "induction_dock";
   private static final String SERVER = "network_server";
   private static final String RELAY = "solar_relay";
+  private static final String ANTENNA = "signal_antenna";
   private static final String PATROLLER = "patroller";
   private static final String SUBTITLE_PREFIX = "subtitles.cubit.";
   private static final char FOLDER_END = '/';
@@ -54,6 +55,10 @@ final class CubitSoundProvider extends SoundDefinitionsProvider {
 
   static String relaySubtitleKey(String name) {
     return SUBTITLE_PREFIX + RELAY + KEY_END + name;
+  }
+
+  static String antennaSubtitleKey(String name) {
+    return SUBTITLE_PREFIX + ANTENNA + KEY_END + name;
   }
 
   static String deskSubtitleKey(String name) {
@@ -93,6 +98,15 @@ final class CubitSoundProvider extends SoundDefinitionsProvider {
     addRelaySound(CubitSounds.RELAY_PANEL_CLOSE, CubitSounds.RELAY_PANEL_CLOSE_NAME);
     addRelaySound(CubitSounds.RELAY_PANEL_LOCK, CubitSounds.RELAY_PANEL_LOCK_NAME);
     addRelaySound(CubitSounds.RELAY_TRANSMIT, CubitSounds.RELAY_TRANSMIT_NAME);
+    addAntennaSound(CubitSounds.ANTENNA_RAISE, CubitSounds.ANTENNA_RAISE_NAME);
+    addAntennaSound(CubitSounds.ANTENNA_LOCK, CubitSounds.ANTENNA_LOCK_NAME);
+    addAntennaSound(CubitSounds.ANTENNA_LOST, CubitSounds.ANTENNA_LOST_NAME);
+    addAntennaSound(CubitSounds.ANTENNA_REGAINED, CubitSounds.ANTENNA_REGAINED_NAME);
+    addAntennaSound(CubitSounds.ANTENNA_LINK, CubitSounds.ANTENNA_LINK_NAME);
+  }
+
+  private void addAntennaSound(Supplier<SoundEvent> event, String name) {
+    add(event, ANTENNA, name, antennaSubtitleKey(name));
   }
 
   private void addServerSound(Supplier<SoundEvent> event, String name) {

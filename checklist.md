@@ -146,7 +146,7 @@ Um card por vez, na ordem do board "Cubit · Fase 5" (perguntas 1137, 1141 e 115
 23. [x] Engineering Desk: a fabricação em cascata no último tier, com o conceito em `_docs/funcionalidades/cascata-da-mesa.md`, em dois PRs (issue #253, PR #254 e o PR que fecha a issue, perguntas 1964 e 2006 a 2056)
 24. [x] XP Cubit e Dock, o XP como fluido no tanque do Cubit e do Dock, em dois PRs (issue #244, PR #257 e o PR que fecha a issue, perguntas 1762, 1787 a 1789, 1814 a 1851, 2060 a 2130)
 25. [x] Peças e crafting, com os itens do mod montados com peças compartilhadas (issue #259, PR #260, perguntas 2118 e 2131 a 2180)
-26. [ ] Network, a rede sem fio: o Servidor, o Solar Relay e a antena, com a energia, o carregamento de chunks, o log e o XP, em 9 entregas para a `integration/network` (#263 a #271, perguntas 1777 a 1779, 1788 e 2196 a 2378). As #205 e #206 fecharam sem implementação, e as entregas ganharam issues novas (pergunta 2292). Já entraram na `integration/network` o conceito (PR #272) e a área desenhada (PR #274). O item só é marcado com o PR final para a `develop` (pergunta 2205)
+26. [ ] Network, a rede sem fio: o Servidor, o Solar Relay e a antena, com a energia, o carregamento de chunks, o log e o XP, em 9 entregas para a `integration/network` (#263 a #271, perguntas 1777 a 1779, 1788 e 2196 a 2378). As #205 e #206 fecharam sem implementação, e as entregas ganharam issues novas (pergunta 2292). Já entraram na `integration/network` o conceito (PR #272), a área desenhada (PR #274) e o Servidor e o Solar Relay (PR #285). O item só é marcado com o PR final para a `develop` (pergunta 2205)
 27. [ ] Lenhador, uma profissão nova, ainda sem issue (perguntas 1594, 1666 e 1667)
 28. [ ] Pecuarista (#201)
 29. [ ] Mecânico (#203)

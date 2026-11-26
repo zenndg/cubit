@@ -7,7 +7,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * The shapes of the blocks of the Network, from their models: the cabinet of the server, and the
- * base, the pedestal, the folded panel and the mast of the relay, by facing.
+ * base, the pedestal, the folded panel and the mast of the relay, by facing, and the base and the
+ * mast of the antenna.
  */
 final class NetworkShapes {
   private static final double FULL = 16;
@@ -21,6 +22,9 @@ final class NetworkShapes {
   private static final double[] PANEL_TOP = {5, 0, 4, 11, 3.6, 8};
   private static final double[] MAST = {6.8, 0, 11, 9.2, FULL, 13.6};
   private static final double[] DISH = {5.4, 6, 7.6, 10.6, 11.4, 13.6};
+  private static final VoxelShape ANTENNA_BASE = Block.box(5, 0, 5, 11, 4.2, 11);
+  private static final VoxelShape ANTENNA_MAST = Block.box(6.5, 4.2, 6.5, 9.5, FULL, 9.5);
+  private static final VoxelShape ANTENNA_TOP = Block.box(7, 0, 7, 9, FULL, 9);
   private static final int MIN_X = 0;
   private static final int MIN_Y = 1;
   private static final int MIN_Z = 2;
@@ -38,6 +42,14 @@ final class NetworkShapes {
     return lower
         ? Shapes.or(RELAY_BASE, turned(COLUMN, facing))
         : Shapes.or(turned(PANEL_TOP, facing), turned(MAST, facing), turned(DISH, facing));
+  }
+
+  /**
+   * The base and the mast of the antenna, raised, which look the same from every side. The dish
+   * turns as it seeks, so it stays out of the shape, which keeps the path of the Cubit free.
+   */
+  static VoxelShape antenna(boolean lower) {
+    return lower ? Shapes.or(ANTENNA_BASE, ANTENNA_MAST) : ANTENNA_TOP;
   }
 
   /** The boxes are written with the front to the north. */

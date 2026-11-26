@@ -5,15 +5,19 @@ import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.EnergyStock;
 import io.github.zenndg.cubit.domain.energy.SolarOutput;
 import io.github.zenndg.cubit.domain.network.ChunkState;
+import io.github.zenndg.cubit.domain.network.NetworkRoster;
 import io.github.zenndg.cubit.domain.network.ServerSpec;
 import io.github.zenndg.cubit.domain.network.UpsReserve;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.ModuleItem;
+import io.github.zenndg.cubit.item.SavedLink;
 import io.github.zenndg.cubit.item.SavedNetwork;
+import io.github.zenndg.cubit.item.SignalAntennaItem;
 import io.github.zenndg.cubit.registry.CubitBlockEntities;
 import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -38,7 +42,8 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   private final IItemHandler itemHandler = InputFirstItems.of(energySlot(), storage.handler());
   private final ServerShow show = new ServerShow();
   private UpsReserve ups = CubitMod.CONFIG.network().chunks().serverUps();
-  private final ServerChunk chunk = new ServerChunk(this::setChanged);
+  private final HeldChunk chunk = new HeldChunk(this::setChanged);
+  private final AntennaFeed antennas = new AntennaFeed();
   private boolean chunkLoading = true;
   private boolean showWall;
   private Energy bankGiven = Energy.ZERO;
@@ -59,6 +64,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     BlockEnergy battery = server.battery();
     battery.tick();
     server.storage.dropRefused(level, pos);
+    server.feedAntennas((ServerLevel) level);
     server.chargeBanks();
     server.payUpkeep((ServerLevel) level);
     server.show.passes(battery.enteredNow());
@@ -70,6 +76,40 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   private ServerShow.Reading reading() {
     Energy upkeep = chunkCost().plus(standbyCost()).plus(relayCost());
     return new ServerShow.Reading(energy(), ups, spec(), storage.used(), relay != null, upkeep);
+  }
+
+  /**
+   * Through its relay, up to what it sends per tick and only above its reserve, before the Power
+   * Banks (answers 2276, 2550 and 2571).
+   */
+  private void feedAntennas(ServerLevel level) {
+    Energy offered =
+        relay == null ? Energy.ZERO : spec().outputPerTick().min(ups.spare(energy(), capacity()));
+    boolean reaches = relay != null && !energy().isZero();
+    battery().set(antennas.tick(level, identity().id(), battery().stock(), offered, reaches));
+    Energy sent = antennas.sent();
+    show.passes(sent);
+    if (!sent.isZero()) {
+      setChanged();
+    }
+    if (relay != null) {
+      relay.sends(!sent.isZero());
+    }
+  }
+
+  /** What its antennas kept in the last tick, for the screen (answer 2545). */
+  public Energy antennasSent() {
+    return antennas.sent();
+  }
+
+  /** How many of its antennas took energy in the last tick. */
+  public int antennasReceiving() {
+    return antennas.receiving();
+  }
+
+  /** How many antennas it has, wherever they are. */
+  public int antennasListed() {
+    return antennas.listed();
   }
 
   /** One at a time, with what passes the reserve (answer 2373). */
@@ -84,7 +124,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   /** The chunk is paid first, and then what the server spends for being on (answer 2439). */
   private void payUpkeep(ServerLevel level) {
     Energy standby = spec().standby().total(relay != null);
-    ServerChunk.Asked asked = new ServerChunk.Asked(owner(), chunkLoading && first, standby);
+    HeldChunk.Asked asked = new HeldChunk.Asked(owner(), chunkLoading && first, standby);
     EnergyStock left = chunk.tick(level, worldPosition, asked, battery().stock());
     EnergyStock.Spent spent = left.spend(standby);
     battery().set(spent.stock());
@@ -180,13 +220,6 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     return chunk.state();
   }
 
-  /** How many chunks its owner holds now, with this one. */
-  public int chunksHeld() {
-    return level instanceof ServerLevel server
-        ? owner().map(NetworkData.of(server.getServer()).chunks()::heldBy).orElse(0)
-        : 0;
-  }
-
   /** What the chunk costs now per tick. */
   public Energy chunkCost() {
     return chunk.cost();
@@ -202,6 +235,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   }
 
   void pairWith(Optional<SolarRelayBlockEntity> next, boolean firstOfChunk) {
+    listed();
     if (first != firstOfChunk) {
       first = firstOfChunk;
       chunk.recheck();
@@ -209,6 +243,22 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     if (next.orElse(null) != relay) {
       relay = next.orElse(null);
       changeShown();
+    }
+  }
+
+  /**
+   * Its place and its tier in the data of the world, for its antennas far away. It follows each
+   * time the chunk is paired: when placed, loaded or upgraded.
+   */
+  private void listed() {
+    if (!(level instanceof ServerLevel server) || owner().isEmpty()) {
+      return;
+    }
+    NetworkData data = NetworkData.of(server.getServer());
+    GlobalPos place = GlobalPos.of(level.dimension(), worldPosition);
+    if (data.roster()
+        .putServer(new NetworkRoster.Server<>(identity().id(), owner().get(), place, tier()))) {
+      data.setDirty();
     }
   }
 
@@ -241,6 +291,11 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   }
 
   @Override
+  void switchChunkOff() {
+    setChunkLoading(false);
+  }
+
+  @Override
   public IItemHandler itemHandler() {
     return itemHandler;
   }
@@ -256,6 +311,10 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
       NetworkUpgrade.apply(this, player, stack);
       return true;
     }
+    if (stack.getItem() instanceof SignalAntennaItem) {
+      AntennaLinking.link(this, player, stack);
+      return true;
+    }
     return storage.insertByClick(stack, energySlot());
   }
 
@@ -263,13 +322,23 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   void gone() {
     if (level instanceof ServerLevel server) {
       chunk.release(server, worldPosition);
+      NetworkData data = NetworkData.of(server.getServer());
+      if (data.roster().removeServer(identity().id())) {
+        data.setDirty();
+      }
     }
   }
 
   @Override
   SavedNetwork kept() {
     return new SavedNetwork(
-        tier(), energy().amount(), storage.contents(), Optional.of(ups), chunkLoading, showWall);
+        tier(),
+        energy().amount(),
+        storage.contents(),
+        Optional.of(ups),
+        chunkLoading,
+        showWall,
+        SavedLink.NONE);
   }
 
   @Override

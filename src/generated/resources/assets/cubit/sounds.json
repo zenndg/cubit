@@ -213,6 +213,36 @@
     ],
     "subtitle": "subtitles.cubit.network_server.ups_warning"
   },
+  "signal_antenna.link": {
+    "sounds": [
+      "cubit:signal_antenna/link"
+    ],
+    "subtitle": "subtitles.cubit.signal_antenna.link"
+  },
+  "signal_antenna.lock": {
+    "sounds": [
+      "cubit:signal_antenna/lock"
+    ],
+    "subtitle": "subtitles.cubit.signal_antenna.lock"
+  },
+  "signal_antenna.lost": {
+    "sounds": [
+      "cubit:signal_antenna/lost"
+    ],
+    "subtitle": "subtitles.cubit.signal_antenna.lost"
+  },
+  "signal_antenna.raise": {
+    "sounds": [
+      "cubit:signal_antenna/raise"
+    ],
+    "subtitle": "subtitles.cubit.signal_antenna.raise"
+  },
+  "signal_antenna.regained": {
+    "sounds": [
+      "cubit:signal_antenna/regained"
+    ],
+    "subtitle": "subtitles.cubit.signal_antenna.regained"
+  },
   "solar_relay.panel_close": {
     "sounds": [
       "cubit:solar_relay/panel_close"

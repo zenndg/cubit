@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -42,6 +43,14 @@ public final class ChunkRoster<P> {
 
   public int heldBy(UUID owner) {
     return count(owner, null).ofPlayer();
+  }
+
+  /** The places held or waiting, in the order they came, of one player or of all of them. */
+  public List<P> placesOf(Optional<UUID> owner) {
+    return entries.values().stream()
+        .filter(entry -> owner.map(entry.owner()::equals).orElse(true))
+        .map(Entry::place)
+        .toList();
   }
 
   public List<P> waitingOf(UUID owner) {

@@ -40,6 +40,7 @@ Servidor, Relay e antena têm Rename e o nome padrão com 8 dígitos (2275). Ao 
 | Chunk, por tick, no Servidor e na antena | 25 FE (2216) |
 | Servidor ligado, por tick e por tier, além do chunk | 20, 40, 80 e 160 FE (2435) |
 | Solar Relay com par, por tick e por tier, pago pelo Servidor | 2, 5, 15 e 40 FE (2435 e 2436) |
+| Antena ligada, por tick, além do chunk | 1 FE (2435) |
 | Distância do Servidor à antena, por tick | 1 FE por 500 blocos completos além dos 100, também com a chave do chunk desligada (2310 e 2321) |
 | Servidor, distribuindo | 20, 40, 80 e 160 mil FE/t. Cada antena, até 5.000 (2276) |
 | Entrada por cabo e redstone | Servidor: 20, 40, 80 e 160 mil FE/t. Solar Relay e antena: 5.000 FE/t (2326) |
@@ -302,6 +303,36 @@ Propostos pelo agente, conferidos contra o código e autorizados em bloco, sem v
 19. **Config:** `chunk_resume_energy`, em `[network]`, com 30.000, e a `wake_interval_ticks`, que vem da Entrega 4 (2413). As outras chaves já estão em [`tiers.md`](../tiers.md#network) e entram com o código que as lê.
 20. **Saves:** nada do Dock muda. O formato do slot é uma lista com `Slot`, o item com 1 e `Amount`.
 
+## Detalhes da Entrega 4
+
+Decididos nas perguntas 2542 a 2553. O código da entrega espera a autorização própria (pergunta 2224).
+
+1. **Parede da antena:** com o Tablet na mão, em qualquer app, na cor do canal, como a do Servidor. A entrega 5 troca para o app Network (2542).
+2. **Nomes flutuantes:** a antena entra agora, como o Dock, o Servidor e o Relay (2543).
+3. **Chave geral no Servidor:** entra com a aba Network do Servidor. Na entrega 4, fica só na tela da antena (2544).
+4. **Aba Energy do Servidor:** a linha `Antennas −X FE/t`, com o que saiu para elas no tick, e, ao passar o mouse, quantas recebem e quantas estão sem energia ou sem sinal (2545).
+5. **Sem ligação:** colocar uma antena que não foi ligada a um Servidor é recusado, com `Link it to a Server first` (2546).
+6. **Canal ao recolocar:** volta ao último, se livre, ou pega o primeiro livre, com aviso (2547).
+7. **Tela da antena:** nome, canal, sinal, bateria, redstone, UPS, as três chaves e o Servidor ligado. O XP e as ligações entram nas entregas 7 e 5, nos lugares reservados (2548).
+8. **Transmissão do Relay:** a parabólica e o loop de transmissão do Relay valem já na entrega 4, enquanto ele manda FE a uma antena (2549).
+9. **Reserva do Servidor:** ele só manda às antenas o que passa do próprio UPS (2550).
+10. **Entrada da antena:** a rede e o cabo somam 5.000 FE/t, o cabo primeiro (2551).
+11. **Sinal:** o Servidor dela na mesma dimensão, num chunk carregado, com energia e com o Relay do par. Sem algum deles, `No signal`, e os 20 minutos começam a contar (2552).
+12. **Volta do sinal:** a antena parada solta o chunk e não gasta nada, e religa sozinha quando o sinal volta, na fila de uma a cada 2 s, com o som do sinal de volta (2553).
+
+Propostos pelo agente:
+
+13. **Ligar:** o clique com o item, ou com a pilha, num Servidor do dono liga, com o som de ligar e `Linked to {Servidor}` na barra de ação. Num Servidor de outro dono, nada acontece, com o motivo.
+14. **Recusas ao colocar:** sem ligação, canais cheios, outra dimensão ou já uma antena no chunk, sempre com o motivo na barra de ação e o item na mão.
+15. **Sinal na tela e no Jade:** `Linked`, `No signal · stops in N min` e `Stopped · no signal`, com a prévia da tela antes do código.
+16. **Repartir:** a cada tick, o Servidor manda pelo Relay só às antenas com sinal, primeiro o gasto do chunk de cada uma, na ordem dos canais, e o resto por igual (2302), no limite do tier (2276), antes das Power Banks do storage (2571).
+17. **Fila de volta:** os chunks dos Servidores e das antenas do mesmo dono voltam na mesma fila, pela `wake_interval_ticks` (2413).
+18. **Comando:** `/cubit network list` lista os Servidores e as antenas que seguram chunk, por player, e `release` solta todos ou os de um player, só para operador (2286). O `release` também desliga a chave `Load the chunk` de cada bloco solto, na hora, se ele está carregado, ou quando carregar, por uma marca na lista `Released` do `cubit_network`, para ele não pedir o chunk de volta (2578).
+19. **Saves:** o `cubit_network` ganha a lista `Servers`, com `Id`, `Owner`, `Dimension`, `Pos` e `Tier`, para achar o Servidor e os canais dele de longe, e a lista `Antennas`, com `Owner`, `Dimension`, `Pos`, `Server` e `Channel`. O item da antena guarda `cubit:network_id` e, no `cubit:network_state`, a bateria, o UPS e os campos `server`, `server_name` e `channel`: o Servidor, o nome dele no clique e o último canal (2566 e 2567). Chaves novas e opcionais.
+20. **GameTests:** ligar, recusar, canais e a recolocação, a soma de FE entre o Servidor e as antenas, a reserva, o sinal e os 20 minutos, a volta, os limites, o dono offline e o comando.
+21. **Outro dono:** a antena ligada a um Servidor de outro player é recusada ao colocar, com `This Server belongs to another player` (2569).
+22. **Chunk da antena:** no chunk que o Servidor dela segura, ela não segura de novo e mostra `Held by its Server`. Parada sem sinal, ela solta o chunk, mas fica esperando na fila, e o Servidor, com energia e com o Relay, a chama de volta, uma a cada 2 s (2264 e 2553).
+
 ## Contrato
 
 Os nomes foram propostos pelo agente, a partir do padrão do mod, e autorizados (2334). Entram no código com cada entrega. Os números estão em [`tiers.md`](../tiers.md#network).
@@ -309,11 +340,11 @@ Os nomes foram propostos pelo agente, a partir do padrão do mod, e autorizados 
 | Onde | Nome | Conteúdo |
 |---|---|---|
 | Blocos e itens | `cubit:network_server`, `cubit:solar_relay`, `cubit:signal_antenna`, `cubit:transceiver` e `cubit:chunk_anchor` | Cada um com a receita de mesmo ID |
-| Dados do mundo | `cubit_network` | Servidores, antenas, canais, vínculos, a última foto e o Log, por dono. Na Entrega 3, só a lista `Chunks`, com `Owner`, `Dimension`, `Pos` e `Waiting` (2413) |
+| Dados do mundo | `cubit_network` | Servidores, antenas, canais, vínculos, a última foto e o Log, por dono. Na Entrega 3, só a lista `Chunks`, com `Owner`, `Dimension`, `Pos` e `Waiting` (2413). Na Entrega 4, as listas `Servers`, com `Id`, `Owner`, `Dimension`, `Pos` e `Tier`, `Antennas`, com `Owner`, `Dimension`, `Pos`, `Server` e `Channel`, e `Released`, com `Dimension` e `Pos`, dos blocos soltos pelo operador enquanto descarregados (2578) |
 | Ticket | `cubit:network` | Os chunks, conferidos ao abrir o mundo |
 | NBT dos blocos | `NetworkId`, `Owner`, `CustomName`, `Energy`, `XpTank`, `Slot`, `Ups` e `ChunkLoading` | Comuns aos três, com o `Tier`, os `Items`, o `Drained` e o `ShowWall` no Servidor e o `SolarPanel` no Relay (2410 e 2448) |
-| NBT da antena | `Server`, `Channel`, `Enabled` e `ShowWall` | O Servidor, o canal e as chaves |
-| Item | `cubit:network_id` e `cubit:network_state` | O ID e o estado guardado, como o do Dock: `tier`, `energy`, `items` (`slot`, `item` e `amount`), `ups`, `chunk_loading` e `show_wall`. O Relay grava só `energy` (2410, 2411 e 2448) |
+| NBT da antena | `Server`, `ServerName`, `Channel`, `NoSignalTicks`, `ChunkLoading`, `Drained`, `Enabled`, `ShowWall` e `Ups` | O Servidor, o nome dele no clique, o canal, o tempo sem sinal, a chave e a carga do chunk, como no Servidor, e as outras chaves |
+| Item | `cubit:network_id` e `cubit:network_state` | O ID e o estado guardado, como o do Dock: `tier`, `energy`, `items` (`slot`, `item` e `amount`), `ups`, `chunk_loading` e `show_wall`. O Relay grava só `energy` (2410, 2411 e 2448), e a antena grava `energy`, `ups`, `chunk_loading`, `show_wall`, `server`, `server_name` e `channel` (2566 e 2567). A chave geral da antena não vai ao item, e ela volta ligada |
 | NBT do Cubit | `NetworkAntennas`, `NetworkDocks`, `NetworkChests`, `NetworkPaused` e `DrawnArea` | `DrawnArea` tem os pontos, a altura e a dimensão. A chave antiga `WorkArea` é ignorada (2283) |
 | NBT do Cubit | `HibernationReason`: `no_network` e `owner_offline` | Os motivos novos |
 | Modos do Dock | `XpMode`: `send_excess` e `send_all` | Os dois modos novos |
@@ -335,6 +366,12 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 07:43 | Registra o `release`, que desliga a chave do chunk, e a lista `Released` (pergunta 2578). |
+| Zennd | 2026-11-26 07:10 | Registra o `Ups` no NBT da antena e as chaves no item dela, com a tela. |
+| Zennd | 2026-11-25 23:59 | Registra o chunk da antena e as chaves dele no NBT (perguntas 2264 e 2553). |
+| Zennd | 2026-11-25 23:55 | Registra o tempo sem sinal no NBT da antena e as antenas antes das Power Banks (pergunta 2571). |
+| Zennd | 2026-11-25 23:47 | Registra os saves da antena, a lista de Servidores e a recusa do outro dono (perguntas 2566 a 2569). |
+| Zennd | 2026-11-25 22:22 | Acrescenta os detalhes da Entrega 4 e o gasto da antena na tabela de energia (perguntas 2542 a 2553). |
 | Zennd | 2026-11-25 20:30 | Acrescenta os nomes flutuantes da Entrega 3 e a dica do `View` (perguntas 2512 a 2519). |
 | Zennd | 2026-11-25 15:33 | Acrescenta o gasto por ficar ligado e a parede do chunk do Servidor (perguntas 2429 a 2448). |
 | Zennd | 2026-11-25 14:47 | Registra o código da Entrega 3 em andamento (pergunta 2399). |

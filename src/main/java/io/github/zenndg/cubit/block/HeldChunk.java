@@ -16,11 +16,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 
 /**
- * The chunk of a Network Server: whether it holds it, what it pays each tick and why it lets it go
- * (answers 2209 to 2216 and 2372). The energy is looked at every tick, and the rest once a second
- * or as soon as it changes (rule 21).
+ * The chunk a block of the Network holds, the Network Server or a Signal Antenna: whether it holds
+ * it, what it pays each tick and why it lets it go (answers 2209 to 2216 and 2372). The energy is
+ * looked at every tick, and the rest once a second or as soon as it changes (rule 21).
  */
-final class ServerChunk {
+final class HeldChunk {
   private static final String DRAINED_KEY = "Drained";
   private static final int CHECK_TICKS = 20;
 
@@ -29,7 +29,7 @@ final class ServerChunk {
   private ChunkState state = ChunkState.SWITCHED_OFF;
   private int untilCheck;
 
-  ServerChunk(Runnable changed) {
+  HeldChunk(Runnable changed) {
     this.changed = changed;
   }
 
@@ -76,37 +76,39 @@ final class ServerChunk {
     state =
         asked
             .owner()
-            .map(owner -> decide(level, place, owner, asked.on()))
+            .map(owner -> decide(level, place, owner, asked))
             .orElse(ChunkState.OWNER_OFFLINE);
     apply(level, data, place, asked.owner());
   }
 
-  private ChunkState decide(ServerLevel level, GlobalPos place, UUID owner, boolean on) {
+  private ChunkState decide(ServerLevel level, GlobalPos place, UUID owner, Asked asked) {
     ChunkKeys keys = keys();
     boolean here =
         !keys.releasesWithOwnerOffline()
             || level.getServer().getPlayerList().getPlayer(owner) != null;
     ChunkCall.Room room =
         NetworkData.of(level.getServer()).chunks().room(place, owner, keys.limits());
-    return new ChunkCall(keys.enabled(), on, here, room).decide(charge);
+    return new ChunkCall(keys.enabled(), asked.on(), here, room, asked.reach()).decide(charge);
   }
 
   /** The data and the ticket follow the state; both do nothing when nothing changes. */
   private void apply(ServerLevel level, NetworkData data, GlobalPos place, Optional<UUID> owner) {
     ChunkRoster<GlobalPos> chunks = data.chunks();
-    boolean listed =
-        switch (state) {
-          case HOLDING -> chunks.hold(place, owner.orElseThrow());
-          case OWNER_OFFLINE -> chunks.await(place);
-          default -> chunks.release(place);
-        };
+    boolean listed;
+    if (state.holds()) {
+      listed = chunks.hold(place, owner.orElseThrow());
+    } else if (state.waits()) {
+      listed = chunks.await(place);
+    } else {
+      listed = chunks.release(place);
+    }
     if (listed) {
       data.setDirty();
     }
     NetworkTickets.set(level.getServer(), place, state.holds());
   }
 
-  /** The server is gone, so nothing of its chunk is left. */
+  /** The block is gone, so nothing of its chunk is left. */
   void release(ServerLevel level, BlockPos pos) {
     state = ChunkState.SWITCHED_OFF;
     apply(
@@ -128,6 +130,14 @@ final class ServerChunk {
     return CubitMod.CONFIG.network().chunks();
   }
 
-  /** Who the server belongs to, whether the chunk is asked for and what the server spends. */
-  record Asked(Optional<UUID> owner, boolean on, Energy standby) {}
+  /**
+   * Who the block belongs to, whether the chunk is asked for, what the block spends and, for an
+   * antenna, whether its Server holds the chunk and whether it still has signal.
+   */
+  record Asked(Optional<UUID> owner, boolean on, Energy standby, ChunkCall.Reach reach) {
+    /** A block that holds its own chunk, as the Network Server. */
+    Asked(Optional<UUID> owner, boolean on, Energy standby) {
+      this(owner, on, standby, ChunkCall.Reach.OWN);
+    }
+  }
 }

@@ -2,6 +2,7 @@
   "values": [
     "cubit:induction_dock",
     "cubit:network_server",
-    "cubit:solar_relay"
+    "cubit:solar_relay",
+    "cubit:signal_antenna"
   ]
 }

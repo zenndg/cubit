@@ -23,7 +23,8 @@ final class NetworkScreenTexts {
   private static final String GAIN = "+%s FE/t";
   private static final String LOSS = "−%s FE/t";
   private static final String NOTHING = "0 FE/t";
-  private static final String CHUNK = "Chunk";
+  private static final String ANTENNAS = "Antennas";
+  private static final String ANTENNAS_TIP = "%s receiving · %s without energy or signal";
   private static final String LOAD_CHUNK = "Load the chunk";
   private static final String VIEW = "View";
   private static final String VIEW_TIP = "Shows the chunk with the Tablet in hand";
@@ -57,6 +58,8 @@ final class NetworkScreenTexts {
   private static final String CHUNK_LOCKED = "Locked by the world config";
   private static final String CHUNK_SWITCHED_OFF = "Released: switched off";
   private static final String CHUNK_OWNER_OFFLINE = "Released: owner offline";
+  private static final String CHUNK_SHARED = "Held by its Server";
+  private static final String CHUNK_NO_SIGNAL = "Released: no signal for %s min";
   private static final String CHUNK_NO_ENERGY = "Released: no energy. Back at %s FE";
   private static final String CHUNK_PLAYER_LIMIT = "Released: you already hold %s chunks";
   private static final String CHUNK_WORLD_LIMIT = "Released: the world is at its limit";
@@ -86,10 +89,11 @@ final class NetworkScreenTexts {
     add.accept(NetworkKeys.COST_SERVER, COST_SERVER);
     add.accept(NetworkKeys.COST_RELAY, COST_RELAY);
     add.accept(NetworkKeys.BANKS, BANKS);
+    add.accept(NetworkKeys.ANTENNAS, ANTENNAS);
+    add.accept(NetworkKeys.ANTENNAS_TIP, ANTENNAS_TIP);
     add.accept(NetworkKeys.GAIN, GAIN);
     add.accept(NetworkKeys.LOSS, LOSS);
     add.accept(NetworkKeys.NOTHING, NOTHING);
-    add.accept(NetworkKeys.CHUNK, CHUNK);
     add.accept(NetworkKeys.LOAD_CHUNK, LOAD_CHUNK);
     add.accept(NetworkKeys.VIEW, VIEW);
     add.accept(NetworkKeys.VIEW_TIP, VIEW_TIP);
@@ -134,6 +138,8 @@ final class NetworkScreenTexts {
     add.accept(NetworkKeys.chunk(ChunkState.NO_ENERGY), CHUNK_NO_ENERGY);
     add.accept(NetworkKeys.chunk(ChunkState.PLAYER_LIMIT), CHUNK_PLAYER_LIMIT);
     add.accept(NetworkKeys.chunk(ChunkState.WORLD_LIMIT), CHUNK_WORLD_LIMIT);
+    add.accept(NetworkKeys.chunk(ChunkState.SHARED), CHUNK_SHARED);
+    add.accept(NetworkKeys.chunk(ChunkState.NO_SIGNAL), CHUNK_NO_SIGNAL);
     add.accept(NetworkKeys.sky(SunState.GENERATING), SKY_GENERATING);
     add.accept(NetworkKeys.sky(SunState.NIGHT), SKY_NIGHT);
     add.accept(NetworkKeys.sky(SunState.RAIN), SKY_RAIN);

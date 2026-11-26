@@ -14,13 +14,19 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 
-/** The Energy tab of the Network Server: the flow, the chunk with its switch and the UPS (2397). */
+/**
+ * The Energy tab of the Network Server: the flow, with what goes to the antennas, the chunk with
+ * its switch and the UPS (answers 2397, 2545 and 2560).
+ */
 final class ServerEnergyTab {
   private static final int FLOW_Y = 59;
   private static final Box NET = new Box(8, FLOW_Y, 160, NetworkScreen.LINE);
   private static final int FLOW_ROWS = 72;
   private static final int UPKEEP_ROW = FLOW_ROWS + NetworkScreen.ROW_HEIGHT;
-  private static final int CHUNK_Y = 108;
+  private static final int ANTENNAS_ROW = FLOW_ROWS + NetworkScreen.ROW_HEIGHT * 2;
+  private static final int ANTENNAS_LINE = 2;
+  private static final int BANKS_LINE = 3;
+  private static final int DIVIDER_Y = 117;
   private static final int SWITCH_ROW = 120;
   private static final int SWITCH_HEIGHT = 13;
   private static final int SWITCH_X = 139;
@@ -52,6 +58,18 @@ final class ServerEnergyTab {
     NetworkScreen.row(graphics, left, top + FLOW_ROWS, NetworkScreen.ROW_HEIGHT);
     NetworkScreen.row(
         graphics, left, top + FLOW_ROWS + NetworkScreen.ROW_HEIGHT * 2, NetworkScreen.ROW_HEIGHT);
+    graphics.fill(
+        left + NetworkScreen.ROW_LEFT,
+        top + DIVIDER_Y,
+        left + NetworkScreen.ROW_RIGHT,
+        top + DIVIDER_Y + 1,
+        ScreenPainter.SHADE);
+    graphics.fill(
+        left + NetworkScreen.ROW_LEFT,
+        top + DIVIDER_Y + 1,
+        left + NetworkScreen.ROW_RIGHT,
+        top + DIVIDER_Y + 2,
+        ScreenPainter.WHITE);
     NetworkScreen.row(graphics, left, top + SWITCH_ROW, SWITCH_HEIGHT);
     NetworkScreen.row(graphics, left, top + UPS_ROW, UPS_HEIGHT);
   }
@@ -72,7 +90,11 @@ final class ServerEnergyTab {
 
   private void renderFlow(GuiGraphics graphics) {
     XpHeading.render(graphics, screen.painter, NetworkKeys.FLOW, FLOW_Y, NetworkScreen.ROW_RIGHT);
-    long net = menu.sun().amount() - menu.upkeep().amount() - menu.banks().amount();
+    long net =
+        menu.sun().amount()
+            - menu.upkeep().amount()
+            - menu.antennas().amount()
+            - menu.banks().amount();
     Energy size = new Energy(Math.abs(net));
     screen.painter.textRight(
         graphics,
@@ -87,7 +109,8 @@ final class ServerEnergyTab {
     int color = menu.sun().isZero() ? ScreenPainter.DETAIL : ScreenPainter.STATUS_GREEN;
     screen.rowPair(graphics, FLOW_ROWS, NetworkKeys.SUN, sun, color);
     renderCost(graphics, 1, NetworkKeys.CHUNK_COST, menu.upkeep());
-    renderCost(graphics, 2, NetworkKeys.BANKS, menu.banks());
+    renderCost(graphics, ANTENNAS_LINE, NetworkKeys.ANTENNAS, menu.antennas());
+    renderCost(graphics, BANKS_LINE, NetworkKeys.BANKS, menu.banks());
   }
 
   private void renderCost(GuiGraphics graphics, int row, String key, Energy cost) {
@@ -100,7 +123,6 @@ final class ServerEnergyTab {
   }
 
   private void renderChunk(GuiGraphics graphics) {
-    XpHeading.render(graphics, screen.painter, NetworkKeys.CHUNK, CHUNK_Y, NetworkScreen.ROW_RIGHT);
     screen.painter.text(
         graphics,
         Component.translatable(NetworkKeys.LOAD_CHUNK),
@@ -134,9 +156,9 @@ final class ServerEnergyTab {
 
   private static int colorOf(ChunkState state) {
     return switch (state) {
-      case HOLDING -> ScreenPainter.STATUS_GREEN;
+      case HOLDING, SHARED -> ScreenPainter.STATUS_GREEN;
       case NO_ENERGY -> ScreenPainter.STATUS_RED;
-      case PLAYER_LIMIT, WORLD_LIMIT, OWNER_OFFLINE -> ScreenPainter.STATUS_ORANGE;
+      case PLAYER_LIMIT, WORLD_LIMIT, OWNER_OFFLINE, NO_SIGNAL -> ScreenPainter.STATUS_ORANGE;
       case LOCKED, SWITCHED_OFF -> ScreenPainter.DETAIL;
     };
   }
@@ -194,7 +216,8 @@ final class ServerEnergyTab {
 
   /**
    * What the mouse is on tells: the button that shows the chunk, which needs the Tablet in hand
-   * (answer 2512), or the parts the row of the upkeep sums (answer 2440).
+   * (answer 2512), the parts the row of the upkeep sums (answer 2440), or how many antennas take
+   * energy and how many wait (answer 2545).
    */
   List<Component> hoverLines(double x, double y) {
     if (VIEW.contains((int) x, (int) y)) {
@@ -206,6 +229,11 @@ final class ServerEnergyTab {
   private List<Component> costLines(double x, double y) {
     if (x < NetworkScreen.ROW_LEFT || x >= NetworkScreen.ROW_RIGHT) {
       return List.of();
+    }
+    if (y >= ANTENNAS_ROW && y < ANTENNAS_ROW + NetworkScreen.ROW_HEIGHT) {
+      return List.of(
+          Component.translatable(
+              NetworkKeys.ANTENNAS_TIP, menu.antennasReceiving(), menu.antennasWaiting()));
     }
     if (y < UPKEEP_ROW || y >= UPKEEP_ROW + NetworkScreen.ROW_HEIGHT) {
       return List.of();

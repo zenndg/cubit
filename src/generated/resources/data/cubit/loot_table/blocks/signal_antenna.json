@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "cubit:signal_antenna",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ],
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "cubit:network_state",
+                "cubit:network_id",
+                "minecraft:custom_name"
+              ],
+              "source": "block_entity"
+            }
+          ],
+          "name": "cubit:signal_antenna"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "cubit:blocks/signal_antenna"
+}

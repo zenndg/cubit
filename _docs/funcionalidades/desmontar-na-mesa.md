@@ -10,7 +10,7 @@ As peças do mod servem em receitas diferentes. Um Tablet a mais vira um Display
 
 ## O que desmonta
 
-1. **Itens:** todo item do mod com uma receita da mesa, `cubit:engineering`, que usa outros itens do mod (pergunta 2526). Hoje são os Modules, as células e as Power Banks acima do Base, a Power Bank Base, a Power Bank Casing, as esteiras e o visor do Cubit, o Cubit, o Induction Dock, os cards, o Network Server, o Solar Relay, o Tablet e o Transceiver.
+1. **Itens:** todo item do mod com uma receita da mesa, `cubit:engineering`, que usa outros itens do mod (pergunta 2526). Hoje são os Modules, as células e as Power Banks acima do Base, a Power Bank Base, a Power Bank Casing, as esteiras e o visor do Cubit, o Cubit, o Induction Dock, os cards, o Network Server, o Solar Relay, a Signal Antenna, o Tablet e o Transceiver.
 2. **Nunca:** as receitas especiais, como o upgrade da Power Bank, o conserto e o religar, o Damaged Cubit, a própria mesa, feita na mesa de craft do jogo, e os itens só com materiais do jogo.
 3. **Um nível:** o item volta às peças da receita dele, e o player desmonta cada peça para ir mais fundo (pergunta 2523).
 
@@ -75,5 +75,6 @@ Como o craft: o brilho, o braço e os sons de hoje, com o holograma do item que 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 07:23 | Acrescenta a Signal Antenna à lista dos itens (pergunta 2576). |
 | Zennd | 2026-11-25 21:20 | Registra a autorização, a prévia da tela e o ícone aceito (perguntas 2535 e 2536). |
 | Zennd | 2026-11-25 21:15 | Cria o conceito de desmontar na mesa (perguntas 2504, 2505 e 2522 a 2534). |

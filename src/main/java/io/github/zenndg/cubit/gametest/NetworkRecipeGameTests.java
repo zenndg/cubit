@@ -105,6 +105,23 @@ public final class NetworkRecipeGameTests {
     assertMakes(helper, CubitItems.SOLAR_RELAY.get(), DeskCategory.DOCK, grid);
   }
 
+  /** A lightning rod as the mast, with the parts, in any place (answer 2282). */
+  @GameTest(template = EMPTY_TEMPLATE)
+  public static void theAntennaIsMadeOfAMastAndARadio(GameTestHelper helper) {
+    List<ItemStack> grid =
+        grid(
+            CubitItems.XP_TANK.get(),
+            Items.LIGHTNING_ROD,
+            CubitItems.BASE_POWER_CELL.get(),
+            CubitItems.TRANSCEIVER.get(),
+            CubitItems.CHUNK_ANCHOR.get(),
+            CubitItems.INDUCTION_COIL.get(),
+            Items.AIR,
+            Items.AIR,
+            Items.AIR);
+    assertMakes(helper, CubitItems.SIGNAL_ANTENNA.get(), DeskCategory.DOCK, grid);
+  }
+
   /** Lines only for what it keeps (answer 2416). */
   @GameTest(template = EMPTY_TEMPLATE)
   public static void theTooltipTellsWhatTheItemKeeps(GameTestHelper helper) {

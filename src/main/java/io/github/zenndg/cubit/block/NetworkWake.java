@@ -25,7 +25,7 @@ import org.slf4j.Logger;
  */
 final class NetworkWake {
   private static final Logger LOGGER = LogUtils.getLogger();
-  private static final String GONE = "No network server of its owner at {}. Forgetting it.";
+  private static final String GONE = "No network block of its owner at {}. Forgetting it.";
 
   private final NetworkData data;
   private final Set<GlobalPos> line = new LinkedHashSet<>();
@@ -38,6 +38,16 @@ final class NetworkWake {
 
   void ownerCame(UUID owner) {
     line.addAll(data.chunks().waitingOf(owner));
+  }
+
+  /**
+   * An antenna stopped without signal, whose chunk waits, comes back in the line once its Server
+   * has signal to give again (answer 2553).
+   */
+  void signalBack(GlobalPos place) {
+    if (waitingOwner(place).isPresent()) {
+      line.add(place);
+    }
   }
 
   /** With the chunks kept while the owner is away, all of them come back with the world. */
@@ -119,7 +129,7 @@ final class NetworkWake {
     ServerLevel level = server.getLevel(place.dimension());
     boolean there =
         level != null
-            && level.getBlockEntity(place.pos()) instanceof NetworkServerBlockEntity block
+            && level.getBlockEntity(place.pos()) instanceof NetworkBlockEntity block
             && data.chunks().entries().stream()
                 .anyMatch(entry ->
                     entry.place().equals(place) && Ownership.owns(block.owner(), entry.owner()));

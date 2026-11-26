@@ -36,6 +36,11 @@ public final class CubitSounds {
   public static final String RELAY_PANEL_CLOSE_NAME = "panel_close";
   public static final String RELAY_PANEL_LOCK_NAME = "panel_lock";
   public static final String RELAY_TRANSMIT_NAME = "transmit_loop";
+  public static final String ANTENNA_RAISE_NAME = "raise";
+  public static final String ANTENNA_LOCK_NAME = "lock";
+  public static final String ANTENNA_LOST_NAME = "lost";
+  public static final String ANTENNA_REGAINED_NAME = "regained";
+  public static final String ANTENNA_LINK_NAME = "link";
   public static final String DOCK_PANEL_DEPLOY_NAME = "panel_deploy";
   public static final String DOCK_PANEL_LOCK_NAME = "panel_lock";
   public static final String DOCK_PANEL_RETRACT_NAME = "panel_retract";
@@ -54,6 +59,7 @@ public final class CubitSounds {
   private static final String PATROLLER_PREFIX = "patroller.";
   private static final String SERVER_PREFIX = "network_server.";
   private static final String RELAY_PREFIX = "solar_relay.";
+  private static final String ANTENNA_PREFIX = "signal_antenna.";
   private static final String DESK_PREFIX = "engineering_desk.";
   private static final String DOCK_PREFIX = "induction_dock.";
   private static final DeferredRegister<SoundEvent> SOUNDS =
@@ -94,6 +100,11 @@ public final class CubitSounds {
   public static final Supplier<SoundEvent> RELAY_PANEL_CLOSE = relay(RELAY_PANEL_CLOSE_NAME);
   public static final Supplier<SoundEvent> RELAY_PANEL_LOCK = relay(RELAY_PANEL_LOCK_NAME);
   public static final Supplier<SoundEvent> RELAY_TRANSMIT = relay(RELAY_TRANSMIT_NAME);
+  public static final Supplier<SoundEvent> ANTENNA_RAISE = antenna(ANTENNA_RAISE_NAME);
+  public static final Supplier<SoundEvent> ANTENNA_LOCK = antenna(ANTENNA_LOCK_NAME);
+  public static final Supplier<SoundEvent> ANTENNA_LOST = antenna(ANTENNA_LOST_NAME);
+  public static final Supplier<SoundEvent> ANTENNA_REGAINED = antenna(ANTENNA_REGAINED_NAME);
+  public static final Supplier<SoundEvent> ANTENNA_LINK = antenna(ANTENNA_LINK_NAME);
 
   /** The sounds of the Galactic Patroller, in a folder of their own (answers 1575 and 1791). */
   public static final Supplier<SoundEvent> PATROL_PISTOL_SHOT = patroller(PATROL_PISTOL_SHOT_NAME);
@@ -160,6 +171,10 @@ public final class CubitSounds {
 
   private static Supplier<SoundEvent> relay(String name) {
     return sound(RELAY_PREFIX + name);
+  }
+
+  private static Supplier<SoundEvent> antenna(String name) {
+    return sound(ANTENNA_PREFIX + name);
   }
 
   private static Supplier<SoundEvent> desk(String name) {
