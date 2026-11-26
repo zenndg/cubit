@@ -365,6 +365,9 @@ Decididos nas perguntas 2599 a 2602, depois da autorização do código:
 20. **Desligar uma antena:** os Docks e baús do chunk dela sempre saem do Cubit, e a energia do Dock continua (2589). Toda antena pede o segundo clique em 5 s, e a área some se passava por ali (2600).
 21. **Interior da área:** o clique que fecharia uma forma cujo interior cobre um chunk sem antena do Cubit é recusado, com o motivo, e o desenho continua aberto (2601).
 22. **Baús do Organizador:** no app Network, o Cubit com o card do Organizador marca até `network_organizer_chests` (12, 18 e 25), e os outros, até `network_chests`. As marcas do app Marcar seguem com 4, 9 e 18 até a entrega 6. Se o card sair, ficam os primeiros baús, até o limite (2602).
+23. **Docks no item da antena:** o item guarda a lista `Docks` no campo `docks` do `cubit:network_state`. Recolocada no mesmo chunk, ela volta, e, em outro, é descartada (2603).
+24. **Cortar a energia de um Dock:** pela antena e pelo Dock, sem Cubit, sempre pede o segundo clique em 5 s, dizendo quantos Cubits carregados usam o Dock (2604).
+25. **Nome e cor do app:** `Network` em inglês e `Rede` em português, como a linha da aba do Dock, e a faixa no rosa `#EE6FB5`.
 
 ## Contrato
 
@@ -377,7 +380,7 @@ Os nomes foram propostos pelo agente, a partir do padrão do mod, e autorizados 
 | Ticket | `cubit:network` | Os chunks, conferidos ao abrir o mundo |
 | NBT dos blocos | `NetworkId`, `Owner`, `CustomName`, `Energy`, `XpTank`, `Slot`, `Ups` e `ChunkLoading` | Comuns aos três, com o `Tier`, os `Items`, o `Drained` e o `ShowWall` no Servidor e o `SolarPanel` no Relay (2410 e 2448) |
 | NBT da antena | `Server`, `ServerName`, `Channel`, `NoSignalTicks`, `ChunkLoading`, `Drained`, `Enabled`, `ShowWall`, `Ups` e `Docks` | O Servidor, o nome dele no clique, o canal, o tempo sem sinal, a chave e a carga do chunk, como no Servidor, as outras chaves e, na entrega 5, os Docks que ela alimenta (2589) |
-| Item | `cubit:network_id` e `cubit:network_state` | O ID e o estado guardado, como o do Dock: `tier`, `energy`, `items` (`slot`, `item` e `amount`), `ups`, `chunk_loading` e `show_wall`. O Relay grava só `energy` (2410, 2411 e 2448), e a antena grava `energy`, `ups`, `chunk_loading`, `show_wall`, `server`, `server_name` e `channel` (2566 e 2567). A chave geral da antena não vai ao item, e ela volta ligada |
+| Item | `cubit:network_id` e `cubit:network_state` | O ID e o estado guardado, como o do Dock: `tier`, `energy`, `items` (`slot`, `item` e `amount`), `ups`, `chunk_loading` e `show_wall`. O Relay grava só `energy` (2410, 2411 e 2448), e a antena grava `energy`, `ups`, `chunk_loading`, `show_wall`, `server`, `server_name`, `channel` e, na entrega 5, `docks` (2566, 2567 e 2603). A chave geral da antena não vai ao item, e ela volta ligada |
 | NBT do Cubit | `NetworkAntennas`, `NetworkDocks`, `NetworkChests`, `NetworkPaused` e `DrawnArea` | `DrawnArea` tem os pontos, a altura e a dimensão. A chave antiga `WorkArea` é ignorada (2283) |
 | NBT do Cubit | `HibernationReason`: `no_network` e `owner_offline` | Os motivos novos |
 | Modos do Dock | `XpMode`: `send_excess` e `send_all` | Os dois modos novos |
@@ -399,6 +402,7 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 09:25 | Acrescenta os detalhes 23 a 25 da Entrega 5 e o campo `docks` do item da antena (perguntas 2603 e 2604). |
 | Zennd | 2026-11-26 09:06 | Acrescenta os detalhes 19 a 22 da Entrega 5 (perguntas 2599 a 2602). |
 | Zennd | 2026-11-26 08:52 | Acrescenta os detalhes da Entrega 5 e a chave `Docks` da antena (perguntas 2585 a 2593). |
 | Zennd | 2026-11-26 07:43 | Registra o `release`, que desliga a chave do chunk, e a lista `Released` (pergunta 2578). |

@@ -1547,11 +1547,14 @@ Não há perguntas pendentes nesta fase.
 | 2600 | Ao desligar uma antena do Cubit, o que acontece com os Docks e baús marcados no chunk dela? | Saem sempre do Cubit, porque só podem ficar nos chunks das antenas (detalhe 10 da entrega 5), e a energia do Dock continua (2589). Toda antena pede o segundo clique em 5 s (detalhe 6), e a área some se passava por ali. Detalha a 2300. A recomendação foi aceita |
 | 2601 | Uma área com os pontos e as linhas nos chunks das antenas, mas com o interior cobrindo um chunk sem antena, é aceita? | Não: o clique que fecha a forma é recusado, com o motivo, e o desenho continua aberto, para o Cubit nunca ter área fora dos chunks ativos (detalhe 2). Detalha a 2586. A recomendação foi aceita |
 | 2602 | Onde valem os 12, 18 e 25 baús do Organizador (`network_organizer_chests`) na entrega 5? | Só no app Network: o Cubit com o card do Organizador marca até 12, 18 e 25 baús, e os outros ficam com `network_chests` (1, 2, 4 e 6). As marcas do app Marcar seguem com 4, 9 e 18 até a entrega 6 (2364). Se o card sair, ficam os primeiros baús, até o limite. A recomendação foi aceita |
+| 2603 | A lista `Docks` da antena sobrevive quando ela é quebrada e recolocada? | Sim: o item da antena guarda os Docks num campo novo, `docks`, do `cubit:network_state`. Recolocada no mesmo chunk, eles voltam; em outro chunk, a lista é descartada, porque cada Dock recebe da antena do chunk dele (2588). Detalha o detalhe 13 da entrega 5. A recomendação foi aceita |
+| 2604 | Quando o corte da energia de um Dock no app Network, pela antena e depois pelo Dock, sem Cubit, pede o segundo clique? | Sempre, em 5 s, com o texto dizendo quantos Cubits carregados usam o Dock, porque o servidor não enxerga as ligações de um Cubit descarregado. Muda a 2589 na confirmação. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 09:25 | Registra as respostas 2603 a 2604. |
 | Zennd | 2026-11-26 09:06 | Registra as respostas 2599 a 2602. |
 | Zennd | 2026-11-26 08:58 | Registra as respostas 2596 a 2598. |
 | Zennd | 2026-11-26 08:56 | Registra a resposta 2595. |
