@@ -33,6 +33,10 @@ final class NetworkAppTexts {
   private static final String FED = "%s now feeds %s";
   private static final String FEED_CONFIRM = "Click %s again to cut its energy: %s loaded Cubits";
   private static final String UNFED = "%s no longer feeds %s";
+  private static final String ARROW_CHANNEL = "%s channel";
+  private static final String ARROW_OF = "of %s";
+  private static final String ARROW_FREE_SLOTS = "%s free slots";
+  private static final String ARROW_ENERGY_ONLY = "energy only";
   private static final String NOT_IN_CHUNK = "%s is not in the chunk of %s";
 
   private NetworkAppTexts() {}
@@ -60,10 +64,19 @@ final class NetworkAppTexts {
     add.accept(NetworkAppKeys.CHEST_MARKED, CHEST_MARKED);
     add.accept(NetworkAppKeys.CHEST_UNMARKED, CHEST_UNMARKED);
     add.accept(NetworkAppKeys.CHEST_FULL, CHEST_FULL);
+    addFeedAndArrows(add);
+  }
+
+  /** Feeding a Dock without a Cubit, and the two lines over the arrows (answers 2589 and 2595). */
+  private static void addFeedAndArrows(BiConsumer<String, String> add) {
     add.accept(NetworkAppKeys.FEED_NEXT, FEED_NEXT);
     add.accept(NetworkAppKeys.FED, FED);
     add.accept(NetworkAppKeys.FEED_CONFIRM, FEED_CONFIRM);
     add.accept(NetworkAppKeys.UNFED, UNFED);
     add.accept(NetworkAppKeys.NOT_IN_CHUNK, NOT_IN_CHUNK);
+    add.accept(NetworkAppKeys.ARROW_CHANNEL, ARROW_CHANNEL);
+    add.accept(NetworkAppKeys.ARROW_OF, ARROW_OF);
+    add.accept(NetworkAppKeys.ARROW_FREE_SLOTS, ARROW_FREE_SLOTS);
+    add.accept(NetworkAppKeys.ARROW_ENERGY_ONLY, ARROW_ENERGY_ONLY);
   }
 }

@@ -184,6 +184,7 @@ Entra com o item 16 da Fase 4.2 (perguntas 1111 e 1119). As regras do histórico
 | Pacote do servidor | `cubit:patrol_route` | A rota do Patrulheiro escolhido, para as setas numeradas e a linha do app Marcar (pergunta 1612) |
 | Pacote do servidor | `cubit:ask_robot_name` | Abre a janela do nome de um Cubit colocado pela primeira vez, com o nome padrão no campo. A resposta volta por `cubit:robot_named`, aceita uma vez, só de quem o colocou e ao alcance (perguntas 1879 e 1880) |
 | Pacote do cliente | `cubit:rename_dock` | O nome digitado na tela do Dock, aceito só para o Dock da tela aberta, que só o dono abre ao alcance (pergunta 1868) |
+| Pacote do servidor | `cubit:network_links` | As setas do app Network: as antenas, os Docks e os baús do Cubit escolhido e os Docks só com energia, com o nome, o detalhe e a altura de cada bloco, a cada segundo com o app ativo (perguntas 2592 e 2595) |
 | Pacote do servidor | `cubit:escort_marks` | Os escoltados de cada Patrulheiro do player, para as setas douradas do app Escort (pergunta 1661) |
 | Pacote do servidor | `cubit:area_mark` | Os pontos do desenho e se ele está fechado, com os limites do Cubit e do config, e os cantos e as alturas da área do Cubit escolhido, para a linha do app Área |
 | Config | `tablet_target_reach_blocks`, em `general` | O alcance da mira do app Alvo, de 1 a 128, com 32 |
@@ -215,6 +216,7 @@ Planejado, na `0.2.0`. As regras estão em [`network.md`](network.md). O app Net
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 10:20 | Acrescenta o pacote das setas do app Network. |
 | Zennd | 2026-11-26 09:34 | Acrescenta o app Network, o valor `network` e as ligações no NBT do Cubit (entrega 5 da Network). |
 | Zennd | 2026-11-25 17:33 | Estende o `Follow` a qualquer lugar (perguntas 2450, 2457, 2463 e 2483). |
 | Zennd | 2026-11-25 00:23 | Atualiza o app Área, com o desenho por pontos, e o contrato (perguntas 2240 a 2246, 2283 e 2358). |

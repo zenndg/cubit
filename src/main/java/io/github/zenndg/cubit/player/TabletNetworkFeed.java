@@ -34,6 +34,11 @@ final class TabletNetworkFeed {
     TabletNetworkApp.say(player, NetworkAppKeys.FEED_NEXT, antenna.shownName().value());
   }
 
+  /** The antenna clicked without a Cubit, whose Docks the arrows show (answer 2592). */
+  static Optional<GlobalPos> pending(ServerPlayer player) {
+    return Optional.ofNullable(ANTENNA.get(player.getUUID()));
+  }
+
   static boolean waits(ServerPlayer player) {
     return ANTENNA.containsKey(player.getUUID());
   }

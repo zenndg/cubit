@@ -7,7 +7,6 @@ import io.github.zenndg.cubit.block.NetworkBlockEntity;
 import io.github.zenndg.cubit.block.NetworkServerBlockEntity;
 import io.github.zenndg.cubit.block.SignalAntennaBlockEntity;
 import io.github.zenndg.cubit.domain.network.ChunkWall;
-import io.github.zenndg.cubit.registry.CubitItems;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,6 @@ import java.util.Map;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -88,15 +86,7 @@ public final class ChunkWalls {
     return wallOf(block)
         .seenBy(
             new ChunkWall.Viewer(
-                block.isOwner(player),
-                holdsTablet(player.getMainHandItem()) || holdsTablet(player.getOffhandItem()),
-                eyes.x,
-                eyes.y,
-                eyes.z));
-  }
-
-  private static boolean holdsTablet(ItemStack stack) {
-    return stack.is(CubitItems.TABLET.get());
+                block.isOwner(player), NetworkAppHeld.by(player), eyes.x, eyes.y, eyes.z));
   }
 
   private static ChunkWall wallOf(NetworkBlockEntity block) {

@@ -2,13 +2,17 @@ package io.github.zenndg.cubit.player;
 
 import io.github.zenndg.cubit.CubitMod;
 import io.github.zenndg.cubit.domain.ownership.Ownership;
+import io.github.zenndg.cubit.domain.robot.TabletApp;
 import io.github.zenndg.cubit.domain.robot.UnloadChest;
 import io.github.zenndg.cubit.entity.OrganizerTarget;
 import io.github.zenndg.cubit.entity.RobotEntity;
 import io.github.zenndg.cubit.entity.RobotUnload;
+import io.github.zenndg.cubit.item.TabletItem;
 import io.github.zenndg.cubit.network.CubitNetwork;
 import io.github.zenndg.cubit.network.DoorMarksPayload;
 import io.github.zenndg.cubit.network.EscortMarksPayload;
+import io.github.zenndg.cubit.network.NetworkLinksChannel;
+import io.github.zenndg.cubit.network.NetworkLinksPayload;
 import io.github.zenndg.cubit.network.OrganizerMarksPayload;
 import io.github.zenndg.cubit.network.PatrolRoutePayload;
 import io.github.zenndg.cubit.network.UnloadChestsPayload;
@@ -55,6 +59,7 @@ public final class TabletChestView {
       CubitNetwork.sendDoorMarks(player, DoorMarksPayload.NONE);
       CubitNetwork.sendPatrolRoute(player, PatrolRoutePayload.NONE);
       CubitNetwork.sendEscortMarks(player, EscortMarksPayload.NONE);
+      NetworkLinksChannel.send(player, NetworkLinksPayload.NONE);
     }
   }
 
@@ -83,6 +88,14 @@ public final class TabletChestView {
     sendDoors(player, dimension);
     CubitNetwork.sendPatrolRoute(player, TabletRouteView.of(player));
     CubitNetwork.sendEscortMarks(player, TabletEscortView.of(player));
+    NetworkLinksChannel.send(
+        player, inNetworkApp(player) ? TabletNetworkView.of(player) : NetworkLinksPayload.NONE);
+  }
+
+  /** Only the Network app pays for its arrows (answer 2592). */
+  private static boolean inNetworkApp(ServerPlayer player) {
+    return TabletItem.appOf(player.getMainHandItem()) == TabletApp.NETWORK
+        || TabletItem.appOf(player.getOffhandItem()) == TabletApp.NETWORK;
   }
 
   /** The doors the player marked, in its dimension, for the arrows of the Doors app. */

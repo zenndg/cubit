@@ -1,8 +1,9 @@
 package io.github.zenndg.cubit.domain.network;
 
 /**
- * The wall around the chunk of a Network Server, which its owner sees with the Tablet in hand: from
- * the support block up to 16 blocks above it, around the 16 blocks of the chunk (answer 2448).
+ * The wall around the chunk of a Network Server, which its owner sees with the Tablet in hand in
+ * the Network app (answer 2542): from the support block up to 16 blocks above it, around the 16
+ * blocks of the chunk (answer 2448).
  */
 public record ChunkWall(int minX, int minZ, int bottom, int top) {
   public static final int SIDE = 16;

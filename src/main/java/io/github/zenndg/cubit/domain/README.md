@@ -186,7 +186,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `PanelSound` | O som de cada momento de um painel, o do Dock ou o do Solar Relay: a abertura quando ele começa a abrir, a trava quando as partes se encontram e o fechamento quando ele começa a voltar (perguntas 1861, 1921 e 2339) |
 | `DockDoorLight` | A luz na borda das folhas das portas: vermelha com o painel guardado, verde com ele montado e amarela, piscando, durante o movimento (perguntas 1853 e 1863) |
 | `BlockName` | O nome de um bloco com dono, como o Dock: o dado pelo dono, com as regras do nome do Cubit, ou o padrão, o começo do tipo dele (`Dock`, `Server` ou `Relay`) e os 8 primeiros dígitos do UUID, para ele nunca ficar sem nome (perguntas 1867 a 1869) |
-| `FloatingName` | O nome sobre o Dock, o Servidor e o Relay: a 0,5 bloco do topo, no meio do bloco, e quem o vê: o dono, com o Tablet na mão, sem tela aberta e sem o F1, a até 32 blocos. O cliente procura os blocos a cada 10 ticks (perguntas 2512 a 2517) |
+| `FloatingName` | O nome sobre o Dock, o Servidor e o Relay: a 0,5 bloco do topo, no meio do bloco, e quem o vê: o dono, com o Tablet na mão e o app Network, sem tela aberta e sem o F1, a até 32 blocos. O cliente procura os blocos a cada 10 ticks (perguntas 2425 e 2512 a 2517) |
 | `ServerSpec` e `ServerCatalog` | Os números do Network Server em cada tier: a bateria, os canais, a entrada por cabo e redstone, os slots, em linhas inteiras da tela, e o que o Solar Relay dele gera de dia e à noite |
 | `UpsReserve` | A parte da bateria que é só do chunk, o Nobreak, de 0% a 50% em passos de 5, com o que sobra para o resto e quanto tempo ela segura. Um número salvo ou editado vai ao passo de baixo, dentro do limite (perguntas 2209, 2212 e 2221) |
 | `UpsWatch` | O aviso do Nobreak: uma vez ao descer para a reserva, e de novo só depois de sair dela |
@@ -194,7 +194,7 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `ChunkCharge` | Se um bloco ficou sem energia para o chunk: zera sem o custo de um tick e só volta com a carga da retomada, também depois de um save. Um chunk de graça nunca zera (perguntas 2372 e 2410) |
 | `ChunkRoster` | Quais chunks o mod segura, de qual player, na ordem em que chegaram, e quais esperam o dono. Quem chegou primeiro fica dentro dos limites (perguntas 2210 e 2215) |
 | `Standby` | O gasto por ficar ligado, do Servidor e do Relay com par, que o Servidor paga (perguntas 2435 e 2436) |
-| `ChunkWall` | A parede em volta do chunk do Servidor, do bloco de apoio até 16 blocos acima, e quem a vê: o dono, com o Tablet na mão, a até 128 blocos (pergunta 2448) |
+| `ChunkWall` | A parede em volta do chunk do Servidor, do bloco de apoio até 16 blocos acima, e quem a vê: o dono, com o Tablet na mão e o app Network, a até 128 blocos (perguntas 2448 e 2542) |
 | `AntennaChannel` | Os 16 canais, na ordem fixa dos IDs em inglês, os abertos pelo tier, o último canal que volta se livre e as setas que pulam os ocupados (perguntas 2269, 2309 e 2547) |
 | `AntennaSignal` | O sinal da antena e o tempo sem ele: ligada, sem sinal ou parada depois de 20 minutos, e a volta sozinha (perguntas 2323, 2552 e 2553) |
 | `SignalSound` | O som da antena quando o sinal muda: trava na primeira vez depois de colocada, volta depois de perdido e se ouve ao perder. Parar depois do tempo sem sinal não toca nada (perguntas 2552, 2553 e 2561) |

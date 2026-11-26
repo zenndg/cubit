@@ -26,6 +26,7 @@ final class TabletNetworkApp {
       case TabletUse.Block block -> onBlock(player, chosen, block.pos());
       case TabletUse.Air air -> say(player, NetworkAppKeys.PICK);
     }
+    TabletChestView.send(player);
   }
 
   /** Switching the app or leaving the game drops what waits for a second click. */

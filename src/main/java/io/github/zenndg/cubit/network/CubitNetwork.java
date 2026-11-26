@@ -92,6 +92,7 @@ public final class CubitNetwork {
             DeathLogPayload.STREAM_CODEC,
             (payload, context) -> deathLogDisplay.accept(payload));
     registerDoorMarks(registrar);
+    NetworkLinksChannel.register(registrar);
     registerTabletRequests(registrar);
   }
 

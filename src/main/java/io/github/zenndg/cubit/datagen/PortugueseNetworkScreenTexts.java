@@ -27,7 +27,7 @@ final class PortugueseNetworkScreenTexts {
   private static final String ANTENNAS_TIP = "%s recebendo · %s sem energia ou sinal";
   private static final String LOAD_CHUNK = "Carregar o chunk";
   private static final String VIEW = "Ver";
-  private static final String VIEW_TIP = "Mostra o chunk com o Tablet na mão";
+  private static final String VIEW_TIP = "Mostra o chunk com o app Rede";
   private static final String HOLDING_WITHOUT_LIMIT = "Segurando este chunk · %s seus";
   private static final String UPS = "Nobreak";
   private static final String UPS_VALUE = "%s%%";

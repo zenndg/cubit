@@ -98,11 +98,11 @@ Gera, transmite e guarda 300 mil FE e 32 baldes do que vai e vem (2289). O paine
 
 ## Ver o chunk
 
-O botão `View`, na linha `Load the chunk`, mostra a parede em volta do chunk do Servidor: translúcida, ciano, de 1 px, do bloco de apoio até 16 blocos acima, até 128 blocos do player. Só o dono vê, com o Tablet na mão, em qualquer app até o app Network existir. Desligada por padrão, salva no Servidor e no item (2443 e 2446 a 2448). Ao passar o mouse, o botão diz `Shows the chunk with the Tablet in hand`, em português `Mostra o chunk com o Tablet na mão` (2512).
+O botão `View`, na linha `Load the chunk`, mostra a parede em volta do chunk do Servidor: translúcida, ciano, de 1 px, do bloco de apoio até 16 blocos acima, até 128 blocos do player. Só o dono vê, com o Tablet na mão e o app Network, desde a entrega 5. Desligada por padrão, salva no Servidor e no item (2443 e 2446 a 2448). Ao passar o mouse, o botão diz `Shows the chunk with the Network app`, em português `Mostra o chunk com o app Rede` (2512 e 2606).
 
 ## Nomes flutuantes
 
-Com o Tablet na mão, em qualquer app, o nome de cada Dock, Servidor e Solar Relay do player aparece sobre o bloco, a até 32 blocos. Na entrega 5, passa a valer só com o app Network, que soma a antena (2421, 2424, 2425 e 2469).
+Com o Tablet na mão e o app Network, desde a entrega 5, o nome de cada Dock, Servidor, Solar Relay e antena do player aparece sobre o bloco, a até 32 blocos (2421, 2424, 2425 e 2469). Sobre um bloco com seta do app, o nome flutuante não aparece, porque a primeira linha da seta já traz o nome dele (2607).
 
 ![Nomes flutuantes](../imagens/conceito/nomes-flutuantes.png)
 
@@ -130,7 +130,7 @@ Detalhes propostos pelo agente:
 
 ## App Network
 
-Clique na antena, depois no Cubit, que fica ligado, e depois em cada Dock e baú, marcados para aquele Cubit. O Dock marcado já se liga à antena. Antena e Dock, sem Cubit, só liga a energia. Repetir o clique desfaz, e setas mostram tudo (2249). Os baús marcados fazem parte da rede (2249). Com o app selecionado, o nome do Dock, do Servidor, do Solar Relay e da antena do player aparece sobre cada um, a até 32 blocos, de frente para ele e mais fraco atrás dos blocos (2421, 2424 e 2425), só com o texto branco e a sombra (2518 e 2519). Até esta entrega, os nomes aparecem com o Tablet na mão, em qualquer app, como em [Nomes flutuantes](#nomes-flutuantes) (2469).
+Clique na antena, depois no Cubit, que fica ligado, e depois em cada Dock e baú, marcados para aquele Cubit. O Dock marcado já se liga à antena. Antena e Dock, sem Cubit, só liga a energia. Repetir o clique desfaz, e setas mostram tudo (2249). Os baús marcados fazem parte da rede (2249). Com o app selecionado, o nome do Dock, do Servidor, do Solar Relay e da antena do player aparece sobre cada um, a até 32 blocos, de frente para ele e mais fraco atrás dos blocos (2421, 2424 e 2425), só com o texto branco e a sombra (2518 e 2519). As setas, com duas linhas sobre cada uma, ficam sobre as antenas do Cubit escolhido, na cor do canal, sobre os Docks e baús dele, no vermelho do app Dock e no laranja do app Descarga, e, em cinza, sobre os Docks que as antenas dele, ou a antena clicada sem Cubit, só alimentam. O servidor as manda uma vez por segundo, só com o app ativo (2592 e 2595).
 
 | Por Cubit | Base | Advanced | Elite | Ultimate |
 |---|---|---|---|---|
@@ -402,6 +402,7 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 10:20 | Passa os nomes, a parede e as setas ao app Network (entrega 5). |
 | Zennd | 2026-11-26 09:52 | Detalha a linha `Links` da tela da antena. |
 | Zennd | 2026-11-26 09:41 | Diz que a área já fica nos chunks das antenas na entrega 5. |
 | Zennd | 2026-11-26 09:25 | Acrescenta os detalhes 23 a 25 da Entrega 5 e o campo `docks` do item da antena (perguntas 2603 e 2604). |
