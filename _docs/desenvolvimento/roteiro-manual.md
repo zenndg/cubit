@@ -1632,18 +1632,24 @@ Antes, apague o `config/cubit-common.toml` da instância de teste (pergunta 2324
 | 2 | Clique com ela no Servidor e coloque longe | Recebe energia e pega o primeiro canal livre |
 | 3 | Na tela dela, troque o canal | A faixa e o anel mudam de cor |
 | 4 | Olhe as 16 cores de perto e de longe, de dia e no escuro | Todas se distinguem, também o preto e o cinza |
-| 5 | Ligue a parede, com e sem o Tablet no app Network | Só aparece com ele, em volta do chunk, por 16 blocos. Outro player não vê |
+| 5 | Ligue a parede, com e sem o Tablet na mão | Só aparece com ele, em qualquer app, em volta do chunk, na cor do canal, por 16 blocos. Outro player não vê (2542) |
 | 6 | Ligue a de duas antenas vizinhas | As duas aparecem, sem piscar |
 | 7 | Plante trigo no chunk e vá para longe por alguns minutos | Cresceu |
 | 8 | Desligue a chave do chunk e repita | Não cresceu |
 | 9 | Passe do limite de canais do tier e coloque uma segunda antena no chunk | Recusadas, com o motivo |
 | 10 | Quebre o Servidor, o Relay e a antena, um por vez, e recoloque | A antena usa a bateria, e tudo volta, uma antena a cada 2 s |
-| 11 | Tire toda a energia | A antena entra no UPS, avisa uma vez, e depois solta o chunk |
+| 11 | Tire toda a energia | A antena gasta a bateria, solta o chunk sem energia e o pega de volta com a carga de retomada |
 | 12 | Saia e entre no mundo | Tudo continua como estava |
 | 13 | Num servidor, saia com o dono | Os chunks saem, e voltam quando ele entra |
 | 14 | `/cubit network list` e `release`, com e sem operador | Só o operador usa |
 | 15 | Coloque a antena, corte o sinal e devolva | O mastro se ergue, a parabólica procura, trava e perde o sinal, com os sons |
 | 16 | Olhe a antena de perto, de todos os lados | Relevo e sombra, sem face chapada |
+| 17 | Ligue uma antena, dê o item a outro player e peça que ele a coloque | Recusada, com `This Server belongs to another player` (2569) |
+| 18 | Passe o mouse no item ligado, ouvindo o clique no Servidor | A dica mostra `Linked to {Servidor}`, e o clique toca o som de ligar (2567) |
+| 19 | Com uma antena recebendo, abra a aba Energy do Servidor e passe o mouse na linha `Antennas` | O que saiu às antenas no tick, e quantas recebem e quantas esperam (2545) |
+| 20 | Coloque uma antena no chunk do próprio Servidor, com o chunk dele seguro | A linha do chunk mostra `Held by its Server`, sem gasto do chunk (2264) |
+| 21 | `/cubit network release` com um Servidor e uma antena carregados, e outra antena longe | Os chunks saem, e a chave `Load the chunk` de cada um desliga, também a da antena longe ao carregar (2578) |
+| 22 | Olhe a antena com o Jade | O nome, a bateria, o canal, o sinal e a chave do chunk, sem tier (2285) |
 
 ### Entrega 5: app Network, ligações e energia
 
@@ -1786,6 +1792,7 @@ Na instância só com o mod, tire capturas com F2 do Cubit seguindo, da tela do 
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 08:16 | Alinha o teste da entrega 4 da Network com as respostas 2542 a 2578. |
 | Zennd | 2026-11-25 19:45 | Acrescenta o gasto do Dock e o custo novo da mesa (perguntas 2435, 2441 e 2467). |
 | Zennd | 2026-11-25 17:34 | Acrescenta o renascer com o chunk descarregado e chamar o Cubit (perguntas 2450 a 2500). |
 | Zennd | 2026-11-25 16:11 | Acrescenta a usabilidade da tela da Engineering Desk (perguntas 2470 a 2481 e 2492). |

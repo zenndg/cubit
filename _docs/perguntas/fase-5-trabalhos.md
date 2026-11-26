@@ -1523,11 +1523,19 @@ Não há perguntas pendentes nesta fase.
 | 2576 | Depois do visual, segue o commit da receita e do Jade da antena? | Sim, como recomendado |
 | 2577 | Depois da receita e do Jade, segue o commit do comando `/cubit network list` e `release`, só para operador? | Sim, como recomendado |
 | 2578 | O que o `/cubit network release` faz com os blocos depois de soltar os chunks, se um Servidor ou uma antena carregados pedem o chunk de volta a cada segundo? | Solta os tickets e a lista e desliga a chave `Load the chunk` de cada bloco solto: na hora, nos carregados, e, nos descarregados, quando carregarem, por uma marca no `cubit_network`. O dono religa pela tela. A recomendação foi aceita. Detalha a 2286 |
+| 2579 | Com o código da entrega 4 completo, as GameTests rodam agora, sobre o último commit (regra 57)? | Sim, como recomendado |
+| 2580 | Em que ordem segue o fechamento da entrega 4? | Primeiro o teste do desenvolvedor no jogo, e depois o processo de abertura do PR, pelo `antes-do-pr.md`, onde as GameTests rodam. Muda a 2579 |
+| 2581 | O teste do desenvolvedor no jogo da entrega 4, a Signal Antenna, passou? | Sim: "teste ok". Segue o processo de abertura do PR pelo `antes-do-pr.md` |
+| 2582 | Com o teste aprovado, o que segue depois de as GameTests passarem? | Os commits dos arquivos pendentes, com o `AGENTS.md` (o estado e a estrutura de pacotes) e o roteiro alinhados, o push e a abertura do PR para a `integration/network`. Depois do merge, apagar as branches e reportar as próximas tarefas |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 08:16 | Registra a resposta 2582. |
+| Zennd | 2026-11-26 08:00 | Registra a resposta 2581. |
+| Zennd | 2026-11-26 07:49 | Registra a resposta 2580. |
+| Zennd | 2026-11-26 07:48 | Registra a resposta 2579. |
 | Zennd | 2026-11-26 07:41 | Registra a resposta 2578. |
 | Zennd | 2026-11-26 07:34 | Registra a resposta 2577. |
 | Zennd | 2026-11-26 07:23 | Registra a resposta 2576. |
