@@ -28,7 +28,8 @@ public record AreaDrawing(List<AreaCorner> points, boolean closed) {
     NOT_STRAIGHT,
     CROSSES,
     TOO_BIG,
-    TOO_HIGH
+    TOO_HIGH,
+    OUTSIDE
   }
 
   /** The drawing after a click, and what the click did. */
@@ -41,8 +42,16 @@ public record AreaDrawing(List<AreaCorner> points, boolean closed) {
     }
   }
 
-  /** A block clicked, with the numbers of the drawing and the limits of the tier. */
+  /** A block clicked anywhere, as the client foresees the next point without the antennas. */
   public Click click(AreaCorner at, AreaDrawingSpec spec, AreaSpec tier) {
+    return click(at, spec, tier, AreaChunks.ANYWHERE);
+  }
+
+  /**
+   * A block clicked, with the numbers of the drawing, the limits of the tier and the chunks of the
+   * antennas of the Cubit, which hold the points, the lines and the inside (answers 2586 and 2601).
+   */
+  public Click click(AreaCorner at, AreaDrawingSpec spec, AreaSpec tier, AreaChunks reach) {
     if (closed) {
       boolean marked = points.stream().anyMatch(point -> point.column().equals(at.column()));
       return marked
@@ -50,9 +59,9 @@ public record AreaDrawing(List<AreaCorner> points, boolean closed) {
           : new Click(this, Step.ALREADY_CLOSED);
     }
     if (!points.isEmpty() && points.getFirst().column().equals(at.column())) {
-      return close(spec);
+      return close(spec, reach);
     }
-    Step step = whyNot(at, spec, tier);
+    Step step = whyNot(at, spec, tier, reach);
     return step == Step.ADDED ? new Click(with(at), step) : new Click(this, step);
   }
 
@@ -81,33 +90,49 @@ public record AreaDrawing(List<AreaCorner> points, boolean closed) {
         .map(shape -> new WorkArea(shape, bounds.min().y(), bounds.max().y(), dimension));
   }
 
-  private Click close(AreaDrawingSpec spec) {
+  private Click close(AreaDrawingSpec spec, AreaChunks reach) {
     if (missing(spec) > 0) {
       return new Click(this, Step.TOO_FEW);
     }
     if (!path().straightTo(points.getFirst().column())) {
       return new Click(this, Step.NOT_STRAIGHT);
     }
-    return path().crossesToClose()
-        ? new Click(this, Step.CROSSES)
-        : new Click(new AreaDrawing(points, true), Step.CLOSED);
+    if (path().crossesToClose()) {
+      return new Click(this, Step.CROSSES);
+    }
+    boolean inside = AreaShape.of(path()).filter(reach::holdsShape).isPresent();
+    return inside
+        ? new Click(new AreaDrawing(points, true), Step.CLOSED)
+        : new Click(this, Step.OUTSIDE);
   }
 
-  private Step whyNot(AreaCorner at, AreaDrawingSpec spec, AreaSpec tier) {
+  private Step whyNot(AreaCorner at, AreaDrawingSpec spec, AreaSpec tier, AreaChunks reach) {
     if (points.size() >= spec.maxPoints()) {
       return Step.FULL;
     }
-    if (!points.isEmpty() && !path().straightTo(at.column())) {
-      return Step.NOT_STRAIGHT;
-    }
-    if (!points.isEmpty() && path().crossesTo(at.column())) {
-      return Step.CROSSES;
+    Step line = lineTo(at.column(), reach);
+    if (line != Step.ADDED) {
+      return line;
     }
     AreaBounds bounds = with(at).bounds().orElseThrow();
     if (bounds.width() > tier.sizeBlocks() || bounds.depth() > tier.sizeBlocks()) {
       return Step.TOO_BIG;
     }
     return bounds.height() > tier.heightBlocks() ? Step.TOO_HIGH : Step.ADDED;
+  }
+
+  /** The line from the last point: straight, clear of the drawing and inside the chunks. */
+  private Step lineTo(AreaColumn at, AreaChunks reach) {
+    if (points.isEmpty()) {
+      return reach.holds(at) ? Step.ADDED : Step.OUTSIDE;
+    }
+    if (!path().straightTo(at)) {
+      return Step.NOT_STRAIGHT;
+    }
+    if (path().crossesTo(at)) {
+      return Step.CROSSES;
+    }
+    return reach.holdsLine(points.getLast().column(), at) ? Step.ADDED : Step.OUTSIDE;
   }
 
   private AreaDrawing with(AreaCorner point) {

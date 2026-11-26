@@ -45,12 +45,13 @@ A área é desenhada com o app Área do [Tablet](tablet.md#apps) (perguntas 2240
 
 ## Com a Network
 
-Planejado, na `0.2.0`, e ainda fora do código. As regras estão em [`network.md`](network.md). O desenho por pontos já entrou. Falta ele ficar dentro dos chunks das antenas do Cubit, com o tamanho saindo do tier. A altura continua a do tier. Sem rede, o Cubit não vai à área (perguntas 2206, 2225 e 2350).
+Planejado, na `0.2.0`. As regras estão em [`network.md`](network.md). O desenho por pontos já entrou e, na entrega 5, o Cubit com ao menos uma antena só desenha dentro dos chunks delas: o ponto ou a linha de fora são recusados, e a forma cujo interior cobre um chunk sem antena não fecha (perguntas 2586 e 2601). Falta o tamanho sair do tier, na entrega 6. A altura continua a do tier. Sem rede, o Cubit não vai à área (perguntas 2206, 2225 e 2350).
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 09:41 | Prende o desenho aos chunks das antenas (entrega 5 da Network). |
 | Zennd | 2026-11-25 00:23 | Descreve a área desenhada, entregue na #264 (perguntas 2240 a 2246 e 2350 a 2365). |
 | Zennd | 2026-11-25 00:02 | Corrige a altura da área do Elite para 24 blocos (perguntas 1601 e 2349). |
 | Zennd | 2026-11-24 22:42 | Aponta para a Network (pergunta 2325). |

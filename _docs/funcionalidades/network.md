@@ -156,7 +156,7 @@ Muda o app Área (2225, 2240 e 2243 a 2246, 2287 e 2311).
 6. **Apagar:** Shift + clique no Cubit, sem desenho em andamento, com confirmação (2299 e 2352). Quem fica sem área para e desliga, com a carga mantida, e, no Dock, continua no Dock. Os itens, o card e as chaves não mudam (2353).
 7. **Caminho:** entre dois lugares da área, contorna o canto por dentro e só passa por fora sem outro caminho. A trava total vem na entrega 6 (2365).
 8. **Linha:** uma barra de 3 px do bloco, com volume, no centro do bloco, e um cubo de 6 px em cada ponto enquanto a área não é aplicada. O trecho até a mira é translúcido e só aparece em ângulo reto, com o bloco na mira marcado (2358). Desenhando, é um traço só, que sobe na vertical. Fechada ou aplicada, mostra o contorno da base e o do topo, ou um só com um nível (2359). Atrás de um bloco, fica mais fraca (2361).
-9. **Até a rede ser obrigatória,** na entrega 6: o desenho cabe nos limites de hoje, 16, 32 e 64 blocos, e 64 e 128 no Patrulheiro, conferidos em cada clique. O centro do retângulo em volta dele fica no raio de chamada do Dock, na dimensão do Cubit, o que é conferido ao aplicar (2350, 2351 e 2356). As antenas não contam até a entrega 5.
+9. **Até a rede ser obrigatória,** na entrega 6: o desenho cabe nos limites de hoje, 16, 32 e 64 blocos, e 64 e 128 no Patrulheiro, conferidos em cada clique. O centro do retângulo em volta dele fica no raio de chamada do Dock, na dimensão do Cubit, o que é conferido ao aplicar (2350, 2351 e 2356). Na entrega 5, o Cubit com ao menos uma antena só desenha dentro dos chunks delas, e a área cujo interior cobre um chunk sem antena não fecha nem é aplicada (2586 e 2601).
 
 O Cubit espera a área ser desenhada, parado e acordado, com `Waiting for area` (2239 e 2298). As áreas antigas, em caixa, são apagadas (2283).
 
@@ -402,6 +402,7 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 09:41 | Diz que a área já fica nos chunks das antenas na entrega 5. |
 | Zennd | 2026-11-26 09:25 | Acrescenta os detalhes 23 a 25 da Entrega 5 e o campo `docks` do item da antena (perguntas 2603 e 2604). |
 | Zennd | 2026-11-26 09:06 | Acrescenta os detalhes 19 a 22 da Entrega 5 (perguntas 2599 a 2602). |
 | Zennd | 2026-11-26 08:52 | Acrescenta os detalhes da Entrega 5 e a chave `Docks` da antena (perguntas 2585 a 2593). |

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import io.github.zenndg.cubit.domain.network.LinkChunk;
 import io.github.zenndg.cubit.domain.tier.AreaSpec;
 import java.util.List;
 import java.util.UUID;
@@ -40,6 +41,11 @@ class AreaDrawingTest {
   private static final AreaCorner AT_THE_LIMIT = at(15, 0);
   private static final AreaCorner ONE_MORE = at(0, 5);
   private static final AreaCorner A_POINT = at(9, 9);
+  private static final AreaCorner BEHIND = at(-3, 0);
+  private static final AreaChunks FIRST_CHUNK =
+      AreaChunks.of(OVERWORLD, List.of(new LinkChunk(OVERWORLD, 0, 0)));
+  private static final AreaChunks OTHER_CHUNK =
+      AreaChunks.of(OVERWORLD, List.of(new LinkChunk(OVERWORLD, 1, 1)));
 
   @Test
   void pointsInRightAnglesGoIn() {
@@ -161,6 +167,26 @@ class AreaDrawingTest {
     assertEquals(robot, marking.robot());
     assertEquals(OVERWORLD, marking.dimension());
     assertEquals(drawn(SQUARE), marking.drawing());
+  }
+
+  @Test
+  void aPointOrALineOutOfTheChunksOfTheAntennasIsRefused() {
+    AreaDrawing.Click first = AreaDrawing.EMPTY.click(BEHIND, SPEC, ADVANCED, FIRST_CHUNK);
+    assertEquals(AreaDrawing.Step.OUTSIDE, first.step());
+    assertEquals(AreaDrawing.EMPTY, first.drawing());
+    AreaDrawing started = drawn(List.of(FIRST));
+    assertEquals(
+        AreaDrawing.Step.OUTSIDE, started.click(BEHIND, SPEC, ADVANCED, FIRST_CHUNK).step());
+    assertEquals(
+        AreaDrawing.Step.ADDED, started.click(THE_LAST, SPEC, ADVANCED, FIRST_CHUNK).step());
+  }
+
+  @Test
+  void aShapeWhoseInsideLeavesTheChunksDoesNotClose() {
+    AreaDrawing.Click close = drawn(SQUARE).click(FIRST, SPEC, ADVANCED, OTHER_CHUNK);
+    assertEquals(AreaDrawing.Step.OUTSIDE, close.step());
+    assertFalse(close.drawing().closed());
+    assertTrue(drawn(SQUARE).click(FIRST, SPEC, ADVANCED, FIRST_CHUNK).drawing().closed());
   }
 
   private static AreaDrawing drawn(List<AreaCorner> points) {

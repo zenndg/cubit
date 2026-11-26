@@ -83,7 +83,8 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `AreaWays` | O caminho entre dois lugares da forma sem sair dela, pelos cantos de dentro (pergunta 2365) |
 | `AreaOutward` | O lado de fora, para onde o Patrulheiro olha nas paradas das bordas, também no canto de dentro de um L (perguntas 1626 e 1724) |
 | `AreaBounds` | O retângulo em volta dos pontos, com a largura, a altura, a profundidade e o centro |
-| `AreaDrawing` | O desenho pela metade: os pontos, se fechou, o que cada clique faz e por que é recusado (perguntas 2245, 2355 e 2356) |
+| `AreaDrawing` | O desenho pela metade: os pontos, se fechou, o que cada clique faz e por que é recusado, também fora dos chunks das antenas (perguntas 2245, 2355, 2356, 2586 e 2601) |
+| `AreaChunks` | Onde um desenho pode ir: em qualquer lugar, para o Cubit sem antena, ou só nos chunks das antenas dele, com os pontos, as linhas e o interior da forma (perguntas 2586 e 2601) |
 | `AreaDrawingSpec` | O mínimo e o máximo de pontos e o alcance da mira (perguntas 2287 e 2311) |
 | `AreaErase` | O primeiro dos dois cliques que apagam a área, com o tempo para confirmar (pergunta 2299) |
 | `SecondClick` | O primeiro de dois cliques do Tablet que confirmam algo que se perde: o segundo, no mesmo alvo e em até 5 s, confirma. Vale para apagar a área e desligar uma antena ou a energia de um Dock (perguntas 2299 e 2589) |
