@@ -139,6 +139,10 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `general_robot.base` | `engineering_desk_max_order` | Engineering Desk: maior pedido | 1 a 4096 |
 | `general_robot.base` | `engineering_desk_cascade` | Engineering Desk: se a mesa desse tier fabrica em cascata (pergunta 2020) | `true` ou `false` |
 | `general_robot.base` | `engineering_desk_disassembly` | Engineering Desk: se a mesa desse tier desmonta itens (pergunta 2531) | `true` ou `false` |
+| `general_robot.base` | `network_antennas` | Network: antenas que um Cubit desse tier liga no app Network, com 0 para nenhuma (pergunta 2226) | 0 a 64 |
+| `general_robot.base` | `network_chests` | Network: baús que o app Network marca para um Cubit desse tier (pergunta 2232) | 0 a 64 |
+| `general_robot.base` | `network_docks` | Network: Docks que o app Network marca para um Cubit desse tier (pergunta 2233) | 0 a 64 |
+| `general_robot.base` | `network_organizer_chests` | Network: baús que o app Network marca para um Cubit desse tier com o card do Organizador, no lugar de `network_chests` (perguntas 2235 e 2602) | 0 a 64 |
 | `general_robot.base` | `allowed_jobs` | Cards de Aprendizado de Máquina que o tier aceita: `fisher`, `farmer`, `rancher`, `organizer`, `cook`, `patroller`, `miner`, `builder`, `mechanic` e `alchemist`. Um nome inválido é ignorado e vai para o log | Lista com esses nomes |
 | `general_robot.base` | `fisher_lure_level` | Pescador: Isca | 0 a 3 |
 | `general_robot.base` | `fisher_luck_level` | Pescador: Sorte do Mar | 0 a 3 |
@@ -241,6 +245,7 @@ As chaves ficam em `snake_case`. As de um tier ficam em `[general_robot.{tier}]`
 | `network` | `antenna_input_per_tick` | Signal Antenna, a entrada pela rede e por cabo, somadas | 0 a 2147483647 |
 | `network` | `antenna_standby_per_tick` | Gasto da antena ligada | 0 a 2147483647 |
 | `network` | `antenna_ups_percent` | UPS padrão da antena | 0 a 50 |
+| `network` | `antenna_floor_percent` | Parte da bateria da antena que nenhum Dock tira, mesmo com o UPS em 0% (perguntas 2322 e 2599) | 0 a 100 |
 | `network` | `signal_loss_ticks` | Tempo que a antena trabalha sem sinal antes de parar | 1 a 2147483647 |
 | `network` | `distance_free_blocks`, `distance_step_blocks` e `distance_cost` | Custo da distância da antena ao Servidor: os blocos sem custo, o passo e o custo de cada passo | 0 a 2147483647, com o passo de 1 em diante |
 | `network.{tier}` | `energy_capacity` | Network Server, a bateria | 1 a 2147483647 |
@@ -290,6 +295,7 @@ O mod não cai por causa do config (regra 17 do `AGENTS.md`):
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 09:15 | Acrescenta as chaves `network_*` por tier e a `antenna_floor_percent` (entrega 5 da Network). |
 | Zennd | 2026-11-26 08:01 | Acrescenta as chaves da Signal Antenna e o `output_per_tick` do Servidor (entrega 4 da Network). |
 | Zennd | 2026-11-25 22:02 | Acrescenta a chave `engineering_desk_disassembly` (pergunta 2531). |
 | Zennd | 2026-11-25 19:45 | Acrescenta o gasto do Dock e o custo novo da mesa (perguntas 2441 e 2468). |

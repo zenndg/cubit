@@ -7,6 +7,8 @@ import io.github.zenndg.cubit.domain.energy.ConsumptionExtras;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.Percentage;
 import io.github.zenndg.cubit.domain.energy.SolarOutput;
+import io.github.zenndg.cubit.domain.network.LinkLimits;
+import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.domain.tier.ScannerSpec;
 import io.github.zenndg.cubit.domain.tier.TierSpec;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -72,12 +74,14 @@ final class TierSection {
   private final XpKey xp;
   private final DockKeys dock;
   private final DeskKeys desk;
+  private final LinkKeys links;
 
-  TierSection(
-      ModConfigSpec.Builder builder,
-      TierSpec defaults,
-      DockSpec dockDefaults,
-      DeskSpec deskDefaults) {
+  /** With the defaults of the tier, from _docs/tiers.md. */
+  TierSection(ModConfigSpec.Builder builder, RobotTier tier) {
+    this(builder, TierDefaults.of(tier), tier);
+  }
+
+  private TierSection(ModConfigSpec.Builder builder, TierSpec defaults, RobotTier tier) {
     batteryCapacity = energy(builder, BATTERY_CAPACITY, defaults.batteryCapacity(), MIN_POSITIVE);
     movingConsumption =
         energy(builder, MOVING_CONSUMPTION, defaults.movingConsumptionPerTick(), MIN_CONSUMPTION);
@@ -88,8 +92,7 @@ final class TierSection {
     recharge = energy(builder, RECHARGE, defaults.rechargePerTick(), MIN_POSITIVE);
     inventorySlots =
         count(builder, INVENTORY_SLOTS, defaults.inventorySlots(), MAX_INVENTORY_SLOTS);
-    maxHealth =
-        builder.defineInRange(MAX_HEALTH, defaults.maxHealth(), MIN_POSITIVE, MAX_HEALTH_LIMIT);
+    maxHealth = count(builder, MAX_HEALTH, defaults.maxHealth(), MAX_HEALTH_LIMIT);
     callRadius =
         count(builder, CALL_RADIUS, defaults.callRadiusBlocks(), TierSpec.MAX_CALL_RADIUS_BLOCKS);
     speedMultiplier = speed(builder, defaults.speedMultiplier());
@@ -104,8 +107,14 @@ final class TierSection {
     deathPoint = new DeathPointKey(builder, defaults.deathPoint());
     jobs = new JobKeys(builder, defaults.jobs());
     xp = new XpKey(builder, defaults.xp());
-    dock = new DockKeys(builder, dockDefaults);
-    desk = new DeskKeys(builder, deskDefaults);
+    dock = new DockKeys(builder, DockDefaults.of(tier));
+    desk = new DeskKeys(builder, DeskDefaults.of(tier));
+    links = new LinkKeys(builder, LinkDefaults.of(tier));
+  }
+
+  /** What a Cubit of this tier links in the Network app. */
+  LinkLimits readLinks() {
+    return links.read();
   }
 
   /** The Engineering Desk of this tier (answer 1475). */

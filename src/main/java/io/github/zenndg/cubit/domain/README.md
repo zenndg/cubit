@@ -199,11 +199,11 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `SignalSound` | O som da antena quando o sinal muda: trava na primeira vez depois de colocada, volta depois de perdido e se ouve ao perder. Parar depois do tempo sem sinal não toca nada (perguntas 2552, 2553 e 2561) |
 | `AntennaPlacement` | Por que a antena não é colocada: sem ligação, sem Servidor, Servidor de outro dono, outra dimensão, chunk ocupado ou canais cheios (perguntas 2271, 2301, 2546 e 2569) |
 | `NetworkRoster` | Os Servidores e as antenas do mundo, conhecidos também com o chunk descarregado: onde cada Servidor está, com o tier que abre os canais, e o canal que cada antena toma do seu Servidor, o último se livre ou o primeiro livre (detalhes 6, 14 e 19 da Entrega 4) |
-| `AntennaSpec` | Os números da antena, sem tier, e o que ela gasta: ligada, a distância e o chunk (perguntas 2273, 2321 e 2435) |
+| `AntennaSpec` | Os números da antena, sem tier, o que ela gasta, ligada, a distância e o chunk, e o que pode dar aos Docks acima do UPS e do piso (perguntas 2273, 2321, 2435 e 2599) |
 | `SignalDistance` | O custo da distância até o Servidor, no plano: 1 FE/t por 500 blocos completos além dos 100 (pergunta 2310) |
 | `EnergyShare` | Como o Servidor reparte a energia entre as antenas: primeiro o chunk de cada uma, na ordem dos canais, e o resto por igual, sem criar nem perder FE (perguntas 2302 e 2551) |
 | `LinkSpot` e `LinkChunk` | Um bloco ligado a um Cubit pelo app Network, antena, Dock ou baú, pela dimensão e pelo lugar, e o chunk dele. Dois chunks são vizinhos só quando dividem um lado (pergunta 2257) |
-| `LinkLimits` | Quantas antenas, Docks e baús o tier do Cubit liga, com nenhuma antena no Base (perguntas 2226, 2232, 2233 e 2602) |
+| `LinkLimits` e `LinkCatalog` | Quantas antenas, Docks e baús o tier do Cubit liga, com nenhuma antena no Base e mais baús para o Organizador, e a interface que o config serve (perguntas 2226, 2232, 2233, 2235 e 2602) |
 | `NetworkLinks` | As ligações de um Cubit: as antenas, de um Servidor só e vizinhas pelo lado, e os Docks e baús marcados nos chunks delas. A antena do meio, que separaria as outras, é recusada, e a que sai leva os Docks e baús do chunk dela (perguntas 2258, 2588, 2590 e 2600) |
 | `FedDocks` | Os Docks que uma antena alimenta, a chave `Docks` dela: marcar para um Cubit também alimenta, e só o clique na antena e no Dock, sem Cubit, tira (pergunta 2589) |
 | `DockFeed` | Como a antena alimenta os Docks: só o que passa do maior entre o UPS e o piso de 5%, primeiro os que carregam um Cubit e depois por igual, cada um até o que cabe, sem criar nem perder FE (perguntas 2302, 2322 e 2599) |

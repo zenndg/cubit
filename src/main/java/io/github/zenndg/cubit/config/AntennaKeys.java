@@ -1,6 +1,7 @@
 package io.github.zenndg.cubit.config;
 
 import io.github.zenndg.cubit.domain.energy.Energy;
+import io.github.zenndg.cubit.domain.energy.Percentage;
 import io.github.zenndg.cubit.domain.network.AntennaSpec;
 import io.github.zenndg.cubit.domain.network.SignalDistance;
 import io.github.zenndg.cubit.domain.network.UpsReserve;
@@ -8,7 +9,8 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 /**
  * The keys of the Signal Antenna and of the cost of its distance, in the section of the Network
- * (answers 2221, 2273, 2310, 2323, 2326 and 2435). The names are a contract (answer 2334).
+ * (answers 2221, 2273, 2310, 2322, 2323, 2326, 2435 and 2599). The names are a contract (answer
+ * 2334).
  */
 public final class AntennaKeys {
   private static final String CAPACITY = "antenna_energy_capacity";
@@ -21,6 +23,8 @@ public final class AntennaKeys {
   private static final int UPS_DEFAULT = 50;
   private static final String SIGNAL_LOSS = "signal_loss_ticks";
   private static final int SIGNAL_LOSS_DEFAULT = 24_000;
+  private static final String FLOOR = "antenna_floor_percent";
+  private static final int FLOOR_DEFAULT = 5;
   private static final String FREE = "distance_free_blocks";
   private static final int FREE_DEFAULT = 100;
   private static final String STEP = "distance_step_blocks";
@@ -35,6 +39,7 @@ public final class AntennaKeys {
   private final ModConfigSpec.IntValue standby;
   private final ModConfigSpec.IntValue ups;
   private final ModConfigSpec.IntValue signalLoss;
+  private final ModConfigSpec.IntValue floor;
   private final ModConfigSpec.IntValue free;
   private final ModConfigSpec.IntValue step;
   private final ModConfigSpec.IntValue distanceCost;
@@ -45,6 +50,7 @@ public final class AntennaKeys {
     standby = builder.defineInRange(STANDBY, STANDBY_DEFAULT, NONE, Integer.MAX_VALUE);
     ups = builder.defineInRange(UPS, UPS_DEFAULT, NONE, UpsReserve.MAX);
     signalLoss = builder.defineInRange(SIGNAL_LOSS, SIGNAL_LOSS_DEFAULT, ONE, Integer.MAX_VALUE);
+    floor = builder.defineInRange(FLOOR, FLOOR_DEFAULT, NONE, Percentage.MAX);
     free = builder.defineInRange(FREE, FREE_DEFAULT, NONE, Integer.MAX_VALUE);
     step = builder.defineInRange(STEP, STEP_DEFAULT, ONE, Integer.MAX_VALUE);
     distanceCost =
@@ -57,7 +63,8 @@ public final class AntennaKeys {
         new Energy(input.get()),
         new Energy(standby.get()),
         UpsReserve.of(ups.get()),
-        signalLoss.get());
+        signalLoss.get(),
+        new Percentage(floor.get()));
   }
 
   public SignalDistance distance() {

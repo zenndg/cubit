@@ -97,10 +97,7 @@ public final class CubitConfig {
     Map<RobotTier, TierSection> sections = new EnumMap<>(RobotTier.class);
     for (RobotTier tier : RobotTier.values()) {
       builder.push(List.of(GENERAL_ROBOT.id(), tier.key()));
-      sections.put(
-          tier,
-          new TierSection(
-              builder, TierDefaults.of(tier), DockDefaults.of(tier), DeskDefaults.of(tier)));
+      sections.put(tier, new TierSection(builder, tier));
       builder.pop(TIER_SECTION_DEPTH);
     }
     return sections;
