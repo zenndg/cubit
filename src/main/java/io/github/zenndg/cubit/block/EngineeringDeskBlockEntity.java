@@ -6,11 +6,9 @@ import io.github.zenndg.cubit.domain.desk.DeskLook;
 import io.github.zenndg.cubit.domain.desk.DeskOrder;
 import io.github.zenndg.cubit.domain.desk.DeskSpec;
 import io.github.zenndg.cubit.domain.desk.DeskStatus;
-import io.github.zenndg.cubit.domain.desk.DeskStock;
 import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.ownership.Ownership;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
-import io.github.zenndg.cubit.item.EnergySlotItems;
 import io.github.zenndg.cubit.item.SavedEnergy;
 import io.github.zenndg.cubit.registry.CubitBlockEntities;
 import io.github.zenndg.cubit.registry.CubitDataComponents;
@@ -30,7 +28,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.slf4j.Logger;
@@ -45,10 +42,8 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  */
 public final class EngineeringDeskBlockEntity extends BlockEntity implements GeoBlockEntity {
   private static final Logger LOGGER = LogUtils.getLogger();
-  private static final String OWNER_KEY = "Owner";
   private static final String ENERGY_KEY = "Energy";
   private static final String GONE_RECIPE = "The desk at {} had the recipe {}, which is gone.";
-  private static final int ENERGY_SLOT = 0;
 
   private final DeskTier tier = new DeskTier();
   private final DeskInventories items = new DeskInventories(this::setChanged);
@@ -57,12 +52,11 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   private final DeskShow show = new DeskShow();
   private final DeskClientView clientView = new DeskClientView();
 
-  private UUID owner;
-  private DeskStock stock = DeskStock.of(spec().capacity(), Energy.ZERO);
+  private final BlockOwner owner = new BlockOwner();
+  private final DeskBattery battery = new DeskBattery(spec().capacity(), this::setChanged);
   private final DeskJob job = new DeskJob();
   private final CascadeState cascade = new CascadeState();
   private DeskStatus status = DeskStatus.IDLE;
-  private Energy inputLeft = Energy.ZERO;
   private int signal;
 
   public EngineeringDeskBlockEntity(BlockPos pos, BlockState state) {
@@ -71,8 +65,8 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
 
   static void serverTick(
       Level level, BlockPos pos, BlockState state, EngineeringDeskBlockEntity desk) {
-    desk.inputLeft = CubitMod.CONFIG.engineeringDesk().inputPerTick();
-    desk.useEnergySlot();
+    desk.battery.newTick(CubitMod.CONFIG.engineeringDesk().inputPerTick());
+    desk.battery.useSlot(desk.items.energySlot());
     desk.show.beforeWork(desk, level.getGameTime());
     boolean redstone = EngineeringDeskBlock.hasSignal(level, pos, state);
     desk.status =
@@ -89,17 +83,6 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     if (now != signal) {
       signal = now;
       level.updateNeighbourForOutputSignal(pos, state.getBlock());
-    }
-  }
-
-  /** Redstone becomes energy whole, from the slot or from below (answers 1425 and 1447). */
-  private void useEnergySlot() {
-    ItemStack stack = items.energySlot().getItem(ENERGY_SLOT);
-    Energy itemEnergy = EnergySlotItems.energyOf(stack);
-    if (stock.canTake(itemEnergy)) {
-      stack.shrink(1);
-      stock = stock.take(itemEnergy);
-      setChanged();
     }
   }
 
@@ -137,11 +120,11 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   }
 
   public Energy energy() {
-    return stock.charge();
+    return battery.charge();
   }
 
   public Energy capacity() {
-    return stock.capacity();
+    return battery.capacity();
   }
 
   public CascadeState cascade() {
@@ -205,7 +188,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   }
 
   boolean canPayCraft() {
-    return stock.canPay(CubitMod.CONFIG.engineeringDesk().craftEnergy());
+    return battery.canPay(CubitMod.CONFIG.engineeringDesk().craftEnergy());
   }
 
   /** One tick of the craft. True when it is ready to end. */
@@ -215,13 +198,13 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   }
 
   void crafted() {
-    stock = stock.pay(CubitMod.CONFIG.engineeringDesk().craftEnergy());
+    battery.pay(CubitMod.CONFIG.engineeringDesk().craftEnergy());
     job.crafted();
     showCrafted();
   }
 
   void craftedInCascade() {
-    stock = stock.pay(CubitMod.CONFIG.engineeringDesk().craftEnergy());
+    battery.pay(CubitMod.CONFIG.engineeringDesk().craftEnergy());
     job.restart();
     cascade.crafted();
     showCrafted();
@@ -262,7 +245,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
 
   void upgradeTo(RobotTier next) {
     tier.set(next);
-    stock = stock.withCapacity(spec().capacity());
+    battery.resize(spec().capacity());
     job.limitTo(spec().maxOrder());
     tellClients();
     if (level != null) {
@@ -271,17 +254,11 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   }
 
   Energy receive(Energy offered, boolean simulate) {
-    DeskStock.Received received = stock.receive(offered, inputLeft);
-    if (!simulate) {
-      stock = received.stock();
-      inputLeft = inputLeft.minus(received.accepted());
-      setChanged();
-    }
-    return received.accepted();
+    return battery.receive(offered, simulate);
   }
 
   public Optional<UUID> owner() {
-    return Optional.ofNullable(owner);
+    return owner.get();
   }
 
   public boolean isOwner(Player player) {
@@ -289,11 +266,8 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   }
 
   void setOwner(Player player) {
-    owner = player.getUUID();
-    setChanged();
-    if (level != null) {
-      level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
-    }
+    owner.set(player.getUUID());
+    tellClients();
   }
 
   public int signal() {
@@ -305,9 +279,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   @Override
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
     super.saveAdditional(tag, registries);
-    if (owner != null) {
-      tag.putUUID(OWNER_KEY, owner);
-    }
+    owner.save(tag);
     tag.putLong(ENERGY_KEY, energy().amount());
     tier.save(tag);
     items.save(tag, registries);
@@ -318,9 +290,9 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   @Override
   protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
     super.loadAdditional(tag, registries);
-    owner = tag.hasUUID(OWNER_KEY) ? tag.getUUID(OWNER_KEY) : null;
+    owner.load(tag, level, worldPosition);
     tier.load(tag, worldPosition);
-    stock = DeskStock.of(spec().capacity(), SavedEnergy.of(tag.getLong(ENERGY_KEY)));
+    battery.load(spec().capacity(), SavedEnergy.of(tag.getLong(ENERGY_KEY)));
     items.load(tag, registries);
     job.load(tag, worldPosition, spec().maxOrder());
     cascade.load(DeskSaves.loadCascade(tag, registries, worldPosition));
@@ -334,7 +306,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
     super.applyImplicitComponents(components);
     tier.set(components.getOrDefault(CubitDataComponents.DESK_TIER.get(), RobotTier.BASE));
     long saved = components.getOrDefault(CubitDataComponents.DESK_ENERGY.get(), 0L);
-    stock = DeskStock.of(spec().capacity(), SavedEnergy.of(saved));
+    battery.load(spec().capacity(), SavedEnergy.of(saved));
     items.apply(
         components.get(CubitDataComponents.DESK_INPUT.get()),
         components.get(CubitDataComponents.DESK_OUTPUT.get()));
@@ -364,9 +336,7 @@ public final class EngineeringDeskBlockEntity extends BlockEntity implements Geo
   @Override
   public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
     CompoundTag tag = new CompoundTag();
-    if (owner != null) {
-      tag.putUUID(OWNER_KEY, owner);
-    }
+    owner.save(tag);
     tier.save(tag);
     job.save(tag, cascade.shownOrder().or(job::saved));
     show.write(tag);
