@@ -1561,11 +1561,15 @@ Não há perguntas pendentes nesta fase.
 | 2614 | Como a cor é sorteada ao entrar num chunk novo? | Uma das seis ao acaso, nunca a mesma do chunk de onde o player veio, para a troca sempre aparecer. Voltar a um chunk sorteia de novo. Detalha a 2611. A recomendação foi aceita |
 | 2615 | A parede do player tem prévia em imagem antes do código? | Não: vai direto ao código, e o desenvolvedor confere as cores no teste no jogo. A recomendação, a prévia, foi recusada |
 | 2616 | O conceito da parede do chunk do player, com os detalhes 26 a 31 da entrega 5 (Shift + clique em qualquer lugar só liga e desliga, o aviso na barra de ação, a base fixa ao entrar no chunk, só o próprio player vê, a cor só no cliente, os testes), está autorizado, com o código num commit mostrado antes? | Sim, autorizado. A recomendação foi aceita |
+| 2617 | O teste no jogo da entrega 5 (#267), pelo roteiro da Entrega 5, passos 1 a 14, com a parede do chunk do player, passou? | Sim, os testes passaram, e o fechamento segue: o `AGENTS.md`, o `ROADMAP.md`, o `checklist.md` e o processo do PR (2580) |
+| 2618 | A mudança no `AGENTS.md`, com o Estado atual citando as entregas 4 (PR #286) e 5 (#267) da Network e a estrutura de pacotes com as classes novas da entrega 5, e o commit de documentos com o `ROADMAP.md`, que marca a entrega 4, e o `checklist.md`, que cita o PR #286, estão autorizados? | Sim, autorizados, com o diff e a mensagem mostrados antes do commit. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 11:28 | Registra a resposta 2618. |
+| Zennd | 2026-11-26 11:24 | Registra a resposta 2617. |
 | Zennd | 2026-11-26 11:15 | Registra a resposta 2616. |
 | Zennd | 2026-11-26 11:14 | Registra as respostas 2613 a 2615. |
 | Zennd | 2026-11-26 11:13 | Registra as respostas 2608 a 2612. |
