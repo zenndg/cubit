@@ -220,6 +220,9 @@ Regras do Cubit em Java puro, sem depender do jogo (regra 12 do `AGENTS.md`). Qu
 | `DeskSpec` | Os números da Engineering Desk num tier: bateria, ticks de um craft, slots de cada inventário e maior pedido |
 | `DeskCatalog` | Interface que dá o `DeskSpec` de um tier, servida pelo config |
 | `DeskOrder` | O pedido da mesa: quantos itens foram pedidos e quantos estão prontos, com o sinal do comparador |
+| `DisassemblyReturn` | O que um item desmontado devolve: só as peças do mod da receita dele, um nível abaixo, a primeira do mod numa marca de vários itens, e um Module de cada tier aplicado (perguntas 2523, 2525, 2526 e 2530) |
+| `DisassemblyRefusal` | Por que a mesa não desmonta: o tier, o slot vazio, o item sem peças do mod, menos itens que a receita rende, o item com conteúdo ou outro trabalho rodando (perguntas 2524, 2528 e 2531) |
+| `DeskJobs` | O pedido, a cascata e a desmontagem: só um roda por vez (perguntas 2015 e 2528). A desmontagem conta as unidades num `DeskOrder` e pausa pelo `DeskStatus`, como o pedido |
 | `CascadeRecipe` e `CascadeBook` | Uma receita como a cascata a vê, e a receita de cada item, a primeira na ordem do catálogo (perguntas 2009 e 2032) |
 | `CascadePlanner`, `CascadePlan` e `CascadeTask` | O plano de um item: as tarefas em série, com as peças antes, os materiais de base e as peças aproveitadas. Um ciclo não tem plano (perguntas 2006, 2008, 2012 e 2034) |
 | `CascadeRun` e `CascadeTaskStatus` | O plano em andamento, uma tarefa por vez, que nunca volta, com o status de cada uma e o sinal do comparador |
