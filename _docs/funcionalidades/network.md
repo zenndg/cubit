@@ -369,6 +369,15 @@ Decididos nas perguntas 2599 a 2602, depois da autorização do código:
 24. **Cortar a energia de um Dock:** pela antena e pelo Dock, sem Cubit, sempre pede o segundo clique em 5 s, dizendo quantos Cubits carregados usam o Dock (2604).
 25. **Nome e cor do app:** `Network` em inglês e `Rede` em português, como a linha da aba do Dock, e a faixa no rosa `#EE6FB5`.
 
+A parede do chunk do player, ideia do desenvolvedor, decidida nas perguntas 2608 a 2616:
+
+26. **Shift + clique:** no app Network, em qualquer lugar, liga e desliga uma parede em volta do chunk onde o player está. Ele nunca faz a ação do clique, e a barra de ação diz `Chunk wall on` ou `Chunk wall off` (2608 e 2616).
+27. **Segue o player:** sempre o chunk onde ele está, do bloco embaixo dos pés até 16 blocos acima, translúcida e de 1 px, como a do Servidor. A base é calculada ao ligar e ao entrar num chunk, e não pula quando o player salta (2610 e 2616).
+28. **Cores:** rosa `#EE6FB5`, amarelo `#F2C94C`, lima `#8BD35A`, azul `#4FA3FF`, roxo `#9966F2` e branco `#F0F0F0`. A cada chunk novo, e ao ligar, uma delas ao acaso, nunca a do chunk anterior. A cor fica só no cliente (2611, 2613, 2614 e 2616).
+29. **Save:** o componente `cubit:tablet_chunk_wall` no item do Tablet. Cada Tablet guarda a sua, e ela continua ligada ao sair e voltar (2612).
+30. **Quem vê:** só o próprio player, com aquele Tablet na mão e no app Network, em qualquer chunk e dimensão, com ou sem rede, junto das paredes do Servidor e das antenas (2616).
+31. **Testes:** o sorteio sem repetir no domínio, uma GameTest do Shift + clique e um passo no roteiro manual, sem prévia em imagem (2615 e 2616).
+
 ## Contrato
 
 Os nomes foram propostos pelo agente, a partir do padrão do mod, e autorizados (2334). Entram no código com cada entrega. Os números estão em [`tiers.md`](../tiers.md#network).
@@ -389,6 +398,7 @@ Os nomes foram propostos pelo agente, a partir do padrão do mod, e autorizados 
 | NBT de `DrawnArea` | `Points`, `Low`, `High` e `Dimension` | Os cantos da forma, as alturas e a dimensão. Já no código, com a Entrega 2 |
 | Config, que saem | `area_size_blocks` e `patroller_area_size` | Na entrega 6 (2350). O tamanho vem das antenas (2226). O `unload_chests` fica só para quem segue (2284) |
 | Tablet | App `network` | O valor no componente do item |
+| Tablet | `cubit:tablet_chunk_wall` | Se a parede do chunk do player está ligada naquele Tablet (2612) |
 | Comando | `/cubit network list` e `/cubit network release` | Só operador |
 | Receitas | `desk_category`: `dock` e `parts` | Sem categoria nova no JSON (2305) |
 
@@ -402,6 +412,7 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 11:15 | Acrescenta a parede do chunk do player, detalhes 26 a 31 da Entrega 5 (perguntas 2608 a 2616). |
 | Zennd | 2026-11-26 10:20 | Passa os nomes, a parede e as setas ao app Network (entrega 5). |
 | Zennd | 2026-11-26 09:52 | Detalha a linha `Links` da tela da antena. |
 | Zennd | 2026-11-26 09:41 | Diz que a área já fica nos chunks das antenas na entrega 5. |

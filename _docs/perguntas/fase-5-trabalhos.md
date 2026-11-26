@@ -1552,11 +1552,23 @@ Não há perguntas pendentes nesta fase.
 | 2605 | Na linha `Links` da tela da antena, o `Cubits: N` conta só os Cubits carregados ligados a ela? | Sim: o servidor não enxerga as ligações de um Cubit descarregado, como na 2604. Os Docks são contados todos, pela lista da própria antena. A contagem roda no menu, uma vez por segundo, só com a tela aberta. Detalha a 2593. A recomendação foi aceita |
 | 2606 | A dica do botão `View`, `Shows the chunk with the Tablet in hand` (2512), muda agora que a parede só aparece com o app Network? | Sim: `Shows the chunk with the Network app`, em português `Mostra o chunk com o app Rede`. Muda a 2512. A recomendação foi aceita |
 | 2607 | O nome flutuante continua sobre um bloco que já tem seta do app Network? | Não: sobre um bloco com seta, o nome flutuante some, porque a primeira linha da seta já traz o nome dele, e os dois textos ficariam um sobre o outro. Nos blocos sem seta, o nome continua. Detalha a 2425 e a 2592. A recomendação foi aceita |
+| 2608 | O app Network ganha um uso para o Shift + clique? | Sim: liga e desliga uma parede em volta do chunk onde o player está, no estilo da parede do Servidor e da antena, mas do player. A ideia é do desenvolvedor |
+| 2609 | A parede do chunk do player entra na entrega 5 (#267) ou numa issue à parte? | Na entrega 5, na mesma branch, antes do teste no jogo, em mais um commit mostrado antes, com um passo novo no roteiro. A recomendação foi aceita |
+| 2610 | Qual chunk e qual altura a parede do player mostra? | Sempre o chunk onde o player está agora, trocando ao cruzar a borda, do bloco embaixo dos pés dele até 16 blocos acima, como a do Servidor. A recomendação foi aceita |
+| 2611 | Qual a cor da parede do chunk do player? | Seis cores, e ao entrar num chunk novo a parede sorteia uma delas. A recomendação, o rosa do app, foi recusada. As cores e o sorteio vão a outra pergunta |
+| 2612 | Onde fica guardado se a parede do player está ligada? | No item do Tablet, num componente novo, `cubit:tablet_chunk_wall`, como o app ativo: continua ligada ao sair e voltar, cada Tablet guarda a sua, e ela aparece só com esse Tablet na mão e no app Network. A recomendação foi aceita |
+| 2613 | Quais são as seis cores da parede do chunk do player? | Rosa `#EE6FB5`, amarelo `#F2C94C`, lima `#8BD35A`, azul `#4FA3FF`, roxo `#9966F2` e branco `#F0F0F0`, sem o vermelho, o laranja e o cinza das setas do app nem o ciano da parede do Servidor. Detalha a 2611. A recomendação foi aceita |
+| 2614 | Como a cor é sorteada ao entrar num chunk novo? | Uma das seis ao acaso, nunca a mesma do chunk de onde o player veio, para a troca sempre aparecer. Voltar a um chunk sorteia de novo. Detalha a 2611. A recomendação foi aceita |
+| 2615 | A parede do player tem prévia em imagem antes do código? | Não: vai direto ao código, e o desenvolvedor confere as cores no teste no jogo. A recomendação, a prévia, foi recusada |
+| 2616 | O conceito da parede do chunk do player, com os detalhes 26 a 31 da entrega 5 (Shift + clique em qualquer lugar só liga e desliga, o aviso na barra de ação, a base fixa ao entrar no chunk, só o próprio player vê, a cor só no cliente, os testes), está autorizado, com o código num commit mostrado antes? | Sim, autorizado. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 11:15 | Registra a resposta 2616. |
+| Zennd | 2026-11-26 11:14 | Registra as respostas 2613 a 2615. |
+| Zennd | 2026-11-26 11:13 | Registra as respostas 2608 a 2612. |
 | Zennd | 2026-11-26 10:33 | Registra as respostas 2606 a 2607. |
 | Zennd | 2026-11-26 10:15 | Registra a resposta 2605. |
 | Zennd | 2026-11-26 09:25 | Registra as respostas 2603 a 2604. |
