@@ -38,7 +38,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   private final IItemHandler itemHandler = InputFirstItems.of(energySlot(), storage.handler());
   private final ServerShow show = new ServerShow();
   private UpsReserve ups = CubitMod.CONFIG.network().chunks().serverUps();
-  private final ServerChunk chunk = new ServerChunk(this::setChanged);
+  private final HeldChunk chunk = new HeldChunk(this::setChanged);
   private boolean chunkLoading = true;
   private boolean showWall;
   private Energy bankGiven = Energy.ZERO;
@@ -84,7 +84,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   /** The chunk is paid first, and then what the server spends for being on (answer 2439). */
   private void payUpkeep(ServerLevel level) {
     Energy standby = spec().standby().total(relay != null);
-    ServerChunk.Asked asked = new ServerChunk.Asked(owner(), chunkLoading && first, standby);
+    HeldChunk.Asked asked = new HeldChunk.Asked(owner(), chunkLoading && first, standby);
     EnergyStock left = chunk.tick(level, worldPosition, asked, battery().stock());
     EnergyStock.Spent spent = left.spend(standby);
     battery().set(spent.stock());

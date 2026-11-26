@@ -16,11 +16,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 
 /**
- * The chunk of a Network Server: whether it holds it, what it pays each tick and why it lets it go
- * (answers 2209 to 2216 and 2372). The energy is looked at every tick, and the rest once a second
- * or as soon as it changes (rule 21).
+ * The chunk a block of the Network holds, the Network Server or a Signal Antenna: whether it holds
+ * it, what it pays each tick and why it lets it go (answers 2209 to 2216 and 2372). The energy is
+ * looked at every tick, and the rest once a second or as soon as it changes (rule 21).
  */
-final class ServerChunk {
+final class HeldChunk {
   private static final String DRAINED_KEY = "Drained";
   private static final int CHECK_TICKS = 20;
 
@@ -29,7 +29,7 @@ final class ServerChunk {
   private ChunkState state = ChunkState.SWITCHED_OFF;
   private int untilCheck;
 
-  ServerChunk(Runnable changed) {
+  HeldChunk(Runnable changed) {
     this.changed = changed;
   }
 
@@ -106,7 +106,7 @@ final class ServerChunk {
     NetworkTickets.set(level.getServer(), place, state.holds());
   }
 
-  /** The server is gone, so nothing of its chunk is left. */
+  /** The block is gone, so nothing of its chunk is left. */
   void release(ServerLevel level, BlockPos pos) {
     state = ChunkState.SWITCHED_OFF;
     apply(
@@ -128,6 +128,6 @@ final class ServerChunk {
     return CubitMod.CONFIG.network().chunks();
   }
 
-  /** Who the server belongs to, whether the chunk is asked for and what the server spends. */
+  /** Who the block belongs to, whether the chunk is asked for and what the block spends. */
   record Asked(Optional<UUID> owner, boolean on, Energy standby) {}
 }

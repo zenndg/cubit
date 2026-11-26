@@ -25,7 +25,7 @@ import org.slf4j.Logger;
  */
 final class NetworkWake {
   private static final Logger LOGGER = LogUtils.getLogger();
-  private static final String GONE = "No network server of its owner at {}. Forgetting it.";
+  private static final String GONE = "No network block of its owner at {}. Forgetting it.";
 
   private final NetworkData data;
   private final Set<GlobalPos> line = new LinkedHashSet<>();
@@ -119,7 +119,7 @@ final class NetworkWake {
     ServerLevel level = server.getLevel(place.dimension());
     boolean there =
         level != null
-            && level.getBlockEntity(place.pos()) instanceof NetworkServerBlockEntity block
+            && level.getBlockEntity(place.pos()) instanceof NetworkBlockEntity block
             && data.chunks().entries().stream()
                 .anyMatch(entry ->
                     entry.place().equals(place) && Ownership.owns(block.owner(), entry.owner()));
