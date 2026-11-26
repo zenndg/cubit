@@ -339,7 +339,7 @@ Decididos nas perguntas 2585 a 2593. O código da entrega espera a autorização
 
 1. **Marcados:** os Docks e baús marcados para um Cubit ficam nele e aparecem nas setas, e o Dock marcado já recebe energia da antena. O Cubit usar só os marcados entra na entrega 6, com a regra obrigatória. Até lá, a descarga e as marcas de hoje continuam (2585).
 2. **Área:** um Cubit com ao menos uma antena só desenha dentro dos chunks delas, com o ponto ou a linha de fora recusados na hora, e os limites de tamanho e altura de hoje continuam. Sem antena, desenha como hoje até a entrega 6 (2586).
-3. **Reserva da antena:** ela só dá aos Docks o que passa do próprio UPS, como o Servidor com as antenas (2550). Com UPS 0%, pode esvaziar (2587).
+3. **Reserva da antena:** ela só dá aos Docks o que passa do próprio UPS, como o Servidor com as antenas (2550), e nunca abaixo do piso de 5% (detalhe 19, 2587 e 2599).
 4. **Cliques:** pelo Cubit escolhido no Tablet. Clicar num Cubit do dono o escolhe, clicar numa antena a liga ou desliga daquele Cubit, e clicar num Dock ou baú o marca ou desmarca para ele. Cada Dock recebe energia da antena do chunk dele. Sem Cubit escolhido, clicar na antena e depois num Dock só liga a energia (2588).
 5. **Energia do Dock:** a antena guarda os Docks que alimenta, na chave nova `Docks`. Marcar um Dock para um Cubit também o liga à energia, e desmarcá-lo do Cubit mantém a energia. Só o clique na antena e no Dock, sem Cubit escolhido, desliga a energia, com confirmação se algum Cubit ainda usa o Dock (2589).
 6. **Antena do meio:** desligar uma antena que separaria as outras do Cubit em dois grupos é recusado, com o motivo. As das pontas saem com a confirmação de 5 s (2590).
@@ -358,6 +358,13 @@ Propostos pelo agente:
 16. **Saves:** o Cubit guarda `NetworkAntennas`, `NetworkDocks` e `NetworkChests`, cada um com `Dimension` e `Pos`, e a antena, `Docks`, com `Pos`. Chaves novas e opcionais.
 17. **Rede de teste:** um cenário das GameTests com o Servidor, o Relay, as antenas, o Cubit e os Docks prontos, usado por todas as de área daqui em diante.
 18. **GameTests:** ligações, recusas, vizinhança, a antena do meio, a energia curta, a soma de FE e a reserva.
+
+Decididos nas perguntas 2599 a 2602, depois da autorização do código:
+
+19. **Piso da antena:** ela dá aos Docks só o que passa do maior entre o UPS e os 5% da 2322 (`antenna_floor_percent`). Com UPS 0%, desce até 5%, sem zerar. Muda o detalhe 3 e a 2587 (2599).
+20. **Desligar uma antena:** os Docks e baús do chunk dela sempre saem do Cubit, e a energia do Dock continua (2589). Toda antena pede o segundo clique em 5 s, e a área some se passava por ali (2600).
+21. **Interior da área:** o clique que fecharia uma forma cujo interior cobre um chunk sem antena do Cubit é recusado, com o motivo, e o desenho continua aberto (2601).
+22. **Baús do Organizador:** no app Network, o Cubit com o card do Organizador marca até `network_organizer_chests` (12, 18 e 25), e os outros, até `network_chests`. As marcas do app Marcar seguem com 4, 9 e 18 até a entrega 6. Se o card sair, ficam os primeiros baús, até o limite (2602).
 
 ## Contrato
 
@@ -392,6 +399,7 @@ Compartilhar a rede com outros players, rede entre dimensões, itens viajando pe
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 09:06 | Acrescenta os detalhes 19 a 22 da Entrega 5 (perguntas 2599 a 2602). |
 | Zennd | 2026-11-26 08:52 | Acrescenta os detalhes da Entrega 5 e a chave `Docks` da antena (perguntas 2585 a 2593). |
 | Zennd | 2026-11-26 07:43 | Registra o `release`, que desliga a chave do chunk, e a lista `Released` (pergunta 2578). |
 | Zennd | 2026-11-26 07:10 | Registra o `Ups` no NBT da antena e as chaves no item dela, com a tela. |

@@ -1539,11 +1539,22 @@ Não há perguntas pendentes nesta fase.
 | 2592 | Como o app Network mostra as ligações do Cubit escolhido? | Com as setas dos apps Descarga e Marcar: sobre cada antena do Cubit, na cor do canal; sobre cada Dock marcado, no vermelho do app Dock; sobre cada baú, no laranja do app Descarga; e sobre os Docks só com energia da antena clicada, em cinza. Com a prévia antes do código. A recomendação foi aceita. Detalha a 2249 |
 | 2593 | As telas mostram as ligações e a energia da rede já na entrega 5? | Sim, uma linha em cada: na tela da antena, `Links`, com quantos Cubits e Docks ela alimenta, no lugar reservado (2297 e 2548); na aba do Dock, `Network`, com o que entrou pela rede no tick. As duas com prévia antes do código. A recomendação foi aceita |
 | 2594 | O conceito da entrega 5 (#267), com os Detalhes da Entrega 5 (1 a 18) no `network.md`, está autorizado, com a branch `feature/267-network-app` e o commit dos documentos, sem push? | Sim, autorizado. O código segue para depois das prévias das setas e das linhas `Links` e `Network` (regra 59) |
+| 2595 | As prévias da entrega 5 estão aprovadas: a linha `Links` na tela da antena (`Cubits: N · Docks: M`, ou `none`), a linha `Network` na aba do Dock e as setas do app Network, com as duas linhas de texto sobre cada uma? | Sim, aprovadas (`tmp/arte/network/entrega5/previa/`) |
+| 2596 | O código da entrega 5 (#267) está autorizado (2224), com cada commit mostrado antes? | Sim, autorizado, a começar pelo domínio, com testes, em commits mostrados antes e sem push. A recomendação foi aceita |
+| 2597 | O código da entrega 5 segue nesta sessão ou numa nova? | Numa sessão nova, a partir do prompt de continuidade em `tmp/prompt/`. A recomendação foi aceita |
+| 2598 | O texto da #267 no GitHub troca o "1 ícone do app" pelas prévias (2591)? | Sim: só a linha dos recursos muda, para nenhum ícone, só a cor rosa, e as prévias das setas e das linhas `Links` e `Network`. A recomendação foi aceita |
+| 2599 | A reserva da antena para os Docks: vale o piso de 5% da 2322 (`antenna_floor_percent`) ou a 2587, em que o UPS 0% esvazia? | O piso de 5% sempre: a antena dá aos Docks só o que passa do maior entre o UPS e os 5%, e com UPS 0% desce até 5%, sem zerar. Muda a 2587 e o passo 10 do roteiro da entrega 5, e confirma a 2322. A recomendação foi aceita |
+| 2600 | Ao desligar uma antena do Cubit, o que acontece com os Docks e baús marcados no chunk dela? | Saem sempre do Cubit, porque só podem ficar nos chunks das antenas (detalhe 10 da entrega 5), e a energia do Dock continua (2589). Toda antena pede o segundo clique em 5 s (detalhe 6), e a área some se passava por ali. Detalha a 2300. A recomendação foi aceita |
+| 2601 | Uma área com os pontos e as linhas nos chunks das antenas, mas com o interior cobrindo um chunk sem antena, é aceita? | Não: o clique que fecha a forma é recusado, com o motivo, e o desenho continua aberto, para o Cubit nunca ter área fora dos chunks ativos (detalhe 2). Detalha a 2586. A recomendação foi aceita |
+| 2602 | Onde valem os 12, 18 e 25 baús do Organizador (`network_organizer_chests`) na entrega 5? | Só no app Network: o Cubit com o card do Organizador marca até 12, 18 e 25 baús, e os outros ficam com `network_chests` (1, 2, 4 e 6). As marcas do app Marcar seguem com 4, 9 e 18 até a entrega 6 (2364). Se o card sair, ficam os primeiros baús, até o limite. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-26 09:06 | Registra as respostas 2599 a 2602. |
+| Zennd | 2026-11-26 08:58 | Registra as respostas 2596 a 2598. |
+| Zennd | 2026-11-26 08:56 | Registra a resposta 2595. |
 | Zennd | 2026-11-26 08:53 | Registra a resposta 2594. |
 | Zennd | 2026-11-26 08:51 | Registra as respostas 2591 a 2593. |
 | Zennd | 2026-11-26 08:48 | Registra as respostas 2589 a 2590. |
