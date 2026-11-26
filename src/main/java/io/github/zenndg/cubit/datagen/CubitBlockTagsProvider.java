@@ -30,7 +30,8 @@ final class CubitBlockTagsProvider extends BlockTagsProvider {
         .add(
             CubitBlocks.INDUCTION_DOCK.get(),
             CubitBlocks.NETWORK_SERVER.get(),
-            CubitBlocks.SOLAR_RELAY.get());
+            CubitBlocks.SOLAR_RELAY.get(),
+            CubitBlocks.SIGNAL_ANTENNA.get());
     tag(FarmPlants.CROPS);
     tag(FarmPlants.IGNORED)
         .addTag(BlockTags.SAPLINGS)

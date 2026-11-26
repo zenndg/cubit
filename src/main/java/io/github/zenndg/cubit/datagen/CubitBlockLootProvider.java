@@ -39,6 +39,7 @@ final class CubitBlockLootProvider extends BlockLootSubProvider {
     deskLoot(CubitBlocks.ENGINEERING_DESK.get());
     networkLoot(CubitBlocks.NETWORK_SERVER.get());
     networkLoot(CubitBlocks.SOLAR_RELAY.get());
+    networkLoot(CubitBlocks.SIGNAL_ANTENNA.get());
   }
 
   /** Only the lower half drops the dock, with its energy, storage and tier (answer 1373). */
@@ -122,6 +123,7 @@ final class CubitBlockLootProvider extends BlockLootSubProvider {
         CubitBlocks.INDUCTION_DOCK.get(),
         CubitBlocks.ENGINEERING_DESK.get(),
         CubitBlocks.NETWORK_SERVER.get(),
-        CubitBlocks.SOLAR_RELAY.get());
+        CubitBlocks.SOLAR_RELAY.get(),
+        CubitBlocks.SIGNAL_ANTENNA.get());
   }
 }

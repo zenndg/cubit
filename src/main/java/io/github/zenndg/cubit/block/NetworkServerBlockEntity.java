@@ -5,15 +5,19 @@ import io.github.zenndg.cubit.domain.energy.Energy;
 import io.github.zenndg.cubit.domain.energy.EnergyStock;
 import io.github.zenndg.cubit.domain.energy.SolarOutput;
 import io.github.zenndg.cubit.domain.network.ChunkState;
+import io.github.zenndg.cubit.domain.network.NetworkRoster;
 import io.github.zenndg.cubit.domain.network.ServerSpec;
 import io.github.zenndg.cubit.domain.network.UpsReserve;
 import io.github.zenndg.cubit.domain.tier.RobotTier;
 import io.github.zenndg.cubit.item.ModuleItem;
+import io.github.zenndg.cubit.item.SavedLink;
 import io.github.zenndg.cubit.item.SavedNetwork;
+import io.github.zenndg.cubit.item.SignalAntennaItem;
 import io.github.zenndg.cubit.registry.CubitBlockEntities;
 import io.github.zenndg.cubit.registry.CubitSounds;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -202,6 +206,7 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   }
 
   void pairWith(Optional<SolarRelayBlockEntity> next, boolean firstOfChunk) {
+    listed();
     if (first != firstOfChunk) {
       first = firstOfChunk;
       chunk.recheck();
@@ -209,6 +214,22 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
     if (next.orElse(null) != relay) {
       relay = next.orElse(null);
       changeShown();
+    }
+  }
+
+  /**
+   * Its place and its tier in the data of the world, for its antennas far away. It follows each
+   * time the chunk is paired: when placed, loaded or upgraded.
+   */
+  private void listed() {
+    if (!(level instanceof ServerLevel server) || owner().isEmpty()) {
+      return;
+    }
+    NetworkData data = NetworkData.of(server.getServer());
+    GlobalPos place = GlobalPos.of(level.dimension(), worldPosition);
+    if (data.roster()
+        .putServer(new NetworkRoster.Server<>(identity().id(), owner().get(), place, tier()))) {
+      data.setDirty();
     }
   }
 
@@ -256,6 +277,10 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
       NetworkUpgrade.apply(this, player, stack);
       return true;
     }
+    if (stack.getItem() instanceof SignalAntennaItem) {
+      AntennaLinking.link(this, player, stack);
+      return true;
+    }
     return storage.insertByClick(stack, energySlot());
   }
 
@@ -263,13 +288,23 @@ public final class NetworkServerBlockEntity extends NetworkBlockEntity {
   void gone() {
     if (level instanceof ServerLevel server) {
       chunk.release(server, worldPosition);
+      NetworkData data = NetworkData.of(server.getServer());
+      if (data.roster().removeServer(identity().id())) {
+        data.setDirty();
+      }
     }
   }
 
   @Override
   SavedNetwork kept() {
     return new SavedNetwork(
-        tier(), energy().amount(), storage.contents(), Optional.of(ups), chunkLoading, showWall);
+        tier(),
+        energy().amount(),
+        storage.contents(),
+        Optional.of(ups),
+        chunkLoading,
+        showWall,
+        SavedLink.NONE);
   }
 
   @Override

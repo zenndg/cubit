@@ -14,6 +14,7 @@ import io.github.zenndg.cubit.item.NetworkServerItem;
 import io.github.zenndg.cubit.item.PowerBankItem;
 import io.github.zenndg.cubit.item.RechargeSplashItem;
 import io.github.zenndg.cubit.item.RobotItem;
+import io.github.zenndg.cubit.item.SignalAntennaItem;
 import io.github.zenndg.cubit.item.TabletItem;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
@@ -141,6 +142,14 @@ public final class CubitItems {
           () ->
               new NetworkItem(
                   CubitBlocks.SOLAR_RELAY.get(), new Item.Properties().stacksTo(DOCK_STACK_SIZE)));
+
+  public static final Supplier<Item> SIGNAL_ANTENNA =
+      ITEMS.register(
+          CubitBlocks.SIGNAL_ANTENNA_ID,
+          () ->
+              new SignalAntennaItem(
+                  CubitBlocks.SIGNAL_ANTENNA.get(),
+                  new Item.Properties().stacksTo(DOCK_STACK_SIZE)));
 
   public static final Supplier<Item> RECHARGE_SPLASH =
       ITEMS.register(

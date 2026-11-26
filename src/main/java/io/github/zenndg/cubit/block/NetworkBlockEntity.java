@@ -76,6 +76,11 @@ public abstract class NetworkBlockEntity extends BlockEntity
   /** What the owner does with an item in the hand. False when it does nothing. */
   abstract boolean use(Player player, ItemStack stack);
 
+  /** Its owner has just placed it, after its item gave back what it keeps. */
+  void placed(Player player) {
+    // Most blocks have nothing more to do.
+  }
+
   /** The block was taken out of the world, and not only unloaded. */
   abstract void gone();
 

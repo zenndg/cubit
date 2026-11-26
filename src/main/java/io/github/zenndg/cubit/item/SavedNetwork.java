@@ -16,7 +16,8 @@ import org.slf4j.Logger;
 
 /**
  * What a block of the Network keeps in its item, a contract with the saves (answers 2410, 2411 and
- * 2448). The Solar Relay only keeps its energy. Without a reserve, the one of the config applies.
+ * 2448). The Solar Relay only keeps its energy, and the Signal Antenna its energy, its reserve and
+ * its link (answer 2566). Without a reserve, the one of the config applies.
  */
 public record SavedNetwork(
     RobotTier tier,
@@ -24,7 +25,8 @@ public record SavedNetwork(
     List<SavedBigStack> items,
     Optional<UpsReserve> ups,
     boolean chunkLoading,
-    boolean showWall) {
+    boolean showWall,
+    SavedLink link) {
   private static final Logger LOGGER = LogUtils.getLogger();
   private static final String TIER_FIELD = "tier";
   private static final String ENERGY_FIELD = "energy";
@@ -59,19 +61,26 @@ public record SavedNetwork(
                   Codec.BOOL
                       .optionalFieldOf(CHUNK_FIELD, true)
                       .forGetter(SavedNetwork::chunkLoading),
-                  Codec.BOOL.optionalFieldOf(WALL_FIELD, false).forGetter(SavedNetwork::showWall))
+                  Codec.BOOL.optionalFieldOf(WALL_FIELD, false).forGetter(SavedNetwork::showWall),
+                  SavedLink.MAP_CODEC.forGetter(SavedNetwork::link))
               .apply(instance, SavedNetwork::new));
 
   public static final StreamCodec<RegistryFriendlyByteBuf, SavedNetwork> STREAM_CODEC =
       ByteBufCodecs.fromCodecWithRegistries(CODEC);
 
   public static SavedNetwork onlyEnergy(long energy) {
-    return new SavedNetwork(RobotTier.BASE, energy, List.of(), Optional.empty(), true, false);
+    return new SavedNetwork(
+        RobotTier.BASE, energy, List.of(), Optional.empty(), true, false, SavedLink.NONE);
   }
 
   /** What the item keeps, or a new block. */
   public static SavedNetwork of(ItemStack stack) {
     return stack.getOrDefault(CubitDataComponents.NETWORK_STATE.get(), EMPTY);
+  }
+
+  /** The same, linked to another Server or with another channel. */
+  public SavedNetwork withLink(SavedLink next) {
+    return new SavedNetwork(tier, energy, items, ups, chunkLoading, showWall, next);
   }
 
   public boolean holdsAnything() {

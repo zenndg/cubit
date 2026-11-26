@@ -1,0 +1,100 @@
+{
+  "variants": {
+    "facing=east,half=lower,tier=advanced": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=east,half=lower,tier=base": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=east,half=lower,tier=elite": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=east,half=lower,tier=ultimate": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=east,half=upper,tier=advanced": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=east,half=upper,tier=base": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=east,half=upper,tier=elite": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=east,half=upper,tier=ultimate": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=north,half=lower,tier=advanced": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=north,half=lower,tier=base": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=north,half=lower,tier=elite": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=north,half=lower,tier=ultimate": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=north,half=upper,tier=advanced": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=north,half=upper,tier=base": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=north,half=upper,tier=elite": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=north,half=upper,tier=ultimate": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=south,half=lower,tier=advanced": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=south,half=lower,tier=base": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=south,half=lower,tier=elite": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=south,half=lower,tier=ultimate": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=south,half=upper,tier=advanced": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=south,half=upper,tier=base": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=south,half=upper,tier=elite": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=south,half=upper,tier=ultimate": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=west,half=lower,tier=advanced": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=west,half=lower,tier=base": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=west,half=lower,tier=elite": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=west,half=lower,tier=ultimate": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=west,half=upper,tier=advanced": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=west,half=upper,tier=base": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=west,half=upper,tier=elite": {
+      "model": "cubit:block/signal_antenna"
+    },
+    "facing=west,half=upper,tier=ultimate": {
+      "model": "cubit:block/signal_antenna"
+    }
+  }
+}

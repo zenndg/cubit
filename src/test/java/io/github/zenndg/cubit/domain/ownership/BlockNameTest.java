@@ -14,6 +14,7 @@ class BlockNameTest {
   private static final String STANDARD = "Dock 3f9a2c1b";
   private static final String SERVER = "Server 3f9a2c1b";
   private static final String RELAY = "Relay 3f9a2c1b";
+  private static final String ANTENNA = "Antenna 3f9a2c1b";
   private static final String GIVEN = "Garden Dock";
   private static final String BLANK = "   ";
 
@@ -27,6 +28,7 @@ class BlockNameTest {
   void theBlocksOfTheNetworkHaveTheirOwnStart() {
     assertEquals(SERVER, BlockName.standard(BlockName.Kind.SERVER, ID).value());
     assertEquals(RELAY, BlockName.standard(BlockName.Kind.RELAY, ID).value());
+    assertEquals(ANTENNA, BlockName.standard(BlockName.Kind.ANTENNA, ID).value());
   }
 
   @Test

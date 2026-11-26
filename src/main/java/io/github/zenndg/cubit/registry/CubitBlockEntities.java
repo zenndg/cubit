@@ -8,6 +8,7 @@ import io.github.zenndg.cubit.block.InductionDockBlockEntity;
 import io.github.zenndg.cubit.block.NetworkBlock;
 import io.github.zenndg.cubit.block.NetworkBlockEntity;
 import io.github.zenndg.cubit.block.NetworkServerBlockEntity;
+import io.github.zenndg.cubit.block.SignalAntennaBlockEntity;
 import io.github.zenndg.cubit.block.SolarRelayBlockEntity;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
@@ -54,6 +55,14 @@ public final class CubitBlockEntities {
               BlockEntityType.Builder.of(SolarRelayBlockEntity::new, CubitBlocks.SOLAR_RELAY.get())
                   .build(null));
 
+  public static final Supplier<BlockEntityType<SignalAntennaBlockEntity>> SIGNAL_ANTENNA =
+      BLOCK_ENTITIES.register(
+          CubitBlocks.SIGNAL_ANTENNA_ID,
+          () ->
+              BlockEntityType.Builder.of(
+                      SignalAntennaBlockEntity::new, CubitBlocks.SIGNAL_ANTENNA.get())
+                  .build(null));
+
   private CubitBlockEntities() {}
 
   public static void register(IEventBus modBus) {
@@ -90,7 +99,11 @@ public final class CubitBlockEntities {
 
   /** By any face and any half, and no energy ever leaves by a cable (answer 2256). */
   private static void registerNetwork(RegisterCapabilitiesEvent event) {
-    Block[] blocks = {CubitBlocks.NETWORK_SERVER.get(), CubitBlocks.SOLAR_RELAY.get()};
+    Block[] blocks = {
+      CubitBlocks.NETWORK_SERVER.get(),
+      CubitBlocks.SOLAR_RELAY.get(),
+      CubitBlocks.SIGNAL_ANTENNA.get()
+    };
     event.registerBlock(
         Capabilities.EnergyStorage.BLOCK,
         (level, pos, state, entity, side) -> {

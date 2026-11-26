@@ -1507,11 +1507,22 @@ Não há perguntas pendentes nesta fase.
 | 2560 | A prévia da aba Energy do Servidor com a linha `Antennas`, com o título "Chunk" trocado por uma linha divisória para caber, está aprovada? | Sim, como recomendado (`tmp/arte/network/entrega4/previa/tela_server_antenas.png`) |
 | 2561 | Os 5 sons da antena, gerados pelos prompts de `tmp/arte/network/entrega4/prompt.md` e convertidos em Ogg mono de 48 kHz, estão aceitos? | Sim, depois de ouvi-los. Entram em `sounds/signal_antenna/` com o código |
 | 2562 | O código da entrega 4 (#266) e o commit dos documentos estão autorizados (2224 e regra 54)? | Sim, os dois: o commit dos documentos, sem push, e o código, pelo domínio com testes, com cada commit mostrado antes. A recomendação foi aceita |
+| 2563 | O `AGENTS.md` troca `ServerChunk` por `HeldChunk` na estrutura de pacotes, com o chunk "do Servidor e da antena", junto do refactor que torna genérico o chunk que um bloco da Network segura? | Sim, os dois, num commit só, porque o nome da classe muda no arquivo |
+| 2564 | Com o domínio e o refactor da entrega 4 commitados e a sessão longa, a parte do jogo da antena segue nesta sessão ou numa nova? | Numa sessão nova, a partir do prompt de continuidade em `tmp/prompt/`, que tem o desenho técnico e os commits. A recomendação foi aceita |
+| 2565 | A parte do jogo da entrega 4 começa pelo bloco, pelo item e pelo registro, com cada commit mostrado antes? | Sim, como recomendado |
+| 2566 | Onde o item da Signal Antenna guarda o Servidor ligado e o último canal (detalhe 19)? | Em campos novos e opcionais do `cubit:network_state`, `server`, com o `network_id` do Servidor, e `channel`, ao lado de `energy` e `ups`. O item segue só com os dois componentes do contrato. A recomendação foi aceita |
+| 2567 | A dica do item ligado mostra qual Servidor? | `Linked to {nome}`, com o nome que o Servidor tinha no clique, num campo `server_name` do `cubit:network_state`. Renomeado o Servidor, o item mostra o nome antigo até ser ligado de novo. A recomendação foi aceita |
+| 2568 | O bloco, o item, o registro, o config e os dados do mundo (`Servers` e `Antennas` no `cubit_network`) entram num commit só? | Sim, juntos, para as cinco recusas ao colocar entrarem inteiras e testáveis. A recomendação foi aceita |
+| 2569 | Ao colocar uma antena ligada a um Servidor de outro dono, como um item dado ou achado num baú, o que acontece? | É recusada, com a recusa nova `OTHER_OWNER` no `AntennaPlacement`, logo depois de `NO_SERVER`, com `This Server belongs to another player` na barra de ação e o item na mão. Quem a recebeu liga a antena a um Servidor seu. A recomendação foi aceita |
 
 ## Histórico de modificações
 
 | Pessoa | Data e hora | Modificação |
 |---|---|---|
+| Zennd | 2026-11-25 23:40 | Registra a resposta 2569. |
+| Zennd | 2026-11-25 23:30 | Registra as respostas 2565 a 2568. |
+| Zennd | 2026-11-25 22:42 | Registra a resposta 2564. |
+| Zennd | 2026-11-25 22:42 | Registra a resposta 2563. |
 | Zennd | 2026-11-25 22:36 | Registra as respostas 2561 a 2562. |
 | Zennd | 2026-11-25 22:36 | Registra as respostas 2559 a 2560. |
 | Zennd | 2026-11-25 22:29 | Registra as respostas 2556 a 2558. |

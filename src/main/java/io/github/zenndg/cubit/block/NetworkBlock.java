@@ -6,6 +6,7 @@ import io.github.zenndg.cubit.item.SavedNetwork;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -83,6 +84,11 @@ public abstract class NetworkBlock extends BaseEntityBlock {
     }
   }
 
+  /** Why this kind of block cannot go here, before what every block of the Network needs. */
+  Optional<Component> ownRefusal(BlockPlaceContext context) {
+    return Optional.empty();
+  }
+
   /** GeckoLib draws the whole block from its lower half. */
   @Override
   protected RenderShape getRenderShape(BlockState state) {
@@ -107,6 +113,7 @@ public abstract class NetworkBlock extends BaseEntityBlock {
     if (placer instanceof Player player
         && level.getBlockEntity(pos) instanceof NetworkBlockEntity network) {
       network.setOwner(player);
+      network.placed(player);
     }
     BlockNaming.placed(level, pos, placer, stack);
   }
