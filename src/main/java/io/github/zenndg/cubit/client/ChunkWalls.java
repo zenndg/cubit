@@ -25,10 +25,10 @@ import org.joml.Matrix4fStack;
 
 /**
  * The walls around the chunks of the servers and the antennas of the player: translucent, one
- * pixel, in a light cyan for a server and in the color of the channel for an antenna, only with the
- * Tablet in a hand in the Network app (answers 2447, 2448 and 2542), and the one around the chunk
- * of the player, which follows him (answers 2608 to 2616). The blocks tell they are there on each
- * of their ticks, so no block is ever searched.
+ * pixel, in a light cyan for a server and in the color of the channel for an antenna, while their
+ * `View` key is on, whatever the player holds (answers 2447, 2448 and 2622), and the one around the
+ * chunk of the player, only in the Network app, which follows them (answers 2608 to 2616). The
+ * blocks tell they are there on each of their ticks, so no block is ever searched.
  */
 @EventBusSubscriber(modid = CubitMod.MOD_ID, value = Dist.CLIENT)
 public final class ChunkWalls {
@@ -90,9 +90,7 @@ public final class ChunkWalls {
   private static boolean sees(LocalPlayer player, NetworkBlockEntity block) {
     Vec3 eyes = player.getEyePosition();
     return wallOf(block)
-        .seenBy(
-            new ChunkWall.Viewer(
-                block.isOwner(player), NetworkAppHeld.by(player), eyes.x, eyes.y, eyes.z));
+        .seenBy(new ChunkWall.Viewer(block.isOwner(player), eyes.x, eyes.y, eyes.z));
   }
 
   private static ChunkWall wallOf(NetworkBlockEntity block) {

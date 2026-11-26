@@ -32,7 +32,6 @@ public final class NetworkKeys {
   public static final String NOTHING = PREFIX + "nothing";
   public static final String LOAD_CHUNK = PREFIX + "load_chunk";
   public static final String VIEW = PREFIX + "view";
-  public static final String VIEW_TIP = PREFIX + "view_tip";
   public static final String HOLDING_WITHOUT_LIMIT = PREFIX + "holding_without_limit";
   public static final String UPS = PREFIX + "ups";
   public static final String UPS_VALUE = PREFIX + "ups_value";

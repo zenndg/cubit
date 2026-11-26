@@ -215,18 +215,11 @@ final class ServerEnergyTab {
   }
 
   /**
-   * What the mouse is on tells: the button that shows the chunk, which needs the Tablet in hand
-   * (answer 2512), the parts the row of the upkeep sums (answer 2440), or how many antennas take
-   * energy and how many wait (answer 2545).
+   * What the mouse is on tells: the parts the row of the upkeep sums (answer 2440), or how many
+   * antennas take energy and how many wait (answer 2545). The `View` button tells nothing, since
+   * the wall needs no Tablet (answer 2625).
    */
   List<Component> hoverLines(double x, double y) {
-    if (VIEW.contains((int) x, (int) y)) {
-      return List.of(Component.translatable(NetworkKeys.VIEW_TIP));
-    }
-    return costLines(x, y);
-  }
-
-  private List<Component> costLines(double x, double y) {
     if (x < NetworkScreen.ROW_LEFT || x >= NetworkScreen.ROW_RIGHT) {
       return List.of();
     }
